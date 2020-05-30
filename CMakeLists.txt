@@ -1,34 +1,53 @@
 #
-# Copyright (c) 2010-2017, Gilles Caulier, <caulier dot gilles at gmail dot com>
+# Copyright (c) 2010-2020, Gilles Caulier, <caulier dot gilles at gmail dot com>
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-if (POLICY CMP0063)
-    cmake_policy(SET CMP0063 NEW)
-endif (POLICY CMP0063)
+project(PhotoLayout)
 
-find_package(Qt5 ${QT_MIN_VERSION}
-             OPTIONAL_COMPONENTS
+cmake_minimum_required(VERSION "3.1.0")
+
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
+include(MacroInstall)
+include(FeatureSummary)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_AUTOMOC ON)
+
+option(ENABLE_DPLUGIN "Build digiKam plugin version of Image Mosaic Wall tool (default=OFF)" OFF)
+
+find_package(Qt5 "5.6.0" REQUIRED
+             NO_MODULE COMPONENTS
+             Core
+             Widgets
+             Gui
+             Concurrent
              Svg
+             Xml
+             PrintSupport
 )
 
+find_package(Threads)
 
-add_subdirectory(resources/app)
-add_subdirectory(data)
+find_package(DigikamCore
+             CONFIG REQUIRED)
 
-include_directories($<TARGET_PROPERTY:Qt5::Xml,INTERFACE_INCLUDE_DIRECTORIES>
+set_package_properties(DigikamCore PROPERTIES
+                       URL "http://www.digikam.org"
+                       DESCRIPTION "digiKam core library"
+)
+
+include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIRECTORIES>/digikam
+                    $<TARGET_PROPERTY:Qt5::Xml,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::Svg,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::Gui,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::Core,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::Widgets,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::PrintSupport,INTERFACE_INCLUDE_DIRECTORIES>
 
-                    $<TARGET_PROPERTY:KF5::XmlGui,INTERFACE_INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:KF5::I18n,INTERFACE_INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:KF5::ConfigCore,INTERFACE_INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:KF5::Service,INTERFACE_INCLUDE_DIRECTORIES>
-)
+add_subdirectory(resources/app)
+add_subdirectory(data)
 
 set(photolayoutseditor_SRCS
 
@@ -135,15 +154,15 @@ set(photolayoutseditor_RCS
 
 qt5_add_resources(photolayoutseditor_SRCS ${photolayoutseditor_RCS})
 
-kconfig_add_kcfg_files(photolayoutseditor_SRCS GENERATE_MOC settings/PLEConfigSkeleton.kcfgc)
+#kconfig_add_kcfg_files(photolayoutseditor_SRCS GENERATE_MOC settings/PLEConfigSkeleton.kcfgc)
 
 add_library(photolayoutseditor_src OBJECT ${photolayoutseditor_SRCS})
 
-install(FILES settings/photolayoutseditor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+#install(FILES settings/photolayoutseditor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 #install(PROGRAMS main/photolayoutseditor.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES main/photolayoutseditorui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/photolayoutseditor)
-install(FILES effects/photolayoutseditoreffectplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
-install(FILES borders/photolayoutseditorborderplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+#install(FILES main/photolayoutseditorui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/photolayoutseditor)
+#install(FILES effects/photolayoutseditoreffectplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+#install(FILES borders/photolayoutseditorborderplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
 # =======================================================
 # Stand-alone version of PhotoLayoutsEditor
@@ -165,7 +184,6 @@ add_executable(collage
 target_link_libraries(collage
 
                       digikamcore
-                      libdng
 
                       Qt5::Gui
                       Qt5::Xml
