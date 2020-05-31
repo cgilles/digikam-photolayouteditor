@@ -50,7 +50,7 @@ class PhotoLayoutsEditor::TextChangeUndoCommand : public QUndoCommand
     TextItem * m_item;
 public:
     TextChangeUndoCommand(const QStringList & text, TextItem * item, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Text change"), parent),
+        QUndoCommand(QObject::tr("Text change"), parent),
         m_text(text),
         m_item(item)
     {}
@@ -73,7 +73,7 @@ class PhotoLayoutsEditor::TextColorUndoCommand : public QUndoCommand
         QColor m_color;
     public:
         TextColorUndoCommand(const QColor & color, TextItem * item, QUndoCommand * parent = 0) :
-            QUndoCommand(tr("Text color change"), parent),
+            QUndoCommand(QObject::tr("Text color change"), parent),
             m_item(item),
             m_color(color)
         {}
@@ -99,7 +99,7 @@ class PhotoLayoutsEditor::TextFontUndoCommand : public QUndoCommand
         QFont m_font;
     public:
         TextFontUndoCommand(const QFont & font, TextItem * item, QUndoCommand * parent = 0) :
-            QUndoCommand(tr("Text font change"), parent),
+            QUndoCommand(QObject::tr("Text font change"), parent),
             m_item(item),
             m_font(font)
         {}
@@ -127,7 +127,7 @@ class PhotoLayoutsEditor::AddTextUndoCommand : public QUndoCommand
     int at;
 public:
     AddTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Text edit"), parent),
+        QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(at)
@@ -155,7 +155,7 @@ class PhotoLayoutsEditor::RemoveTextUndoCommand : public QUndoCommand
     int at;
 public:
     RemoveTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Text edit"), parent),
+        QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(at)
@@ -190,7 +190,7 @@ class PhotoLayoutsEditor::AddLineUndoCommand : public QUndoCommand
     int at;
 public:
     AddLineUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Text edit"), parent),
+        QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(at)
@@ -224,7 +224,7 @@ class PhotoLayoutsEditor::MergeLineUndoCommand : public QUndoCommand
     int at;
 public:
     MergeLineUndoCommand(int row, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Text edit"), parent),
+        QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(0)

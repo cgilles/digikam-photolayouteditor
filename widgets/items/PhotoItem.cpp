@@ -73,7 +73,7 @@ public:
     PhotoItemPixmapChangeCommand(const QPixmap & pixmap,
                                  PhotoItem * item,
                                  QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Image Change"), parent),
+        QUndoCommand(QObject::tr("Image Change"), parent),
         m_image(pixmap.toImage()),
         m_item(item)
     {
@@ -103,7 +103,7 @@ class PhotoItemUrlChangeCommand : public QUndoCommand
 public:
 
     PhotoItemUrlChangeCommand(const QUrl & url, PhotoItem * item, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Image Path Change"), parent),
+        QUndoCommand(QObject::tr("Image Path Change"), parent),
         m_url(url),
         m_item(item)
     {
@@ -136,7 +136,7 @@ class PhotoItemImagePathChangeCommand : public QUndoCommand
 public:
 
     PhotoItemImagePathChangeCommand(PhotoItem * item, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Image Shape Change"), parent),
+        QUndoCommand(QObject::tr("Image Shape Change"), parent),
         m_item(item),
         m_image_path(m_item->m_image_path)
 //        , command(0)
@@ -165,7 +165,7 @@ class PhotoItemImageMovedCommand : public QUndoCommand
     static PhotoItemImageMovedCommand* m_instance;
 
     PhotoItemImageMovedCommand(PhotoItem * item, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Image Position Change"), parent),
+        QUndoCommand(QObject::tr("Image Position Change"), parent),
         m_item(item),
         done(true)
     {}

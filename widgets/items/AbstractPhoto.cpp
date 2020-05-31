@@ -52,7 +52,7 @@ class PhotoLayoutsEditor::CropShapeChangeCommand : public QUndoCommand
     AbstractPhoto * m_item;
 public:
     CropShapeChangeCommand(const QPainterPath & cropShape, AbstractPhoto * item, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Crop shape change"), parent),
+        QUndoCommand(QObject::tr("Crop shape change"), parent),
         m_crop_shape(cropShape),
         m_item(item)
     {}
@@ -77,7 +77,7 @@ class PhotoLayoutsEditor::ItemNameChangeCommand : public QUndoCommand
     AbstractPhoto * m_item;
 public:
     ItemNameChangeCommand(const QString & name, AbstractPhoto * item, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Name Change"), parent),
+        QUndoCommand(QObject::tr("Name Change"), parent),
         m_name(name),
         m_item(item)
     {}
