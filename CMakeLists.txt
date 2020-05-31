@@ -20,14 +20,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
 include(MacroInstall)
 include(FeatureSummary)
 
-include(ECMOptionalAddSubdirectory)
-include(ECMAddTests)
-include(ECMMarkNonGuiExecutable)
 include(ECMSetupVersion)
-include(ECMInstallIcons)
-include(ECMAddAppIcon)
 
-# KDE macros
+include(KDEInstallDirs)
 #include(KDECMakeSettings)
 #include(KDEFrameworkCompilerSettings)
 #include(KDECompilerSettings)
@@ -218,20 +213,20 @@ if(NOT MSVC)
     target_compile_options(photolayoutseditor PRIVATE -fPIC)
 endif()
 
-#install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/settings/photolayoutseditor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
-#install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/widgets/window/photolayoutseditor.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-#install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/widgets/window/photolayoutseditorui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/photolayoutseditor)
-#install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/effects/photolayoutseditoreffectplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
-#install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/borders/photolayoutseditorborderplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/settings/photolayoutseditor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/widgets/window/photolayoutseditor.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/widgets/window/photolayoutseditorui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/photolayoutseditor)
+install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/effects/photolayoutseditoreffectplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/borders/photolayoutseditorborderplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
 # =======================================================
 # Stand-alone version of PhotoLayoutsEditor
 
-add_executable(collage
-               ${CMAKE_CURRENT_SOURCE_DIR}/main/collage.cpp
+add_executable(photolayouteditor
+               ${CMAKE_CURRENT_SOURCE_DIR}/main/main.cpp
 )
 
-target_link_libraries(collage
+target_link_libraries(photolayouteditor
 
                       photolayoutseditor
                       digikamcore
