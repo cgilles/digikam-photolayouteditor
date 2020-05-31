@@ -46,7 +46,6 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QStandardPaths>
-#include <QDebug>
 
 #include "dcolorselector.h"
 #include "imagedialog.h"

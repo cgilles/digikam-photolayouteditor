@@ -40,8 +40,6 @@
 #include <QStandardPaths>
 #include <QDialogButtonBox>
 
-
-
 #include "CanvasSizeWidget.h"
 #include "TemplatesView.h"
 #include "TemplatesModel.h"

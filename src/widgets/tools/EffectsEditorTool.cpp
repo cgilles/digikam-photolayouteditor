@@ -5,7 +5,6 @@
  *
  * Date        : 2011-09-01
  * Description : a plugin to create photo layouts by fusion of several images.
- * 
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
  * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
@@ -35,8 +34,6 @@
 #include <QListView>
 #include <QPushButton>
 #include <QComboBox>
-
-
 
 #include "qtpropertybrowser.h"
 

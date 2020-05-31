@@ -29,8 +29,6 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 
-
-
 using namespace PhotoLayoutsEditor;
 
 GridSetupDialog::GridSetupDialog(QWidget * parent) :

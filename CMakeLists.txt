@@ -134,7 +134,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/SceneBorderLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/TextItemLoader.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/global.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/ple_global.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qeditfactory.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtbuttonpropertybrowser.cpp

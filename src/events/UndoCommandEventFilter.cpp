@@ -25,7 +25,7 @@
 #include "UndoCommandEventFilter.h"
 #include "UndoCommandEvent.h"
 #include "ProgressEvent.h"
-#include "global.h"
+#include "ple_global.h"
 #include "photolayoutswindow.h"
 
 #include <QtGlobal>

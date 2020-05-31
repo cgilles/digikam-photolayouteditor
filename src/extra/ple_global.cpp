@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "global.h"
+#include "ple_global.h"
 #include "UndoCommandEvent.h"
 #include "photolayoutswindow.h"
 
@@ -40,7 +40,7 @@ QString name()
 
 QString uri()
 {
-    return QLatin1String("http://www.digikam.org/ple");
+    return QLatin1String("http://www.digikam.org/");
 }
 
 QString templateUri()

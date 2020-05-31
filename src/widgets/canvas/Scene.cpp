@@ -53,7 +53,7 @@
 #include <QTemporaryFile>
 #include <QDebug>
 
-#include "global.h"
+#include "ple_global.h"
 #include "RotationWidgetItem.h"
 #include "ScalingWidgetItem.h"
 #include "CropWidgetItem.h"

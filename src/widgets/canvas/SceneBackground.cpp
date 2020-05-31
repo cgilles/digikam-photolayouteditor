@@ -23,7 +23,7 @@
  * ============================================================ */
 
 #include "SceneBackground.h"
-#include "global.h"
+#include "ple_global.h"
 
 // C++ std includes
 

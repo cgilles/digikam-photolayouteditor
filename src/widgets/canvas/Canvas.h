@@ -39,7 +39,7 @@
 #include <QDebug>
 #include <QUrl>
 
-#include "global.h"
+#include "ple_global.h"
 #include "CanvasSize.h"
 
 namespace PhotoLayoutsEditor

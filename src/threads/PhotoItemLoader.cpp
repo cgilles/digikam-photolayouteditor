@@ -26,7 +26,7 @@
 #include "PhotoItem.h"
 #include "ImageLoadingThread.h"
 #include "ProgressObserver.h"
-#include "global.h"
+#include "ple_global.h"
 
 #include <QBuffer>
 #include <QDebug>

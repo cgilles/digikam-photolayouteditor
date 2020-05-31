@@ -38,7 +38,7 @@
 #include <QPixmap>
 #include <QBuffer>
 
-#include "global.h"
+#include "ple_global.h"
 
 using namespace PhotoLayoutsEditor;
 

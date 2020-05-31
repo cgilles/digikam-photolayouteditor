@@ -25,7 +25,7 @@
 #include "ScalingWidgetItem.h"
 #include "AbstractPhoto.h"
 #include "photolayoutswindow.h"
-#include "global.h"
+#include "ple_global.h"
 #include <limits>
 
 #include <QPainter>

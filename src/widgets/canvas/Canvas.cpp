@@ -40,7 +40,7 @@
 #include "UndoMoveRowsCommand.h"
 #include "UndoBorderChangeCommand.h"
 #include "ImageLoadingThread.h"
-#include "global.h"
+#include "ple_global.h"
 #include "ProgressEvent.h"
 #include "photolayoutswindow.h"
 #include "CanvasLoadingThread.h"

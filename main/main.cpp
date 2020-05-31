@@ -30,9 +30,12 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
+// digiKam includes
+
+#include <metaengine.h>
+
 // Local includes
 
-#include "metaengine.h"
 #include "photolayoutswindow.h"
 
 using namespace PhotoLayoutsEditor;
