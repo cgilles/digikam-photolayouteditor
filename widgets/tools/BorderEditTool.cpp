@@ -39,8 +39,6 @@
 #include <QMetaProperty>
 #include <QPushButton>
 
-
-
 #include "KEditFactory.h"
 #include "qttreepropertybrowser.h"
 

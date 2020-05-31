@@ -31,10 +31,7 @@
 #include <QUndoStack>
 #include <QDebug>
 #include <QUrl>
-
-// KDE includes
-
-#include <kxmlguiwindow.h>
+#include <QMainWindow>
 
 // Local includes
 
@@ -51,14 +48,14 @@ class CanvasSizeChangeCommand;
 class ProgressEvent;
 class UndoCommandEventFilter;
 
-class PhotoLayoutsWindow : public KXmlGuiWindow
+class PhotoLayoutsWindow : public QMainWindow
 {
         Q_OBJECT
 
     public:
 
         ~PhotoLayoutsWindow();
-        static PhotoLayoutsWindow * instance(QWidget * parent = 0);
+        static PhotoLayoutsWindow* instance(QWidget* const parent = nullptr);
 
         void addUndoCommand(QUndoCommand* command);
         void beginUndoCommandGroup(const QString & name);

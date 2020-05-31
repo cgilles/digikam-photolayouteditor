@@ -32,7 +32,6 @@
 #include <QDoubleSpinBox>
 
 #include <QComboBox>
-#include <kcolorbutton.h>
 #include <QPushButton>
 
 namespace PhotoLayoutsEditor

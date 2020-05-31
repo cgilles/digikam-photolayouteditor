@@ -45,7 +45,9 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
                     $<TARGET_PROPERTY:Qt5::Core,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::Widgets,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::PrintSupport,INTERFACE_INCLUDE_DIRECTORIES>
+
                     ${CMAKE_CURRENT_SOURCE_DIR}/extra
+                    ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser
                     ${CMAKE_CURRENT_SOURCE_DIR}/threads
                     ${CMAKE_CURRENT_SOURCE_DIR}/undo
                     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas
@@ -111,6 +113,7 @@ set(photolayoutseditor_SRCS
 
     ${CMAKE_CURRENT_SOURCE_DIR}/extra/global.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/extra/KEditFactory.cpp
+
     ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qtbuttonpropertybrowser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qteditorfactory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qtgroupboxpropertybrowser.cpp
@@ -122,14 +125,18 @@ set(photolayoutseditor_SRCS
 
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/extra/PatternsComboBox.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/extra/PLEStatusBar.cpp
+
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/layers/LayersTree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/layers/LayersTreeDelegate.cpp
+
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractPhoto.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractPhoto_p.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/TextItem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractItemInterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/PhotoItem.cpp
+
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/menus/LayersTreeMenu.cpp
+
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/AbstractItemsListViewTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/AbstractItemsTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/AbstractTool.cpp
@@ -139,12 +146,14 @@ set(photolayoutseditor_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/TextEditorTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/ToolsDockWidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/ZoomTool.cpp
+
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/CanvasSizeDialog.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/GridSetupDialog.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/NewCanvasDialog.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/CanvasSizeWidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/TemplatesModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/TemplatesView.cpp
+
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/Canvas.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/CanvasSize.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/CropWidgetItem.cpp

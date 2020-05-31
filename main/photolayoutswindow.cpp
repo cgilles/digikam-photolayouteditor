@@ -8,7 +8,7 @@
  * 
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2017 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -23,7 +23,6 @@
  *
  * ============================================================ */
 
-#include "photolayoutswindow.h"
 #include "photolayoutswindow_p.h"
 
 // Qt includes
@@ -52,17 +51,10 @@
 #include <QApplication>
 #include <QMenuBar>
 #include <QPrinter>
-
-// KDE includes
-
-#include <kstandardaction.h>
-#include <kactioncollection.h>
-#include <kconfigdialog.h>
-#include <kservice.h>
+#include <QDebug>
 
 // Local includes
 
-#include <QDebug>
 #include "digikam_globals.h"
 #include "imagedialog.h"
 #include "dmessagebox.h"
@@ -105,7 +97,8 @@ public:
         QUndoCommand(tr("Canvas size change"), parent),
         m_size(size),
         m_canvas(canvas)
-    {}
+    {
+    }
 
     virtual void redo()
     {
@@ -128,7 +121,7 @@ public:
 PhotoLayoutsWindow* PhotoLayoutsWindow::m_instance = 0;
 
 PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget * parent) :
-    KXmlGuiWindow(parent),
+    QMainWindow(parent),
     m_canvas(0),
     m_interface(0),
     d(new Private)
@@ -242,7 +235,7 @@ void PhotoLayoutsWindow::setupActions()
     d->openRecentFilesMenu = KStandardAction::openRecent(this, SLOT(open(QUrl)), actionCollection());
     QList<QUrl> urls = PLEConfigSkeleton::recentFiles();
 
-    foreach(QUrl url, urls)
+    foreach (QUrl url, urls)
     {
         d->openRecentFilesMenu->addUrl(url);
     }
