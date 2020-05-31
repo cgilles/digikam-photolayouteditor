@@ -63,7 +63,7 @@ QString PhotoLayoutsEditorPlugin::iid() const
 
 QIcon PhotoLayoutsEditorPlugin::icon() const
 {
-    return QIcon(QLatin1String(":/icons/assets/imw-logo.png"));
+    return QIcon(QLatin1String(":/photolayoutseditor.png"));
 }
 
 QString PhotoLayoutsEditorPlugin::description() const
