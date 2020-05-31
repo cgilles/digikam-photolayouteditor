@@ -185,7 +185,7 @@ QVariant PhotoEffectsGroup::data(const QModelIndex & index, int role) const
         return QVariant();
 
     if (!index.isValid())
-        return tr("Effect name");
+        return QObject::tr("Effect name");
     else
     {
         AbstractPhotoEffectInterface * effect = graphicsItem(index);

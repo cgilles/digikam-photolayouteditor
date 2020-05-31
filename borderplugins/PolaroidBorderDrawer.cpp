@@ -37,7 +37,7 @@ using namespace PhotoLayoutsEditor;
 
 QMap<const char *,QString> PolaroidBorderDrawer::m_properties;
 int PolaroidBorderDrawer::m_default_width = 20;
-QString PolaroidBorderDrawer::m_default_text = tr("Write here some text");
+QString PolaroidBorderDrawer::m_default_text = QObject::tr("Write here some text");
 QColor PolaroidBorderDrawer::m_default_color = Qt::black;
 QFont PolaroidBorderDrawer::m_default_font(QFont().family(), 24);
 
@@ -58,13 +58,13 @@ PolaroidBorderDrawer::PolaroidBorderDrawer(StandardBordersFactory * factory, QOb
             QMetaProperty property = meta->property(count);
 
             if (!QString::fromLatin1("width").compare(QLatin1String(property.name())))
-                m_properties.insert(property.name(), tr("Width"));
+                m_properties.insert(property.name(), QObject::tr("Width"));
             else if (!QString::fromLatin1("text").compare(QLatin1String(property.name())))
-                m_properties.insert(property.name(), tr("Text"));
+                m_properties.insert(property.name(), QObject::tr("Text"));
             else if (!QString::fromLatin1("color").compare(QLatin1String(property.name())))
-                m_properties.insert(property.name(), tr("Color"));
+                m_properties.insert(property.name(), QObject::tr("Color"));
             else if (!QString::fromLatin1("font").compare(QLatin1String(property.name())))
-                m_properties.insert(property.name(), tr("Font"));
+                m_properties.insert(property.name(), QObject::tr("Font"));
         }
     }
 }
@@ -157,7 +157,7 @@ QDomElement PolaroidBorderDrawer::toSvg(QDomDocument & document) const
 
 QString PolaroidBorderDrawer::name() const
 {
-    return tr("Polaroid border");
+    return QObject::tr("Polaroid border");
 }
 
 QString PolaroidBorderDrawer::toString() const

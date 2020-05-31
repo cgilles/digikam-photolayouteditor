@@ -120,7 +120,7 @@ void CanvasLoadingThread::run()
     // Background
     {
         ProgressEvent * actionUpdateEvent = new ProgressEvent(this);
-        actionUpdateEvent->setData(ProgressEvent::ActionUpdate, tr("Loading background...") );
+        actionUpdateEvent->setData(ProgressEvent::ActionUpdate, QObject::tr("Loading background...") );
         QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), actionUpdateEvent);
         QCoreApplication::processEvents();
         if (d->background.first)
@@ -141,7 +141,7 @@ void CanvasLoadingThread::run()
     for (QMap<AbstractPhoto*,QDomElement>::iterator it = d->data.begin(); it != d->data.end(); ++it, ++(d->i))
     {
         ProgressEvent * actionUpdateEvent = new ProgressEvent(this);
-        actionUpdateEvent->setData(ProgressEvent::ActionUpdate, tr("Loading item no. %1...").arg(QString::number(d->i)));
+        actionUpdateEvent->setData(ProgressEvent::ActionUpdate, QObject::tr("Loading item no. %1...").arg(QString::number(d->i)));
         QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), actionUpdateEvent);
         QCoreApplication::processEvents();
 
@@ -170,7 +170,7 @@ void CanvasLoadingThread::run()
     // Border
     {
         ProgressEvent * actionUpdateEvent = new ProgressEvent(this);
-        actionUpdateEvent->setData(ProgressEvent::ActionUpdate, tr("Loading border...") );
+        actionUpdateEvent->setData(ProgressEvent::ActionUpdate, QObject::tr("Loading border...") );
         QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), actionUpdateEvent);
         QCoreApplication::processEvents();
         if (d->border.first)

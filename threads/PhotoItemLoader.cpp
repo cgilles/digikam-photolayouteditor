@@ -64,7 +64,7 @@ void PhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.5);
-        observer->progresName(tr("Loading shape..."));
+        observer->progresName(QObject::tr("Loading shape..."));
     }
     QDomElement path = data.firstChildElement(QLatin1String("path"));
     if (path.isNull())
@@ -103,7 +103,7 @@ void PhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.6);
-        observer->progresName(tr("Loading image..."));
+        observer->progresName(QObject::tr("Loading image..."));
     }
     QDomElement imageElement = data.firstChildElement(QLatin1String("image"));
     QString imageAttribute;
@@ -128,7 +128,7 @@ void PhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(1);
-        observer->progresName(tr("Finishing..."));
+        observer->progresName(QObject::tr("Finishing..."));
     }
 
     this->exit(0);

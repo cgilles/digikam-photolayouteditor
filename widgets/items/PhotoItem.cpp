@@ -226,8 +226,8 @@ QString PhotoItem::PhotoItemPrivate::locateFile(const QString & filePath)
         if (!QFile::exists(resultPath))
         {
             int result = QMessageBox::question(qApp->activeWindow(),
-                                               tr("File reading error"),
-                                               tr("Can't find image file in this location:"
+                                               QObject::tr("File reading error"),
+                                               QObject::tr("Can't find image file in this location:"
                                                     "\n%1"
                                                     "\n"
                                                     "\nWould you like to set new location of this file?"
@@ -271,7 +271,7 @@ QUrl & PhotoItem::PhotoItemPrivate::fileUrl()
 }
 
 PhotoItem::PhotoItem(const QImage & photo, const QString & name, Scene * scene) :
-    AbstractPhoto((name.isEmpty() ? tr("New image") : name), scene),
+    AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))
 {
@@ -279,7 +279,7 @@ PhotoItem::PhotoItem(const QImage & photo, const QString & name, Scene * scene) 
 }
 
 PhotoItem::PhotoItem(const QPainterPath & shape, const QString & name, Scene * scene) :
-    AbstractPhoto((name.isEmpty() ? tr("New image") : name), scene),
+    AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))
 {
@@ -288,7 +288,7 @@ PhotoItem::PhotoItem(const QPainterPath & shape, const QString & name, Scene * s
 }
 
 PhotoItem::PhotoItem(const QString & name, Scene * scene) :
-    AbstractPhoto((name.isEmpty() ? tr("New image") : name), scene),
+    AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))
 {
@@ -354,8 +354,8 @@ QDomDocument PhotoItem::toSvg() const
         if (!PLEConfigSkeleton::embedImagesData())
         {
             int result = QMessageBox::question(qApp->activeWindow(),
-                                               tr("Saving: %1").arg(name()),
-                                               tr("Do you want to embed images data?\n"
+                                               QObject::tr("Saving: %1").arg(name()),
+                                               QObject::tr("Do you want to embed images data?\n"
                                                     "Remember that when you move or rename image files on your disk or the storage device become unavailable, those images become unavailable for %1 "
                                                     "and this layout might become broken.").arg(QApplication::applicationName()));
             if (result == QMessageBox::Yes)
@@ -715,7 +715,7 @@ void PhotoItem::setImage(const QImage & image)
     qDebug() << "setImage();";
     if (image.isNull())
         return;
-    PhotoLayoutsWindow::instance()->beginUndoCommandGroup(tr("Image Change"));
+    PhotoLayoutsWindow::instance()->beginUndoCommandGroup(QObject::tr("Image Change"));
     PLE_PostUndoCommand(new PhotoItemPixmapChangeCommand(image, this));
     if (cropShape().isEmpty())
         setCropShape( m_image_path );
@@ -728,7 +728,7 @@ void PhotoItem::imageLoaded(const QUrl & url, const QImage & image)
     if (image.isNull())
         return;
 
-    PhotoLayoutsWindow::instance()->beginUndoCommandGroup(tr("Image Change"));
+    PhotoLayoutsWindow::instance()->beginUndoCommandGroup(QObject::tr("Image Change"));
     PLE_PostUndoCommand(new PhotoItemPixmapChangeCommand(image, this));
     if (cropShape().isEmpty())
         setCropShape( m_image_path );

@@ -57,7 +57,7 @@ void TextItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.5);
-        observer->progresName(tr("Reading text..."));
+        observer->progresName(QObject::tr("Reading text..."));
     }
     QDomElement text = data.firstChildElement(QLatin1String("text"));
     if (text.isNull())
@@ -73,7 +73,7 @@ void TextItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.7);
-        observer->progresName(tr("Reading color..."));
+        observer->progresName(QObject::tr("Reading color..."));
     }
     QDomElement color = data.firstChildElement(QLatin1String("color"));
     if (color.isNull())
@@ -84,7 +84,7 @@ void TextItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.9);
-        observer->progresName(tr("Reading fonts..."));
+        observer->progresName(QObject::tr("Reading fonts..."));
     }
     QDomElement font = data.firstChildElement(QLatin1String("font"));
     if (font.isNull())
@@ -94,7 +94,7 @@ void TextItemLoader::run()
     if (observer)
     {
         observer->progresChanged(1);
-        observer->progresName(tr("Finishing..."));
+        observer->progresName(QObject::tr("Finishing..."));
     }
 
     this->exit(0);

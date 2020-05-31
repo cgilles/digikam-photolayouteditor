@@ -29,12 +29,10 @@
 #include "LayersModel.h"
 #include "LayersModelItem.h"
 
-
-
 using namespace PhotoLayoutsEditor;
 
 UndoRemoveItem::UndoRemoveItem(AbstractPhoto * item, Scene * scene, LayersModel * model, QUndoCommand * parent) :
-    QUndoCommand(QString("Remove item"), parent),
+    QUndoCommand(QObject::tr("Remove item"), parent),
     m_item(item),
     m_parentItem(static_cast<AbstractPhoto*>(item->QGraphicsItem::parentItem())),
     m_scene(scene->toGraphicsScene()),

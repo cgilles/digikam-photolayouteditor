@@ -52,7 +52,7 @@ QImage ColorizePhotoEffect::apply(const QImage & image) const
 
 QString ColorizePhotoEffect::name() const
 {
-    return tr("Colorize effect");
+    return QObject::tr("Colorize effect");
 }
 
 QString ColorizePhotoEffect::toString() const

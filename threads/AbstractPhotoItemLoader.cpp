@@ -29,7 +29,6 @@
 #include "ProgressObserver.h"
 #include "global.h"
 
-
 #include <QDebug>
 
 using namespace PhotoLayoutsEditor;
@@ -73,7 +72,7 @@ void AbstractPhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.1);
-        observer->progresName(tr("Reading properties..."));
+        observer->progresName(QObject::tr("Reading properties..."));
     }
     // Items visibility
     m_item->d->m_visible = (m_element.attribute(QLatin1String("visibility")) != QLatin1String("hide"));
@@ -87,10 +86,10 @@ void AbstractPhotoItemLoader::run()
     QString transform = m_element.attribute(QLatin1String("transform"));
     if (!transform.isEmpty())
     {
-        QRegExp tr(QLatin1String("translate\\([-0-9.]+,[-0-9.]+\\)"));
-        if (tr.indexIn(transform) >= 0)
+        QRegExp tra(QLatin1String("translate\\([-0-9.]+,[-0-9.]+\\)"));
+        if (tra.indexIn(transform) >= 0)
         {
-            QStringList list = tr.capturedTexts();
+            QStringList list = tra.capturedTexts();
             QString translate = list.at(0);
             list = translate.split(QLatin1Char(','));
             QString x = list.at(0);
@@ -157,7 +156,7 @@ void AbstractPhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.2);
-        observer->progresName(tr("Reading borders..."));
+        observer->progresName(QObject::tr("Reading borders..."));
     }
     // Borders
     if (m_item->d->m_borders_group)
@@ -183,7 +182,7 @@ void AbstractPhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.3);
-        observer->progresName(tr("Reading effects..."));
+        observer->progresName(QObject::tr("Reading effects..."));
     }
     // Effects
     if (m_item->d->m_effects_group)
@@ -200,7 +199,7 @@ void AbstractPhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.4);
-        observer->progresName(tr("Reading cropping shape..."));
+        observer->progresName(QObject::tr("Reading cropping shape..."));
     }
     // Crop path
     QDomElement cropPath = appNS.firstChildElement(QLatin1String("crop_path"));

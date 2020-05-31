@@ -405,7 +405,7 @@ void TextItem::TextItemPrivate::closeEditor()
 }
 
 TextItem::TextItem(const QString & text, Scene * scene) :
-    AbstractPhoto((text.isEmpty() ? tr("Text item") : text), scene),
+    AbstractPhoto((text.isEmpty() ? QObject::tr("Text item") : text), scene),
     d(new TextItemPrivate(this)),
     m_color(DEFAULT_COLOR),
     m_font(DEFAULT_FONT),
@@ -797,7 +797,7 @@ QtAbstractPropertyBrowser * TextItem::propertyBrowser()
     QtColorPropertyManager * colorManager = new QtColorPropertyManager(browser);
     KColorEditorFactory * colorFactory = new KColorEditorFactory(browser);
     browser->setFactoryForManager(colorManager, colorFactory);
-    QtProperty * colorProperty = colorManager->addProperty(tr("Text color"));
+    QtProperty * colorProperty = colorManager->addProperty(QObject::tr("Text color"));
     colorManager->setValue(colorProperty, m_color);
     browser->addProperty(colorProperty);
     TextColorChangeListener * colorListener = new TextColorChangeListener(this);
@@ -810,7 +810,7 @@ QtAbstractPropertyBrowser * TextItem::propertyBrowser()
     QtFontPropertyManager * fontManager = new QtFontPropertyManager(browser);
     KFontEditorFactory * fontFactory = new KFontEditorFactory(browser);
     browser->setFactoryForManager(fontManager, fontFactory);
-    QtProperty * fontProperty = fontManager->addProperty(tr("Font"));
+    QtProperty * fontProperty = fontManager->addProperty(QObject::tr("Font"));
     fontManager->setValue(fontProperty, m_font);
     browser->addProperty(fontProperty);
     TextFontChangeListener * fontListener = new TextFontChangeListener(this);

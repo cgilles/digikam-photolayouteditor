@@ -83,7 +83,7 @@ void CanvasSavingThread::run()
     QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), startEvent);
     QCoreApplication::processEvents();
 
-    this->sendActionUpdate( tr("Creating canvas...") );
+    this->sendActionUpdate( QObject::tr("Creating canvas...") );
 
     QRect sceneRect = m_canvas->sceneRect().toRect();
     QDomDocument document(QLatin1String(" svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\""));
@@ -133,7 +133,7 @@ void CanvasSavingThread::run()
     svg.appendChild(resolution);
 
     this->sendProgressUpdate( 0.05 );
-    this->sendActionUpdate( tr("Saving scene...") );
+    this->sendActionUpdate( QObject::tr("Saving scene...") );
 
     //---------------------------------------------------------------------------
 
@@ -152,7 +152,7 @@ void CanvasSavingThread::run()
     //---------------------------------------------------------------------------
 
     this->sendProgressUpdate( 0.8 );
-    this->sendActionUpdate( tr("Encoding data...") );
+    this->sendActionUpdate( QObject::tr("Encoding data...") );
 
     QFile file(m_url.path());
     if (file.open(QFile::WriteOnly | QFile::Text))
@@ -163,7 +163,7 @@ void CanvasSavingThread::run()
         const int limit = result.size();
         int j = 1000;
         j = (j > limit ? limit : j);
-        this->sendActionUpdate( tr("Writing data to file...") );
+        this->sendActionUpdate( QObject::tr("Writing data to file...") );
         while (i < limit)
         {
             i += file.write(data+i, (i+j <= limit ? j : limit-i));

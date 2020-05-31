@@ -45,8 +45,8 @@ PLEConfigDialog::PLEConfigDialog(QWidget * parent) :
     KConfigDialog(parent, QLatin1String("settings"), PLEConfigSkeleton::self()),
     d(new PLEConfigDialogPrivate)
 {
-    d->confVWdg = new PLEConfigViewWidget( 0, tr("View") );
-    addPage( d->confVWdg, tr("View") )->setIcon(QIcon(QLatin1String(":/view.png")));
+    d->confVWdg = new PLEConfigViewWidget( 0, QObject::tr("View") );
+    addPage( d->confVWdg, QObject::tr("View") )->setIcon(QIcon(QLatin1String(":/view.png")));
 }
 
 PLEConfigDialog::~PLEConfigDialog()

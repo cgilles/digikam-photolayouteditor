@@ -92,6 +92,8 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
                     ${CMAKE_CURRENT_SOURCE_DIR}/effectplugins
                     ${CMAKE_CURRENT_SOURCE_DIR}/borders
                     ${CMAKE_CURRENT_SOURCE_DIR}/borderplugins
+
+                    ${CMAKE_BINARY_DIR}/
 )
 
 add_subdirectory(data)
@@ -155,12 +157,6 @@ set(photolayoutseditor_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/layers/LayersTree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/layers/LayersTreeDelegate.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractPhoto.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractPhoto_p.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/TextItem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractItemInterface.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/PhotoItem.cpp
-
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/menus/LayersTreeMenu.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/AbstractItemsListViewTool.cpp
@@ -180,15 +176,6 @@ set(photolayoutseditor_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/TemplatesModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/TemplatesView.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/Canvas.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/CanvasSize.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/CropWidgetItem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/MousePressListener.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/RotationWidgetItem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/ScalingWidgetItem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/SceneBackground.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/SceneBorder.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/Scene.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/listeners/TextColorChangeListener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/listeners/TextFontChangeListener.cpp
@@ -199,6 +186,22 @@ set(photolayoutseditor_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/settings/PLEConfigViewWidget.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/main/photolayoutswindow.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractPhoto.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractPhoto_p.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/TextItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractItemInterface.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/PhotoItem.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/Canvas.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/CanvasSize.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/CropWidgetItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/MousePressListener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/RotationWidgetItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/ScalingWidgetItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/SceneBackground.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/SceneBorder.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/Scene.cpp
 )
 
 set(photolayoutseditor_RCS
@@ -208,7 +211,7 @@ set(photolayoutseditor_RCS
 
 qt5_add_resources(photolayoutseditor_SRCS ${photolayoutseditor_RCS})
 
-#kconfig_add_kcfg_files(photolayoutseditor_SRCS GENERATE_MOC settings/PLEConfigSkeleton.kcfgc)
+kconfig_add_kcfg_files(photolayoutseditor_SRCS GENERATE_MOC settings/PLEConfigSkeleton.kcfgc)
 
 add_library(photolayoutseditor STATIC ${photolayoutseditor_SRCS})
 
@@ -240,6 +243,7 @@ target_link_libraries(collage
                       Qt5::Gui
                       Qt5::Xml
                       Qt5::Svg
+                      Qt5::PrintSupport
 
                       KF5::XmlGui
                       KF5::ConfigCore

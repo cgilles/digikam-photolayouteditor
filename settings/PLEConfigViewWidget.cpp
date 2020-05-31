@@ -88,16 +88,16 @@ void PLEConfigViewWidget::setupGUI()
     layout->addLayout(generalLayout);
     d->antialiasing = new QCheckBox(this);
     connect(skeleton, SIGNAL(antialiasingChanged(bool)), d->antialiasing, SLOT(setChecked(bool)));
-    generalLayout->addRow(tr("Antialiasing"), d->antialiasing);
+    generalLayout->addRow(QObject::tr("Antialiasing"), d->antialiasing);
 
-    QGroupBox * gridBox = new QGroupBox(tr("Grid"), this);
+    QGroupBox * gridBox = new QGroupBox(QObject::tr("Grid"), this);
     layout->addWidget(gridBox);
     QFormLayout * gridLayout = new QFormLayout();
     gridBox->setLayout(gridLayout);
 
     d->showGrid = new QCheckBox(gridBox);
     connect(skeleton, SIGNAL(showGridChanged(bool)), d->showGrid, SLOT(setChecked(bool)));
-    gridLayout->addRow(tr("Show grid lines"), d->showGrid);
+    gridLayout->addRow(QObject::tr("Show grid lines"), d->showGrid);
 
     d->xGrid = new QDoubleSpinBox(gridBox);
     KConfigSkeletonItem * hgi = skeleton->findItem(QLatin1String("horizontalGrid"));
@@ -108,7 +108,7 @@ void PLEConfigViewWidget::setupGUI()
     }
     d->xGrid->setSingleStep(1.0);
     connect(skeleton, SIGNAL(horizontalGridChanged(double)), d->xGrid, SLOT(setValue(double)));
-    gridLayout->addRow(tr("Horizontal distance"), d->xGrid);
+    gridLayout->addRow(QObject::tr("Horizontal distance"), d->xGrid);
 
     d->yGrid = new QDoubleSpinBox(gridBox);
     KConfigSkeletonItem * vgi = skeleton->findItem(QLatin1String("verticalGrid"));
@@ -119,7 +119,7 @@ void PLEConfigViewWidget::setupGUI()
     }
     d->yGrid->setSingleStep(1.0);
     connect(skeleton, SIGNAL(verticalGridChanged(double)), d->yGrid, SLOT(setValue(double)));
-    gridLayout->addRow(tr("Vertical distance"), d->yGrid);
+    gridLayout->addRow(QObject::tr("Vertical distance"), d->yGrid);
 
 //    KConfigDialog * dialog = KConfigDialog::exists( "settings" );
 //    qDebug() << dialog;

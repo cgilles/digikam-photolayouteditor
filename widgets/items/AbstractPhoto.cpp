@@ -107,7 +107,7 @@ AbstractPhoto::AbstractPhoto(const QString & name, Scene * scene) :
     setupItem();
 
     // Item's name
-    d->setName(uniqueName( name.isEmpty() ? tr("New layer") : name ) );
+    d->setName(uniqueName( name.isEmpty() ? QObject::tr("New layer") : name ) );
 
     // Effects group
     d->m_effects_group = new PhotoEffectsGroup(this);
@@ -416,10 +416,10 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
     QString transform = element.attribute(QLatin1String("transform"));
     if (!transform.isEmpty())
     {
-        QRegExp tr(QLatin1String("translate\\([-0-9.]+,[-0-9.]+\\)"));
-        if (tr.indexIn(transform) >= 0)
+        QRegExp tra(QLatin1String("translate\\([-0-9.]+,[-0-9.]+\\)"));
+        if (tra.indexIn(transform) >= 0)
         {
-            QStringList list = tr.capturedTexts();
+            QStringList list = tra.capturedTexts();
             QString translate = list.at(0);
             list = translate.split(QLatin1Char(','));
             QString x = list.at(0);

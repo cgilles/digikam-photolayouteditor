@@ -45,7 +45,7 @@
 using namespace PhotoLayoutsEditor;
 
 BorderEditTool::BorderEditTool(Scene * scene, QWidget * parent) :
-    AbstractItemsListViewTool(tr("Borders editor"), scene, Canvas::SingleSelcting, parent)
+    AbstractItemsListViewTool(QObject::tr("Borders editor"), scene, Canvas::SingleSelcting, parent)
 {
 }
 

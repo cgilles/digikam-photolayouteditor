@@ -1572,7 +1572,7 @@ bool QtCharEdit::eventFilter(QObject *o, QEvent *e)
         QAction *actionBefore = 0;
         if (actions.count() > 0)
             actionBefore = actions[0];
-        QAction *clearAction = new QAction(tr("Clear Char"), menu);
+        QAction *clearAction = new QAction(QObject::tr("Clear Char"), menu);
         menu->insertAction(actionBefore, clearAction);
         menu->insertSeparator(actionBefore);
         clearAction->setEnabled(!m_value.isNull());
@@ -2186,7 +2186,7 @@ QtColorEditWidget::QtColorEditWidget(QWidget *parent) :
     m_button->setFixedWidth(20);
     setFocusProxy(m_button);
     setFocusPolicy(m_button->focusPolicy());
-    m_button->setText(tr("..."));
+    m_button->setText(QObject::tr("..."));
     m_button->installEventFilter(this);
     connect(m_button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
     lt->addWidget(m_button);
@@ -2395,7 +2395,7 @@ QtFontEditWidget::QtFontEditWidget(QWidget *parent) :
     m_button->setFixedWidth(20);
     setFocusProxy(m_button);
     setFocusPolicy(m_button->focusPolicy());
-    m_button->setText(tr("..."));
+    m_button->setText(QObject::tr("..."));
     m_button->installEventFilter(this);
     connect(m_button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
     lt->addWidget(m_button);
@@ -2415,7 +2415,7 @@ void QtFontEditWidget::setValue(const QFont &f)
 void QtFontEditWidget::buttonClicked()
 {
     bool ok = false;
-    QFont newFont = QFontDialog::getFont(&ok, m_font, this, tr("Select Font"));
+    QFont newFont = QFontDialog::getFont(&ok, m_font, this, QObject::tr("Select Font"));
     if (ok && newFont != m_font) {
         QFont f = m_font;
         // prevent mask for unchanged attributes, don't change other attributes (like kerning, etc...)

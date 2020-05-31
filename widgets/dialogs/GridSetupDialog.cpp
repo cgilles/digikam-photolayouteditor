@@ -38,7 +38,7 @@ GridSetupDialog::GridSetupDialog(QWidget * parent) :
 {
     PLEConfigSkeleton * skeleton = PLEConfigSkeleton::self();
 
-    setWindowTitle(tr("Setup grid lines"));
+    setWindowTitle(QObject::tr("Setup grid lines"));
     setModal(true);
 
     centralWidget = new QWidget(this);
@@ -60,7 +60,7 @@ GridSetupDialog::GridSetupDialog(QWidget * parent) :
     x->setSingleStep(1.0);
     x->setValue(PLEConfigSkeleton::horizontalGrid());
     connect(skeleton, SIGNAL(horizontalGridChanged(double)), x, SLOT(setValue(double)));
-    layout->addRow(tr("Horizontal distance"), x);
+    layout->addRow(QObject::tr("Horizontal distance"), x);
 
     y = new QDoubleSpinBox(centralWidget);
     KConfigSkeletonItem * vgi = skeleton->findItem(QLatin1String("verticalGrid"));
@@ -74,7 +74,7 @@ GridSetupDialog::GridSetupDialog(QWidget * parent) :
     y->setSingleStep(1.0);
     y->setValue(PLEConfigSkeleton::verticalGrid());
     connect(skeleton, SIGNAL(verticalGridChanged(double)), y, SLOT(setValue(double)));
-    layout->addRow(tr("Vertical distance"), y);
+    layout->addRow(QObject::tr("Vertical distance"), y);
 
     QDialogButtonBox* const buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
     buttons->button(QDialogButtonBox::Ok)->setDefault(true);

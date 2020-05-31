@@ -50,7 +50,7 @@ QImage BlurPhotoEffect::apply(const QImage & image) const
 
 QString BlurPhotoEffect::name() const
 {
-    return tr("Blur effect");
+    return QObject::tr("Blur effect");
 }
 
 QString BlurPhotoEffect::toString() const

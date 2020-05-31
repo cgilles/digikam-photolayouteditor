@@ -90,7 +90,7 @@ void Plugin_PhotoLayoutsEditor::setupActions()
     setDefaultCategory(ToolsPlugin);
 
     m_action = new QAction(this);
-    m_action->setText(tr("Create photo layouts..."));
+    m_action->setText(QObject::tr("Create photo layouts..."));
     m_action->setIcon(QIcon::fromTheme("photolayoutseditor"));
     m_action->setEnabled(false);
 

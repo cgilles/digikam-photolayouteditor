@@ -5,10 +5,9 @@
  *
  * Date        : 2011-09-01
  * Description : a plugin to create photo layouts by fusion of several images.
- * 
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2011 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -652,7 +651,7 @@ void Scene::addItems(const QList<AbstractPhoto*> & items)
     QUndoCommand * parent = 0;
     QUndoCommand * command = 0;
     if (items.count() > 1)
-        parent = new QUndoCommand( tr("Add item", "Add items", items.count()) );
+        parent = new QUndoCommand( QObject::tr("Add item", "Add items", items.count()) );
 
     foreach(AbstractPhoto* item, tempItems)
         command = new AddItemsCommand(item, insertionRow++, this, parent);
@@ -678,7 +677,7 @@ void Scene::removeItems(const QList<AbstractPhoto *> & items)
     QUndoCommand * command = 0;
     QUndoCommand * parent = 0;
     if (items.count() > 1)
-        parent = new QUndoCommand( tr("Remove item", "Remove items", items.count()) );
+        parent = new QUndoCommand( QObject::tr("Remove item", "Remove items", items.count()) );
     foreach (AbstractPhoto * item, items)
         command = new RemoveItemsCommand(item, this, parent);
     if (parent)
@@ -726,18 +725,18 @@ void Scene::contextMenuEvent(QGraphicsSceneMouseEvent * event)
             PhotoItem * item = dynamic_cast<PhotoItem*>(items.first());
             if (item)
             {
-                QAction * removeAction = menu.addAction( tr("Change item's image") );
+                QAction * removeAction = menu.addAction( QObject::tr("Change item's image") );
                 connect(removeAction, SIGNAL(triggered()), this, SLOT(changeSelectedImage()));
             }
         }
 
-        QAction * removeAction = menu.addAction( tr("Delete selected item", "Delete selected items", items.count()) );
+        QAction * removeAction = menu.addAction( QObject::tr("Delete selected item", "Delete selected items", items.count()) );
         connect(removeAction, SIGNAL(triggered()), this, SLOT(removeSelectedItems()));
         menu.addSeparator();
     }
 
     // Background
-    QAction * background = menu.addAction( tr("Canvas background") );
+    QAction * background = menu.addAction( QObject::tr("Canvas background") );
     connect(background, SIGNAL(triggered()), ToolsDockWidget::instance(), SLOT(setCanvasWidgetVisible()));
 
     menu.exec(event->screenPos());
@@ -1420,7 +1419,7 @@ QDomDocument Scene::toSvg(ProgressObserver * observer, bool asTemplate)
     //--------------------------------------------------------
 
     if (observer)
-        observer->progresName( tr("Saving background...") );
+        observer->progresName( QObject::tr("Saving background...") );
 
     QDomElement background = document.createElement(QLatin1String("g"));
     background.setAttribute(QLatin1String("class"), QLatin1String("background"));
@@ -1440,7 +1439,7 @@ QDomDocument Scene::toSvg(ProgressObserver * observer, bool asTemplate)
         if (photo)
         {
             if (observer)
-                observer->progresName( tr("Saving %1...", photo->name()) );
+                observer->progresName( QObject::tr("Saving %1...").arg(photo->name()) );
 
             QDomDocument photoItemDocument = asTemplate ? photo->toTemplateSvg() : photo->toSvg();
             sceneElement.appendChild( photoItemDocument.documentElement() );
@@ -1453,7 +1452,7 @@ QDomDocument Scene::toSvg(ProgressObserver * observer, bool asTemplate)
     //--------------------------------------------------------
 
     if (observer)
-        observer->progresName( tr("Saving border...") );
+        observer->progresName( QObject::tr("Saving border...") );
 
     QDomElement border = document.createElement(QLatin1String("g"));
     border.setAttribute(QLatin1String("class"), QLatin1String("border"));
@@ -1532,7 +1531,7 @@ Scene * Scene::fromSvg(QDomElement & sceneElement)
     // Show error message
     if (errorsCount)
     {
-        QMessageBox::critical(0, tr("Error"), tr("Unable to create one element", "Unable to create %1 elements", errorsCount));
+        QMessageBox::critical(0, QObject::tr("Error"), QObject::tr("Unable to create one element", "Unable to create %1 elements", errorsCount));
     }
 
     return result;
@@ -1639,8 +1638,8 @@ bool Scene::askAboutRemoving(int count)
     if (count)
     {
         int result = QMessageBox::question(qApp->activeWindow(), 
-                                           tr("Items deleting"),
-                                           tr("Are you sure you want to delete selected item?", "Are you sure you want to delete %1 selected items?", count));
+                                           QObject::tr("Items deleting"),
+                                           QObject::tr("Are you sure you want to delete selected item?", "Are you sure you want to delete %1 selected items?", count));
         if (result == QMessageBox::Yes)
             return true;
     }

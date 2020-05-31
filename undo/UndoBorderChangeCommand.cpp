@@ -28,8 +28,6 @@
 
 #include <QDebug>
 
-
-
 using namespace PhotoLayoutsEditor;
 
 UndoBorderChangeCommand::UndoBorderChangeCommand(AbstractPhoto * photo, qreal newWidth, Qt::PenJoinStyle newCornerStyle, const QColor & newColor, QUndoCommand * parent) :

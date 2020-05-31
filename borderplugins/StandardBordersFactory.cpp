@@ -38,15 +38,15 @@ StandardBordersFactory::StandardBordersFactory(QObject * parent) :
 
 QString StandardBordersFactory::drawersNames() const
 {
-    return tr("Polaroid border") + QLatin1String(";") +
-           tr("Solid border");
+    return QObject::tr("Polaroid border") + QLatin1String(";") +
+           QObject::tr("Solid border");
 }
 
 BorderDrawerInterface * StandardBordersFactory::getDrawerInstance(const QString & name)
 {
-    if (name == tr("Solid border"))
+    if (name == QObject::tr("Solid border"))
        return new SolidBorderDrawer(this);
-    if (name == tr("Polaroid border"))
+    if (name == QObject::tr("Polaroid border"))
        return new PolaroidBorderDrawer(this);
     return 0;
 }

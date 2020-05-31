@@ -769,7 +769,7 @@ Canvas * Canvas::fromSvg(QDomDocument & document)
             }
             else
             {
-                QMessageBox::critical(qApp->activeWindow(), tr("Error"), tr("Invalid image size!"));
+                QMessageBox::critical(qApp->activeWindow(), QObject::tr("Error"), QObject::tr("Invalid image size!"));
             }
         }
     }
@@ -833,8 +833,8 @@ void Canvas::save(const QUrl & fileUrl, bool setAsDefault)
         if (m_file.isEmpty() || !m_file.isValid())
         {
             QMessageBox::critical(qApp->activeWindow(),
-                                  tr("Can't save canvas!"),
-                                  tr("Invalid file path."));
+                                  QObject::tr("Can't save canvas!"),
+                                  QObject::tr("Invalid file path."));
             return;
         }
         tempFile = m_file;
@@ -853,8 +853,8 @@ void Canvas::saveTemplate(const QUrl & fileUrl)
     if (fileUrl.isEmpty() || !fileUrl.isValid())
     {
         QMessageBox::critical(qApp->activeWindow(),
-                              tr("Can't save canvas!"),
-                              tr("Invalid file path."));
+                              QObject::tr("Can't save canvas!"),
+                              QObject::tr("Invalid file path."));
         return;
     }
 
@@ -929,7 +929,7 @@ void Canvas::renderCanvas(QPrinter * device)
 
 void Canvas::beginRowsRemoving()
 {
-    m_undo_stack->beginMacro(tr("Remove items"));
+    m_undo_stack->beginMacro(QObject::tr("Remove items"));
 }
 
 void Canvas::endRowsRemoving()

@@ -53,6 +53,13 @@
 #include <QPrinter>
 #include <QDebug>
 
+// KDE includes
+
+#include <kstandardaction.h>
+#include <kactioncollection.h>
+#include <kconfigdialog.h>
+#include <kservice.h>
+
 // Local includes
 
 #include "digikam_globals.h"
@@ -130,7 +137,7 @@ PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget * parent) :
 
     initIconsResource();
     setXMLFile(QLatin1String("photolayoutseditorui.rc"));
-    setWindowTitle(tr("Photo Layouts Editor"));
+    setWindowTitle(QObject::tr("Photo Layouts Editor"));
 
     loadEffects();
     loadBorders();
@@ -228,7 +235,7 @@ void PhotoLayoutsWindow::setupActions()
     d->openNewFileAction = KStandardAction::openNew(this, SLOT(open()), actionCollection());
     actionCollection()->addAction(QLatin1String("open_new"), d->openNewFileAction);
     //------------------------------------------------------------------------
-    d->openFileAction = new QAction(tr("Open Template File..."), actionCollection());
+    d->openFileAction = new QAction(QObject::tr("Open Template File..."), actionCollection());
     connect(d->openFileAction, SIGNAL(triggered()), this, SLOT(openDialog()));
     actionCollection()->addAction(QLatin1String("open"), d->openFileAction);
     //------------------------------------------------------------------------
@@ -250,11 +257,11 @@ void PhotoLayoutsWindow::setupActions()
     actionCollection()->setDefaultShortcut(d->saveAsAction, Qt::SHIFT + Qt::CTRL + Qt::Key_S);
     actionCollection()->addAction(QLatin1String("save_as"), d->saveAsAction);
     //------------------------------------------------------------------------
-    d->saveAsTemplateAction = new QAction(tr("Saves canvas as a template file...", "Save As Template..."), actionCollection());
+    d->saveAsTemplateAction = new QAction(QObject::tr("Saves canvas as a template file...", "Save As Template..."), actionCollection());
     connect(d->saveAsTemplateAction, SIGNAL(triggered()), this, SLOT(saveAsTemplate()));
     actionCollection()->addAction(QLatin1String("save_as_template"), d->saveAsTemplateAction);
     //------------------------------------------------------------------------
-    d->exportFileAction = new QAction(tr("Export current frame layout to image file...", "Export..."), actionCollection());
+    d->exportFileAction = new QAction(QObject::tr("Export current frame layout to image file...", "Export..."), actionCollection());
     actionCollection()->setDefaultShortcut(d->exportFileAction, Qt::SHIFT + Qt::CTRL + Qt::Key_E);
     connect(d->exportFileAction, SIGNAL(triggered()), this, SLOT(exportFile()));
     actionCollection()->addAction(QLatin1String("export"), d->exportFileAction);
@@ -281,21 +288,21 @@ void PhotoLayoutsWindow::setupActions()
     d->settingsAction = KStandardAction::preferences(this, SLOT(settings()), actionCollection());
     actionCollection()->addAction(QLatin1String("settings"), d->settingsAction);
     //------------------------------------------------------------------------
-    d->addImageAction = new QAction(tr("Adds new image(s) from file...", "Add image(s)..."), actionCollection());
+    d->addImageAction = new QAction(QObject::tr("Adds new image(s) from file...", "Add image(s)..."), actionCollection());
     connect(d->addImageAction, SIGNAL(triggered()), this, SLOT(loadNewImage()));
     actionCollection()->addAction(QLatin1String("new_image"), d->addImageAction);
     //------------------------------------------------------------------------
-    d->showGridToggleAction = new KToggleAction(tr("View grid lines...", "Show..."), actionCollection());
+    d->showGridToggleAction = new KToggleAction(QObject::tr("View grid lines...", "Show..."), actionCollection());
     actionCollection()->setDefaultShortcut(d->showGridToggleAction, Qt::SHIFT + Qt::CTRL + Qt::Key_G);
     d->showGridToggleAction->setChecked( PLEConfigSkeleton::self()->showGrid() );
     connect(d->showGridToggleAction, SIGNAL(triggered(bool)), this, SLOT(setGridVisible(bool)));
     actionCollection()->addAction(QLatin1String("grid_toggle"), d->showGridToggleAction);
     //------------------------------------------------------------------------
-    d->gridConfigAction = new QAction(tr("Configure grid lines visibility...", "Setup grid..."), actionCollection());
+    d->gridConfigAction = new QAction(QObject::tr("Configure grid lines visibility...", "Setup grid..."), actionCollection());
     connect(d->gridConfigAction, SIGNAL(triggered()), this, SLOT(setupGrid()));
     actionCollection()->addAction(QLatin1String("grid_config"), d->gridConfigAction);
     //------------------------------------------------------------------------
-    d->changeCanvasSizeAction = new QAction(tr("Configure canvas size...", "Change canvas size..."), actionCollection());
+    d->changeCanvasSizeAction = new QAction(QObject::tr("Configure canvas size...", "Change canvas size..."), actionCollection());
     connect(d->changeCanvasSizeAction, SIGNAL(triggered()), this, SLOT(changeCanvasSize()));
     actionCollection()->addAction(QLatin1String("canvas_size"), d->changeCanvasSizeAction);
 
@@ -355,7 +362,7 @@ void PhotoLayoutsWindow::createWidgets()
     this->addDockWidget(Qt::RightDockWidgetArea, d->toolsWidget);
 
     // Layers dockwidget
-    d->treeWidget = new QDockWidget(tr("Layers"), this);
+    d->treeWidget = new QDockWidget(QObject::tr("Layers"), this);
     d->treeWidget->setFeatures(QDockWidget::DockWidgetMovable);
     d->treeWidget->setFloating(false);
     d->treeWidget->setAllowedAreas(Qt::RightDockWidgetArea | Qt::LeftDockWidgetArea);
@@ -417,8 +424,8 @@ void PhotoLayoutsWindow::createCanvas(const QUrl & fileUrl)
     else
     {
         QMessageBox::critical(this,
-                              tr("Error"),
-                              tr("Cannot read image file."));
+                              QObject::tr("Error"),
+                              QObject::tr("Cannot read image file."));
     }
     file.close();
 }
@@ -496,7 +503,7 @@ void PhotoLayoutsWindow::openDialog()
         d->fileDialog = new QFileDialog(this,
                                         QString(),
                                         QString(),
-                                        tr("*.ple|Photo Layouts Editor files"));
+                                        QObject::tr("*.ple|Photo Layouts Editor files"));
     }
 
     d->fileDialog->setFileMode(QFileDialog::AnyFile);
@@ -543,7 +550,7 @@ void PhotoLayoutsWindow::saveAs()
         d->fileDialog = new QFileDialog(this,
                                         QString(),
                                         QString(),
-                                        tr("*.ple|Photo Layouts Editor files"));
+                                        QObject::tr("*.ple|Photo Layouts Editor files"));
     }
 
     d->fileDialog->setFileMode(QFileDialog::AnyFile);
@@ -564,7 +571,7 @@ void PhotoLayoutsWindow::saveAsTemplate()
         d->fileDialog = new QFileDialog(this,
                                         QString(),
                                         QString(),
-                                        tr("*.ple|Photo Layouts Editor files"));
+                                        QObject::tr("*.ple|Photo Layouts Editor files"));
     }
 
     d->fileDialog->setFileMode(QFileDialog::AnyFile);
@@ -580,8 +587,8 @@ void PhotoLayoutsWindow::saveAsTemplate()
             m_canvas->saveTemplate(url);
         else
             QMessageBox::critical(this,
-                                  tr("Error"),
-                                  tr("There is nothing to save."));
+                                  QObject::tr("Error"),
+                                  QObject::tr("There is nothing to save."));
     }
 }
 
@@ -591,8 +598,8 @@ void PhotoLayoutsWindow::saveFile(const QUrl & fileUrl, bool setFileAsDefault)
         m_canvas->save(fileUrl, setFileAsDefault);
     else
             QMessageBox::critical(this,
-                                  tr("Error"),
-                                  tr("There is nothing to save."));
+                                  QObject::tr("Error"),
+                                  QObject::tr("There is nothing to save."));
 }
 
 void PhotoLayoutsWindow::exportFile()
@@ -603,7 +610,7 @@ void PhotoLayoutsWindow::exportFile()
     QString all;
     QStringList list                       = supportedImageMimeTypes(QIODevice::WriteOnly, all);
     QFileDialog* const imageFileSaveDialog = new QFileDialog(this);
-    imageFileSaveDialog->setWindowTitle(tr("New Image File Name"));
+    imageFileSaveDialog->setWindowTitle(QObject::tr("New Image File Name"));
     imageFileSaveDialog->setAcceptMode(QFileDialog::AcceptSave);
     imageFileSaveDialog->setFileMode(QFileDialog::AnyFile);
     imageFileSaveDialog->setNameFilters(list);
@@ -625,8 +632,8 @@ void PhotoLayoutsWindow::exportFile()
 
         if (!writer.canWrite())
         {
-            QMessageBox::critical(this, tr("Error"),
-                                    tr("Image can't be saved in selected file."));
+            QMessageBox::critical(this, QObject::tr("Error"),
+                                    QObject::tr("Image can't be saved in selected file."));
         }
 
         if (!writer.write(image.toImage()))
@@ -635,7 +642,7 @@ void PhotoLayoutsWindow::exportFile()
                 QMessageBox::Critical,
                 qApp->activeWindow(),
                 qApp->applicationName(),
-                tr("Unexpected error while saving an image."),
+                QObject::tr("Unexpected error while saving an image."),
                 QStringList() << writer.errorString());
         }
     }
@@ -680,8 +687,8 @@ bool PhotoLayoutsWindow::closeDocument()
 
         if (!m_canvas->isSaved())
             saving = QMessageBox::question(this,
-                                           tr("Save"),
-                                           tr("Save changes to current frame?"),
+                                           QObject::tr("Save"),
+                                           QObject::tr("Save changes to current frame?"),
                                            QMessageBox::StandardButtons(QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel));
 
         switch (saving)
@@ -780,7 +787,7 @@ void PhotoLayoutsWindow::changeCanvasSize()
         }
         else
         {
-            QMessageBox::critical(this, tr("Error"), tr("Invalid image size."));
+            QMessageBox::critical(this, QObject::tr("Error"), QObject::tr("Invalid image size."));
         }
     }
 

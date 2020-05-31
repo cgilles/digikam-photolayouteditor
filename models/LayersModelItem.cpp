@@ -160,7 +160,7 @@ AbstractPhoto * LayersModelItem::photo() const
 QVariant LayersModelItem::data(int column) const
 {
     if (column == LayersModelItem::NameString)
-        return itemPhoto ? itemPhoto->name() : tr("Layer");
+        return itemPhoto ? itemPhoto->name() : QObject::tr("Layer");
     else if (column == LayersModelItem::Thumbnail)
         return itemPhoto ? itemPhoto->icon() : QIcon();
     else

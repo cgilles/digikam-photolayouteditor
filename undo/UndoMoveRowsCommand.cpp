@@ -43,12 +43,12 @@ UndoMoveRowsCommand::UndoMoveRowsCommand(int startingRow, int rowsCount, const Q
         if (sourceParent == destinationParent)
         {
             if (startingRow > destinationRow)
-                this->setText(tr("Move layers up"));
+                this->setText(QObject::tr("Move layers up"));
             else
-                this->setText(tr("Move layers down"));
+                this->setText(QObject::tr("Move layers down"));
         }
         else
-            this->setText(tr("Change parent layer"));
+            this->setText(QObject::tr("Change parent layer"));
         m_src_parent_row = model->getItem(sourceParent);
         m_dest_parent_row = model->getItem(destinationParent);
         m_starting_row = startingRow;

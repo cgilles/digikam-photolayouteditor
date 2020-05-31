@@ -1482,8 +1482,8 @@ QString QtBoolPropertyManager::valueText(const QtProperty *property) const
     if (it == d_ptr->m_values.constEnd())
         return QString();
 
-    static const QString trueText = tr("True");
-    static const QString falseText = tr("False");
+    static const QString trueText = QObject::tr("True");
+    static const QString falseText = QObject::tr("False");
     return it.value() ? trueText : falseText;
 }
 
@@ -2402,7 +2402,7 @@ QString QtLocalePropertyManager::valueText(const QtProperty *property) const
     int langIdx = 0;
     int countryIdx = 0;
     metaEnumProvider()->localeToIndex(loc.language(), loc.country(), &langIdx, &countryIdx);
-    QString str = tr("%1, %2")
+    QString str = QObject::tr("%1, %2")
             .arg(metaEnumProvider()->languageEnumNames().at(langIdx))
             .arg(metaEnumProvider()->countryEnumNames(loc.language()).at(countryIdx));
     return str;
@@ -2455,7 +2455,7 @@ void QtLocalePropertyManager::initializeProperty(QtProperty *property)
     metaEnumProvider()->localeToIndex(val.language(), val.country(), &langIdx, &countryIdx);
 
     QtProperty *languageProp = d_ptr->m_enumPropertyManager->addProperty();
-    languageProp->setPropertyName(tr("Language"));
+    languageProp->setPropertyName(QObject::tr("Language"));
     d_ptr->m_enumPropertyManager->setEnumNames(languageProp, metaEnumProvider()->languageEnumNames());
     d_ptr->m_enumPropertyManager->setValue(languageProp, langIdx);
     d_ptr->m_propertyToLanguage[property] = languageProp;
@@ -2463,7 +2463,7 @@ void QtLocalePropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(languageProp);
 
     QtProperty *countryProp = d_ptr->m_enumPropertyManager->addProperty();
-    countryProp->setPropertyName(tr("Country"));
+    countryProp->setPropertyName(QObject::tr("Country"));
     d_ptr->m_enumPropertyManager->setEnumNames(countryProp, metaEnumProvider()->countryEnumNames(val.language()));
     d_ptr->m_enumPropertyManager->setValue(countryProp, countryIdx);
     d_ptr->m_propertyToCountry[property] = countryProp;
@@ -2632,7 +2632,7 @@ QString QtPointPropertyManager::valueText(const QtProperty *property) const
     if (it == d_ptr->m_values.constEnd())
         return QString();
     const QPoint v = it.value();
-    return QString(tr("(%1, %2)").arg(QString::number(v.x()))
+    return QString(QObject::tr("(%1, %2)").arg(QString::number(v.x()))
                                  .arg(QString::number(v.y())));
 }
 
@@ -2669,14 +2669,14 @@ void QtPointPropertyManager::initializeProperty(QtProperty *property)
     d_ptr->m_values[property] = QPoint(0, 0);
 
     QtProperty *xProp = d_ptr->m_intPropertyManager->addProperty();
-    xProp->setPropertyName(tr("X"));
+    xProp->setPropertyName(QObject::tr("X"));
     d_ptr->m_intPropertyManager->setValue(xProp, 0);
     d_ptr->m_propertyToX[property] = xProp;
     d_ptr->m_xToProperty[xProp] = property;
     property->addSubProperty(xProp);
 
     QtProperty *yProp = d_ptr->m_intPropertyManager->addProperty();
-    yProp->setPropertyName(tr("Y"));
+    yProp->setPropertyName(QObject::tr("Y"));
     d_ptr->m_intPropertyManager->setValue(yProp, 0);
     d_ptr->m_propertyToY[property] = yProp;
     d_ptr->m_yToProperty[yProp] = property;
@@ -2872,7 +2872,7 @@ QString QtPointFPropertyManager::valueText(const QtProperty *property) const
         return QString();
     const QPointF v = it.value().val;
     const int dec =  it.value().decimals;
-    return QString(tr("(%1, %2)").arg(QString::number(v.x(), 'f', dec))
+    return QString(QObject::tr("(%1, %2)").arg(QString::number(v.x(), 'f', dec))
                                  .arg(QString::number(v.y(), 'f', dec)));
 }
 
@@ -2943,7 +2943,7 @@ void QtPointFPropertyManager::initializeProperty(QtProperty *property)
     d_ptr->m_values[property] = QtPointFPropertyManagerPrivate::Data();
 
     QtProperty *xProp = d_ptr->m_doublePropertyManager->addProperty();
-    xProp->setPropertyName(tr("X"));
+    xProp->setPropertyName(QObject::tr("X"));
     d_ptr->m_doublePropertyManager->setDecimals(xProp, decimals(property));
     d_ptr->m_doublePropertyManager->setValue(xProp, 0);
     d_ptr->m_propertyToX[property] = xProp;
@@ -2951,7 +2951,7 @@ void QtPointFPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(xProp);
 
     QtProperty *yProp = d_ptr->m_doublePropertyManager->addProperty();
-    yProp->setPropertyName(tr("Y"));
+    yProp->setPropertyName(QObject::tr("Y"));
     d_ptr->m_doublePropertyManager->setDecimals(yProp, decimals(property));
     d_ptr->m_doublePropertyManager->setValue(yProp, 0);
     d_ptr->m_propertyToY[property] = yProp;
@@ -3191,7 +3191,7 @@ QString QtSizePropertyManager::valueText(const QtProperty *property) const
     if (it == d_ptr->m_values.constEnd())
         return QString();
     const QSize v = it.value().val;
-    return QString(tr("%1 x %2").arg(QString::number(v.width()))
+    return QString(QObject::tr("%1 x %2").arg(QString::number(v.width()))
                                 .arg(QString::number(v.height())));
 }
 
@@ -3287,7 +3287,7 @@ void QtSizePropertyManager::initializeProperty(QtProperty *property)
     d_ptr->m_values[property] = QtSizePropertyManagerPrivate::Data();
 
     QtProperty *wProp = d_ptr->m_intPropertyManager->addProperty();
-    wProp->setPropertyName(tr("Width"));
+    wProp->setPropertyName(QObject::tr("Width"));
     d_ptr->m_intPropertyManager->setValue(wProp, 0);
     d_ptr->m_intPropertyManager->setMinimum(wProp, 0);
     d_ptr->m_propertyToW[property] = wProp;
@@ -3295,7 +3295,7 @@ void QtSizePropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(wProp);
 
     QtProperty *hProp = d_ptr->m_intPropertyManager->addProperty();
-    hProp->setPropertyName(tr("Height"));
+    hProp->setPropertyName(QObject::tr("Height"));
     d_ptr->m_intPropertyManager->setValue(hProp, 0);
     d_ptr->m_intPropertyManager->setMinimum(hProp, 0);
     d_ptr->m_propertyToH[property] = hProp;
@@ -3555,7 +3555,7 @@ QString QtSizeFPropertyManager::valueText(const QtProperty *property) const
         return QString();
     const QSizeF v = it.value().val;
     const int dec = it.value().decimals;
-    return QString(tr("%1 x %2").arg(QString::number(v.width(), 'f', dec))
+    return QString(QObject::tr("%1 x %2").arg(QString::number(v.width(), 'f', dec))
                                 .arg(QString::number(v.height(), 'f', dec)));
 }
 
@@ -3685,7 +3685,7 @@ void QtSizeFPropertyManager::initializeProperty(QtProperty *property)
     d_ptr->m_values[property] = QtSizeFPropertyManagerPrivate::Data();
 
     QtProperty *wProp = d_ptr->m_doublePropertyManager->addProperty();
-    wProp->setPropertyName(tr("Width"));
+    wProp->setPropertyName(QObject::tr("Width"));
     d_ptr->m_doublePropertyManager->setDecimals(wProp, decimals(property));
     d_ptr->m_doublePropertyManager->setValue(wProp, 0);
     d_ptr->m_doublePropertyManager->setMinimum(wProp, 0);
@@ -3694,7 +3694,7 @@ void QtSizeFPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(wProp);
 
     QtProperty *hProp = d_ptr->m_doublePropertyManager->addProperty();
-    hProp->setPropertyName(tr("Height"));
+    hProp->setPropertyName(QObject::tr("Height"));
     d_ptr->m_doublePropertyManager->setDecimals(hProp, decimals(property));
     d_ptr->m_doublePropertyManager->setValue(hProp, 0);
     d_ptr->m_doublePropertyManager->setMinimum(hProp, 0);
@@ -3947,7 +3947,7 @@ QString QtRectPropertyManager::valueText(const QtProperty *property) const
     if (it == d_ptr->m_values.constEnd())
         return QString();
     const QRect v = it.value().val;
-    return QString(tr("[(%1, %2), %3 x %4]").arg(QString::number(v.x()))
+    return QString(QObject::tr("[(%1, %2), %3 x %4]").arg(QString::number(v.x()))
                                 .arg(QString::number(v.y()))
                                 .arg(QString::number(v.width()))
                                 .arg(QString::number(v.height())));
@@ -4067,21 +4067,21 @@ void QtRectPropertyManager::initializeProperty(QtProperty *property)
     d_ptr->m_values[property] = QtRectPropertyManagerPrivate::Data();
 
     QtProperty *xProp = d_ptr->m_intPropertyManager->addProperty();
-    xProp->setPropertyName(tr("X"));
+    xProp->setPropertyName(QObject::tr("X"));
     d_ptr->m_intPropertyManager->setValue(xProp, 0);
     d_ptr->m_propertyToX[property] = xProp;
     d_ptr->m_xToProperty[xProp] = property;
     property->addSubProperty(xProp);
 
     QtProperty *yProp = d_ptr->m_intPropertyManager->addProperty();
-    yProp->setPropertyName(tr("Y"));
+    yProp->setPropertyName(QObject::tr("Y"));
     d_ptr->m_intPropertyManager->setValue(yProp, 0);
     d_ptr->m_propertyToY[property] = yProp;
     d_ptr->m_yToProperty[yProp] = property;
     property->addSubProperty(yProp);
 
     QtProperty *wProp = d_ptr->m_intPropertyManager->addProperty();
-    wProp->setPropertyName(tr("Width"));
+    wProp->setPropertyName(QObject::tr("Width"));
     d_ptr->m_intPropertyManager->setValue(wProp, 0);
     d_ptr->m_intPropertyManager->setMinimum(wProp, 0);
     d_ptr->m_propertyToW[property] = wProp;
@@ -4089,7 +4089,7 @@ void QtRectPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(wProp);
 
     QtProperty *hProp = d_ptr->m_intPropertyManager->addProperty();
-    hProp->setPropertyName(tr("Height"));
+    hProp->setPropertyName(QObject::tr("Height"));
     d_ptr->m_intPropertyManager->setValue(hProp, 0);
     d_ptr->m_intPropertyManager->setMinimum(hProp, 0);
     d_ptr->m_propertyToH[property] = hProp;
@@ -4377,7 +4377,7 @@ QString QtRectFPropertyManager::valueText(const QtProperty *property) const
         return QString();
     const QRectF v = it.value().val;
     const int dec = it.value().decimals;
-    return QString(tr("[(%1, %2), %3 x %4]").arg(QString::number(v.x(), 'f', dec))
+    return QString(QObject::tr("[(%1, %2), %3 x %4]").arg(QString::number(v.x(), 'f', dec))
                                 .arg(QString::number(v.y(), 'f', dec))
                                 .arg(QString::number(v.width(), 'f', dec))
                                 .arg(QString::number(v.height(), 'f', dec)));
@@ -4533,7 +4533,7 @@ void QtRectFPropertyManager::initializeProperty(QtProperty *property)
     d_ptr->m_values[property] = QtRectFPropertyManagerPrivate::Data();
 
     QtProperty *xProp = d_ptr->m_doublePropertyManager->addProperty();
-    xProp->setPropertyName(tr("X"));
+    xProp->setPropertyName(QObject::tr("X"));
     d_ptr->m_doublePropertyManager->setDecimals(xProp, decimals(property));
     d_ptr->m_doublePropertyManager->setValue(xProp, 0);
     d_ptr->m_propertyToX[property] = xProp;
@@ -4541,7 +4541,7 @@ void QtRectFPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(xProp);
 
     QtProperty *yProp = d_ptr->m_doublePropertyManager->addProperty();
-    yProp->setPropertyName(tr("Y"));
+    yProp->setPropertyName(QObject::tr("Y"));
     d_ptr->m_doublePropertyManager->setDecimals(yProp, decimals(property));
     d_ptr->m_doublePropertyManager->setValue(yProp, 0);
     d_ptr->m_propertyToY[property] = yProp;
@@ -4549,7 +4549,7 @@ void QtRectFPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(yProp);
 
     QtProperty *wProp = d_ptr->m_doublePropertyManager->addProperty();
-    wProp->setPropertyName(tr("Width"));
+    wProp->setPropertyName(QObject::tr("Width"));
     d_ptr->m_doublePropertyManager->setDecimals(wProp, decimals(property));
     d_ptr->m_doublePropertyManager->setValue(wProp, 0);
     d_ptr->m_doublePropertyManager->setMinimum(wProp, 0);
@@ -4558,7 +4558,7 @@ void QtRectFPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(wProp);
 
     QtProperty *hProp = d_ptr->m_doublePropertyManager->addProperty();
-    hProp->setPropertyName(tr("Height"));
+    hProp->setPropertyName(QObject::tr("Height"));
     d_ptr->m_doublePropertyManager->setDecimals(hProp, decimals(property));
     d_ptr->m_doublePropertyManager->setValue(hProp, 0);
     d_ptr->m_doublePropertyManager->setMinimum(hProp, 0);
@@ -5398,9 +5398,9 @@ QString QtSizePolicyPropertyManager::valueText(const QtProperty *property) const
     const int hIndex = mep->sizePolicyToIndex(sp.horizontalPolicy());
     const int vIndex = mep->sizePolicyToIndex(sp.verticalPolicy());
     //! Unknown size policy on reading invalid uic3 files
-    const QString hPolicy = hIndex != -1 ? mep->policyEnumNames().at(hIndex) : tr("<Invalid>");
-    const QString vPolicy = vIndex != -1 ? mep->policyEnumNames().at(vIndex) : tr("<Invalid>");
-    const QString str = tr("[%1, %2, %3, %4]").arg(hPolicy, vPolicy).arg(sp.horizontalStretch()).arg(sp.verticalStretch());
+    const QString hPolicy = hIndex != -1 ? mep->policyEnumNames().at(hIndex) : QObject::tr("<Invalid>");
+    const QString vPolicy = vIndex != -1 ? mep->policyEnumNames().at(vIndex) : QObject::tr("<Invalid>");
+    const QString str = QObject::tr("[%1, %2, %3, %4]").arg(hPolicy, vPolicy).arg(sp.horizontalStretch()).arg(sp.verticalStretch());
     return str;
 }
 
@@ -5445,7 +5445,7 @@ void QtSizePolicyPropertyManager::initializeProperty(QtProperty *property)
     d_ptr->m_values[property] = val;
 
     QtProperty *hPolicyProp = d_ptr->m_enumPropertyManager->addProperty();
-    hPolicyProp->setPropertyName(tr("Horizontal Policy"));
+    hPolicyProp->setPropertyName(QObject::tr("Horizontal Policy"));
     d_ptr->m_enumPropertyManager->setEnumNames(hPolicyProp, metaEnumProvider()->policyEnumNames());
     d_ptr->m_enumPropertyManager->setValue(hPolicyProp,
                 metaEnumProvider()->sizePolicyToIndex(val.horizontalPolicy()));
@@ -5454,7 +5454,7 @@ void QtSizePolicyPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(hPolicyProp);
 
     QtProperty *vPolicyProp = d_ptr->m_enumPropertyManager->addProperty();
-    vPolicyProp->setPropertyName(tr("Vertical Policy"));
+    vPolicyProp->setPropertyName(QObject::tr("Vertical Policy"));
     d_ptr->m_enumPropertyManager->setEnumNames(vPolicyProp, metaEnumProvider()->policyEnumNames());
     d_ptr->m_enumPropertyManager->setValue(vPolicyProp,
                 metaEnumProvider()->sizePolicyToIndex(val.verticalPolicy()));
@@ -5463,7 +5463,7 @@ void QtSizePolicyPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(vPolicyProp);
 
     QtProperty *hStretchProp = d_ptr->m_intPropertyManager->addProperty();
-    hStretchProp->setPropertyName(tr("Horizontal Stretch"));
+    hStretchProp->setPropertyName(QObject::tr("Horizontal Stretch"));
     d_ptr->m_intPropertyManager->setValue(hStretchProp, val.horizontalStretch());
     d_ptr->m_intPropertyManager->setRange(hStretchProp, 0, 0xff);
     d_ptr->m_propertyToHStretch[property] = hStretchProp;
@@ -5471,7 +5471,7 @@ void QtSizePolicyPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(hStretchProp);
 
     QtProperty *vStretchProp = d_ptr->m_intPropertyManager->addProperty();
-    vStretchProp->setPropertyName(tr("Vertical Stretch"));
+    vStretchProp->setPropertyName(QObject::tr("Vertical Stretch"));
     d_ptr->m_intPropertyManager->setValue(vStretchProp, val.verticalStretch());
     d_ptr->m_intPropertyManager->setRange(vStretchProp, 0, 0xff);
     d_ptr->m_propertyToVStretch[property] = vStretchProp;
@@ -5886,7 +5886,7 @@ void QtFontPropertyManager::initializeProperty(QtProperty *property)
     d_ptr->m_values[property] = val;
 
     QtProperty *familyProp = d_ptr->m_enumPropertyManager->addProperty();
-    familyProp->setPropertyName(tr("Family"));
+    familyProp->setPropertyName(QObject::tr("Family"));
     if (d_ptr->m_familyNames.empty())
         d_ptr->m_familyNames = fontDatabase()->families();
     d_ptr->m_enumPropertyManager->setEnumNames(familyProp, d_ptr->m_familyNames);
@@ -5899,7 +5899,7 @@ void QtFontPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(familyProp);
 
     QtProperty *pointSizeProp = d_ptr->m_intPropertyManager->addProperty();
-    pointSizeProp->setPropertyName(tr("Point Size"));
+    pointSizeProp->setPropertyName(QObject::tr("Point Size"));
     d_ptr->m_intPropertyManager->setValue(pointSizeProp, val.pointSize());
     d_ptr->m_intPropertyManager->setMinimum(pointSizeProp, 1);
     d_ptr->m_propertyToPointSize[property] = pointSizeProp;
@@ -5907,35 +5907,35 @@ void QtFontPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(pointSizeProp);
 
     QtProperty *boldProp = d_ptr->m_boolPropertyManager->addProperty();
-    boldProp->setPropertyName(tr("Bold"));
+    boldProp->setPropertyName(QObject::tr("Bold"));
     d_ptr->m_boolPropertyManager->setValue(boldProp, val.bold());
     d_ptr->m_propertyToBold[property] = boldProp;
     d_ptr->m_boldToProperty[boldProp] = property;
     property->addSubProperty(boldProp);
 
     QtProperty *italicProp = d_ptr->m_boolPropertyManager->addProperty();
-    italicProp->setPropertyName(tr("Italic"));
+    italicProp->setPropertyName(QObject::tr("Italic"));
     d_ptr->m_boolPropertyManager->setValue(italicProp, val.italic());
     d_ptr->m_propertyToItalic[property] = italicProp;
     d_ptr->m_italicToProperty[italicProp] = property;
     property->addSubProperty(italicProp);
 
     QtProperty *underlineProp = d_ptr->m_boolPropertyManager->addProperty();
-    underlineProp->setPropertyName(tr("Underline"));
+    underlineProp->setPropertyName(QObject::tr("Underline"));
     d_ptr->m_boolPropertyManager->setValue(underlineProp, val.underline());
     d_ptr->m_propertyToUnderline[property] = underlineProp;
     d_ptr->m_underlineToProperty[underlineProp] = property;
     property->addSubProperty(underlineProp);
 
     QtProperty *strikeOutProp = d_ptr->m_boolPropertyManager->addProperty();
-    strikeOutProp->setPropertyName(tr("Strikeout"));
+    strikeOutProp->setPropertyName(QObject::tr("Strikeout"));
     d_ptr->m_boolPropertyManager->setValue(strikeOutProp, val.strikeOut());
     d_ptr->m_propertyToStrikeOut[property] = strikeOutProp;
     d_ptr->m_strikeOutToProperty[strikeOutProp] = property;
     property->addSubProperty(strikeOutProp);
 
     QtProperty *kerningProp = d_ptr->m_boolPropertyManager->addProperty();
-    kerningProp->setPropertyName(tr("Kerning"));
+    kerningProp->setPropertyName(QObject::tr("Kerning"));
     d_ptr->m_boolPropertyManager->setValue(kerningProp, val.kerning());
     d_ptr->m_propertyToKerning[property] = kerningProp;
     d_ptr->m_kerningToProperty[kerningProp] = property;
@@ -6212,7 +6212,7 @@ void QtColorPropertyManager::initializeProperty(QtProperty *property)
     d_ptr->m_values[property] = val;
 
     QtProperty *rProp = d_ptr->m_intPropertyManager->addProperty();
-    rProp->setPropertyName(tr("Red"));
+    rProp->setPropertyName(QObject::tr("Red"));
     d_ptr->m_intPropertyManager->setValue(rProp, val.red());
     d_ptr->m_intPropertyManager->setRange(rProp, 0, 0xFF);
     d_ptr->m_propertyToR[property] = rProp;
@@ -6220,7 +6220,7 @@ void QtColorPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(rProp);
 
     QtProperty *gProp = d_ptr->m_intPropertyManager->addProperty();
-    gProp->setPropertyName(tr("Green"));
+    gProp->setPropertyName(QObject::tr("Green"));
     d_ptr->m_intPropertyManager->setValue(gProp, val.green());
     d_ptr->m_intPropertyManager->setRange(gProp, 0, 0xFF);
     d_ptr->m_propertyToG[property] = gProp;
@@ -6228,7 +6228,7 @@ void QtColorPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(gProp);
 
     QtProperty *bProp = d_ptr->m_intPropertyManager->addProperty();
-    bProp->setPropertyName(tr("Blue"));
+    bProp->setPropertyName(QObject::tr("Blue"));
     d_ptr->m_intPropertyManager->setValue(bProp, val.blue());
     d_ptr->m_intPropertyManager->setRange(bProp, 0, 0xFF);
     d_ptr->m_propertyToB[property] = bProp;
@@ -6236,7 +6236,7 @@ void QtColorPropertyManager::initializeProperty(QtProperty *property)
     property->addSubProperty(bProp);
 
     QtProperty *aProp = d_ptr->m_intPropertyManager->addProperty();
-    aProp->setPropertyName(tr("Alpha"));
+    aProp->setPropertyName(QObject::tr("Alpha"));
     d_ptr->m_intPropertyManager->setValue(aProp, val.alpha());
     d_ptr->m_intPropertyManager->setRange(aProp, 0, 0xFF);
     d_ptr->m_propertyToA[property] = aProp;

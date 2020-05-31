@@ -5,10 +5,9 @@
  *
  * Date        : 2011-09-01
  * Description : a plugin to create photo layouts by fusion of several images.
- * 
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2011 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -250,7 +249,7 @@ void CropWidgetItem::keyPressEvent(QKeyEvent * event)
             if (d->m_items.count() > 1)
             {
                 commandGroupOpened = true;
-                PhotoLayoutsWindow::instance()->beginUndoCommandGroup(tr("Crop items"));
+                PhotoLayoutsWindow::instance()->beginUndoCommandGroup(QObject::tr("Crop items"));
             }
 
             foreach(AbstractPhoto* item, d->m_items)
@@ -264,11 +263,10 @@ void CropWidgetItem::keyPressEvent(QKeyEvent * event)
             KMessageBox::error(0,
             // We need this hint to xgettext otherwise it thinks that %1p is the printf %p with a 1 modifier
             // xgettext: no-c-format
-                               tr("Bounding rectangle of the crop shape has size [%1px x %2px] "
-                                    "and it's less than 1px x 1px",
-                                    QString::number(qRound(d->m_rect.width())),
-                                    QString::number(qRound(d->m_rect.height()))
-                                    )
+                               QObject::tr("Bounding rectangle of the crop shape has size [%1px x %2px] "
+                                    "and it's less than 1px x 1px")
+                                    .arg(QString::number(qRound(d->m_rect.width())))
+                                    .arg(QString::number(qRound(d->m_rect.height())))
                                );
         }
         event->setAccepted(true);

@@ -51,9 +51,9 @@ SolidBorderDrawer::SolidBorderDrawer(StandardBordersFactory * factory, QObject *
 {
     if (m_corners_style_names.isEmpty())
     {
-        SolidBorderDrawer::m_corners_style_names.insert(Qt::MiterJoin, tr("Miter"));
-        SolidBorderDrawer::m_corners_style_names.insert(Qt::BevelJoin, tr("Bevel"));
-        SolidBorderDrawer::m_corners_style_names.insert(Qt::RoundJoin, tr("Round"));
+        SolidBorderDrawer::m_corners_style_names.insert(Qt::MiterJoin, QObject::tr("Miter"));
+        SolidBorderDrawer::m_corners_style_names.insert(Qt::BevelJoin, QObject::tr("Bevel"));
+        SolidBorderDrawer::m_corners_style_names.insert(Qt::RoundJoin, QObject::tr("Round"));
     }
 
     if (m_properties.isEmpty())
@@ -65,13 +65,13 @@ SolidBorderDrawer::SolidBorderDrawer(StandardBordersFactory * factory, QObject *
         {
             QMetaProperty property = meta->property(count);
             if (!QString::fromLatin1("color").compare(QLatin1String(property.name())))
-                m_properties.insert(property.name(), tr("Color"));
+                m_properties.insert(property.name(), QObject::tr("Color"));
             else if (!QString::fromLatin1("corners_style").compare(QLatin1String(property.name())))
-                m_properties.insert(property.name(), tr("Corners style"));
+                m_properties.insert(property.name(), QObject::tr("Corners style"));
             else if (!QString::fromLatin1("width").compare(QLatin1String(property.name())))
-                m_properties.insert(property.name(), tr("Width"));
+                m_properties.insert(property.name(), QObject::tr("Width"));
             else if (!QString::fromLatin1("spacing").compare(QLatin1String(property.name())))
-                m_properties.insert(property.name(), tr("Spacing"));
+                m_properties.insert(property.name(), QObject::tr("Spacing"));
         }
     }
 }
@@ -163,7 +163,7 @@ QDomElement SolidBorderDrawer::toSvg(QDomDocument & document) const
 
 QString SolidBorderDrawer::name() const
 {
-    return tr("Solid border");
+    return QObject::tr("Solid border");
 }
 
 QString SolidBorderDrawer::toString() const

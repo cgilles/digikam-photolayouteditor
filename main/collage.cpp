@@ -5,10 +5,9 @@
  *
  * Date        : 2011-09-01
  * Description : a plugin to create photo layouts by fusion of several images.
- * 
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2017 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -31,17 +30,10 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
-// KDE includes
-
-
-#include <kaboutdata.h>
-
 // Local includes
 
 #include "metaengine.h"
 #include "photolayoutswindow.h"
-#include "daboutdata.h"
-#include "digikam_version.h"
 
 using namespace PhotoLayoutsEditor;
 using namespace Digikam;
@@ -50,28 +42,11 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    KAboutData aboutData(QString::fromLatin1("photolayoutseditor"), // component name
-                         tr("Photo Layout Editor"),               // display name
-                         digiKamVersion());                         // NOTE: photolayouteditor version = digiKam version
-
-    aboutData.setShortDescription(DAboutData::digiKamSlogan());;
-    aboutData.setLicense(KAboutLicense::GPL);
-    aboutData.setCopyrightStatement(DAboutData::copyright());
-    aboutData.setOtherText(additionalInformation());
-    aboutData.setHomepage(DAboutData::webProjectUrl().url());
-    aboutData.setProductName(QByteArray("digikam/photolayoutseditor"));   // For bugzilla
-
-    DAboutData::authorsRegistration(aboutData);
-
-
     QCommandLineParser parser;
-    KAboutData::setApplicationData(aboutData);
     parser.addVersionOption();
     parser.addHelpOption();
-    aboutData.setupCommandLine(&parser);
     parser.addPositionalArgument(QLatin1String("file"), QLatin1String("Template file to open"), QLatin1String("+[file]"));
     parser.process(app);
-    aboutData.processCommandLine(&parser);
 
     MetaEngine::initializeExiv2();
 

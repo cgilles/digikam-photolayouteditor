@@ -48,7 +48,7 @@ QImage SepiaPhotoEffect::apply(const QImage & image) const
 
 QString SepiaPhotoEffect::name() const
 {
-    return tr("Sepia effect");
+    return QObject::tr("Sepia effect");
 }
 
 QString SepiaPhotoEffect::toString() const

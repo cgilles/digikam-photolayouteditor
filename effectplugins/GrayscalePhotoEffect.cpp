@@ -48,7 +48,7 @@ QImage GrayscalePhotoEffect::apply(const QImage & image) const
 
 QString GrayscalePhotoEffect::name() const
 {
-    return tr("Grayscale effect");
+    return QObject::tr("Grayscale effect");
 }
 
 QString GrayscalePhotoEffect::toString() const

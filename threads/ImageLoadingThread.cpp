@@ -188,7 +188,7 @@ void ImageLoadingThread::setImagesUrls(const QList<QUrl>& urls)
 void ImageLoadingThread::loadRaw(const QUrl& url)
 {
     ProgressEvent* loadingImageActionEvent = new ProgressEvent(this);
-    loadingImageActionEvent->setData(ProgressEvent::ActionUpdate, QVariant( tr("Loading ").append(url.fileName()) ));
+    loadingImageActionEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Loading ").append(url.fileName()) ));
     QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), loadingImageActionEvent);
     QCoreApplication::processEvents();
 
@@ -206,7 +206,7 @@ void ImageLoadingThread::loadRaw(const QUrl& url)
     if (b)
     {
         ProgressEvent * buildImageEvent = new ProgressEvent(this);
-        buildImageEvent->setData(ProgressEvent::ActionUpdate, QVariant( tr("Decoding image") ));
+        buildImageEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Decoding image") ));
         QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), buildImageEvent);
         QCoreApplication::processEvents();
 
@@ -257,7 +257,7 @@ void ImageLoadingThread::loadRaw(const QUrl& url)
         }
 
         ProgressEvent* emitEvent = new ProgressEvent(this);
-        emitEvent->setData(ProgressEvent::ActionUpdate, QVariant( tr("Finishing...") ));
+        emitEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Finishing...") ));
         QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), emitEvent);
         QCoreApplication::processEvents();
 
@@ -271,7 +271,7 @@ void ImageLoadingThread::loadRaw(const QUrl& url)
 void ImageLoadingThread::loadImage(const QUrl& url)
 {
     ProgressEvent* loadingImageActionEvent = new ProgressEvent(this);
-    loadingImageActionEvent->setData(ProgressEvent::ActionUpdate, QVariant( tr("Loading ").append(url.fileName()) ));
+    loadingImageActionEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Loading ").append(url.fileName()) ));
     QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), loadingImageActionEvent);
     QCoreApplication::processEvents();
 
@@ -301,14 +301,14 @@ void ImageLoadingThread::loadImage(const QUrl& url)
     bf.close();
 
     ProgressEvent* buildImageEvent = new ProgressEvent(this);
-    buildImageEvent->setData(ProgressEvent::ActionUpdate, QVariant( tr("Decoding image") ));
+    buildImageEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Decoding image") ));
     QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), buildImageEvent);
     QCoreApplication::processEvents();
 
     QImage img = QImage::fromData(ba);
 
     ProgressEvent* emitEvent = new ProgressEvent(this);
-    emitEvent->setData(ProgressEvent::ActionUpdate, QVariant( tr("Finishing...") ));
+    emitEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Finishing...") ));
     QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), emitEvent);
     QCoreApplication::processEvents();
 
