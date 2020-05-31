@@ -39,7 +39,7 @@
 #include <QMetaProperty>
 #include <QPushButton>
 
-#include "KEditFactory.h"
+#include "qeditfactory.h"
 #include "qttreepropertybrowser.h"
 
 using namespace PhotoLayoutsEditor;

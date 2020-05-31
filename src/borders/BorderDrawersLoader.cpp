@@ -33,7 +33,7 @@
 #include "BorderDrawerInterface.h"
 #include "BorderDrawerFactoryInterface.h"
 #include "BorderChangeListener.h"
-#include "KEditFactory.h"
+#include "qeditfactory.h"
 #include "qttreepropertybrowser.h"
 
 using namespace PhotoLayoutsEditor;
@@ -157,19 +157,19 @@ QWidget * BorderDrawersLoader::createEditor(BorderDrawerInterface * drawer, bool
 
     // QVariant type of property
     QtVariantPropertyManager * variantManager = 0;
-    KVariantEditorFactory * variantFactory = 0;
+    QVariantEditorFactory * variantFactory = 0;
 
     // Integer type of property
     QtIntPropertyManager * integerManager = 0;
-    KSliderEditFactory * integerFactory = 0;
+    QSliderEditFactory * integerFactory = 0;
 
     // Double type of property
     QtDoublePropertyManager * doubleManager = 0;
-    KDoubleSpinBoxFactory * doubleFactory = 0;
+    QDoubleSpinBoxFactory * doubleFactory = 0;
 
     // Enum type of property
     QtEnumPropertyManager * enumManager = 0;
-    KEnumEditorFactory * enumFactory = 0;
+    QEnumEditorFactory * enumFactory = 0;
 
     const QMetaObject * meta = drawer->metaObject();
     int propertiesCount = meta->propertyCount();
@@ -187,7 +187,7 @@ QWidget * BorderDrawersLoader::createEditor(BorderDrawerInterface * drawer, bool
                     if (!integerManager || !integerFactory)
                     {
                         integerManager = new QtIntPropertyManager(browser);
-                        integerFactory = new KSliderEditFactory(browser);
+                        integerFactory = new QSliderEditFactory(browser);
                         browser->setFactoryForManager(integerManager, integerFactory);
                     }
                     property = integerManager->addProperty(propertyName);
@@ -201,7 +201,7 @@ QWidget * BorderDrawersLoader::createEditor(BorderDrawerInterface * drawer, bool
                     if (!doubleManager || !doubleFactory)
                     {
                         doubleManager = new QtDoublePropertyManager(browser);
-                        doubleFactory = new KDoubleSpinBoxFactory(browser);
+                        doubleFactory = new QDoubleSpinBoxFactory(browser);
                         browser->setFactoryForManager(doubleManager, doubleFactory);
                     }
                     property = doubleManager->addProperty(propertyName);
@@ -218,7 +218,7 @@ QWidget * BorderDrawersLoader::createEditor(BorderDrawerInterface * drawer, bool
                         if (!enumManager || !enumFactory)
                         {
                             enumManager = new QtEnumPropertyManager(browser);
-                            enumFactory = new KEnumEditorFactory(browser);
+                            enumFactory = new QEnumEditorFactory(browser);
                             browser->setFactoryForManager(enumManager, enumFactory);
                         }
                         property = enumManager->addProperty(propertyName);
@@ -232,7 +232,7 @@ QWidget * BorderDrawersLoader::createEditor(BorderDrawerInterface * drawer, bool
                     if (!variantManager || !variantFactory)
                     {
                         variantManager = new QtVariantPropertyManager(browser);
-                        variantFactory = new KVariantEditorFactory(browser);
+                        variantFactory = new QVariantEditorFactory(browser);
                         browser->setFactoryForManager(variantManager, variantFactory);
                     }
                     property = variantManager->addProperty(metaProperty.type(), propertyName);

@@ -38,7 +38,7 @@
 
 #include "qttreepropertybrowser.h"
 #include "qtpropertymanager.h"
-#include "KEditFactory.h"
+#include "qeditfactory.h"
 
 using namespace PhotoLayoutsEditor;
 
@@ -117,7 +117,7 @@ QtAbstractPropertyBrowser* PixelizePhotoEffect::propertyBrowser() const
 {
     QtAbstractPropertyBrowser* browser = PhotoEffectsLoader::propertyBrowser();
     QtIntPropertyManager* intManager   = new QtIntPropertyManager(browser);
-    KSliderEditFactory* sliderFactory  = new KSliderEditFactory(browser);
+    QSliderEditFactory* sliderFactory  = new QSliderEditFactory(browser);
     browser->setFactoryForManager(intManager, sliderFactory);
 
     // Radius property

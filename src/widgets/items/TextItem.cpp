@@ -25,7 +25,7 @@
 
 #include "TextItem.h"
 #include "global.h"
-#include "KEditFactory.h"
+#include "qeditfactory.h"
 #include "TextColorChangeListener.h"
 #include "TextFontChangeListener.h"
 
@@ -795,7 +795,7 @@ QtAbstractPropertyBrowser * TextItem::propertyBrowser()
 
     // Color
     QtColorPropertyManager * colorManager = new QtColorPropertyManager(browser);
-    KColorEditorFactory * colorFactory = new KColorEditorFactory(browser);
+    QColorEditorFactory * colorFactory = new QColorEditorFactory(browser);
     browser->setFactoryForManager(colorManager, colorFactory);
     QtProperty * colorProperty = colorManager->addProperty(QObject::tr("Text color"));
     colorManager->setValue(colorProperty, m_color);
@@ -808,7 +808,7 @@ QtAbstractPropertyBrowser * TextItem::propertyBrowser()
 
     // Font
     QtFontPropertyManager * fontManager = new QtFontPropertyManager(browser);
-    KFontEditorFactory * fontFactory = new KFontEditorFactory(browser);
+    QFontEditorFactory * fontFactory = new QFontEditorFactory(browser);
     browser->setFactoryForManager(fontManager, fontFactory);
     QtProperty * fontProperty = fontManager->addProperty(QObject::tr("Font"));
     fontManager->setValue(fontProperty, m_font);

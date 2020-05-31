@@ -27,7 +27,7 @@
 #include "PhotoEffectsGroup.h"
 #include "AbstractPhoto.h"
 #include "UndoCommandEvent.h"
-#include "KEditFactory.h"
+#include "qeditfactory.h"
 #include "global.h"
 #include "AbstractPhotoEffectFactory.h"
 #include "AbstractPhotoEffectInterface.h"
@@ -116,16 +116,16 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
 
     // QVariant::Int
     QtIntPropertyManager * integerManager = new QtIntPropertyManager(browser);
-    KSliderEditFactory * integerFactory = new KSliderEditFactory(browser);
+    QSliderEditFactory * integerFactory = new QSliderEditFactory(browser);
     browser->setFactoryForManager(integerManager, integerFactory);
 
     // Double type of property
     QtDoublePropertyManager * doubleManager = 0;
-    KDoubleSpinBoxFactory * doubleFactory = 0;
+    QDoubleSpinBoxFactory * doubleFactory = 0;
 
     // QVariant others....
     QtVariantPropertyManager * variantManager = 0;
-    KVariantEditorFactory * variantFactory = 0;
+    QVariantEditorFactory * variantFactory = 0;
 
     const QMetaObject * meta = effect->metaObject();
     int propertiesCount = meta->propertyCount();
@@ -143,7 +143,7 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
                     if (!integerManager || !integerFactory)
                     {
                         integerManager = new QtIntPropertyManager(browser);
-                        integerFactory = new KSliderEditFactory(browser);
+                        integerFactory = new QSliderEditFactory(browser);
                         browser->setFactoryForManager(integerManager, integerFactory);
                     }
                     property = integerManager->addProperty(propertyName);
@@ -158,7 +158,7 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
                     if (!doubleManager || !doubleFactory)
                     {
                         doubleManager = new QtDoublePropertyManager(browser);
-                        doubleFactory = new KDoubleSpinBoxFactory(browser);
+                        doubleFactory = new QDoubleSpinBoxFactory(browser);
                         browser->setFactoryForManager(doubleManager, doubleFactory);
                     }
                     property = doubleManager->addProperty(propertyName);
@@ -173,7 +173,7 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
                     if (!variantManager || !variantFactory)
                     {
                         variantManager = new QtVariantPropertyManager(browser);
-                        variantFactory = new KVariantEditorFactory(browser);
+                        variantFactory = new QVariantEditorFactory(browser);
                         browser->setFactoryForManager(variantManager, variantFactory);
                     }
                     property = variantManager->addProperty(metaProperty.type(), propertyName);
