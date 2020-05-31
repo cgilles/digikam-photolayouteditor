@@ -8,14 +8,43 @@ project(PhotoLayout)
 
 cmake_minimum_required(VERSION "3.1.0")
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
-include(MacroInstall)
-include(FeatureSummary)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_AUTOMOC ON)
 
 option(ENABLE_DPLUGIN "Build digiKam plugin version of Image Mosaic Wall tool (default=OFF)" OFF)
+
+find_package(ECM "1.7.0" CONFIG REQUIRED)
+
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
+
+include(MacroInstall)
+include(FeatureSummary)
+
+# Cmake macros
+include(CMakePackageConfigHelpers)
+include(GenerateExportHeader)
+include(CheckFunctionExists)
+
+include(ECMOptionalAddSubdirectory)
+include(ECMAddTests)
+include(ECMMarkNonGuiExecutable)
+include(ECMGenerateHeaders)
+include(ECMGeneratePriFile)
+include(ECMSetupVersion)
+include(ECMInstallIcons)
+include(ECMAddAppIcon)
+include(ECMPoQmTools)
+include(ECMMarkAsTest)
+include(ECMAddTests)
+
+# KDE macros
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDEFrameworkCompilerSettings)
+include(KDECompilerSettings)
+
+
 
 find_package(Qt5 "5.6.0" REQUIRED
              NO_MODULE COMPONENTS
@@ -26,6 +55,13 @@ find_package(Qt5 "5.6.0" REQUIRED
              Svg
              Xml
              PrintSupport
+)
+
+find_package(KF5 "5.5.0" REQUIRED
+             COMPONENTS
+             XmlGui
+             Config
+             Service
 )
 
 find_package(Threads)
