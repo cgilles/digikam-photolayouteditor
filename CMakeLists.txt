@@ -214,7 +214,6 @@ if(NOT MSVC)
 endif()
 
 install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/settings/photolayoutseditor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
-#install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/photolayoutseditor.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/photolayoutseditoreffectplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/photolayoutseditorborderplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
