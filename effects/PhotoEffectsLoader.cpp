@@ -39,7 +39,7 @@
 #include "qttreepropertybrowser.h"
 
 #include <QApplication>
-#include <klocalizedstring.h>
+
 
 using namespace PhotoLayoutsEditor;
 

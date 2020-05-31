@@ -62,7 +62,7 @@
 
 // Local includes
 
-#include "digikam_debug.h"
+#include <QDebug>
 #include "digikam_globals.h"
 #include "imagedialog.h"
 #include "dmessagebox.h"
@@ -102,7 +102,7 @@ class CanvasSizeChangeCommand
 public:
 
     CanvasSizeChangeCommand(const CanvasSize & size, Canvas * canvas, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Canvas size change"), parent),
+        QUndoCommand(tr("Canvas size change"), parent),
         m_size(size),
         m_canvas(canvas)
     {}
@@ -137,7 +137,7 @@ PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget * parent) :
 
     initIconsResource();
     setXMLFile(QLatin1String("photolayoutseditorui.rc"));
-    setWindowTitle(i18n("Photo Layouts Editor"));
+    setWindowTitle(tr("Photo Layouts Editor"));
 
     loadEffects();
     loadBorders();
@@ -182,7 +182,7 @@ void PhotoLayoutsWindow::addUndoCommand(QUndoCommand * command)
     if (command)
     {
 #ifdef QT_DEBUG
-        qCDebug(DIGIKAM_GENERAL_LOG) << command->text();
+        qDebug() << command->text();
 #endif
         if (m_canvas)
             m_canvas->undoStack()->push(command);
@@ -235,7 +235,7 @@ void PhotoLayoutsWindow::setupActions()
     d->openNewFileAction = KStandardAction::openNew(this, SLOT(open()), actionCollection());
     actionCollection()->addAction(QLatin1String("open_new"), d->openNewFileAction);
     //------------------------------------------------------------------------
-    d->openFileAction = new QAction(i18n("Open Template File..."), actionCollection());
+    d->openFileAction = new QAction(tr("Open Template File..."), actionCollection());
     connect(d->openFileAction, SIGNAL(triggered()), this, SLOT(openDialog()));
     actionCollection()->addAction(QLatin1String("open"), d->openFileAction);
     //------------------------------------------------------------------------
@@ -362,7 +362,7 @@ void PhotoLayoutsWindow::createWidgets()
     this->addDockWidget(Qt::RightDockWidgetArea, d->toolsWidget);
 
     // Layers dockwidget
-    d->treeWidget = new QDockWidget(i18n("Layers"), this);
+    d->treeWidget = new QDockWidget(tr("Layers"), this);
     d->treeWidget->setFeatures(QDockWidget::DockWidgetMovable);
     d->treeWidget->setFloating(false);
     d->treeWidget->setAllowedAreas(Qt::RightDockWidgetArea | Qt::LeftDockWidgetArea);
@@ -424,8 +424,8 @@ void PhotoLayoutsWindow::createCanvas(const QUrl & fileUrl)
     else
     {
         QMessageBox::critical(this,
-                              i18n("Error"),
-                              i18n("Cannot read image file."));
+                              tr("Error"),
+                              tr("Cannot read image file."));
     }
     file.close();
 }
@@ -503,7 +503,7 @@ void PhotoLayoutsWindow::openDialog()
         d->fileDialog = new QFileDialog(this,
                                         QString(),
                                         QString(),
-                                        i18n("*.ple|Photo Layouts Editor files"));
+                                        tr("*.ple|Photo Layouts Editor files"));
     }
 
     d->fileDialog->setFileMode(QFileDialog::AnyFile);
@@ -514,7 +514,7 @@ void PhotoLayoutsWindow::openDialog()
         !d->fileDialog->selectedUrls().isEmpty())
     {
         QUrl url = d->fileDialog->selectedUrls().first();
-        qCDebug(DIGIKAM_GENERAL_LOG) << url;
+        qDebug() << url;
         open(url);
     }
 }
@@ -534,7 +534,7 @@ void PhotoLayoutsWindow::open(const QUrl & fileUrl)
 
 void PhotoLayoutsWindow::save()
 {
-    qCDebug(DIGIKAM_GENERAL_LOG) << !m_canvas->file().isValid() <<  m_canvas->file().fileName().isEmpty() << m_canvas->isTemplate();
+    qDebug() << !m_canvas->file().isValid() <<  m_canvas->file().fileName().isEmpty() << m_canvas->isTemplate();
     if (!m_canvas)
         return;
     if (!m_canvas->file().isValid() || m_canvas->file().fileName().isEmpty() || m_canvas->isTemplate())
@@ -550,7 +550,7 @@ void PhotoLayoutsWindow::saveAs()
         d->fileDialog = new QFileDialog(this,
                                         QString(),
                                         QString(),
-                                        i18n("*.ple|Photo Layouts Editor files"));
+                                        tr("*.ple|Photo Layouts Editor files"));
     }
 
     d->fileDialog->setFileMode(QFileDialog::AnyFile);
@@ -571,7 +571,7 @@ void PhotoLayoutsWindow::saveAsTemplate()
         d->fileDialog = new QFileDialog(this,
                                         QString(),
                                         QString(),
-                                        i18n("*.ple|Photo Layouts Editor files"));
+                                        tr("*.ple|Photo Layouts Editor files"));
     }
 
     d->fileDialog->setFileMode(QFileDialog::AnyFile);
@@ -587,8 +587,8 @@ void PhotoLayoutsWindow::saveAsTemplate()
             m_canvas->saveTemplate(url);
         else
             QMessageBox::critical(this,
-                                  i18n("Error"),
-                                  i18n("There is nothing to save."));
+                                  tr("Error"),
+                                  tr("There is nothing to save."));
     }
 }
 
@@ -598,8 +598,8 @@ void PhotoLayoutsWindow::saveFile(const QUrl & fileUrl, bool setFileAsDefault)
         m_canvas->save(fileUrl, setFileAsDefault);
     else
             QMessageBox::critical(this,
-                                  i18n("Error"),
-                                  i18n("There is nothing to save."));
+                                  tr("Error"),
+                                  tr("There is nothing to save."));
 }
 
 void PhotoLayoutsWindow::exportFile()
@@ -610,7 +610,7 @@ void PhotoLayoutsWindow::exportFile()
     QString all;
     QStringList list                       = supportedImageMimeTypes(QIODevice::WriteOnly, all);
     QFileDialog* const imageFileSaveDialog = new QFileDialog(this);
-    imageFileSaveDialog->setWindowTitle(i18n("New Image File Name"));
+    imageFileSaveDialog->setWindowTitle(tr("New Image File Name"));
     imageFileSaveDialog->setAcceptMode(QFileDialog::AcceptSave);
     imageFileSaveDialog->setFileMode(QFileDialog::AnyFile);
     imageFileSaveDialog->setNameFilters(list);
@@ -632,8 +632,8 @@ void PhotoLayoutsWindow::exportFile()
 
         if (!writer.canWrite())
         {
-            QMessageBox::critical(this, i18n("Error"),
-                                    i18n("Image can't be saved in selected file."));
+            QMessageBox::critical(this, tr("Error"),
+                                    tr("Image can't be saved in selected file."));
         }
 
         if (!writer.write(image.toImage()))
@@ -642,7 +642,7 @@ void PhotoLayoutsWindow::exportFile()
                 QMessageBox::Critical,
                 qApp->activeWindow(),
                 qApp->applicationName(),
-                i18n("Unexpected error while saving an image."),
+                tr("Unexpected error while saving an image."),
                 QStringList() << writer.errorString());
         }
     }
@@ -687,8 +687,8 @@ bool PhotoLayoutsWindow::closeDocument()
 
         if (!m_canvas->isSaved())
             saving = QMessageBox::question(this,
-                                           i18n("Save"),
-                                           i18n("Save changes to current frame?"),
+                                           tr("Save"),
+                                           tr("Save changes to current frame?"),
                                            QMessageBox::StandardButtons(QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel));
 
         switch (saving)
@@ -787,7 +787,7 @@ void PhotoLayoutsWindow::changeCanvasSize()
         }
         else
         {
-            QMessageBox::critical(this, i18n("Error"), i18n("Invalid image size."));
+            QMessageBox::critical(this, tr("Error"), tr("Invalid image size."));
         }
     }
 
@@ -830,7 +830,7 @@ void PhotoLayoutsWindow::loadEffects()
             {
                 d->effectsMap[name] = plugin;
                 PhotoEffectsLoader::registerEffect(plugin);
-                qCDebug(DIGIKAM_GENERAL_LOG) << "PhotoLayoutsWindow: Loaded effect " << service->name();
+                qDebug() << "PhotoLayoutsWindow: Loaded effect " << service->name();
             }
             else
             {
@@ -871,7 +871,7 @@ void PhotoLayoutsWindow::loadBorders()
             {
                 d->bordersMap[name] = plugin;
                 BorderDrawersLoader::registerDrawer(plugin);
-                qCDebug(DIGIKAM_GENERAL_LOG) << "PhotoLayoutsWindow: Loaded border:" << service->name();
+                qDebug() << "PhotoLayoutsWindow: Loaded border:" << service->name();
             }
             else
             {

@@ -36,9 +36,9 @@
 #include <qmath.h>
 #include <QDebug>
 
-#include <klocalizedstring.h>
 
-#include "digikam_debug.h"
+
+#include <QDebug>
 #include "Scene.h"
 #include "PhotoEffectsGroup.h"
 #include "BordersGroup.h"
@@ -52,7 +52,7 @@ class PhotoLayoutsEditor::CropShapeChangeCommand : public QUndoCommand
     AbstractPhoto * m_item;
 public:
     CropShapeChangeCommand(const QPainterPath & cropShape, AbstractPhoto * item, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Crop shape change"), parent),
+        QUndoCommand(tr("Crop shape change"), parent),
         m_crop_shape(cropShape),
         m_item(item)
     {}
@@ -77,7 +77,7 @@ class PhotoLayoutsEditor::ItemNameChangeCommand : public QUndoCommand
     AbstractPhoto * m_item;
 public:
     ItemNameChangeCommand(const QString & name, AbstractPhoto * item, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Name Change"), parent),
+        QUndoCommand(tr("Name Change"), parent),
         m_name(name),
         m_item(item)
     {}
@@ -107,7 +107,7 @@ AbstractPhoto::AbstractPhoto(const QString & name, Scene * scene) :
     setupItem();
 
     // Item's name
-    d->setName(uniqueName( name.isEmpty() ? i18n("New layer") : name ) );
+    d->setName(uniqueName( name.isEmpty() ? tr("New layer") : name ) );
 
     // Effects group
     d->m_effects_group = new PhotoEffectsGroup(this);
@@ -118,7 +118,7 @@ AbstractPhoto::AbstractPhoto(const QString & name, Scene * scene) :
 
 AbstractPhoto::~AbstractPhoto()
 {
-    qCDebug(DIGIKAM_GENERAL_LOG) << "Abstractphoto delete";
+    qDebug() << "Abstractphoto delete";
     d->m_effects_group->deleteLater();
     d->m_borders_group->deleteLater();
     delete d;
@@ -399,17 +399,17 @@ QDomDocument AbstractPhoto::toTemplateSvg() const
 
 bool AbstractPhoto::fromSvg(QDomElement & element)
 {
-    qCDebug(DIGIKAM_GENERAL_LOG) << "1";
+    qDebug() << "1";
 
     if (element.tagName() != QLatin1String("g"))
         return false;
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "2";
+    qDebug() << "2";
 
     if (element.attribute(QLatin1String("visibility")) == QLatin1String("hide"))
         this->setVisible(false);
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "3";
+    qDebug() << "3";
 
     // Position & transformation
     this->setPos(0,0);
@@ -448,7 +448,7 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
     }
 
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "4";
+    qDebug() << "4";
 
     if (element.firstChildElement().tagName() == QLatin1String("g"))
     {
@@ -477,14 +477,14 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
     }
 
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "5";
+    qDebug() << "5";
 
     // ID & name
     d->m_id = element.attribute(QLatin1String("id"));
     d->setName(element.attribute(QLatin1String("name")));
 
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "6";
+    qDebug() << "6";
 
     // Validation purpose
     QDomElement defs = element.firstChildElement(QLatin1String("defs"));
@@ -494,7 +494,7 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
         return false;
 
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "7";
+    qDebug() << "7";
 
     QDomElement itemDataElement = defs.firstChildElement(QLatin1String("g"));
     while (!itemDataElement.isNull() && itemDataElement.attribute(QLatin1String("id")) != QLatin1String("vis_data_")+this->id())
@@ -503,7 +503,7 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
         return false;
 
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "8";
+    qDebug() << "8";
 
     // Borders
     if (d->m_borders_group)
@@ -516,14 +516,14 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
         return false;
 
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "9";
+    qDebug() << "9";
 
     QDomElement clipPath = defs.firstChildElement(QLatin1String("clipPath"));
     if (clipPath.isNull() || clipPath.attribute(QLatin1String("id")) != QLatin1String("clipPath_")+this->id())
         return false;
 
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "10";
+    qDebug() << "10";
 
     // Other application specific data
     QDomElement appNS = defs.firstChildElement(QLatin1String("data"));
@@ -531,7 +531,7 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
         return false;
 
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "11";
+    qDebug() << "11";
 
     // Effects
     if (d->m_effects_group)
@@ -541,7 +541,7 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
         return false;
 
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "12";
+    qDebug() << "12";
 
     // Crop path
     QDomElement cropPath = appNS.firstChildElement(QLatin1String("crop_path"));
@@ -551,7 +551,7 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
         return false;
 
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "13";
+    qDebug() << "13";
 
     return true;
 }
@@ -610,13 +610,13 @@ void AbstractPhoto::dragLeaveEvent(QGraphicsSceneDragDropEvent * event)
 
 void AbstractPhoto::dragMoveEvent(QGraphicsSceneDragDropEvent * event)
 {
-    qCDebug(DIGIKAM_GENERAL_LOG) << "dragMoveEvent";
+    qDebug() << "dragMoveEvent";
     event->accept();
 }
 
 void AbstractPhoto::dropEvent(QGraphicsSceneDragDropEvent * event)
 {
-    qCDebug(DIGIKAM_GENERAL_LOG) << "dropEvent";
+    qDebug() << "dropEvent";
     event->accept();
 }
 

@@ -32,7 +32,7 @@
 
 // KDE includes
 
-#include <klocalizedstring.h>
+
 
 // Local includes
 
@@ -91,7 +91,7 @@ void PixelizePhotoEffect::PixelizeUndoCommand::setPixelSize(int pixelSize)
     m_pixelSize = pixelSize;
 }
 
-const QString PixelizePhotoEffect::PIXEL_SIZE_STRING = i18n("Pixel size");
+const QString PixelizePhotoEffect::PIXEL_SIZE_STRING = tr("Pixel size");
 
 PixelizePhotoEffect::PixelizePhotoEffect(int pixelSize, QObject* parent)
     : PhotoEffectsLoader(parent),
@@ -101,7 +101,7 @@ PixelizePhotoEffect::PixelizePhotoEffect(int pixelSize, QObject* parent)
 
 QString PixelizePhotoEffect::effectName() const
 {
-    return i18n("Pixelize effect");
+    return tr("Pixelize effect");
 }
 
 QImage PixelizePhotoEffect::apply(const QImage & image)
@@ -139,7 +139,7 @@ QtAbstractPropertyBrowser* PixelizePhotoEffect::propertyBrowser() const
 
 QString PixelizePhotoEffect::toString() const
 {
-    return (i18n("Pixelize [%1 = %2]", PIXEL_SIZE_STRING, QString::number(m_pixelSize)));
+    return (tr("Pixelize [%1 = %2]", PIXEL_SIZE_STRING, QString::number(m_pixelSize)));
 }
 
 void PixelizePhotoEffect::propertyChanged(QtProperty* property)

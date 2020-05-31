@@ -28,12 +28,12 @@
 
 #include <QDebug>
 
-#include <klocalizedstring.h>
+
 
 using namespace PhotoLayoutsEditor;
 
 UndoBorderChangeCommand::UndoBorderChangeCommand(AbstractPhoto * photo, qreal newWidth, Qt::PenJoinStyle newCornerStyle, const QColor & newColor, QUndoCommand * parent) :
-    QUndoCommand(i18n("Border changed"), parent),
+    QUndoCommand(tr("Border changed"), parent),
     m_photo(photo),
     m_width(newWidth),
     m_corner_style(newCornerStyle),

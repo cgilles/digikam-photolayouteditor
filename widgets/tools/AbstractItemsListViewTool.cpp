@@ -33,14 +33,14 @@
 #include <QComboBox>
 #include <QIcon>
 
-#include <klocalizedstring.h>
+
 
 #include "qtpropertybrowser.h"
 #include "AbstractPhoto.h"
 #include "ToolsDockWidget.h"
 #include "BorderDrawersLoader.h"
 #include "global.h"
-#include "digikam_debug.h"
+#include <QDebug>
 
 using namespace PhotoLayoutsEditor;
 
@@ -444,10 +444,10 @@ void AbstractListToolViewDelegate::editorCancelled()
 
 void AbstractListToolViewDelegate::editorAccepted()
 {
-    qCDebug(DIGIKAM_GENERAL_LOG) << "isAccepted sent" << m_object << m_model;
+    qDebug() << "isAccepted sent" << m_object << m_model;
     if (!m_object || !m_model)
         return;
-    qCDebug(DIGIKAM_GENERAL_LOG) << "isAccepted sent";
+    qDebug() << "isAccepted sent";
     ItemCreatedCommand * command = new ItemCreatedCommand(m_object, m_index.row(), m_model);
     PLE_PostUndoCommand(command);
     emit editorClosed();

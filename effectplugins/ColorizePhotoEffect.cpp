@@ -26,7 +26,7 @@
 #include "ColorizePhotoEffect.h"
 #include "StandardEffectsFactory.h"
 
-#include <klocalizedstring.h>
+
 
 using namespace PhotoLayoutsEditor;
 
@@ -52,7 +52,7 @@ QImage ColorizePhotoEffect::apply(const QImage & image) const
 
 QString ColorizePhotoEffect::name() const
 {
-    return i18n("Colorize effect");
+    return tr("Colorize effect");
 }
 
 QString ColorizePhotoEffect::toString() const

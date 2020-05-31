@@ -25,18 +25,18 @@
 
 #include "LayersTreeMenu.h"
 #include "LayersTree.h"
-#include <klocalizedstring.h>
+
 
 using namespace PhotoLayoutsEditor;
 
 LayersTreeMenu::LayersTreeMenu(LayersTree * parent) :
     QMenu(parent)
 {
-    moveUpItems = this->addAction(i18n("Move up"));
+    moveUpItems = this->addAction(tr("Move up"));
     connect(moveUpItems, SIGNAL(triggered()), parent, SLOT(moveSelectedRowsUp()));
-    moveDownItems = this->addAction(i18n("Move down"));
+    moveDownItems = this->addAction(tr("Move down"));
     connect(moveDownItems, SIGNAL(triggered()), parent, SLOT(moveSelectedRowsDown()));
     this->addSeparator();
-    deleteItems = this->addAction(i18n("Delete selected"));
+    deleteItems = this->addAction(tr("Delete selected"));
     connect(deleteItems, SIGNAL(triggered()), parent, SLOT(removeSelectedRows()));
 }

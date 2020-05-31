@@ -40,7 +40,7 @@
 #include <QStandardPaths>
 #include <QDialogButtonBox>
 
-#include <klocalizedstring.h>
+
 
 #include "CanvasSizeWidget.h"
 #include "TemplatesView.h"
@@ -295,7 +295,7 @@ void NewCanvasDialog::paperSizeSelected(QListWidgetItem * current, QListWidgetIt
         d->templatesList->setModel(model);
 
         QPair<QString,QString> paper = d->names[size];
-        model->addTemplate(QString(), i18n("Empty"));
+        model->addTemplate(QString(), tr("Empty"));
         if (!d->horizontalButton->isChecked())
             this->loadTemplatesList(QLatin1String("digikam/data/templates/") + paper.second + QLatin1String("/v"), model);
         if (!d->verticalButton->isChecked())
@@ -334,7 +334,7 @@ void NewCanvasDialog::setVertical(bool isset)
 
 void NewCanvasDialog::setupUI()
 {
-    setWindowTitle(i18n("Create New Canvas..."));
+    setWindowTitle(tr("Create New Canvas..."));
 
     QVBoxLayout* layout = new QVBoxLayout();
     setLayout(layout);
@@ -345,7 +345,7 @@ void NewCanvasDialog::setupUI()
     QVBoxLayout * leftLayout = new QVBoxLayout();
     mainLayout->addLayout(leftLayout);
 
-    leftLayout->addWidget(new QLabel(i18n("Paper sizes"), this));
+    leftLayout->addWidget(new QLabel(tr("Paper sizes"), this));
 
     d->paperSize = new QListWidget(this);
     d->paperSize->setMaximumWidth(150);
@@ -374,7 +374,7 @@ void NewCanvasDialog::setupUI()
     QVBoxLayout * rightLayout = new QVBoxLayout();
     mainLayout->addLayout(rightLayout);
 
-    rightLayout->addWidget(new QLabel(i18n("Select a template"), this));
+    rightLayout->addWidget(new QLabel(tr("Select a template"), this));
 
     d->stack = new QStackedLayout();
     rightLayout->addLayout(d->stack, 1);

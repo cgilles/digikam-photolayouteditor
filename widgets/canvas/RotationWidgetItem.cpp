@@ -29,7 +29,7 @@
 
 #include <QUndoCommand>
 
-#include <klocalizedstring.h>
+
 
 #include "photolayoutswindow.h"
 #include "global.h"
@@ -46,7 +46,7 @@ class PhotoLayoutsEditor::RotateItemCommand : public QUndoCommand
 public:
 
     RotateItemCommand(AbstractPhoto * item, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Rotate item"), parent),
+        QUndoCommand(tr("Rotate item"), parent),
         item(item),
         angle(0),
         done(false)

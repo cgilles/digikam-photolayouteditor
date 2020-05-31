@@ -26,11 +26,11 @@
 #include "UndoMoveRowsCommand.h"
 
 // KDE
-#include <klocalizedstring.h>
+
 
 #include "LayersModel.h"
 #include "LayersModelItem.h"
-#include "digikam_debug.h"
+#include <QDebug>
 
 using namespace PhotoLayoutsEditor;
 
@@ -43,12 +43,12 @@ UndoMoveRowsCommand::UndoMoveRowsCommand(int startingRow, int rowsCount, const Q
         if (sourceParent == destinationParent)
         {
             if (startingRow > destinationRow)
-                this->setText(i18n("Move layers up"));
+                this->setText(tr("Move layers up"));
             else
-                this->setText(i18n("Move layers down"));
+                this->setText(tr("Move layers down"));
         }
         else
-            this->setText(i18n("Change parent layer"));
+            this->setText(tr("Change parent layer"));
         m_src_parent_row = model->getItem(sourceParent);
         m_dest_parent_row = model->getItem(destinationParent);
         m_starting_row = startingRow;
@@ -63,12 +63,12 @@ UndoMoveRowsCommand::UndoMoveRowsCommand(int startingRow, int rowsCount, const Q
         m_rows_count = 0;
         m_destination_row = 0;
 
-        qCDebug(DIGIKAM_GENERAL_LOG) << "Can't create UndoMoveRowsCommand [NO MODEL!]:";
-        qCDebug(DIGIKAM_GENERAL_LOG) << "\tStarting Row =" << startingRow;
-        qCDebug(DIGIKAM_GENERAL_LOG) << "\tRows count =" << rowsCount;
-        qCDebug(DIGIKAM_GENERAL_LOG) << "\tDestination Row =" << destinationRow;
-        qCDebug(DIGIKAM_GENERAL_LOG) << "\tSource Parent =" << sourceParent;
-        qCDebug(DIGIKAM_GENERAL_LOG) << "\tDestination Parent =" << destinationParent;
+        qDebug() << "Can't create UndoMoveRowsCommand [NO MODEL!]:";
+        qDebug() << "\tStarting Row =" << startingRow;
+        qDebug() << "\tRows count =" << rowsCount;
+        qDebug() << "\tDestination Row =" << destinationRow;
+        qDebug() << "\tSource Parent =" << sourceParent;
+        qDebug() << "\tDestination Parent =" << destinationParent;
     }
 }
 
@@ -82,14 +82,14 @@ void UndoMoveRowsCommand::redo()
 #ifdef QT_DEBUG
     else
     {
-        qCDebug(DIGIKAM_GENERAL_LOG) << "Can't redo from UndoMoveRowsCommand:";
-        qCDebug(DIGIKAM_GENERAL_LOG) << "\tStarting Row =" << m_starting_row;
-        qCDebug(DIGIKAM_GENERAL_LOG) << "\tRows count =" << m_rows_count;
-        qCDebug(DIGIKAM_GENERAL_LOG) << "\tDestination Row =" << m_destination_row;
+        qDebug() << "Can't redo from UndoMoveRowsCommand:";
+        qDebug() << "\tStarting Row =" << m_starting_row;
+        qDebug() << "\tRows count =" << m_rows_count;
+        qDebug() << "\tDestination Row =" << m_destination_row;
         if (m_model)
         {
-            qCDebug(DIGIKAM_GENERAL_LOG) << "\tSource Parent =" << m_model->findIndex(m_src_parent_row);
-            qCDebug(DIGIKAM_GENERAL_LOG) << "\tDestination Parent =" << m_model->findIndex(m_dest_parent_row);
+            qDebug() << "\tSource Parent =" << m_model->findIndex(m_src_parent_row);
+            qDebug() << "\tDestination Parent =" << m_model->findIndex(m_dest_parent_row);
         }
     }
 #endif
@@ -105,14 +105,14 @@ void UndoMoveRowsCommand::undo()
 #ifdef QT_DEBUG
     else
     {
-        qCDebug(DIGIKAM_GENERAL_LOG) << "Can't undo from UndoMoveRowsCommand:";
-        qCDebug(DIGIKAM_GENERAL_LOG) << "\tStarting Row =" << m_starting_row;
-        qCDebug(DIGIKAM_GENERAL_LOG) << "\tRows count =" << m_rows_count;
-        qCDebug(DIGIKAM_GENERAL_LOG) << "\tDestination Row =" << m_destination_row;
+        qDebug() << "Can't undo from UndoMoveRowsCommand:";
+        qDebug() << "\tStarting Row =" << m_starting_row;
+        qDebug() << "\tRows count =" << m_rows_count;
+        qDebug() << "\tDestination Row =" << m_destination_row;
         if (m_model)
         {
-            qCDebug(DIGIKAM_GENERAL_LOG) << "\tSource Parent =" << m_model->findIndex(m_src_parent_row);
-            qCDebug(DIGIKAM_GENERAL_LOG) << "\tDestination Parent =" << m_model->findIndex(m_dest_parent_row);
+            qDebug() << "\tSource Parent =" << m_model->findIndex(m_src_parent_row);
+            qDebug() << "\tDestination Parent =" << m_model->findIndex(m_dest_parent_row);
         }
     }
 #endif

@@ -33,7 +33,7 @@
 #include <QCheckBox>
 
 #include <kconfigdialog.h>
-#include <klocalizedstring.h>
+
 
 using namespace PhotoLayoutsEditor;
 
@@ -88,16 +88,16 @@ void PLEConfigViewWidget::setupGUI()
     layout->addLayout(generalLayout);
     d->antialiasing = new QCheckBox(this);
     connect(skeleton, SIGNAL(antialiasingChanged(bool)), d->antialiasing, SLOT(setChecked(bool)));
-    generalLayout->addRow(i18n("Antialiasing"), d->antialiasing);
+    generalLayout->addRow(tr("Antialiasing"), d->antialiasing);
 
-    QGroupBox * gridBox = new QGroupBox(i18n("Grid"), this);
+    QGroupBox * gridBox = new QGroupBox(tr("Grid"), this);
     layout->addWidget(gridBox);
     QFormLayout * gridLayout = new QFormLayout();
     gridBox->setLayout(gridLayout);
 
     d->showGrid = new QCheckBox(gridBox);
     connect(skeleton, SIGNAL(showGridChanged(bool)), d->showGrid, SLOT(setChecked(bool)));
-    gridLayout->addRow(i18n("Show grid lines"), d->showGrid);
+    gridLayout->addRow(tr("Show grid lines"), d->showGrid);
 
     d->xGrid = new QDoubleSpinBox(gridBox);
     KConfigSkeletonItem * hgi = skeleton->findItem(QLatin1String("horizontalGrid"));
@@ -108,7 +108,7 @@ void PLEConfigViewWidget::setupGUI()
     }
     d->xGrid->setSingleStep(1.0);
     connect(skeleton, SIGNAL(horizontalGridChanged(double)), d->xGrid, SLOT(setValue(double)));
-    gridLayout->addRow(i18n("Horizontal distance"), d->xGrid);
+    gridLayout->addRow(tr("Horizontal distance"), d->xGrid);
 
     d->yGrid = new QDoubleSpinBox(gridBox);
     KConfigSkeletonItem * vgi = skeleton->findItem(QLatin1String("verticalGrid"));
@@ -119,10 +119,10 @@ void PLEConfigViewWidget::setupGUI()
     }
     d->yGrid->setSingleStep(1.0);
     connect(skeleton, SIGNAL(verticalGridChanged(double)), d->yGrid, SLOT(setValue(double)));
-    gridLayout->addRow(i18n("Vertical distance"), d->yGrid);
+    gridLayout->addRow(tr("Vertical distance"), d->yGrid);
 
 //    KConfigDialog * dialog = KConfigDialog::exists( "settings" );
-//    qCDebug(DIGIKAM_GENERAL_LOG) << dialog;
+//    qDebug() << dialog;
 //    if (dialog)
 //    {
 //        connect(d->antialiasing, SIGNAL(stateChanged(int)), dialog, SLOT(updateButtons()));

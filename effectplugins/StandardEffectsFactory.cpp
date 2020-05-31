@@ -39,24 +39,24 @@ StandardEffectsFactory::StandardEffectsFactory(QObject* parent) :
 
 AbstractPhotoEffectInterface * StandardEffectsFactory::getEffectInstance(const QString& name)
 {
-    if (name == i18n("Blur effect"))
+    if (name == tr("Blur effect"))
         return new BlurPhotoEffect(this);
-    if (name == i18n("Colorize effect"))
+    if (name == tr("Colorize effect"))
         return new ColorizePhotoEffect(this);
-    if (name == i18n("Grayscale effect"))
+    if (name == tr("Grayscale effect"))
         return new GrayscalePhotoEffect(this);
-    if (name == i18n("Sepia effect"))
+    if (name == tr("Sepia effect"))
         return new SepiaPhotoEffect(this);
-    if (name == i18n("Negative effect"))
+    if (name == tr("Negative effect"))
         return new NegativePhotoEffect(this);
     return 0;
 }
 
 QString StandardEffectsFactory::effectName() const
 {
-    return i18n("Blur effect") + QLatin1String(";") +
-           i18n("Colorize effect") + QLatin1String(";") +
-           i18n("Grayscale effect") + QLatin1String(";") +
-           i18n("Sepia effect") + QLatin1String(";") +
-           i18n("Negative effect");
+    return tr("Blur effect") + QLatin1String(";") +
+           tr("Colorize effect") + QLatin1String(";") +
+           tr("Grayscale effect") + QLatin1String(";") +
+           tr("Sepia effect") + QLatin1String(";") +
+           tr("Negative effect");
 }

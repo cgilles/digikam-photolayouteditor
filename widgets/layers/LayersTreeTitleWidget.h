@@ -32,7 +32,7 @@
 
 #include <QPushButton>
 #include <QIcon>
-#include <klocalizedstring.h>
+
 
 namespace PhotoLayoutsEditor
 {
@@ -48,7 +48,7 @@ namespace PhotoLayoutsEditor
             LayersTreeTitleWidget (QWidget * parent = 0) :
                 QWidget(parent),
                 m_layout(new QHBoxLayout(this)),
-                m_label(new QLabel(i18n("Layers"),this)),
+                m_label(new QLabel(tr("Layers"),this)),
                 m_up_btn(new QPushButton(QIcon(QLatin1String(":/arrow_top.png")), QString(), this)),
                 m_dwn_btn(new QPushButton(QIcon(QLatin1String(":/arrow_down.png")), QString(), this))
             {

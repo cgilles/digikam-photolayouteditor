@@ -29,7 +29,7 @@
 #include "LayersModel.h"
 #include "LayersModelItem.h"
 
-#include <klocalizedstring.h>
+
 
 using namespace PhotoLayoutsEditor;
 

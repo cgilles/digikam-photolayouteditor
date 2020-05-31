@@ -33,7 +33,7 @@
 #include <QMessageBox>
 #include <QApplication>
 
-#include <klocalizedstring.h>
+
 
 #include "Scene.h"
 #include "LayersModel.h"
@@ -49,7 +49,7 @@
 #include "CanvasSavingThread.h"
 #include "PLEStatusBar.h"
 #include "PLEConfigSkeleton.h"
-#include "digikam_debug.h"
+#include <QDebug>
 
 #define MAX_SCALE_LIMIT 4
 #define MIN_SCALE_LIMIT 0.5
@@ -220,7 +220,7 @@ void Canvas::preparePrinter(QPrinter * printer)
     default:
         printer->setPaperSize(cs, QPrinter::DevicePixel);
         setResolution = false;
-        qCDebug(DIGIKAM_GENERAL_LOG) << "Unhandled size unit at:" << __FILE__ << ":" << __LINE__;
+        qDebug() << "Unhandled size unit at:" << __FILE__ << ":" << __LINE__;
     }
     if (setResolution)
     {
@@ -319,7 +319,7 @@ void Canvas::moveSelectedRowsUp()
     if (!selectedIndexes.count())
     {
         #ifdef  QT_DEBUG
-        qCDebug(DIGIKAM_GENERAL_LOG) << "No items selected to move!" << selectedIndexes;
+        qDebug() << "No items selected to move!" << selectedIndexes;
         #endif
         return;
     }
@@ -338,14 +338,14 @@ void Canvas::moveSelectedRowsUp()
             if (startIndex.parent() != it->parent())
             {
                 #ifdef  QT_DEBUG
-                qCDebug(DIGIKAM_GENERAL_LOG) << "Different parents of items!\n" << selectedIndexes;
+                qDebug() << "Different parents of items!\n" << selectedIndexes;
                 #endif
                 return;
             }
             else if (!it->isValid())
             {
                 #ifdef  QT_DEBUG
-                qCDebug(DIGIKAM_GENERAL_LOG) << "Invalid items!\n" << selectedIndexes;
+                qDebug() << "Invalid items!\n" << selectedIndexes;
                 #endif
                 return;
             }
@@ -361,7 +361,7 @@ void Canvas::moveSelectedRowsUp()
         if ((((minRow+maxRow)*(maxRow-minRow+1))/2.0) != sumRows)
         {
             #ifdef  QT_DEBUG
-            qCDebug(DIGIKAM_GENERAL_LOG) << "Unordered items!\n" << selectedIndexes;
+            qDebug() << "Unordered items!\n" << selectedIndexes;
             #endif
             return;
         }
@@ -377,7 +377,7 @@ void Canvas::moveSelectedRowsDown()
     if (!selectedIndexes.count())
     {
         #ifdef  QT_DEBUG
-        qCDebug(DIGIKAM_GENERAL_LOG) << "No items selected to move!" << selectedIndexes;
+        qDebug() << "No items selected to move!" << selectedIndexes;
         #endif
         return;
     }
@@ -396,14 +396,14 @@ void Canvas::moveSelectedRowsDown()
             if (startIndex.parent() != it->parent())
             {
                 #ifdef  QT_DEBUG
-                qCDebug(DIGIKAM_GENERAL_LOG) << "Different parents of items!\n" << selectedIndexes;
+                qDebug() << "Different parents of items!\n" << selectedIndexes;
                 #endif
                 return;
             }
             else if (!it->isValid())
             {
                 #ifdef  QT_DEBUG
-                qCDebug(DIGIKAM_GENERAL_LOG) << "Invalid items!\n" << selectedIndexes;
+                qDebug() << "Invalid items!\n" << selectedIndexes;
                 #endif
                 return;
             }
@@ -419,7 +419,7 @@ void Canvas::moveSelectedRowsDown()
         if ((((minRow+maxRow)*(maxRow-minRow+1))/2.0) != sumRows)
         {
             #ifdef  QT_DEBUG
-            qCDebug(DIGIKAM_GENERAL_LOG) << "Unordered items!\n" << selectedIndexes;
+            qDebug() << "Unordered items!\n" << selectedIndexes;
             #endif
             return;
         }
@@ -703,7 +703,7 @@ QDomDocument Canvas::toSvg() const
         default:
             svg.setAttribute(QLatin1String("width"), svg.attribute(QLatin1String("width")) + QLatin1String("px"));
             svg.setAttribute(QLatin1String("height"), svg.attribute(QLatin1String("height")) + QLatin1String("px"));
-            qCDebug(DIGIKAM_GENERAL_LOG) << "Unhandled size unit at:" << __FILE__ << ":" << __LINE__;
+            qDebug() << "Unhandled size unit at:" << __FILE__ << ":" << __LINE__;
     }
 
     QDomElement resolution = result.createElementNS(PhotoLayoutsEditor::uri(), QLatin1String("page"));
@@ -731,7 +731,7 @@ Canvas * Canvas::fromSvg(QDomDocument & document)
             QString xResolution = pageElement.attribute(QLatin1String("width"));
             QString yResolution = pageElement.attribute(QLatin1String("height"));
             QString resUnit = pageElement.attribute(QLatin1String("unit"));
-            qCDebug(DIGIKAM_GENERAL_LOG) << pageElement.namespaceURI() << PhotoLayoutsEditor::templateUri();
+            qDebug() << pageElement.namespaceURI() << PhotoLayoutsEditor::templateUri();
 
             // Canvas size validation
             QRegExp sizeRegExp(QLatin1String("[0-9.]+((cm)|(mm)|(in)|(pc)|(pt)|(px))"));
@@ -769,7 +769,7 @@ Canvas * Canvas::fromSvg(QDomDocument & document)
             }
             else
             {
-                QMessageBox::critical(qApp->activeWindow(), i18n("Error"), i18n("Invalid image size!"));
+                QMessageBox::critical(qApp->activeWindow(), tr("Error"), tr("Invalid image size!"));
             }
         }
     }
@@ -833,8 +833,8 @@ void Canvas::save(const QUrl & fileUrl, bool setAsDefault)
         if (m_file.isEmpty() || !m_file.isValid())
         {
             QMessageBox::critical(qApp->activeWindow(),
-                                  i18n("Can't save canvas!"),
-                                  i18n("Invalid file path."));
+                                  tr("Can't save canvas!"),
+                                  tr("Invalid file path."));
             return;
         }
         tempFile = m_file;
@@ -853,8 +853,8 @@ void Canvas::saveTemplate(const QUrl & fileUrl)
     if (fileUrl.isEmpty() || !fileUrl.isValid())
     {
         QMessageBox::critical(qApp->activeWindow(),
-                              i18n("Can't save canvas!"),
-                              i18n("Invalid file path."));
+                              tr("Can't save canvas!"),
+                              tr("Invalid file path."));
         return;
     }
 
@@ -929,7 +929,7 @@ void Canvas::renderCanvas(QPrinter * device)
 
 void Canvas::beginRowsRemoving()
 {
-    m_undo_stack->beginMacro(i18n("Remove items"));
+    m_undo_stack->beginMacro(tr("Remove items"));
 }
 
 void Canvas::endRowsRemoving()

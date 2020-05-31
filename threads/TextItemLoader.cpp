@@ -27,7 +27,7 @@
 #include "TextItem.h"
 #include "ProgressObserver.h"
 
-#include <klocalizedstring.h>
+
 
 using namespace PhotoLayoutsEditor;
 
@@ -57,7 +57,7 @@ void TextItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.5);
-        observer->progresName(i18n("Reading text..."));
+        observer->progresName(tr("Reading text..."));
     }
     QDomElement text = data.firstChildElement(QLatin1String("text"));
     if (text.isNull())
@@ -73,7 +73,7 @@ void TextItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.7);
-        observer->progresName(i18n("Reading color..."));
+        observer->progresName(tr("Reading color..."));
     }
     QDomElement color = data.firstChildElement(QLatin1String("color"));
     if (color.isNull())
@@ -84,7 +84,7 @@ void TextItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.9);
-        observer->progresName(i18n("Reading fonts..."));
+        observer->progresName(tr("Reading fonts..."));
     }
     QDomElement font = data.firstChildElement(QLatin1String("font"));
     if (font.isNull())
@@ -94,7 +94,7 @@ void TextItemLoader::run()
     if (observer)
     {
         observer->progresChanged(1);
-        observer->progresName(i18n("Finishing..."));
+        observer->progresName(tr("Finishing..."));
     }
 
     this->exit(0);

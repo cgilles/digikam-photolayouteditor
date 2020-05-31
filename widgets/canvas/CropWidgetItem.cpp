@@ -34,7 +34,7 @@
 #include <QKeyEvent>
 
 #include <kmessagebox.h>
-#include <klocalizedstring.h>
+
 
 using namespace PhotoLayoutsEditor;
 
@@ -250,7 +250,7 @@ void CropWidgetItem::keyPressEvent(QKeyEvent * event)
             if (d->m_items.count() > 1)
             {
                 commandGroupOpened = true;
-                PhotoLayoutsWindow::instance()->beginUndoCommandGroup(i18n("Crop items"));
+                PhotoLayoutsWindow::instance()->beginUndoCommandGroup(tr("Crop items"));
             }
 
             foreach(AbstractPhoto* item, d->m_items)
@@ -264,7 +264,7 @@ void CropWidgetItem::keyPressEvent(QKeyEvent * event)
             KMessageBox::error(0,
             // We need this hint to xgettext otherwise it thinks that %1p is the printf %p with a 1 modifier
             // xgettext: no-c-format
-                               i18n("Bounding rectangle of the crop shape has size [%1px x %2px] "
+                               tr("Bounding rectangle of the crop shape has size [%1px x %2px] "
                                     "and it's less than 1px x 1px",
                                     QString::number(qRound(d->m_rect.width())),
                                     QString::number(qRound(d->m_rect.height()))

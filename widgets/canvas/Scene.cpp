@@ -54,7 +54,7 @@
 #include <QTemporaryFile>
 
 // KDE
-#include <klocalizedstring.h>
+
 
 #include "global.h"
 #include "RotationWidgetItem.h"
@@ -70,7 +70,7 @@
 #include "CanvasLoadingThread.h"
 #include "PhotoItem.h"
 #include "SceneBorder.h"
-#include "digikam_debug.h"
+#include <QDebug>
 #include "imagedialog.h"
 #include "LayersModel.h"
 #include "LayersModelItem.h"
@@ -303,7 +303,7 @@ class AddItemsCommand
         bool done;
     public:
         AddItemsCommand(AbstractPhoto * item, int position, Scene * scene, QUndoCommand * parent = 0) :
-            QUndoCommand(i18n("Add item"), parent),
+            QUndoCommand(tr("Add item"), parent),
             position(position),
             scene(scene),
             done(false)
@@ -510,7 +510,7 @@ public:
     CropItemsCommand(const QPainterPath & path, const QList<AbstractPhoto*> & items, QUndoCommand * parent = 0) :
         QUndoCommand(i18np("Crop item", "Crop items", items.count()), parent)
     {
-        qCDebug(DIGIKAM_GENERAL_LOG) << "scene crop shape" << path.boundingRect();
+        qDebug() << "scene crop shape" << path.boundingRect();
         foreach(AbstractPhoto* item, items)
             data.insert(item, item->mapFromScene(path));
     }
@@ -726,7 +726,7 @@ void Scene::contextMenuEvent(QGraphicsSceneMouseEvent * event)
             PhotoItem * item = dynamic_cast<PhotoItem*>(items.first());
             if (item)
             {
-                QAction * removeAction = menu.addAction( i18n("Change item's image") );
+                QAction * removeAction = menu.addAction( tr("Change item's image") );
                 connect(removeAction, SIGNAL(triggered()), this, SLOT(changeSelectedImage()));
             }
         }
@@ -737,7 +737,7 @@ void Scene::contextMenuEvent(QGraphicsSceneMouseEvent * event)
     }
 
     // Background
-    QAction * background = menu.addAction( i18n("Canvas background") );
+    QAction * background = menu.addAction( tr("Canvas background") );
     connect(background, SIGNAL(triggered()), ToolsDockWidget::instance(), SLOT(setCanvasWidgetVisible()));
 
     menu.exec(event->screenPos());
@@ -941,7 +941,7 @@ void Scene::mouseReleaseEvent(QGraphicsSceneMouseEvent * event)
             // Post move command to QUndoStack
             if ((m_interaction_mode & Moving) && d->wasMoved())
             {
-                qCDebug(DIGIKAM_GENERAL_LOG) << "move command from scene";
+                qDebug() << "move command from scene";
                 QUndoCommand * command = new MoveItemsCommand(d->m_selected_items, this);
                 PLE_PostUndoCommand(command);
             }
@@ -1420,7 +1420,7 @@ QDomDocument Scene::toSvg(ProgressObserver * observer, bool asTemplate)
     //--------------------------------------------------------
 
     if (observer)
-        observer->progresName( i18n("Saving background...") );
+        observer->progresName( tr("Saving background...") );
 
     QDomElement background = document.createElement(QLatin1String("g"));
     background.setAttribute(QLatin1String("class"), QLatin1String("background"));
@@ -1440,7 +1440,7 @@ QDomDocument Scene::toSvg(ProgressObserver * observer, bool asTemplate)
         if (photo)
         {
             if (observer)
-                observer->progresName( i18n("Saving %1...", photo->name()) );
+                observer->progresName( tr("Saving %1...", photo->name()) );
 
             QDomDocument photoItemDocument = asTemplate ? photo->toTemplateSvg() : photo->toSvg();
             sceneElement.appendChild( photoItemDocument.documentElement() );
@@ -1453,7 +1453,7 @@ QDomDocument Scene::toSvg(ProgressObserver * observer, bool asTemplate)
     //--------------------------------------------------------
 
     if (observer)
-        observer->progresName( i18n("Saving border...") );
+        observer->progresName( tr("Saving border...") );
 
     QDomElement border = document.createElement(QLatin1String("g"));
     border.setAttribute(QLatin1String("class"), QLatin1String("border"));
@@ -1532,7 +1532,7 @@ Scene * Scene::fromSvg(QDomElement & sceneElement)
     // Show error message
     if (errorsCount)
     {
-        QMessageBox::critical(0, i18n("Error"), i18np("Unable to create one element", "Unable to create %1 elements", errorsCount));
+        QMessageBox::critical(0, tr("Error"), i18np("Unable to create one element", "Unable to create %1 elements", errorsCount));
     }
 
     return result;
@@ -1639,7 +1639,7 @@ bool Scene::askAboutRemoving(int count)
     if (count)
     {
         int result = QMessageBox::question(qApp->activeWindow(), 
-                                           i18n("Items deleting"),
+                                           tr("Items deleting"),
                                            i18np("Are you sure you want to delete selected item?", "Are you sure you want to delete %1 selected items?", count));
         if (result == QMessageBox::Yes)
             return true;

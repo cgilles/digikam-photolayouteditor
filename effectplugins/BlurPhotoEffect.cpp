@@ -26,7 +26,7 @@
 #include "BlurPhotoEffect.h"
 #include "StandardEffectsFactory.h"
 
-#include <klocalizedstring.h>
+
 
 using namespace PhotoLayoutsEditor;
 
@@ -50,7 +50,7 @@ QImage BlurPhotoEffect::apply(const QImage & image) const
 
 QString BlurPhotoEffect::name() const
 {
-    return i18n("Blur effect");
+    return tr("Blur effect");
 }
 
 QString BlurPhotoEffect::toString() const

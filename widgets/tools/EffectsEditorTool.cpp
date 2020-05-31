@@ -36,14 +36,14 @@
 #include <QPushButton>
 #include <QComboBox>
 
-#include <klocalizedstring.h>
+
 
 #include "qtpropertybrowser.h"
 
 using namespace PhotoLayoutsEditor;
 
 EffectsEditorTool::EffectsEditorTool(Scene * scene, QWidget * parent) :
-    AbstractItemsListViewTool(i18n("Effects"), scene, Canvas::SingleSelcting, parent)
+    AbstractItemsListViewTool(tr("Effects"), scene, Canvas::SingleSelcting, parent)
 {
 }
 

@@ -45,118 +45,141 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
                     $<TARGET_PROPERTY:Qt5::Core,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::Widgets,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::PrintSupport,INTERFACE_INCLUDE_DIRECTORIES>
+                    ${CMAKE_CURRENT_SOURCE_DIR}/extra
+                    ${CMAKE_CURRENT_SOURCE_DIR}/threads
+                    ${CMAKE_CURRENT_SOURCE_DIR}/undo
+                    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas
+                    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs
+                    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/extra
+                    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items
+                    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/layers
+                    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/menus
+                    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools
+                    ${CMAKE_CURRENT_SOURCE_DIR}/settings
+                    ${CMAKE_CURRENT_SOURCE_DIR}/models
+                    ${CMAKE_CURRENT_SOURCE_DIR}/main
+                    ${CMAKE_CURRENT_SOURCE_DIR}/listeners
+                    ${CMAKE_CURRENT_SOURCE_DIR}/events
+                    ${CMAKE_CURRENT_SOURCE_DIR}/effects
+                    ${CMAKE_CURRENT_SOURCE_DIR}/effectplugins
+                    ${CMAKE_CURRENT_SOURCE_DIR}/borders
+                    ${CMAKE_CURRENT_SOURCE_DIR}/borderplugins
+)
 
-add_subdirectory(resources/app)
 add_subdirectory(data)
 
 set(photolayoutseditor_SRCS
 
-    events/ProgressEvent.cpp
-    events/UndoCommandEvent.cpp
-    events/UndoCommandEventFilter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/events/ProgressEvent.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/events/UndoCommandEvent.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/events/UndoCommandEventFilter.cpp
 
-    models/AbstractMovableModel.cpp
-    models/LayersModel.cpp
-    models/LayersModelItem.cpp
-    models/LayersSelectionModel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/AbstractMovableModel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/LayersModel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/LayersModelItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/LayersSelectionModel.cpp
 
-    borderplugins/StandardBordersFactory.cpp
-    borderplugins/PolaroidBorderDrawer.cpp
-    borderplugins/SolidBorderDrawer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/borderplugins/StandardBordersFactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/borderplugins/PolaroidBorderDrawer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/borderplugins/SolidBorderDrawer.cpp
 
-    borders/BorderChangeListener.cpp
-    borders/BorderDrawerInterface.cpp
-    borders/BorderDrawersLoader.cpp
-    borders/BordersGroup.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/borders/BorderChangeListener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/borders/BorderDrawerInterface.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/borders/BorderDrawersLoader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/borders/BordersGroup.cpp
 
-    effectplugins/StandardEffectsFactory.cpp
-    effectplugins/BlurPhotoEffect.cpp
-    effectplugins/ColorizePhotoEffect.cpp
-    effectplugins/GrayscalePhotoEffect.cpp
-    effectplugins/SepiaPhotoEffect.cpp
-    effectplugins/NegativePhotoEffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/effectplugins/StandardEffectsFactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/effectplugins/BlurPhotoEffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/effectplugins/ColorizePhotoEffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/effectplugins/GrayscalePhotoEffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/effectplugins/SepiaPhotoEffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/effectplugins/NegativePhotoEffect.cpp
 
-    effects/AbstractPhotoEffectInterface.cpp
-    effects/PhotoEffectChangeListener.cpp
-    effects/PhotoEffectsGroup.cpp
-    effects/PhotoEffectsLoader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/effects/AbstractPhotoEffectInterface.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/effects/PhotoEffectChangeListener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/effects/PhotoEffectsGroup.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/effects/PhotoEffectsLoader.cpp
 
-    threads/AbstractPhotoItemLoader.cpp
-    threads/CanvasLoadingThread.cpp
-    threads/CanvasSavingThread.cpp
-    threads/ImageLoadingThread.cpp
-    threads/PhotoItemLoader.cpp
-    threads/SceneBackgroundLoader.cpp
-    threads/SceneBorderLoader.cpp
-    threads/TextItemLoader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/threads/AbstractPhotoItemLoader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/threads/CanvasLoadingThread.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/threads/CanvasSavingThread.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/threads/ImageLoadingThread.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/threads/PhotoItemLoader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/threads/SceneBackgroundLoader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/threads/SceneBorderLoader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/threads/TextItemLoader.cpp
 
-    extra/global.cpp
-    extra/KEditFactory.cpp
-    extra/qtpropertybrowser/qtbuttonpropertybrowser.cpp
-    extra/qtpropertybrowser/qteditorfactory.cpp
-    extra/qtpropertybrowser/qtgroupboxpropertybrowser.cpp
-    extra/qtpropertybrowser/qtpropertybrowser.cpp
-    extra/qtpropertybrowser/qtpropertybrowserutils.cpp
-    extra/qtpropertybrowser/qtpropertymanager.cpp
-    extra/qtpropertybrowser/qttreepropertybrowser.cpp
-    extra/qtpropertybrowser/qtvariantproperty.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/extra/global.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/extra/KEditFactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qtbuttonpropertybrowser.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qteditorfactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qtgroupboxpropertybrowser.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qtpropertybrowser.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qtpropertybrowserutils.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qtpropertymanager.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qttreepropertybrowser.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qtvariantproperty.cpp
 
-    widgets/extra/PatternsComboBox.cpp
-    widgets/extra/PLEStatusBar.cpp
-    widgets/layers/LayersTree.cpp
-    widgets/layers/LayersTreeDelegate.cpp
-    widgets/items/AbstractPhoto.cpp
-    widgets/items/AbstractPhoto_p.cpp
-    widgets/items/TextItem.cpp
-    widgets/items/AbstractItemInterface.cpp
-    widgets/items/PhotoItem.cpp
-    widgets/menus/LayersTreeMenu.cpp
-    widgets/tools/AbstractItemsListViewTool.cpp
-    widgets/tools/AbstractItemsTool.cpp
-    widgets/tools/AbstractTool.cpp
-    widgets/tools/BorderEditTool.cpp
-    widgets/tools/CanvasEditTool.cpp
-    widgets/tools/EffectsEditorTool.cpp
-    widgets/tools/TextEditorTool.cpp
-    widgets/tools/ToolsDockWidget.cpp
-    widgets/tools/ZoomTool.cpp
-    widgets/dialogs/CanvasSizeDialog.cpp
-    widgets/dialogs/GridSetupDialog.cpp
-    widgets/dialogs/NewCanvasDialog.cpp
-    widgets/dialogs/CanvasSizeWidget.cpp
-    widgets/dialogs/TemplatesModel.cpp
-    widgets/dialogs/TemplatesView.cpp
-    widgets/canvas/Canvas.cpp
-    widgets/canvas/CanvasSize.cpp
-    widgets/canvas/CropWidgetItem.cpp
-    widgets/canvas/MousePressListener.cpp
-    widgets/canvas/RotationWidgetItem.cpp
-    widgets/canvas/ScalingWidgetItem.cpp
-    widgets/canvas/SceneBackground.cpp
-    widgets/canvas/SceneBorder.cpp
-    widgets/canvas/Scene.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/extra/PatternsComboBox.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/extra/PLEStatusBar.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/layers/LayersTree.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/layers/LayersTreeDelegate.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractPhoto.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractPhoto_p.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/TextItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/AbstractItemInterface.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/items/PhotoItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/menus/LayersTreeMenu.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/AbstractItemsListViewTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/AbstractItemsTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/AbstractTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/BorderEditTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/CanvasEditTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/EffectsEditorTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/TextEditorTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/ToolsDockWidget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/tools/ZoomTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/CanvasSizeDialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/GridSetupDialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/NewCanvasDialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/CanvasSizeWidget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/TemplatesModel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/dialogs/TemplatesView.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/Canvas.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/CanvasSize.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/CropWidgetItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/MousePressListener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/RotationWidgetItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/ScalingWidgetItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/SceneBackground.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/SceneBorder.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets/canvas/Scene.cpp
 
-    listeners/TextColorChangeListener.cpp
-    listeners/TextFontChangeListener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/listeners/TextColorChangeListener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/listeners/TextFontChangeListener.cpp
 
-    undo/UndoMoveRowsCommand.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/undo/UndoMoveRowsCommand.cpp
 
-    settings/PLEConfigDialog.cpp
-    settings/PLEConfigViewWidget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/settings/PLEConfigDialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/settings/PLEConfigViewWidget.cpp
 
-    main/photolayoutswindow.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/main/photolayoutswindow.cpp
 )
 
 set(photolayoutseditor_RCS
-    resources/icons.qrc
-    extra/qtpropertybrowser/qtpropertybrowser.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser/qtpropertybrowser.qrc
    )
 
 qt5_add_resources(photolayoutseditor_SRCS ${photolayoutseditor_RCS})
 
 #kconfig_add_kcfg_files(photolayoutseditor_SRCS GENERATE_MOC settings/PLEConfigSkeleton.kcfgc)
 
-add_library(photolayoutseditor_src OBJECT ${photolayoutseditor_SRCS})
+add_library(photolayoutseditor STATIC ${photolayoutseditor_SRCS})
+
+if(NOT MSVC)
+    target_compile_options(photolayoutseditor PRIVATE -fPIC)
+endif()
 
 #install(FILES settings/photolayoutseditor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 #install(PROGRAMS main/photolayoutseditor.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
@@ -167,22 +190,16 @@ add_library(photolayoutseditor_src OBJECT ${photolayoutseditor_SRCS})
 # =======================================================
 # Stand-alone version of PhotoLayoutsEditor
 
-set(collage_SRCS main/collage.cpp)
-
 #file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/./resources/app/*photolayoutseditor.png")
 #ecm_add_app_icon(photolayoutseditor_SRCS ICONS ${ICONS_SRCS})
 
-set(DIGIKAMCORE_OBJECTS
-    ${DIGIKAMCORE_OBJECTS}
-)
-
 add_executable(collage
-               ${collage_SRCS}
-               $<TARGET_OBJECTS:photolayoutseditor_src>
+               ${CMAKE_CURRENT_SOURCE_DIR}/main/collage.cpp
 )
 
 target_link_libraries(collage
 
+                      photolayoutseditor
                       digikamcore
 
                       Qt5::Gui

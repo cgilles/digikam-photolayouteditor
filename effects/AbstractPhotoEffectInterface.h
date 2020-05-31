@@ -35,7 +35,7 @@
 #include <QMetaProperty>
 #include <QDebug>
 
-#include <klocalizedstring.h>
+
 
 #define STRENGTH_PROPERTY QLatin1String("Strength")
 

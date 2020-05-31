@@ -26,7 +26,7 @@
 
 #include <QComboBox>
 #include <QPushButton>
-#include <klocalizedstring.h>
+
 
 #include <QDoubleSpinBox>
 #include <QLabel>
@@ -132,7 +132,7 @@ void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, c
     this->setLayout(vLayout);
 
     /// ----------------------- CANVAS SIZE PART -----------------------
-    d->sizeWidget = new QGroupBox(i18n("Canvas size"), this);
+    d->sizeWidget = new QGroupBox(tr("Canvas size"), this);
     vLayout->addWidget(d->sizeWidget);
 
     QGridLayout * gridLayout = new QGridLayout(d->sizeWidget);
@@ -147,7 +147,7 @@ void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, c
                                     resolution.width(),
                                     CanvasSize::sizeUnit(tempSizeUnits),
                                     CanvasSize::resolutionUnit(tempResolutionUnits));
-    gridLayout->addWidget(new QLabel(i18n("Width"), d->sizeWidget),0,0);
+    gridLayout->addWidget(new QLabel(tr("Width"), d->sizeWidget),0,0);
     gridLayout->addWidget(d->xSize,0,1);
 
     // Height widget
@@ -159,7 +159,7 @@ void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, c
                                      resolution.height(),
                                      CanvasSize::sizeUnit(tempSizeUnits),
                                      CanvasSize::resolutionUnit(tempResolutionUnits));
-    gridLayout->addWidget(new QLabel(i18n("Height"), d->sizeWidget),1,0);
+    gridLayout->addWidget(new QLabel(tr("Height"), d->sizeWidget),1,0);
     gridLayout->addWidget(d->ySize,1,1);
 
     // Unit widget
@@ -174,7 +174,7 @@ void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, c
     gridLayout->addWidget(d->sizeLabel,2, 2);
 
     /// ----------------------- ADVANCED PART -----------------------
-    d->advancedWidget = new QGroupBox(i18n("Advanced"), this);
+    d->advancedWidget = new QGroupBox(tr("Advanced"), this);
     vLayout->addWidget(d->advancedWidget);
     gridLayout = new QGridLayout(d->advancedWidget);
     d->advancedWidget->setLayout(gridLayout);
@@ -186,7 +186,7 @@ void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, c
     d->xResolution->setValue(resolution.width());
     d->xResolution->setDecimals(3);
     d->WIDTH_RES = resolution.width() * CanvasSize::resolutionUnitFactor(tempResolutionUnits);
-    gridLayout->addWidget(new QLabel(i18n("Resolution X"), d->advancedWidget),0,0);
+    gridLayout->addWidget(new QLabel(tr("Resolution X"), d->advancedWidget),0,0);
     gridLayout->addWidget(d->xResolution,0,1);
 
     // y resolution widget
@@ -196,7 +196,7 @@ void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, c
     d->yResolution->setValue(resolution.height());
     d->yResolution->setDecimals(3);
     d->HEIGHT_RES = resolution.height() * CanvasSize::resolutionUnitFactor(tempResolutionUnits);
-    gridLayout->addWidget(new QLabel(i18n("Resolution Y"), d->advancedWidget),1,0);
+    gridLayout->addWidget(new QLabel(tr("Resolution Y"), d->advancedWidget),1,0);
     gridLayout->addWidget(d->yResolution,1,1);
 
     // Unit widget

@@ -39,7 +39,7 @@
 #include <QMetaProperty>
 #include <QPushButton>
 
-#include <klocalizedstring.h>
+
 
 #include "KEditFactory.h"
 #include "qttreepropertybrowser.h"
@@ -47,7 +47,7 @@
 using namespace PhotoLayoutsEditor;
 
 BorderEditTool::BorderEditTool(Scene * scene, QWidget * parent) :
-    AbstractItemsListViewTool(i18n("Borders editor"), scene, Canvas::SingleSelcting, parent)
+    AbstractItemsListViewTool(tr("Borders editor"), scene, Canvas::SingleSelcting, parent)
 {
 }
 

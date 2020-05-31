@@ -32,13 +32,13 @@
 #include <QScrollArea>
 #include <QIcon>
 
-#include <klocalizedstring.h>
+
 #include "CanvasEditTool.h"
 #include "EffectsEditorTool.h"
 #include "TextEditorTool.h"
 #include "BorderEditTool.h"
 #include "ZoomTool.h"
-#include "digikam_debug.h"
+#include <QDebug>
 
 using namespace PhotoLayoutsEditor;
 
@@ -95,7 +95,7 @@ ToolsDockWidget * ToolsDockWidget::instance(QWidget * parent)
 }
 
 ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
-    QDockWidget(i18n("Tools"),parent),
+    QDockWidget(tr("Tools"),parent),
 //    m_has_selection(false),
     m_current_item(0),
     m_scene(0),
@@ -126,7 +126,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
     // Selection tool
 
     m_tool_pointer = new QPushButton(QIcon(QLatin1String(":/pointer.png")), QString(), widget);
-    m_tool_pointer->setToolTip(i18n("Tool which allows one to select and move images on canvas. Any other operations are disabled."));
+    m_tool_pointer->setToolTip(tr("Tool which allows one to select and move images on canvas. Any other operations are disabled."));
     m_tool_pointer->setIconSize(QSize(24,24));
     m_tool_pointer->setFixedSize(32,32);
     m_tool_pointer->setCheckable(true);
@@ -136,7 +136,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
 
     // View tool
     m_tool_hand = new QPushButton(QIcon(QLatin1String(":/hand.png")), QString(), widget);
-    m_tool_hand->setToolTip(i18n("This tool allows one to view whole canvas in read-only mode. Only scrolling and zooming are available."));
+    m_tool_hand->setToolTip(tr("This tool allows one to view whole canvas in read-only mode. Only scrolling and zooming are available."));
     m_tool_hand->setIconSize(QSize(24,24));
     m_tool_hand->setFixedSize(32,32);
     m_tool_hand->setCheckable(true);
@@ -146,7 +146,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
 
     // Zoom tool
     m_tool_zoom = new QPushButton(QIcon(QLatin1String(":/zoom.png")), QString(), widget);
-    m_tool_zoom->setToolTip(i18n("This tool allows one to zoom canvas to fit it to the application window or users preferences."));
+    m_tool_zoom->setToolTip(tr("This tool allows one to zoom canvas to fit it to the application window or users preferences."));
     m_tool_zoom->setIconSize(QSize(24,24));
     m_tool_zoom->setFixedSize(32,32);
     m_tool_zoom->setCheckable(true);
@@ -156,7 +156,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
 
     // Canvas edit tool
     m_canvas_button = new QPushButton(QIcon(QLatin1String(":/tool_canvas.png")), QString(), widget);
-    m_canvas_button->setToolTip(i18n("This tool allows you to edit canvas properties like size and background."));
+    m_canvas_button->setToolTip(tr("This tool allows you to edit canvas properties like size and background."));
     m_canvas_button->setIconSize(QSize(24,24));
     m_canvas_button->setFixedSize(32,32);
     m_canvas_button->setCheckable(true);
@@ -167,7 +167,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
     // Text tool
     m_text_button = new QPushButton(QIcon(QLatin1String(":/tool_text.png")), QString(), 
     widget);
-    m_text_button->setToolTip(i18n("This tool allows you to write text on the canvas. It's simple - just click on the canvas where you want to add some text and write it!"));
+    m_text_button->setToolTip(tr("This tool allows you to write text on the canvas. It's simple - just click on the canvas where you want to add some text and write it!"));
 
     m_text_button->setIconSize(QSize(24,24));
     m_text_button->setFixedSize(32,32);
@@ -178,7 +178,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
 
     // Rotate tool
     m_rotate_button = new QPushButton(QIcon(QLatin1String(":/tool_rotate.png")), QString(), widget);
-    m_rotate_button->setToolTip(i18n("This tool allows you to rotate items on your canvas."));
+    m_rotate_button->setToolTip(tr("This tool allows you to rotate items on your canvas."));
     m_rotate_button->setIconSize(QSize(24,24));
     m_rotate_button->setFixedSize(32,32);
     m_rotate_button->setCheckable(true);
@@ -188,7 +188,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
 
     // Scale tool
     m_scale_button = new QPushButton(QIcon(QLatin1String(":/tool_scale4.png")), QString(), widget);
-    m_scale_button->setToolTip(i18n("This tool allows you to scale items on your canvas."));
+    m_scale_button->setToolTip(tr("This tool allows you to scale items on your canvas."));
     m_scale_button->setIconSize(QSize(24,24));
     m_scale_button->setFixedSize(32,32);
     m_scale_button->setCheckable(true);
@@ -198,7 +198,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
 
     // Crop tool
     m_crop_button = new QPushButton(QIcon(QLatin1String(":/tool_cropt.png")), QString(), widget);
-    m_crop_button->setToolTip(i18n("This tool allows you to crop items."));
+    m_crop_button->setToolTip(tr("This tool allows you to crop items."));
     m_crop_button->setIconSize(QSize(24,24));
     m_crop_button->setFixedSize(32,32);
     m_crop_button->setCheckable(true);
@@ -208,7 +208,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
 
     // Photo effects tool
     m_effects_button = new QPushButton(QIcon(QLatin1String(":/tool_effects.png")), QString(), widget);
-    m_effects_button->setToolTip(i18n("This tool allows you to edit existing effects of your photo layers and add some new one."));
+    m_effects_button->setToolTip(tr("This tool allows you to edit existing effects of your photo layers and add some new one."));
     m_effects_button->setIconSize(QSize(24,24));
     m_effects_button->setFixedSize(32,32);
     m_effects_button->setCheckable(true);
@@ -267,7 +267,7 @@ void ToolsDockWidget::setScene(Scene * scene)
 
 void ToolsDockWidget::itemSelected(AbstractPhoto * photo)
 {
-    qCDebug(DIGIKAM_GENERAL_LOG) << "itemSelected" << (QGraphicsItem*)photo;
+    qDebug() << "itemSelected" << (QGraphicsItem*)photo;
     m_current_item = photo;
     QWidget * w = d->toolArea->widget();
     if (!w)
@@ -275,7 +275,7 @@ void ToolsDockWidget::itemSelected(AbstractPhoto * photo)
     AbstractItemsTool * tool =qobject_cast<AbstractItemsTool*>(w);
     if (tool)
         tool->setCurrentItem(photo);
-    qCDebug(DIGIKAM_GENERAL_LOG) << tool;
+    qDebug() << tool;
 }
 
 void ToolsDockWidget::mousePositionChoosen(const QPointF & position)

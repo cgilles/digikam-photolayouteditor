@@ -26,7 +26,7 @@
 #include "GrayscalePhotoEffect.h"
 #include "StandardEffectsFactory.h"
 
-#include <klocalizedstring.h>
+
 
 using namespace PhotoLayoutsEditor;
 
@@ -48,7 +48,7 @@ QImage GrayscalePhotoEffect::apply(const QImage & image) const
 
 QString GrayscalePhotoEffect::name() const
 {
-    return i18n("Grayscale effect");
+    return tr("Grayscale effect");
 }
 
 QString GrayscalePhotoEffect::toString() const

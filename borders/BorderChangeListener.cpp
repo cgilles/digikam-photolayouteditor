@@ -34,9 +34,9 @@
 #include <QUndoCommand>
 #include <QMetaProperty>
 
-#include <klocalizedstring.h>
 
-#include "digikam_debug.h"
+
+#include <QDebug>
 
 using namespace PhotoLayoutsEditor;
 
@@ -47,20 +47,20 @@ class PhotoLayoutsEditor::BorderChangeCommand : public QUndoCommand
         QVariant value;
     public:
         BorderChangeCommand(BorderDrawerInterface * drawer, QUndoCommand * parent = 0) :
-            QUndoCommand(i18n("Border Change"), parent),
+            QUndoCommand(tr("Border Change"), parent),
             drawer(drawer)
         {
         }
         virtual void redo()
         {
-            qCDebug(DIGIKAM_GENERAL_LOG) << "BorderChangeCommand redo";
+            qDebug() << "BorderChangeCommand redo";
             QVariant temp = drawer->propertyValue(propertyName);
             drawer->setPropertyValue(propertyName, value);
             value = temp;
         }
         virtual void undo()
         {
-            qCDebug(DIGIKAM_GENERAL_LOG) << "BorderChangeCommand undo";
+            qDebug() << "BorderChangeCommand undo";
             QVariant temp = drawer->propertyValue(propertyName);
             drawer->setPropertyValue(propertyName, value);
             value = temp;

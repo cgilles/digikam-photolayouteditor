@@ -32,7 +32,7 @@
 #include <QGraphicsScene>
 #include <QUndoCommand>
 
-#include "digikam_debug.h"
+#include <QDebug>
 
 using namespace PhotoLayoutsEditor;
 
@@ -61,7 +61,7 @@ BordersGroup::BordersGroup(AbstractPhoto * photo) :
 
 BordersGroup::~BordersGroup()
 {
-    qCDebug(DIGIKAM_GENERAL_LOG) << "PhotoEffectsGroup delete";
+    qDebug() << "PhotoEffectsGroup delete";
     delete d;
 }
 

@@ -26,7 +26,7 @@
 #include "SepiaPhotoEffect.h"
 #include "StandardEffectsFactory.h"
 
-#include <klocalizedstring.h>
+
 
 using namespace PhotoLayoutsEditor;
 
@@ -48,7 +48,7 @@ QImage SepiaPhotoEffect::apply(const QImage & image) const
 
 QString SepiaPhotoEffect::name() const
 {
-    return i18n("Sepia effect");
+    return tr("Sepia effect");
 }
 
 QString SepiaPhotoEffect::toString() const

@@ -34,7 +34,7 @@
 #include <QApplication>
 #include <QMessageBox>
 
-#include <klocalizedstring.h>
+
 
 #include "PhotoEffectsGroup.h"
 #include "PhotoEffectsLoader.h"
@@ -45,7 +45,7 @@
 #include "photolayoutswindow.h"
 #include "ImageLoadingThread.h"
 #include "ProgressEvent.h"
-#include "digikam_debug.h"
+#include <QDebug>
 
 #define EMPTY_FILL_COLOR QColor(255, 0, 0, 120)
 
@@ -64,7 +64,7 @@ public:
     PhotoItemPixmapChangeCommand(const QImage & image,
                                  PhotoItem * item,
                                  QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Image Change"), parent),
+        QUndoCommand(tr("Image Change"), parent),
         m_image(image),
         m_item(item)
     {
@@ -73,7 +73,7 @@ public:
     PhotoItemPixmapChangeCommand(const QPixmap & pixmap,
                                  PhotoItem * item,
                                  QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Image Change"), parent),
+        QUndoCommand(tr("Image Change"), parent),
         m_image(pixmap.toImage()),
         m_item(item)
     {
@@ -103,7 +103,7 @@ class PhotoItemUrlChangeCommand : public QUndoCommand
 public:
 
     PhotoItemUrlChangeCommand(const QUrl & url, PhotoItem * item, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Image Path Change"), parent),
+        QUndoCommand(tr("Image Path Change"), parent),
         m_url(url),
         m_item(item)
     {
@@ -136,7 +136,7 @@ class PhotoItemImagePathChangeCommand : public QUndoCommand
 public:
 
     PhotoItemImagePathChangeCommand(PhotoItem * item, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Image Shape Change"), parent),
+        QUndoCommand(tr("Image Shape Change"), parent),
         m_item(item),
         m_image_path(m_item->m_image_path)
 //        , command(0)
@@ -165,7 +165,7 @@ class PhotoItemImageMovedCommand : public QUndoCommand
     static PhotoItemImageMovedCommand* m_instance;
 
     PhotoItemImageMovedCommand(PhotoItem * item, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Image Position Change"), parent),
+        QUndoCommand(tr("Image Position Change"), parent),
         m_item(item),
         done(true)
     {}
@@ -226,8 +226,8 @@ QString PhotoItem::PhotoItemPrivate::locateFile(const QString & filePath)
         if (!QFile::exists(resultPath))
         {
             int result = QMessageBox::question(qApp->activeWindow(),
-                                               i18n("File reading error"),
-                                               i18n("Can't find image file in this location:"
+                                               tr("File reading error"),
+                                               tr("Can't find image file in this location:"
                                                     "\n%1"
                                                     "\n"
                                                     "\nWould you like to set new location of this file?"
@@ -271,7 +271,7 @@ QUrl & PhotoItem::PhotoItemPrivate::fileUrl()
 }
 
 PhotoItem::PhotoItem(const QImage & photo, const QString & name, Scene * scene) :
-    AbstractPhoto((name.isEmpty() ? i18n("New image") : name), scene),
+    AbstractPhoto((name.isEmpty() ? tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))
 {
@@ -279,7 +279,7 @@ PhotoItem::PhotoItem(const QImage & photo, const QString & name, Scene * scene) 
 }
 
 PhotoItem::PhotoItem(const QPainterPath & shape, const QString & name, Scene * scene) :
-    AbstractPhoto((name.isEmpty() ? i18n("New image") : name), scene),
+    AbstractPhoto((name.isEmpty() ? tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))
 {
@@ -288,7 +288,7 @@ PhotoItem::PhotoItem(const QPainterPath & shape, const QString & name, Scene * s
 }
 
 PhotoItem::PhotoItem(const QString & name, Scene * scene) :
-    AbstractPhoto((name.isEmpty() ? i18n("New image") : name), scene),
+    AbstractPhoto((name.isEmpty() ? tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))
 {
@@ -354,8 +354,8 @@ QDomDocument PhotoItem::toSvg() const
         if (!PLEConfigSkeleton::embedImagesData())
         {
             int result = QMessageBox::question(qApp->activeWindow(),
-                                               i18n("Saving: %1", name()),
-                                               i18n("Do you want to embed images data?\n"
+                                               tr("Saving: %1", name()),
+                                               tr("Do you want to embed images data?\n"
                                                     "Remember that when you move or rename image files on your disk or the storage device become unavailable, those images become unavailable for %1 "
                                                     "and this layout might become broken.", QApplication::applicationName()));
             if (result == QMessageBox::Yes)
@@ -712,10 +712,10 @@ const QImage & PhotoItem::image() const
 
 void PhotoItem::setImage(const QImage & image)
 {
-    qCDebug(DIGIKAM_GENERAL_LOG) << "setImage();";
+    qDebug() << "setImage();";
     if (image.isNull())
         return;
-    PhotoLayoutsWindow::instance()->beginUndoCommandGroup(i18n("Image Change"));
+    PhotoLayoutsWindow::instance()->beginUndoCommandGroup(tr("Image Change"));
     PLE_PostUndoCommand(new PhotoItemPixmapChangeCommand(image, this));
     if (cropShape().isEmpty())
         setCropShape( m_image_path );
@@ -728,7 +728,7 @@ void PhotoItem::imageLoaded(const QUrl & url, const QImage & image)
     if (image.isNull())
         return;
 
-    PhotoLayoutsWindow::instance()->beginUndoCommandGroup(i18n("Image Change"));
+    PhotoLayoutsWindow::instance()->beginUndoCommandGroup(tr("Image Change"));
     PLE_PostUndoCommand(new PhotoItemPixmapChangeCommand(image, this));
     if (cropShape().isEmpty())
         setCropShape( m_image_path );

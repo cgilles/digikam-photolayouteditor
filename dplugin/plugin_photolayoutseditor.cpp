@@ -27,7 +27,7 @@
 
 // KDE includes
 
-#include "digikam_debug.h"
+#include <QDebug>
 #include <kgenericfactory.h>
 #include <QIcon>
 #include <QAction>
@@ -58,7 +58,7 @@ Plugin_PhotoLayoutsEditor::Plugin_PhotoLayoutsEditor(QObject* const parent, cons
     m_parentWidget = 0;
     m_manager      = 0;
 
-    qCDebug(DIGIKAM_GENERAL_LOG) << "Plugin_PhotoLayoutsEditor plugin loaded";
+    qDebug() << "Plugin_PhotoLayoutsEditor plugin loaded";
 
     setUiBaseName("kipiplugin_photolayoutseditorui.rc");
     setupXML();
@@ -90,7 +90,7 @@ void Plugin_PhotoLayoutsEditor::setupActions()
     setDefaultCategory(ToolsPlugin);
 
     m_action = new QAction(this);
-    m_action->setText(i18n("Create photo layouts..."));
+    m_action->setText(tr("Create photo layouts..."));
     m_action->setIcon(QIcon::fromTheme("photolayoutseditor"));
     m_action->setEnabled(false);
 

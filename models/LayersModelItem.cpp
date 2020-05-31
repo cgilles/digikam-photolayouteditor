@@ -34,9 +34,9 @@
 #include <QString>
 
 // KDE
-#include <klocalizedstring.h>
 
-#include "digikam_debug.h"
+
+#include <QDebug>
 
 using namespace PhotoLayoutsEditor;
 
@@ -143,7 +143,7 @@ void LayersModelItem::setPhoto(AbstractPhoto * photo)
         int newZValue = this->parent()->childCount()-this->parent()->childItems.indexOf(this);
 
         if (photo->zValue() != newZValue)
-            qCDebug(DIGIKAM_GENERAL_LOG) << "ZValue changed!"
+            qDebug() << "ZValue changed!"
                                          << (QGraphicsItem*)photo
                                          << "Current:" << photo->zValue()
                                          << "New:" << newZValue;
@@ -160,7 +160,7 @@ AbstractPhoto * LayersModelItem::photo() const
 QVariant LayersModelItem::data(int column) const
 {
     if (column == LayersModelItem::NameString)
-        return itemPhoto ? itemPhoto->name() : i18n("Layer");
+        return itemPhoto ? itemPhoto->name() : tr("Layer");
     else if (column == LayersModelItem::Thumbnail)
         return itemPhoto ? itemPhoto->icon() : QIcon();
     else

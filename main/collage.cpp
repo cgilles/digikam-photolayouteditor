@@ -33,7 +33,7 @@
 
 // KDE includes
 
-#include <klocalizedstring.h>
+
 #include <kaboutdata.h>
 
 // Local includes
@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
     QApplication app(argc, argv);
 
     KAboutData aboutData(QString::fromLatin1("photolayoutseditor"), // component name
-                         i18n("Photo Layout Editor"),               // display name
+                         tr("Photo Layout Editor"),               // display name
                          digiKamVersion());                         // NOTE: photolayouteditor version = digiKam version
 
     aboutData.setShortDescription(DAboutData::digiKamSlogan());;

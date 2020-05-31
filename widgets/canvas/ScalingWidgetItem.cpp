@@ -37,9 +37,9 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QMap>
 
-#include <klocalizedstring.h>
 
-#include "digikam_debug.h"
+
+#include <QDebug>
 
 using namespace PhotoLayoutsEditor;
 
@@ -50,7 +50,7 @@ class PhotoLayoutsEditor::MoveItemCommand : public QUndoCommand
     bool done;
 public:
     MoveItemCommand(AbstractPhoto * item, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Move item"), parent),
+        QUndoCommand(tr("Move item"), parent),
         m_item(item),
         done(false)
     {}
@@ -58,7 +58,7 @@ public:
     {
         if (done)
             return;
-        qCDebug(DIGIKAM_GENERAL_LOG) << done << "redo MoveItemCommand";
+        qDebug() << done << "redo MoveItemCommand";
         m_item->moveBy(m_translation.x(), m_translation.y());
         done = true;
     }
@@ -66,7 +66,7 @@ public:
     {
         if (!done)
             return;
-        qCDebug(DIGIKAM_GENERAL_LOG) << done << "undo MoveItemCommand";
+        qDebug() << done << "undo MoveItemCommand";
         m_item->moveBy(-m_translation.x(), -m_translation.y());
         done = false;
     }
@@ -95,7 +95,7 @@ public:
         m_item(item),
         done(false)
     {
-        this->setText(i18n("Scale item"));
+        this->setText(tr("Scale item"));
     }
     virtual void redo()
     {

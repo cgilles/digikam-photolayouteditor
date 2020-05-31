@@ -32,7 +32,7 @@
 #include <QTimeLine>
 #include <QInputMethodEvent>
 
-#include <klocalizedstring.h>
+
 
 #include "qttreepropertybrowser.h"
 #include "qtpropertymanager.h"
@@ -50,7 +50,7 @@ class PhotoLayoutsEditor::TextChangeUndoCommand : public QUndoCommand
     TextItem * m_item;
 public:
     TextChangeUndoCommand(const QStringList & text, TextItem * item, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Text change"), parent),
+        QUndoCommand(tr("Text change"), parent),
         m_text(text),
         m_item(item)
     {}
@@ -73,7 +73,7 @@ class PhotoLayoutsEditor::TextColorUndoCommand : public QUndoCommand
         QColor m_color;
     public:
         TextColorUndoCommand(const QColor & color, TextItem * item, QUndoCommand * parent = 0) :
-            QUndoCommand(i18n("Text color change"), parent),
+            QUndoCommand(tr("Text color change"), parent),
             m_item(item),
             m_color(color)
         {}
@@ -99,7 +99,7 @@ class PhotoLayoutsEditor::TextFontUndoCommand : public QUndoCommand
         QFont m_font;
     public:
         TextFontUndoCommand(const QFont & font, TextItem * item, QUndoCommand * parent = 0) :
-            QUndoCommand(i18n("Text font change"), parent),
+            QUndoCommand(tr("Text font change"), parent),
             m_item(item),
             m_font(font)
         {}
@@ -127,7 +127,7 @@ class PhotoLayoutsEditor::AddTextUndoCommand : public QUndoCommand
     int at;
 public:
     AddTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Text edit"), parent),
+        QUndoCommand(tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(at)
@@ -155,7 +155,7 @@ class PhotoLayoutsEditor::RemoveTextUndoCommand : public QUndoCommand
     int at;
 public:
     RemoveTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Text edit"), parent),
+        QUndoCommand(tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(at)
@@ -190,7 +190,7 @@ class PhotoLayoutsEditor::AddLineUndoCommand : public QUndoCommand
     int at;
 public:
     AddLineUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Text edit"), parent),
+        QUndoCommand(tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(at)
@@ -224,7 +224,7 @@ class PhotoLayoutsEditor::MergeLineUndoCommand : public QUndoCommand
     int at;
 public:
     MergeLineUndoCommand(int row, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
-        QUndoCommand(i18n("Text edit"), parent),
+        QUndoCommand(tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(0)
@@ -405,7 +405,7 @@ void TextItem::TextItemPrivate::closeEditor()
 }
 
 TextItem::TextItem(const QString & text, Scene * scene) :
-    AbstractPhoto((text.isEmpty() ? i18n("Text item") : text), scene),
+    AbstractPhoto((text.isEmpty() ? tr("Text item") : text), scene),
     d(new TextItemPrivate(this)),
     m_color(DEFAULT_COLOR),
     m_font(DEFAULT_FONT),
@@ -797,7 +797,7 @@ QtAbstractPropertyBrowser * TextItem::propertyBrowser()
     QtColorPropertyManager * colorManager = new QtColorPropertyManager(browser);
     KColorEditorFactory * colorFactory = new KColorEditorFactory(browser);
     browser->setFactoryForManager(colorManager, colorFactory);
-    QtProperty * colorProperty = colorManager->addProperty(i18n("Text color"));
+    QtProperty * colorProperty = colorManager->addProperty(tr("Text color"));
     colorManager->setValue(colorProperty, m_color);
     browser->addProperty(colorProperty);
     TextColorChangeListener * colorListener = new TextColorChangeListener(this);
@@ -810,7 +810,7 @@ QtAbstractPropertyBrowser * TextItem::propertyBrowser()
     QtFontPropertyManager * fontManager = new QtFontPropertyManager(browser);
     KFontEditorFactory * fontFactory = new KFontEditorFactory(browser);
     browser->setFactoryForManager(fontManager, fontFactory);
-    QtProperty * fontProperty = fontManager->addProperty(i18n("Font"));
+    QtProperty * fontProperty = fontManager->addProperty(tr("Font"));
     fontManager->setValue(fontProperty, m_font);
     browser->addProperty(fontProperty);
     TextFontChangeListener * fontListener = new TextFontChangeListener(this);

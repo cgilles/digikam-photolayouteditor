@@ -29,7 +29,7 @@
 #include "ProgressObserver.h"
 #include "global.h"
 
-#include <klocalizedstring.h>
+
 #include <QDebug>
 
 using namespace PhotoLayoutsEditor;
@@ -73,7 +73,7 @@ void AbstractPhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.1);
-        observer->progresName(i18n("Reading properties..."));
+        observer->progresName(tr("Reading properties..."));
     }
     // Items visibility
     m_item->d->m_visible = (m_element.attribute(QLatin1String("visibility")) != QLatin1String("hide"));
@@ -157,7 +157,7 @@ void AbstractPhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.2);
-        observer->progresName(i18n("Reading borders..."));
+        observer->progresName(tr("Reading borders..."));
     }
     // Borders
     if (m_item->d->m_borders_group)
@@ -183,7 +183,7 @@ void AbstractPhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.3);
-        observer->progresName(i18n("Reading effects..."));
+        observer->progresName(tr("Reading effects..."));
     }
     // Effects
     if (m_item->d->m_effects_group)
@@ -200,7 +200,7 @@ void AbstractPhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.4);
-        observer->progresName(i18n("Reading cropping shape..."));
+        observer->progresName(tr("Reading cropping shape..."));
     }
     // Crop path
     QDomElement cropPath = appNS.firstChildElement(QLatin1String("crop_path"));

@@ -35,7 +35,7 @@
 #include <QDomDocument>
 #include <QCoreApplication>
 
-#include "digikam_debug.h"
+#include <QDebug>
 
 using namespace PhotoLayoutsEditor;
 
@@ -83,7 +83,7 @@ void CanvasSavingThread::run()
     QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), startEvent);
     QCoreApplication::processEvents();
 
-    this->sendActionUpdate( i18n("Creating canvas...") );
+    this->sendActionUpdate( tr("Creating canvas...") );
 
     QRect sceneRect = m_canvas->sceneRect().toRect();
     QDomDocument document(QLatin1String(" svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\""));
@@ -121,7 +121,7 @@ void CanvasSavingThread::run()
             break;
         default:
             j = QLatin1String("px");
-            qCDebug(DIGIKAM_GENERAL_LOG) << "Unhandled size unit at:" << __FILE__ << ":" << __LINE__;
+            qDebug() << "Unhandled size unit at:" << __FILE__ << ":" << __LINE__;
             break;
     }
     svg.setAttribute(QLatin1String("width"), QString::number(m_canvas->d->m_size.size().width()) + j);
@@ -133,7 +133,7 @@ void CanvasSavingThread::run()
     svg.appendChild(resolution);
 
     this->sendProgressUpdate( 0.05 );
-    this->sendActionUpdate( i18n("Saving scene...") );
+    this->sendActionUpdate( tr("Saving scene...") );
 
     //---------------------------------------------------------------------------
 
@@ -152,7 +152,7 @@ void CanvasSavingThread::run()
     //---------------------------------------------------------------------------
 
     this->sendProgressUpdate( 0.8 );
-    this->sendActionUpdate( i18n("Encoding data...") );
+    this->sendActionUpdate( tr("Encoding data...") );
 
     QFile file(m_url.path());
     if (file.open(QFile::WriteOnly | QFile::Text))
@@ -163,7 +163,7 @@ void CanvasSavingThread::run()
         const int limit = result.size();
         int j = 1000;
         j = (j > limit ? limit : j);
-        this->sendActionUpdate( i18n("Writing data to file...") );
+        this->sendActionUpdate( tr("Writing data to file...") );
         while (i < limit)
         {
             i += file.write(data+i, (i+j <= limit ? j : limit-i));
@@ -185,7 +185,7 @@ void CanvasSavingThread::run()
 
 void CanvasSavingThread::bytesWritten(qint64 b)
 {
-    qCDebug(DIGIKAM_GENERAL_LOG) << "writen" << b;
+    qDebug() << "writen" << b;
 }
 
 void CanvasSavingThread::sendProgressUpdate(double v)

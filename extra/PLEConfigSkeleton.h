@@ -27,7 +27,7 @@
 #define PLE_CONFIG_SKELETON_H
 
 #include <kconfigskeleton.h>
-#include "digikam_debug.h"
+#include <QDebug>
 
 namespace PhotoLayoutsEditor
 {

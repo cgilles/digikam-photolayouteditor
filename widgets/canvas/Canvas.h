@@ -41,7 +41,7 @@
 #include <QDebug>
 
 // KDE
-#include <klocalizedstring.h>
+
 #include <QUrl>
 
 #include "global.h"

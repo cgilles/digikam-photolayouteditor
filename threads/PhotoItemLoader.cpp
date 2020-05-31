@@ -31,9 +31,9 @@
 
 #include <QBuffer>
 
-#include <klocalizedstring.h>
 
-#include "digikam_debug.h"
+
+#include <QDebug>
 
 using namespace PhotoLayoutsEditor;
 
@@ -64,7 +64,7 @@ void PhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(0.5);
-        observer->progresName(i18n("Loading shape..."));
+        observer->progresName(tr("Loading shape..."));
     }
     QDomElement path = data.firstChildElement(QLatin1String("path"));
     if (path.isNull())
@@ -95,15 +95,15 @@ void PhotoItemLoader::run()
                                                      m21.toDouble(), m22.toDouble(), 0,
                                                      m31.toDouble(), m32.toDouble(), 1);
         }
-        qCDebug(DIGIKAM_GENERAL_LOG) << item->d->m_brush_transform;
+        qDebug() << item->d->m_brush_transform;
     }
-    qCDebug(DIGIKAM_GENERAL_LOG) << item->d->m_brush_transform;
+    qDebug() << item->d->m_brush_transform;
 
     // m_pixmap_original
     if (observer)
     {
         observer->progresChanged(0.6);
-        observer->progresName(i18n("Loading image..."));
+        observer->progresName(tr("Loading image..."));
     }
     QDomElement imageElement = data.firstChildElement(QLatin1String("image"));
     QString imageAttribute;
@@ -128,7 +128,7 @@ void PhotoItemLoader::run()
     if (observer)
     {
         observer->progresChanged(1);
-        observer->progresName(i18n("Finishing..."));
+        observer->progresName(tr("Finishing..."));
     }
 
     this->exit(0);

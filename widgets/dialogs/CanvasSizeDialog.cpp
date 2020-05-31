@@ -35,11 +35,11 @@
 #include <QDebug>
 #include <QDialogButtonBox>
 
-#include <klocalizedstring.h>
+
 
 #include "CanvasSize.h"
 #include "global.h"
-#include "digikam_debug.h"
+#include <QDebug>
 
 namespace PhotoLayoutsEditor
 {
@@ -326,7 +326,7 @@ void CanvasSizeDialog::setupDialog(const QSizeF & size,
                                    const QSizeF & resolution,
                                    const QString & resolutionUnits)
 {
-    setWindowTitle(i18n("Canvas Size"));
+    setWindowTitle(tr("Canvas Size"));
 
     QString tempSizeUnits = sizeUnits;
     QString tempResolutionUnits = resolutionUnits;
@@ -344,16 +344,16 @@ void CanvasSizeDialog::setupDialog(const QSizeF & size,
     /// ----------------------- TEMPLATES PART -----------------------
     QGridLayout * gridLayout = new QGridLayout();
     d->paperSize = new QComboBox(main);
-    d->paperSize->addItem( i18n("Custom") );
+    d->paperSize->addItem( tr("Custom") );
     d->paperSize->insertSeparator(1);
     d->paperSize->addItems(d->paperSizes.keys());
     d->paperSize->setCurrentIndex(0);
-    gridLayout->addWidget(new QLabel( i18n("Template"), main),0,0);
+    gridLayout->addWidget(new QLabel( tr("Template"), main),0,0);
     gridLayout->addWidget(d->paperSize,0,1);
     vLayout->addLayout(gridLayout);
 
     /// ----------------------- CANVAS SIZE PART -----------------------
-    d->sizeWidget = new QGroupBox(i18n("Canvas size"), main);
+    d->sizeWidget = new QGroupBox(tr("Canvas size"), main);
     vLayout->addWidget(d->sizeWidget);
 
     gridLayout = new QGridLayout(d->sizeWidget);
@@ -368,7 +368,7 @@ void CanvasSizeDialog::setupDialog(const QSizeF & size,
                                     resolution.width(),
                                     CanvasSize::sizeUnit(tempSizeUnits),
                                     CanvasSize::resolutionUnit(tempResolutionUnits));
-    gridLayout->addWidget(new QLabel(i18n("Width"), d->sizeWidget),0,0);
+    gridLayout->addWidget(new QLabel(tr("Width"), d->sizeWidget),0,0);
     gridLayout->addWidget(d->xSize,0,1);
 
     // Height widget
@@ -380,7 +380,7 @@ void CanvasSizeDialog::setupDialog(const QSizeF & size,
                                      resolution.height(),
                                      CanvasSize::sizeUnit(tempSizeUnits),
                                      CanvasSize::resolutionUnit(tempResolutionUnits));
-    gridLayout->addWidget(new QLabel(i18n("Height"), d->sizeWidget),1,0);
+    gridLayout->addWidget(new QLabel(tr("Height"), d->sizeWidget),1,0);
     gridLayout->addWidget(d->ySize,1,1);
 
     // Unit widget
@@ -402,13 +402,13 @@ void CanvasSizeDialog::setupDialog(const QSizeF & size,
     QHBoxLayout * hLayout = new QHBoxLayout();
     hLayout->addWidget(d->horizontalButton);
     hLayout->addWidget(d->verticalButton);
-    gridLayout->addWidget(new QLabel(i18n("Orientation"), d->sizeWidget),2,0);
+    gridLayout->addWidget(new QLabel(tr("Orientation"), d->sizeWidget),2,0);
     gridLayout->addLayout(hLayout,2,1);
     d->sizeLabel = new QLabel(d->sizeWidget);
     gridLayout->addWidget(d->sizeLabel,2, 2);
 
     /// ----------------------- ADVANCED PART -----------------------
-    d->advancedWidget = new QGroupBox(i18n("Advanced"), main);
+    d->advancedWidget = new QGroupBox(tr("Advanced"), main);
     vLayout->addWidget(d->advancedWidget);
     gridLayout = new QGridLayout(d->advancedWidget);
     d->advancedWidget->setLayout(gridLayout);
@@ -420,7 +420,7 @@ void CanvasSizeDialog::setupDialog(const QSizeF & size,
     d->xResolution->setValue(resolution.width());
     d->xResolution->setDecimals(3);
     d->WIDTH_RES = resolution.width() * CanvasSize::resolutionUnitFactor(tempResolutionUnits);
-    gridLayout->addWidget(new QLabel(i18n("Resolution X"), d->advancedWidget),0,0);
+    gridLayout->addWidget(new QLabel(tr("Resolution X"), d->advancedWidget),0,0);
     gridLayout->addWidget(d->xResolution,0,1);
 
     // y resolution widget
@@ -430,7 +430,7 @@ void CanvasSizeDialog::setupDialog(const QSizeF & size,
     d->yResolution->setValue(resolution.height());
     d->yResolution->setDecimals(3);
     d->HEIGHT_RES = resolution.height() * CanvasSize::resolutionUnitFactor(tempResolutionUnits);
-    gridLayout->addWidget(new QLabel(i18n("Resolution Y"), d->advancedWidget),1,0);
+    gridLayout->addWidget(new QLabel(tr("Resolution Y"), d->advancedWidget),1,0);
     gridLayout->addWidget(d->yResolution,1,1);
 
     // Unit widget

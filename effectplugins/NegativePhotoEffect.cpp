@@ -46,7 +46,7 @@ QImage NegativePhotoEffect::apply(const QImage & image) const
 
 QString NegativePhotoEffect::name() const
 {
-    return i18n("Negative effect");
+    return tr("Negative effect");
 }
 
 QString NegativePhotoEffect::toString() const

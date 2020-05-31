@@ -53,10 +53,10 @@ ZoomTool::ZoomTool(Scene * scene, QWidget * parent) :
     this->setLayout(layout);
 
     QButtonGroup * group = new QButtonGroup(this);
-    d->out = new QRadioButton(i18n("Zoom out"), this);
+    d->out = new QRadioButton(tr("Zoom out"), this);
     group->addButton(d->out);
     layout->addWidget(d->out);
-    d->in  = new QRadioButton(i18n("Zoom in"), this);
+    d->in  = new QRadioButton(tr("Zoom in"), this);
     group->addButton(d->in);
     layout->addWidget(d->in);
 
