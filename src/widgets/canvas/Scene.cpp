@@ -51,9 +51,7 @@
 #include <QApplication>
 #include <QMimeData>
 #include <QTemporaryFile>
-
-// KDE
-
+#include <QDebug>
 
 #include "global.h"
 #include "RotationWidgetItem.h"
@@ -69,7 +67,6 @@
 #include "CanvasLoadingThread.h"
 #include "PhotoItem.h"
 #include "SceneBorder.h"
-#include <QDebug>
 #include "imagedialog.h"
 #include "LayersModel.h"
 #include "LayersModelItem.h"

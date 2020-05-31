@@ -31,9 +31,7 @@
 #include <QGraphicsView>
 #include <QPainter>
 #include <QKeyEvent>
-
-#include <kmessagebox.h>
-
+#include <QMessageBox>
 
 using namespace PhotoLayoutsEditor;
 
@@ -260,14 +258,13 @@ void CropWidgetItem::keyPressEvent(QKeyEvent * event)
         }
         else
         {
-            KMessageBox::error(0,
-            // We need this hint to xgettext otherwise it thinks that %1p is the printf %p with a 1 modifier
-            // xgettext: no-c-format
-                               QObject::tr("Bounding rectangle of the crop shape has size [%1px x %2px] "
-                                    "and it's less than 1px x 1px")
-                                    .arg(QString::number(qRound(d->m_rect.width())))
-                                    .arg(QString::number(qRound(d->m_rect.height())))
-                               );
+            QMessageBox::critical(nullptr,
+                                  QObject::tr("Error"),
+                                  QObject::tr("Bounding rectangle of the crop shape has size [%1px x %2px] "
+                                              "and it's less than 1px x 1px")
+                                              .arg(QString::number(qRound(d->m_rect.width())))
+                                              .arg(QString::number(qRound(d->m_rect.height())))
+                                  );
         }
         event->setAccepted(true);
     }
