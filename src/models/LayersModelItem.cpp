@@ -5,10 +5,9 @@
  *
  * Date        : 2011-09-01
  * Description : a plugin to create photo layouts by fusion of several images.
- * 
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2015 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -24,19 +23,19 @@
  * ============================================================ */
 
 #include "LayersModelItem.h"
-#include "LayersModel.h"
-#include "AbstractPhoto.h"
 
-// Qt
+// Qt includes
+
 #include <QVariant>
 #include <QDebug>
 #include <QIcon>
 #include <QString>
-
-// KDE
-
-
 #include <QDebug>
+
+// Local includes
+
+#include "LayersModel.h"
+#include "AbstractPhoto.h"
 
 using namespace PhotoLayoutsEditor;
 

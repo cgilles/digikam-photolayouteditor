@@ -5,10 +5,9 @@
  *
  * Date        : 2011-09-01
  * Description : a plugin to create photo layouts by fusion of several images.
- * 
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2011 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -34,20 +33,16 @@
 #include <QDataStream>
 #include <QBuffer>
 #include <QFileInfo>
-
-// KDE includes
-
-
 #include <QDebug>
 
-// Libkdcaw includes
+// digiKam includes
 
 #include "drawdecoder.h"
 #include "drawdecodersettings.h"
+#include "metaengine.h"
 
 // Local includes
 
-#include "metaengine.h"
 #include "ProgressEvent.h"
 #include "photolayoutswindow.h"
 
