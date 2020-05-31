@@ -213,9 +213,7 @@ if(NOT MSVC)
     target_compile_options(photolayoutseditorcore PRIVATE -fPIC)
 endif()
 
-install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/settings/photolayoutseditor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
-install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/photolayoutseditoreffectplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
-install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/photolayoutseditorborderplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/settings/photolayoutseditor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
 # =======================================================
 # Stand-alone version of PhotoLayoutsEditor
