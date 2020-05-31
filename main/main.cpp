@@ -61,7 +61,6 @@ int main(int argc, char* argv[])
     parser.clearPositionalArguments();
 
     PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(0);
-    w->setAttribute(Qt::WA_DeleteOnClose, true);
 
     if (!urlList.isEmpty())
     {

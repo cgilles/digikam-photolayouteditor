@@ -4,14 +4,14 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-project(PhotoLayout)
+project(PhotoLayoutsEditor)
 
 cmake_minimum_required(VERSION "3.1.0")
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_AUTOMOC ON)
 
-option(ENABLE_DPLUGIN "Build digiKam plugin version of Image Mosaic Wall tool (default=OFF)" OFF)
+option(ENABLE_DPLUGIN "Build digiKam plugin version of Photo Layouts Editor tool (default=OFF)" OFF)
 
 find_package(ECM "1.7.0" CONFIG REQUIRED)
 
@@ -93,7 +93,7 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
 
 add_subdirectory(data)
 
-set(photolayoutseditor_SRCS
+set(photolayoutseditorcore_SRCS
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/events/ProgressEvent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/events/UndoCommandEvent.cpp
@@ -198,19 +198,19 @@ set(photolayoutseditor_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/Scene.cpp
 )
 
-set(photolayoutseditor_RCS
+set(photolayoutseditorcore_RCS
     ${CMAKE_CURRENT_SOURCE_DIR}/res/icons.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtpropertybrowser.qrc
    )
 
-qt5_add_resources(photolayoutseditor_SRCS ${photolayoutseditor_RCS})
+qt5_add_resources(photolayoutseditorcore_SRCS ${photolayoutseditorcore_RCS})
 
-kconfig_add_kcfg_files(photolayoutseditor_SRCS GENERATE_MOC  ${CMAKE_CURRENT_SOURCE_DIR}/src/settings/PLEConfigSkeleton.kcfgc)
+kconfig_add_kcfg_files(photolayoutseditorcore_SRCS GENERATE_MOC ${CMAKE_CURRENT_SOURCE_DIR}/src/settings/PLEConfigSkeleton.kcfgc)
 
-add_library(photolayoutseditor STATIC ${photolayoutseditor_SRCS})
+add_library(photolayoutseditorcore STATIC ${photolayoutseditorcore_SRCS})
 
 if(NOT MSVC)
-    target_compile_options(photolayoutseditor PRIVATE -fPIC)
+    target_compile_options(photolayoutseditorcore PRIVATE -fPIC)
 endif()
 
 install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/settings/photolayoutseditor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
@@ -221,14 +221,15 @@ install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/photolayoutseditorborde
 # =======================================================
 # Stand-alone version of PhotoLayoutsEditor
 
-add_executable(photolayouteditor
+add_executable(photolayoutseditor
                ${CMAKE_CURRENT_SOURCE_DIR}/main/main.cpp
 )
 
-target_link_libraries(photolayouteditor
+target_link_libraries(photolayoutseditor
 
-                      photolayoutseditor
-                      digikamcore
+                      photolayoutseditorcore
+
+                      Digikam::digikamcore
 
                       Qt5::Gui
                       Qt5::Xml
@@ -241,3 +242,9 @@ target_link_libraries(photolayouteditor
 )
 
 install(TARGETS photolayoutseditor RUNTIME DESTINATION bin)
+
+if (ENABLE_DPLUGIN)
+    add_subdirectory(dplugin)
+endif()
+
+MACRO_ADD_UNINSTALL_TARGET()

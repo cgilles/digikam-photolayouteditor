@@ -138,6 +138,7 @@ PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget * parent) :
     initIconsResource();
     setXMLFile(QLatin1String(":/photolayoutseditorui.rc"));
     setWindowTitle(QObject::tr("Photo Layouts Editor"));
+    setAttribute(Qt::WA_DeleteOnClose, true);
 
     loadEffects();
     loadBorders();
