@@ -215,7 +215,6 @@ endif()
 
 install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/settings/photolayoutseditor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 #install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/photolayoutseditor.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/photolayoutseditorui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/photolayoutseditor)
 install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/photolayoutseditoreffectplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install(FILES    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/photolayoutseditorborderplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
@@ -241,3 +240,4 @@ target_link_libraries(photolayouteditor
                       KF5::Service
 )
 
+install(TARGETS photolayoutseditor RUNTIME DESTINATION bin)
