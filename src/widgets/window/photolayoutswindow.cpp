@@ -157,10 +157,14 @@ PhotoLayoutsWindow::~PhotoLayoutsWindow()
     PLEConfigSkeleton::self()->save();
 
     if (m_canvas)
+    {
         m_canvas->deleteLater();
+    }
 
     if (d)
+    {
         delete d;
+    }
 
     m_instance = 0;
 
@@ -170,7 +174,9 @@ PhotoLayoutsWindow::~PhotoLayoutsWindow()
 PhotoLayoutsWindow* PhotoLayoutsWindow::instance(QWidget* const parent)
 {
     if (m_instance)
+    {
         return m_instance;
+    }
     else
     {
         qApp->installEventFilter(new UndoCommandEventFilter(qApp));
@@ -186,7 +192,9 @@ void PhotoLayoutsWindow::addUndoCommand(QUndoCommand * command)
         qDebug() << command->text();
 #endif
         if (m_canvas)
+        {
             m_canvas->undoStack()->push(command);
+        }
         else
         {
             command->redo();
@@ -198,19 +206,25 @@ void PhotoLayoutsWindow::addUndoCommand(QUndoCommand * command)
 void PhotoLayoutsWindow::beginUndoCommandGroup(const QString & name)
 {
     if (m_canvas)
+    {
         m_canvas->undoStack()->beginMacro(name);
+    }
 }
 
 void PhotoLayoutsWindow::endUndoCommandGroup()
 {
     if (m_canvas)
+    {
         m_canvas->undoStack()->endMacro();
+    }
 }
 
 void PhotoLayoutsWindow::setInterface(DInfoInterface* const interface)
 {
     if (interface)
+    {
         m_interface = interface;
+    }
 }
 
 bool PhotoLayoutsWindow::hasInterface() const
@@ -227,74 +241,108 @@ void PhotoLayoutsWindow::setupActions()
 {
     d->openNewFileAction = KStandardAction::openNew(this, SLOT(open()), actionCollection());
     actionCollection()->addAction(QLatin1String("open_new"), d->openNewFileAction);
+
     //------------------------------------------------------------------------
+
     d->openFileAction = new QAction(QObject::tr("Open Template File..."), actionCollection());
     connect(d->openFileAction, SIGNAL(triggered()), this, SLOT(openDialog()));
     actionCollection()->addAction(QLatin1String("open"), d->openFileAction);
+
     //------------------------------------------------------------------------
+
     d->openRecentFilesMenu = KStandardAction::openRecent(this, SLOT(open(QUrl)), actionCollection());
     QList<QUrl> urls = PLEConfigSkeleton::recentFiles();
 
-    foreach (QUrl url, urls)
+    foreach (const QUrl& url, urls)
     {
         d->openRecentFilesMenu->addUrl(url);
     }
 
     connect(d->openRecentFilesMenu, SIGNAL(recentListCleared()), this, SLOT(clearRecentList()));
     actionCollection()->addAction(QLatin1String("open_recent"), d->openRecentFilesMenu);
+
     //------------------------------------------------------------------------
+
     d->saveAction = KStandardAction::save(this, SLOT(save()), actionCollection());
     actionCollection()->addAction(QLatin1String("save"), d->saveAction);
+
     //------------------------------------------------------------------------
+
     d->saveAsAction = KStandardAction::saveAs(this, SLOT(saveAs()), actionCollection());
     actionCollection()->setDefaultShortcut(d->saveAsAction, Qt::SHIFT + Qt::CTRL + Qt::Key_S);
     actionCollection()->addAction(QLatin1String("save_as"), d->saveAsAction);
+
     //------------------------------------------------------------------------
+
     d->saveAsTemplateAction = new QAction(QObject::tr("Saves canvas as a template file...", "Save As Template..."), actionCollection());
     connect(d->saveAsTemplateAction, SIGNAL(triggered()), this, SLOT(saveAsTemplate()));
     actionCollection()->addAction(QLatin1String("save_as_template"), d->saveAsTemplateAction);
+
     //------------------------------------------------------------------------
+
     d->exportFileAction = new QAction(QObject::tr("Export current frame layout to image file...", "Export..."), actionCollection());
     actionCollection()->setDefaultShortcut(d->exportFileAction, Qt::SHIFT + Qt::CTRL + Qt::Key_E);
     connect(d->exportFileAction, SIGNAL(triggered()), this, SLOT(exportFile()));
     actionCollection()->addAction(QLatin1String("export"), d->exportFileAction);
+
     //------------------------------------------------------------------------
+
     d->printPreviewAction = KStandardAction::printPreview(this, SLOT(printPreview()), actionCollection());
     actionCollection()->setDefaultShortcut(d->printPreviewAction, Qt::SHIFT + Qt::CTRL + Qt::Key_P);
     actionCollection()->addAction(QLatin1String("print_preview"), d->printPreviewAction);
+
     //------------------------------------------------------------------------
+
     d->printAction = KStandardAction::print(this, SLOT(print()), actionCollection());
     actionCollection()->addAction(QLatin1String("print"), d->printAction);
+
     //------------------------------------------------------------------------
+
     d->closeAction = KStandardAction::close(this, SLOT(closeDocument()), actionCollection());
     actionCollection()->addAction(QLatin1String("close"), d->closeAction);
+
     //------------------------------------------------------------------------
+
     d->quitAction = KStandardAction::quit(this, SLOT(close()), actionCollection());
     actionCollection()->addAction(QLatin1String("quit"), d->quitAction);
+
     //------------------------------------------------------------------------
+
     d->undoAction = KStandardAction::undo(0, 0, actionCollection());
     actionCollection()->addAction(QLatin1String("undo"), d->undoAction);
+
     //------------------------------------------------------------------------
+
     d->redoAction = KStandardAction::redo(0, 0, actionCollection());
     actionCollection()->addAction(QLatin1String("redo"), d->redoAction);
+
     //------------------------------------------------------------------------
+
     d->settingsAction = KStandardAction::preferences(this, SLOT(settings()), actionCollection());
     actionCollection()->addAction(QLatin1String("settings"), d->settingsAction);
+
     //------------------------------------------------------------------------
+
     d->addImageAction = new QAction(QObject::tr("Adds new image(s) from file...", "Add image(s)..."), actionCollection());
     connect(d->addImageAction, SIGNAL(triggered()), this, SLOT(loadNewImage()));
     actionCollection()->addAction(QLatin1String("new_image"), d->addImageAction);
+
     //------------------------------------------------------------------------
+
     d->showGridToggleAction = new KToggleAction(QObject::tr("View grid lines...", "Show..."), actionCollection());
     actionCollection()->setDefaultShortcut(d->showGridToggleAction, Qt::SHIFT + Qt::CTRL + Qt::Key_G);
     d->showGridToggleAction->setChecked( PLEConfigSkeleton::self()->showGrid() );
     connect(d->showGridToggleAction, SIGNAL(triggered(bool)), this, SLOT(setGridVisible(bool)));
     actionCollection()->addAction(QLatin1String("grid_toggle"), d->showGridToggleAction);
+
     //------------------------------------------------------------------------
+
     d->gridConfigAction = new QAction(QObject::tr("Configure grid lines visibility...", "Setup grid..."), actionCollection());
     connect(d->gridConfigAction, SIGNAL(triggered()), this, SLOT(setupGrid()));
     actionCollection()->addAction(QLatin1String("grid_config"), d->gridConfigAction);
+
     //------------------------------------------------------------------------
+
     d->changeCanvasSizeAction = new QAction(QObject::tr("Configure canvas size...", "Change canvas size..."), actionCollection());
     connect(d->changeCanvasSizeAction, SIGNAL(triggered()), this, SLOT(changeCanvasSize()));
     actionCollection()->addAction(QLatin1String("canvas_size"), d->changeCanvasSizeAction);
@@ -305,6 +353,7 @@ void PhotoLayoutsWindow::setupActions()
 void PhotoLayoutsWindow::refreshActions()
 {
     bool isEnabledForCanvas = false;
+
     if (m_canvas)
     {
         isEnabledForCanvas = true;
@@ -312,6 +361,7 @@ void PhotoLayoutsWindow::refreshActions()
         d->redoAction->setEnabled(m_canvas->undoStack()->canRedo());
         d->saveAction->setEnabled(isEnabledForCanvas && !m_canvas->isSaved());
     }
+
     d->saveAsAction->setEnabled(isEnabledForCanvas);
     d->saveAsTemplateAction->setEnabled(isEnabledForCanvas);
     d->exportFileAction->setEnabled(isEnabledForCanvas);
@@ -336,12 +386,16 @@ void PhotoLayoutsWindow::addRecentFile(const QUrl & url)
         unsigned maxCount = PLEConfigSkeleton::recentFilesCount();
 
         while ( ((unsigned)tempList.count()) > maxCount)
+        {
             tempList.removeAt(0);
+        }
 
         PLEConfigSkeleton::setRecentFiles(tempList);
 
         if ( !d->openRecentFilesMenu->urls().contains( url ) )
+        {
             d->openRecentFilesMenu->addUrl( url );
+        }
 
         PLEConfigSkeleton::self()->save();
     }
@@ -477,7 +531,9 @@ void PhotoLayoutsWindow::open()
     int result = dialog->exec();
 
     if (result != QDialog::Accepted)
+    {
         return;
+    }
 
     QString tmp;
 
@@ -535,17 +591,6 @@ void PhotoLayoutsWindow::open(const QUrl& fileUrl)
         closeDocument();
         createCanvas(fileUrl);
         refreshActions();
-    }
-}
-
-void PhotoLayoutsWindow::initCanvas(const QList<QUrl>& urls)
-{
-    if (!urls.isEmpty())
-    {
-        closeDocument();
-        createCanvas(CanvasSize(QSizeF(210, 297), CanvasSize::Milimeters, QSizeF(72, 72), CanvasSize:: PixelsPerMilimeter));
-        refreshActions();
-        loadImages(urls);
     }
 }
 
@@ -754,14 +799,16 @@ void PhotoLayoutsWindow::settings()
     if ( KConfigDialog::showDialog( QLatin1String("settings") ) )
         return;
 
-    PLEConfigDialog * dialog = new PLEConfigDialog(this);
+    PLEConfigDialog* const dialog = new PLEConfigDialog(this);
     dialog->show();
 }
 
 void PhotoLayoutsWindow::loadImages(const QList<QUrl>& urls)
 {
     if (!m_canvas)
+    {
         return;
+    }
 
     if (!urls.isEmpty())
     {
@@ -790,9 +837,9 @@ void PhotoLayoutsWindow::setupGrid()
 {
     if (m_canvas && m_canvas->scene())
     {
-        GridSetupDialog * dialog = new GridSetupDialog(this);
-        dialog->setHorizontalDistance( m_canvas->scene()->gridHorizontalDistance() );
-        dialog->setVerticalDistance( m_canvas->scene()->gridVerticalDistance() );
+        GridSetupDialog* const dialog = new GridSetupDialog(this);
+        dialog->setHorizontalDistance(m_canvas->scene()->gridHorizontalDistance());
+        dialog->setVerticalDistance(m_canvas->scene()->gridVerticalDistance());
         dialog->exec();
         m_canvas->scene()->setGrid(dialog->horizontalDistance(),
                                    dialog->verticalDistance());
@@ -805,9 +852,9 @@ void PhotoLayoutsWindow::changeCanvasSize()
     if (!m_canvas)
         return;
 
-    CanvasSizeDialog* ccd = new CanvasSizeDialog(m_canvas->canvasSize(), this);
-    int result            = ccd->exec();
-    CanvasSize size       = ccd->canvasSize();
+    CanvasSizeDialog* const ccd = new CanvasSizeDialog(m_canvas->canvasSize(), this);
+    int result                  = ccd->exec();
+    CanvasSize size             = ccd->canvasSize();
 
     if (result == QDialog::Accepted)
     {

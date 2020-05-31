@@ -67,7 +67,8 @@ int main(int argc, char* argv[])
 
     if (!urlList.isEmpty())
     {
-        w->initCanvas(urlList);
+        w->open();
+        w->loadImages(urlList);
     }
 
     w->show();

@@ -68,7 +68,7 @@ class PhotoLayoutsWindow : public KXmlGuiWindow
         DInfoInterface* interface() const;
         bool hasInterface()         const;
 
-        void initCanvas(const QList<QUrl>& urls);
+        void loadImages(const QList<QUrl>& urls);
 
     public Q_SLOTS:
 
@@ -112,7 +112,6 @@ class PhotoLayoutsWindow : public KXmlGuiWindow
         void loadEffects();
         void loadBorders();
         void prepareSignalsConnections();
-        void loadImages(const QList<QUrl>& urls);
 
     private:
 

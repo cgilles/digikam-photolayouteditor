@@ -115,7 +115,8 @@ void PhotoLayoutsEditorPlugin::slotPhotoLayoutsEditor()
     if (!images.isEmpty())
     {
         PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(nullptr);
-        w->initCanvas(images);
+        w->open();
+        w->loadImages(images);
         w->show();
     }
 }
