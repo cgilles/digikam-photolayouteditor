@@ -33,9 +33,6 @@
 
 #include <QUndoCommand>
 #include <QMetaProperty>
-
-
-
 #include <QDebug>
 
 using namespace PhotoLayoutsEditor;
@@ -47,7 +44,7 @@ class PhotoLayoutsEditor::BorderChangeCommand : public QUndoCommand
         QVariant value;
     public:
         BorderChangeCommand(BorderDrawerInterface * drawer, QUndoCommand * parent = 0) :
-            QUndoCommand(tr("Border Change"), parent),
+            QUndoCommand(QObject::tr("Border Change"), parent),
             drawer(drawer)
         {
         }

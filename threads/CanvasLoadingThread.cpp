@@ -141,7 +141,7 @@ void CanvasLoadingThread::run()
     for (QMap<AbstractPhoto*,QDomElement>::iterator it = d->data.begin(); it != d->data.end(); ++it, ++(d->i))
     {
         ProgressEvent * actionUpdateEvent = new ProgressEvent(this);
-        actionUpdateEvent->setData(ProgressEvent::ActionUpdate, tr("Loading item no. %1...", QString::number(d->i)) );
+        actionUpdateEvent->setData(ProgressEvent::ActionUpdate, tr("Loading item no. %1...").arg(QString::number(d->i)));
         QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), actionUpdateEvent);
         QCoreApplication::processEvents();
 

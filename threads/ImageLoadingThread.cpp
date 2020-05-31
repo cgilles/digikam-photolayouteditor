@@ -47,7 +47,7 @@
 
 // Local includes
 
-#include "dmetadata.h"
+#include "metaengine.h"
 #include "ProgressEvent.h"
 #include "photolayoutswindow.h"
 
