@@ -64,7 +64,7 @@ public:
     PhotoItemPixmapChangeCommand(const QImage & image,
                                  PhotoItem * item,
                                  QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Image Change"), parent),
+        QUndoCommand(QObject::tr("Image Change"), parent),
         m_image(image),
         m_item(item)
     {
@@ -231,7 +231,7 @@ QString PhotoItem::PhotoItemPrivate::locateFile(const QString & filePath)
                                                     "\n%1"
                                                     "\n"
                                                     "\nWould you like to set new location of this file?"
-                                                    "\nIf not this image will be removed from the composition.", resultPath));
+                                                    "\nIf not this image will be removed from the composition.").arg(resultPath));
             if (result != QMessageBox::Yes)
                 resultPath.clear();
             else
@@ -354,10 +354,10 @@ QDomDocument PhotoItem::toSvg() const
         if (!PLEConfigSkeleton::embedImagesData())
         {
             int result = QMessageBox::question(qApp->activeWindow(),
-                                               tr("Saving: %1", name()),
+                                               tr("Saving: %1").arg(name()),
                                                tr("Do you want to embed images data?\n"
                                                     "Remember that when you move or rename image files on your disk or the storage device become unavailable, those images become unavailable for %1 "
-                                                    "and this layout might become broken.", QApplication::applicationName()));
+                                                    "and this layout might become broken.").arg(QApplication::applicationName()));
             if (result == QMessageBox::Yes)
                 PLEConfigSkeleton::setEmbedImagesData(true);
         }

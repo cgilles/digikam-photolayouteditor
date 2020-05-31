@@ -288,7 +288,7 @@ void CanvasSizeDialogPrivate::setPaper(QPrinter::PageSize pageSize)
             return;
 
         default:
-            qCWarning(DIGIKAM_GENERAL_LOG) << "Page size value not handled:" << pageSize;
+            qWarning() << "Page size value not handled:" << pageSize;
             return;
     }
 

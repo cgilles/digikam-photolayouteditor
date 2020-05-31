@@ -33,6 +33,10 @@
 #include <QUrl>
 #include <QMainWindow>
 
+// KDE includes
+
+#include <kxmlguiwindow.h>
+
 // Local includes
 
 #include "dinfointerface.h"
@@ -48,7 +52,7 @@ class CanvasSizeChangeCommand;
 class ProgressEvent;
 class UndoCommandEventFilter;
 
-class PhotoLayoutsWindow : public QMainWindow
+class PhotoLayoutsWindow : public KXmlGuiWindow
 {
         Q_OBJECT
 

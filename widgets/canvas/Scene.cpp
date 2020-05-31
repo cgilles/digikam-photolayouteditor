@@ -303,7 +303,7 @@ class AddItemsCommand
         bool done;
     public:
         AddItemsCommand(AbstractPhoto * item, int position, Scene * scene, QUndoCommand * parent = 0) :
-            QUndoCommand(tr("Add item"), parent),
+            QUndoCommand(QObject::tr("Add item"), parent),
             position(position),
             scene(scene),
             done(false)
@@ -311,7 +311,7 @@ class AddItemsCommand
             items << item;
         }
         AddItemsCommand(const QList<AbstractPhoto*> & items, int position, Scene * scene, QUndoCommand * parent = 0) :
-            QUndoCommand(i18np("Add item", "Add items", items.count()), parent),
+            QUndoCommand(QObject::tr("Add item", "Add items", items.count()), parent),
             items(items),
             position(position),
             scene(scene),
@@ -356,7 +356,7 @@ class MoveItemsCommand
         bool done;
     public:
         MoveItemsCommand(QMap<AbstractPhoto*,QPointF> items, Scene * scene, QUndoCommand * parent = 0) :
-            QUndoCommand(i18np("Move item", "Move items", items.count()), parent),
+            QUndoCommand(QObject::tr("Move item", "Move items", items.count()), parent),
             m_items(items),
             m_scene(scene),
             done(true)
@@ -508,7 +508,7 @@ class CropItemsCommand
     QMap<AbstractPhoto*,QPainterPath> data;
 public:
     CropItemsCommand(const QPainterPath & path, const QList<AbstractPhoto*> & items, QUndoCommand * parent = 0) :
-        QUndoCommand(i18np("Crop item", "Crop items", items.count()), parent)
+        QUndoCommand(QObject::tr("Crop item", "Crop items", items.count()), parent)
     {
         qDebug() << "scene crop shape" << path.boundingRect();
         foreach(AbstractPhoto* item, items)
@@ -652,7 +652,7 @@ void Scene::addItems(const QList<AbstractPhoto*> & items)
     QUndoCommand * parent = 0;
     QUndoCommand * command = 0;
     if (items.count() > 1)
-        parent = new QUndoCommand( i18np("Add item", "Add items", items.count()) );
+        parent = new QUndoCommand( tr("Add item", "Add items", items.count()) );
 
     foreach(AbstractPhoto* item, tempItems)
         command = new AddItemsCommand(item, insertionRow++, this, parent);
@@ -678,7 +678,7 @@ void Scene::removeItems(const QList<AbstractPhoto *> & items)
     QUndoCommand * command = 0;
     QUndoCommand * parent = 0;
     if (items.count() > 1)
-        parent = new QUndoCommand( i18np("Remove item", "Remove items", items.count()) );
+        parent = new QUndoCommand( tr("Remove item", "Remove items", items.count()) );
     foreach (AbstractPhoto * item, items)
         command = new RemoveItemsCommand(item, this, parent);
     if (parent)
@@ -731,7 +731,7 @@ void Scene::contextMenuEvent(QGraphicsSceneMouseEvent * event)
             }
         }
 
-        QAction * removeAction = menu.addAction( i18np("Delete selected item", "Delete selected items", items.count()) );
+        QAction * removeAction = menu.addAction( tr("Delete selected item", "Delete selected items", items.count()) );
         connect(removeAction, SIGNAL(triggered()), this, SLOT(removeSelectedItems()));
         menu.addSeparator();
     }
@@ -1532,7 +1532,7 @@ Scene * Scene::fromSvg(QDomElement & sceneElement)
     // Show error message
     if (errorsCount)
     {
-        QMessageBox::critical(0, tr("Error"), i18np("Unable to create one element", "Unable to create %1 elements", errorsCount));
+        QMessageBox::critical(0, tr("Error"), tr("Unable to create one element", "Unable to create %1 elements", errorsCount));
     }
 
     return result;
@@ -1640,7 +1640,7 @@ bool Scene::askAboutRemoving(int count)
     {
         int result = QMessageBox::question(qApp->activeWindow(), 
                                            tr("Items deleting"),
-                                           i18np("Are you sure you want to delete selected item?", "Are you sure you want to delete %1 selected items?", count));
+                                           tr("Are you sure you want to delete selected item?", "Are you sure you want to delete %1 selected items?", count));
         if (result == QMessageBox::Yes)
             return true;
     }

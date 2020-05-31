@@ -46,7 +46,7 @@ class PhotoLayoutsEditor::RotateItemCommand : public QUndoCommand
 public:
 
     RotateItemCommand(AbstractPhoto * item, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Rotate item"), parent),
+        QUndoCommand(QObject::tr("Rotate item"), parent),
         item(item),
         angle(0),
         done(false)
@@ -288,7 +288,7 @@ void RotationWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
     this->setCursor(QCursor(Qt::OpenHandCursor));
 
     if (d->rotate_commands.count() > 1)
-        PhotoLayoutsWindow::instance()->beginUndoCommandGroup( i18np("Rotate item", "Rotate items", d->rotate_commands.count()) );
+        PhotoLayoutsWindow::instance()->beginUndoCommandGroup( tr("Rotate item", "Rotate items", d->rotate_commands.count()) );
     for (QMap<AbstractPhoto*,RotateItemCommand*>::iterator it = d->rotate_commands.begin(); it != d->rotate_commands.end(); ++it)
     {
         if (it.value())

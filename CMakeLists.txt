@@ -8,7 +8,6 @@ project(PhotoLayout)
 
 cmake_minimum_required(VERSION "3.1.0")
 
-
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_AUTOMOC ON)
 
@@ -21,30 +20,17 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
 include(MacroInstall)
 include(FeatureSummary)
 
-# Cmake macros
-include(CMakePackageConfigHelpers)
-include(GenerateExportHeader)
-include(CheckFunctionExists)
-
 include(ECMOptionalAddSubdirectory)
 include(ECMAddTests)
 include(ECMMarkNonGuiExecutable)
-include(ECMGenerateHeaders)
-include(ECMGeneratePriFile)
 include(ECMSetupVersion)
 include(ECMInstallIcons)
 include(ECMAddAppIcon)
-include(ECMPoQmTools)
-include(ECMMarkAsTest)
-include(ECMAddTests)
 
 # KDE macros
-include(KDEInstallDirs)
-include(KDECMakeSettings)
-include(KDEFrameworkCompilerSettings)
-include(KDECompilerSettings)
-
-
+#include(KDECMakeSettings)
+#include(KDEFrameworkCompilerSettings)
+#include(KDECompilerSettings)
 
 find_package(Qt5 "5.6.0" REQUIRED
              NO_MODULE COMPONENTS
@@ -81,6 +67,10 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
                     $<TARGET_PROPERTY:Qt5::Core,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::Widgets,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::PrintSupport,INTERFACE_INCLUDE_DIRECTORIES>
+
+                    $<TARGET_PROPERTY:KF5::XmlGui,INTERFACE_INCLUDE_DIRECTORIES>
+                    $<TARGET_PROPERTY:KF5::ConfigCore,INTERFACE_INCLUDE_DIRECTORIES>
+                    $<TARGET_PROPERTY:KF5::Service,INTERFACE_INCLUDE_DIRECTORIES>
 
                     ${CMAKE_CURRENT_SOURCE_DIR}/extra
                     ${CMAKE_CURRENT_SOURCE_DIR}/extra/qtpropertybrowser
@@ -250,4 +240,8 @@ target_link_libraries(collage
                       Qt5::Gui
                       Qt5::Xml
                       Qt5::Svg
+
+                      KF5::XmlGui
+                      KF5::ConfigCore
+                      KF5::Service
 )

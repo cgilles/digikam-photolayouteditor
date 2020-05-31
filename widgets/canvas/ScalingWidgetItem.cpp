@@ -50,7 +50,7 @@ class PhotoLayoutsEditor::MoveItemCommand : public QUndoCommand
     bool done;
 public:
     MoveItemCommand(AbstractPhoto * item, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Move item"), parent),
+        QUndoCommand(QObject::tr("Move item"), parent),
         m_item(item),
         done(false)
     {}
@@ -481,7 +481,7 @@ void ScalingWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
 void ScalingWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
 {
     if (d->scale_commands.count() > 1)
-        PhotoLayoutsWindow::instance()->beginUndoCommandGroup( i18np("Scale item", "Scale items", d->scale_commands.count()) );
+        PhotoLayoutsWindow::instance()->beginUndoCommandGroup( tr("Scale item", "Scale items", d->scale_commands.count()) );
     for (QMap<AbstractPhoto*,ScaleItemCommand*>::iterator it = d->scale_commands.begin(); it != d->scale_commands.end(); ++it)
     {
         if (it.value())
@@ -496,7 +496,7 @@ void ScalingWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
     d->scale_commands.clear();
 
     if (d->move_commands.count() > 1)
-        PhotoLayoutsWindow::instance()->beginUndoCommandGroup( i18np("Move item", "Move items", d->move_commands.count()) );
+        PhotoLayoutsWindow::instance()->beginUndoCommandGroup( tr("Move item", "Move items", d->move_commands.count()) );
     for (QMap<AbstractPhoto*,MoveItemCommand*>::iterator it = d->move_commands.begin(); it != d->move_commands.end(); ++it)
     {
         if (it.value())

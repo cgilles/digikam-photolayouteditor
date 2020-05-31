@@ -94,7 +94,7 @@ class CanvasSizeChangeCommand
 public:
 
     CanvasSizeChangeCommand(const CanvasSize & size, Canvas * canvas, QUndoCommand * parent = 0) :
-        QUndoCommand(tr("Canvas size change"), parent),
+        QUndoCommand(QObject::tr("Canvas size change"), parent),
         m_size(size),
         m_canvas(canvas)
     {
@@ -121,7 +121,7 @@ public:
 PhotoLayoutsWindow* PhotoLayoutsWindow::m_instance = 0;
 
 PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget * parent) :
-    QMainWindow(parent),
+    KXmlGuiWindow(parent),
     m_canvas(0),
     m_interface(0),
     d(new Private)
@@ -250,11 +250,11 @@ void PhotoLayoutsWindow::setupActions()
     actionCollection()->setDefaultShortcut(d->saveAsAction, Qt::SHIFT + Qt::CTRL + Qt::Key_S);
     actionCollection()->addAction(QLatin1String("save_as"), d->saveAsAction);
     //------------------------------------------------------------------------
-    d->saveAsTemplateAction = new QAction(i18nc("Saves canvas as a template file...", "Save As Template..."), actionCollection());
+    d->saveAsTemplateAction = new QAction(tr("Saves canvas as a template file...", "Save As Template..."), actionCollection());
     connect(d->saveAsTemplateAction, SIGNAL(triggered()), this, SLOT(saveAsTemplate()));
     actionCollection()->addAction(QLatin1String("save_as_template"), d->saveAsTemplateAction);
     //------------------------------------------------------------------------
-    d->exportFileAction = new QAction(i18nc("Export current frame layout to image file...", "Export..."), actionCollection());
+    d->exportFileAction = new QAction(tr("Export current frame layout to image file...", "Export..."), actionCollection());
     actionCollection()->setDefaultShortcut(d->exportFileAction, Qt::SHIFT + Qt::CTRL + Qt::Key_E);
     connect(d->exportFileAction, SIGNAL(triggered()), this, SLOT(exportFile()));
     actionCollection()->addAction(QLatin1String("export"), d->exportFileAction);
@@ -281,21 +281,21 @@ void PhotoLayoutsWindow::setupActions()
     d->settingsAction = KStandardAction::preferences(this, SLOT(settings()), actionCollection());
     actionCollection()->addAction(QLatin1String("settings"), d->settingsAction);
     //------------------------------------------------------------------------
-    d->addImageAction = new QAction(i18nc("Adds new image(s) from file...", "Add image(s)..."), actionCollection());
+    d->addImageAction = new QAction(tr("Adds new image(s) from file...", "Add image(s)..."), actionCollection());
     connect(d->addImageAction, SIGNAL(triggered()), this, SLOT(loadNewImage()));
     actionCollection()->addAction(QLatin1String("new_image"), d->addImageAction);
     //------------------------------------------------------------------------
-    d->showGridToggleAction = new KToggleAction(i18nc("View grid lines...", "Show..."), actionCollection());
+    d->showGridToggleAction = new KToggleAction(tr("View grid lines...", "Show..."), actionCollection());
     actionCollection()->setDefaultShortcut(d->showGridToggleAction, Qt::SHIFT + Qt::CTRL + Qt::Key_G);
     d->showGridToggleAction->setChecked( PLEConfigSkeleton::self()->showGrid() );
     connect(d->showGridToggleAction, SIGNAL(triggered(bool)), this, SLOT(setGridVisible(bool)));
     actionCollection()->addAction(QLatin1String("grid_toggle"), d->showGridToggleAction);
     //------------------------------------------------------------------------
-    d->gridConfigAction = new QAction(i18nc("Configure grid lines visibility...", "Setup grid..."), actionCollection());
+    d->gridConfigAction = new QAction(tr("Configure grid lines visibility...", "Setup grid..."), actionCollection());
     connect(d->gridConfigAction, SIGNAL(triggered()), this, SLOT(setupGrid()));
     actionCollection()->addAction(QLatin1String("grid_config"), d->gridConfigAction);
     //------------------------------------------------------------------------
-    d->changeCanvasSizeAction = new QAction(i18nc("Configure canvas size...", "Change canvas size..."), actionCollection());
+    d->changeCanvasSizeAction = new QAction(tr("Configure canvas size...", "Change canvas size..."), actionCollection());
     connect(d->changeCanvasSizeAction, SIGNAL(triggered()), this, SLOT(changeCanvasSize()));
     actionCollection()->addAction(QLatin1String("canvas_size"), d->changeCanvasSizeAction);
 
@@ -827,7 +827,7 @@ void PhotoLayoutsWindow::loadEffects()
             }
             else
             {
-                qCWarning(DIGIKAM_GENERAL_LOG) << "PhotoLayoutsWindow: createInstance returned 0 for "
+                qWarning() << "PhotoLayoutsWindow: createInstance returned 0 for "
                            << service->name()
                            << " (" << service->library() << ")"
                            << " with error: "
@@ -868,7 +868,7 @@ void PhotoLayoutsWindow::loadBorders()
             }
             else
             {
-                qCWarning(DIGIKAM_GENERAL_LOG) << "PhotoLayoutsWindow: createInstance returned 0 for "
+                qWarning() << "PhotoLayoutsWindow: createInstance returned 0 for "
                            << service->name()
                            << " (" << service->library() << ")"
                            << " with error: "

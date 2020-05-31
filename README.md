@@ -4,9 +4,9 @@ This tool allows you to create collage layout of images using effect.
 
 # Dependencies
 
-- Qt5.
 - Cmake 3.x.
-- Exiv2 0.27.x API.
+- Qt5.
+- KDE Framework (KF5).
 - digiKam 7.x plugin interface. <https://www.digikam.org> (optional)
 
 # Compiling and Installing
