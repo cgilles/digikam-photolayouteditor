@@ -213,8 +213,6 @@ if(NOT MSVC)
     target_compile_options(photolayoutseditorcore PRIVATE -fPIC)
 endif()
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/settings/photolayoutseditor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
-
 # =======================================================
 # Stand-alone version of PhotoLayoutsEditor
 
