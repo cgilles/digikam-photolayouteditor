@@ -64,10 +64,7 @@ int main(int argc, char* argv[])
 
     if (!urlList.isEmpty())
     {
-        QUrl url = urlList.first();
-
-        if (url.isValid())
-            w->open(url);
+        w->initCanvas(urlList);
     }
 
     w->show();

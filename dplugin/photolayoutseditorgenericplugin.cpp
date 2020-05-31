@@ -114,15 +114,8 @@ void PhotoLayoutsEditorPlugin::slotPhotoLayoutsEditor()
 
     if (!images.isEmpty())
     {
-        PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(0);
-
-        QUrl url = images.first();
-
-        if (url.isValid())
-        {
-            w->open(url);
-        }
-
+        PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(nullptr);
+        w->initCanvas(images);
         w->show();
     }
 }

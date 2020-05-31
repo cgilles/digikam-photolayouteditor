@@ -125,13 +125,13 @@ public:
     }
 };
 
-PhotoLayoutsWindow* PhotoLayoutsWindow::m_instance = 0;
+PhotoLayoutsWindow* PhotoLayoutsWindow::m_instance = nullptr;
 
-PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget * parent) :
-    KXmlGuiWindow(parent),
-    m_canvas(0),
-    m_interface(0),
-    d(new Private)
+PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget* const parent)
+    : KXmlGuiWindow(parent),
+      m_canvas(0),
+      m_interface(0),
+      d(new Private)
 {
     m_instance = this;
 
@@ -148,7 +148,7 @@ PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget * parent) :
 
     setAcceptDrops(true);
     int height = QApplication::desktop()->height()*0.8;
-    resize(qRound(height*16.0/9.0),height);
+    resize(qRound(height * (16.0 / 9.0)),height);
     QDesktopWidget* d = qApp->desktop();
     move(d->rect().center() - this->frameGeometry().center());
 }
@@ -159,6 +159,7 @@ PhotoLayoutsWindow::~PhotoLayoutsWindow()
 
     if (m_canvas)
         m_canvas->deleteLater();
+
     if (d)
         delete d;
 
@@ -167,7 +168,7 @@ PhotoLayoutsWindow::~PhotoLayoutsWindow()
     cleanupIconsResource();
 }
 
-PhotoLayoutsWindow * PhotoLayoutsWindow::instance(QWidget * parent)
+PhotoLayoutsWindow* PhotoLayoutsWindow::instance(QWidget* const parent)
 {
     if (m_instance)
         return m_instance;
@@ -221,14 +222,6 @@ bool PhotoLayoutsWindow::hasInterface() const
 DInfoInterface* PhotoLayoutsWindow::interface() const
 {
     return this->m_interface;
-}
-
-void PhotoLayoutsWindow::setItemsList(const QList<QUrl> & images)
-{
-    if (!m_canvas)
-        return;
-
-    m_canvas->addImages(images);
 }
 
 void PhotoLayoutsWindow::setupActions()
@@ -342,11 +335,15 @@ void PhotoLayoutsWindow::addRecentFile(const QUrl & url)
         tempList.removeAll(url);
         tempList.push_back(url);
         unsigned maxCount = PLEConfigSkeleton::recentFilesCount();
+
         while ( ((unsigned)tempList.count()) > maxCount)
             tempList.removeAt(0);
+
         PLEConfigSkeleton::setRecentFiles(tempList);
+
         if ( !d->openRecentFilesMenu->urls().contains( url ) )
             d->openRecentFilesMenu->addUrl( url );
+
         PLEConfigSkeleton::self()->save();
     }
 }
@@ -395,11 +392,12 @@ void PhotoLayoutsWindow::createCanvas(const CanvasSize & size)
         d->centralWidget->layout()->removeWidget(m_canvas);
         m_canvas->deleteLater();
     }
+
     m_canvas = new Canvas(size, d->centralWidget);
     this->prepareSignalsConnections();
 }
 
-void PhotoLayoutsWindow::createCanvas(const QUrl & fileUrl)
+void PhotoLayoutsWindow::createCanvas(const QUrl& fileUrl)
 {
     if (m_canvas)
     {
@@ -411,6 +409,7 @@ void PhotoLayoutsWindow::createCanvas(const QUrl & fileUrl)
     QDomDocument document;
     document.setContent(&file, true);
     m_canvas = Canvas::fromSvg(document);
+
     if (m_canvas)
     {
         if (!m_canvas->isTemplate())
@@ -419,6 +418,7 @@ void PhotoLayoutsWindow::createCanvas(const QUrl & fileUrl)
             // Adds recent open file
             this->addRecentFile(m_canvas->file());
         }
+
         m_canvas->setParent(d->centralWidget);
         this->prepareSignalsConnections();
     }
@@ -472,14 +472,16 @@ void PhotoLayoutsWindow::prepareSignalsConnections()
 
 void PhotoLayoutsWindow::open()
 {
-    NewCanvasDialog * dialog = new NewCanvasDialog(this);
+    NewCanvasDialog* const dialog = new NewCanvasDialog(this);
     dialog->setModal(true);
 
     int result = dialog->exec();
+
     if (result != QDialog::Accepted)
         return;
 
     QString tmp;
+
     if (dialog->hasTemplateSelected() && !(tmp = dialog->templateSelected()).isEmpty())
     {
         open(QUrl(dialog->templateSelected()));
@@ -487,6 +489,7 @@ void PhotoLayoutsWindow::open()
     else
     {
         CanvasSize size = dialog->canvasSize();
+
         if (size.isValid())
         {
             closeDocument();
@@ -494,6 +497,7 @@ void PhotoLayoutsWindow::open()
             refreshActions();
         }
     }
+
     delete dialog;
 }
 
@@ -520,10 +524,12 @@ void PhotoLayoutsWindow::openDialog()
     }
 }
 
-void PhotoLayoutsWindow::open(const QUrl & fileUrl)
+void PhotoLayoutsWindow::open(const QUrl& fileUrl)
 {
-    if (m_canvas && m_canvas->file() == fileUrl)
+    if (m_canvas && (m_canvas->file() == fileUrl))
+    {
         return;
+    }
 
     if (fileUrl.isValid())
     {
@@ -533,11 +539,24 @@ void PhotoLayoutsWindow::open(const QUrl & fileUrl)
     }
 }
 
+void PhotoLayoutsWindow::initCanvas(const QList<QUrl>& urls)
+{
+    if (!urls.isEmpty())
+    {
+        closeDocument();
+        createCanvas(CanvasSize(QSizeF(210, 297), CanvasSize::Milimeters, QSizeF(72, 72), CanvasSize:: PixelsPerMilimeter));
+        refreshActions();
+        loadImages(urls);
+    }
+}
+
 void PhotoLayoutsWindow::save()
 {
     qDebug() << !m_canvas->file().isValid() <<  m_canvas->file().fileName().isEmpty() << m_canvas->isTemplate();
+
     if (!m_canvas)
         return;
+
     if (!m_canvas->file().isValid() || m_canvas->file().fileName().isEmpty() || m_canvas->isTemplate())
         saveAs();
     else
@@ -598,9 +617,9 @@ void PhotoLayoutsWindow::saveFile(const QUrl & fileUrl, bool setFileAsDefault)
     if (m_canvas)
         m_canvas->save(fileUrl, setFileAsDefault);
     else
-            QMessageBox::critical(this,
-                                  QObject::tr("Error"),
-                                  QObject::tr("There is nothing to save."));
+        QMessageBox::critical(this,
+                              QObject::tr("Error"),
+                              QObject::tr("There is nothing to save."));
 }
 
 void PhotoLayoutsWindow::exportFile()
@@ -634,7 +653,7 @@ void PhotoLayoutsWindow::exportFile()
         if (!writer.canWrite())
         {
             QMessageBox::critical(this, QObject::tr("Error"),
-                                    QObject::tr("Image can't be saved in selected file."));
+                                  QObject::tr("Image can't be saved in selected file."));
         }
 
         if (!writer.write(image.toImage()))
@@ -655,10 +674,13 @@ void PhotoLayoutsWindow::printPreview()
 {
     if (m_canvas && m_canvas->scene())
     {
-        QPrinter * printer = new QPrinter();
+        QPrinter* const printer = new QPrinter();
         m_canvas->preparePrinter(printer);
-        QPrintPreviewDialog * dialog = new QPrintPreviewDialog(printer, this);
-        connect(dialog, SIGNAL(paintRequested(QPrinter*)), m_canvas, SLOT(renderCanvas(QPrinter*)));
+        QPrintPreviewDialog* const dialog = new QPrintPreviewDialog(printer, this);
+
+        connect(dialog, SIGNAL(paintRequested(QPrinter*)),
+                m_canvas, SLOT(renderCanvas(QPrinter*)));
+
         dialog->exec();
         delete dialog;
         delete printer;
@@ -667,10 +689,13 @@ void PhotoLayoutsWindow::printPreview()
 
 void PhotoLayoutsWindow::print()
 {
-    QPrinter * printer = new QPrinter();
+    QPrinter* const printer = new QPrinter();
     m_canvas->preparePrinter(printer);
-    QPrintDialog * dialog = new QPrintDialog(printer, this);
-    connect(dialog, SIGNAL(accepted(QPrinter*)), m_canvas, SLOT(renderCanvas(QPrinter*)));
+    QPrintDialog* const dialog = new QPrintDialog(printer, this);
+
+    connect(dialog, SIGNAL(accepted(QPrinter*)),
+            m_canvas, SLOT(renderCanvas(QPrinter*)));
+
     dialog->exec();
     delete dialog;
     delete printer;
@@ -734,14 +759,22 @@ void PhotoLayoutsWindow::settings()
     dialog->show();
 }
 
-void PhotoLayoutsWindow::loadNewImage()
+void PhotoLayoutsWindow::loadImages(const QList<QUrl>& urls)
 {
     if (!m_canvas)
         return;
 
-    QList<QUrl> urls = ImageDialog::getImageURLs(this, QUrl());
     if (!urls.isEmpty())
+    {
         m_canvas->addImages(urls);
+    }
+}
+
+void PhotoLayoutsWindow::loadNewImage()
+{
+    QList<QUrl> urls = ImageDialog::getImageURLs(this, QUrl());
+
+    loadImages(urls);
 }
 
 void PhotoLayoutsWindow::setGridVisible(bool isVisible)
@@ -749,6 +782,7 @@ void PhotoLayoutsWindow::setGridVisible(bool isVisible)
     d->showGridToggleAction->setChecked(isVisible);
     PLEConfigSkeleton::setShowGrid(isVisible);
     PLEConfigSkeleton::self()->save();
+
     if (m_canvas && m_canvas->scene())
         m_canvas->scene()->setGridVisible(isVisible);
 }
@@ -806,20 +840,21 @@ void PhotoLayoutsWindow::setTemplateEditMode(bool isEnabled)
 
 void PhotoLayoutsWindow::loadEffects()
 {
-    StandardEffectsFactory * stdEffects = new StandardEffectsFactory( PhotoEffectsLoader::instance() );
+    StandardEffectsFactory* const stdEffects = new StandardEffectsFactory( PhotoEffectsLoader::instance() );
     PhotoEffectsLoader::registerEffect( stdEffects );
 
     const KService::List offers = KServiceTypeTrader::self()->query(QLatin1String("PhotoLayoutsEditor/EffectPlugin"));
-    foreach(const KService::Ptr& service, offers)
+
+    foreach (const KService::Ptr& service, offers)
     {
         if (service)
             d->effectsServiceMap[service->name()] = service;
     }
 
-    foreach(const QString& name, d->effectsServiceMap.keys())
+    foreach (const QString& name, d->effectsServiceMap.keys())
     {
         KService::Ptr service = d->effectsServiceMap.value(name);
-        AbstractPhotoEffectFactory * plugin;
+        AbstractPhotoEffectFactory* plugin = nullptr;
 
         if ( d->effectsMap.contains(name) )
             continue;
@@ -847,20 +882,21 @@ void PhotoLayoutsWindow::loadEffects()
 
 void PhotoLayoutsWindow::loadBorders()
 {
-    StandardBordersFactory * stdBorders = new StandardBordersFactory( BorderDrawersLoader::instance() );
+    StandardBordersFactory* const stdBorders = new StandardBordersFactory( BorderDrawersLoader::instance() );
     BorderDrawersLoader::registerDrawer( stdBorders );
 
     const KService::List offers = KServiceTypeTrader::self()->query(QLatin1String("PhotoLayoutsEditor/BorderPlugin"));
-    foreach(const KService::Ptr& service, offers)
+
+    foreach (const KService::Ptr& service, offers)
     {
         if (service)
             d->bordersServiceMap[service->name()] = service;
     }
 
-    foreach(const QString& name, d->bordersServiceMap.keys())
+    foreach (const QString& name, d->bordersServiceMap.keys())
     {
         KService::Ptr service = d->bordersServiceMap.value(name);
-        BorderDrawerFactoryInterface * plugin;
+        BorderDrawerFactoryInterface* plugin = nullptr;
 
         if ( d->bordersMap.contains(name) )
             continue;
@@ -868,6 +904,7 @@ void PhotoLayoutsWindow::loadBorders()
         {
             QString error;
             plugin = service->createInstance<BorderDrawerFactoryInterface>(this, QVariantList(), &error);
+
             if (plugin)
             {
                 d->bordersMap[name] = plugin;

@@ -62,32 +62,32 @@ class PhotoLayoutsWindow : public KXmlGuiWindow
         static PhotoLayoutsWindow* instance(QWidget* const parent = nullptr);
 
         void addUndoCommand(QUndoCommand* command);
-        void beginUndoCommandGroup(const QString & name);
+        void beginUndoCommandGroup(const QString& name);
         void endUndoCommandGroup();
 
         void setInterface(DInfoInterface* const interface);
         DInfoInterface* interface() const;
-        bool hasInterface() const;
+        bool hasInterface()         const;
 
-        void setItemsList(const QList<QUrl> & images);
+        void initCanvas(const QList<QUrl>& urls);
 
     public Q_SLOTS:
 
         void open();
         void openDialog();
-        void open(const QUrl & fileUrl);
+        void open(const QUrl& fileUrl);
         void save();
         void saveAs();
         void saveAsTemplate();
-        void saveFile(const QUrl & fileUrl = QUrl(), bool setFileAsDefault = true);
+        void saveFile(const QUrl& fileUrl = QUrl(), bool setFileAsDefault = true);
         void exportFile();
         void printPreview();
         void print();
         bool closeDocument();
         void loadNewImage();
         void setGridVisible(bool isVisible);
-        void createCanvas(const CanvasSize & size);
-        void createCanvas(const QUrl & fileUrl);
+        void createCanvas(const CanvasSize& size);
+        void createCanvas(const QUrl& fileUrl);
         void settings();
         void setupGrid();
         void changeCanvasSize();
@@ -95,30 +95,32 @@ class PhotoLayoutsWindow : public KXmlGuiWindow
 
     protected:
 
-        void progressEvent(ProgressEvent * event);
+        void progressEvent(ProgressEvent* event);
 
     protected Q_SLOTS:
 
         bool queryClose();
         void refreshActions();
-        void addRecentFile(const QUrl & url);
+        void addRecentFile(const QUrl& url);
         void clearRecentList();
 
     private:
 
-        explicit PhotoLayoutsWindow(QWidget * parent = 0);
-        static PhotoLayoutsWindow * m_instance;
+        explicit PhotoLayoutsWindow(QWidget* const parent = nullptr);
 
         void setupActions();
         void createWidgets();
         void loadEffects();
         void loadBorders();
         void prepareSignalsConnections();
+        void loadImages(const QList<QUrl>& urls);
 
     private:
 
-        Canvas*         m_canvas;
-        DInfoInterface* m_interface;
+        static PhotoLayoutsWindow* m_instance;
+
+        Canvas*                    m_canvas;
+        DInfoInterface*            m_interface;
 
         class Private;
         Private* const d;
