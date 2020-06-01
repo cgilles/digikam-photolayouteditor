@@ -18,4 +18,4 @@ This tool allows you to create collage layout of images using effect.
 - make
 - make install/fast
 
-![](https://i.imgur.com/dFDdo2l.png)
+![](https://i.imgur.com/79xs2Ef.png)

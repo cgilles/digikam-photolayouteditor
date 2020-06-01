@@ -68,12 +68,12 @@ QIcon PhotoLayoutsEditorPlugin::icon() const
 
 QString PhotoLayoutsEditorPlugin::description() const
 {
-    return QString::fromUtf8("a plugin to create photo layouts by fusion of several images.");
+    return QString::fromUtf8("A tool to create collage layout of images using effect.");
 }
 
 QString PhotoLayoutsEditorPlugin::details() const
 {
-    return QString::fromUtf8("<p>This plugin allows you to create layouts of photo based on a fusion of several images.</p>");
+    return QString::fromUtf8("<p>This tool allows you to create layouts of photo based on a fusion of several images.</p>");
 }
 
 QList<DPluginAuthor> PhotoLayoutsEditorPlugin::authors() const
