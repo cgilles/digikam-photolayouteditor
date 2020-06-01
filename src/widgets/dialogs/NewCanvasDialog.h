@@ -7,6 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011-2012 by Lukasz Spas <lukasz dot spas at gmail dot com>
+ * Copyright (C) 2012-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -21,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef NEWCANVASDIALOG_H
-#define NEWCANVASDIALOG_H
+#ifndef NEW_CANVAS_DIALOG_H
+#define NEW_CANVAS_DIALOG_H
+
+// Qt includes
 
 #include <QDialog>
 #include <QListWidgetItem>
@@ -39,12 +42,12 @@ class NewCanvasDialog : public QDialog
 
 public:
 
-    explicit NewCanvasDialog(QWidget* parent = 0);
+    explicit NewCanvasDialog(QWidget* parent = nullptr);
     ~NewCanvasDialog();
 
     bool hasTemplateSelected() const;
     QString templateSelected() const;
-    CanvasSize canvasSize() const;
+    CanvasSize canvasSize()    const;
 
 private Q_SLOTS:
 
@@ -56,13 +59,14 @@ private Q_SLOTS:
 private:
 
     void setupUI();
-    void loadTemplatesList(const QString & path, TemplatesModel* model);
+    void loadTemplatesList(const QString& path, TemplatesModel* const model);
 
     class Private;
-    Private* d;
+    Private* const d;
+
     friend class Private;
 };
 
 } // namespace PhotoLayoutsEditor
 
-#endif // NEWCANVASDIALOG_H
+#endif // NEW_CANVAS_DIALOG_H

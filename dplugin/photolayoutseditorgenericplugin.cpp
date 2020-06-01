@@ -81,7 +81,7 @@ QList<DPluginAuthor> PhotoLayoutsEditorPlugin::authors() const
     return QList<DPluginAuthor>()
             << DPluginAuthor(QString::fromUtf8("Lukasz Spas"),
                              QString::fromUtf8("lukasz dot spas at gmail dot com>e"),
-                             QString::fromUtf8("(C) 2011"))
+                             QString::fromUtf8("(C) 2011-2012"))
             << DPluginAuthor(QString::fromUtf8("Gilles Caulier"),
                              QString::fromUtf8("caulier dot gilles at gmail dot com"),
                              QString::fromUtf8("(C) 2011-2020"))
