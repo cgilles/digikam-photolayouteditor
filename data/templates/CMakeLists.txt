@@ -4,12 +4,18 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-set(templates_dir ${DATA_INSTALL_DIR}/photolayoutseditor/)
+file(GLOB templates_dir
+     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/*
+     LIST_DIRECTORIES true)
 
-install(FILES "a4/h/Bear boy.ple"           DESTINATION ${templates_dir}/a4/h)
-install(FILES "a4/h/Bear girl.ple"          DESTINATION ${templates_dir}/a4/h)
-install(FILES "a4/h/Flipping Tux Black.ple" DESTINATION ${templates_dir}/a4/h)
-install(FILES "a4/h/Flipping Tux White.ple" DESTINATION ${templates_dir}/a4/h)
-install(FILES "a4/h/Its a boy.ple"          DESTINATION ${templates_dir}/a4/h)
-install(FILES "a4/h/Its a girl.ple"         DESTINATION ${templates_dir}/a4/h)
-install(FILES "a4/h/Tux Rider.ple"          DESTINATION ${templates_dir}/a4/h)
+foreach(child ${templates_dir})
+
+    if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${child})
+
+        install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${child}
+                 DESTINATION ${DATA_INSTALL_DIR}/photolayoutseditor)
+
+    endif()
+
+endforeach()
+
