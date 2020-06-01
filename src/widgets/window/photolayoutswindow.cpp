@@ -24,49 +24,8 @@
 
 #include "photolayoutswindow_p.h"
 
-// NOTE: Q_*_RESOURCE cannot be used in a namespace
-
-inline void initIconsResource()    { Q_INIT_RESOURCE(icons);    }
-inline void cleanupIconsResource() { Q_CLEANUP_RESOURCE(icons); }
-
 namespace PhotoLayoutsEditor
 {
-
-class CanvasSizeChangeCommand : public QUndoCommand
-{
-public:
-
-    CanvasSizeChangeCommand(const CanvasSize& size, Canvas* canvas, QUndoCommand* parent = nullptr)
-      : QUndoCommand(QObject::tr("Canvas size change"), parent),
-        m_size(size),
-        m_canvas(canvas)
-    {
-    }
-
-    virtual void redo()
-    {
-        this->run();
-    }
-
-    virtual void undo()
-    {
-        this->run();
-    }
-
-    void run()
-    {
-        CanvasSize temp = m_canvas->canvasSize();
-        m_canvas->setCanvasSize(m_size);
-        m_size          = temp;
-    }
-
-private:
-
-    CanvasSize m_size;
-    Canvas*    m_canvas;
-};
-
-PhotoLayoutsWindow* PhotoLayoutsWindow::m_instance = nullptr;
 
 PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget* const parent)
     : KXmlGuiWindow(parent),

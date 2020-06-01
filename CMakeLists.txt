@@ -81,7 +81,6 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/settings
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/models
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/listeners
-                    ${CMAKE_CURRENT_SOURCE_DIR}/src/events
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/effecttools
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders
@@ -94,9 +93,6 @@ add_subdirectory(data)
 
 set(photolayoutseditorcore_SRCS
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/events/ProgressEvent.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/events/UndoCommandEvent.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/events/UndoCommandEventFilter.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models/AbstractMovableModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models/LayersModel.cpp
@@ -132,6 +128,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/SceneBackgroundLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/SceneBorderLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/TextItemLoader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/ProgressEvent.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/ple_global.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qeditfactory.cpp
@@ -149,6 +146,8 @@ set(photolayoutseditorcore_SRCS
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoMoveRowsCommand.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoRemoveItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoCommandEvent.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoCommandEventFilter.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/extra/PatternsComboBox.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/extra/PLEStatusBar.cpp
