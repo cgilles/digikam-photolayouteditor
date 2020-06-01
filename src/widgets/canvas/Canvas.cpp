@@ -38,7 +38,6 @@
 #include "LayersModelItem.h"
 #include "LayersSelectionModel.h"
 #include "UndoMoveRowsCommand.h"
-#include "UndoBorderChangeCommand.h"
 #include "ImageLoadingThread.h"
 #include "ple_global.h"
 #include "ProgressEvent.h"

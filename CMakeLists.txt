@@ -76,10 +76,9 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/extra
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers
-                    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/menus
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window
-                    ${CMAKE_CURRENT_SOURCE_DIR}/src/settings
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/settings
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/models
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/listeners
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/events
@@ -136,7 +135,6 @@ set(photolayoutseditorcore_SRCS
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/ple_global.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qeditfactory.cpp
-
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtbuttonpropertybrowser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qteditorfactory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtgroupboxpropertybrowser.cpp
@@ -145,6 +143,12 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtpropertymanager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qttreepropertybrowser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtvariantproperty.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/listeners/TextColorChangeListener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/listeners/TextFontChangeListener.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoMoveRowsCommand.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoRemoveItem.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/extra/PatternsComboBox.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/extra/PLEStatusBar.cpp
@@ -170,13 +174,8 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesView.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/listeners/TextColorChangeListener.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/listeners/TextFontChangeListener.cpp
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoMoveRowsCommand.cpp
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/settings/PLEConfigDialog.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/settings/PLEConfigViewWidget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/settings/PLEConfigDialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/settings/PLEConfigViewWidget.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/photolayoutswindow.cpp
 
@@ -204,7 +203,7 @@ set(photolayoutseditorcore_RCS
 
 qt5_add_resources(photolayoutseditorcore_SRCS ${photolayoutseditorcore_RCS})
 
-kconfig_add_kcfg_files(photolayoutseditorcore_SRCS GENERATE_MOC ${CMAKE_CURRENT_SOURCE_DIR}/src/settings/PLEConfigSkeleton.kcfgc)
+kconfig_add_kcfg_files(photolayoutseditorcore_SRCS GENERATE_MOC ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/settings/PLEConfigSkeleton.kcfgc)
 
 add_library(photolayoutseditorcore STATIC ${photolayoutseditorcore_SRCS})
 
