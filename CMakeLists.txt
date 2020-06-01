@@ -151,8 +151,7 @@ set(photolayoutseditorcore_SRCS
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTreeDelegate.cpp
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/menus/LayersTreeMenu.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTreeMenu.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/AbstractItemsListViewTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/AbstractItemsTool.cpp
