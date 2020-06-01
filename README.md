@@ -17,3 +17,5 @@ This tool allows you to create collage layout of images using effect.
 - cmake . -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_DPLUGIN ..           (stand alone version and digiKam plugin)
 - make
 - make install/fast
+
+![](https://i.imgur.com/dFDdo2l.png)
