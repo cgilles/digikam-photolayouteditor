@@ -24,7 +24,11 @@
 
 #include "PLEConfigDialog.h"
 
+// Qt includes
+
 #include <QIcon>
+
+// Local includes
 
 #include "PLEConfigSkeleton.h"
 #include "PLEConfigViewWidget.h"
@@ -33,13 +37,13 @@ using namespace PhotoLayoutsEditor;
 
 class PhotoLayoutsEditor::PLEConfigDialogPrivate
 {
-    PLEConfigViewWidget * confVWdg;
+    PLEConfigViewWidget* confVWdg;
 
     friend class PLEConfigDialog;
 };
 
-PLEConfigDialog::PLEConfigDialog(QWidget * parent) :
-    KConfigDialog(parent, QLatin1String("settings"), PLEConfigSkeleton::self()),
+PLEConfigDialog::PLEConfigDialog(QWidget* const parent)
+  : KConfigDialog(parent, QLatin1String("settings"), PLEConfigSkeleton::self()),
     d(new PLEConfigDialogPrivate)
 {
     d->confVWdg = new PLEConfigViewWidget( 0, QObject::tr("View") );

@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef PLECONFIGVIEWWIDGET_H
-#define PLECONFIGVIEWWIDGET_H
+#ifndef PLE_CONFIG_VIEW_WIDGET_H
+#define PLE_CONFIG_VIEW_WIDGET_H
+
+// Qt includes
 
 #include <QWidget>
 
@@ -33,8 +35,9 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            explicit PLEConfigViewWidget(QWidget * parent = 0, const QString & caption = QString());
+            explicit PLEConfigViewWidget(QWidget* const parent = nullptr, const QString& caption = QString());
             ~PLEConfigViewWidget();
+
             void updateSettings();
             void updateWidgets();
 
@@ -43,10 +46,12 @@ namespace PhotoLayoutsEditor
             void setupGUI();
 
         private:
+
             class PLEConfigViewWidgetPrivate;
             PLEConfigViewWidgetPrivate * d;
+
             friend class PLEConfigViewWidgetPrivate;
     };
 }
 
-#endif // PLECONFIGVIEWWIDGET_H
+#endif // PLE_CONFIG_VIEW_WIDGET_H

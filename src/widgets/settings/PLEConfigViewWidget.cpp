@@ -23,7 +23,8 @@
  * ============================================================ */
 
 #include "PLEConfigViewWidget.h"
-#include "PLEConfigSkeleton.h"
+
+// Qt includes
 
 #include <QFormLayout>
 #include <QDoubleSpinBox>
@@ -31,22 +32,24 @@
 #include <QGroupBox>
 #include <QCheckBox>
 
-#include <kconfigdialog.h>
+// Local incudes
+
+#include "PLEConfigSkeleton.h"
 
 using namespace PhotoLayoutsEditor;
 
 class PhotoLayoutsEditor::PLEConfigViewWidget::PLEConfigViewWidgetPrivate
 {
-    QCheckBox      * antialiasing;
-    QDoubleSpinBox * xGrid;
-    QDoubleSpinBox * yGrid;
-    QCheckBox      * showGrid;
+    QCheckBox*      antialiasing;
+    QDoubleSpinBox* xGrid;
+    QDoubleSpinBox* yGrid;
+    QCheckBox*      showGrid;
 
     friend class PLEConfigViewWidget;
 };
 
-PLEConfigViewWidget::PLEConfigViewWidget(QWidget * parent, const QString & caption) :
-    QWidget(parent),
+PLEConfigViewWidget::PLEConfigViewWidget(QWidget* const parent, const QString& caption)
+  : QWidget(parent),
     d(new PLEConfigViewWidgetPrivate)
 {
     this->setupGUI();
@@ -69,7 +72,7 @@ void PLEConfigViewWidget::updateSettings()
 
 void PLEConfigViewWidget::updateWidgets()
 {
-    d->antialiasing->setChecked( PLEConfigSkeleton::antialiasing() );
+    d->antialiasing->setChecked(PLEConfigSkeleton::antialiasing());
     d->showGrid->setChecked(PLEConfigSkeleton::showGrid());
     d->xGrid->setValue(PLEConfigSkeleton::horizontalGrid());
     d->yGrid->setValue(PLEConfigSkeleton::verticalGrid());
@@ -77,20 +80,20 @@ void PLEConfigViewWidget::updateWidgets()
 
 void PLEConfigViewWidget::setupGUI()
 {
-    QVBoxLayout * layout = new QVBoxLayout();
+    QVBoxLayout* const layout = new QVBoxLayout();
     this->setLayout(layout);
 
-    PLEConfigSkeleton * skeleton = PLEConfigSkeleton::self();
+    PLEConfigSkeleton* skeleton = PLEConfigSkeleton::self();
 
-    QFormLayout * generalLayout = new QFormLayout();
+    QFormLayout* const generalLayout = new QFormLayout();
     layout->addLayout(generalLayout);
     d->antialiasing = new QCheckBox(this);
     connect(skeleton, SIGNAL(antialiasingChanged(bool)), d->antialiasing, SLOT(setChecked(bool)));
     generalLayout->addRow(QObject::tr("Antialiasing"), d->antialiasing);
 
-    QGroupBox * gridBox = new QGroupBox(QObject::tr("Grid"), this);
+    QGroupBox* const gridBox = new QGroupBox(QObject::tr("Grid"), this);
     layout->addWidget(gridBox);
-    QFormLayout * gridLayout = new QFormLayout();
+    QFormLayout* const gridLayout = new QFormLayout();
     gridBox->setLayout(gridLayout);
 
     d->showGrid = new QCheckBox(gridBox);
@@ -98,7 +101,7 @@ void PLEConfigViewWidget::setupGUI()
     gridLayout->addRow(QObject::tr("Show grid lines"), d->showGrid);
 
     d->xGrid = new QDoubleSpinBox(gridBox);
-    KConfigSkeletonItem * hgi = skeleton->findItem(QLatin1String("horizontalGrid"));
+    KConfigSkeletonItem* hgi = skeleton->findItem(QLatin1String("horizontalGrid"));
     if (hgi)
     {
         d->xGrid->setMinimum(hgi->minValue().toDouble());
@@ -109,29 +112,17 @@ void PLEConfigViewWidget::setupGUI()
     gridLayout->addRow(QObject::tr("Horizontal distance"), d->xGrid);
 
     d->yGrid = new QDoubleSpinBox(gridBox);
-    KConfigSkeletonItem * vgi = skeleton->findItem(QLatin1String("verticalGrid"));
+    KConfigSkeletonItem* vgi = skeleton->findItem(QLatin1String("verticalGrid"));
+
     if (hgi)
     {
         d->yGrid->setMinimum(vgi->minValue().toDouble());
         d->yGrid->setMaximum(vgi->maxValue().toDouble());
     }
+
     d->yGrid->setSingleStep(1.0);
     connect(skeleton, SIGNAL(verticalGridChanged(double)), d->yGrid, SLOT(setValue(double)));
     gridLayout->addRow(QObject::tr("Vertical distance"), d->yGrid);
-
-//    KConfigDialog * dialog = KConfigDialog::exists( "settings" );
-//    qDebug() << dialog;
-//    if (dialog)
-//    {
-//        connect(d->antialiasing, SIGNAL(stateChanged(int)), dialog, SLOT(updateButtons()));
-//        connect(d->showGrid, SIGNAL(stateChanged(int)), dialog, SLOT(updateButtons()));
-//        connect(d->xGrid, SIGNAL(valueChanged(double)), dialog, SLOT(updateButtons()));
-//        connect(d->yGrid, SIGNAL(valueChanged(double)), dialog, SLOT(updateButtons()));
-//        connect(d->antialiasing, SIGNAL(stateChanged(int)), dialog, SLOT(settingsChangedSlot()));
-//        connect(d->showGrid, SIGNAL(stateChanged(int)), dialog, SLOT(settingsChangedSlot()));
-//        connect(d->xGrid, SIGNAL(valueChanged(double)), dialog, SLOT(settingsChangedSlot()));
-//        connect(d->yGrid, SIGNAL(valueChanged(double)), dialog, SLOT(settingsChangedSlot()));
-//    }
 
     this->updateWidgets();
 }

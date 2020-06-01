@@ -22,10 +22,14 @@
  *
  * ============================================================ */
 
-#ifndef PLECONFIGDIALOG_H
-#define PLECONFIGDIALOG_H
+#ifndef PLE_CONFIG_DIALOG_H
+#define PLE_CONFIG_DIALOG_H
+
+// Qt includes
 
 #include <QDebug>
+
+// KDE includes
 
 #include <kconfigdialog.h>
 
@@ -39,14 +43,14 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit PLEConfigDialog(QWidget * parent = 0);
+            explicit PLEConfigDialog(QWidget* const parent = nullptr);
             ~PLEConfigDialog();
 
             virtual void updateSettings();
             virtual void updateWidgets();
 
-        friend class PLEConfigDialogPrivate;
+            friend class PLEConfigDialogPrivate;
     };
 }
 
-#endif // PLECONFIGDIALOG_H
+#endif // PLE_CONFIG_DIALOG_H
