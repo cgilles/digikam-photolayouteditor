@@ -56,14 +56,8 @@
 
 // KDE includes
 
-#include <kstandardaction.h>
 #include <kactioncollection.h>
-#include <kconfigdialog.h>
-#include <kservice.h>
-#include <kactionmenu.h>
 #include <krecentfilesaction.h>
-#include <ktoggleaction.h>
-#include <kservicetypetrader.h>
 
 // digiKam includes
 
@@ -170,12 +164,6 @@ class PhotoLayoutsWindow::Private
 
             // Other
             Q_DELETE(tree)
-            //Q_DELETE(treeWidget)  // DELETED BY main window
-            //Q_DELETE(treeTitle)   // DELETED BY treeWidget
-
-            //Q_DELETE(toolsWidget)     // DELETED BY main window
-            //Q_DELETE(toolEffects)     // DELETED BY main window
-            //Q_DELETE(toolBorders)     // DELETED BY main window
         }
 
         // Central widget of the window
@@ -216,8 +204,6 @@ class PhotoLayoutsWindow::Private
         BorderEditTool*                                 toolBorders;
 
         // Plugins
-        QMap<QString, KService::Ptr>                    effectsServiceMap;
-        QMap<QString, KService::Ptr>                    bordersServiceMap;
         QMap<QString, AbstractPhotoEffectFactory*>      effectsMap;
         QMap<QString, BorderDrawerFactoryInterface*>    bordersMap;
 

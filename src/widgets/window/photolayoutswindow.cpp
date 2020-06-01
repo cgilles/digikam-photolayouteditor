@@ -24,23 +24,20 @@
 
 #include "photolayoutswindow_p.h"
 
-// Q_*_RESOURCE cannot be used in a namespace
-inline void initIconsResource() { Q_INIT_RESOURCE(icons); }
+// NOTE: Q_*_RESOURCE cannot be used in a namespace
+
+inline void initIconsResource()    { Q_INIT_RESOURCE(icons);    }
 inline void cleanupIconsResource() { Q_CLEANUP_RESOURCE(icons); }
 
 namespace PhotoLayoutsEditor
 {
 
-class CanvasSizeChangeCommand
-    : public QUndoCommand
+class CanvasSizeChangeCommand : public QUndoCommand
 {
-    CanvasSize m_size;
-    Canvas*    m_canvas;
-
 public:
 
-    CanvasSizeChangeCommand(const CanvasSize & size, Canvas * canvas, QUndoCommand * parent = 0) :
-        QUndoCommand(QObject::tr("Canvas size change"), parent),
+    CanvasSizeChangeCommand(const CanvasSize& size, Canvas* canvas, QUndoCommand* parent = nullptr)
+      : QUndoCommand(QObject::tr("Canvas size change"), parent),
         m_size(size),
         m_canvas(canvas)
     {
@@ -60,8 +57,13 @@ public:
     {
         CanvasSize temp = m_canvas->canvasSize();
         m_canvas->setCanvasSize(m_size);
-        m_size = temp;
+        m_size          = temp;
     }
+
+private:
+
+    CanvasSize m_size;
+    Canvas*    m_canvas;
 };
 
 PhotoLayoutsWindow* PhotoLayoutsWindow::m_instance = nullptr;
@@ -84,9 +86,9 @@ PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget* const parent)
     refreshActions();
 
     setAcceptDrops(true);
-    int height = QApplication::desktop()->height()*0.8;
+    int height              = QApplication::desktop()->height()*0.8;
     resize(qRound(height * (16.0 / 9.0)),height);
-    QDesktopWidget* d = qApp->desktop();
+    QDesktopWidget* const d = qApp->desktop();
     move(d->rect().center() - this->frameGeometry().center());
 }
 
@@ -122,13 +124,12 @@ PhotoLayoutsWindow* PhotoLayoutsWindow::instance(QWidget* const parent)
     }
 }
 
-void PhotoLayoutsWindow::addUndoCommand(QUndoCommand * command)
+void PhotoLayoutsWindow::addUndoCommand(QUndoCommand* command)
 {
     if (command)
     {
-#ifdef QT_DEBUG
         qDebug() << command->text();
-#endif
+
         if (d->canvas)
         {
             d->canvas->undoStack()->push(command);
@@ -321,18 +322,18 @@ void PhotoLayoutsWindow::addRecentFile(const QUrl & url)
         QList<QUrl> tempList = PLEConfigSkeleton::recentFiles();
         tempList.removeAll(url);
         tempList.push_back(url);
-        unsigned maxCount = PLEConfigSkeleton::recentFilesCount();
+        unsigned maxCount    = PLEConfigSkeleton::recentFilesCount();
 
-        while ( ((unsigned)tempList.count()) > maxCount)
+        while (((unsigned)tempList.count()) > maxCount)
         {
             tempList.removeAt(0);
         }
 
         PLEConfigSkeleton::setRecentFiles(tempList);
 
-        if ( !d->openRecentFilesMenu->urls().contains( url ) )
+        if (!d->openRecentFilesMenu->urls().contains(url))
         {
-            d->openRecentFilesMenu->addUrl( url );
+            d->openRecentFilesMenu->addUrl(url);
         }
 
         PLEConfigSkeleton::self()->save();
@@ -430,33 +431,33 @@ void PhotoLayoutsWindow::prepareSignalsConnections()
     d->toolsWidget->setScene(d->canvas->scene());
 
     // undo stack signals
-    connect(d->canvas,               SIGNAL(savedStateChanged()),    this,                   SLOT(refreshActions()));
-    connect(d->canvas->undoStack(),  SIGNAL(canRedoChanged(bool)),   d->redoAction,          SLOT(setEnabled(bool)));
-    connect(d->canvas->undoStack(),  SIGNAL(canUndoChanged(bool)),   d->undoAction,          SLOT(setEnabled(bool)));
-    connect(d->undoAction,          SIGNAL(triggered()),            d->canvas->undoStack(),  SLOT(undo()));
-    connect(d->redoAction,          SIGNAL(triggered()),            d->canvas->undoStack(),  SLOT(redo()));
+    connect(d->canvas,                              SIGNAL(savedStateChanged()),                this,                   SLOT(refreshActions()));
+    connect(d->canvas->undoStack(),                 SIGNAL(canRedoChanged(bool)),               d->redoAction,          SLOT(setEnabled(bool)));
+    connect(d->canvas->undoStack(),                 SIGNAL(canUndoChanged(bool)),               d->undoAction,          SLOT(setEnabled(bool)));
+    connect(d->undoAction,                          SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(undo()));
+    connect(d->redoAction,                          SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(redo()));
 
     // model/tree/canvas synchronization signals
-    connect(d->tree,    SIGNAL(selectedRowsAboutToBeRemoved()),     d->canvas,   SLOT(removeSelectedRows()));
-    connect(d->tree,    SIGNAL(selectedRowsAboutToBeMovedUp()),     d->canvas,   SLOT(moveSelectedRowsUp()));
-    connect(d->tree,    SIGNAL(selectedRowsAboutToBeMovedDown()),   d->canvas,   SLOT(moveSelectedRowsDown()));
-    connect(d->treeTitle->moveUpButton(),   SIGNAL(clicked()),      d->canvas,   SLOT(moveSelectedRowsUp()));
-    connect(d->treeTitle->moveDownButton(), SIGNAL(clicked()),      d->canvas,   SLOT(moveSelectedRowsDown()));
+    connect(d->tree,                                SIGNAL(selectedRowsAboutToBeRemoved()),     d->canvas,              SLOT(removeSelectedRows()));
+    connect(d->tree,                                SIGNAL(selectedRowsAboutToBeMovedUp()),     d->canvas,              SLOT(moveSelectedRowsUp()));
+    connect(d->tree,                                SIGNAL(selectedRowsAboutToBeMovedDown()),   d->canvas,              SLOT(moveSelectedRowsDown()));
+    connect(d->treeTitle->moveUpButton(),           SIGNAL(clicked()),                          d->canvas,              SLOT(moveSelectedRowsUp()));
+    connect(d->treeTitle->moveDownButton(),         SIGNAL(clicked()),                          d->canvas,              SLOT(moveSelectedRowsDown()));
     // interaction modes (tools)
-    connect(d->canvas,       SIGNAL(selectedItem(AbstractPhoto*)),       d->toolsWidget,SLOT(itemSelected(AbstractPhoto*)));
-    connect(d->toolsWidget, SIGNAL(undoCommandCreated(QUndoCommand*)),  d->canvas,   SLOT(newUndoCommand(QUndoCommand*)));
-    connect(d->toolsWidget, SIGNAL(pointerToolSelected()),              d->canvas,   SLOT(enableDefaultSelectionMode()));
-    connect(d->toolsWidget, SIGNAL(handToolSelected()),                 d->canvas,   SLOT(enableViewingMode()));
-    connect(d->toolsWidget, SIGNAL(zoomToolSelected()),                 d->canvas,   SLOT(enableZoomingMode()));
-    connect(d->toolsWidget, SIGNAL(canvasToolSelected()),               d->canvas,   SLOT(enableCanvasEditingMode()));
-    connect(d->toolsWidget, SIGNAL(effectsToolSelected()),              d->canvas,   SLOT(enableEffectsEditingMode()));
-    connect(d->toolsWidget, SIGNAL(textToolSelected()),                 d->canvas,   SLOT(enableTextEditingMode()));
-    connect(d->toolsWidget, SIGNAL(rotateToolSelected()),               d->canvas,   SLOT(enableRotateEditingMode()));
-    connect(d->toolsWidget, SIGNAL(scaleToolSelected()),                d->canvas,   SLOT(enableScaleEditingMode()));
-    connect(d->toolsWidget, SIGNAL(cropToolSelected()),                 d->canvas,   SLOT(enableCropEditingMode()));
-    connect(d->toolsWidget, SIGNAL(borderToolSelected()),               d->canvas,   SLOT(enableBordersEditingMode()));
-    connect(d->toolsWidget, SIGNAL(newItemCreated(AbstractPhoto*)),     d->canvas,   SLOT(addNewItem(AbstractPhoto*)));
-    connect(d->canvas->scene()->toGraphicsScene(), SIGNAL(mousePressedPoint(QPointF)), d->toolsWidget, SLOT(mousePositionChoosen(QPointF)));
+    connect(d->canvas,                              SIGNAL(selectedItem(AbstractPhoto*)),       d->toolsWidget,         SLOT(itemSelected(AbstractPhoto*)));
+    connect(d->toolsWidget,                         SIGNAL(undoCommandCreated(QUndoCommand*)),  d->canvas,              SLOT(newUndoCommand(QUndoCommand*)));
+    connect(d->toolsWidget,                         SIGNAL(pointerToolSelected()),              d->canvas,              SLOT(enableDefaultSelectionMode()));
+    connect(d->toolsWidget,                         SIGNAL(handToolSelected()),                 d->canvas,              SLOT(enableViewingMode()));
+    connect(d->toolsWidget,                         SIGNAL(zoomToolSelected()),                 d->canvas,              SLOT(enableZoomingMode()));
+    connect(d->toolsWidget,                         SIGNAL(canvasToolSelected()),               d->canvas,              SLOT(enableCanvasEditingMode()));
+    connect(d->toolsWidget,                         SIGNAL(effectsToolSelected()),              d->canvas,              SLOT(enableEffectsEditingMode()));
+    connect(d->toolsWidget,                         SIGNAL(textToolSelected()),                 d->canvas,              SLOT(enableTextEditingMode()));
+    connect(d->toolsWidget,                         SIGNAL(rotateToolSelected()),               d->canvas,              SLOT(enableRotateEditingMode()));
+    connect(d->toolsWidget,                         SIGNAL(scaleToolSelected()),                d->canvas,              SLOT(enableScaleEditingMode()));
+    connect(d->toolsWidget,                         SIGNAL(cropToolSelected()),                 d->canvas,              SLOT(enableCropEditingMode()));
+    connect(d->toolsWidget,                         SIGNAL(borderToolSelected()),               d->canvas,              SLOT(enableBordersEditingMode()));
+    connect(d->toolsWidget,                         SIGNAL(newItemCreated(AbstractPhoto*)),     d->canvas,              SLOT(addNewItem(AbstractPhoto*)));
+    connect(d->canvas->scene()->toGraphicsScene(),  SIGNAL(mousePressedPoint(QPointF)),         d->toolsWidget,         SLOT(mousePositionChoosen(QPointF)));
 
     d->toolsWidget->setDefaultTool();
 }
@@ -534,15 +535,21 @@ void PhotoLayoutsWindow::open(const QUrl& fileUrl)
 
 void PhotoLayoutsWindow::save()
 {
-    qDebug() << !d->canvas->file().isValid() <<  d->canvas->file().fileName().isEmpty() << d->canvas->isTemplate();
+    qDebug() << !d->canvas->file().isValid() << d->canvas->file().fileName().isEmpty() << d->canvas->isTemplate();
 
     if (!d->canvas)
+    {
         return;
+    }
 
     if (!d->canvas->file().isValid() || d->canvas->file().fileName().isEmpty() || d->canvas->isTemplate())
+    {
         saveAs();
+    }
     else
+    {
         saveFile();
+    }
 }
 
 void PhotoLayoutsWindow::saveAs()
@@ -559,7 +566,7 @@ void PhotoLayoutsWindow::saveAs()
 
     int result = d->fileDialog->exec();
 
-    if (result == QFileDialog::Accepted &&
+    if ((result == QFileDialog::Accepted) &&
         !d->fileDialog->selectedUrls().isEmpty())
     {
         saveFile(d->fileDialog->selectedUrls().first());
@@ -580,34 +587,44 @@ void PhotoLayoutsWindow::saveAsTemplate()
 
     int result = d->fileDialog->exec();
 
-    if (result == QFileDialog::Accepted &&
+    if ((result == QFileDialog::Accepted) &&
         !d->fileDialog->selectedUrls().isEmpty())
     {
         QUrl url = d->fileDialog->selectedUrls().first();
 
         if (d->canvas)
+        {
             d->canvas->saveTemplate(url);
+        }
         else
+        {
             QMessageBox::critical(this,
                                   QObject::tr("Error"),
                                   QObject::tr("There is nothing to save."));
+        }
     }
 }
 
 void PhotoLayoutsWindow::saveFile(const QUrl & fileUrl, bool setFileAsDefault)
 {
     if (d->canvas)
+    {
         d->canvas->save(fileUrl, setFileAsDefault);
+    }
     else
+    {
         QMessageBox::critical(this,
                               QObject::tr("Error"),
                               QObject::tr("There is nothing to save."));
+    }
 }
 
 void PhotoLayoutsWindow::exportFile()
 {
     if (!d->canvas)
+    {
         return;
+    }
 
     QString all;
     QStringList list                       = supportedImageMimeTypes(QIODevice::WriteOnly, all);
@@ -656,7 +673,7 @@ void PhotoLayoutsWindow::printPreview()
 {
     if (d->canvas && d->canvas->scene())
     {
-        QPrinter* const printer = new QPrinter();
+        QPrinter* const printer           = new QPrinter();
         d->canvas->preparePrinter(printer);
         QPrintPreviewDialog* const dialog = new QPrintPreviewDialog(printer, this);
 
@@ -671,7 +688,7 @@ void PhotoLayoutsWindow::printPreview()
 
 void PhotoLayoutsWindow::print()
 {
-    QPrinter* const printer = new QPrinter();
+    QPrinter* const printer    = new QPrinter();
     d->canvas->preparePrinter(printer);
     QPrintDialog* const dialog = new QPrintDialog(printer, this);
 
@@ -694,21 +711,25 @@ bool PhotoLayoutsWindow::closeDocument()
         int saving = QMessageBox::No;
 
         if (!d->canvas->isSaved())
+        {
             saving = QMessageBox::question(this,
                                            QObject::tr("Save"),
                                            QObject::tr("Save changes to current frame?"),
                                            QMessageBox::StandardButtons(QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel));
+        }
 
         switch (saving)
         {
             case QMessageBox::Yes:
                 save();
+
             case QMessageBox::No:
                 d->tree->setModel(0);
                 d->canvas->deleteLater();
-                d->canvas = 0;
+                d->canvas = nullptr;
                 refreshActions();
                 return true;
+
             default:
                 return false;
         }
@@ -718,24 +739,32 @@ bool PhotoLayoutsWindow::closeDocument()
     return true;
 }
 
-void PhotoLayoutsWindow::progressEvent(ProgressEvent * event)
+void PhotoLayoutsWindow::progressEvent(ProgressEvent* event)
 {
     if (d->canvas)
+    {
         d->canvas->progressEvent(event);
+    }
 }
 
 bool PhotoLayoutsWindow::queryClose()
 {
     if (closeDocument())
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 void PhotoLayoutsWindow::settings()
 {
-    if ( KConfigDialog::showDialog( QLatin1String("settings") ) )
+    if (KConfigDialog::showDialog(QLatin1String("settings")))
+    {
         return;
+    }
 
     PLEConfigDialog* const dialog = new PLEConfigDialog(this);
     dialog->show();
@@ -768,7 +797,9 @@ void PhotoLayoutsWindow::setGridVisible(bool isVisible)
     PLEConfigSkeleton::self()->save();
 
     if (d->canvas && d->canvas->scene())
+    {
         d->canvas->scene()->setGridVisible(isVisible);
+    }
 }
 
 void PhotoLayoutsWindow::setupGrid()
@@ -788,7 +819,9 @@ void PhotoLayoutsWindow::setupGrid()
 void PhotoLayoutsWindow::changeCanvasSize()
 {
     if (!d->canvas)
+    {
         return;
+    }
 
     CanvasSizeDialog* const ccd = new CanvasSizeDialog(d->canvas->canvasSize(), this);
     int result                  = ccd->exec();
@@ -800,7 +833,7 @@ void PhotoLayoutsWindow::changeCanvasSize()
         {
             if (d->canvas->canvasSize() != size)
             {
-                CanvasSizeChangeCommand * command = new CanvasSizeChangeCommand(size, d->canvas);
+                CanvasSizeChangeCommand* const command = new CanvasSizeChangeCommand(size, d->canvas);
                 PLE_PostUndoCommand(command);
             }
         }
@@ -824,87 +857,14 @@ void PhotoLayoutsWindow::setTemplateEditMode(bool isEnabled)
 
 void PhotoLayoutsWindow::loadEffects()
 {
-    StandardEffectsFactory* const stdEffects = new StandardEffectsFactory( PhotoEffectsLoader::instance() );
-    PhotoEffectsLoader::registerEffect( stdEffects );
-
-    const KService::List offers = KServiceTypeTrader::self()->query(QLatin1String("PhotoLayoutsEditor/EffectPlugin"));
-
-    foreach (const KService::Ptr& service, offers)
-    {
-        if (service)
-            d->effectsServiceMap[service->name()] = service;
-    }
-
-    foreach (const QString& name, d->effectsServiceMap.keys())
-    {
-        KService::Ptr service = d->effectsServiceMap.value(name);
-        AbstractPhotoEffectFactory* plugin = nullptr;
-
-        if ( d->effectsMap.contains(name) )
-            continue;
-        else
-        {
-            QString error;
-            plugin = service->createInstance<AbstractPhotoEffectFactory>( PhotoEffectsLoader::instance(), QVariantList(), &error);
-            if (plugin)
-            {
-                d->effectsMap[name] = plugin;
-                PhotoEffectsLoader::registerEffect(plugin);
-                qDebug() << "PhotoLayoutsWindow: Loaded effect " << service->name();
-            }
-            else
-            {
-                qWarning() << "PhotoLayoutsWindow: createInstance returned 0 for "
-                           << service->name()
-                           << " (" << service->library() << ")"
-                           << " with error: "
-                           << error;
-            }
-        }
-    }
+    StandardEffectsFactory* const stdEffects = new StandardEffectsFactory(PhotoEffectsLoader::instance());
+    PhotoEffectsLoader::registerEffect(stdEffects);
 }
 
 void PhotoLayoutsWindow::loadBorders()
 {
-    StandardBordersFactory* const stdBorders = new StandardBordersFactory( BorderDrawersLoader::instance() );
-    BorderDrawersLoader::registerDrawer( stdBorders );
-
-    const KService::List offers = KServiceTypeTrader::self()->query(QLatin1String("PhotoLayoutsEditor/BorderPlugin"));
-
-    foreach (const KService::Ptr& service, offers)
-    {
-        if (service)
-            d->bordersServiceMap[service->name()] = service;
-    }
-
-    foreach (const QString& name, d->bordersServiceMap.keys())
-    {
-        KService::Ptr service = d->bordersServiceMap.value(name);
-        BorderDrawerFactoryInterface* plugin = nullptr;
-
-        if ( d->bordersMap.contains(name) )
-            continue;
-        else
-        {
-            QString error;
-            plugin = service->createInstance<BorderDrawerFactoryInterface>(this, QVariantList(), &error);
-
-            if (plugin)
-            {
-                d->bordersMap[name] = plugin;
-                BorderDrawersLoader::registerDrawer(plugin);
-                qDebug() << "PhotoLayoutsWindow: Loaded border:" << service->name();
-            }
-            else
-            {
-                qWarning() << "PhotoLayoutsWindow: createInstance returned 0 for "
-                           << service->name()
-                           << " (" << service->library() << ")"
-                           << " with error: "
-                           << error;
-            }
-        }
-    }
+    StandardBordersFactory* const stdBorders = new StandardBordersFactory(BorderDrawersLoader::instance());
+    BorderDrawersLoader::registerDrawer(stdBorders);
 }
 
 } // namespace PhotoLayoutsEditor
