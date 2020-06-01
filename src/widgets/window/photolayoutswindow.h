@@ -36,10 +36,9 @@
 
 #include <kxmlguiwindow.h>
 
-// Local includes
+// digiKam includes
 
 #include "dinfointerface.h"
-#include "CanvasSize.h"
 
 using namespace Digikam;
 
@@ -47,6 +46,7 @@ namespace PhotoLayoutsEditor
 {
 
 class Canvas;
+class CanvasSize;
 class CanvasSizeChangeCommand;
 class ProgressEvent;
 class UndoCommandEventFilter;
@@ -116,9 +116,6 @@ class PhotoLayoutsWindow : public KXmlGuiWindow
     private:
 
         static PhotoLayoutsWindow* m_instance;
-
-        Canvas*                    m_canvas;
-        DInfoInterface*            m_interface;
 
         class Private;
         Private* const d;

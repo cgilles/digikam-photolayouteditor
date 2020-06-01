@@ -24,66 +24,6 @@
 
 #include "photolayoutswindow_p.h"
 
-// Qt includes
-
-#include <QStyle>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QTreeView>
-#include <QStandardItemModel>
-#include <QAbstractItemModel>
-#include <QDockWidget>
-#include <QHeaderView>
-#include <QLabel>
-#include <QApplication>
-#include <QPushButton>
-#include <QDebug>
-#include <QPluginLoader>
-#include <QFile>
-#include <QPrintPreviewDialog>
-#include <QImageWriter>
-#include <QPrinter>
-#include <QPrintDialog>
-#include <QDesktopWidget>
-#include <QStatusBar>
-#include <QMessageBox>
-#include <QApplication>
-#include <QMenuBar>
-#include <QPrinter>
-#include <QDebug>
-
-// KDE includes
-
-#include <kstandardaction.h>
-#include <kactioncollection.h>
-#include <kconfigdialog.h>
-#include <kservice.h>
-
-// Local includes
-
-#include "digikam_globals.h"
-#include "imagedialog.h"
-#include "dmessagebox.h"
-#include "CanvasSizeDialog.h"
-#include "Canvas.h"
-#include "Scene.h"
-#include "LayersSelectionModel.h"
-#include "UndoCommandEventFilter.h"
-#include "PhotoEffectsLoader.h"
-#include "AbstractPhotoEffectFactory.h"
-#include "GridSetupDialog.h"
-#include "PLEConfigDialog.h"
-#include "PLEConfigSkeleton.h"
-#include "StandardEffectsFactory.h"
-#include "StandardBordersFactory.h"
-#include "ple_global.h"
-#include "ProgressEvent.h"
-#include "BorderDrawerInterface.h"
-#include "BorderDrawersLoader.h"
-#include "NewCanvasDialog.h"
-
-using namespace Digikam;
-
 // Q_*_RESOURCE cannot be used in a namespace
 inline void initIconsResource() { Q_INIT_RESOURCE(icons); }
 inline void cleanupIconsResource() { Q_CLEANUP_RESOURCE(icons); }
@@ -128,8 +68,6 @@ PhotoLayoutsWindow* PhotoLayoutsWindow::m_instance = nullptr;
 
 PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget* const parent)
     : KXmlGuiWindow(parent),
-      m_canvas(0),
-      m_interface(0),
       d(new Private)
 {
     m_instance = this;
@@ -156,9 +94,9 @@ PhotoLayoutsWindow::~PhotoLayoutsWindow()
 {
     PLEConfigSkeleton::self()->save();
 
-    if (m_canvas)
+    if (d->canvas)
     {
-        m_canvas->deleteLater();
+        d->canvas->deleteLater();
     }
 
     if (d)
@@ -191,9 +129,9 @@ void PhotoLayoutsWindow::addUndoCommand(QUndoCommand * command)
 #ifdef QT_DEBUG
         qDebug() << command->text();
 #endif
-        if (m_canvas)
+        if (d->canvas)
         {
-            m_canvas->undoStack()->push(command);
+            d->canvas->undoStack()->push(command);
         }
         else
         {
@@ -205,17 +143,17 @@ void PhotoLayoutsWindow::addUndoCommand(QUndoCommand * command)
 
 void PhotoLayoutsWindow::beginUndoCommandGroup(const QString & name)
 {
-    if (m_canvas)
+    if (d->canvas)
     {
-        m_canvas->undoStack()->beginMacro(name);
+        d->canvas->undoStack()->beginMacro(name);
     }
 }
 
 void PhotoLayoutsWindow::endUndoCommandGroup()
 {
-    if (m_canvas)
+    if (d->canvas)
     {
-        m_canvas->undoStack()->endMacro();
+        d->canvas->undoStack()->endMacro();
     }
 }
 
@@ -223,18 +161,18 @@ void PhotoLayoutsWindow::setInterface(DInfoInterface* const interface)
 {
     if (interface)
     {
-        m_interface = interface;
+        d->interface = interface;
     }
 }
 
 bool PhotoLayoutsWindow::hasInterface() const
 {
-    return (bool) m_interface;
+    return (bool) d->interface;
 }
 
 DInfoInterface* PhotoLayoutsWindow::interface() const
 {
-    return this->m_interface;
+    return this->d->interface;
 }
 
 void PhotoLayoutsWindow::setupActions()
@@ -354,12 +292,12 @@ void PhotoLayoutsWindow::refreshActions()
 {
     bool isEnabledForCanvas = false;
 
-    if (m_canvas)
+    if (d->canvas)
     {
         isEnabledForCanvas = true;
-        d->undoAction->setEnabled(m_canvas->undoStack()->canUndo());
-        d->redoAction->setEnabled(m_canvas->undoStack()->canRedo());
-        d->saveAction->setEnabled(isEnabledForCanvas && !m_canvas->isSaved());
+        d->undoAction->setEnabled(d->canvas->undoStack()->canUndo());
+        d->redoAction->setEnabled(d->canvas->undoStack()->canRedo());
+        d->saveAction->setEnabled(isEnabledForCanvas && !d->canvas->isSaved());
     }
 
     d->saveAsAction->setEnabled(isEnabledForCanvas);
@@ -440,39 +378,39 @@ void PhotoLayoutsWindow::createWidgets()
 
 void PhotoLayoutsWindow::createCanvas(const CanvasSize & size)
 {
-    if (m_canvas)
+    if (d->canvas)
     {
-        d->centralWidget->layout()->removeWidget(m_canvas);
-        m_canvas->deleteLater();
+        d->centralWidget->layout()->removeWidget(d->canvas);
+        d->canvas->deleteLater();
     }
 
-    m_canvas = new Canvas(size, d->centralWidget);
+    d->canvas = new Canvas(size, d->centralWidget);
     this->prepareSignalsConnections();
 }
 
 void PhotoLayoutsWindow::createCanvas(const QUrl& fileUrl)
 {
-    if (m_canvas)
+    if (d->canvas)
     {
-        d->centralWidget->layout()->removeWidget(m_canvas);
-        m_canvas->deleteLater();
+        d->centralWidget->layout()->removeWidget(d->canvas);
+        d->canvas->deleteLater();
     }
 
     QFile file(fileUrl.toLocalFile());
     QDomDocument document;
     document.setContent(&file, true);
-    m_canvas = Canvas::fromSvg(document);
+    d->canvas = Canvas::fromSvg(document);
 
-    if (m_canvas)
+    if (d->canvas)
     {
-        if (!m_canvas->isTemplate())
+        if (!d->canvas->isTemplate())
         {
-            m_canvas->setFile(fileUrl);
+            d->canvas->setFile(fileUrl);
             // Adds recent open file
-            this->addRecentFile(m_canvas->file());
+            this->addRecentFile(d->canvas->file());
         }
 
-        m_canvas->setParent(d->centralWidget);
+        d->canvas->setParent(d->centralWidget);
         this->prepareSignalsConnections();
     }
     else
@@ -486,39 +424,39 @@ void PhotoLayoutsWindow::createCanvas(const QUrl& fileUrl)
 
 void PhotoLayoutsWindow::prepareSignalsConnections()
 {
-    d->centralWidget->layout()->addWidget(m_canvas);
-    d->tree->setModel(m_canvas->model());
-    d->tree->setSelectionModel(m_canvas->selectionModel());
-    d->toolsWidget->setScene(m_canvas->scene());
+    d->centralWidget->layout()->addWidget(d->canvas);
+    d->tree->setModel(d->canvas->model());
+    d->tree->setSelectionModel(d->canvas->selectionModel());
+    d->toolsWidget->setScene(d->canvas->scene());
 
     // undo stack signals
-    connect(m_canvas,               SIGNAL(savedStateChanged()),    this,                   SLOT(refreshActions()));
-    connect(m_canvas->undoStack(),  SIGNAL(canRedoChanged(bool)),   d->redoAction,          SLOT(setEnabled(bool)));
-    connect(m_canvas->undoStack(),  SIGNAL(canUndoChanged(bool)),   d->undoAction,          SLOT(setEnabled(bool)));
-    connect(d->undoAction,          SIGNAL(triggered()),            m_canvas->undoStack(),  SLOT(undo()));
-    connect(d->redoAction,          SIGNAL(triggered()),            m_canvas->undoStack(),  SLOT(redo()));
+    connect(d->canvas,               SIGNAL(savedStateChanged()),    this,                   SLOT(refreshActions()));
+    connect(d->canvas->undoStack(),  SIGNAL(canRedoChanged(bool)),   d->redoAction,          SLOT(setEnabled(bool)));
+    connect(d->canvas->undoStack(),  SIGNAL(canUndoChanged(bool)),   d->undoAction,          SLOT(setEnabled(bool)));
+    connect(d->undoAction,          SIGNAL(triggered()),            d->canvas->undoStack(),  SLOT(undo()));
+    connect(d->redoAction,          SIGNAL(triggered()),            d->canvas->undoStack(),  SLOT(redo()));
 
     // model/tree/canvas synchronization signals
-    connect(d->tree,    SIGNAL(selectedRowsAboutToBeRemoved()),     m_canvas,   SLOT(removeSelectedRows()));
-    connect(d->tree,    SIGNAL(selectedRowsAboutToBeMovedUp()),     m_canvas,   SLOT(moveSelectedRowsUp()));
-    connect(d->tree,    SIGNAL(selectedRowsAboutToBeMovedDown()),   m_canvas,   SLOT(moveSelectedRowsDown()));
-    connect(d->treeTitle->moveUpButton(),   SIGNAL(clicked()),      m_canvas,   SLOT(moveSelectedRowsUp()));
-    connect(d->treeTitle->moveDownButton(), SIGNAL(clicked()),      m_canvas,   SLOT(moveSelectedRowsDown()));
+    connect(d->tree,    SIGNAL(selectedRowsAboutToBeRemoved()),     d->canvas,   SLOT(removeSelectedRows()));
+    connect(d->tree,    SIGNAL(selectedRowsAboutToBeMovedUp()),     d->canvas,   SLOT(moveSelectedRowsUp()));
+    connect(d->tree,    SIGNAL(selectedRowsAboutToBeMovedDown()),   d->canvas,   SLOT(moveSelectedRowsDown()));
+    connect(d->treeTitle->moveUpButton(),   SIGNAL(clicked()),      d->canvas,   SLOT(moveSelectedRowsUp()));
+    connect(d->treeTitle->moveDownButton(), SIGNAL(clicked()),      d->canvas,   SLOT(moveSelectedRowsDown()));
     // interaction modes (tools)
-    connect(m_canvas,       SIGNAL(selectedItem(AbstractPhoto*)),       d->toolsWidget,SLOT(itemSelected(AbstractPhoto*)));
-    connect(d->toolsWidget, SIGNAL(undoCommandCreated(QUndoCommand*)),  m_canvas,   SLOT(newUndoCommand(QUndoCommand*)));
-    connect(d->toolsWidget, SIGNAL(pointerToolSelected()),              m_canvas,   SLOT(enableDefaultSelectionMode()));
-    connect(d->toolsWidget, SIGNAL(handToolSelected()),                 m_canvas,   SLOT(enableViewingMode()));
-    connect(d->toolsWidget, SIGNAL(zoomToolSelected()),                 m_canvas,   SLOT(enableZoomingMode()));
-    connect(d->toolsWidget, SIGNAL(canvasToolSelected()),               m_canvas,   SLOT(enableCanvasEditingMode()));
-    connect(d->toolsWidget, SIGNAL(effectsToolSelected()),              m_canvas,   SLOT(enableEffectsEditingMode()));
-    connect(d->toolsWidget, SIGNAL(textToolSelected()),                 m_canvas,   SLOT(enableTextEditingMode()));
-    connect(d->toolsWidget, SIGNAL(rotateToolSelected()),               m_canvas,   SLOT(enableRotateEditingMode()));
-    connect(d->toolsWidget, SIGNAL(scaleToolSelected()),                m_canvas,   SLOT(enableScaleEditingMode()));
-    connect(d->toolsWidget, SIGNAL(cropToolSelected()),                 m_canvas,   SLOT(enableCropEditingMode()));
-    connect(d->toolsWidget, SIGNAL(borderToolSelected()),               m_canvas,   SLOT(enableBordersEditingMode()));
-    connect(d->toolsWidget, SIGNAL(newItemCreated(AbstractPhoto*)),     m_canvas,   SLOT(addNewItem(AbstractPhoto*)));
-    connect(m_canvas->scene()->toGraphicsScene(), SIGNAL(mousePressedPoint(QPointF)), d->toolsWidget, SLOT(mousePositionChoosen(QPointF)));
+    connect(d->canvas,       SIGNAL(selectedItem(AbstractPhoto*)),       d->toolsWidget,SLOT(itemSelected(AbstractPhoto*)));
+    connect(d->toolsWidget, SIGNAL(undoCommandCreated(QUndoCommand*)),  d->canvas,   SLOT(newUndoCommand(QUndoCommand*)));
+    connect(d->toolsWidget, SIGNAL(pointerToolSelected()),              d->canvas,   SLOT(enableDefaultSelectionMode()));
+    connect(d->toolsWidget, SIGNAL(handToolSelected()),                 d->canvas,   SLOT(enableViewingMode()));
+    connect(d->toolsWidget, SIGNAL(zoomToolSelected()),                 d->canvas,   SLOT(enableZoomingMode()));
+    connect(d->toolsWidget, SIGNAL(canvasToolSelected()),               d->canvas,   SLOT(enableCanvasEditingMode()));
+    connect(d->toolsWidget, SIGNAL(effectsToolSelected()),              d->canvas,   SLOT(enableEffectsEditingMode()));
+    connect(d->toolsWidget, SIGNAL(textToolSelected()),                 d->canvas,   SLOT(enableTextEditingMode()));
+    connect(d->toolsWidget, SIGNAL(rotateToolSelected()),               d->canvas,   SLOT(enableRotateEditingMode()));
+    connect(d->toolsWidget, SIGNAL(scaleToolSelected()),                d->canvas,   SLOT(enableScaleEditingMode()));
+    connect(d->toolsWidget, SIGNAL(cropToolSelected()),                 d->canvas,   SLOT(enableCropEditingMode()));
+    connect(d->toolsWidget, SIGNAL(borderToolSelected()),               d->canvas,   SLOT(enableBordersEditingMode()));
+    connect(d->toolsWidget, SIGNAL(newItemCreated(AbstractPhoto*)),     d->canvas,   SLOT(addNewItem(AbstractPhoto*)));
+    connect(d->canvas->scene()->toGraphicsScene(), SIGNAL(mousePressedPoint(QPointF)), d->toolsWidget, SLOT(mousePositionChoosen(QPointF)));
 
     d->toolsWidget->setDefaultTool();
 }
@@ -581,7 +519,7 @@ void PhotoLayoutsWindow::openDialog()
 
 void PhotoLayoutsWindow::open(const QUrl& fileUrl)
 {
-    if (m_canvas && (m_canvas->file() == fileUrl))
+    if (d->canvas && (d->canvas->file() == fileUrl))
     {
         return;
     }
@@ -596,12 +534,12 @@ void PhotoLayoutsWindow::open(const QUrl& fileUrl)
 
 void PhotoLayoutsWindow::save()
 {
-    qDebug() << !m_canvas->file().isValid() <<  m_canvas->file().fileName().isEmpty() << m_canvas->isTemplate();
+    qDebug() << !d->canvas->file().isValid() <<  d->canvas->file().fileName().isEmpty() << d->canvas->isTemplate();
 
-    if (!m_canvas)
+    if (!d->canvas)
         return;
 
-    if (!m_canvas->file().isValid() || m_canvas->file().fileName().isEmpty() || m_canvas->isTemplate())
+    if (!d->canvas->file().isValid() || d->canvas->file().fileName().isEmpty() || d->canvas->isTemplate())
         saveAs();
     else
         saveFile();
@@ -647,8 +585,8 @@ void PhotoLayoutsWindow::saveAsTemplate()
     {
         QUrl url = d->fileDialog->selectedUrls().first();
 
-        if (m_canvas)
-            m_canvas->saveTemplate(url);
+        if (d->canvas)
+            d->canvas->saveTemplate(url);
         else
             QMessageBox::critical(this,
                                   QObject::tr("Error"),
@@ -658,8 +596,8 @@ void PhotoLayoutsWindow::saveAsTemplate()
 
 void PhotoLayoutsWindow::saveFile(const QUrl & fileUrl, bool setFileAsDefault)
 {
-    if (m_canvas)
-        m_canvas->save(fileUrl, setFileAsDefault);
+    if (d->canvas)
+        d->canvas->save(fileUrl, setFileAsDefault);
     else
         QMessageBox::critical(this,
                               QObject::tr("Error"),
@@ -668,7 +606,7 @@ void PhotoLayoutsWindow::saveFile(const QUrl & fileUrl, bool setFileAsDefault)
 
 void PhotoLayoutsWindow::exportFile()
 {
-    if (!m_canvas)
+    if (!d->canvas)
         return;
 
     QString all;
@@ -688,9 +626,9 @@ void PhotoLayoutsWindow::exportFile()
     {
         QUrl url = urls.first();
 
-        QPixmap image(m_canvas->sceneRect().size().toSize());
+        QPixmap image(d->canvas->sceneRect().size().toSize());
         image.fill(Qt::transparent);
-        m_canvas->renderCanvas(&image);
+        d->canvas->renderCanvas(&image);
         QImageWriter writer(url.toLocalFile());
         writer.setFormat(ext.toLatin1());
 
@@ -716,14 +654,14 @@ void PhotoLayoutsWindow::exportFile()
 
 void PhotoLayoutsWindow::printPreview()
 {
-    if (m_canvas && m_canvas->scene())
+    if (d->canvas && d->canvas->scene())
     {
         QPrinter* const printer = new QPrinter();
-        m_canvas->preparePrinter(printer);
+        d->canvas->preparePrinter(printer);
         QPrintPreviewDialog* const dialog = new QPrintPreviewDialog(printer, this);
 
         connect(dialog, SIGNAL(paintRequested(QPrinter*)),
-                m_canvas, SLOT(renderCanvas(QPrinter*)));
+                d->canvas, SLOT(renderCanvas(QPrinter*)));
 
         dialog->exec();
         delete dialog;
@@ -734,11 +672,11 @@ void PhotoLayoutsWindow::printPreview()
 void PhotoLayoutsWindow::print()
 {
     QPrinter* const printer = new QPrinter();
-    m_canvas->preparePrinter(printer);
+    d->canvas->preparePrinter(printer);
     QPrintDialog* const dialog = new QPrintDialog(printer, this);
 
     connect(dialog, SIGNAL(accepted(QPrinter*)),
-            m_canvas, SLOT(renderCanvas(QPrinter*)));
+            d->canvas, SLOT(renderCanvas(QPrinter*)));
 
     dialog->exec();
     delete dialog;
@@ -747,15 +685,15 @@ void PhotoLayoutsWindow::print()
 
 bool PhotoLayoutsWindow::closeDocument()
 {
-    if (m_canvas)
+    if (d->canvas)
     {
         // Adds recent open file
-        this->addRecentFile(m_canvas->file());
+        this->addRecentFile(d->canvas->file());
 
         // Try to save unsaved changes
         int saving = QMessageBox::No;
 
-        if (!m_canvas->isSaved())
+        if (!d->canvas->isSaved())
             saving = QMessageBox::question(this,
                                            QObject::tr("Save"),
                                            QObject::tr("Save changes to current frame?"),
@@ -767,8 +705,8 @@ bool PhotoLayoutsWindow::closeDocument()
                 save();
             case QMessageBox::No:
                 d->tree->setModel(0);
-                m_canvas->deleteLater();
-                m_canvas = 0;
+                d->canvas->deleteLater();
+                d->canvas = 0;
                 refreshActions();
                 return true;
             default:
@@ -782,8 +720,8 @@ bool PhotoLayoutsWindow::closeDocument()
 
 void PhotoLayoutsWindow::progressEvent(ProgressEvent * event)
 {
-    if (m_canvas)
-        m_canvas->progressEvent(event);
+    if (d->canvas)
+        d->canvas->progressEvent(event);
 }
 
 bool PhotoLayoutsWindow::queryClose()
@@ -805,14 +743,14 @@ void PhotoLayoutsWindow::settings()
 
 void PhotoLayoutsWindow::loadImages(const QList<QUrl>& urls)
 {
-    if (!m_canvas)
+    if (!d->canvas)
     {
         return;
     }
 
     if (!urls.isEmpty())
     {
-        m_canvas->addImages(urls);
+        d->canvas->addImages(urls);
     }
 }
 
@@ -829,19 +767,19 @@ void PhotoLayoutsWindow::setGridVisible(bool isVisible)
     PLEConfigSkeleton::setShowGrid(isVisible);
     PLEConfigSkeleton::self()->save();
 
-    if (m_canvas && m_canvas->scene())
-        m_canvas->scene()->setGridVisible(isVisible);
+    if (d->canvas && d->canvas->scene())
+        d->canvas->scene()->setGridVisible(isVisible);
 }
 
 void PhotoLayoutsWindow::setupGrid()
 {
-    if (m_canvas && m_canvas->scene())
+    if (d->canvas && d->canvas->scene())
     {
         GridSetupDialog* const dialog = new GridSetupDialog(this);
-        dialog->setHorizontalDistance(m_canvas->scene()->gridHorizontalDistance());
-        dialog->setVerticalDistance(m_canvas->scene()->gridVerticalDistance());
+        dialog->setHorizontalDistance(d->canvas->scene()->gridHorizontalDistance());
+        dialog->setVerticalDistance(d->canvas->scene()->gridVerticalDistance());
         dialog->exec();
-        m_canvas->scene()->setGrid(dialog->horizontalDistance(),
+        d->canvas->scene()->setGrid(dialog->horizontalDistance(),
                                    dialog->verticalDistance());
         delete dialog;
     }
@@ -849,10 +787,10 @@ void PhotoLayoutsWindow::setupGrid()
 
 void PhotoLayoutsWindow::changeCanvasSize()
 {
-    if (!m_canvas)
+    if (!d->canvas)
         return;
 
-    CanvasSizeDialog* const ccd = new CanvasSizeDialog(m_canvas->canvasSize(), this);
+    CanvasSizeDialog* const ccd = new CanvasSizeDialog(d->canvas->canvasSize(), this);
     int result                  = ccd->exec();
     CanvasSize size             = ccd->canvasSize();
 
@@ -860,9 +798,9 @@ void PhotoLayoutsWindow::changeCanvasSize()
     {
         if (size.isValid())
         {
-            if (m_canvas->canvasSize() != size)
+            if (d->canvas->canvasSize() != size)
             {
-                CanvasSizeChangeCommand * command = new CanvasSizeChangeCommand(size, m_canvas);
+                CanvasSizeChangeCommand * command = new CanvasSizeChangeCommand(size, d->canvas);
                 PLE_PostUndoCommand(command);
             }
         }
@@ -881,7 +819,7 @@ void PhotoLayoutsWindow::setTemplateEditMode(bool isEnabled)
 
     //d->toolsWidget->setTemplateEditMode(isEnabled);
     //d->treeWidget->setTemplateEditMode(isEnabled);
-    //m_canvas->setTemplateEditMode(isEnabled);
+    //d->canvas->setTemplateEditMode(isEnabled);
 }
 
 void PhotoLayoutsWindow::loadEffects()

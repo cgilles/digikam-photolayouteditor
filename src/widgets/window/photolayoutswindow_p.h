@@ -25,20 +25,55 @@
 #ifndef PHOTO_LAYOUTS_EDITOR_P_H
 #define PHOTO_LAYOUTS_EDITOR_P_H
 
-// KDE
+#include "photolayoutswindow.h"
+
+// Qt includes
+
+#include <QAction>
+#include <QFileDialog>
+#include <QStyle>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QTreeView>
+#include <QStandardItemModel>
+#include <QAbstractItemModel>
+#include <QDockWidget>
+#include <QHeaderView>
+#include <QLabel>
+#include <QApplication>
+#include <QPushButton>
+#include <QPluginLoader>
+#include <QFile>
+#include <QPrintPreviewDialog>
+#include <QImageWriter>
+#include <QPrintDialog>
+#include <QDesktopWidget>
+#include <QStatusBar>
+#include <QMessageBox>
+#include <QMenuBar>
+#include <QPrinter>
+#include <QDebug>
+
+// KDE includes
+
+#include <kstandardaction.h>
+#include <kactioncollection.h>
+#include <kconfigdialog.h>
+#include <kservice.h>
 #include <kactionmenu.h>
 #include <krecentfilesaction.h>
 #include <ktoggleaction.h>
 #include <kservicetypetrader.h>
 
-// Qt
-#include <QAction>
-#include <QHBoxLayout>
-#include <QTreeView>
-#include <QDockWidget>
-#include <QFileDialog>
+// digiKam includes
 
-// Local
+#include "imagedialog.h"
+#include "dmessagebox.h"
+#include "digikam_globals.h"
+
+// Local includes
+
+#include "CanvasSize.h"
 #include "LayersTree.h"
 #include "LayersTreeTitleWidget.h"
 #include "ToolsDockWidget.h"
@@ -46,47 +81,64 @@
 #include "BorderEditTool.h"
 #include "AbstractPhotoEffectFactory.h"
 #include "PLEStatusBar.h"
+#include "CanvasSizeDialog.h"
+#include "Canvas.h"
+#include "Scene.h"
+#include "LayersSelectionModel.h"
+#include "UndoCommandEventFilter.h"
+#include "PhotoEffectsLoader.h"
+#include "GridSetupDialog.h"
+#include "PLEConfigDialog.h"
+#include "PLEConfigSkeleton.h"
+#include "StandardEffectsFactory.h"
+#include "StandardBordersFactory.h"
 #include "ple_global.h"
-#include "photolayoutswindow.h"
+#include "ProgressEvent.h"
+#include "BorderDrawerInterface.h"
+#include "BorderDrawersLoader.h"
+#include "NewCanvasDialog.h"
+
+using namespace Digikam;
 
 namespace PhotoLayoutsEditor
 {
-
-class PLEStatusBar;
 
 class PhotoLayoutsWindow::Private
 {
     public:
 
-        Private() :
-            centralWidget(0),
-            openNewFileAction(0),
-            openFileAction(0),
-            openRecentFilesMenu(0),
-            saveAction(0),
-            saveAsAction(0),
-            saveAsTemplateAction(0),
-            exportFileAction(0),
-            printPreviewAction(0),
-            printAction(0),
-            closeAction(0),
-            quitAction(0),
-            undoAction(0),
-            redoAction(0),
-            settingsAction(0),
-            addImageAction(0),
-            showGridToggleAction(0),
-            gridConfigAction(0),
-            changeCanvasSizeAction(0),
-            tree(0),
-            treeWidget(0),
-            treeTitle(0),
-            toolsWidget(0),
-            toolEffects(0),
-            toolBorders(0),
-            statusBar(0),
-            fileDialog(0)
-        {}
+        Private()
+          : centralWidget(nullptr),
+            openNewFileAction(nullptr),
+            openFileAction(nullptr),
+            openRecentFilesMenu(nullptr),
+            saveAction(nullptr),
+            saveAsAction(nullptr),
+            saveAsTemplateAction(nullptr),
+            exportFileAction(nullptr),
+            printPreviewAction(nullptr),
+            printAction(nullptr),
+            closeAction(nullptr),
+            quitAction(nullptr),
+            undoAction(nullptr),
+            redoAction(nullptr),
+            settingsAction(nullptr),
+            addImageAction(nullptr),
+            showGridToggleAction(nullptr),
+            gridConfigAction(nullptr),
+            changeCanvasSizeAction(nullptr),
+            tree(nullptr),
+            treeWidget(nullptr),
+            treeTitle(nullptr),
+            toolsWidget(nullptr),
+            toolEffects(nullptr),
+            toolBorders(nullptr),
+            statusBar(nullptr),
+            fileDialog(nullptr),
+            canvas(nullptr),
+            interface(nullptr)
+        {
+        }
 
         ~Private()
         {
@@ -127,51 +179,54 @@ class PhotoLayoutsWindow::Private
         }
 
         // Central widget of the window
-        QWidget *   centralWidget;
+        QWidget*                                        centralWidget;
 
         // File menu
-        QAction *           openNewFileAction;
-        QAction *           openFileAction;
-        KRecentFilesAction* openRecentFilesMenu;
-        QAction *   saveAction;
-        QAction *   saveAsAction;
-        QAction *   saveAsTemplateAction;
-        QAction *   exportFileAction;
-        QAction *   printPreviewAction;
-        QAction *   printAction;
-        QAction *   closeAction;
-        QAction *   quitAction;
+        QAction*                                        openNewFileAction;
+        QAction*                                        openFileAction;
+        KRecentFilesAction*                             openRecentFilesMenu;
+        QAction*                                        saveAction;
+        QAction*                                        saveAsAction;
+        QAction*                                        saveAsTemplateAction;
+        QAction*                                        exportFileAction;
+        QAction*                                        printPreviewAction;
+        QAction*                                        printAction;
+        QAction*                                        closeAction;
+        QAction*                                        quitAction;
 
         // Edit menu
-        QAction *   undoAction;
-        QAction *   redoAction;
-        QAction *   settingsAction;
+        QAction*                                        undoAction;
+        QAction*                                        redoAction;
+        QAction*                                        settingsAction;
 
         // Canvas menu
-        QAction *   addImageAction;
-        KToggleAction * showGridToggleAction;
-        QAction *   gridConfigAction;
-        QAction *   changeCanvasSizeAction;
+        QAction*                                        addImageAction;
+        KToggleAction*                                  showGridToggleAction;
+        QAction*                                        gridConfigAction;
+        QAction*                                        changeCanvasSizeAction;
 
         // Tree of layers
-        LayersTree *  tree;
-        QDockWidget * treeWidget;
-        LayersTreeTitleWidget * treeTitle;
+        LayersTree*                                     tree;
+        QDockWidget*                                    treeWidget;
+        LayersTreeTitleWidget*                          treeTitle;
 
         // Tools
-        ToolsDockWidget * toolsWidget;
-        EffectsEditorTool * toolEffects;
-        BorderEditTool * toolBorders;
+        ToolsDockWidget*                                toolsWidget;
+        EffectsEditorTool*                              toolEffects;
+        BorderEditTool*                                 toolBorders;
 
         // Plugins
-        QMap<QString, KService::Ptr> effectsServiceMap;
-        QMap<QString, KService::Ptr> bordersServiceMap;
-        QMap<QString, AbstractPhotoEffectFactory*> effectsMap;
-        QMap<QString, BorderDrawerFactoryInterface*> bordersMap;
+        QMap<QString, KService::Ptr>                    effectsServiceMap;
+        QMap<QString, KService::Ptr>                    bordersServiceMap;
+        QMap<QString, AbstractPhotoEffectFactory*>      effectsMap;
+        QMap<QString, BorderDrawerFactoryInterface*>    bordersMap;
 
-        PLEStatusBar * statusBar;
+        PLEStatusBar *                                  statusBar;
 
-        QFileDialog*   fileDialog;
+        QFileDialog*                                    fileDialog;
+
+        Canvas*                                         canvas;
+        DInfoInterface*                                 interface;
 };
 
 } // namespace PhotoLayoutsEditor
