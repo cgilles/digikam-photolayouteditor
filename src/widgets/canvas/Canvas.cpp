@@ -22,8 +22,9 @@
  *
  * ============================================================ */
 
-#include "Canvas.h"
 #include "Canvas_p.h"
+
+// Qt includes
 
 #include <QPrinter>
 #include <QPaintDevice>
@@ -32,6 +33,9 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QDebug>
+#include <QSettings>
+
+// Local includes
 
 #include "Scene.h"
 #include "LayersModel.h"
@@ -45,7 +49,6 @@
 #include "CanvasLoadingThread.h"
 #include "CanvasSavingThread.h"
 #include "PLEStatusBar.h"
-#include "PLEConfigSkeleton.h"
 
 #define MAX_SCALE_LIMIT 4
 #define MIN_SCALE_LIMIT 0.5
@@ -98,8 +101,11 @@ void Canvas::setupGUI()
     this->viewport()->setAutoFillBackground(true);
     this->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
     this->setCacheMode(QGraphicsView::CacheNone);
-    this->setAntialiasing( PLEConfigSkeleton::antialiasing() );
-    connect(PLEConfigSkeleton::self(), SIGNAL(antialiasingChanged(bool)), this, SLOT(setAntialiasing(bool)));
+
+    QSettings config;
+    config.beginGroup(QLatin1String("View"));
+    this->setAntialiasing(config.value(QLatin1String("Antialiasing"), false).toBool());
+    config.endGroup();
 
     // Transparent scene background
 //    QPixmap pixmap(20,20);
@@ -112,7 +118,7 @@ void Canvas::setupGUI()
 //    this->viewport()->setPalette(viewportPalette);
 //    this->viewport()->setBackgroundRole(QPalette::Background);
 
-    QVBoxLayout * layout = new QVBoxLayout();
+    QVBoxLayout* const layout = new QVBoxLayout();
     this->setLayout(layout);
     layout->addWidget(this->viewport());
 

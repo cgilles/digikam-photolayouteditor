@@ -53,8 +53,6 @@ PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget* const parent)
 
 PhotoLayoutsWindow::~PhotoLayoutsWindow()
 {
-    PLEConfigSkeleton::self()->save();
-
     if (d->canvas)
     {
         d->canvas->deleteLater();
@@ -148,19 +146,6 @@ void PhotoLayoutsWindow::setupActions()
 
     //------------------------------------------------------------------------
 
-    d->openRecentFilesMenu = KStandardAction::openRecent(this, SLOT(open(QUrl)), actionCollection());
-    QList<QUrl> urls = PLEConfigSkeleton::recentFiles();
-
-    foreach (const QUrl& url, urls)
-    {
-        d->openRecentFilesMenu->addUrl(url);
-    }
-
-    connect(d->openRecentFilesMenu, SIGNAL(recentListCleared()), this, SLOT(clearRecentList()));
-    actionCollection()->addAction(QLatin1String("open_recent"), d->openRecentFilesMenu);
-
-    //------------------------------------------------------------------------
-
     d->saveAction = KStandardAction::save(this, SLOT(save()), actionCollection());
     actionCollection()->addAction(QLatin1String("save"), d->saveAction);
 
@@ -229,7 +214,12 @@ void PhotoLayoutsWindow::setupActions()
 
     d->showGridToggleAction = new KToggleAction(QObject::tr("View grid lines...", "Show..."), actionCollection());
     actionCollection()->setDefaultShortcut(d->showGridToggleAction, Qt::SHIFT + Qt::CTRL + Qt::Key_G);
-    d->showGridToggleAction->setChecked( PLEConfigSkeleton::self()->showGrid() );
+
+    QSettings config;
+    config.beginGroup(QLatin1String("View"));
+    d->showGridToggleAction->setChecked(config.value(QLatin1String("ShowGrid"), false).toBool());
+    config.endGroup();
+
     connect(d->showGridToggleAction, SIGNAL(triggered(bool)), this, SLOT(setGridVisible(bool)));
     actionCollection()->addAction(QLatin1String("grid_toggle"), d->showGridToggleAction);
 
@@ -272,36 +262,6 @@ void PhotoLayoutsWindow::refreshActions()
     d->changeCanvasSizeAction->setEnabled(isEnabledForCanvas);
     d->treeWidget->setEnabled(isEnabledForCanvas);
     d->toolsWidget->setEnabled(isEnabledForCanvas);
-}
-
-void PhotoLayoutsWindow::addRecentFile(const QUrl & url)
-{
-    if (url.isValid())
-    {
-        QList<QUrl> tempList = PLEConfigSkeleton::recentFiles();
-        tempList.removeAll(url);
-        tempList.push_back(url);
-        unsigned maxCount    = PLEConfigSkeleton::recentFilesCount();
-
-        while (((unsigned)tempList.count()) > maxCount)
-        {
-            tempList.removeAt(0);
-        }
-
-        PLEConfigSkeleton::setRecentFiles(tempList);
-
-        if (!d->openRecentFilesMenu->urls().contains(url))
-        {
-            d->openRecentFilesMenu->addUrl(url);
-        }
-
-        PLEConfigSkeleton::self()->save();
-    }
-}
-
-void PhotoLayoutsWindow::clearRecentList()
-{
-    PLEConfigSkeleton::setRecentFiles(QList<QUrl>());
 }
 
 void PhotoLayoutsWindow::createWidgets()
@@ -366,8 +326,6 @@ void PhotoLayoutsWindow::createCanvas(const QUrl& fileUrl)
         if (!d->canvas->isTemplate())
         {
             d->canvas->setFile(fileUrl);
-            // Adds recent open file
-            this->addRecentFile(d->canvas->file());
         }
 
         d->canvas->setParent(d->centralWidget);
@@ -663,9 +621,6 @@ bool PhotoLayoutsWindow::closeDocument()
 {
     if (d->canvas)
     {
-        // Adds recent open file
-        this->addRecentFile(d->canvas->file());
-
         // Try to save unsaved changes
         int saving = QMessageBox::No;
 
@@ -720,13 +675,16 @@ bool PhotoLayoutsWindow::queryClose()
 
 void PhotoLayoutsWindow::settings()
 {
-    if (KConfigDialog::showDialog(QLatin1String("settings")))
-    {
-        return;
-    }
-
-    PLEConfigDialog* const dialog = new PLEConfigDialog(this);
+    QPointer<PLEConfigDialog> const dialog = new PLEConfigDialog(this);
     dialog->show();
+    
+    QSettings config;
+    config.beginGroup(QLatin1String("View"));
+    d->canvas->setAntialiasing(config.value(QLatin1String("Antialiasing"), false).toBool());
+    d->canvas->scene()->setGridVisible(config.value(QLatin1String("ShowGrid"), false).toBool());
+    d->canvas->scene()->setHorizontalGrid(config.value(QLatin1String("XGrid"), 25.0).toDouble());
+    d->canvas->scene()->setVerticalGrid(config.value(QLatin1String("YGrid"), 25.0).toDouble());
+    config.endGroup();
 }
 
 void PhotoLayoutsWindow::loadImages(const QList<QUrl>& urls)
@@ -752,9 +710,13 @@ void PhotoLayoutsWindow::loadNewImage()
 void PhotoLayoutsWindow::setGridVisible(bool isVisible)
 {
     d->showGridToggleAction->setChecked(isVisible);
-    PLEConfigSkeleton::setShowGrid(isVisible);
-    PLEConfigSkeleton::self()->save();
-
+    
+    QSettings config;
+    config.beginGroup(QLatin1String("View"));
+    config.setValue(QLatin1String("ShowGrid"), isVisible);
+    config.endGroup();
+    config.sync();
+    
     if (d->canvas && d->canvas->scene())
     {
         d->canvas->scene()->setGridVisible(isVisible);

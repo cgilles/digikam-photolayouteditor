@@ -100,8 +100,6 @@ class PhotoLayoutsWindow : public KXmlGuiWindow
 
         bool queryClose();
         void refreshActions();
-        void addRecentFile(const QUrl& url);
-        void clearRecentList();
 
     private:
 

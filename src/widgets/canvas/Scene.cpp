@@ -28,7 +28,8 @@
 
 #include <limits>
 
-// Qt
+// Qt includes
+
 #include <QGraphicsTextItem>
 #include <QGraphicsDropShadowEffect>
 #include <QDebug>
@@ -52,6 +53,9 @@
 #include <QMimeData>
 #include <QTemporaryFile>
 #include <QDebug>
+#include <QSettings>
+
+// Local includes
 
 #include "pleglobal.h"
 #include "RotationWidgetItem.h"
@@ -61,7 +65,6 @@
 #include "MousePressListener.h"
 #include "ToolsDockWidget.h"
 #include "photolayoutswindow.h"
-#include "PLEConfigSkeleton.h"
 #include "ImageLoadingThread.h"
 #include "ProgressEvent.h"
 #include "CanvasLoadingThread.h"
@@ -551,18 +554,19 @@ Scene::Scene(const QRectF & dimension, QObject * parent) :
     setInteractionMode(DEFAULT_EDITING_MODE);
 
     // Create default grid
-    setGrid(PLEConfigSkeleton::self()->horizontalGrid(), PLEConfigSkeleton::self()->verticalGrid());
-    grid_visible = !PLEConfigSkeleton::self()->showGrid();
-    setGridVisible(PLEConfigSkeleton::self()->showGrid());
+
+    QSettings config;
+    config.beginGroup(QLatin1String("View"));
+    setGrid(config.value(QLatin1String("XGrid"), 25.0).toDouble(), config.value(QLatin1String("YGrid"), 25.0).toDouble());
+    grid_visible = !config.value(QLatin1String("ShowGrid"), false).toBool();
+    setGridVisible(config.value(QLatin1String("ShowGrid"), false).toBool());
+    config.endGroup();
 
     // Indexing method
     this->setItemIndexMethod(QGraphicsScene::NoIndex);
 
     // Signal connections
     connect(this, SIGNAL(selectionChanged()), this, SLOT(updateSelection()));
-    connect(PLEConfigSkeleton::self(), SIGNAL(showGridChanged(bool)), this, SLOT(setGridVisible(bool)));
-    connect(PLEConfigSkeleton::self(), SIGNAL(horizontalGridChanged(double)), this, SLOT(setHorizontalGrid(double)));
-    connect(PLEConfigSkeleton::self(), SIGNAL(verticalGridChanged(double)), this, SLOT(setVerticalGrid(double)));
 }
 
 

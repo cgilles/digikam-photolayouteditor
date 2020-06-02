@@ -25,7 +25,8 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
-// Qt
+// Qt includes
+
 #include <QObject>
 #include <QSizeF>
 #include <QRectF>
@@ -38,6 +39,8 @@
 #include <QFile>
 #include <QDebug>
 #include <QUrl>
+
+// Local includes
 
 #include "pleglobal.h"
 #include "CanvasSize.h"
@@ -143,6 +146,8 @@ namespace PhotoLayoutsEditor
 
         public Q_SLOTS:
 
+            void setAntialiasing(bool antialiasing);
+
             void enable()
             {
                 this->setEnabled(true);
@@ -243,7 +248,6 @@ namespace PhotoLayoutsEditor
 
             /// Used when new item has been created and needs to be added to the scene and to the model
             void addNewItem(AbstractPhoto* item);
-            void setAntialiasing(bool antialiasing);
             void imageLoaded(const QUrl & url, const QImage & image);
 
         private Q_SLOTS:

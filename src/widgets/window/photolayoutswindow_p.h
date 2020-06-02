@@ -53,11 +53,12 @@
 #include <QMenuBar>
 #include <QPrinter>
 #include <QDebug>
+#include <QPointer>
+#include <QSettings>
 
 // KDE includes
 
 #include <kactioncollection.h>
-#include <krecentfilesaction.h>
 
 // digiKam includes
 
@@ -83,7 +84,6 @@
 #include "PhotoEffectsLoader.h"
 #include "GridSetupDialog.h"
 #include "pleconfigdialog.h"
-#include "PLEConfigSkeleton.h"
 #include "StandardEffectsFactory.h"
 #include "StandardBordersFactory.h"
 #include "pleglobal.h"

@@ -29,15 +29,12 @@
 
 #include <QWidget>
 #include <QDebug>
-
-// KDE includes
-
-#include <kconfigdialog.h>
+#include <QDialog>
 
 namespace PhotoLayoutsEditor
 {
 
-class PLEConfigDialog : public KConfigDialog
+class PLEConfigDialog : public QDialog
 {
 
 public:
@@ -45,8 +42,10 @@ public:
     explicit PLEConfigDialog(QWidget* const parent = nullptr);
     ~PLEConfigDialog();
 
-    virtual void updateSettings();
-    virtual void updateWidgets();
+private:
+
+    void saveSettings();
+    void loadSettings();
 
 private:
 

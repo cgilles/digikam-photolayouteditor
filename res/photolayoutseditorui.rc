@@ -8,7 +8,6 @@
          <text>&amp;File</text>
            <Action name="open_new" />
            <Action name="open" />
-           <Action name="open_recent" />
          <Separator/>
            <Action name="save" />
            <Action name="save_as" />

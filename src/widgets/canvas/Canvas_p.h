@@ -25,15 +25,20 @@
 #ifndef CANVAS_P_H
 #define CANVAS_P_H
 
+#include "Canvas.h"
+
+// Qt includes
+
 #include <QMap>
 #include <QProgressBar>
+
+// Local includes
 
 #include "CanvasSize.h"
 
 namespace PhotoLayoutsEditor
 {
 
-class Canvas;
 class CanvasSavingThread;
 
 class CanvasPrivate
@@ -42,7 +47,8 @@ public:
 
     CanvasPrivate() :
         m_template(false)
-    {}
+    {
+    }
 
     CanvasSize                   m_size;
     bool                         m_template;

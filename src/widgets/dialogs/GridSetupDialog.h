@@ -25,18 +25,21 @@
 #ifndef GRID_SETUP_DIALOG_H
 #define GRID_SETUP_DIALOG_H
 
+// Qt includes
+
 #include <QDialog>
 #include <QDoubleSpinBox>
 
 namespace PhotoLayoutsEditor
 {
+
 class GridSetupDialog : public QDialog
 {
     Q_OBJECT
 
 public:
 
-    GridSetupDialog(QWidget * parent = 0);
+    GridSetupDialog(QWidget* const parent = nullptr);
     void setHorizontalDistance(qreal value);
     void setVerticalDistance(qreal value);
     qreal horizontalDistance() const;
@@ -45,9 +48,9 @@ public:
 
 private:
 
-    QWidget * centralWidget;
-    QDoubleSpinBox * x;
-    QDoubleSpinBox * y;
+    QWidget*        centralWidget;
+    QDoubleSpinBox* x;
+    QDoubleSpinBox* y;
 };
 
 } // namespace PhotoLayoutsEditor

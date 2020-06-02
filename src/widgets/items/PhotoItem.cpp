@@ -39,7 +39,6 @@
 #include "imagedialog.h"
 #include "BordersGroup.h"
 #include "pleglobal.h"
-#include "PLEConfigSkeleton.h"
 #include "photolayoutswindow.h"
 #include "ImageLoadingThread.h"
 #include "ProgressEvent.h"
@@ -347,19 +346,18 @@ QDomDocument PhotoItem::toSvg() const
         QDomElement image = document.createElementNS(PhotoLayoutsEditor::uri(), QLatin1String("image"));
         appNS.appendChild(image);
 
-        // Saving image data
-        if (!PLEConfigSkeleton::embedImagesData())
+        bool embed = false;
+        int result = QMessageBox::question(qApp->activeWindow(),
+                                            QObject::tr("Saving: %1").arg(name()),
+                                            QObject::tr("Do you want to embed images data?\n"
+                                                "Remember that when you move or rename image files on your disk or the storage device become unavailable, those images become unavailable for %1 "
+                                                "and this layout might become broken.").arg(QApplication::applicationName()));
+        if (result == QMessageBox::Yes)
         {
-            int result = QMessageBox::question(qApp->activeWindow(),
-                                               QObject::tr("Saving: %1").arg(name()),
-                                               QObject::tr("Do you want to embed images data?\n"
-                                                    "Remember that when you move or rename image files on your disk or the storage device become unavailable, those images become unavailable for %1 "
-                                                    "and this layout might become broken.").arg(QApplication::applicationName()));
-            if (result == QMessageBox::Yes)
-                PLEConfigSkeleton::setEmbedImagesData(true);
+            embed = true;
         }
 
-        if ( (PLEConfigSkeleton::embedImagesData() && !d->image().isNull()) || !d->fileUrl().isValid())
+        if ( (embed && !d->image().isNull()) || !d->fileUrl().isValid())
         {
             QByteArray byteArray;
             QBuffer buffer(&byteArray);
@@ -371,7 +369,9 @@ QDomDocument PhotoItem::toSvg() const
 
         // Saving image path
         if (d->fileUrl().isValid())
+        {
             image.setAttribute(QLatin1String("src"), d->fileUrl().url());
+        }
     }
     else
     {

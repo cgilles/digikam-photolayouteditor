@@ -172,8 +172,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/CanvasSizeWidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesView.cpp
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/settings/pleconfigdialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/pleconfigdialog.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/photolayoutswindow.cpp
 
@@ -200,8 +199,6 @@ set(photolayoutseditorcore_RCS
    )
 
 qt5_add_resources(photolayoutseditorcore_SRCS ${photolayoutseditorcore_RCS})
-
-kconfig_add_kcfg_files(photolayoutseditorcore_SRCS GENERATE_MOC ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/settings/PLEConfigSkeleton.kcfgc)
 
 add_library(photolayoutseditorcore STATIC ${photolayoutseditorcore_SRCS})
 

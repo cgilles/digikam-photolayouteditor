@@ -23,55 +23,41 @@
  * ============================================================ */
 
 #include "GridSetupDialog.h"
-#include "PLEConfigSkeleton.h"
+
+// Qt includes
 
 #include <QFormLayout>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <QSettings>
 
-using namespace PhotoLayoutsEditor;
-
-GridSetupDialog::GridSetupDialog(QWidget * parent) :
-    QDialog(parent)
+namespace PhotoLayoutsEditor
 {
-    PLEConfigSkeleton * skeleton = PLEConfigSkeleton::self();
 
+GridSetupDialog::GridSetupDialog(QWidget* const parent)
+    : QDialog(parent)
+{
     setWindowTitle(QObject::tr("Setup grid lines"));
     setModal(true);
 
-    centralWidget = new QWidget(this);
-
-    QFormLayout * layout = new QFormLayout(centralWidget);
+    centralWidget             = new QWidget(this);
+    QFormLayout* const layout = new QFormLayout(centralWidget);
     layout->setSizeConstraint( QLayout::SetFixedSize );
 
     setLayout(layout);
 
     x = new QDoubleSpinBox(centralWidget);
-    KConfigSkeletonItem * hgi = skeleton->findItem(QLatin1String("horizontalGrid"));
-
-    if (hgi)
-    {
-        x->setMinimum(hgi->minValue().toDouble());
-        x->setMaximum(hgi->maxValue().toDouble());
-    }
-
+    x->setMinimum(2.0);
+    x->setMaximum(50.0);
     x->setSingleStep(1.0);
-    x->setValue(PLEConfigSkeleton::horizontalGrid());
-    connect(skeleton, SIGNAL(horizontalGridChanged(double)), x, SLOT(setValue(double)));
+
     layout->addRow(QObject::tr("Horizontal distance"), x);
 
     y = new QDoubleSpinBox(centralWidget);
-    KConfigSkeletonItem * vgi = skeleton->findItem(QLatin1String("verticalGrid"));
-
-    if (vgi && hgi)
-    {
-        y->setMinimum(hgi->minValue().toDouble());
-        y->setMaximum(hgi->maxValue().toDouble());
-    }
-
+    y->setMinimum(2.0);
+    y->setMaximum(50.0);
     y->setSingleStep(1.0);
-    y->setValue(PLEConfigSkeleton::verticalGrid());
-    connect(skeleton, SIGNAL(verticalGridChanged(double)), y, SLOT(setValue(double)));
+
     layout->addRow(QObject::tr("Vertical distance"), y);
 
     QDialogButtonBox* const buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
@@ -83,6 +69,12 @@ GridSetupDialog::GridSetupDialog(QWidget * parent) :
 
     connect(buttons->button(QDialogButtonBox::Cancel), SIGNAL(clicked()),
             this, SLOT(reject()));
+    
+    QSettings config;
+    config.beginGroup(QLatin1String("View"));
+
+    setHorizontalDistance(config.value(QLatin1String("XGrid"), 25.0).toDouble());
+    setVerticalDistance(config.value(QLatin1String("YGrid"), 25.0).toDouble());
 }
 
 void GridSetupDialog::setHorizontalDistance(qreal value)
@@ -108,11 +100,20 @@ qreal GridSetupDialog::verticalDistance() const
 int GridSetupDialog::exec()
 {
     int result = QDialog::exec();
+
     if (result == Accepted)
     {
-        PLEConfigSkeleton::setHorizontalGrid( this->horizontalDistance() );
-        PLEConfigSkeleton::setVerticalGrid( this->verticalDistance() );
-        PLEConfigSkeleton::self()->save();
+        QSettings config;
+        config.beginGroup(QLatin1String("View"));
+        
+        config.setValue(QLatin1String("XGrid"), horizontalDistance());
+        config.setValue(QLatin1String("YGrid"), verticalDistance());
+
+        config.endGroup();
+        config.sync();
     }
+
     return result;
 }
+
+} // namespace PhotoLayoutsEditor
