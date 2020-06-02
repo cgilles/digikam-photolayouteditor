@@ -22,11 +22,12 @@ This tool allows you to create collage layout of images using effect.
 
 # TODO
 
-- Fix crashes in qt properties pannel
-- Remove KDE dependencies
-- Fix broken signal/slots
-- Port to QMainWindow
-- Rewrite configuration dialog
-- Port to C++11
-- Port to DPlugin API (done)
-- Port as stand alone plugin (done)
+- export as template do not work as expected. Result do not refect of the canvas content.
+- Fix crashes in qt properties pannel.
+- Remove KDE dependencies.
+- Fix broken signal/slots.
+- Port to QMainWindow.
+- Rewrite configuration dialog (done).
+- Port to C++11.
+- Port to DPlugin API (done).
+- Port as stand alone plugin (done).
