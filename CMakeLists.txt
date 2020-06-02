@@ -174,7 +174,6 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesView.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/settings/PLEConfigDialog.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/settings/PLEConfigViewWidget.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/photolayoutswindow.cpp
 
