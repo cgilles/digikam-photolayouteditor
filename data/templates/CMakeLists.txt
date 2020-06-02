@@ -13,7 +13,7 @@ foreach(child ${templates_dir})
     if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${child})
 
         install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${child}
-                DESTINATION ${DATA_INSTALL_DIR}/photolayoutseditor)
+                DESTINATION ${CMAKE_INSTALL_DATADIR}/photolayoutseditor)
 
     endif()
 

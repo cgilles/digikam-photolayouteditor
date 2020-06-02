@@ -22,7 +22,6 @@ include(FeatureSummary)
 
 include(ECMSetupVersion)
 
-include(KDEInstallDirs)                 # for template data install dir
 include(KDEFrameworkCompilerSettings)
 include(KDECompilerSettings)
 
