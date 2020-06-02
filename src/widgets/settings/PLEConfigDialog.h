@@ -35,11 +35,9 @@
 
 namespace PhotoLayoutsEditor
 {
-    class PLEConfigDialogPrivate;
 
     class PLEConfigDialog : public KConfigDialog
     {
-            PLEConfigDialogPrivate* d;
 
         public:
 
@@ -48,6 +46,11 @@ namespace PhotoLayoutsEditor
 
             virtual void updateSettings();
             virtual void updateWidgets();
+
+        private:
+
+            class PLEConfigDialogPrivate;
+            PLEConfigDialogPrivate* const d;
 
             friend class PLEConfigDialogPrivate;
     };

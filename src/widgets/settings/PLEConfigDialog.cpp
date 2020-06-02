@@ -35,11 +35,11 @@
 
 using namespace PhotoLayoutsEditor;
 
-class PhotoLayoutsEditor::PLEConfigDialogPrivate
+class PLEConfigDialog::PLEConfigDialogPrivate
 {
-    PLEConfigViewWidget* confVWdg;
+public:
 
-    friend class PLEConfigDialog;
+    PLEConfigViewWidget* confVWdg;
 };
 
 PLEConfigDialog::PLEConfigDialog(QWidget* const parent)
@@ -47,7 +47,7 @@ PLEConfigDialog::PLEConfigDialog(QWidget* const parent)
     d(new PLEConfigDialogPrivate)
 {
     d->confVWdg = new PLEConfigViewWidget( 0, QObject::tr("View") );
-    addPage( d->confVWdg, QObject::tr("View") )->setIcon(QIcon(QLatin1String(":/view.png")));
+    addPage(d->confVWdg, QObject::tr("View") )->setIcon(QIcon(QLatin1String(":/view.png")));
 }
 
 PLEConfigDialog::~PLEConfigDialog()
