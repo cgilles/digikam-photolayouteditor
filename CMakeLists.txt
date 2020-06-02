@@ -39,7 +39,6 @@ find_package(Qt5 "5.6.0" REQUIRED
 find_package(KF5 "5.5.0" REQUIRED
              COMPONENTS
              XmlGui
-             Config
 )
 
 find_package(Threads)
@@ -61,7 +60,6 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
                     $<TARGET_PROPERTY:Qt5::PrintSupport,INTERFACE_INCLUDE_DIRECTORIES>
 
                     $<TARGET_PROPERTY:KF5::XmlGui,INTERFACE_INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:KF5::ConfigCore,INTERFACE_INCLUDE_DIRECTORIES>
 
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser
@@ -221,7 +219,6 @@ target_link_libraries(photolayoutseditor
                       Qt5::PrintSupport
 
                       KF5::XmlGui
-                      KF5::ConfigCore
 )
 
 install(TARGETS photolayoutseditor RUNTIME DESTINATION bin)
