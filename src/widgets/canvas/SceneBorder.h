@@ -52,7 +52,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            SceneBorder(QGraphicsScene * scene = 0);
+            SceneBorder(QGraphicsScene * scene = nullptr);
             virtual QRectF boundingRect() const;
 
             void setImage(const QImage & image);

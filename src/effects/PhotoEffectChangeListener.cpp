@@ -38,7 +38,7 @@ class PhotoLayoutsEditor::PhotoEffectChangeCommand : public QUndoCommand
         QString propertyName;
         QVariant value;
     public:
-        PhotoEffectChangeCommand(AbstractPhotoEffectInterface * effect, QUndoCommand * parent = 0) :
+        PhotoEffectChangeCommand(AbstractPhotoEffectInterface * effect, QUndoCommand * parent = nullptr) :
             QUndoCommand(parent),
             effect(effect)
         {
@@ -65,7 +65,7 @@ class PhotoLayoutsEditor::PhotoEffectChangeCommand : public QUndoCommand
 PhotoEffectChangeListener::PhotoEffectChangeListener(AbstractPhotoEffectInterface * effect, QObject * parent, bool createCommands) :
     QObject(parent),
     effect(effect),
-    command(0),
+    command(nullptr),
     createCommands(createCommands)
 {
 }
@@ -116,5 +116,5 @@ void PhotoEffectChangeListener::editingFinished()
             delete command;
         }
     }
-    command = 0;
+    command = nullptr;
 }

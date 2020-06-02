@@ -51,7 +51,7 @@ class PhotoLayoutsEditor::SceneBackground::BackgroundImageChangedCommand : publi
     SceneBackground * m_backgropund_item;
 public:
 
-    BackgroundImageChangedCommand(const QImage & image, Qt::Alignment alignment, const QSize & size, bool repeat, SceneBackground * backgroundItem, QUndoCommand * parent = 0) :
+    BackgroundImageChangedCommand(const QImage & image, Qt::Alignment alignment, const QSize & size, bool repeat, SceneBackground * backgroundItem, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_image(image),
         m_alignment(alignment),
@@ -62,7 +62,7 @@ public:
     {
     }
 
-    BackgroundImageChangedCommand(const QImage & image, Qt::Alignment alignment, Qt::AspectRatioMode aspectRatio, bool repeat, SceneBackground * backgroundItem, QUndoCommand * parent = 0) :
+    BackgroundImageChangedCommand(const QImage & image, Qt::Alignment alignment, Qt::AspectRatioMode aspectRatio, bool repeat, SceneBackground * backgroundItem, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_image(image),
         m_alignment(alignment),
@@ -112,7 +112,7 @@ class PhotoLayoutsEditor::SceneBackground::BackgroundFirstBrushChangeCommand : p
     QBrush m_brush;
     SceneBackground * m_background;
 public:
-    BackgroundFirstBrushChangeCommand(const QBrush & brush, SceneBackground * background, QUndoCommand * parent = 0) :
+    BackgroundFirstBrushChangeCommand(const QBrush & brush, SceneBackground * background, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_brush(brush),
         m_background(background)
@@ -140,7 +140,7 @@ class PhotoLayoutsEditor::SceneBackground::BackgroundSecondBrushChangeCommand : 
     QBrush m_brush;
     SceneBackground * m_background;
 public:
-    BackgroundSecondBrushChangeCommand(const QBrush & brush, SceneBackground * background, QUndoCommand * parent = 0) :
+    BackgroundSecondBrushChangeCommand(const QBrush & brush, SceneBackground * background, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_brush(brush),
         m_background(background)
@@ -197,7 +197,7 @@ void SceneBackground::setSolidColor(const QColor & color)
     bool patternChaged = (m_first_brush.style() != Qt::SolidPattern);
     bool secondColorChanged = (m_second_brush.color() != Qt::transparent);
 
-    QUndoCommand * parent = 0;
+    QUndoCommand * parent = nullptr;
     QUndoCommand * command = 0;
 
     if ((colorChanged && secondColorChanged) ||
@@ -220,7 +220,7 @@ void SceneBackground::setPattern(const QColor & firstColor, const QColor & secon
     bool color1Changed = (firstColor != m_first_brush.color() || patternStyle != m_first_brush.style());
     bool color2Changed = (secondColor != m_second_brush.color() || m_second_brush.style() != Qt::SolidPattern);
 
-    QUndoCommand * parent = 0;
+    QUndoCommand * parent = nullptr;
     if (color1Changed && color2Changed)
         parent = new QUndoCommand(QLatin1String("Background Change"));
     QUndoCommand * command = 0;
@@ -246,7 +246,7 @@ void SceneBackground::setImage(const QImage & image, const QColor & backgroundCo
 
     bool colorChanged = (m_second_brush.color() != backgroundColor || m_second_brush.style() != Qt::SolidPattern);
 
-    QUndoCommand * parent = 0;
+    QUndoCommand * parent = nullptr;
     if (imageChanged && colorChanged)
         parent = new QUndoCommand(QObject::tr("Background Change"));
 
@@ -272,7 +272,7 @@ void SceneBackground::setImage(const QImage & image, const QColor & backgroundCo
 
     bool colorChanged = (m_second_brush.color() != backgroundColor || m_second_brush.style() != Qt::SolidPattern);
 
-    QUndoCommand * parent = 0;
+    QUndoCommand * parent = nullptr;
     if (imageChanged && colorChanged)
         parent = new QUndoCommand(QObject::tr("Background Change"));
 

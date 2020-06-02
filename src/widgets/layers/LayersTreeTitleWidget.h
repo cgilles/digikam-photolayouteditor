@@ -42,7 +42,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            LayersTreeTitleWidget (QWidget * parent = 0) :
+            LayersTreeTitleWidget (QWidget * parent = nullptr) :
                 QWidget(parent),
                 m_layout(new QHBoxLayout(this)),
                 m_label(new QLabel(QObject::tr("Layers"),this)),

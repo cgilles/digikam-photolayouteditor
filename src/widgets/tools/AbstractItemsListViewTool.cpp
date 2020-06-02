@@ -49,7 +49,7 @@ class ItemCreatedCommand : public QUndoCommand
     bool                  done;
 
 public:
-    ItemCreatedCommand(QObject * item, int row, AbstractMovableModel * model, QUndoCommand * parent = 0) :
+    ItemCreatedCommand(QObject * item, int row, AbstractMovableModel * model, QUndoCommand * parent = nullptr) :
         QUndoCommand(parent),
         item(item),
         row(row),
@@ -90,7 +90,7 @@ class ItemRemovedCommand : public QUndoCommand
 
 public:
 
-    ItemRemovedCommand(QObject * item, int row, AbstractMovableModel * model, QUndoCommand * parent = 0) :
+    ItemRemovedCommand(QObject * item, int row, AbstractMovableModel * model, QUndoCommand * parent = nullptr) :
         QUndoCommand(parent),
         item(item),
         row(row),
@@ -131,7 +131,7 @@ class ItemMoveRowsCommand : public QUndoCommand
 
 public:
 
-    ItemMoveRowsCommand(int sourceStart, int count, int destinationRow, AbstractMovableModel * model, QUndoCommand * parent = 0) :
+    ItemMoveRowsCommand(int sourceStart, int count, int destinationRow, AbstractMovableModel * model, QUndoCommand * parent = nullptr) :
         QUndoCommand(parent),
         sourceStart(sourceStart),
         count(count),

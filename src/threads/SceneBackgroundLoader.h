@@ -35,7 +35,7 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            explicit SceneBackgroundLoader(SceneBackground * background, QDomElement & element, QObject * parent = 0);
+            explicit SceneBackgroundLoader(SceneBackground * background, QDomElement & element, QObject * parent = nullptr);
 
         protected:
 

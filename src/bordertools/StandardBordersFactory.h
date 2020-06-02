@@ -33,7 +33,7 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            explicit StandardBordersFactory(QObject *parent = 0);
+            explicit StandardBordersFactory(QObject* parent = nullptr);
 
             virtual QString drawersNames() const;
 

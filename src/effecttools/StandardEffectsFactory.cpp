@@ -48,7 +48,7 @@ AbstractPhotoEffectInterface * StandardEffectsFactory::getEffectInstance(const Q
         return new SepiaPhotoEffect(this);
     if (name == QObject::tr("Negative effect"))
         return new NegativePhotoEffect(this);
-    return 0;
+    return nullptr;
 }
 
 QString StandardEffectsFactory::effectName() const

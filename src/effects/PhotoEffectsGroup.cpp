@@ -65,8 +65,8 @@ PhotoEffectsGroup * PhotoEffectsGroup::fromSvg(const QDomElement & element, Abst
     if (temp.tagName() != QLatin1String("effects"))
         temp = temp.firstChildElement(QLatin1String("effects"));
     if (temp.isNull())
-        return 0;
-    PhotoEffectsGroup * group = new PhotoEffectsGroup(0);
+        return nullptr;
+    PhotoEffectsGroup * group = new PhotoEffectsGroup(nullptr);
     QDomNodeList effectsList = temp.childNodes();
     for (int i = effectsList.count()-1; i >= 0; --i)
     {
@@ -120,7 +120,7 @@ QObject * PhotoEffectsGroup::item(const QModelIndex & index) const
 {
     if (index.isValid() && index.row() < rowCount())
         return m_effects_list.at(index.row());
-    return 0;
+    return nullptr;
 }
 
 void PhotoEffectsGroup::setItem(QObject * item, const QModelIndex & index)
@@ -218,7 +218,7 @@ bool PhotoEffectsGroup::insertRows(int row, int count, const QModelIndex & paren
         return false;
     beginInsertRows(parent, row, row+count-1);
     while(count--)
-        m_effects_list.insert(row,0);
+        m_effects_list.insert(row, nullptr);
     endInsertRows();
     emit layoutChanged();
     return true;

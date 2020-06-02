@@ -122,7 +122,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit TemplatesModel(QObject * parent = 0);
+            explicit TemplatesModel(QObject * parent = nullptr);
 
             virtual QModelIndex index(int row, int column, const QModelIndex & parent = QModelIndex()) const;
             virtual int columnCount(const QModelIndex & parent = QModelIndex()) const;

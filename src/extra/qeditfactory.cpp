@@ -244,12 +244,12 @@ QWidget * QSliderEditFactory::createEditor(QtIntPropertyManager * manager, QtPro
     QWidget* w = base->createEditor(property,parent);
 
     if (!w)
-        return 0;
+        return nullptr;
 
     QSlider* slider = qobject_cast<QSlider*>(w);
 
     if (!slider)
-        return 0;
+        return nullptr;
 
     w = new QWidget(parent);
     slider->setParent(w);

@@ -47,7 +47,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit TextEditorTool(Scene * scene, QWidget * parent = 0);
+            explicit TextEditorTool(Scene * scene, QWidget * parent = nullptr);
             ~TextEditorTool();
 
         Q_SIGNALS:

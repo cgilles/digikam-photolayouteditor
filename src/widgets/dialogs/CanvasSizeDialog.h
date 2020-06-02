@@ -40,8 +40,8 @@ class CanvasSizeDialog : public QDialog
 
 public:
 
-    explicit CanvasSizeDialog(QWidget * parent = 0);
-    explicit CanvasSizeDialog(const CanvasSize & canvasSize, QWidget * parent = 0);
+    explicit CanvasSizeDialog(QWidget * parent = nullptr);
+    explicit CanvasSizeDialog(const CanvasSize & canvasSize, QWidget * parent = nullptr);
     ~CanvasSizeDialog();
 
     Q_PROPERTY(CanvasSize canvas_size READ canvasSize)

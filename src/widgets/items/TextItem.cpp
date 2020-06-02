@@ -46,7 +46,7 @@ class PhotoLayoutsEditor::TextChangeUndoCommand : public QUndoCommand
     QStringList m_text;
     TextItem * m_item;
 public:
-    TextChangeUndoCommand(const QStringList & text, TextItem * item, QUndoCommand * parent = 0) :
+    TextChangeUndoCommand(const QStringList & text, TextItem * item, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Text change"), parent),
         m_text(text),
         m_item(item)
@@ -69,7 +69,7 @@ class PhotoLayoutsEditor::TextColorUndoCommand : public QUndoCommand
         TextItem * m_item;
         QColor m_color;
     public:
-        TextColorUndoCommand(const QColor & color, TextItem * item, QUndoCommand * parent = 0) :
+        TextColorUndoCommand(const QColor & color, TextItem * item, QUndoCommand * parent = nullptr) :
             QUndoCommand(QObject::tr("Text color change"), parent),
             m_item(item),
             m_color(color)
@@ -95,7 +95,7 @@ class PhotoLayoutsEditor::TextFontUndoCommand : public QUndoCommand
         TextItem * m_item;
         QFont m_font;
     public:
-        TextFontUndoCommand(const QFont & font, TextItem * item, QUndoCommand * parent = 0) :
+        TextFontUndoCommand(const QFont & font, TextItem * item, QUndoCommand * parent = nullptr) :
             QUndoCommand(QObject::tr("Text font change"), parent),
             m_item(item),
             m_font(font)
@@ -123,7 +123,7 @@ class PhotoLayoutsEditor::AddTextUndoCommand : public QUndoCommand
     int row;
     int at;
 public:
-    AddTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
+    AddTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
@@ -151,7 +151,7 @@ class PhotoLayoutsEditor::RemoveTextUndoCommand : public QUndoCommand
     int row;
     int at;
 public:
-    RemoveTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
+    RemoveTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
@@ -186,7 +186,7 @@ class PhotoLayoutsEditor::AddLineUndoCommand : public QUndoCommand
     int row;
     int at;
 public:
-    AddLineUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
+    AddLineUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
@@ -220,7 +220,7 @@ class PhotoLayoutsEditor::MergeLineUndoCommand : public QUndoCommand
     int row;
     int at;
 public:
-    MergeLineUndoCommand(int row, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = 0) :
+    MergeLineUndoCommand(int row, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),

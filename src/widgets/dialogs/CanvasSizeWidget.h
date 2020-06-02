@@ -41,7 +41,7 @@ namespace PhotoLayoutsEditor
                 Vertical
             };
 
-            explicit CanvasSizeWidget(QWidget* parent = 0);
+            explicit CanvasSizeWidget(QWidget* parent = nullptr);
             ~CanvasSizeWidget();
             Orientation orientation() const;
             CanvasSize canvasSize() const;

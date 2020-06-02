@@ -47,7 +47,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            UndoRemoveItem(AbstractPhoto * item, Scene * scene, LayersModel * model, QUndoCommand * parent = 0);
+            UndoRemoveItem(AbstractPhoto * item, Scene * scene, LayersModel * model, QUndoCommand * parent = nullptr);
             ~UndoRemoveItem();
             virtual void redo();
             virtual void undo();

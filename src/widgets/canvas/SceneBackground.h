@@ -57,7 +57,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            SceneBackground(QGraphicsScene * scene = 0);
+            SceneBackground(QGraphicsScene * scene = nullptr);
             virtual QRectF boundingRect() const;
 
             void setSecondColor(const QColor & color);

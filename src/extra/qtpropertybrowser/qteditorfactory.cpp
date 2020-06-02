@@ -937,7 +937,7 @@ void QtLineEditFactoryPrivate::slotRegExpChanged(QtProperty *property,
         QLineEdit *editor = itEditor.next();
         editor->blockSignals(true);
         const QValidator *oldValidator = editor->validator();
-        QValidator *newValidator = 0;
+        QValidator *newValidator = nullptr;
         if (regExp.isValid()) {
             newValidator = new QRegExpValidator(regExp, editor);
         }
@@ -1516,7 +1516,7 @@ class QtCharEdit : public QWidget
 {
     Q_OBJECT
 public:
-    QtCharEdit(QWidget *parent = 0);
+    QtCharEdit(QWidget *parent = nullptr);
 
     QChar value() const;
     bool eventFilter(QObject *o, QEvent *e);
@@ -1569,7 +1569,7 @@ bool QtCharEdit::eventFilter(QObject *o, QEvent *e)
                 actionString = actionString.remove(pos, actionString.length() - pos);
             action->setText(actionString);
         }
-        QAction *actionBefore = 0;
+        QAction *actionBefore = nullptr;
         if (actions.count() > 0)
             actionBefore = actions[0];
         QAction *clearAction = new QAction(QObject::tr("Clear Char"), menu);
@@ -2107,7 +2107,7 @@ void QtCursorEditorFactory::connectPropertyManager(QtCursorPropertyManager *mana
 QWidget *QtCursorEditorFactory::createEditor(QtCursorPropertyManager *manager, QtProperty *property,
         QWidget *parent)
 {
-    QtProperty *enumProp = 0;
+    QtProperty *enumProp = nullptr;
     if (d_ptr->m_propertyToEnum.contains(property)) {
         enumProp = d_ptr->m_propertyToEnum[property];
     } else {

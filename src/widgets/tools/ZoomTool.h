@@ -35,7 +35,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit ZoomTool(Scene * scene, QWidget * parent = 0);
+            explicit ZoomTool(Scene * scene, QWidget * parent = nullptr);
             ~ZoomTool();
 
         public Q_SLOTS:

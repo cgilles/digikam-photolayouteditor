@@ -45,5 +45,5 @@ BorderDrawerInterface * StandardBordersFactory::getDrawerInstance(const QString 
        return new SolidBorderDrawer(this);
     if (name == QObject::tr("Polaroid border"))
        return new PolaroidBorderDrawer(this);
-    return 0;
+    return nullptr;
 }

@@ -40,12 +40,12 @@
 
 using namespace PhotoLayoutsEditor;
 
-PhotoEffectsLoader * PhotoEffectsLoader::m_instance = 0;
+PhotoEffectsLoader * PhotoEffectsLoader::m_instance = nullptr;
 QMap<QString, AbstractPhotoEffectFactory*> PhotoEffectsLoader::registeredEffects;
 
 PhotoEffectsLoader::PhotoEffectsLoader(QObject * parent) :
     QObject(parent),
-    m_effect(0)
+    m_effect(nullptr)
 {
 }
 
@@ -71,7 +71,7 @@ AbstractPhoto * PhotoEffectsLoader::photo() const
     if (tempGroup)
         return tempGroup->photo();
     else
-        return 0;
+        return nullptr;
 }
 
 bool PhotoEffectsLoader::registerEffect(AbstractPhotoEffectFactory * effectFactory)
@@ -92,7 +92,7 @@ QStringList PhotoEffectsLoader::registeredEffectsNames()
 
 AbstractPhotoEffectFactory * PhotoEffectsLoader::getFactoryByName(const QString & name)
 {
-    return registeredEffects.value(name, 0);
+    return registeredEffects.value(name, nullptr);
 }
 
 AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectByName(const QString & effectName)
@@ -100,13 +100,13 @@ AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectByName(const QString
     AbstractPhotoEffectFactory * factory = PhotoEffectsLoader::registeredEffects[effectName];
     if (factory)
         return factory->getEffectInstance(effectName);
-    return 0;
+    return nullptr;
 }
 
 QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEffectInterface * effect, bool createCommands)
 {
     if (!effect)
-        return 0;
+        return nullptr;
 
     QtAbstractPropertyBrowser * browser = new QtTreePropertyBrowser();
     PhotoEffectChangeListener * listener = new PhotoEffectChangeListener(effect, browser, createCommands);
@@ -117,12 +117,12 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
     browser->setFactoryForManager(integerManager, integerFactory);
 
     // Double type of property
-    QtDoublePropertyManager * doubleManager = 0;
-    QDoubleSpinBoxFactory * doubleFactory = 0;
+    QtDoublePropertyManager * doubleManager = nullptr;
+    QDoubleSpinBoxFactory * doubleFactory = nullptr;
 
     // QVariant others....
-    QtVariantPropertyManager * variantManager = 0;
-    QVariantEditorFactory * variantFactory = 0;
+    QtVariantPropertyManager * variantManager = nullptr;
+    QVariantEditorFactory * variantFactory = nullptr;
 
     const QMetaObject * meta = effect->metaObject();
     int propertiesCount = meta->propertyCount();
@@ -132,7 +132,7 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
         QString propertyName = effect->propertyName(metaProperty);
         if (propertyName.isEmpty())
             continue;
-        QtProperty * property = 0;
+        QtProperty * property = nullptr;
         switch(metaProperty.type())
         {
             case QVariant::Int:
@@ -215,7 +215,7 @@ QDomElement PhotoEffectsLoader::effectToSvg(AbstractPhotoEffectInterface * effec
 AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectFromSvg(QDomElement & element)
 {
     if ( element.tagName() != QLatin1String("effect"))
-        return 0;
+        return nullptr;
     QMap<QString,QString> properties;
     QDomNamedNodeMap attributes = element.attributes();
     for (int j = attributes.count()-1; j >= 0; --j)
@@ -227,7 +227,7 @@ AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectFromSvg(QDomElement 
     }
     QString effectName = properties.take(QLatin1String("name"));
     if ( !instance()->registeredEffectsNames().contains( effectName ) )
-        return 0;
+        return nullptr;
     AbstractPhotoEffectInterface * result = instance()->getEffectByName( effectName );
     const QMetaObject * meta = result->metaObject();
     int count = meta->propertyCount();

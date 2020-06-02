@@ -35,7 +35,7 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            explicit BorderDrawerFactoryInterface(QObject* parent = 0) :
+            explicit BorderDrawerFactoryInterface(QObject* parent = nullptr) :
                 QObject(parent)
             {}
 

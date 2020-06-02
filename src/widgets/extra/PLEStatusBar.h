@@ -35,7 +35,7 @@ namespace PhotoLayoutsEditor
             QProgressBar * m_pb;
         public:
 
-            explicit PLEStatusBar(QWidget * parent = 0);
+            explicit PLEStatusBar(QWidget * parent = nullptr);
             void runBusyIndicator();
             void stopBusyIndicator();
 

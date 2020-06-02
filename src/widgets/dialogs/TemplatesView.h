@@ -39,7 +39,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit TemplatesView(QWidget * parent = 0);
+            explicit TemplatesView(QWidget * parent = nullptr);
 
             void mousePressEvent(QMouseEvent * event);
             void updateGeometries();

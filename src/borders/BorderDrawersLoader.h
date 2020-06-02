@@ -48,7 +48,7 @@ namespace PhotoLayoutsEditor
         public:
 
             ~BorderDrawersLoader();
-            static BorderDrawersLoader * instance(QObject * parent = 0);
+            static BorderDrawersLoader * instance(QObject * parent = nullptr);
             static void registerDrawer(BorderDrawerFactoryInterface * factory);
             static QStringList registeredDrawers();
             static BorderDrawerFactoryInterface * getFactoryByName(const QString & name);
@@ -59,7 +59,7 @@ namespace PhotoLayoutsEditor
 
         private:
 
-            explicit BorderDrawersLoader(QObject * parent = 0);
+            explicit BorderDrawersLoader(QObject * parent = nullptr);
     };
 }
 

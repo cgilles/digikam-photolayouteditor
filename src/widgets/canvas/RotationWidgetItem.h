@@ -48,8 +48,8 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit RotationWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem * parent = 0);
-            virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
+            explicit RotationWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem * parent = nullptr);
+            virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr);
             virtual QPainterPath shape() const;
             virtual QPainterPath opaqueArea() const;
             virtual QRectF boundingRect() const;

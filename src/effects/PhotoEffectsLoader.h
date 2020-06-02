@@ -60,7 +60,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            static PhotoEffectsLoader * instance(QObject * parent = 0);
+            static PhotoEffectsLoader * instance(QObject * parent = nullptr);
             PhotoEffectsGroup * group() const;
             AbstractPhoto * photo() const;
 

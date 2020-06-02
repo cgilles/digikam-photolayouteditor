@@ -44,7 +44,7 @@ class PhotoLayoutsEditor::BorderDrawersLoaderPrivate
     friend class BorderDrawersLoader;
 };
 
-BorderDrawersLoader * BorderDrawersLoader::m_instance = 0;
+BorderDrawersLoader * BorderDrawersLoader::m_instance = nullptr;
 
 BorderDrawersLoader::BorderDrawersLoader(QObject * parent) :
     QObject(parent),
@@ -54,7 +54,7 @@ BorderDrawersLoader::BorderDrawersLoader(QObject * parent) :
 
 BorderDrawersLoader::~BorderDrawersLoader()
 {
-    m_instance = 0;
+    m_instance = nullptr;
     delete d;
 }
 
@@ -82,7 +82,7 @@ QStringList BorderDrawersLoader::registeredDrawers()
 
 BorderDrawerFactoryInterface * BorderDrawersLoader::getFactoryByName(const QString & name)
 {
-    return instance()->d->factories.value(name, 0);
+    return instance()->d->factories.value(name, nullptr);
 }
 
 BorderDrawerInterface * BorderDrawersLoader::getDrawerByName(const QString & name)
@@ -92,10 +92,10 @@ BorderDrawerInterface * BorderDrawersLoader::getDrawerByName(const QString & nam
     {
         BorderDrawerInterface * drawer = factory->getDrawerInstance(name);
         if (!drawer)
-            return 0;
+            return nullptr;
         return drawer;
     }
-    return 0;
+    return nullptr;
 }
 
 BorderDrawerInterface * BorderDrawersLoader::getDrawerFromSvg(QDomElement & drawerElement)
@@ -111,7 +111,7 @@ BorderDrawerInterface * BorderDrawersLoader::getDrawerFromSvg(QDomElement & draw
     }
     QString drawerName = properties.take(QLatin1String("name"));
     if (!instance()->registeredDrawers().contains(drawerName))
-        return 0;
+        return nullptr;
     BorderDrawerInterface * drawer = getDrawerByName(drawerName);
     const QMetaObject * meta = drawer->metaObject();
     int count = meta->propertyCount();
@@ -149,26 +149,26 @@ QDomElement BorderDrawersLoader::drawerToSvg(BorderDrawerInterface * drawer, QDo
 QWidget * BorderDrawersLoader::createEditor(BorderDrawerInterface * drawer, bool createCommands)
 {
     if (!drawer)
-        return 0;
+        return nullptr;
 
     QtTreePropertyBrowser * browser = new QtTreePropertyBrowser();
     BorderChangeListener * listener = new BorderChangeListener(drawer, browser, createCommands);
 
     // QVariant type of property
-    QtVariantPropertyManager * variantManager = 0;
-    QVariantEditorFactory * variantFactory = 0;
+    QtVariantPropertyManager * variantManager = nullptr;
+    QVariantEditorFactory * variantFactory = nullptr;
 
     // Integer type of property
-    QtIntPropertyManager * integerManager = 0;
-    QSliderEditFactory * integerFactory = 0;
+    QtIntPropertyManager * integerManager = nullptr;
+    QSliderEditFactory * integerFactory = nullptr;
 
     // Double type of property
-    QtDoublePropertyManager * doubleManager = 0;
-    QDoubleSpinBoxFactory * doubleFactory = 0;
+    QtDoublePropertyManager * doubleManager = nullptr;
+    QDoubleSpinBoxFactory * doubleFactory = nullptr;
 
     // Enum type of property
-    QtEnumPropertyManager * enumManager = 0;
-    QEnumEditorFactory * enumFactory = 0;
+    QtEnumPropertyManager * enumManager = nullptr;
+    QEnumEditorFactory * enumFactory = nullptr;
 
     const QMetaObject * meta = drawer->metaObject();
     int propertiesCount = meta->propertyCount();

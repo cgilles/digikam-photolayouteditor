@@ -49,7 +49,7 @@ class PhotoLayoutsEditor::SceneBorder::BorderImageChangedCommand : public QUndoC
 
 public:
 
-    BorderImageChangedCommand(const QImage & image, SceneBorder * borderItem, QUndoCommand * parent = 0) :
+    BorderImageChangedCommand(const QImage & image, SceneBorder * borderItem, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Border Change"), parent),
         m_image(image),
         m_backgropund_item(borderItem)
@@ -93,7 +93,7 @@ void SceneBorder::setImage(const QImage & image)
 {
     bool imageChanged = m_image != image;
 
-    QUndoCommand * parent = 0;
+    QUndoCommand * parent = nullptr;
     if (imageChanged)
         parent = new QUndoCommand(QObject::tr("Border Change"));
 

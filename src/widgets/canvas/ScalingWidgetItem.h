@@ -43,7 +43,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit ScalingWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem * parent = 0, QGraphicsScene * scene = 0);
+            explicit ScalingWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem * parent = nullptr, QGraphicsScene * scene = nullptr);
             virtual ~ScalingWidgetItem();
 
             virtual QRectF boundingRect() const;

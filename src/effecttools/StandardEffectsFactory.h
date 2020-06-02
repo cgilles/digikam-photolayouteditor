@@ -33,7 +33,7 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            explicit StandardEffectsFactory(QObject* parent = 0);
+            explicit StandardEffectsFactory(QObject* parent = nullptr);
             virtual ~StandardEffectsFactory()
             {}
 

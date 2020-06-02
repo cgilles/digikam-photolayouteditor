@@ -778,7 +778,7 @@ QString QtIntPropertyManager::valueText(const QtProperty *property) const
 */
 void QtIntPropertyManager::setValue(QtProperty *property, int val)
 {
-    void (QtIntPropertyManagerPrivate::*setSubPropertyValue)(QtProperty *, int) = 0;
+    void (QtIntPropertyManagerPrivate::*setSubPropertyValue)(QtProperty *, int) = nullptr;
     setValueInRange<int, QtIntPropertyManagerPrivate, QtIntPropertyManager, int>(this, d_ptr,
                 &QtIntPropertyManager::propertyChanged,
                 &QtIntPropertyManager::valueChanged,
@@ -837,7 +837,7 @@ void QtIntPropertyManager::setMaximum(QtProperty *property, int maxVal)
 */
 void QtIntPropertyManager::setRange(QtProperty *property, int minVal, int maxVal)
 {
-    void (QtIntPropertyManagerPrivate::*setSubPropertyRange)(QtProperty *, int, int, int) = 0;
+    void (QtIntPropertyManagerPrivate::*setSubPropertyRange)(QtProperty *, int, int, int) = nullptr;
     setBorderValues<int, QtIntPropertyManagerPrivate, QtIntPropertyManager, int>(this, d_ptr,
                 &QtIntPropertyManager::propertyChanged,
                 &QtIntPropertyManager::valueChanged,
@@ -1076,7 +1076,7 @@ QString QtDoublePropertyManager::valueText(const QtProperty *property) const
 */
 void QtDoublePropertyManager::setValue(QtProperty *property, double val)
 {
-    void (QtDoublePropertyManagerPrivate::*setSubPropertyValue)(QtProperty *, double) = 0;
+    void (QtDoublePropertyManagerPrivate::*setSubPropertyValue)(QtProperty *, double) = nullptr;
     setValueInRange<double, QtDoublePropertyManagerPrivate, QtDoublePropertyManager, double>(this, d_ptr,
                 &QtDoublePropertyManager::propertyChanged,
                 &QtDoublePropertyManager::valueChanged,
@@ -1195,7 +1195,7 @@ void QtDoublePropertyManager::setMaximum(QtProperty *property, double maxVal)
 */
 void QtDoublePropertyManager::setRange(QtProperty *property, double minVal, double maxVal)
 {
-    void (QtDoublePropertyManagerPrivate::*setSubPropertyRange)(QtProperty *, double, double, double) = 0;
+    void (QtDoublePropertyManagerPrivate::*setSubPropertyRange)(QtProperty *, double, double, double) = nullptr;
     setBorderValues<double, QtDoublePropertyManagerPrivate, QtDoublePropertyManager, double>(this, d_ptr,
                 &QtDoublePropertyManager::propertyChanged,
                 &QtDoublePropertyManager::valueChanged,
@@ -1711,7 +1711,7 @@ QString QtDatePropertyManager::valueText(const QtProperty *property) const
 */
 void QtDatePropertyManager::setValue(QtProperty *property, const QDate &val)
 {
-    void (QtDatePropertyManagerPrivate::*setSubPropertyValue)(QtProperty *, const QDate &) = 0;
+    void (QtDatePropertyManagerPrivate::*setSubPropertyValue)(QtProperty *, const QDate &) = nullptr;
     setValueInRange<const QDate &, QtDatePropertyManagerPrivate, QtDatePropertyManager, const QDate>(this, d_ptr,
                 &QtDatePropertyManager::propertyChanged,
                 &QtDatePropertyManager::valueChanged,
@@ -1771,7 +1771,7 @@ void QtDatePropertyManager::setMaximum(QtProperty *property, const QDate &maxVal
 void QtDatePropertyManager::setRange(QtProperty *property, const QDate &minVal, const QDate &maxVal)
 {
     void (QtDatePropertyManagerPrivate::*setSubPropertyRange)(QtProperty *, const QDate &,
-          const QDate &, const QDate &) = 0;
+          const QDate &, const QDate &) = nullptr;
     setBorderValues<const QDate &, QtDatePropertyManagerPrivate, QtDatePropertyManager, QDate>(this, d_ptr,
                 &QtDatePropertyManager::propertyChanged,
                 &QtDatePropertyManager::valueChanged,
@@ -2275,14 +2275,14 @@ QtLocalePropertyManagerPrivate::QtLocalePropertyManagerPrivate()
 
 void QtLocalePropertyManagerPrivate::slotEnumChanged(QtProperty *property, int value)
 {
-    if (QtProperty *prop = m_languageToProperty.value(property, 0)) {
+    if (QtProperty *prop = m_languageToProperty.value(property, nullptr)) {
         const QLocale loc = m_values[prop];
         QLocale::Language newLanguage = loc.language();
         QLocale::Country newCountry = loc.country();
         metaEnumProvider()->indexToLocale(value, 0, &newLanguage, 0);
         QLocale newLoc(newLanguage, newCountry);
         q_ptr->setValue(prop, newLoc);
-    } else if (QtProperty *prop = m_countryToProperty.value(property, 0)) {
+    } else if (QtProperty *prop = m_countryToProperty.value(property, nullptr)) {
         const QLocale loc = m_values[prop];
         QLocale::Language newLanguage = loc.language();
         QLocale::Country newCountry = loc.country();
@@ -2294,11 +2294,11 @@ void QtLocalePropertyManagerPrivate::slotEnumChanged(QtProperty *property, int v
 
 void QtLocalePropertyManagerPrivate::slotPropertyDestroyed(QtProperty *property)
 {
-    if (QtProperty *subProp = m_languageToProperty.value(property, 0)) {
-        m_propertyToLanguage[subProp] = 0;
+    if (QtProperty *subProp = m_languageToProperty.value(property, nullptr)) {
+        m_propertyToLanguage[subProp] = nullptr;
         m_languageToProperty.remove(property);
-    } else if (QtProperty *subProp = m_countryToProperty.value(property, 0)) {
-        m_propertyToCountry[subProp] = 0;
+    } else if (QtProperty *subProp = m_countryToProperty.value(property, nullptr)) {
+        m_propertyToCountry[subProp] = nullptr;
         m_countryToProperty.remove(property);
     }
 }

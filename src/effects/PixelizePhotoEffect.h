@@ -43,7 +43,7 @@ class PixelizePhotoEffect : public PhotoEffectsLoader
 
 public:
 
-    explicit PixelizePhotoEffect(int pixelSize, QObject* parent = 0);
+    explicit PixelizePhotoEffect(int pixelSize, QObject* parent = nullptr);
     virtual QtAbstractPropertyBrowser* propertyBrowser() const;
     virtual QString toString() const;
 

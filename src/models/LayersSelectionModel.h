@@ -37,7 +37,7 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            explicit LayersSelectionModel(LayersModel * model, QObject *parent = 0);
+            explicit LayersSelectionModel(LayersModel * model, QObject *parent = nullptr);
 
     };
 }

@@ -34,7 +34,7 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            TextItemLoader(TextItem * item, QDomElement & element, QObject * parent = 0);
+            TextItemLoader(TextItem * item, QDomElement & element, QObject * parent = nullptr);
 
         protected:
 

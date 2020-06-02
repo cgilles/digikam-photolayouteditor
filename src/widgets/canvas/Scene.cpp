@@ -301,7 +301,7 @@ class AddItemsCommand
         Scene * scene;
         bool done;
     public:
-        AddItemsCommand(AbstractPhoto * item, int position, Scene * scene, QUndoCommand * parent = 0) :
+        AddItemsCommand(AbstractPhoto * item, int position, Scene * scene, QUndoCommand * parent = nullptr) :
             QUndoCommand(QObject::tr("Add item"), parent),
             position(position),
             scene(scene),
@@ -309,7 +309,7 @@ class AddItemsCommand
         {
             items << item;
         }
-        AddItemsCommand(const QList<AbstractPhoto*> & items, int position, Scene * scene, QUndoCommand * parent = 0) :
+        AddItemsCommand(const QList<AbstractPhoto*> & items, int position, Scene * scene, QUndoCommand * parent = nullptr) :
             QUndoCommand(QObject::tr("Add item", "Add items", items.count()), parent),
             items(items),
             position(position),
@@ -354,7 +354,7 @@ class MoveItemsCommand
         Scene * m_scene;
         bool done;
     public:
-        MoveItemsCommand(QMap<AbstractPhoto*,QPointF> items, Scene * scene, QUndoCommand * parent = 0) :
+        MoveItemsCommand(QMap<AbstractPhoto*,QPointF> items, Scene * scene, QUndoCommand * parent = nullptr) :
             QUndoCommand(QObject::tr("Move item", "Move items", items.count()), parent),
             m_items(items),
             m_scene(scene),
@@ -405,7 +405,7 @@ class RemoveItemsCommand
 
     public:
 
-        RemoveItemsCommand(AbstractPhoto * item, Scene * scene, QUndoCommand * parent = 0) :
+        RemoveItemsCommand(AbstractPhoto * item, Scene * scene, QUndoCommand * parent = nullptr) :
             QUndoCommand(QLatin1String("Remove item"), parent),
             item(item),
             item_row(0),
@@ -506,7 +506,7 @@ class CropItemsCommand
 {
     QMap<AbstractPhoto*,QPainterPath> data;
 public:
-    CropItemsCommand(const QPainterPath & path, const QList<AbstractPhoto*> & items, QUndoCommand * parent = 0) :
+    CropItemsCommand(const QPainterPath & path, const QList<AbstractPhoto*> & items, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Crop item", "Crop items", items.count()), parent)
     {
         qDebug() << "scene crop shape" << path.boundingRect();
@@ -649,7 +649,7 @@ void Scene::addItems(const QList<AbstractPhoto*> & items)
     if (insertionRow == (unsigned)-1)
         insertionRow = 0;
 
-    QUndoCommand * parent = 0;
+    QUndoCommand * parent = nullptr;
     QUndoCommand * command = 0;
     if (items.count() > 1)
         parent = new QUndoCommand( QObject::tr("Add item", "Add items", items.count()) );
@@ -676,7 +676,7 @@ void Scene::removeItems(const QList<AbstractPhoto *> & items)
     if (!askAboutRemoving(items.count()))
         return;
     QUndoCommand * command = 0;
-    QUndoCommand * parent = 0;
+    QUndoCommand * parent = nullptr;
     if (items.count() > 1)
         parent = new QUndoCommand( QObject::tr("Remove item", "Remove items", items.count()) );
     foreach (AbstractPhoto * item, items)

@@ -37,7 +37,7 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            AbstractPhotoEffectFactory(QObject * parent = 0) :
+            AbstractPhotoEffectFactory(QObject * parent = nullptr) :
                 QObject(parent)
             {}
             virtual ~AbstractPhotoEffectFactory()

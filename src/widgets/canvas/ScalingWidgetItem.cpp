@@ -44,7 +44,7 @@ class PhotoLayoutsEditor::MoveItemCommand : public QUndoCommand
     QPointF m_translation;
     bool done;
 public:
-    MoveItemCommand(AbstractPhoto * item, QUndoCommand * parent = 0) :
+    MoveItemCommand(AbstractPhoto * item, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Move item"), parent),
         m_item(item),
         done(false)
@@ -85,7 +85,7 @@ class PhotoLayoutsEditor::ScaleItemCommand : public MoveItemCommand
     QTransform scale;
     bool done;
 public:
-    ScaleItemCommand(AbstractPhoto * item, QUndoCommand * parent = 0) :
+    ScaleItemCommand(AbstractPhoto * item, QUndoCommand * parent = nullptr) :
         MoveItemCommand(item, parent),
         m_item(item),
         done(false)

@@ -42,7 +42,7 @@ class PhotoLayoutsEditor::RotateItemCommand : public QUndoCommand
 
 public:
 
-    RotateItemCommand(AbstractPhoto * item, QUndoCommand * parent = 0) :
+    RotateItemCommand(AbstractPhoto * item, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Rotate item"), parent),
         item(item),
         angle(0),

@@ -38,7 +38,7 @@ class PhotoLayoutsEditor::BordersGroupPrivate
 {
     BordersGroupPrivate(BordersGroup * group) :
         group(group),
-        photo(0)
+        photo(nullptr)
     {}
 
     BordersGroup * group;
@@ -145,7 +145,7 @@ bool BordersGroup::appendDrawer(BorderDrawerInterface * drawer)
 BorderDrawerInterface * BordersGroup::removeDrawer(int position)
 {
     if (position < 0 || position >= rowCount())
-        return 0;
+        return nullptr;
     BorderDrawerInterface * result = d->borders.at(position);
     removeRow(position);
     return result;
@@ -191,10 +191,10 @@ BordersGroup * BordersGroup::fromSvg(QDomElement & element, AbstractPhoto * grap
 
     // If not found return 0 == Corrupted or invalid file
     if (bordersElement.isNull())
-        return 0;
+        return nullptr;
 
     // Load drawers in loop
-    BordersGroup * result = new BordersGroup(0);
+    BordersGroup * result = new BordersGroup(nullptr);
     children = bordersElement.childNodes();
     for (int i = children.count()-1; i >= 0; --i)
     {
@@ -223,7 +223,7 @@ QObject * BordersGroup::item(const QModelIndex & index) const
 {
     if (index.isValid() && index.row() < d->borders.count())
         return d->borders.at(index.row());
-    return 0;
+    return nullptr;
 }
 
 void BordersGroup::setItem(QObject * item, const QModelIndex & index)
@@ -277,7 +277,7 @@ bool BordersGroup::insertRows(int row, int count, const QModelIndex & parent)
         return false;
     beginInsertRows(parent, row, row+count-1);
     while (count--)
-        d->borders.insert(row, 0);
+        d->borders.insert(row, nullptr);
     endInsertRows();
     emit layoutChanged();
     return true;

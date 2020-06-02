@@ -40,7 +40,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit CropWidgetItem(QGraphicsItem * parent = 0, QGraphicsScene * scene = 0);
+            explicit CropWidgetItem(QGraphicsItem * parent = nullptr, QGraphicsScene * scene = nullptr);
             virtual ~CropWidgetItem();
 
             virtual QRectF boundingRect() const;

@@ -42,7 +42,7 @@ class PhotoLayoutsEditor::BorderChangeCommand : public QUndoCommand
         QString propertyName;
         QVariant value;
     public:
-        BorderChangeCommand(BorderDrawerInterface * drawer, QUndoCommand * parent = 0) :
+        BorderChangeCommand(BorderDrawerInterface * drawer, QUndoCommand * parent = nullptr) :
             QUndoCommand(QObject::tr("Border Change"), parent),
             drawer(drawer)
         {
@@ -71,7 +71,7 @@ class PhotoLayoutsEditor::BorderChangeCommand : public QUndoCommand
 BorderChangeListener::BorderChangeListener(BorderDrawerInterface * drawer, QObject * parent, bool createCommands) :
     QObject(parent),
     drawer(drawer),
-    command(0),
+    command(nullptr),
     createCommands(createCommands)
 {
 }
@@ -122,5 +122,5 @@ void BorderChangeListener::editingFinished()
             delete command;
         }
     }
-    command = 0;
+    command = nullptr;
 }
