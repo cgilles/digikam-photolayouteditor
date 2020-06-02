@@ -23,7 +23,7 @@
  * ============================================================ */
 
 #include "TextItem.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 #include "qeditfactory.h"
 #include "TextColorChangeListener.h"
 #include "TextFontChangeListener.h"

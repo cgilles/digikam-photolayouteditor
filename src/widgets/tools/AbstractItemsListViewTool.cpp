@@ -37,7 +37,7 @@
 #include "AbstractPhoto.h"
 #include "ToolsDockWidget.h"
 #include "BorderDrawersLoader.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 
 using namespace PhotoLayoutsEditor;
 

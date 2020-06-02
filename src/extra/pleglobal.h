@@ -27,6 +27,8 @@
 
 #define Q_DELETE(ptr)   if (ptr) { delete ptr; ptr = nullptr; }
 
+// Qt includes
+
 #include <QUndoCommand>
 #include <QPrinter>
 #include <QSizeF>
@@ -40,9 +42,9 @@ namespace PhotoLayoutsEditor
 extern QString name();
 extern QString uri();
 extern QString templateUri();
-extern void PLE_PostUndoCommand(QUndoCommand * command);
-extern QDomDocument pathToSvg(const QPainterPath & path);
-extern QPainterPath pathFromSvg(const QDomElement & element);
+extern void PLE_PostUndoCommand(QUndoCommand* const command);
+extern QDomDocument pathToSvg(const QPainterPath& path);
+extern QPainterPath pathFromSvg(const QDomElement& element);
 
 } // namespace PhotoLayoutsEditor
 

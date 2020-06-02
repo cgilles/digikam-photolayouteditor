@@ -23,7 +23,7 @@
  * ============================================================ */
 
 #include "AbstractMovableModel.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 
 #include <QUndoCommand>
 

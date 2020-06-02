@@ -29,7 +29,7 @@
 #include <QUndoCommand>
 
 #include "photolayoutswindow.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 
 using namespace PhotoLayoutsEditor;
 

@@ -38,7 +38,7 @@
 #include "PhotoEffectsLoader.h"
 #include "imagedialog.h"
 #include "BordersGroup.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 #include "PLEConfigSkeleton.h"
 #include "photolayoutswindow.h"
 #include "ImageLoadingThread.h"

@@ -28,7 +28,7 @@
 #include "AbstractPhotoEffectFactory.h"
 #include "AbstractPhotoEffectInterface.h"
 #include "UndoCommandEvent.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 
 #include <QPainter>
 #include <QApplication>

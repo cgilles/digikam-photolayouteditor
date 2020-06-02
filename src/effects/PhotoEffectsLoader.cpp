@@ -27,7 +27,7 @@
 #include "AbstractPhoto.h"
 #include "UndoCommandEvent.h"
 #include "qeditfactory.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 #include "AbstractPhotoEffectFactory.h"
 #include "AbstractPhotoEffectInterface.h"
 #include "PhotoEffectChangeListener.h"

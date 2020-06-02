@@ -36,7 +36,7 @@
 #include <QDialogButtonBox>
 
 #include "CanvasSize.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 
 namespace PhotoLayoutsEditor
 {

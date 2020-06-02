@@ -130,7 +130,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/TextItemLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/ProgressEvent.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/ple_global.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/pleglobal.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qeditfactory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtbuttonpropertybrowser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qteditorfactory.cpp
@@ -173,7 +173,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesView.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/settings/PLEConfigDialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/settings/pleconfigdialog.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/photolayoutswindow.cpp
 

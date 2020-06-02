@@ -39,7 +39,7 @@
 #include "LayersSelectionModel.h"
 #include "UndoMoveRowsCommand.h"
 #include "ImageLoadingThread.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 #include "ProgressEvent.h"
 #include "photolayoutswindow.h"
 #include "CanvasLoadingThread.h"

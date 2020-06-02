@@ -38,7 +38,7 @@
 #include "Scene.h"
 #include "PhotoEffectsGroup.h"
 #include "BordersGroup.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 
 using namespace PhotoLayoutsEditor;
 

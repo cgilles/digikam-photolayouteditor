@@ -24,7 +24,7 @@
 
 #include "BorderChangeListener.h"
 #include "BordersGroup.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 #include "qeditfactory.h"
 
 #include "qtpropertybrowser.h"

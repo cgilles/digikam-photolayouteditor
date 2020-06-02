@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "PLEConfigDialog.h"
+#include "pleconfigdialog.h"
 
 // Qt includes
 

@@ -25,7 +25,7 @@
 #include "PhotoEffectChangeListener.h"
 #include "PhotoEffectsGroup.h"
 #include "AbstractPhoto.h"
-#include "ple_global.h"
+#include "pleglobal.h"
 
 #include "qtpropertymanager.h"
 #include "qtvariantproperty.h"
