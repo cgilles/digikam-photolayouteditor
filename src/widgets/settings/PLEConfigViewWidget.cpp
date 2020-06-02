@@ -40,12 +40,12 @@ using namespace PhotoLayoutsEditor;
 
 class PhotoLayoutsEditor::PLEConfigViewWidget::PLEConfigViewWidgetPrivate
 {
+public:
+
     QCheckBox*      antialiasing;
     QDoubleSpinBox* xGrid;
     QDoubleSpinBox* yGrid;
     QCheckBox*      showGrid;
-
-    friend class PLEConfigViewWidget;
 };
 
 PLEConfigViewWidget::PLEConfigViewWidget(QWidget* const parent, const QString& caption)
@@ -88,7 +88,10 @@ void PLEConfigViewWidget::setupGUI()
     QFormLayout* const generalLayout = new QFormLayout();
     layout->addLayout(generalLayout);
     d->antialiasing = new QCheckBox(this);
-    connect(skeleton, SIGNAL(antialiasingChanged(bool)), d->antialiasing, SLOT(setChecked(bool)));
+
+    connect(skeleton, SIGNAL(antialiasingChanged(bool)),
+            d->antialiasing, SLOT(setChecked(bool)));
+
     generalLayout->addRow(QObject::tr("Antialiasing"), d->antialiasing);
 
     QGroupBox* const gridBox = new QGroupBox(QObject::tr("Grid"), this);
@@ -97,18 +100,26 @@ void PLEConfigViewWidget::setupGUI()
     gridBox->setLayout(gridLayout);
 
     d->showGrid = new QCheckBox(gridBox);
-    connect(skeleton, SIGNAL(showGridChanged(bool)), d->showGrid, SLOT(setChecked(bool)));
+
+    connect(skeleton, SIGNAL(showGridChanged(bool)),
+            d->showGrid, SLOT(setChecked(bool)));
+
     gridLayout->addRow(QObject::tr("Show grid lines"), d->showGrid);
 
     d->xGrid = new QDoubleSpinBox(gridBox);
     KConfigSkeletonItem* hgi = skeleton->findItem(QLatin1String("horizontalGrid"));
+
     if (hgi)
     {
         d->xGrid->setMinimum(hgi->minValue().toDouble());
         d->xGrid->setMaximum(hgi->maxValue().toDouble());
     }
+
     d->xGrid->setSingleStep(1.0);
-    connect(skeleton, SIGNAL(horizontalGridChanged(double)), d->xGrid, SLOT(setValue(double)));
+
+    connect(skeleton, SIGNAL(horizontalGridChanged(double)),
+            d->xGrid, SLOT(setValue(double)));
+
     gridLayout->addRow(QObject::tr("Horizontal distance"), d->xGrid);
 
     d->yGrid = new QDoubleSpinBox(gridBox);
@@ -121,7 +132,10 @@ void PLEConfigViewWidget::setupGUI()
     }
 
     d->yGrid->setSingleStep(1.0);
-    connect(skeleton, SIGNAL(verticalGridChanged(double)), d->yGrid, SLOT(setValue(double)));
+
+    connect(skeleton, SIGNAL(verticalGridChanged(double)),
+            d->yGrid, SLOT(setValue(double)));
+
     gridLayout->addRow(QObject::tr("Vertical distance"), d->yGrid);
 
     this->updateWidgets();

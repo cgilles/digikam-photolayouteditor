@@ -48,7 +48,7 @@ namespace PhotoLayoutsEditor
         private:
 
             class PLEConfigViewWidgetPrivate;
-            PLEConfigViewWidgetPrivate * d;
+            PLEConfigViewWidgetPrivate* const d;
 
             friend class PLEConfigViewWidgetPrivate;
     };
