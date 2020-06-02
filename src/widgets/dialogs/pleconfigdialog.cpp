@@ -116,7 +116,7 @@ PLEConfigDialog::~PLEConfigDialog()
 
 void PLEConfigDialog::saveSettings()
 {
-    QSettings config;
+    QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
 
     config.setValue(QLatin1String("Antialiasing"), d->antialiasing->isChecked());
@@ -130,7 +130,7 @@ void PLEConfigDialog::saveSettings()
 
 void PLEConfigDialog::loadSettings()
 {
-    QSettings config;
+    QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
 
     d->antialiasing->setChecked(config.value(QLatin1String("Antialiasing"), false).toBool());

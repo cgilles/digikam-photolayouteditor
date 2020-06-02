@@ -45,14 +45,24 @@ PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget* const parent)
     refreshActions();
 
     setAcceptDrops(true);
-    int height              = QApplication::desktop()->height()*0.8;
-    resize(qRound(height * (16.0 / 9.0)),height);
-    QDesktopWidget* const d = qApp->desktop();
-    move(d->rect().center() - this->frameGeometry().center());
+
+    QSettings config(QLatin1String("PhotoLayoutEditor"));
+    config.beginGroup(QLatin1String("MainWindow"));
+    restoreGeometry(config.value(QLatin1String("geometry"), QByteArray()).toByteArray());
+    move(config.value(QLatin1String("pos"), QPoint(0, 0)).toPoint());
+    resize(config.value(QLatin1String("size"), QSize(800, 600)).toSize());
+    config.endGroup();
 }
 
 PhotoLayoutsWindow::~PhotoLayoutsWindow()
 {
+    QSettings config(QLatin1String("PhotoLayoutEditor"));
+    config.beginGroup(QLatin1String("MainWindow"));
+    config.setValue(QLatin1String("geometry"), saveGeometry());
+    config.setValue(QLatin1String("pos"), pos());
+    config.setValue(QLatin1String("size"), size());
+    config.endGroup();
+
     if (d->canvas)
     {
         d->canvas->deleteLater();
@@ -63,7 +73,7 @@ PhotoLayoutsWindow::~PhotoLayoutsWindow()
         delete d;
     }
 
-    m_instance = 0;
+    m_instance = nullptr;
 
     cleanupIconsResource();
 }
@@ -215,7 +225,7 @@ void PhotoLayoutsWindow::setupActions()
     d->showGridToggleAction = new KToggleAction(QObject::tr("View grid lines...", "Show..."), actionCollection());
     actionCollection()->setDefaultShortcut(d->showGridToggleAction, Qt::SHIFT + Qt::CTRL + Qt::Key_G);
 
-    QSettings config;
+    QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
     d->showGridToggleAction->setChecked(config.value(QLatin1String("ShowGrid"), false).toBool());
     config.endGroup();
@@ -678,7 +688,7 @@ void PhotoLayoutsWindow::settings()
     QPointer<PLEConfigDialog> const dialog = new PLEConfigDialog(this);
     dialog->show();
     
-    QSettings config;
+    QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
     d->canvas->setAntialiasing(config.value(QLatin1String("Antialiasing"), false).toBool());
     d->canvas->scene()->setGridVisible(config.value(QLatin1String("ShowGrid"), false).toBool());
@@ -711,7 +721,7 @@ void PhotoLayoutsWindow::setGridVisible(bool isVisible)
 {
     d->showGridToggleAction->setChecked(isVisible);
     
-    QSettings config;
+    QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
     config.setValue(QLatin1String("ShowGrid"), isVisible);
     config.endGroup();

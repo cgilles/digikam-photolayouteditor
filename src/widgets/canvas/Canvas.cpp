@@ -102,7 +102,7 @@ void Canvas::setupGUI()
     this->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
     this->setCacheMode(QGraphicsView::CacheNone);
 
-    QSettings config;
+    QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
     this->setAntialiasing(config.value(QLatin1String("Antialiasing"), false).toBool());
     config.endGroup();

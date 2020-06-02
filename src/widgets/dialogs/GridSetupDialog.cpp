@@ -70,7 +70,7 @@ GridSetupDialog::GridSetupDialog(QWidget* const parent)
     connect(buttons->button(QDialogButtonBox::Cancel), SIGNAL(clicked()),
             this, SLOT(reject()));
     
-    QSettings config;
+    QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
 
     setHorizontalDistance(config.value(QLatin1String("XGrid"), 25.0).toDouble());
@@ -103,7 +103,7 @@ int GridSetupDialog::exec()
 
     if (result == Accepted)
     {
-        QSettings config;
+        QSettings config(QLatin1String("PhotoLayoutEditor"));
         config.beginGroup(QLatin1String("View"));
         
         config.setValue(QLatin1String("XGrid"), horizontalDistance());

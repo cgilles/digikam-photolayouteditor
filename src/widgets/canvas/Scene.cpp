@@ -555,7 +555,7 @@ Scene::Scene(const QRectF & dimension, QObject * parent) :
 
     // Create default grid
 
-    QSettings config;
+    QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
     setGrid(config.value(QLatin1String("XGrid"), 25.0).toDouble(), config.value(QLatin1String("YGrid"), 25.0).toDouble());
     grid_visible = !config.value(QLatin1String("ShowGrid"), false).toBool();
