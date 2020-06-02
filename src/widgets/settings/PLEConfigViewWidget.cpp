@@ -80,34 +80,34 @@ void PLEConfigViewWidget::updateWidgets()
 
 void PLEConfigViewWidget::setupGUI()
 {
-    QVBoxLayout* const layout = new QVBoxLayout();
+    QVBoxLayout* const layout         = new QVBoxLayout();
     this->setLayout(layout);
 
-    PLEConfigSkeleton* skeleton = PLEConfigSkeleton::self();
+    PLEConfigSkeleton* const skeleton = PLEConfigSkeleton::self();
 
-    QFormLayout* const generalLayout = new QFormLayout();
+    QFormLayout* const generalLayout  = new QFormLayout();
     layout->addLayout(generalLayout);
-    d->antialiasing = new QCheckBox(this);
+    d->antialiasing                   = new QCheckBox(this);
 
     connect(skeleton, SIGNAL(antialiasingChanged(bool)),
             d->antialiasing, SLOT(setChecked(bool)));
 
     generalLayout->addRow(QObject::tr("Antialiasing"), d->antialiasing);
 
-    QGroupBox* const gridBox = new QGroupBox(QObject::tr("Grid"), this);
+    QGroupBox* const gridBox          = new QGroupBox(QObject::tr("Grid"), this);
     layout->addWidget(gridBox);
-    QFormLayout* const gridLayout = new QFormLayout();
+    QFormLayout* const gridLayout     = new QFormLayout();
     gridBox->setLayout(gridLayout);
 
-    d->showGrid = new QCheckBox(gridBox);
+    d->showGrid                       = new QCheckBox(gridBox);
 
     connect(skeleton, SIGNAL(showGridChanged(bool)),
             d->showGrid, SLOT(setChecked(bool)));
 
     gridLayout->addRow(QObject::tr("Show grid lines"), d->showGrid);
 
-    d->xGrid = new QDoubleSpinBox(gridBox);
-    KConfigSkeletonItem* hgi = skeleton->findItem(QLatin1String("horizontalGrid"));
+    d->xGrid                          = new QDoubleSpinBox(gridBox);
+    KConfigSkeletonItem* const hgi    = skeleton->findItem(QLatin1String("horizontalGrid"));
 
     if (hgi)
     {
@@ -122,8 +122,8 @@ void PLEConfigViewWidget::setupGUI()
 
     gridLayout->addRow(QObject::tr("Horizontal distance"), d->xGrid);
 
-    d->yGrid = new QDoubleSpinBox(gridBox);
-    KConfigSkeletonItem* vgi = skeleton->findItem(QLatin1String("verticalGrid"));
+    d->yGrid                          = new QDoubleSpinBox(gridBox);
+    KConfigSkeletonItem* const vgi    = skeleton->findItem(QLatin1String("verticalGrid"));
 
     if (hgi)
     {
@@ -140,4 +140,3 @@ void PLEConfigViewWidget::setupGUI()
 
     this->updateWidgets();
 }
-
