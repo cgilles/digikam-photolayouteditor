@@ -26,7 +26,6 @@ target_link_libraries(Generic_PhotoLayoutsEditor_Plugin
 
                       KF5::XmlGui
                       KF5::ConfigCore
-                      KF5::Service
 )
 
 MACRO_ADD_PLUGIN_INSTALL_TARGET(Generic_PhotoLayoutsEditor_Plugin generic)
