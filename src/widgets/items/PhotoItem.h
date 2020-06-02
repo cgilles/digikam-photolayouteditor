@@ -43,8 +43,8 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit PhotoItem(const QImage & photo, const QString & name = QString(), Scene * scene = 0);
-            explicit PhotoItem(const QPainterPath & shape, const QString & name = QString(), Scene * scene = 0);
+            explicit PhotoItem(const QImage & photo, const QString & name = QString(), Scene * scene = nullptr);
+            explicit PhotoItem(const QPainterPath & shape, const QString & name = QString(), Scene * scene = nullptr);
             virtual ~PhotoItem();
 
             /// Convert photo item to SVG format
@@ -106,7 +106,7 @@ namespace PhotoLayoutsEditor
 
         protected:
 
-            explicit PhotoItem(const QString & name = QString(), Scene * scene = 0);
+            explicit PhotoItem(const QString & name = QString(), Scene * scene = nullptr);
 
             /// Converts item data to SVG format
             virtual QDomDocument svgVisibleArea() const;
@@ -126,7 +126,7 @@ namespace PhotoLayoutsEditor
             virtual void updateIcon();
 
             /// Reimplemented from AbstractPhoto
-            void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
+            void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr);
 
         private Q_SLOTS:
 

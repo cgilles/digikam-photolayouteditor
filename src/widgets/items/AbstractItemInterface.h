@@ -37,7 +37,7 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            explicit AbstractItemInterface(QGraphicsItem * parent = 0, QGraphicsScene * scene = 0);
+            explicit AbstractItemInterface(QGraphicsItem * parent = nullptr, QGraphicsScene * scene = nullptr);
 
         protected:
 

@@ -36,7 +36,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit SepiaPhotoEffect(StandardEffectsFactory * factory, QObject * parent = 0);
+            explicit SepiaPhotoEffect(StandardEffectsFactory * factory, QObject * parent = nullptr);
             virtual QImage apply(const QImage & image) const;
             virtual QString name() const;
             virtual QString toString() const;

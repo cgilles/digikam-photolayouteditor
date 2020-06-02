@@ -74,7 +74,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit Canvas(const CanvasSize & size, QWidget* parent = 0);
+            explicit Canvas(const CanvasSize & size, QWidget* parent = nullptr);
             ~Canvas();
 
             virtual void wheelEvent(QWheelEvent* event);
@@ -256,7 +256,7 @@ namespace PhotoLayoutsEditor
 
         private:
 
-            explicit Canvas(Scene* scene, QWidget* parent = 0);
+            explicit Canvas(Scene* scene, QWidget* parent = nullptr);
 
             void init();
             void setupGUI();

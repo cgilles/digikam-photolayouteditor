@@ -52,7 +52,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit PolaroidBorderDrawer(StandardBordersFactory * factory, QObject * parent = 0);
+            explicit PolaroidBorderDrawer(StandardBordersFactory * factory, QObject * parent = nullptr);
 
             virtual QPainterPath path(const QPainterPath & path);
 

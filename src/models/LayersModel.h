@@ -51,7 +51,7 @@ class LayersModel : public QAbstractItemModel
 
     public:
 
-        explicit LayersModel(QObject* parent = 0);
+        explicit LayersModel(QObject* parent = nullptr);
         virtual ~LayersModel();
 
         QModelIndex index( int row, int column, const QModelIndex& parent ) const;

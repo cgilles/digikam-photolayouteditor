@@ -35,7 +35,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            ProgressObserver(ProgressObserver * parent = 0) : parent(parent) {}
+            ProgressObserver(ProgressObserver * parent = nullptr) : parent(parent) {}
             virtual ~ProgressObserver() {}
             virtual void progresChanged(double progress) { if (parent) parent->progresChanged(progress); }
             virtual void progresName(const QString & name) { if (parent) parent->progresName(name); }

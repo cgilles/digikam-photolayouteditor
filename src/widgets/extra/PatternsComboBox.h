@@ -35,7 +35,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit PatternsComboBox(QWidget * parent = 0);
+            explicit PatternsComboBox(QWidget * parent = nullptr);
             Qt::BrushStyle pattern() const;
             void setPattern(Qt::BrushStyle pattern);
 

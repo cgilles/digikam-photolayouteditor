@@ -39,7 +39,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit NegativePhotoEffect(StandardEffectsFactory * factory, QObject * parent = 0);
+            explicit NegativePhotoEffect(StandardEffectsFactory * factory, QObject * parent = nullptr);
             virtual QImage apply(const QImage & image) const;
             virtual QString name() const;
             virtual QString toString() const;

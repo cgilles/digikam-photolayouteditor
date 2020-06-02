@@ -52,7 +52,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit SolidBorderDrawer(StandardBordersFactory * factory, QObject * parent = 0);
+            explicit SolidBorderDrawer(StandardBordersFactory * factory, QObject * parent = nullptr);
 
             virtual QPainterPath path(const QPainterPath & path);
 

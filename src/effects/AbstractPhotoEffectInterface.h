@@ -47,10 +47,10 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit AbstractPhotoEffectInterface(AbstractPhotoEffectFactory* factory, QObject* parent = 0) :
+            explicit AbstractPhotoEffectInterface(AbstractPhotoEffectFactory* factory, QObject* parent = nullptr) :
                 QObject(parent),
                 m_factory(factory),
-                m_group(0),
+                m_group(nullptr),
                 m_strength(100)
             {
 #ifdef QT_DEBUG
@@ -89,7 +89,7 @@ namespace PhotoLayoutsEditor
                 if (group)
                 {
                     m_group = group;
-                    disconnect(this, SIGNAL(changed()), 0, 0);
+                    disconnect(this, SIGNAL(changed()), nullptr, nullptr);
                     connect(this, SIGNAL(changed()), (QObject*)group, SLOT(emitEffectsChanged()));
                 }
             }

@@ -35,7 +35,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit UndoCommandEventFilter(QObject* parent = 0) :
+            explicit UndoCommandEventFilter(QObject* parent = nullptr) :
                 QObject(parent)
             {
             }

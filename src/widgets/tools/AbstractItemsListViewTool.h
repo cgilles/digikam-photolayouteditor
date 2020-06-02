@@ -39,7 +39,7 @@ namespace PhotoLayoutsEditor
             Q_OBJECT
 
         public:
-            explicit AbstractItemsListViewTool(const QString& toolsName, Scene* scene, Canvas::SelectionMode selectionMode, QWidget* parent=0);
+            explicit AbstractItemsListViewTool(const QString& toolsName, Scene* scene, Canvas::SelectionMode selectionMode, QWidget* parent=nullptr);
             virtual ~AbstractItemsListViewTool();
 
             virtual void currentItemAboutToBeChanged();

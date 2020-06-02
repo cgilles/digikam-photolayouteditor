@@ -41,7 +41,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            LayersTreeDelegate(QWidget * parent = 0);
+            LayersTreeDelegate(QWidget * parent = nullptr);
             virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const;
             virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const;
 

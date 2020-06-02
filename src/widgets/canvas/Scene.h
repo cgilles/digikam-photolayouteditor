@@ -85,7 +85,7 @@ class Scene : public QGraphicsScene
 
 public:
 
-    explicit Scene(const QRectF& dimension, QObject* parent = 0);
+    explicit Scene(const QRectF& dimension, QObject* parent = nullptr);
     ~Scene();
 
     SceneBackground * background();

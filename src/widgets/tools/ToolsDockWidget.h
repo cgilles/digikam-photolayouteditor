@@ -72,7 +72,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            static ToolsDockWidget * instance(QWidget * parent = 0);
+            static ToolsDockWidget * instance(QWidget * parent = nullptr);
             ~ToolsDockWidget();
             void setDefaultTool();
 
@@ -113,7 +113,7 @@ namespace PhotoLayoutsEditor
 
         public Q_SLOTS:
 
-            void setScene(Scene * scene = 0);
+            void setScene(Scene * scene = nullptr);
             void itemSelected(AbstractPhoto * photo);
             void mousePositionChoosen(const QPointF & position);
             void emitNewItemCreated(AbstractPhoto * item);
@@ -134,7 +134,7 @@ namespace PhotoLayoutsEditor
 
         private:
 
-            explicit ToolsDockWidget(QWidget * parent = 0);
+            explicit ToolsDockWidget(QWidget * parent = nullptr);
 
             class ToolsDockWidgetPrivate;
             ToolsDockWidgetPrivate * d;

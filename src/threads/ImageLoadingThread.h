@@ -40,7 +40,7 @@ class ImageLoadingThread : public QThread
 
 public:
 
-    explicit ImageLoadingThread(QObject* const parent = 0);
+    explicit ImageLoadingThread(QObject* const parent = nullptr);
     ~ImageLoadingThread();
 
     virtual void run();

@@ -165,7 +165,7 @@ namespace PhotoLayoutsEditor
             explicit AbstractPhoto(const QString & name, Scene * scene);
 
             // For widgets drawing
-            static AbstractPhoto * getInstance() { return 0; }
+            static AbstractPhoto * getInstance() { return nullptr; }
 
             /** Returns SVG visible part of data.
               * This is a pure virtual method which should returns QDomElement with part of SVG document

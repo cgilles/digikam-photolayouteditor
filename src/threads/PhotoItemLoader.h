@@ -39,7 +39,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            PhotoItemLoader(PhotoItem * item, QDomElement & element, QObject * parent = 0);
+            PhotoItemLoader(PhotoItem * item, QDomElement & element, QObject * parent = nullptr);
 
         protected:
 

@@ -39,7 +39,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            AbstractMovableModel(QObject * parent = 0);
+            AbstractMovableModel(QObject * parent = nullptr);
             virtual bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) = 0;
             virtual void setItem(QObject * graphicsItem, const QModelIndex & index) = 0;
             virtual QObject * item(const QModelIndex & index) const = 0;

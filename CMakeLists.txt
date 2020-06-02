@@ -22,10 +22,9 @@ include(FeatureSummary)
 
 include(ECMSetupVersion)
 
-include(KDEInstallDirs)
-#include(KDECMakeSettings)
-#include(KDEFrameworkCompilerSettings)
-#include(KDECompilerSettings)
+include(KDEInstallDirs)                 # for template data install dir
+include(KDEFrameworkCompilerSettings)
+include(KDECompilerSettings)
 
 find_package(Qt5 "5.6.0" REQUIRED
              NO_MODULE COMPONENTS

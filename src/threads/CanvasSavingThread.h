@@ -39,7 +39,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit CanvasSavingThread(QObject* parent = 0);
+            explicit CanvasSavingThread(QObject* parent = nullptr);
             void save(Canvas * canvas, const QUrl& url);
             void saveAsTemplate(Canvas * canvas, const QUrl& url);
             virtual void progresChanged(double progress);

@@ -45,7 +45,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            AbstractTool(Scene * scene, Canvas::SelectionMode selectionMode, QWidget * parent = 0) :
+            AbstractTool(Scene * scene, Canvas::SelectionMode selectionMode, QWidget * parent = nullptr) :
                 QWidget(parent),
                 m_scene(scene),
                 sel_mode(selectionMode)
@@ -85,7 +85,7 @@ namespace PhotoLayoutsEditor
             void sceneDestroyed()
             {
                 if (sender() == m_scene)
-                    this->setScene(0);
+                    this->setScene(nullptr);
             }
 
         friend class ToolsDockWidget;

@@ -49,7 +49,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit TextItem(const QString & text = QString(), Scene * scene = 0);
+            explicit TextItem(const QString & text = QString(), Scene * scene = nullptr);
             virtual void focusInEvent(QFocusEvent *event);
             virtual void focusOutEvent(QFocusEvent *event);
             virtual void keyPressEvent(QKeyEvent * event);
@@ -100,7 +100,7 @@ namespace PhotoLayoutsEditor
                     m_cursorIsVisible(false),
                     m_cursor_row(0),
                     m_cursor_character(0),
-                    command(0)
+                    command(nullptr)
                 {
                 }
 

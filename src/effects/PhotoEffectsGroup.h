@@ -42,7 +42,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit PhotoEffectsGroup(AbstractPhoto* photo, QObject* parent = 0);
+            explicit PhotoEffectsGroup(AbstractPhoto* photo, QObject* parent = nullptr);
             ~PhotoEffectsGroup();
 
             QDomElement toSvg(QDomDocument& document) const;
@@ -73,7 +73,7 @@ namespace PhotoLayoutsEditor
 
             void push_back(AbstractPhotoEffectInterface* effect);
             void push_front(AbstractPhotoEffectInterface* effect);
-            void emitEffectsChanged(AbstractPhotoEffectInterface* effect = 0);
+            void emitEffectsChanged(AbstractPhotoEffectInterface* effect = nullptr);
             QImage apply(const QImage& image);
 
         public:

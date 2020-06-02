@@ -37,7 +37,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit EffectsEditorTool(Scene * scene, QWidget * parent = 0);
+            explicit EffectsEditorTool(Scene * scene, QWidget * parent = nullptr);
             virtual QStringList options() const;
             virtual AbstractMovableModel * model();
             virtual QObject * createItem(const QString & name);

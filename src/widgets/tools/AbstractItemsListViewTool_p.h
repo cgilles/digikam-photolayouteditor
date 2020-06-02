@@ -70,7 +70,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            AbstractListToolView(QWidget * parent = 0) :
+            AbstractListToolView(QWidget * parent = nullptr) :
                 QListView(parent)
             {
                 this->setSelectionMode(QAbstractItemView::SingleSelection);

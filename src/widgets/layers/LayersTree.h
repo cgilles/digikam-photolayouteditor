@@ -49,7 +49,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit LayersTree(QWidget * parent = 0);
+            explicit LayersTree(QWidget * parent = nullptr);
             virtual void setModel(QAbstractItemModel * model);
 
         public Q_SLOTS:

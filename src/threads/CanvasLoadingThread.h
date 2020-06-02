@@ -41,7 +41,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit CanvasLoadingThread(QObject *parent = 0);
+            explicit CanvasLoadingThread(QObject *parent = nullptr);
             ~CanvasLoadingThread();
             virtual void progresChanged(double progress);
             virtual void progresName(const QString & name);
