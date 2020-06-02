@@ -64,10 +64,10 @@ int main(int argc, char* argv[])
     parser.clearPositionalArguments();
 
     PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(0);
+    w->open();
 
     if (!urlList.isEmpty())
     {
-        w->open();
         w->loadImages(urlList);
     }
 
