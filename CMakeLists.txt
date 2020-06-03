@@ -57,7 +57,6 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs
-                    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/extra
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools
@@ -132,8 +131,6 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoCommandEvent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoCommandEventFilter.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/extra/PatternsComboBox.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/extra/PLEStatusBar.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTreeDelegate.cpp
@@ -148,6 +145,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/TextEditorTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/ToolsDockWidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/ZoomTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/PatternsComboBox.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/CanvasSizeDialog.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/GridSetupDialog.cpp
@@ -158,6 +156,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/pleconfigdialog.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/photolayoutswindow.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/plestatusbar.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/AbstractPhoto.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/AbstractPhoto_p.cpp

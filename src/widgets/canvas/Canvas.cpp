@@ -48,7 +48,7 @@
 #include "photolayoutswindow.h"
 #include "CanvasLoadingThread.h"
 #include "CanvasSavingThread.h"
-#include "PLEStatusBar.h"
+#include "plestatusbar.h"
 
 #define MAX_SCALE_LIMIT 4
 #define MIN_SCALE_LIMIT 0.5

@@ -22,24 +22,35 @@
  *
  * ============================================================ */
 
-#ifndef PLESTATUSBAR_H
-#define PLESTATUSBAR_H
+#include "plestatusbar.h"
 
-#include <QProgressBar>
-#include <QStatusBar>
+// Qt includes
+
+#include <QDebug>
+#include <QLabel>
 
 namespace PhotoLayoutsEditor
 {
-    class PLEStatusBar : public QStatusBar
-    {
-            QProgressBar * m_pb;
-        public:
 
-            explicit PLEStatusBar(QWidget * parent = nullptr);
-            void runBusyIndicator();
-            void stopBusyIndicator();
-
-    };
+PLEStatusBar::PLEStatusBar(QWidget* const parent)
+    : QStatusBar(parent)
+{
+    addWidget(new QLabel(this), 1);
+    m_pb = new QProgressBar(this);
+    m_pb->setMinimum(0);
+    m_pb->setMaximum(0);
+    addPermanentWidget(m_pb);
+    stopBusyIndicator();
 }
 
-#endif // PLESTATUSBAR_H
+void PLEStatusBar::runBusyIndicator()
+{
+    m_pb->show();
+}
+
+void PLEStatusBar::stopBusyIndicator()
+{
+    m_pb->hide();
+}
+
+} // namespace PhotoLayoutsEditor

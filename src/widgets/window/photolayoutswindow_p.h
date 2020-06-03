@@ -72,7 +72,7 @@
 #include "EffectsEditorTool.h"
 #include "BorderEditTool.h"
 #include "AbstractPhotoEffectFactory.h"
-#include "PLEStatusBar.h"
+#include "plestatusbar.h"
 #include "CanvasSizeDialog.h"
 #include "Canvas.h"
 #include "Scene.h"
@@ -123,8 +123,8 @@ class PhotoLayoutsWindow::Private
 
         ~Private()
         {
-            Q_DELETE(centralWidget)
-            Q_DELETE(tree)
+            delete centralWidget;
+            delete tree;
         }
 
         // Central widget of the window

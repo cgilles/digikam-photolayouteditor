@@ -25,8 +25,6 @@
 #ifndef PLE_GLOBAL_H
 #define PLE_GLOBAL_H
 
-#define Q_DELETE(ptr)   if (ptr) { delete ptr; ptr = nullptr; }
-
 // Qt includes
 
 #include <QUndoCommand>
