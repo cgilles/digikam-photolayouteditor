@@ -13,17 +13,15 @@ set(CMAKE_AUTOMOC ON)
 
 option(ENABLE_DPLUGIN "Build digiKam plugin version of Photo Layouts Editor tool (default=OFF)" OFF)
 
-find_package(ECM "1.7.0" CONFIG REQUIRED)
+#find_package(ECM "1.7.0" CONFIG REQUIRED)
+#set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+#include(KDEFrameworkCompilerSettings)
+#include(KDECompilerSettings)
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
 include(MacroInstall)
 include(FeatureSummary)
-
-include(ECMSetupVersion)
-
-#include(KDEFrameworkCompilerSettings)
-#include(KDECompilerSettings)
 
 find_package(Qt5 "5.6.0" REQUIRED
              NO_MODULE COMPONENTS
