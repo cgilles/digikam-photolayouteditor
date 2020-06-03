@@ -4,8 +4,7 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}
-)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_library(Generic_PhotoLayoutsEditor_Plugin
             MODULE ${CMAKE_CURRENT_SOURCE_DIR}/photolayoutseditorgenericplugin.cpp
