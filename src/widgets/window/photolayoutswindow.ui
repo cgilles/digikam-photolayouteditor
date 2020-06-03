@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PhotoLayoutWindow</class>
+ <widget class="QMainWindow" name="PhotoLayoutWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="openNewFileAction"/>
+    <addaction name="openFileAction"/>
+    <addaction name="separator"/>
+    <addaction name="saveAction"/>
+    <addaction name="saveAsAction"/>
+    <addaction name="saveAsTemplateAction"/>
+    <addaction name="exportFileAction"/>
+    <addaction name="separator"/>
+    <addaction name="printPreviewAction"/>
+    <addaction name="printAction"/>
+    <addaction name="separator"/>
+    <addaction name="closeAction"/>
+    <addaction name="quitAction"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="undoAction"/>
+    <addaction name="redoAction"/>
+    <addaction name="settingsAction"/>
+   </widget>
+   <widget class="QMenu" name="menuCanvas">
+    <property name="title">
+     <string>Canvas</string>
+    </property>
+    <addaction name="addImageAction"/>
+    <addaction name="separator"/>
+    <addaction name="showGridToggleAction"/>
+    <addaction name="separator"/>
+    <addaction name="gridConfigAction"/>
+    <addaction name="changeCanvasSizeAction"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="aboutAction"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuCanvas"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="openNewFileAction">
+   <property name="text">
+    <string>New</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="openFileAction">
+   <property name="text">
+    <string>Open Template...</string>
+   </property>
+  </action>
+  <action name="saveAction">
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="saveAsAction">
+   <property name="text">
+    <string>Save As...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="saveAsTemplateAction">
+   <property name="text">
+    <string>Save Canvas As Template...</string>
+   </property>
+  </action>
+  <action name="exportFileAction">
+   <property name="text">
+    <string>Export Current Frame Layout To Image...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+E</string>
+   </property>
+  </action>
+  <action name="printPreviewAction">
+   <property name="text">
+    <string>Print Preview</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+P</string>
+   </property>
+  </action>
+  <action name="printAction">
+   <property name="text">
+    <string>Print...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="closeAction">
+   <property name="text">
+    <string>Close</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="quitAction">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="undoAction">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="redoAction">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
+   </property>
+  </action>
+  <action name="settingsAction">
+   <property name="text">
+    <string>Configure...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+=</string>
+   </property>
+  </action>
+  <action name="addImageAction">
+   <property name="text">
+    <string>Add New Images...</string>
+   </property>
+  </action>
+  <action name="showGridToggleAction">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>View Grid Lines</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+G</string>
+   </property>
+  </action>
+  <action name="gridConfigAction">
+   <property name="text">
+    <string>Configure Grid Line...</string>
+   </property>
+  </action>
+  <action name="changeCanvasSizeAction">
+   <property name="text">
+    <string>Configure Canvas Size...</string>
+   </property>
+  </action>
+  <action name="aboutAction">
+   <property name="text">
+    <string>About...</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../../../res/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

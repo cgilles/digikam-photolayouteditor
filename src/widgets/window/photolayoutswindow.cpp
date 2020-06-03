@@ -28,13 +28,15 @@ namespace PhotoLayoutsEditor
 {
 
 PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget* const parent)
-    : KXmlGuiWindow(parent),
+    : QMainWindow(parent),
       d(new Private)
 {
     m_instance = this;
-
     initIconsResource();
-    setXMLFile(QLatin1String(":/photolayoutseditorui.rc"));
+
+    d->ui = new Ui::PhotoLayoutWindow;
+    d->ui->setupUi(this);
+
     setWindowTitle(QObject::tr("Photo Layouts Editor"));
     setAttribute(Qt::WA_DeleteOnClose, true);
 
@@ -68,10 +70,8 @@ PhotoLayoutsWindow::~PhotoLayoutsWindow()
         d->canvas->deleteLater();
     }
 
-    if (d)
-    {
-        delete d;
-    }
+    delete d->ui;
+    delete d;
 
     m_instance = nullptr;
 
@@ -91,7 +91,7 @@ PhotoLayoutsWindow* PhotoLayoutsWindow::instance(QWidget* const parent)
     }
 }
 
-void PhotoLayoutsWindow::addUndoCommand(QUndoCommand* command)
+void PhotoLayoutsWindow::addUndoCommand(QUndoCommand* const command)
 {
     if (command)
     {
@@ -109,7 +109,7 @@ void PhotoLayoutsWindow::addUndoCommand(QUndoCommand* command)
     }
 }
 
-void PhotoLayoutsWindow::beginUndoCommandGroup(const QString & name)
+void PhotoLayoutsWindow::beginUndoCommandGroup(const QString& name)
 {
     if (d->canvas)
     {
@@ -145,107 +145,72 @@ DInfoInterface* PhotoLayoutsWindow::interface() const
 
 void PhotoLayoutsWindow::setupActions()
 {
-    d->openNewFileAction = KStandardAction::openNew(this, SLOT(open()), actionCollection());
-    actionCollection()->addAction(QLatin1String("open_new"), d->openNewFileAction);
+    connect(d->ui->openNewFileAction, SIGNAL(triggered()), this, SLOT(open()));
 
     //------------------------------------------------------------------------
 
-    d->openFileAction = new QAction(QObject::tr("Open Template File..."), actionCollection());
-    connect(d->openFileAction, SIGNAL(triggered()), this, SLOT(openDialog()));
-    actionCollection()->addAction(QLatin1String("open"), d->openFileAction);
+    connect(d->ui->openFileAction, SIGNAL(triggered()), this, SLOT(openDialog()));
 
     //------------------------------------------------------------------------
 
-    d->saveAction = KStandardAction::save(this, SLOT(save()), actionCollection());
-    actionCollection()->addAction(QLatin1String("save"), d->saveAction);
+    connect(d->ui->saveAction, SIGNAL(triggered()), this, SLOT(save()));
 
     //------------------------------------------------------------------------
 
-    d->saveAsAction = KStandardAction::saveAs(this, SLOT(saveAs()), actionCollection());
-    actionCollection()->setDefaultShortcut(d->saveAsAction, Qt::SHIFT + Qt::CTRL + Qt::Key_S);
-    actionCollection()->addAction(QLatin1String("save_as"), d->saveAsAction);
+    connect(d->ui->saveAsAction, SIGNAL(triggered()), this, SLOT(saveAs()));
 
     //------------------------------------------------------------------------
 
-    d->saveAsTemplateAction = new QAction(QObject::tr("Saves canvas as a template file...", "Save As Template..."), actionCollection());
-    connect(d->saveAsTemplateAction, SIGNAL(triggered()), this, SLOT(saveAsTemplate()));
-    actionCollection()->addAction(QLatin1String("save_as_template"), d->saveAsTemplateAction);
+    connect(d->ui->saveAsTemplateAction, SIGNAL(triggered()), this, SLOT(saveAsTemplate()));
 
     //------------------------------------------------------------------------
 
-    d->exportFileAction = new QAction(QObject::tr("Export current frame layout to image file...", "Export..."), actionCollection());
-    actionCollection()->setDefaultShortcut(d->exportFileAction, Qt::SHIFT + Qt::CTRL + Qt::Key_E);
-    connect(d->exportFileAction, SIGNAL(triggered()), this, SLOT(exportFile()));
-    actionCollection()->addAction(QLatin1String("export"), d->exportFileAction);
+    connect(d->ui->exportFileAction, SIGNAL(triggered()), this, SLOT(exportFile()));
 
     //------------------------------------------------------------------------
 
-    d->printPreviewAction = KStandardAction::printPreview(this, SLOT(printPreview()), actionCollection());
-    actionCollection()->setDefaultShortcut(d->printPreviewAction, Qt::SHIFT + Qt::CTRL + Qt::Key_P);
-    actionCollection()->addAction(QLatin1String("print_preview"), d->printPreviewAction);
+    connect(d->ui->printPreviewAction, SIGNAL(triggered()), this, SLOT(printPreview()));
 
     //------------------------------------------------------------------------
 
-    d->printAction = KStandardAction::print(this, SLOT(print()), actionCollection());
-    actionCollection()->addAction(QLatin1String("print"), d->printAction);
+    connect(d->ui->printAction, SIGNAL(triggered()), this, SLOT(print()));
 
     //------------------------------------------------------------------------
 
-    d->closeAction = KStandardAction::close(this, SLOT(closeDocument()), actionCollection());
-    actionCollection()->addAction(QLatin1String("close"), d->closeAction);
+    connect(d->ui->closeAction, SIGNAL(triggered()), this, SLOT(closeDocument()));
 
     //------------------------------------------------------------------------
 
-    d->quitAction = KStandardAction::quit(this, SLOT(close()), actionCollection());
-    actionCollection()->addAction(QLatin1String("quit"), d->quitAction);
+    connect(d->ui->quitAction, SIGNAL(triggered()), this, SLOT(close()));
 
     //------------------------------------------------------------------------
 
-    d->undoAction = KStandardAction::undo(0, 0, actionCollection());
-    actionCollection()->addAction(QLatin1String("undo"), d->undoAction);
+    connect(d->ui->settingsAction, SIGNAL(triggered()), this, SLOT(settings()));
 
     //------------------------------------------------------------------------
 
-    d->redoAction = KStandardAction::redo(0, 0, actionCollection());
-    actionCollection()->addAction(QLatin1String("redo"), d->redoAction);
+    connect(d->ui->addImageAction, SIGNAL(triggered()), this, SLOT(loadNewImage()));
 
     //------------------------------------------------------------------------
-
-    d->settingsAction = KStandardAction::preferences(this, SLOT(settings()), actionCollection());
-    actionCollection()->addAction(QLatin1String("settings"), d->settingsAction);
-
-    //------------------------------------------------------------------------
-
-    d->addImageAction = new QAction(QObject::tr("Adds new image(s) from file...", "Add image(s)..."), actionCollection());
-    connect(d->addImageAction, SIGNAL(triggered()), this, SLOT(loadNewImage()));
-    actionCollection()->addAction(QLatin1String("new_image"), d->addImageAction);
-
-    //------------------------------------------------------------------------
-
-    d->showGridToggleAction = new KToggleAction(QObject::tr("View grid lines...", "Show..."), actionCollection());
-    actionCollection()->setDefaultShortcut(d->showGridToggleAction, Qt::SHIFT + Qt::CTRL + Qt::Key_G);
 
     QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
-    d->showGridToggleAction->setChecked(config.value(QLatin1String("ShowGrid"), false).toBool());
+    d->ui->showGridToggleAction->setChecked(config.value(QLatin1String("ShowGrid"), false).toBool());
     config.endGroup();
 
-    connect(d->showGridToggleAction, SIGNAL(triggered(bool)), this, SLOT(setGridVisible(bool)));
-    actionCollection()->addAction(QLatin1String("grid_toggle"), d->showGridToggleAction);
+    connect(d->ui->showGridToggleAction, SIGNAL(triggered(bool)), this, SLOT(setGridVisible(bool)));
 
     //------------------------------------------------------------------------
 
-    d->gridConfigAction = new QAction(QObject::tr("Configure grid lines visibility...", "Setup grid..."), actionCollection());
-    connect(d->gridConfigAction, SIGNAL(triggered()), this, SLOT(setupGrid()));
-    actionCollection()->addAction(QLatin1String("grid_config"), d->gridConfigAction);
+    connect(d->ui->gridConfigAction, SIGNAL(triggered()), this, SLOT(setupGrid()));
 
     //------------------------------------------------------------------------
 
-    d->changeCanvasSizeAction = new QAction(QObject::tr("Configure canvas size...", "Change canvas size..."), actionCollection());
-    connect(d->changeCanvasSizeAction, SIGNAL(triggered()), this, SLOT(changeCanvasSize()));
-    actionCollection()->addAction(QLatin1String("canvas_size"), d->changeCanvasSizeAction);
+    connect(d->ui->changeCanvasSizeAction, SIGNAL(triggered()), this, SLOT(changeCanvasSize()));
 
-    createGUI(xmlFile());
+    //------------------------------------------------------------------------
+
+    connect(d->ui->aboutAction, SIGNAL(triggered()), this, SLOT(slotAbout()));
 }
 
 void PhotoLayoutsWindow::refreshActions()
@@ -255,21 +220,21 @@ void PhotoLayoutsWindow::refreshActions()
     if (d->canvas)
     {
         isEnabledForCanvas = true;
-        d->undoAction->setEnabled(d->canvas->undoStack()->canUndo());
-        d->redoAction->setEnabled(d->canvas->undoStack()->canRedo());
-        d->saveAction->setEnabled(isEnabledForCanvas && !d->canvas->isSaved());
+        d->ui->undoAction->setEnabled(d->canvas->undoStack()->canUndo());
+        d->ui->redoAction->setEnabled(d->canvas->undoStack()->canRedo());
+        d->ui->saveAction->setEnabled(isEnabledForCanvas && !d->canvas->isSaved());
     }
 
-    d->saveAsAction->setEnabled(isEnabledForCanvas);
-    d->saveAsTemplateAction->setEnabled(isEnabledForCanvas);
-    d->exportFileAction->setEnabled(isEnabledForCanvas);
-    d->printPreviewAction->setEnabled(isEnabledForCanvas);
-    d->printAction->setEnabled(isEnabledForCanvas);
-    d->closeAction->setEnabled(isEnabledForCanvas);
-    d->addImageAction->setEnabled(isEnabledForCanvas);
-    d->showGridToggleAction->setEnabled(isEnabledForCanvas);
-    d->gridConfigAction->setEnabled(isEnabledForCanvas);
-    d->changeCanvasSizeAction->setEnabled(isEnabledForCanvas);
+    d->ui->saveAsAction->setEnabled(isEnabledForCanvas);
+    d->ui->saveAsTemplateAction->setEnabled(isEnabledForCanvas);
+    d->ui->exportFileAction->setEnabled(isEnabledForCanvas);
+    d->ui->printPreviewAction->setEnabled(isEnabledForCanvas);
+    d->ui->printAction->setEnabled(isEnabledForCanvas);
+    d->ui->closeAction->setEnabled(isEnabledForCanvas);
+    d->ui->addImageAction->setEnabled(isEnabledForCanvas);
+    d->ui->showGridToggleAction->setEnabled(isEnabledForCanvas);
+    d->ui->gridConfigAction->setEnabled(isEnabledForCanvas);
+    d->ui->changeCanvasSizeAction->setEnabled(isEnabledForCanvas);
     d->treeWidget->setEnabled(isEnabledForCanvas);
     d->toolsWidget->setEnabled(isEnabledForCanvas);
 }
@@ -359,10 +324,10 @@ void PhotoLayoutsWindow::prepareSignalsConnections()
 
     // undo stack signals
     connect(d->canvas,                              SIGNAL(savedStateChanged()),                this,                   SLOT(refreshActions()));
-    connect(d->canvas->undoStack(),                 SIGNAL(canRedoChanged(bool)),               d->redoAction,          SLOT(setEnabled(bool)));
-    connect(d->canvas->undoStack(),                 SIGNAL(canUndoChanged(bool)),               d->undoAction,          SLOT(setEnabled(bool)));
-    connect(d->undoAction,                          SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(undo()));
-    connect(d->redoAction,                          SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(redo()));
+    connect(d->canvas->undoStack(),                 SIGNAL(canRedoChanged(bool)),               d->ui->redoAction,          SLOT(setEnabled(bool)));
+    connect(d->canvas->undoStack(),                 SIGNAL(canUndoChanged(bool)),               d->ui->undoAction,          SLOT(setEnabled(bool)));
+    connect(d->ui->undoAction,                          SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(undo()));
+    connect(d->ui->redoAction,                          SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(redo()));
 
     // model/tree/canvas synchronization signals
     connect(d->tree,                                SIGNAL(selectedRowsAboutToBeRemoved()),     d->canvas,              SLOT(removeSelectedRows()));
@@ -719,7 +684,7 @@ void PhotoLayoutsWindow::loadNewImage()
 
 void PhotoLayoutsWindow::setGridVisible(bool isVisible)
 {
-    d->showGridToggleAction->setChecked(isVisible);
+    d->ui->showGridToggleAction->setChecked(isVisible);
     
     QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
@@ -796,6 +761,10 @@ void PhotoLayoutsWindow::loadBorders()
 {
     StandardBordersFactory* const stdBorders = new StandardBordersFactory(BorderDrawersLoader::instance());
     BorderDrawersLoader::registerDrawer(stdBorders);
+}
+
+void PhotoLayoutsWindow::slotAbout()
+{
 }
 
 } // namespace PhotoLayoutsEditor

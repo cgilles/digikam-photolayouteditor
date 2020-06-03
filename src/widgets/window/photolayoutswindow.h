@@ -32,10 +32,6 @@
 #include <QUrl>
 #include <QMainWindow>
 
-// KDE includes
-
-#include <kxmlguiwindow.h>
-
 // digiKam includes
 
 #include "dinfointerface.h"
@@ -51,74 +47,75 @@ class CanvasSizeChangeCommand;
 class ProgressEvent;
 class UndoCommandEventFilter;
 
-class PhotoLayoutsWindow : public KXmlGuiWindow
+class PhotoLayoutsWindow : public QMainWindow
 {
-        Q_OBJECT
+    Q_OBJECT
 
-    public:
+public:
 
-        ~PhotoLayoutsWindow();
-        static PhotoLayoutsWindow* instance(QWidget* const parent = nullptr);
+    ~PhotoLayoutsWindow();
+    static PhotoLayoutsWindow* instance(QWidget* const parent = nullptr);
 
-        void addUndoCommand(QUndoCommand* command);
-        void beginUndoCommandGroup(const QString& name);
-        void endUndoCommandGroup();
+    void addUndoCommand(QUndoCommand* const command);
+    void beginUndoCommandGroup(const QString& name);
+    void endUndoCommandGroup();
 
-        void setInterface(DInfoInterface* const interface);
-        DInfoInterface* interface() const;
-        bool hasInterface()         const;
+    void setInterface(DInfoInterface* const interface);
+    DInfoInterface* interface() const;
+    bool hasInterface()         const;
 
-        void loadImages(const QList<QUrl>& urls);
+    void loadImages(const QList<QUrl>& urls);
 
-    public Q_SLOTS:
+public Q_SLOTS:
 
-        void open();
-        void openDialog();
-        void open(const QUrl& fileUrl);
-        void save();
-        void saveAs();
-        void saveAsTemplate();
-        void saveFile(const QUrl& fileUrl = QUrl(), bool setFileAsDefault = true);
-        void exportFile();
-        void printPreview();
-        void print();
-        bool closeDocument();
-        void loadNewImage();
-        void setGridVisible(bool isVisible);
-        void createCanvas(const CanvasSize& size);
-        void createCanvas(const QUrl& fileUrl);
-        void settings();
-        void setupGrid();
-        void changeCanvasSize();
-        void setTemplateEditMode(bool isEnabled);
+    void open();
+    void openDialog();
+    void open(const QUrl& fileUrl);
+    void save();
+    void saveAs();
+    void saveAsTemplate();
+    void saveFile(const QUrl& fileUrl = QUrl(), bool setFileAsDefault = true);
+    void exportFile();
+    void printPreview();
+    void print();
+    bool closeDocument();
+    void loadNewImage();
+    void setGridVisible(bool isVisible);
+    void createCanvas(const CanvasSize& size);
+    void createCanvas(const QUrl& fileUrl);
+    void settings();
+    void setupGrid();
+    void changeCanvasSize();
+    void setTemplateEditMode(bool isEnabled);
 
-    protected:
+protected:
 
-        void progressEvent(ProgressEvent* event);
+    void progressEvent(ProgressEvent* event);
 
-    protected Q_SLOTS:
+protected Q_SLOTS:
 
-        bool queryClose();
-        void refreshActions();
+    bool queryClose();
+    void refreshActions();
+    void slotAbout();
+    
+private:
 
-    private:
+    explicit PhotoLayoutsWindow(QWidget* const parent = nullptr);
 
-        explicit PhotoLayoutsWindow(QWidget* const parent = nullptr);
+    void setupActions();
+    void createWidgets();
+    void loadEffects();
+    void loadBorders();
+    void prepareSignalsConnections();
 
-        void setupActions();
-        void createWidgets();
-        void loadEffects();
-        void loadBorders();
-        void prepareSignalsConnections();
+private:
 
-    private:
+    static PhotoLayoutsWindow* m_instance;
 
-        static PhotoLayoutsWindow* m_instance;
+    class Private;
+    Private* const d;
 
-        class Private;
-        Private* const d;
-
-        friend class UndoCommandEventFilter;
+    friend class UndoCommandEventFilter;
 };
 
 } // namespace PhotoLayoutsEditor

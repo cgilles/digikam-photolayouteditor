@@ -30,15 +30,9 @@ find_package(Qt5 "5.6.0" REQUIRED
              Core
              Widgets
              Gui
-             Concurrent
              Svg
              Xml
              PrintSupport
-)
-
-find_package(KF5 "5.5.0" REQUIRED
-             COMPONENTS
-             XmlGui
 )
 
 find_package(Threads)
@@ -58,8 +52,6 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
                     $<TARGET_PROPERTY:Qt5::Core,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::Widgets,INTERFACE_INCLUDE_DIRECTORIES>
                     $<TARGET_PROPERTY:Qt5::PrintSupport,INTERFACE_INCLUDE_DIRECTORIES>
-
-                    $<TARGET_PROPERTY:KF5::XmlGui,INTERFACE_INCLUDE_DIRECTORIES>
 
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser
@@ -86,7 +78,6 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
 add_subdirectory(data)
 
 set(photolayoutseditorcore_SRCS
-
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models/AbstractMovableModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models/LayersModel.cpp
@@ -187,12 +178,14 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/Scene.cpp
 )
 
-set(photolayoutseditorcore_RCS
-    ${CMAKE_CURRENT_SOURCE_DIR}/res/icons.qrc
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtpropertybrowser.qrc
-   )
+qt5_add_resources(photolayoutseditorcore_SRCS
+                  ${CMAKE_CURRENT_SOURCE_DIR}/res/icons.qrc
+                  ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtpropertybrowser.qrc
+)
 
-qt5_add_resources(photolayoutseditorcore_SRCS ${photolayoutseditorcore_RCS})
+qt5_wrap_ui(photolayoutseditorcore_SRCS
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/photolayoutswindow.ui
+)
 
 add_library(photolayoutseditorcore STATIC ${photolayoutseditorcore_SRCS})
 
@@ -217,8 +210,6 @@ target_link_libraries(photolayoutseditor
                       Qt5::Xml
                       Qt5::Svg
                       Qt5::PrintSupport
-
-                      KF5::XmlGui
 )
 
 install(TARGETS photolayoutseditor RUNTIME DESTINATION bin)

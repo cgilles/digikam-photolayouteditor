@@ -23,6 +23,5 @@
         <file>view.png</file>
         <file>zoom.png</file>
         <file>zoom_cursor.png</file>
-        <file>photolayoutseditorui.rc</file>
     </qresource>
 </RCC>

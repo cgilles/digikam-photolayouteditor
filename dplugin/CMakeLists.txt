@@ -23,8 +23,6 @@ target_link_libraries(Generic_PhotoLayoutsEditor_Plugin
                       Qt5::Xml
                       Qt5::Svg
                       Qt5::PrintSupport
-
-                      KF5::XmlGui
 )
 
 MACRO_ADD_PLUGIN_INSTALL_TARGET(Generic_PhotoLayoutsEditor_Plugin generic)

@@ -56,10 +56,6 @@
 #include <QPointer>
 #include <QSettings>
 
-// KDE includes
-
-#include <kactioncollection.h>
-
 // digiKam includes
 
 #include "imagedialog.h"
@@ -91,6 +87,7 @@
 #include "BorderDrawerInterface.h"
 #include "BorderDrawersLoader.h"
 #include "NewCanvasDialog.h"
+#include "ui_photolayoutswindow.h"
 
 using namespace Digikam;
 
@@ -106,26 +103,8 @@ class PhotoLayoutsWindow::Private
 {
     public:
 
-        Private()
+        explicit Private()
           : centralWidget(nullptr),
-            openNewFileAction(nullptr),
-            openFileAction(nullptr),
-            openRecentFilesMenu(nullptr),
-            saveAction(nullptr),
-            saveAsAction(nullptr),
-            saveAsTemplateAction(nullptr),
-            exportFileAction(nullptr),
-            printPreviewAction(nullptr),
-            printAction(nullptr),
-            closeAction(nullptr),
-            quitAction(nullptr),
-            undoAction(nullptr),
-            redoAction(nullptr),
-            settingsAction(nullptr),
-            addImageAction(nullptr),
-            showGridToggleAction(nullptr),
-            gridConfigAction(nullptr),
-            changeCanvasSizeAction(nullptr),
             tree(nullptr),
             treeWidget(nullptr),
             treeTitle(nullptr),
@@ -135,68 +114,19 @@ class PhotoLayoutsWindow::Private
             statusBar(nullptr),
             fileDialog(nullptr),
             canvas(nullptr),
-            interface(nullptr)
+            interface(nullptr),
+            ui(nullptr)
         {
         }
 
         ~Private()
         {
             Q_DELETE(centralWidget)
-
-            // File menu
-            Q_DELETE(openNewFileAction)
-            Q_DELETE(openFileAction)
-            Q_DELETE(openRecentFilesMenu)
-            Q_DELETE(saveAction)
-            Q_DELETE(saveAsAction)
-            Q_DELETE(saveAsTemplateAction)
-            Q_DELETE(exportFileAction)
-            Q_DELETE(printPreviewAction)
-            Q_DELETE(printAction)
-            Q_DELETE(closeAction)
-            Q_DELETE(quitAction)
-
-            // Edit menu
-            Q_DELETE(undoAction)
-            Q_DELETE(redoAction)
-            Q_DELETE(settingsAction)
-
-            // View menu
-            Q_DELETE(addImageAction)
-            Q_DELETE(showGridToggleAction)
-            Q_DELETE(gridConfigAction)
-            Q_DELETE(changeCanvasSizeAction)
-
-            // Other
             Q_DELETE(tree)
         }
 
         // Central widget of the window
         QWidget*                                        centralWidget;
-
-        // File menu
-        QAction*                                        openNewFileAction;
-        QAction*                                        openFileAction;
-        KRecentFilesAction*                             openRecentFilesMenu;
-        QAction*                                        saveAction;
-        QAction*                                        saveAsAction;
-        QAction*                                        saveAsTemplateAction;
-        QAction*                                        exportFileAction;
-        QAction*                                        printPreviewAction;
-        QAction*                                        printAction;
-        QAction*                                        closeAction;
-        QAction*                                        quitAction;
-
-        // Edit menu
-        QAction*                                        undoAction;
-        QAction*                                        redoAction;
-        QAction*                                        settingsAction;
-
-        // Canvas menu
-        QAction*                                        addImageAction;
-        KToggleAction*                                  showGridToggleAction;
-        QAction*                                        gridConfigAction;
-        QAction*                                        changeCanvasSizeAction;
 
         // Tree of layers
         LayersTree*                                     tree;
@@ -212,12 +142,13 @@ class PhotoLayoutsWindow::Private
         QMap<QString, AbstractPhotoEffectFactory*>      effectsMap;
         QMap<QString, BorderDrawerFactoryInterface*>    bordersMap;
 
-        PLEStatusBar *                                  statusBar;
+        PLEStatusBar*                                   statusBar;
 
         QFileDialog*                                    fileDialog;
 
         Canvas*                                         canvas;
         DInfoInterface*                                 interface;
+        Ui::PhotoLayoutWindow*                          ui;
 };
 
 // ---------------------------------------------------------------------
