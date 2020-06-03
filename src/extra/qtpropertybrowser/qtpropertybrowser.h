@@ -37,12 +37,11 @@
 **
 ****************************************************************************/
 
-
 #ifndef QTPROPERTYBROWSER_H
 #define QTPROPERTYBROWSER_H
 
 #include <QWidget>
-#include <QtCore/QSet>
+#include <QSet>
 
 #if QT_VERSION >= 0x040400
 QT_BEGIN_NAMESPACE

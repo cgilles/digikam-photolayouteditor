@@ -37,11 +37,11 @@
 **
 ****************************************************************************/
 
-
 #include "qtbuttonpropertybrowser.h"
-#include <QtCore/QSet>
-#include <QtCore/QTimer>
-#include <QtCore/QMap>
+
+#include <QSet>
+#include <QTimer>
+#include <QMap>
 #include <QGridLayout>
 #include <QLabel>
 #include <QToolButton>

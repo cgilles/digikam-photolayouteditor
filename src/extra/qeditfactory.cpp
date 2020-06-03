@@ -41,223 +41,242 @@ QSpinBoxFactory::QSpinBoxFactory(QObject* const parent)
 
 QWidget* QSpinBoxFactory::createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget* widget = QtSpinBoxFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtSpinBoxFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QSliderFactory::QSliderFactory(QObject * parent) :
-    QtSliderFactory(parent)
+QSliderFactory::QSliderFactory(QObject* const parent)
+    : QtSliderFactory(parent)
 {
 }
 
-QWidget * QSliderFactory::createEditor(QtIntPropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QSliderFactory::createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtSliderFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtSliderFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QScrollBarFactory::QScrollBarFactory(QObject * parent) :
-    QtScrollBarFactory(parent)
+QScrollBarFactory::QScrollBarFactory(QObject* const parent)
+    : QtScrollBarFactory(parent)
 {
 }
 
-QWidget * QScrollBarFactory::createEditor(QtIntPropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QScrollBarFactory::createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtScrollBarFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtScrollBarFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QCheckBoxFactory::QCheckBoxFactory(QObject * parent) :
-    QtCheckBoxFactory(parent)
+QCheckBoxFactory::QCheckBoxFactory(QObject* const parent)
+    : QtCheckBoxFactory(parent)
 {
 }
 
-QWidget * QCheckBoxFactory::createEditor(QtBoolPropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QCheckBoxFactory::createEditor(QtBoolPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtCheckBoxFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtCheckBoxFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QDoubleSpinBoxFactory::QDoubleSpinBoxFactory(QObject * parent) :
-    QtDoubleSpinBoxFactory(parent)
+QDoubleSpinBoxFactory::QDoubleSpinBoxFactory(QObject* const parent)
+    : QtDoubleSpinBoxFactory(parent)
 {
 }
 
-QWidget * QDoubleSpinBoxFactory::createEditor(QtDoublePropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QDoubleSpinBoxFactory::createEditor(QtDoublePropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtDoubleSpinBoxFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtDoubleSpinBoxFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QLineEditFactory::QLineEditFactory(QObject * parent) :
-    QtLineEditFactory(parent)
+QLineEditFactory::QLineEditFactory(QObject* const parent)
+    : QtLineEditFactory(parent)
 {
 }
 
-QWidget * QLineEditFactory::createEditor(QtStringPropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QLineEditFactory::createEditor(QtStringPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtLineEditFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtLineEditFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
     return widget;
 }
 
-QDateEditFactory::QDateEditFactory(QObject * parent) :
+QDateEditFactory::QDateEditFactory(QObject* const parent) :
     QtDateEditFactory(parent)
 {
 }
 
-QWidget * QDateEditFactory::createEditor(QtDatePropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QDateEditFactory::createEditor(QtDatePropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtDateEditFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtDateEditFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QTimeEditFactory::QTimeEditFactory(QObject * parent) :
-    QtTimeEditFactory(parent)
+QTimeEditFactory::QTimeEditFactory(QObject* const parent)
+    : QtTimeEditFactory(parent)
 {
 }
 
-QWidget * QTimeEditFactory::createEditor(QtTimePropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QTimeEditFactory::createEditor(QtTimePropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtTimeEditFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtTimeEditFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
     return widget;
 }
 
-QDateTimeEditFactory::QDateTimeEditFactory(QObject * parent) :
+QDateTimeEditFactory::QDateTimeEditFactory(QObject* const parent) :
     QtDateTimeEditFactory(parent)
 {
 }
 
-QWidget * QDateTimeEditFactory::createEditor(QtDateTimePropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QDateTimeEditFactory::createEditor(QtDateTimePropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtDateTimeEditFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtDateTimeEditFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QKeySequenceEditorFactory::QKeySequenceEditorFactory(QObject * parent) :
-    QtKeySequenceEditorFactory(parent)
+QKeySequenceEditorFactory::QKeySequenceEditorFactory(QObject* const parent)
+    : QtKeySequenceEditorFactory(parent)
 {
 }
 
-QWidget * QKeySequenceEditorFactory::createEditor(QtKeySequencePropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QKeySequenceEditorFactory::createEditor(QtKeySequencePropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtKeySequenceEditorFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtKeySequenceEditorFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QCharEditorFactory::QCharEditorFactory(QObject * parent) :
+QCharEditorFactory::QCharEditorFactory(QObject* const parent) :
     QtCharEditorFactory(parent)
 {
 }
 
-QWidget * QCharEditorFactory::createEditor(QtCharPropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QCharEditorFactory::createEditor(QtCharPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtCharEditorFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtCharEditorFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QEnumEditorFactory::QEnumEditorFactory(QObject * parent) :
-    QtEnumEditorFactory(parent)
+QEnumEditorFactory::QEnumEditorFactory(QObject* const parent)
+    : QtEnumEditorFactory(parent)
 {
 }
 
-QWidget * QEnumEditorFactory::createEditor(QtEnumPropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QEnumEditorFactory::createEditor(QtEnumPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtEnumEditorFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtEnumEditorFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QCursorEditorFactory::QCursorEditorFactory(QObject * parent) :
-    QtCursorEditorFactory(parent)
+QCursorEditorFactory::QCursorEditorFactory(QObject* const parent)
+    : QtCursorEditorFactory(parent)
 {
 }
 
-QWidget * QCursorEditorFactory::createEditor(QtCursorPropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QCursorEditorFactory::createEditor(QtCursorPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtCursorEditorFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtCursorEditorFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QColorEditorFactory::QColorEditorFactory(QObject * parent) :
+QColorEditorFactory::QColorEditorFactory(QObject* const parent) :
     QtColorEditorFactory(parent)
 {
 }
 
-QWidget * QColorEditorFactory::createEditor(QtColorPropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QColorEditorFactory::createEditor(QtColorPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtColorEditorFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtColorEditorFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QFontEditorFactory::QFontEditorFactory(QObject * parent) :
-    QtFontEditorFactory(parent)
+QFontEditorFactory::QFontEditorFactory(QObject* const parent)
+    : QtFontEditorFactory(parent)
 {
 }
 
-QWidget * QFontEditorFactory::createEditor(QtFontPropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QFontEditorFactory::createEditor(QtFontPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtFontEditorFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+    QWidget* const widget = QtFontEditorFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QVariantEditorFactory::QVariantEditorFactory(QObject *parent) :
-    QtVariantEditorFactory(parent)
-{}
-
-QWidget * QVariantEditorFactory::createEditor(QtVariantPropertyManager *manager, QtProperty *property, QWidget *parent)
+QVariantEditorFactory::QVariantEditorFactory(QObject* const parent)
+    : QtVariantEditorFactory(parent)
 {
-    QWidget * widget = QtVariantEditorFactory::createEditor(manager,property,parent);
-    connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
+}
+
+QWidget* QVariantEditorFactory::createEditor(QtVariantPropertyManager* manager, QtProperty* property, QWidget* parent)
+{
+    QWidget* const widget = QtVariantEditorFactory::createEditor(manager, property, parent);
+    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+
     return widget;
 }
 
-QSliderEditFactory::QSliderEditFactory(QObject *parent) :
-    QtAbstractEditorFactory<QtIntPropertyManager>(parent)
+QSliderEditFactory::QSliderEditFactory(QObject* const parent)
+    : QtAbstractEditorFactory<QtIntPropertyManager>(parent)
 {
     originalFactory = new QtSliderFactory(this);
 }
 
-void QSliderEditFactory::connectPropertyManager(QtIntPropertyManager * manager)
+void QSliderEditFactory::connectPropertyManager(QtIntPropertyManager* manager)
 {
     this->addPropertyManager(manager);
     originalFactory->addPropertyManager(manager);
 }
 
-QWidget * QSliderEditFactory::createEditor(QtIntPropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QSliderEditFactory::createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QtAbstractEditorFactoryBase* const base = originalFactory;
 
     QWidget* w = base->createEditor(property,parent);
 
     if (!w)
+    {
         return nullptr;
+    }
 
-    QSlider* slider = qobject_cast<QSlider*>(w);
+    QSlider* const slider = qobject_cast<QSlider*>(w);
 
     if (!slider)
+    {
         return nullptr;
+    }
 
     w = new QWidget(parent);
     slider->setParent(w);
-    QSpinBox* spinbox = new QSpinBox(w);
+    QSpinBox* const spinbox   = new QSpinBox(w);
     spinbox->setMaximum(manager->maximum(property));
     spinbox->setMinimum(manager->minimum(property));
     spinbox->setValue(manager->value(property));
-    QHBoxLayout* layout = new QHBoxLayout();
+    QHBoxLayout* const layout = new QHBoxLayout();
     layout->setContentsMargins(QMargins());
     layout->setSpacing(0);
     layout->addWidget(slider,1);
@@ -267,35 +286,41 @@ QWidget * QSliderEditFactory::createEditor(QtIntPropertyManager * manager, QtPro
     createdEditors[property].append(w);
     editorToProperty[w] = property;
 
-    connect(slider,SIGNAL(valueChanged(int)),spinbox,SLOT(setValue(int)));
-    connect(spinbox,SIGNAL(valueChanged(int)),slider,SLOT(setValue(int)));
-    connect(w,SIGNAL(destroyed(QObject*)),this,SLOT(slotEditorDestroyed(QObject*)));
+    connect(slider, SIGNAL(valueChanged(int)), spinbox, SLOT(setValue(int)));
+    connect(spinbox, SIGNAL(valueChanged(int)), slider, SLOT(setValue(int)));
+    connect(w, SIGNAL(destroyed(QObject*)), this, SLOT(slotEditorDestroyed(QObject*)));
 
     return w;
 }
 
-void QSliderEditFactory::disconnectPropertyManager(QtIntPropertyManager * manager)
+void QSliderEditFactory::disconnectPropertyManager(QtIntPropertyManager* manager)
 {
     this->removePropertyManager(manager);
     originalFactory->removePropertyManager(manager);
 }
 
-void QSliderEditFactory::slotEditorDestroyed(QObject *object)
+void QSliderEditFactory::slotEditorDestroyed(QObject* object)
 {
     emit editingFinished();
-    QMap<QWidget *, QtProperty *>::ConstIterator itEditor = editorToProperty.constBegin();
+    QMap<QWidget*, QtProperty*>::ConstIterator itEditor = editorToProperty.constBegin();
+
     while (itEditor != editorToProperty.constEnd())
     {
         if (itEditor.key() == object)
         {
-            QWidget *editor = itEditor.key();
-            QtProperty *property = itEditor.value();
+            QWidget* const editor      = itEditor.key();
+            QtProperty* const property = itEditor.value();
             editorToProperty.remove(editor);
             createdEditors[property].removeAll(editor);
+
             if (createdEditors[property].isEmpty())
+            {
                 createdEditors.remove(property);
+            }
+
             return;
         }
+
         itEditor++;
     }
 }

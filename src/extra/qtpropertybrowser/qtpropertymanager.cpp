@@ -40,11 +40,12 @@
 
 #include "qtpropertymanager.h"
 #include "qtpropertybrowserutils_p.h"
-#include <QtCore/QDateTime>
-#include <QtCore/QLocale>
-#include <QtCore/QMap>
-#include <QtCore/QTimer>
-#include <QtCore/QMetaEnum>
+
+#include <QDateTime>
+#include <QLocale>
+#include <QMap>
+#include <QTimer>
+#include <QMetaEnum>
 #include <QIcon>
 #include <QFontDatabase>
 #include <QStyleOption>
