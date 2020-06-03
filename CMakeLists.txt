@@ -13,11 +13,6 @@ set(CMAKE_AUTOMOC ON)
 
 option(ENABLE_DPLUGIN "Build digiKam plugin version of Photo Layouts Editor tool (default=OFF)" OFF)
 
-#find_package(ECM "1.7.0" CONFIG REQUIRED)
-#set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
-#include(KDEFrameworkCompilerSettings)
-#include(KDECompilerSettings)
-
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
 include(MacroInstall)
@@ -183,6 +178,14 @@ qt5_wrap_ui(photolayoutseditorcore_SRCS
 )
 
 add_library(photolayoutseditorcore STATIC ${photolayoutseditorcore_SRCS})
+
+target_compile_options(photolayoutseditorcore PRIVATE
+                       -Wall
+                       -Wextra
+#                       -Wsuggest-override
+#                       -Woverloaded-virtual
+                       -Wzero-as-null-pointer-constant
+)
 
 if(NOT MSVC)
     target_compile_options(photolayoutseditorcore PRIVATE -fPIC)
