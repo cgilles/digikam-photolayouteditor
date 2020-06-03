@@ -44,6 +44,7 @@ using namespace Digikam;
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
+    app.setWindowIcon(QIcon(QLatin1String(":/photolayoutseditor.png")));
 
     QCommandLineParser parser;
     parser.addVersionOption();

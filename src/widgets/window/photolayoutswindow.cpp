@@ -325,10 +325,10 @@ void PhotoLayoutsWindow::prepareSignalsConnections()
 
     // undo stack signals
     connect(d->canvas,                              SIGNAL(savedStateChanged()),                this,                   SLOT(refreshActions()));
-    connect(d->canvas->undoStack(),                 SIGNAL(canRedoChanged(bool)),               d->ui->redoAction,          SLOT(setEnabled(bool)));
-    connect(d->canvas->undoStack(),                 SIGNAL(canUndoChanged(bool)),               d->ui->undoAction,          SLOT(setEnabled(bool)));
-    connect(d->ui->undoAction,                          SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(undo()));
-    connect(d->ui->redoAction,                          SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(redo()));
+    connect(d->canvas->undoStack(),                 SIGNAL(canRedoChanged(bool)),               d->ui->redoAction,      SLOT(setEnabled(bool)));
+    connect(d->canvas->undoStack(),                 SIGNAL(canUndoChanged(bool)),               d->ui->undoAction,      SLOT(setEnabled(bool)));
+    connect(d->ui->undoAction,                      SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(undo()));
+    connect(d->ui->redoAction,                      SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(redo()));
 
     // model/tree/canvas synchronization signals
     connect(d->tree,                                SIGNAL(selectedRowsAboutToBeRemoved()),     d->canvas,              SLOT(removeSelectedRows()));
@@ -622,6 +622,7 @@ bool PhotoLayoutsWindow::closeDocument()
                 d->canvas->deleteLater();
                 d->canvas = nullptr;
                 refreshActions();
+
                 return true;
             }
 
@@ -633,6 +634,7 @@ bool PhotoLayoutsWindow::closeDocument()
     }
 
     refreshActions();
+
     return true;
 }
 
@@ -715,7 +717,7 @@ void PhotoLayoutsWindow::setupGrid()
         dialog->setVerticalDistance(d->canvas->scene()->gridVerticalDistance());
         dialog->exec();
         d->canvas->scene()->setGrid(dialog->horizontalDistance(),
-                                   dialog->verticalDistance());
+                                    dialog->verticalDistance());
         delete dialog;
     }
 }
