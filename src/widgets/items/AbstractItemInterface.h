@@ -41,10 +41,10 @@ namespace PhotoLayoutsEditor
 
         protected:
 
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
-            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-            virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+            virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
+            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+            virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 
         friend class Scene;
         friend class ScenePrivate;

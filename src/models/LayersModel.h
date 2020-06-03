@@ -54,14 +54,14 @@ class LayersModel : public QAbstractItemModel
         explicit LayersModel(QObject* parent = nullptr);
         virtual ~LayersModel();
 
-        QModelIndex index( int row, int column, const QModelIndex& parent ) const;
-        QModelIndex parent( const QModelIndex& index ) const;
-        int rowCount( const QModelIndex& parent = QModelIndex()) const;
-        int columnCount( const QModelIndex& parent = QModelIndex()) const;
-        QVariant data( const QModelIndex&, int role ) const;
-        bool setData(const QModelIndex& index, const QVariant& value, int role);
-        Qt::ItemFlags flags(const QModelIndex& index = QModelIndex()) const;
-        QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+        QModelIndex index( int row, int column, const QModelIndex& parent ) const override;
+        QModelIndex parent( const QModelIndex& index ) const override;
+        int rowCount( const QModelIndex& parent = QModelIndex()) const override;
+        int columnCount( const QModelIndex& parent = QModelIndex()) const override;
+        QVariant data( const QModelIndex&, int role ) const override;
+        bool setData(const QModelIndex& index, const QVariant& value, int role) override;
+        Qt::ItemFlags flags(const QModelIndex& index = QModelIndex()) const override;
+        QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
         bool appendItem(AbstractPhoto* item, const QModelIndex& parent = QModelIndex());
         bool insertItem(AbstractPhoto* item, int position, const QModelIndex& parent = QModelIndex());
         bool prependItem(AbstractPhoto* item, const QModelIndex& parent = QModelIndex());
@@ -72,9 +72,9 @@ class LayersModel : public QAbstractItemModel
         QList<AbstractPhoto*> indexesToItems(const QModelIndexList& indexes) const;
         QModelIndex findIndex(AbstractPhoto* item, const QModelIndex& parent = QModelIndex()) const;
         QModelIndex findIndex(LayersModelItem* item, const QModelIndex& parent = QModelIndex()) const;
-        bool insertRows(int row, int count, const QModelIndex& parent);
+        bool insertRows(int row, int count, const QModelIndex& parent) override;
         LayersModelItem* getItem(const QModelIndex& index) const;
-        bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
+        bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
         bool moveRows(int sourcePosition, const QModelIndex& sourceParent,
                       int destPosition, const QModelIndex& destinationParent);
@@ -92,7 +92,7 @@ class LayersModel : public QAbstractItemModel
 
         void updateModel(const QModelIndex& topLeft, const QModelIndex& bottomRight);
 
-        Qt::DropActions supportedDragActions() const;
+        Qt::DropActions supportedDragActions() const override;
 
     Q_SIGNALS:
 

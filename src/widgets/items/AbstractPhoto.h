@@ -64,17 +64,17 @@ namespace PhotoLayoutsEditor
               * \note This methods shouldn't be reimplemented because it's taking into account borders shape.
               * Reimplement \fn itemShape() and \fn itemOpaqueArea() methods instead.
               */
-            virtual QRectF boundingRect() const;
+            virtual QRectF boundingRect() const override;
             /** Returns item's shape.
               * \note This methods shouldn't be reimplemented because it's taking into account borders shape.
               * Reimplement \fn itemShape() and \fn itemOpaqueArea() methods instead.
               */
-            virtual QPainterPath shape() const;
+            virtual QPainterPath shape() const override;
             /** Returns item's opaque area.
               * \note This methods shouldn't be reimplemented because it's taking into account borders shape.
               * Reimplement \fn itemShape() and \fn itemOpaqueArea() methods instead.
               */
-            virtual QPainterPath opaqueArea() const;
+            virtual QPainterPath opaqueArea() const override;
 
             /** Returns item shape
               * Implement this method to return shape of the item.
@@ -186,22 +186,22 @@ namespace PhotoLayoutsEditor
             virtual QDomDocument svgTemplateArea() const = 0;
 
             // Draws abstract item presentation
-            virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
+            virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget) override;
 
             // Items change slot
-            virtual QVariant itemChange(GraphicsItemChange change, const QVariant & value);
+            virtual QVariant itemChange(GraphicsItemChange change, const QVariant & value) override;
 
             // Mouse events
-            virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event);
-            virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event);
-            virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event);
-            virtual void dropEvent(QGraphicsSceneDragDropEvent * event);
-            virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
-            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
-            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
-            virtual void hoverEnterEvent(QGraphicsSceneHoverEvent * event);
-            virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent * event);
+            virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event) override;
+            virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event) override;
+            virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;
+            virtual void dropEvent(QGraphicsSceneDragDropEvent * event) override;
+            virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
+            virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
+            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event) override;
+            virtual void hoverEnterEvent(QGraphicsSceneHoverEvent * event) override;
+            virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent * event) override;
 
             // Creates unique name (on whole scene)
             QString uniqueName(const QString & name);

@@ -119,8 +119,8 @@ Q_SIGNALS:
     void toggled(bool);
 
 protected:
-    void mousePressEvent(QMouseEvent * event);
-    void paintEvent(QPaintEvent *);
+    void mousePressEvent(QMouseEvent * event) override;
+    void paintEvent(QPaintEvent *) override;
 
 private:
     QCheckBox *m_checkBox;
@@ -134,18 +134,18 @@ public:
     QtKeySequenceEdit(QWidget *parent = nullptr);
 
     QKeySequence keySequence() const;
-    bool eventFilter(QObject *o, QEvent *e);
+    bool eventFilter(QObject *o, QEvent *e) override;
 public Q_SLOTS:
     void setKeySequence(const QKeySequence &sequence);
 Q_SIGNALS:
     void keySequenceChanged(const QKeySequence &sequence);
 protected:
-    void focusInEvent(QFocusEvent *e);
-    void focusOutEvent(QFocusEvent *e);
-    void keyPressEvent(QKeyEvent *e);
-    void keyReleaseEvent(QKeyEvent *e);
-    void paintEvent(QPaintEvent *);
-    bool event(QEvent *e);
+    void focusInEvent(QFocusEvent *e) override;
+    void focusOutEvent(QFocusEvent *e) override;
+    void keyPressEvent(QKeyEvent *e) override;
+    void keyReleaseEvent(QKeyEvent *e) override;
+    void paintEvent(QPaintEvent *) override;
+    bool event(QEvent *e) override;
 private Q_SLOTS:
     void slotClearShortcut();
 private:

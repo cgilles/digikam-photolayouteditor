@@ -124,7 +124,6 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoCommandEvent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoCommandEventFilter.cpp
 
-
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTreeDelegate.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTreeMenu.cpp
@@ -182,7 +181,7 @@ add_library(photolayoutseditorcore STATIC ${photolayoutseditorcore_SRCS})
 target_compile_options(photolayoutseditorcore PRIVATE
                        -Wall
                        -Wextra
-#                       -Wsuggest-override
+                       -Wsuggest-override
 #                       -Woverloaded-virtual
                        -Wzero-as-null-pointer-constant
 )

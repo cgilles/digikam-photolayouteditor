@@ -48,10 +48,10 @@ namespace PhotoLayoutsEditor
             virtual ~PhotoItem();
 
             /// Convert photo item to SVG format
-            virtual QDomDocument toSvg() const;
+            virtual QDomDocument toSvg() const override;
 
             /// Convert photo item to SVG template format
-            virtual QDomDocument toTemplateSvg() const;
+            virtual QDomDocument toTemplateSvg() const override;
 
             /// Create Photo item from SVG format code
             static PhotoItem * fromSvg(QDomElement & element);
@@ -69,13 +69,13 @@ namespace PhotoLayoutsEditor
             void fitToRect(const QRect & rect);
 
             /// Reimplemented from QGraphicsItem
-            virtual bool contains(const QPointF & point) const
+            virtual bool contains(const QPointF & point) const override
             {
                 return m_image_path.contains(point);
             }
 
             /// Reimplemented from AbstractPhoto
-            virtual QPainterPath itemShape() const
+            virtual QPainterPath itemShape() const override
             {
                 if (this->cropShape().isEmpty())
                     return m_image_path;
@@ -84,7 +84,7 @@ namespace PhotoLayoutsEditor
             }
 
             /// Reimplemented from AbstractPhoto
-            virtual QPainterPath itemOpaqueArea() const
+            virtual QPainterPath itemOpaqueArea() const override
             {
                 if (this->cropShape().isEmpty())
                     return m_image_path;
@@ -93,13 +93,13 @@ namespace PhotoLayoutsEditor
             }
 
             /// Reimplemented from AbstractPhoto
-            virtual QPainterPath itemDrawArea() const
+            virtual QPainterPath itemDrawArea() const override
             {
                 return m_image_path;
             }
 
             /// Returns item's property browser
-            virtual QtAbstractPropertyBrowser * propertyBrowser();
+            virtual QtAbstractPropertyBrowser * propertyBrowser() override;
 
             /// Returns if item is empty (not contains image)
             bool isEmpty() const;
@@ -109,24 +109,24 @@ namespace PhotoLayoutsEditor
             explicit PhotoItem(const QString & name = QString(), Scene * scene = nullptr);
 
             /// Converts item data to SVG format
-            virtual QDomDocument svgVisibleArea() const;
+            virtual QDomDocument svgVisibleArea() const override;
 
             /// Converts item data to SVG format
-            virtual QDomDocument svgTemplateArea() const;
+            virtual QDomDocument svgTemplateArea() const override;
 
-            virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event);
-            virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event);
-            virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event);
-            virtual void dropEvent(QGraphicsSceneDragDropEvent * event);
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
-            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
-            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
+            virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event) override;
+            virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event) override;
+            virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;
+            virtual void dropEvent(QGraphicsSceneDragDropEvent * event) override;
+            virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
+            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
+            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event) override;
 
             /// Updates item icon
             virtual void updateIcon();
 
             /// Reimplemented from AbstractPhoto
-            void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr);
+            void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr) override;
 
         private Q_SLOTS:
 
@@ -135,7 +135,7 @@ namespace PhotoLayoutsEditor
         private:
 
             // Refreshes items data
-            virtual void refreshItem();
+            virtual void refreshItem() override;
 
             // Setups items
             void setupItem(const QImage & image);

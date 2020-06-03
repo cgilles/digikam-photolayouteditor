@@ -42,8 +42,8 @@ namespace PhotoLayoutsEditor
             explicit CanvasSavingThread(QObject* parent = nullptr);
             void save(Canvas * canvas, const QUrl& url);
             void saveAsTemplate(Canvas * canvas, const QUrl& url);
-            virtual void progresChanged(double progress);
-            virtual void progresName(const QString& name);
+            virtual void progresChanged(double progress) override;
+            virtual void progresName(const QString& name) override;
 
         Q_SIGNALS:
 
@@ -51,7 +51,7 @@ namespace PhotoLayoutsEditor
 
         protected:
 
-            virtual void run();
+            virtual void run() override;
 
         private Q_SLOTS:
 

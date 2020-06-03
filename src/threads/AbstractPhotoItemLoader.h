@@ -51,7 +51,7 @@ namespace PhotoLayoutsEditor
 
         protected:
 
-            virtual void run();
+            virtual void run() override;
 
         friend class CanvasLoadingThread;
     };

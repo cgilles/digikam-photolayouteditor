@@ -43,15 +43,15 @@ namespace PhotoLayoutsEditor
 
             explicit CanvasLoadingThread(QObject *parent = nullptr);
             ~CanvasLoadingThread();
-            virtual void progresChanged(double progress);
-            virtual void progresName(const QString & name);
+            virtual void progresChanged(double progress) override;
+            virtual void progresName(const QString & name) override;
             void addItem(AbstractPhoto * item, QDomElement & element);
             void addBackground(SceneBackground * background, QDomElement & element);
             void addBorder(SceneBorder * border, QDomElement & element);
 
         protected:
 
-            virtual void run();
+            virtual void run() override;
 
         private:
 

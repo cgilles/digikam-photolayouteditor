@@ -43,7 +43,7 @@ public:
     explicit ImageLoadingThread(QObject* const parent = nullptr);
     ~ImageLoadingThread();
 
-    virtual void run();
+    virtual void run() override;
 
 Q_SIGNALS:
 

@@ -50,7 +50,7 @@ namespace PhotoLayoutsEditor
         public:
 
             explicit LayersTree(QWidget * parent = nullptr);
-            virtual void setModel(QAbstractItemModel * model);
+            virtual void setModel(QAbstractItemModel * model) override;
 
         public Q_SLOTS:
 
@@ -65,7 +65,7 @@ namespace PhotoLayoutsEditor
 
         protected:
 
-            void contextMenuEvent(QContextMenuEvent * event);
+            void contextMenuEvent(QContextMenuEvent * event) override;
 
         protected Q_SLOTS:
 
