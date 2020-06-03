@@ -30,8 +30,8 @@ using namespace PhotoLayoutsEditor;
 AbstractPhotoPrivate::AbstractPhotoPrivate(AbstractPhoto* item) :
     m_item(item),
     m_visible(true),
-    m_effects_group(0),
-    m_borders_group(0)
+    m_effects_group(nullptr),
+    m_borders_group(nullptr)
 {
 }
 

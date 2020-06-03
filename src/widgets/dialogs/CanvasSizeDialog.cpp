@@ -45,19 +45,19 @@ class CanvasSizeDialogPrivate
 {
     public:
         CanvasSizeDialogPrivate() :
-            sizeWidget(0),
-            advancedWidget(0),
-            paperSize(0),
-            xSize(0),
-            ySize(0),
-            orientationGroup(0),
-            verticalButton(0),
-            sizeLabel(0),
-            horizontalButton(0),
-            sizeUnitsWidget(0),
-            xResolution(0),
-            yResolution(0),
-            resolutionUnitsWidget(0)
+            sizeWidget(nullptr),
+            advancedWidget(nullptr),
+            paperSize(nullptr),
+            xSize(nullptr),
+            ySize(nullptr),
+            orientationGroup(nullptr),
+            verticalButton(nullptr),
+            sizeLabel(nullptr),
+            horizontalButton(nullptr),
+            sizeUnitsWidget(nullptr),
+            xResolution(nullptr),
+            yResolution(nullptr),
+            resolutionUnitsWidget(nullptr)
         {
             paperSizes.insert(QLatin1String("A0 (841 x 1189 mm)"),QPrinter::A0);
             paperSizes.insert(QLatin1String("A1 (594 x 841 mm)"),QPrinter::A1);

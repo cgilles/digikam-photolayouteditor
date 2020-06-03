@@ -36,7 +36,7 @@
 #include "qtpropertybrowser.h"
 #include "AbstractPhoto.h"
 #include "ToolsDockWidget.h"
-#include "BorderDrawersLoader.h"
+#include "borderdrawersloader.h"
 #include "pleglobal.h"
 
 using namespace PhotoLayoutsEditor;
@@ -167,13 +167,13 @@ public:
 class PhotoLayoutsEditor::AbstractItemsListViewToolPrivate
 {
     AbstractItemsListViewToolPrivate() :
-        m_list_widget(0),
-        m_add_button(0),
-        m_remove_button(0),
-        m_down_button(0),
-        m_up_button(0),
-        m_delegate(0)
-//        , m_editors_object(0)
+        m_list_widget(nullptr),
+        m_add_button(nullptr),
+        m_remove_button(nullptr),
+        m_down_button(nullptr),
+        m_up_button(nullptr),
+        m_delegate(nullptr)
+//        , m_editors_object(nullptr)
     {}
     AbstractListToolView * m_list_widget;
     QPushButton * m_add_button;
@@ -187,7 +187,7 @@ class PhotoLayoutsEditor::AbstractItemsListViewToolPrivate
     {
         if (m_delegate)
             m_delegate->deleteLater();
-        m_delegate = 0;
+        m_delegate = nullptr;
     }
 
     void setButtonsEnabled(bool isEnabled)
@@ -405,7 +405,7 @@ AbstractListToolViewDelegate::AbstractListToolViewDelegate(AbstractMovableModel 
     m_parent(parent),
     m_model(model),
     m_index(index),
-    m_object(0)
+    m_object(nullptr)
 {
     // GUI setup
     QHBoxLayout * layout = new QHBoxLayout();
@@ -435,7 +435,7 @@ void AbstractListToolViewDelegate::editorCancelled()
         m_model->removeRow(m_index.row());
     if (m_object)
         m_object->deleteLater();
-    m_object = 0;
+    m_object = nullptr;
     emit editorClosed();
 }
 

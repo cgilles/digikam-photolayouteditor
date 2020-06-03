@@ -94,7 +94,7 @@ public:
 };
 
 AbstractPhoto::AbstractPhoto(const QString & name, Scene * scene) :
-    AbstractItemInterface(0, 0),
+    AbstractItemInterface(nullptr, nullptr),
     d(new AbstractPhotoPrivate(this))
 {
     if (scene)
@@ -505,7 +505,7 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
     if (d->m_borders_group)
     {
         d->m_borders_group->deleteLater();
-        d->m_borders_group = 0;
+        d->m_borders_group = nullptr;
     }
     d->m_borders_group = BordersGroup::fromSvg(itemDataElement, this);
     if (!d->m_borders_group)

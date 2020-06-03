@@ -28,6 +28,6 @@ using namespace PhotoLayoutsEditor;
 
 UndoCommandEvent::UndoCommandEvent() :
     QEvent(registeredEventType()),
-    m_command(0)
+    m_command(nullptr)
 {
 }

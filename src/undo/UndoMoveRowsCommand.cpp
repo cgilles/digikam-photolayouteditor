@@ -54,8 +54,8 @@ UndoMoveRowsCommand::UndoMoveRowsCommand(int startingRow, int rowsCount, const Q
     }
     else
     {
-        m_src_parent_row = 0;
-        m_dest_parent_row = 0;
+        m_src_parent_row = nullptr;
+        m_dest_parent_row = nullptr;
         m_starting_row = 0;
         m_rows_count = 0;
         m_destination_row = 0;

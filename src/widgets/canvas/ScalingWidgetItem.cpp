@@ -483,7 +483,7 @@ void ScalingWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
         {
             it.value()->setDone(true);
             PLE_PostUndoCommand(it.value());
-            it.value() = 0;
+            it.value() = nullptr;
         }
     }
     if (d->scale_commands.count() > 1)
@@ -498,7 +498,7 @@ void ScalingWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
         {
             it.value()->setDone(true);
             PLE_PostUndoCommand(it.value());
-            it.value() = 0;
+            it.value() = nullptr;
         }
     }
     if (d->move_commands.count() > 1)

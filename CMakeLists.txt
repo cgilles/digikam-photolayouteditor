@@ -78,7 +78,7 @@ set(photolayoutseditorcore_SRCS
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderChangeListener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderDrawerInterface.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderDrawersLoader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/borderdrawersloader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BordersGroup.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/StandardBordersFactory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/PolaroidBorderDrawer.cpp

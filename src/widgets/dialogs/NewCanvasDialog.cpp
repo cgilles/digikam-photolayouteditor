@@ -363,7 +363,7 @@ void NewCanvasDialog::orientationChanged()
 {
     if (d->stack->currentWidget() == d->templatesList)
     {
-        this->paperSizeSelected(d->paperSize->currentItem(), 0);
+        this->paperSizeSelected(d->paperSize->currentItem(), nullptr);
     }
     else
     {
@@ -380,7 +380,7 @@ void NewCanvasDialog::setHorizontal(bool isset)
         return;
 
     if (d->stack->currentWidget() == d->templatesList)
-        this->paperSizeSelected(d->paperSize->currentItem(), 0);
+        this->paperSizeSelected(d->paperSize->currentItem(), nullptr);
 }
 
 void NewCanvasDialog::setVertical(bool isset)
@@ -389,7 +389,7 @@ void NewCanvasDialog::setVertical(bool isset)
         return;
 
     if (d->stack->currentWidget() == d->templatesList)
-        this->paperSizeSelected(d->paperSize->currentItem(), 0);
+        this->paperSizeSelected(d->paperSize->currentItem(), nullptr);
 }
 
 void NewCanvasDialog::setupUI()

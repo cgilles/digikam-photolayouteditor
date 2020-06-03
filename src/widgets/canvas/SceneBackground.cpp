@@ -165,13 +165,13 @@ public:
 };
 
 SceneBackground::SceneBackground(QGraphicsScene * scene) :
-    QGraphicsItem(0),
+    QGraphicsItem(nullptr),
     m_first_brush(Qt::transparent),
     m_second_brush(Qt::transparent)
 {
     scene->addItem(this);
     setZValue(-std::numeric_limits<double>::infinity());
-    setFlags(0);
+    setFlags(nullptr);
     sceneChanged();
 }
 
@@ -198,7 +198,7 @@ void SceneBackground::setSolidColor(const QColor & color)
     bool secondColorChanged = (m_second_brush.color() != Qt::transparent);
 
     QUndoCommand * parent = nullptr;
-    QUndoCommand * command = 0;
+    QUndoCommand * command = nullptr;
 
     if ((colorChanged && secondColorChanged) ||
         (patternChaged && secondColorChanged))
@@ -223,7 +223,7 @@ void SceneBackground::setPattern(const QColor & firstColor, const QColor & secon
     QUndoCommand * parent = nullptr;
     if (color1Changed && color2Changed)
         parent = new QUndoCommand(QLatin1String("Background Change"));
-    QUndoCommand * command = 0;
+    QUndoCommand * command = nullptr;
 
     if (color1Changed)
         command = new BackgroundFirstBrushChangeCommand(QBrush(firstColor, patternStyle), this, parent);
@@ -250,7 +250,7 @@ void SceneBackground::setImage(const QImage & image, const QColor & backgroundCo
     if (imageChanged && colorChanged)
         parent = new QUndoCommand(QObject::tr("Background Change"));
 
-    QUndoCommand * command = 0;
+    QUndoCommand * command = nullptr;
     if (imageChanged)
         command = new BackgroundImageChangedCommand(image, align, aspectRatio, repeat, this, parent);
     if (colorChanged)
@@ -276,7 +276,7 @@ void SceneBackground::setImage(const QImage & image, const QColor & backgroundCo
     if (imageChanged && colorChanged)
         parent = new QUndoCommand(QObject::tr("Background Change"));
 
-    QUndoCommand * command = 0;
+    QUndoCommand * command = nullptr;
     if (imageChanged)
         command = new BackgroundImageChangedCommand(image, align, fixedSize, repeat, this, parent);
     if (colorChanged)
@@ -567,7 +567,7 @@ QVariant SceneBackground::itemChange(GraphicsItemChange change, const QVariant &
         case QGraphicsItem::ItemParentChange:
             return QVariant(0);
         case QGraphicsItem::ItemSceneChange:
-            this->disconnect(scene(), 0, this, 0);
+            this->disconnect(scene(), nullptr, this, nullptr);
             break;
         case QGraphicsItem::ItemSceneHasChanged:
             sceneChanged();

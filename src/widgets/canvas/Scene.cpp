@@ -88,17 +88,17 @@ class ScenePrivate
         m_scene(scene),
         model(new LayersModel(scene)),
         selection_model(new LayersSelectionModel(model, scene)),
-        m_pressed_object(0),
-        m_pressed_item(0),
+        m_pressed_object(nullptr),
+        m_pressed_item(nullptr),
         m_selected_items_all_movable(true),
         m_selection_visible(true),
-        m_rot_item(0),
-        m_scale_item(0),
-        m_crop_item(0),
+        m_rot_item(nullptr),
+        m_scale_item(nullptr),
+        m_crop_item(nullptr),
 //        m_blend_active(false),
-        m_readSceneMousePress_listener(0),
+        m_readSceneMousePress_listener(nullptr),
         m_readSceneMousePress_enabled(false),
-        m_hovered_photo(0)
+        m_hovered_photo(nullptr)
     {
         // Background of the scene
         m_background = new SceneBackground(m_scene);
@@ -108,7 +108,7 @@ class ScenePrivate
 
     QList<QGraphicsItem*> itemsAtPosition(const QPointF & scenePos, QWidget * widget)
     {
-        QGraphicsView * view = widget ? qobject_cast<QGraphicsView*>(widget->parentWidget()) : 0;
+        QGraphicsView * view = widget ? qobject_cast<QGraphicsView*>(widget->parentWidget()) : nullptr;
         if (!view)
             return m_scene->items(scenePos, Qt::IntersectsItemShape, Qt::DescendingOrder, QTransform());
         const QRectF pointRect(scenePos, QSizeF(1, 1));
@@ -121,7 +121,7 @@ class ScenePrivate
     AbstractItemInterface * itemAt(const QPointF & scenePos, QWidget * widget)
     {
         QList<QGraphicsItem*> items = itemsAtPosition(scenePos, widget);
-        return items.count() ? dynamic_cast<AbstractItemInterface*>(items.first()) : 0;
+        return items.count() ? dynamic_cast<AbstractItemInterface*>(items.first()) : nullptr;
     }
 
     QList<AbstractItemInterface*> itemsAt(const QPointF & scenePos, QWidget * widget)
@@ -538,7 +538,7 @@ Scene::Scene(const QRectF & dimension, QObject * parent) :
     d(new ScenePrivate(this)),
     x_grid(0),
     y_grid(0),
-    grid_item(0),
+    grid_item(nullptr),
     grid_changed(true)
 {
     if (!OUTSIDE_SCENE_COLOR.isValid())
@@ -650,7 +650,7 @@ void Scene::addItems(const QList<AbstractPhoto*> & items)
         insertionRow = 0;
 
     QUndoCommand * parent = nullptr;
-    QUndoCommand * command = 0;
+    QUndoCommand * command = nullptr;
     if (items.count() > 1)
         parent = new QUndoCommand( QObject::tr("Add item", "Add items", items.count()) );
 
@@ -675,7 +675,7 @@ void Scene::removeItems(const QList<AbstractPhoto *> & items)
 {
     if (!askAboutRemoving(items.count()))
         return;
-    QUndoCommand * command = 0;
+    QUndoCommand * command = nullptr;
     QUndoCommand * parent = nullptr;
     if (items.count() > 1)
         parent = new QUndoCommand( QObject::tr("Remove item", "Remove items", items.count()) );
@@ -799,7 +799,7 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent * event)
                 event->setModifiers(QFlags<Qt::KeyboardModifier>(((int)event->modifiers()) & ~Qt::ControlModifier));
 
             // Get items under mouse
-            d->m_pressed_object = d->m_pressed_item = 0;
+            d->m_pressed_object = d->m_pressed_item = nullptr;
             QList<AbstractItemInterface*> itemsList = d->itemsAt(event->scenePos(), event->widget());
 
             foreach(AbstractItemInterface* i, itemsList)
@@ -851,14 +851,14 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent * event)
             if (d->m_pressed_item &&
                     d->m_selection_filters.count() &&
                     !d->m_selection_filters.contains( d->m_pressed_item->metaObject()->className() ))
-                d->m_pressed_item = 0;
+                d->m_pressed_item = nullptr;
 
             // If there is VALID item to select...
             if (d->m_pressed_item)
             {
                 // If not selectable -> deselect item
                 if (!(d->m_pressed_item->flags() & QGraphicsItem::ItemIsSelectable))
-                    d->m_pressed_item = 0;
+                    d->m_pressed_item = nullptr;
                 else
                     d->sendPressEventToItem(d->m_pressed_item, event);
             }
@@ -1030,7 +1030,7 @@ void Scene::dragLeaveEvent(QGraphicsSceneDragDropEvent * event)
     if (d->m_hovered_photo)
     {
         d->m_hovered_photo->dragLeaveEvent(event);
-        d->m_hovered_photo = 0;
+        d->m_hovered_photo = nullptr;
     }
 }
 
@@ -1155,7 +1155,7 @@ void Scene::setGrid(double x, double y)
         }
         else
         {
-            temp = new QGraphicsLineItem(i, 0, i, height, 0);
+            temp = new QGraphicsLineItem(i, 0, i, height, nullptr);
             grid_item->addToGroup(temp);
         }
     }
@@ -1170,7 +1170,7 @@ void Scene::setGrid(double x, double y)
         }
         else
         {
-            temp = new QGraphicsLineItem(0, i, width, i, 0);
+            temp = new QGraphicsLineItem(0, i, width, i, nullptr);
             grid_item->addToGroup(temp);
         }
     }
@@ -1210,7 +1210,7 @@ void Scene::setGridVisible(bool visible)
     else
     {
         delete grid_item;
-        grid_item = 0;
+        grid_item = nullptr;
     }
 }
 
@@ -1266,10 +1266,10 @@ void Scene::setRotationWidgetVisible(bool isVisible)
     if (d->m_rot_item)
     {
         if (d->m_pressed_object == d->m_rot_item)
-            d->m_pressed_object = 0;
+            d->m_pressed_object = nullptr;
         this->QGraphicsScene::removeItem(d->m_rot_item);
         d->m_rot_item->deleteLater();
-        d->m_rot_item = 0;
+        d->m_rot_item = nullptr;
     }
 
     if (isVisible && d->m_selected_items.count())
@@ -1287,10 +1287,10 @@ void Scene::setScalingWidgetVisible(bool isVisible)
     if (d->m_scale_item)
     {
         if (d->m_pressed_object == d->m_scale_item)
-            d->m_pressed_object = 0;
+            d->m_pressed_object = nullptr;
         this->QGraphicsScene::removeItem(d->m_scale_item);
         d->m_scale_item->deleteLater();
-        d->m_scale_item = 0;
+        d->m_scale_item = nullptr;
     }
 
     if (isVisible && d->m_selected_items.count())
@@ -1309,10 +1309,10 @@ void Scene::setCropWidgetVisible(bool isVisible)
     if (d->m_crop_item)
     {
         if (d->m_pressed_object == d->m_crop_item)
-            d->m_pressed_object = 0;
+            d->m_pressed_object = nullptr;
         this->QGraphicsScene::removeItem(d->m_crop_item);
         d->m_crop_item->deleteLater();
-        d->m_crop_item = 0;
+        d->m_crop_item = nullptr;
     }
 
     if (isVisible && d->m_selected_items.count())
@@ -1470,7 +1470,7 @@ QDomDocument Scene::toSvg(ProgressObserver * observer, bool asTemplate)
 Scene * Scene::fromSvg(QDomElement & sceneElement)
 {
     if (sceneElement.isNull() || sceneElement.tagName() != QLatin1String("g") || sceneElement.attribute(QLatin1String("id")) != QLatin1String("Scene"))
-        return 0;
+        return nullptr;
 
     // Scene dimension
     qreal xSceneRect = 0;
@@ -1532,7 +1532,7 @@ Scene * Scene::fromSvg(QDomElement & sceneElement)
     // Show error message
     if (errorsCount)
     {
-        QMessageBox::critical(0, QObject::tr("Error"), QObject::tr("Unable to create one element", "Unable to create %1 elements", errorsCount));
+        QMessageBox::critical(nullptr, QObject::tr("Error"), QObject::tr("Unable to create one element", "Unable to create %1 elements", errorsCount));
     }
 
     return result;

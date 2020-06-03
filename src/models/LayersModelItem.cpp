@@ -40,7 +40,7 @@
 using namespace PhotoLayoutsEditor;
 
 LayersModelItem::LayersModelItem(AbstractPhoto * photo, LayersModelItem * parent, LayersModel * model) :
-    parentItem(0),
+    parentItem(nullptr),
     itemPhoto(photo),
     itemModel(model)
 {
@@ -61,7 +61,7 @@ LayersModelItem::~LayersModelItem()
 void LayersModelItem::removeChild(LayersModelItem * child)
 {
     if (child && child->parent() == this)
-        child->setParent(0);
+        child->setParent(nullptr);
 }
 
 LayersModelItem * LayersModelItem::parent() const
@@ -135,7 +135,7 @@ void LayersModelItem::updateData()
 void LayersModelItem::setPhoto(AbstractPhoto * photo)
 {
     if (itemPhoto)
-        disconnect(itemPhoto, SIGNAL(updated()), this, 0);
+        disconnect(itemPhoto, SIGNAL(updated()), this, nullptr);
     this->itemPhoto = photo;
     if (photo)
     {
@@ -179,7 +179,7 @@ bool LayersModelItem::insertChildren(int position, LayersModelItem * item)
     if (position < 0 || position > childItems.size())
         return false;
     childItems.insert(position, item);
-    if (item != 0)
+    if (item != nullptr)
         item->setParent(this);
     this->refreshZValues();
     return true;

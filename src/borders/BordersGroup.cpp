@@ -26,7 +26,7 @@
 #include "BorderDrawerInterface.h"
 #include "AbstractPhoto.h"
 #include "AbstractPhoto_p.h"
-#include "BorderDrawersLoader.h"
+#include "borderdrawersloader.h"
 
 #include <QGraphicsScene>
 #include <QUndoCommand>

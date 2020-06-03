@@ -39,7 +39,7 @@ using namespace PhotoLayoutsEditor;
 
 CanvasSavingThread::CanvasSavingThread(QObject* parent) :
     QThread(parent),
-    m_canvas(0),
+    m_canvas(nullptr),
     m_template(false)
 {
 }

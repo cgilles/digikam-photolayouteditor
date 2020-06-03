@@ -26,7 +26,7 @@
 #include "ToolsDockWidget.h"
 #include "AbstractPhoto.h"
 #include "BordersGroup.h"
-#include "BorderDrawersLoader.h"
+#include "borderdrawersloader.h"
 
 #include <QDebug>
 #include <QGridLayout>
@@ -56,7 +56,7 @@ AbstractMovableModel * BorderEditTool::model()
 {
     if (currentItem() && currentItem()->bordersGroup())
         return currentItem()->bordersGroup();
-    return 0;
+    return nullptr;
 }
 
 QObject * BorderEditTool::createItem(const QString & name)
@@ -68,6 +68,6 @@ QWidget * BorderEditTool::createEditor(QObject * item, bool createCommands)
 {
     BorderDrawerInterface * drawer = qobject_cast<BorderDrawerInterface*>(item);
     if (!drawer)
-        return 0;
+        return nullptr;
     return BorderDrawersLoader::createEditor(drawer, createCommands);
 }

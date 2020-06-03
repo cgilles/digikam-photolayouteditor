@@ -76,11 +76,11 @@ public:
 };
 
 SceneBorder::SceneBorder(QGraphicsScene * scene) :
-    QGraphicsItem(0)
+    QGraphicsItem(nullptr)
 {
     scene->addItem(this);
     setZValue(std::numeric_limits<double>::infinity());
-    setFlags(0);
+    setFlags(nullptr);
     sceneChanged();
 }
 
@@ -246,7 +246,7 @@ QVariant SceneBorder::itemChange(GraphicsItemChange change, const QVariant &valu
     case QGraphicsItem::ItemParentChange:
         return QVariant(0);
     case QGraphicsItem::ItemSceneChange:
-        this->disconnect(scene(), 0, this, 0);
+        this->disconnect(scene(), nullptr, this, nullptr);
         break;
     case QGraphicsItem::ItemSceneHasChanged:
         sceneChanged();

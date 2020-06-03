@@ -207,11 +207,11 @@ public:
         if (!m_instance)
             return;
         PLE_PostUndoCommand(m_instance);
-        m_instance = 0;
+        m_instance = nullptr;
     }
 };
 
-PhotoItemImageMovedCommand * PhotoItemImageMovedCommand::m_instance = 0;
+PhotoItemImageMovedCommand * PhotoItemImageMovedCommand::m_instance = nullptr;
 
 QString PhotoItem::PhotoItemPrivate::locateFile(const QString & filePath)
 {
@@ -484,7 +484,7 @@ PhotoItem * PhotoItem::fromSvg(QDomElement & element)
     }
 _delete:
     delete item;
-    return 0;
+    return nullptr;
 }
 
 QDomDocument PhotoItem::svgVisibleArea() const
@@ -819,7 +819,7 @@ void PhotoItem::refreshItem()
 
 QtAbstractPropertyBrowser * PhotoItem::propertyBrowser()
 {
-    return 0; /// TODO
+    return nullptr; /// TODO
 }
 
 bool PhotoItem::isEmpty() const

@@ -43,13 +43,13 @@ using namespace PhotoLayoutsEditor;
 class ToolsDockWidget::ToolsDockWidgetPrivate
 {
     ToolsDockWidgetPrivate() :
-        zoom_tool(0),
-        canvas_tool(0),
-        effects_tool(0),
-        text_tool(0),
-        border_tool(0),
-        formLayout(0),
-        toolArea(0)
+        zoom_tool(nullptr),
+        canvas_tool(nullptr),
+        effects_tool(nullptr),
+        text_tool(nullptr),
+        border_tool(nullptr),
+        formLayout(nullptr),
+        toolArea(nullptr)
     {
     }
 
@@ -64,7 +64,7 @@ class ToolsDockWidget::ToolsDockWidgetPrivate
     friend class ToolsDockWidget;
 };
 
-ToolsDockWidget * ToolsDockWidget::m_instance = 0;
+ToolsDockWidget * ToolsDockWidget::m_instance = nullptr;
 
 class MyStackedLayout : public QStackedLayout
 {
@@ -95,8 +95,8 @@ ToolsDockWidget * ToolsDockWidget::instance(QWidget * parent)
 ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
     QDockWidget(QObject::tr("Tools"),parent),
 //    m_has_selection(false),
-    m_current_item(0),
-    m_scene(0),
+    m_current_item(nullptr),
+    m_scene(nullptr),
     d(new ToolsDockWidgetPrivate)
 {
     this->setFeatures(QDockWidget::DockWidgetMovable);
@@ -116,7 +116,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
     //sa->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     d->toolArea->setFrameShape(QFrame::NoFrame);
     d->toolArea->setWidgetResizable(true);
-    d->toolArea->setWidget(0);
+    d->toolArea->setWidget(nullptr);
     layout->addWidget(d->toolArea,1);
 
     QButtonGroup * group = new QButtonGroup(widget);
@@ -240,7 +240,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
 
 ToolsDockWidget::~ToolsDockWidget()
 {
-    m_instance = 0;
+    m_instance = nullptr;
     delete d;
 }
 
@@ -298,7 +298,7 @@ void ToolsDockWidget::setPointerToolVisible(bool isSelected)
     m_tool_pointer->setChecked(isSelected);
     if (isSelected)
     {
-        d->toolArea->setWidget(0);
+        d->toolArea->setWidget(nullptr);
         this->unsetCursor();
         emit requireMultiSelection();
         emit pointerToolSelected();
@@ -310,7 +310,7 @@ void ToolsDockWidget::setHandToolVisible(bool isSelected)
     m_tool_hand->setChecked(isSelected);
     if (isSelected)
     {
-        d->toolArea->setWidget(0);
+        d->toolArea->setWidget(nullptr);
         this->unsetCursor();
         emit requireMultiSelection();
         emit handToolSelected();
@@ -322,13 +322,13 @@ void ToolsDockWidget::setZoomWidgetVisible(bool isVisible)
     if (d->zoom_tool)
     {
         d->zoom_tool->deleteLater();
-        d->zoom_tool = 0;
+        d->zoom_tool = nullptr;
     }
     m_tool_zoom->setChecked(isVisible);
     emit zoomToolSelectionChanged(isVisible);
     if (isVisible)
     {
-        d->zoom_tool = new ZoomTool(0, d->toolArea);
+        d->zoom_tool = new ZoomTool(nullptr, d->toolArea);
         d->zoom_tool->setScene(m_scene);
         d->toolArea->setWidget(d->zoom_tool);
         emit requireSingleSelection();
@@ -341,13 +341,13 @@ void ToolsDockWidget::setCanvasWidgetVisible(bool isVisible)
     if (d->canvas_tool)
     {
         d->canvas_tool->deleteLater();
-        d->canvas_tool = 0;
+        d->canvas_tool = nullptr;
     }
     m_canvas_button->setChecked(isVisible);
     emit canvasToolSelectionChanged(isVisible);
     if (isVisible)
     {
-        d->canvas_tool = new CanvasEditTool(0, d->toolArea);
+        d->canvas_tool = new CanvasEditTool(nullptr, d->toolArea);
         d->canvas_tool->setScene(m_scene);
         d->toolArea->setWidget(d->canvas_tool);
         emit requireMultiSelection();
@@ -360,13 +360,13 @@ void ToolsDockWidget::setEffectsWidgetVisible(bool isVisible)
     if (d->effects_tool)
     {
         d->effects_tool->deleteLater();
-        d->effects_tool = 0;
+        d->effects_tool = nullptr;
     }
     m_effects_button->setChecked(isVisible);
     emit effectsToolSelectionChanged(isVisible);
     if (isVisible)
     {
-        d->effects_tool = new EffectsEditorTool(0, d->toolArea);
+        d->effects_tool = new EffectsEditorTool(nullptr, d->toolArea);
         d->effects_tool->setScene(m_scene);
         d->effects_tool->setCurrentItem(m_current_item);
         d->toolArea->setWidget(d->effects_tool);
@@ -380,13 +380,13 @@ void ToolsDockWidget::setTextWidgetVisible(bool isVisible)
     if (d->text_tool)
     {
         d->text_tool->deleteLater();
-        d->text_tool = 0;
+        d->text_tool = nullptr;
     }
     m_text_button->setChecked(isVisible);
     emit textToolSelectionChanged(isVisible);
     if (isVisible)
     {
-        d->text_tool = new TextEditorTool(0, d->toolArea);
+        d->text_tool = new TextEditorTool(nullptr, d->toolArea);
         connect(d->text_tool, SIGNAL(itemCreated(AbstractPhoto*)), this, SLOT(emitNewItemCreated(AbstractPhoto*)));
         d->text_tool->setScene(m_scene);
         d->text_tool->setCurrentItem(m_current_item);
@@ -402,7 +402,7 @@ void ToolsDockWidget::setRotateWidgetVisible(bool isVisible)
     m_rotate_button->setChecked(isVisible);
     if (isVisible)
     {
-        d->toolArea->setWidget(0);
+        d->toolArea->setWidget(nullptr);
         emit requireSingleSelection();
         emit rotateToolSelected();
     }
@@ -414,7 +414,7 @@ void ToolsDockWidget::setScaleWidgetVisible(bool isVisible)
     m_scale_button->setChecked(isVisible);
     if (isVisible)
     {
-        d->toolArea->setWidget(0);
+        d->toolArea->setWidget(nullptr);
         emit requireSingleSelection();
         emit scaleToolSelected();
     }
@@ -426,7 +426,7 @@ void ToolsDockWidget::setCropWidgetVisible(bool isVisible)
     m_crop_button->setChecked(isVisible);
     if (isVisible)
     {
-        d->toolArea->setWidget(0);
+        d->toolArea->setWidget(nullptr);
         emit requireSingleSelection();
         emit cropToolSelected();
     }
@@ -437,13 +437,13 @@ void ToolsDockWidget::setBordersWidgetVisible(bool isVisible)
     if (d->border_tool)
     {
         d->border_tool->deleteLater();
-        d->border_tool = 0;
+        d->border_tool = nullptr;
     }
     m_tool_border->setChecked(isVisible);
     emit borderToolSelectionChanged(isVisible);
     if (isVisible)
     {
-        d->border_tool = new BorderEditTool(0, d->toolArea);
+        d->border_tool = new BorderEditTool(nullptr, d->toolArea);
         d->border_tool->setScene(m_scene);
         d->border_tool->setCurrentItem(m_current_item);
         d->toolArea->setWidget(d->border_tool);

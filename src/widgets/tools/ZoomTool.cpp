@@ -33,9 +33,9 @@ using namespace PhotoLayoutsEditor;
 class ZoomTool::ZoomToolPrivate
 {
     ZoomToolPrivate() :
-        out(0),
-        in(0),
-        listener(0)
+        out(nullptr),
+        in(nullptr),
+        listener(nullptr)
     {}
 
     QRadioButton * out;
@@ -73,7 +73,7 @@ ZoomTool::~ZoomTool()
     Scene * scene = this->scene();
     if (!scene)
         return;
-    scene->readSceneMousePress( 0 );
+    scene->readSceneMousePress(nullptr);
     delete d;
 }
 
@@ -82,7 +82,7 @@ void ZoomTool::sceneChange()
     Scene * scene = this->scene();
     if (!scene)
         return;
-    scene->readSceneMousePress( 0 );
+    scene->readSceneMousePress(nullptr);
 }
 
 void ZoomTool::sceneChanged()

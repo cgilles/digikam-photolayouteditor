@@ -61,7 +61,7 @@ bool TemplatesModel::insertRows(int row, int count, const QModelIndex & parent)
 
     beginInsertRows(parent, row, row + count - 1);
     while (count--)
-        templates.insert(row, 0);
+        templates.insert(row, nullptr);
     endInsertRows();
     return true;
 }

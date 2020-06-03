@@ -136,7 +136,7 @@ public:
     virtual void undo()
     {
         m_item_p->removeText(row, at, this->text.length());
-        m_item_p->command = 0;
+        m_item_p->command = nullptr;
     }
     void addText(const QString & text)
     {
@@ -164,7 +164,7 @@ public:
     virtual void undo()
     {
         m_item_p->addText(row, at, text);
-        m_item_p->command = 0;
+        m_item_p->command = nullptr;
     }
     virtual void removeLeft()
     {
@@ -202,7 +202,7 @@ public:
         m_item_p->m_cursor_row = ++row;
         m_item_p->m_string_list.insert(row, temp);
         m_item_p->m_item->refreshItem();
-        m_item_p->command = 0;
+        m_item_p->command = nullptr;
     }
     virtual void undo()
     {
@@ -211,7 +211,7 @@ public:
         m_item_p->m_string_list.removeAt(row);
         m_item_p->m_cursor_row = --row;
         m_item_p->m_item->refreshItem();
-        m_item_p->command = 0;
+        m_item_p->command = nullptr;
     }
 };
 class PhotoLayoutsEditor::MergeLineUndoCommand : public QUndoCommand
@@ -232,7 +232,7 @@ public:
         m_item_p->m_cursor_character = at = m_item_p->m_string_list[row].length();
         m_item_p->m_string_list[row].append( m_item_p->m_string_list[row+1] );
         m_item_p->m_string_list.removeAt(row+1);
-        m_item_p->command = 0;
+        m_item_p->command = nullptr;
         m_item_p->m_item->refreshItem();
     }
     virtual void undo()
@@ -242,7 +242,7 @@ public:
         m_item_p->m_cursor_row = ++row;
         m_item_p->m_string_list.insert(row, temp);
         m_item_p->m_cursor_character = at = 0;
-        m_item_p->command = 0;
+        m_item_p->command = nullptr;
         m_item_p->m_item->refreshItem();
     }
 };
@@ -261,7 +261,7 @@ void TextItem::TextItemPrivate::moveCursorLeft()
         else
             m_cursor_character = m_string_list.at(m_cursor_row).length();
     }
-    command = 0;
+    command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorRight()
@@ -278,7 +278,7 @@ void TextItem::TextItemPrivate::moveCursorRight()
         else
             m_cursor_character = 0;
     }
-    command = 0;
+    command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorUp()
@@ -288,7 +288,7 @@ void TextItem::TextItemPrivate::moveCursorUp()
         m_cursor_row = 0;
     else if (m_cursor_character > m_string_list.at(m_cursor_row).length())
         m_cursor_character = m_string_list.at(m_cursor_row).length();
-    command = 0;
+    command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorDown()
@@ -298,19 +298,19 @@ void TextItem::TextItemPrivate::moveCursorDown()
         --m_cursor_row;
     else if (m_cursor_character > m_string_list.at(m_cursor_row).length())
         m_cursor_character = m_string_list.at(m_cursor_row).length();
-    command = 0;
+    command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorEnd()
 {
     m_cursor_character = m_string_list.at(m_cursor_row).length();
-    command = 0;
+    command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorHome()
 {
     m_cursor_character = 0;
-    command = 0;
+    command = nullptr;
 }
 
 void TextItem::TextItemPrivate::removeTextAfter()
@@ -398,7 +398,7 @@ void TextItem::TextItemPrivate::removeText(int row, int at, int length)
 void TextItem::TextItemPrivate::closeEditor()
 {
     m_item->clearFocus();
-    command = 0;
+    command = nullptr;
 }
 
 TextItem::TextItem(const QString & text, Scene * scene) :
@@ -429,7 +429,7 @@ void TextItem::focusInEvent(QFocusEvent * event)
 
 void TextItem::focusOutEvent(QFocusEvent * event)
 {
-    d->command = 0;
+    d->command = nullptr;
     this->setCursorPositionVisible(false);
     AbstractPhoto::focusOutEvent(event);
     this->unsetCursor();
@@ -517,7 +517,7 @@ void TextItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
     else
         p.setX(0);
 
-    d->command = 0;
+    d->command = nullptr;
 
     this->update();
 }
@@ -747,7 +747,7 @@ TextItem * TextItem::fromSvg(QDomElement & element)
     }
 _delete:
     delete result;
-    return 0;
+    return nullptr;
 }
 
 void TextItem::refreshItem()

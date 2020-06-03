@@ -112,7 +112,7 @@ class PhotoLayoutsEditor::RotationWidgetItemPrivate
 
     QPointF viewportToItemPosition(const QPoint & pos, QWidget * widget)
     {
-        QGraphicsView *view = 0;
+        QGraphicsView *view = nullptr;
 
         if (widget)
             view = qobject_cast<QGraphicsView *>(widget->parentWidget());
@@ -128,7 +128,7 @@ class PhotoLayoutsEditor::RotationWidgetItemPrivate
 
     QRectF itemToViewportRect(const QRectF & rect, QWidget * widget)
     {
-        QGraphicsView *view = 0;
+        QGraphicsView *view = nullptr;
 
         if (widget)
             view = qobject_cast<QGraphicsView *>(widget->parentWidget());
@@ -292,7 +292,7 @@ void RotationWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
         {
             it.value()->setDone(true);
             PLE_PostUndoCommand(it.value());
-            it.value() = 0;
+            it.value() = nullptr;
         }
     }
     if (d->rotate_commands.count() > 1)

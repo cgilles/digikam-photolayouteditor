@@ -86,7 +86,7 @@
 #include "pleglobal.h"
 #include "ProgressEvent.h"
 #include "BorderDrawerInterface.h"
-#include "BorderDrawersLoader.h"
+#include "borderdrawersloader.h"
 #include "NewCanvasDialog.h"
 #include "ui_photolayoutswindow.h"
 

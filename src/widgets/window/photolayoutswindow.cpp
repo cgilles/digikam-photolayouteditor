@@ -611,17 +611,24 @@ bool PhotoLayoutsWindow::closeDocument()
         switch (saving)
         {
             case QMessageBox::Yes:
+            {
                 save();
+                break;
+            }
 
             case QMessageBox::No:
-                d->tree->setModel(0);
+            {
+                d->tree->setModel(nullptr);
                 d->canvas->deleteLater();
                 d->canvas = nullptr;
                 refreshActions();
                 return true;
+            }
 
             default:
+            {
                 return false;
+            }
         }
     }
 

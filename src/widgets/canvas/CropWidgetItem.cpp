@@ -57,7 +57,7 @@ class PhotoLayoutsEditor::CropWidgetItemPrivate
     };
 
     CropWidgetItemPrivate() :
-        m_item(0),
+        m_item(nullptr),
         currentViewTransform(1, 0, 0,    0, 1, 0,   0, 0, 1),
         pressedVHandler(-1),
         pressedHHandler(-1)

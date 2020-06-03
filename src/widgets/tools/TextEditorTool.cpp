@@ -43,9 +43,9 @@ class PhotoLayoutsEditor::TextEditorToolPrivate
 TextEditorTool::TextEditorTool(Scene * scene, QWidget * parent) :
     AbstractItemsTool(scene, Canvas::SingleSelcting, parent),
     d(new TextEditorToolPrivate),
-    m_text_item(0),
-    m_created_text_item(0),
-    m_browser(0),
+    m_text_item(nullptr),
+    m_created_text_item(nullptr),
+    m_browser(nullptr),
     m_create_new_item(false)
 {
     d->m_layout = new QVBoxLayout();
@@ -68,7 +68,7 @@ void TextEditorTool::currentItemAboutToBeChanged()
         d->m_layout->removeWidget(m_browser);
         m_browser->deleteLater();
         d->m_layout->insertStretch(1, 1);
-        m_browser = 0;
+        m_browser = nullptr;
     }
 }
 

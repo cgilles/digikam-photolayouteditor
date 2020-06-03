@@ -30,7 +30,7 @@ using namespace PhotoLayoutsEditor;
 
 AbstractItemsTool::AbstractItemsTool(Scene * scene, Canvas::SelectionMode selectionMode, QWidget * parent) :
     AbstractTool(scene, selectionMode, parent),
-    m_photo(0)
+    m_photo(nullptr)
 {
 }
 

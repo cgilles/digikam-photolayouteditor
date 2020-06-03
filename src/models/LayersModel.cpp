@@ -44,7 +44,7 @@ namespace PhotoLayoutsEditor
 LayersModel::LayersModel(QObject *parent) :
     QAbstractItemModel(parent)
 {
-    root = new LayersModelItem(0, 0, this);
+    root = new LayersModelItem(nullptr, nullptr, this);
 }
 
 LayersModel::~LayersModel()
@@ -136,14 +136,22 @@ bool LayersModel::setData(const QModelIndex & index, const QVariant & value, int
 Qt::ItemFlags LayersModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags result = Qt::ItemIsDropEnabled | this->QAbstractItemModel::flags(index);
+
     if (index.isValid())
     {
         if (index.column() == LayersModelItem::NameString)
-            result |= Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable; // ONLY ONE COLUMN COULD HAVE ItemIsSelectable FLAG! (it simplifies model)
+        {
+            // ONLY ONE COLUMN COULD HAVE ItemIsSelectable FLAG! (it simplifies model)
+            result |= Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable; 
+        }
         else
-            result &= !Qt::ItemIsEditable & !Qt::ItemIsSelectable;
+        {
+            result &= (!Qt::ItemIsEditable) & (!Qt::ItemIsSelectable);
+        }
+
         result |= Qt::ItemIsDragEnabled | Qt::ItemIsEnabled;
     }
+
     return result;
 }
 
@@ -218,7 +226,7 @@ bool LayersModel::insertRows(int position, int count, const QModelIndex  & paren
     beginInsertRows(parent,position,position+count-1);
     bool result = true;
     for (;count;--count)
-        result &= parentItem->insertChildren(position, new LayersModelItem(0, 0, this));
+        result &= parentItem->insertChildren(position, new LayersModelItem(nullptr, nullptr, this));
     endInsertRows();
     emit layoutChanged();
     return result;

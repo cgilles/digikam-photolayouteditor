@@ -140,7 +140,7 @@ Q_GLOBAL_STATIC(PropertyMap, propertyToWrappedProperty)
 
 static QtProperty *wrappedProperty(QtProperty *property)
 {
-    return propertyToWrappedProperty()->value(property, 0);
+    return propertyToWrappedProperty()->value(property, nullptr);
 }
 
 class QtVariantPropertyPrivate
@@ -418,7 +418,7 @@ QtVariantProperty *QtVariantPropertyManagerPrivate::createSubProperty(QtVariantP
 {
     int type = internalPropertyToType(internal);
     if (!type)
-        return 0;
+        return nullptr;
 
     bool wasCreatingSubProperties = m_creatingSubProperties;
     m_creatingSubProperties = true;
@@ -456,13 +456,13 @@ void QtVariantPropertyManagerPrivate::slotPropertyInserted(QtProperty *property,
     if (m_creatingProperty)
         return;
 
-    QtVariantProperty *varParent = m_internalToProperty.value(parent, 0);
+    QtVariantProperty *varParent = m_internalToProperty.value(parent, nullptr);
     if (!varParent)
         return;
 
-    QtVariantProperty *varAfter = 0;
+    QtVariantProperty *varAfter = nullptr;
     if (after) {
-        varAfter = m_internalToProperty.value(after, 0);
+        varAfter = m_internalToProperty.value(after, nullptr);
         if (!varAfter)
             return;
     }
@@ -474,7 +474,7 @@ void QtVariantPropertyManagerPrivate::slotPropertyRemoved(QtProperty *property, 
 {
     Q_UNUSED(parent)
 
-    QtVariantProperty *varProperty = m_internalToProperty.value(property, 0);
+    QtVariantProperty *varProperty = m_internalToProperty.value(property, nullptr);
     if (!varProperty)
         return;
 
@@ -483,7 +483,7 @@ void QtVariantPropertyManagerPrivate::slotPropertyRemoved(QtProperty *property, 
 
 void QtVariantPropertyManagerPrivate::valueChanged(QtProperty *property, const QVariant &val)
 {
-    QtVariantProperty *varProp = m_internalToProperty.value(property, 0);
+    QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr);
     if (!varProp)
         return;
     emit q_ptr->valueChanged(varProp, val);
@@ -497,7 +497,7 @@ void QtVariantPropertyManagerPrivate::slotValueChanged(QtProperty *property, int
 
 void QtVariantPropertyManagerPrivate::slotRangeChanged(QtProperty *property, int min, int max)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0)) {
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr)) {
         emit q_ptr->attributeChanged(varProp, m_minimumAttribute, QVariant(min));
         emit q_ptr->attributeChanged(varProp, m_maximumAttribute, QVariant(max));
     }
@@ -505,7 +505,7 @@ void QtVariantPropertyManagerPrivate::slotRangeChanged(QtProperty *property, int
 
 void QtVariantPropertyManagerPrivate::slotSingleStepChanged(QtProperty *property, int step)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0))
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr))
         emit q_ptr->attributeChanged(varProp, m_singleStepAttribute, QVariant(step));
 }
 
@@ -516,7 +516,7 @@ void QtVariantPropertyManagerPrivate::slotValueChanged(QtProperty *property, dou
 
 void QtVariantPropertyManagerPrivate::slotRangeChanged(QtProperty *property, double min, double max)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0)) {
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr)) {
         emit q_ptr->attributeChanged(varProp, m_minimumAttribute, QVariant(min));
         emit q_ptr->attributeChanged(varProp, m_maximumAttribute, QVariant(max));
     }
@@ -524,13 +524,13 @@ void QtVariantPropertyManagerPrivate::slotRangeChanged(QtProperty *property, dou
 
 void QtVariantPropertyManagerPrivate::slotSingleStepChanged(QtProperty *property, double step)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0))
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr))
         emit q_ptr->attributeChanged(varProp, m_singleStepAttribute, QVariant(step));
 }
 
 void QtVariantPropertyManagerPrivate::slotDecimalsChanged(QtProperty *property, int prec)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0))
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr))
         emit q_ptr->attributeChanged(varProp, m_decimalsAttribute, QVariant(prec));
 }
 
@@ -546,7 +546,7 @@ void QtVariantPropertyManagerPrivate::slotValueChanged(QtProperty *property, con
 
 void QtVariantPropertyManagerPrivate::slotRegExpChanged(QtProperty *property, const QRegExp &regExp)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0))
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr))
         emit q_ptr->attributeChanged(varProp, m_regExpAttribute, QVariant(regExp));
 }
 
@@ -557,7 +557,7 @@ void QtVariantPropertyManagerPrivate::slotValueChanged(QtProperty *property, con
 
 void QtVariantPropertyManagerPrivate::slotRangeChanged(QtProperty *property, const QDate &min, const QDate &max)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0)) {
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr)) {
         emit q_ptr->attributeChanged(varProp, m_minimumAttribute, QVariant(min));
         emit q_ptr->attributeChanged(varProp, m_maximumAttribute, QVariant(max));
     }
@@ -607,7 +607,7 @@ void QtVariantPropertyManagerPrivate::slotValueChanged(QtProperty *property, con
 
 void QtVariantPropertyManagerPrivate::slotRangeChanged(QtProperty *property, const QSize &min, const QSize &max)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0)) {
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr)) {
         emit q_ptr->attributeChanged(varProp, m_minimumAttribute, QVariant(min));
         emit q_ptr->attributeChanged(varProp, m_maximumAttribute, QVariant(max));
     }
@@ -620,7 +620,7 @@ void QtVariantPropertyManagerPrivate::slotValueChanged(QtProperty *property, con
 
 void QtVariantPropertyManagerPrivate::slotRangeChanged(QtProperty *property, const QSizeF &min, const QSizeF &max)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0)) {
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr)) {
         emit q_ptr->attributeChanged(varProp, m_minimumAttribute, QVariant(min));
         emit q_ptr->attributeChanged(varProp, m_maximumAttribute, QVariant(max));
     }
@@ -633,7 +633,7 @@ void QtVariantPropertyManagerPrivate::slotValueChanged(QtProperty *property, con
 
 void QtVariantPropertyManagerPrivate::slotConstraintChanged(QtProperty *property, const QRect &constraint)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0))
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr))
         emit q_ptr->attributeChanged(varProp, m_constraintAttribute, QVariant(constraint));
 }
 
@@ -644,7 +644,7 @@ void QtVariantPropertyManagerPrivate::slotValueChanged(QtProperty *property, con
 
 void QtVariantPropertyManagerPrivate::slotConstraintChanged(QtProperty *property, const QRectF &constraint)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0))
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr))
         emit q_ptr->attributeChanged(varProp, m_constraintAttribute, QVariant(constraint));
 }
 
@@ -655,13 +655,13 @@ void QtVariantPropertyManagerPrivate::slotValueChanged(QtProperty *property, con
 
 void QtVariantPropertyManagerPrivate::slotEnumNamesChanged(QtProperty *property, const QStringList &enumNames)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0))
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr))
         emit q_ptr->attributeChanged(varProp, m_enumNamesAttribute, QVariant(enumNames));
 }
 
 void QtVariantPropertyManagerPrivate::slotEnumIconsChanged(QtProperty *property, const QMap<int, QIcon> &enumIcons)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0)) {
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr)) {
         QVariant v;
         qVariantSetValue(v, enumIcons);
         emit q_ptr->attributeChanged(varProp, m_enumIconsAttribute, v);
@@ -687,7 +687,7 @@ void QtVariantPropertyManagerPrivate::slotValueChanged(QtProperty *property, con
 
 void QtVariantPropertyManagerPrivate::slotFlagNamesChanged(QtProperty *property, const QStringList &flagNames)
 {
-    if (QtVariantProperty *varProp = m_internalToProperty.value(property, 0))
+    if (QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr))
         emit q_ptr->attributeChanged(varProp, m_flagNamesAttribute, QVariant(flagNames));
 }
 
@@ -767,7 +767,7 @@ void QtVariantPropertyManagerPrivate::slotFlagNamesChanged(QtProperty *property,
     \row
         \o QSizeF
         \o QVariant::SizeF
-    \row
+    \row0
         \o QRect
         \o QVariant::Rect
     \row
@@ -1271,7 +1271,7 @@ QtVariantProperty *QtVariantPropertyManager::variantProperty(const QtProperty *p
 {
     const QMap<const QtProperty *, QPair<QtVariantProperty *, int> >::const_iterator it = d_ptr->m_propertyToType.constFind(property);
     if (it == d_ptr->m_propertyToType.constEnd())
-        return 0;
+        return nullptr;
     return it.value().first;
 }
 
@@ -1305,7 +1305,7 @@ bool QtVariantPropertyManager::isPropertyTypeSupported(int propertyType) const
 QtVariantProperty *QtVariantPropertyManager::addProperty(int propertyType, const QString &name)
 {
     if (!isPropertyTypeSupported(propertyType))
-        return 0;
+        return nullptr;
 
     bool wasCreating = d_ptr->m_creatingProperty;
     d_ptr->m_creatingProperty = true;
@@ -1315,14 +1315,14 @@ QtVariantProperty *QtVariantPropertyManager::addProperty(int propertyType, const
     d_ptr->m_propertyType = 0;
 
     if (!property)
-        return 0;
+        return nullptr;
 
     return variantProperty(property);
 }
 
 namespace{
 void addPropertyRecusively(QtVariantPropertyManager * manager,
-                           QtVariantProperty * prop, QtVariantProperty * newProp = 0)
+                           QtVariantProperty * prop, QtVariantProperty * newProp = nullptr)
   {
   if (!newProp)
     {
@@ -1382,8 +1382,8 @@ void QtVariantPropertyManager::setProperties(QSet<QtProperty *> properties)
 */
 QVariant QtVariantPropertyManager::value(const QtProperty *property) const
 {
-    QtProperty *internProp = propertyToWrappedProperty()->value(property, 0);
-    if (internProp == 0)
+    QtProperty *internProp = propertyToWrappedProperty()->value(property, nullptr);
+    if (internProp == nullptr)
         return QVariant();
 
     QtAbstractPropertyManager *manager = internProp->propertyManager();
@@ -1500,8 +1500,8 @@ QVariant QtVariantPropertyManager::attributeValue(const QtProperty *property, co
     if (itAttr == attributes.constEnd())
         return QVariant();
 
-    QtProperty *internProp = propertyToWrappedProperty()->value(property, 0);
-    if (internProp == 0)
+    QtProperty *internProp = propertyToWrappedProperty()->value(property, nullptr);
+    if (internProp == nullptr)
         return QVariant();
 
     QtAbstractPropertyManager *manager = internProp->propertyManager();
@@ -1639,8 +1639,8 @@ void QtVariantPropertyManager::setValue(QtProperty *property, const QVariant &va
     if (propType != valType && !val.canConvert(static_cast<QVariant::Type>(valType)))
         return;
 
-    QtProperty *internProp = propertyToWrappedProperty()->value(property, 0);
-    if (internProp == 0)
+    QtProperty *internProp = propertyToWrappedProperty()->value(property, nullptr);
+    if (internProp == nullptr)
         return;
 
 
@@ -1743,8 +1743,8 @@ void QtVariantPropertyManager::setAttribute(QtProperty *property,
                 !value.canConvert((QVariant::Type)attrType))
         return;
 
-    QtProperty *internProp = propertyToWrappedProperty()->value(property, 0);
-    if (internProp == 0)
+    QtProperty *internProp = propertyToWrappedProperty()->value(property, nullptr);
+    if (internProp == nullptr)
         return;
 
     QtAbstractPropertyManager *manager = internProp->propertyManager();
@@ -1832,7 +1832,7 @@ bool QtVariantPropertyManager::hasValue(const QtProperty *property) const
 */
 QString QtVariantPropertyManager::valueText(const QtProperty *property) const
 {
-    const QtProperty *internProp = propertyToWrappedProperty()->value(property, 0);
+    const QtProperty *internProp = propertyToWrappedProperty()->value(property, nullptr);
     return internProp ? internProp->valueText() : QString();
 }
 
@@ -1841,7 +1841,7 @@ QString QtVariantPropertyManager::valueText(const QtProperty *property) const
 */
 QIcon QtVariantPropertyManager::valueIcon(const QtProperty *property) const
 {
-    const QtProperty *internProp = propertyToWrappedProperty()->value(property, 0);
+    const QtProperty *internProp = propertyToWrappedProperty()->value(property, nullptr);
     return internProp ? internProp->valueIcon() : QIcon();
 }
 
@@ -1857,7 +1857,7 @@ void QtVariantPropertyManager::initializeProperty(QtProperty *property)
     QMap<int, QtAbstractPropertyManager *>::ConstIterator it =
             d_ptr->m_typeToPropertyManager.find(d_ptr->m_propertyType);
     if (it != d_ptr->m_typeToPropertyManager.constEnd()) {
-        QtProperty *internProp = 0;
+        QtProperty *internProp = nullptr;
         if (!d_ptr->m_creatingSubProperties) {
             QtAbstractPropertyManager *manager = it.value();
             internProp = manager->addProperty();
@@ -1867,7 +1867,7 @@ void QtVariantPropertyManager::initializeProperty(QtProperty *property)
         if (internProp) {
             QList<QtProperty *> children = internProp->subProperties();
             QListIterator<QtProperty *> itChild(children);
-            QtVariantProperty *lastProperty = 0;
+            QtVariantProperty *lastProperty = nullptr;
             while (itChild.hasNext()) {
                 QtVariantProperty *prop = d_ptr->createSubProperty(varProp, lastProperty, itChild.next());
                 lastProperty = prop ? prop : lastProperty;
@@ -1905,7 +1905,7 @@ void QtVariantPropertyManager::uninitializeProperty(QtProperty *property)
 QtProperty *QtVariantPropertyManager::createProperty()
 {
     if (!d_ptr->m_creatingProperty)
-        return 0;
+        return nullptr;
 
     QtVariantProperty *property = new QtVariantProperty(this);
     d_ptr->m_propertyToType.insert(property, qMakePair(property, d_ptr->m_propertyType));
@@ -2205,9 +2205,9 @@ QWidget *QtVariantEditorFactory::createEditor(QtVariantPropertyManager *manager,
         QWidget *parent)
 {
     const int propType = manager->propertyType(property);
-    QtAbstractEditorFactoryBase *factory = d_ptr->m_typeToFactory.value(propType, 0);
+    QtAbstractEditorFactoryBase *factory = d_ptr->m_typeToFactory.value(propType, nullptr);
     if (!factory)
-        return 0;
+        return nullptr;
     return factory->createEditor(wrappedProperty(property), parent);
 }
 

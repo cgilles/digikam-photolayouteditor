@@ -69,7 +69,7 @@ Canvas::Canvas(Scene * scene, QWidget * parent) :
     QGraphicsView(parent),
     d(new CanvasPrivate)
 {
-    Q_ASSERT(scene != 0);
+    Q_ASSERT(scene != nullptr);
     m_scene = scene;
     m_scene->setParent(this);
     this->setScene(m_scene);
@@ -199,31 +199,41 @@ void Canvas::preparePrinter(QPrinter * printer)
     CanvasSize::SizeUnits su = d->m_size.sizeUnit();
     QSizeF cs = d->m_size.size();
     bool setResolution = true;
+
     switch (su)
     {
-    case CanvasSize::Centimeters:
-        cs *= 10;
-    case CanvasSize::Milimeters:
-        printer->setPaperSize(cs, QPrinter::Millimeter);
-        break;
-    case CanvasSize::Inches:
-        printer->setPaperSize(cs, QPrinter::Inch);
-        break;
-    case CanvasSize::Points:
-        printer->setPaperSize(cs, QPrinter::Point);
-        break;
-    case CanvasSize::Picas:
-        printer->setPaperSize(cs, QPrinter::Pica);
-        break;
-    case CanvasSize::Pixels:
-        printer->setPaperSize(cs, QPrinter::DevicePixel);
-        setResolution = false;
-        break;
-    default:
-        printer->setPaperSize(cs, QPrinter::DevicePixel);
-        setResolution = false;
-        qDebug() << "Unhandled size unit at:" << __FILE__ << ":" << __LINE__;
+        case CanvasSize::Centimeters:
+            cs *= 10;
+            break;
+
+        case CanvasSize::Milimeters:
+            printer->setPaperSize(cs, QPrinter::Millimeter);
+            break;
+
+        case CanvasSize::Inches:
+            printer->setPaperSize(cs, QPrinter::Inch);
+            break;
+
+        case CanvasSize::Points:
+            printer->setPaperSize(cs, QPrinter::Point);
+            break;
+
+        case CanvasSize::Picas:
+            printer->setPaperSize(cs, QPrinter::Pica);
+            break;
+
+        case CanvasSize::Pixels:
+            printer->setPaperSize(cs, QPrinter::DevicePixel);
+            setResolution = false;
+            break;
+
+        default:
+            printer->setPaperSize(cs, QPrinter::DevicePixel);
+            setResolution = false;
+            qDebug() << "Unhandled size unit at:" << __FILE__ << ":" << __LINE__;
+            break;
     }
+
     if (setResolution)
     {
         QSize printerResolution = d->m_size.resolution(CanvasSize::PixelsPerInch).toSize();
@@ -480,7 +490,7 @@ void Canvas::selectionChanged()
         else
         {
             emit hasSelectionChanged(false);
-            emit selectedItem(0);
+            emit selectedItem(nullptr);
         }
     }
     else if (m_selection_mode & MultiSelecting)
@@ -608,7 +618,7 @@ void Canvas::refreshWidgetConnections(bool isVisible)
         emit hasSelectionChanged(m_scene->selectedItems().count());
     }
     else
-        disconnect(this,SIGNAL(hasSelectionChanged(bool)),sender(),0);
+        disconnect(this,SIGNAL(hasSelectionChanged(bool)),sender(), nullptr);
 }
 
 void Canvas::newUndoCommand(QUndoCommand * command)
@@ -655,7 +665,7 @@ void Canvas::progressEvent(ProgressEvent * event)
             }
             break;
         default:
-            temp = 0;
+            temp = nullptr;
             break;
     }
     event->setAccepted(temp);
@@ -718,7 +728,7 @@ QDomDocument Canvas::toSvg() const
 
 Canvas * Canvas::fromSvg(QDomDocument & document)
 {
-    Canvas * result = 0;
+    Canvas * result = nullptr;
     QDomNodeList children = document.childNodes();
 
     if (children.count())

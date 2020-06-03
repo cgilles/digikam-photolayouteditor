@@ -36,7 +36,7 @@ AbstractPhotoItemLoader::AbstractPhotoItemLoader(AbstractPhoto * item, QDomEleme
     QThread(parent),
     m_item(item),
     m_element(element),
-    m_observer(0)
+    m_observer(nullptr)
 {
     connect(this, SIGNAL(finished()), item, SLOT(refresh()));
     connect(this, SIGNAL(finished()), this, SLOT(deleteLater()));
@@ -161,7 +161,7 @@ void AbstractPhotoItemLoader::run()
     if (m_item->d->m_borders_group)
     {
         m_item->d->m_borders_group->deleteLater();
-        m_item->d->m_borders_group = 0;
+        m_item->d->m_borders_group = nullptr;
     }
     m_item->d->m_borders_group = BordersGroup::fromSvg(itemDataElement, m_item);
     if (!m_item->d->m_borders_group)
@@ -187,7 +187,7 @@ void AbstractPhotoItemLoader::run()
     if (m_item->d->m_effects_group)
     {
         m_item->d->m_effects_group->deleteLater();
-        m_item->d->m_effects_group = 0;
+        m_item->d->m_effects_group = nullptr;
     }
     m_item->d->m_effects_group = PhotoEffectsGroup::fromSvg(appNS, m_item);
     if (!m_item->d->m_effects_group)
