@@ -45,11 +45,11 @@ class QSpinBoxFactory : public QtSpinBoxFactory
 
 public:
 
-    QSpinBoxFactory(QObject * parent = nullptr);
+    QSpinBoxFactory(QObject* const parent = nullptr);
 
 protected:
 
-    QWidget * createEditor(QtIntPropertyManager * manager, QtProperty * property, QWidget * parent);
+    QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent);
 };
 
 // ---------------------------------------------------------------------
@@ -60,11 +60,11 @@ class QSliderFactory : public QtSliderFactory
 
 public:
 
-    QSliderFactory(QObject *parent = nullptr);
+    QSliderFactory(QObject* const parent = nullptr);
 
 protected:
 
-    QWidget * createEditor(QtIntPropertyManager * manager, QtProperty * property, QWidget * parent);
+    QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent);
 };
 
 // ---------------------------------------------------------------------
@@ -75,11 +75,11 @@ class QScrollBarFactory : public QtScrollBarFactory
 
 public:
 
-    QScrollBarFactory(QObject *parent = nullptr);
+    QScrollBarFactory(QObject* const parent = nullptr);
 
 protected:
 
-    QWidget * createEditor(QtIntPropertyManager * manager, QtProperty * property, QWidget * parent);
+    QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent);
 };
 
 // ---------------------------------------------------------------------
@@ -90,11 +90,11 @@ class QCheckBoxFactory : public QtCheckBoxFactory
 
 public:
 
-    QCheckBoxFactory(QObject *parent = nullptr);
+    QCheckBoxFactory(QObject* const parent = nullptr);
 
 protected:
 
-    QWidget * createEditor(QtBoolPropertyManager * manager, QtProperty * property, QWidget * parent);
+    QWidget* createEditor(QtBoolPropertyManager* manager, QtProperty* property, QWidget* parent);
 };
 
 // ---------------------------------------------------------------------
@@ -105,7 +105,7 @@ class QDoubleSpinBoxFactory : public QtDoubleSpinBoxFactory
 
 public:
 
-    QDoubleSpinBoxFactory(QObject* parent = nullptr);
+    QDoubleSpinBoxFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -120,7 +120,7 @@ class QLineEditFactory : public QtLineEditFactory
 
 public:
 
-    QLineEditFactory(QObject* parent = nullptr);
+    QLineEditFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -135,7 +135,7 @@ class QDateEditFactory : public QtDateEditFactory
 
 public:
 
-    QDateEditFactory(QObject* parent = nullptr);
+    QDateEditFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -150,7 +150,7 @@ class QTimeEditFactory : public QtTimeEditFactory
 
 public:
 
-    QTimeEditFactory(QObject* parent = nullptr);
+    QTimeEditFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -165,7 +165,7 @@ class QDateTimeEditFactory : public QtDateTimeEditFactory
 
 public:
 
-    QDateTimeEditFactory(QObject* parent = nullptr);
+    QDateTimeEditFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -180,7 +180,7 @@ class QKeySequenceEditorFactory : public QtKeySequenceEditorFactory
 
 public:
 
-    QKeySequenceEditorFactory(QObject* parent = nullptr);
+    QKeySequenceEditorFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -195,7 +195,7 @@ class QCharEditorFactory : public QtCharEditorFactory
 
 public:
 
-    QCharEditorFactory(QObject* parent = nullptr);
+    QCharEditorFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -210,7 +210,7 @@ class QEnumEditorFactory : public QtEnumEditorFactory
 
 public:
 
-    QEnumEditorFactory(QObject* parent = nullptr);
+    QEnumEditorFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -225,7 +225,7 @@ class QCursorEditorFactory : public QtCursorEditorFactory
 
 public:
 
-    QCursorEditorFactory(QObject* parent = nullptr);
+    QCursorEditorFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -240,7 +240,7 @@ class QColorEditorFactory : public QtColorEditorFactory
 
 public:
 
-    QColorEditorFactory(QObject* parent = nullptr);
+    QColorEditorFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -255,7 +255,7 @@ class QFontEditorFactory : public QtFontEditorFactory
 
 public:
 
-    QFontEditorFactory(QObject* parent = nullptr);
+    QFontEditorFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -270,7 +270,7 @@ class QVariantEditorFactory : public QtVariantEditorFactory
 
 public:
 
-    QVariantEditorFactory(QObject* parent = nullptr);
+    QVariantEditorFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -285,7 +285,7 @@ class QSliderEditFactory : public QtAbstractEditorFactory<QtIntPropertyManager>
 
 public:
 
-    explicit QSliderEditFactory(QObject* parent = nullptr);
+    explicit QSliderEditFactory(QObject* const parent = nullptr);
 
 protected:
 
@@ -299,7 +299,7 @@ Q_SIGNALS:
 
 private Q_SLOTS:
 
-    void slotEditorDestroyed(QObject* object);
+    void slotEditorDestroyed(QObject* const object);
 
 private:
 

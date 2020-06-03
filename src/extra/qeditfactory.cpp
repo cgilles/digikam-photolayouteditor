@@ -34,14 +34,14 @@
 namespace PhotoLayoutsEditor
 {
 
-QSpinBoxFactory::QSpinBoxFactory(QObject* parent)
+QSpinBoxFactory::QSpinBoxFactory(QObject* const parent)
     : QtSpinBoxFactory(parent)
 {
 }
 
-QWidget * QSpinBoxFactory::createEditor(QtIntPropertyManager * manager, QtProperty * property, QWidget * parent)
+QWidget* QSpinBoxFactory::createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
-    QWidget * widget = QtSpinBoxFactory::createEditor(manager,property,parent);
+    QWidget* widget = QtSpinBoxFactory::createEditor(manager,property,parent);
     connect(widget,SIGNAL(destroyed()),this,SLOT(emitEditingFinished()));
     return widget;
 }
