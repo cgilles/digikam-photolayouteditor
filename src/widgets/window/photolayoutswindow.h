@@ -35,6 +35,7 @@
 // digiKam includes
 
 #include "dinfointerface.h"
+#include "dplugingeneric.h"
 
 using namespace Digikam;
 
@@ -54,7 +55,7 @@ class PhotoLayoutsWindow : public QMainWindow
 public:
 
     ~PhotoLayoutsWindow();
-    static PhotoLayoutsWindow* instance(QWidget* const parent = nullptr);
+    static PhotoLayoutsWindow* instance(DPluginGeneric* const plugin = nullptr);
 
     void addUndoCommand(QUndoCommand* const command);
     void beginUndoCommandGroup(const QString& name);
@@ -97,10 +98,10 @@ protected Q_SLOTS:
     bool queryClose();
     void refreshActions();
     void slotAbout();
-    
+
 private:
 
-    explicit PhotoLayoutsWindow(QWidget* const parent = nullptr);
+    explicit PhotoLayoutsWindow(DPluginGeneric* const plugin = nullptr);
 
     void setupActions();
     void createWidgets();

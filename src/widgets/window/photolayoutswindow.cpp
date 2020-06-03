@@ -27,11 +27,12 @@
 namespace PhotoLayoutsEditor
 {
 
-PhotoLayoutsWindow::PhotoLayoutsWindow(QWidget* const parent)
-    : QMainWindow(parent),
+PhotoLayoutsWindow::PhotoLayoutsWindow(DPluginGeneric* const plugin)
+    : QMainWindow(nullptr),
       d(new Private)
 {
     m_instance = this;
+    d->plugin  = plugin;
     initIconsResource();
 
     d->ui = new Ui::PhotoLayoutWindow;
@@ -78,7 +79,7 @@ PhotoLayoutsWindow::~PhotoLayoutsWindow()
     cleanupIconsResource();
 }
 
-PhotoLayoutsWindow* PhotoLayoutsWindow::instance(QWidget* const parent)
+PhotoLayoutsWindow* PhotoLayoutsWindow::instance(DPluginGeneric* const plugin)
 {
     if (m_instance)
     {
@@ -87,7 +88,7 @@ PhotoLayoutsWindow* PhotoLayoutsWindow::instance(QWidget* const parent)
     else
     {
         qApp->installEventFilter(new UndoCommandEventFilter(qApp));
-        return (m_instance = new PhotoLayoutsWindow(parent));
+        return (m_instance = new PhotoLayoutsWindow(plugin));
     }
 }
 
@@ -652,7 +653,7 @@ void PhotoLayoutsWindow::settings()
 {
     QPointer<PLEConfigDialog> const dialog = new PLEConfigDialog(this);
     dialog->show();
-    
+
     QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
     d->canvas->setAntialiasing(config.value(QLatin1String("Antialiasing"), false).toBool());
@@ -685,13 +686,13 @@ void PhotoLayoutsWindow::loadNewImage()
 void PhotoLayoutsWindow::setGridVisible(bool isVisible)
 {
     d->ui->showGridToggleAction->setChecked(isVisible);
-    
+
     QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("View"));
     config.setValue(QLatin1String("ShowGrid"), isVisible);
     config.endGroup();
     config.sync();
-    
+
     if (d->canvas && d->canvas->scene())
     {
         d->canvas->scene()->setGridVisible(isVisible);
@@ -765,6 +766,18 @@ void PhotoLayoutsWindow::loadBorders()
 
 void PhotoLayoutsWindow::slotAbout()
 {
+    if (d->plugin)
+    {
+        QPointer<DPluginAboutDlg> dlg = new DPluginAboutDlg(d->plugin);
+        dlg->exec();
+        delete dlg;
+    }
+    else
+    {
+        QMessageBox::about(this,
+                           QObject::tr("About Photo Layouts Editor"),
+                           QObject::tr("A tool to create collage layout of images using effect."));
+    }
 }
 
 } // namespace PhotoLayoutsEditor

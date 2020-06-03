@@ -109,12 +109,13 @@ void PhotoLayoutsEditorPlugin::slotPhotoLayoutsEditor()
 
     if (images.isEmpty())
     {
-        images  = iface->currentAlbumItems();
+        images = iface->currentAlbumItems();
     }
 
     if (!images.isEmpty())
     {
-        PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(nullptr);
+        PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(this);
+        w->setInterface(iface);
         w->open();
         w->loadImages(images);
         w->show();

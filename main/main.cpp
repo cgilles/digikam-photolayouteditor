@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
 
     parser.clearPositionalArguments();
 
-    PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(0);
+    PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(nullptr);
     w->open();
 
     if (!urlList.isEmpty())

@@ -61,6 +61,7 @@
 #include "imagedialog.h"
 #include "dmessagebox.h"
 #include "digikam_globals.h"
+#include "dpluginaboutdlg.h"
 
 // Local includes
 
@@ -115,7 +116,8 @@ class PhotoLayoutsWindow::Private
             fileDialog(nullptr),
             canvas(nullptr),
             interface(nullptr),
-            ui(nullptr)
+            ui(nullptr),
+            plugin(nullptr)
         {
         }
 
@@ -149,6 +151,7 @@ class PhotoLayoutsWindow::Private
         Canvas*                                         canvas;
         DInfoInterface*                                 interface;
         Ui::PhotoLayoutWindow*                          ui;
+        DPluginGeneric*                                 plugin;
 };
 
 // ---------------------------------------------------------------------
