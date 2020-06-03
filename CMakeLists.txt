@@ -65,9 +65,9 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/models
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/listeners
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects
-                    ${CMAKE_CURRENT_SOURCE_DIR}/src/effecttools
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders
-                    ${CMAKE_CURRENT_SOURCE_DIR}/src/bordertools
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools
 
                     ${CMAKE_BINARY_DIR}/
 )
@@ -81,26 +81,24 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models/LayersModelItem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models/LayersSelectionModel.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/bordertools/StandardBordersFactory.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/bordertools/PolaroidBorderDrawer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/bordertools/SolidBorderDrawer.cpp
-
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderChangeListener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderDrawerInterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderDrawersLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BordersGroup.cpp
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effecttools/StandardEffectsFactory.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effecttools/BlurPhotoEffect.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effecttools/ColorizePhotoEffect.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effecttools/GrayscalePhotoEffect.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effecttools/SepiaPhotoEffect.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effecttools/NegativePhotoEffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/StandardBordersFactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/PolaroidBorderDrawer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/SolidBorderDrawer.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/AbstractPhotoEffectInterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/PhotoEffectChangeListener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/PhotoEffectsGroup.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/PhotoEffectsLoader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/StandardEffectsFactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/BlurPhotoEffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/ColorizePhotoEffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/GrayscalePhotoEffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/SepiaPhotoEffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/NegativePhotoEffect.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/AbstractPhotoItemLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/CanvasLoadingThread.cpp
