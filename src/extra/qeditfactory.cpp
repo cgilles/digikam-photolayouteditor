@@ -22,6 +22,11 @@
  *
  * ============================================================ */
 
+#if defined(__GNUC__)
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wzero-as-null-pointer-constant"
+#endif
+
 #include "qeditfactory.h"
 
 // Qt includes
@@ -326,3 +331,7 @@ void QSliderEditFactory::slotEditorDestroyed(QObject* object)
 }
 
 } // namespace PhotoLayoutsEditor
+
+#if defined(__GNUC__)
+#   pragma GCC diagnostic pop
+#endif
