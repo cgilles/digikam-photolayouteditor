@@ -86,6 +86,7 @@ class LayersModel : public QAbstractItemModel
                       const QModelIndex& sourceParent, int destPosition,
                       const QModelIndex& destinationParent);
 
+        using QAbstractItemModel::moveRows;
         bool moveRows(const QModelIndex& start1, const QModelIndex& end1,
                       const QModelIndex& parent1, const QModelIndex& start2,
                       const QModelIndex& parent2);

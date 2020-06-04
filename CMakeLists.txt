@@ -182,7 +182,7 @@ target_compile_options(photolayoutseditorcore PRIVATE
                        -Wall
                        -Wextra
                        -Wsuggest-override
-#                       -Woverloaded-virtual
+                       -Woverloaded-virtual
                        -Wzero-as-null-pointer-constant
 )
 
