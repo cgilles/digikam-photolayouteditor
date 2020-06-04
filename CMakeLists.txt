@@ -76,6 +76,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models/LayersModelItem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models/LayersSelectionModel.cpp
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/borderdrawerfactoryinterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderChangeListener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderDrawerInterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/borderdrawersloader.cpp
@@ -84,6 +85,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/PolaroidBorderDrawer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/SolidBorderDrawer.cpp
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/abstractphotoeffectfactory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/AbstractPhotoEffectInterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/PhotoEffectChangeListener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/PhotoEffectsGroup.cpp
@@ -153,7 +155,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/AbstractPhoto.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/AbstractPhoto_p.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/TextItem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/AbstractItemInterface.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/abstractiteminterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/PhotoItem.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/Canvas.cpp

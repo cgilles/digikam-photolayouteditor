@@ -22,34 +22,18 @@
  *
  * ============================================================ */
 
-#include "AbstractItemInterface.h"
+#include "abstractphotoeffectfactory.h"
 
-#include <QGraphicsScene>
+namespace PhotoLayoutsEditor
+{
 
-using namespace PhotoLayoutsEditor;
-
-AbstractItemInterface::AbstractItemInterface(QGraphicsItem * parent, QGraphicsScene * scene) :
-    QObject(scene),
-    QGraphicsItem(parent)
+AbstractPhotoEffectFactory::AbstractPhotoEffectFactory(QObject* const parent)
+    : QObject(parent)
 {
 }
 
-void AbstractItemInterface::mousePressEvent(QGraphicsSceneMouseEvent * event)
+AbstractPhotoEffectFactory::~AbstractPhotoEffectFactory()
 {
-    QGraphicsItem::mousePressEvent(event);
 }
 
-void AbstractItemInterface::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
-{
-    QGraphicsItem::mouseMoveEvent(event);
-}
-
-void AbstractItemInterface::mouseReleaseEvent(QGraphicsSceneMouseEvent * event)
-{
-    QGraphicsItem::mouseReleaseEvent(event);
-}
-
-void AbstractItemInterface::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event)
-{
-    QGraphicsItem::mouseDoubleClickEvent(event);
-}
+} // namespace PhotoLayoutsEditor

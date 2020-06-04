@@ -25,7 +25,7 @@
 #ifndef SCALINGWIDGETITEM_H
 #define SCALINGWIDGETITEM_H
 
-#include "AbstractItemInterface.h"
+#include "abstractiteminterface.h"
 
 namespace PhotoLayoutsEditor
 {

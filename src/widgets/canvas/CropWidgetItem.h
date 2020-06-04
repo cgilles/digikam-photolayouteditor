@@ -25,7 +25,7 @@
 #ifndef CROPWIDGETITEM_H
 #define CROPWIDGETITEM_H
 
-#include "AbstractItemInterface.h"
+#include "abstractiteminterface.h"
 
 namespace PhotoLayoutsEditor
 {

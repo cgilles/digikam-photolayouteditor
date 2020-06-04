@@ -5,7 +5,6 @@
  *
  * Date        : 2011-09-01
  * Description : a plugin to create photo layouts by fusion of several images.
- * 
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
  * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
@@ -23,30 +22,39 @@
  *
  * ============================================================ */
 
-#ifndef BORDERDRAWERFACTORYINTERFACE_H
-#define BORDERDRAWERFACTORYINTERFACE_H
+#include "abstractiteminterface.h"
 
-#include <QObject>
+// Qt includes
+
+#include <QGraphicsScene>
 
 namespace PhotoLayoutsEditor
 {
-    class BorderDrawerInterface;
-    class BorderDrawerFactoryInterface : public QObject
-    {
-        public:
 
-            explicit BorderDrawerFactoryInterface(QObject* parent = nullptr) :
-                QObject(parent)
-            {}
-
-            virtual ~BorderDrawerFactoryInterface()
-            {}
-
-            virtual QString drawersNames() const = 0;
-            virtual BorderDrawerInterface* getDrawerInstance(const QString& name) = 0;
-    };
+AbstractItemInterface::AbstractItemInterface(QGraphicsItem* const parent, QGraphicsScene* const scene)
+    : QObject(scene),
+      QGraphicsItem(parent)
+{
 }
 
-Q_DECLARE_INTERFACE(PhotoLayoutsEditor::BorderDrawerFactoryInterface, "pl.coder89.ple.BorderDrawerFactoryInterface/1.0")
+void AbstractItemInterface::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsItem::mousePressEvent(event);
+}
 
-#endif // BORDERDRAWERFACTORYINTERFACE_H
+void AbstractItemInterface::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsItem::mouseMoveEvent(event);
+}
+
+void AbstractItemInterface::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsItem::mouseReleaseEvent(event);
+}
+
+void AbstractItemInterface::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsItem::mouseDoubleClickEvent(event);
+}
+
+} // namespace PhotoLayoutsEditor

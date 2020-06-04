@@ -25,7 +25,7 @@
 #ifndef STANDARDEFFECTSFACTORY_H
 #define STANDARDEFFECTSFACTORY_H
 
-#include "AbstractPhotoEffectFactory.h"
+#include "abstractphotoeffectfactory.h"
 
 namespace PhotoLayoutsEditor
 {

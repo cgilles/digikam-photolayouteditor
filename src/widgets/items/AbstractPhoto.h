@@ -35,7 +35,7 @@
 #include <QDomNode>
 
 // Local
-#include "AbstractItemInterface.h"
+#include "abstractiteminterface.h"
 #include "BordersGroup.h"
 #include "PhotoEffectsGroup.h"
 

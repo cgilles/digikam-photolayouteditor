@@ -33,7 +33,7 @@
 
 // Local includes
 
-#include "BorderDrawerFactoryInterface.h"
+#include "borderdrawerfactoryinterface.h"
 
 class QtProperty;
 

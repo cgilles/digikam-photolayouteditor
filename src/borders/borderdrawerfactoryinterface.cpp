@@ -5,6 +5,7 @@
  *
  * Date        : 2011-09-01
  * Description : a plugin to create photo layouts by fusion of several images.
+ * 
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
  * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
@@ -22,24 +23,18 @@
  *
  * ============================================================ */
 
-#ifndef STANDARDBORDERSFACTORY_H
-#define STANDARDBORDERSFACTORY_H
-
 #include "borderdrawerfactoryinterface.h"
 
 namespace PhotoLayoutsEditor
 {
-    class StandardBordersFactory : public BorderDrawerFactoryInterface
-    {
-        public:
 
-            explicit StandardBordersFactory(QObject* parent = nullptr);
-
-            virtual QString drawersNames() const override;
-
-            virtual BorderDrawerInterface * getDrawerInstance(const QString & name) override;
-
-    };
+BorderDrawerFactoryInterface::BorderDrawerFactoryInterface(QObject* const parent)
+   : QObject(parent)
+{
 }
 
-#endif // STANDARDBORDERSFACTORY_H
+BorderDrawerFactoryInterface::~BorderDrawerFactoryInterface()
+{
+}
+
+} // namespace PhotoLayoutsEditor

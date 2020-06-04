@@ -28,7 +28,7 @@
 #include "UndoCommandEvent.h"
 #include "qeditfactory.h"
 #include "pleglobal.h"
-#include "AbstractPhotoEffectFactory.h"
+#include "abstractphotoeffectfactory.h"
 #include "AbstractPhotoEffectInterface.h"
 #include "PhotoEffectChangeListener.h"
 #include "qtpropertybrowser.h"
