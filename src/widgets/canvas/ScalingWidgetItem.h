@@ -46,15 +46,15 @@ namespace PhotoLayoutsEditor
             explicit ScalingWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem * parent = nullptr, QGraphicsScene * scene = nullptr);
             virtual ~ScalingWidgetItem();
 
-            virtual QRectF boundingRect() const;
-            virtual QPainterPath opaqueArea() const;
-            virtual QPainterPath shape() const;
-            virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
+            virtual QRectF boundingRect() const override;
+            virtual QPainterPath opaqueArea() const override;
+            virtual QPainterPath shape() const override;
+            virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget) override;
 
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
-            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
-            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
-            virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event);
+            virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
+            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
+            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event) override;
+            virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) override;
 
         private:
 

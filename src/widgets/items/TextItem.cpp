@@ -51,13 +51,13 @@ public:
         m_text(text),
         m_item(item)
     {}
-    virtual void redo()
+    virtual void redo() override
     {
         QStringList temp = m_item->d->m_string_list;
         m_item->d->m_string_list = m_text;
         m_text = temp;
     }
-    virtual void undo()
+    virtual void undo() override
     {
         QStringList temp = m_item->d->m_string_list;
         m_item->d->m_string_list = m_text;
@@ -74,11 +74,11 @@ class PhotoLayoutsEditor::TextColorUndoCommand : public QUndoCommand
             m_item(item),
             m_color(color)
         {}
-        virtual void redo()
+        virtual void redo() override
         {
             run();
         }
-        virtual void undo()
+        virtual void undo() override
         {
             run();
         }
@@ -100,11 +100,11 @@ class PhotoLayoutsEditor::TextFontUndoCommand : public QUndoCommand
             m_item(item),
             m_font(font)
         {}
-        virtual void redo()
+        virtual void redo() override
         {
             run();
         }
-        virtual void undo()
+        virtual void undo() override
         {
             run();
         }
@@ -129,11 +129,11 @@ public:
         row(row),
         at(at)
     {}
-    virtual void redo()
+    virtual void redo() override
     {
         m_item_p->addText(row, at, text);
     }
-    virtual void undo()
+    virtual void undo() override
     {
         m_item_p->removeText(row, at, this->text.length());
         m_item_p->command = nullptr;
@@ -157,11 +157,11 @@ public:
         row(row),
         at(at)
     {}
-    virtual void redo()
+    virtual void redo() override
     {
         m_item_p->removeText(row, at, text.length());
     }
-    virtual void undo()
+    virtual void undo() override
     {
         m_item_p->addText(row, at, text);
         m_item_p->command = nullptr;
@@ -192,7 +192,7 @@ public:
         row(row),
         at(at)
     {}
-    virtual void redo()
+    virtual void redo() override
     {
         int length = m_item_p->m_string_list[row].length()-at;
         length = length < 0 ? 0 : length;
@@ -204,7 +204,7 @@ public:
         m_item_p->m_item->refreshItem();
         m_item_p->command = nullptr;
     }
-    virtual void undo()
+    virtual void undo() override
     {
         m_item_p->m_cursor_character = at = m_item_p->m_string_list[row-1].length();
         m_item_p->m_string_list[row-1].append( m_item_p->m_string_list[row] );
@@ -226,7 +226,7 @@ public:
         row(row),
         at(0)
     {}
-    virtual void redo()
+    virtual void redo() override
     {
         m_item_p->m_cursor_row = --row;
         m_item_p->m_cursor_character = at = m_item_p->m_string_list[row].length();
@@ -235,7 +235,7 @@ public:
         m_item_p->command = nullptr;
         m_item_p->m_item->refreshItem();
     }
-    virtual void undo()
+    virtual void undo() override
     {
         QString temp = m_item_p->m_string_list[row].right( m_item_p->m_string_list[row].length()-at );
         m_item_p->m_string_list[row].remove(at, temp.length());

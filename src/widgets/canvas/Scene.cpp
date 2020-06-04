@@ -324,14 +324,14 @@ class AddItemsCommand
                 item->deleteLater();
             items.clear();
         }
-        virtual void redo()
+        virtual void redo() override
         {
             foreach(AbstractPhoto* item, items)
                 scene->QGraphicsScene::addItem(item);
             scene->model()->insertItems(items, position);
             done = true;
         }
-        virtual void undo()
+        virtual void undo() override
         {
             QRectF region;
             foreach(AbstractPhoto* item, items)
@@ -360,7 +360,7 @@ class MoveItemsCommand
             m_scene(scene),
             done(true)
         {}
-        virtual void redo()
+        virtual void redo() override
         {
             if (!done)
             {
@@ -376,7 +376,7 @@ class MoveItemsCommand
                 m_scene->calcSelectionBoundingRect();
             }
         }
-        virtual void undo()
+        virtual void undo() override
         {
             if (done)
             {
@@ -424,7 +424,7 @@ class RemoveItemsCommand
             }
         }
 
-        virtual void redo()
+        virtual void redo() override
         {
             QPersistentModelIndex parentIndex = QPersistentModelIndex(m_scene->model()->findIndex( item_parent ));
             if (item_parent && !(parentIndex.isValid() && item_parent->scene()))
@@ -442,7 +442,7 @@ class RemoveItemsCommand
             done = true;
         }
 
-        virtual void undo()
+        virtual void undo() override
         {
             if (!done)
                 return;
@@ -513,11 +513,11 @@ public:
         foreach(AbstractPhoto* item, items)
             data.insert(item, item->mapFromScene(path));
     }
-    virtual void redo()
+    virtual void redo() override
     {
         this->run();
     }
-    virtual void undo()
+    virtual void undo() override
     {
         this->run();
     }

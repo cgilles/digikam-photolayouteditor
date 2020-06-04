@@ -50,10 +50,10 @@ namespace PhotoLayoutsEditor
         public:
 
             explicit TextItem(const QString & text = QString(), Scene * scene = nullptr);
-            virtual void focusInEvent(QFocusEvent *event);
-            virtual void focusOutEvent(QFocusEvent *event);
-            virtual void keyPressEvent(QKeyEvent * event);
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
+            virtual void focusInEvent(QFocusEvent *event) override;
+            virtual void focusOutEvent(QFocusEvent *event) override;
+            virtual void keyPressEvent(QKeyEvent * event) override;
+            virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
             Q_PROPERTY(QColor m_color READ color WRITE setColor)
             QColor color() const;
@@ -70,24 +70,24 @@ namespace PhotoLayoutsEditor
             QString textMultiline() const;
             void setText(const QString & text);
 
-            virtual QPainterPath itemShape() const;
-            virtual QPainterPath itemOpaqueArea() const;
-            virtual QPainterPath itemDrawArea() const;
+            virtual QPainterPath itemShape() const override;
+            virtual QPainterPath itemOpaqueArea() const override;
+            virtual QPainterPath itemDrawArea() const override;
 
-            virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+            virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-            virtual QDomDocument toSvg() const;
-            virtual QDomDocument toTemplateSvg() const;
-            virtual QDomDocument svgVisibleArea() const;
-            virtual QDomDocument svgTemplateArea() const;
+            virtual QDomDocument toSvg() const override;
+            virtual QDomDocument toTemplateSvg() const override;
+            virtual QDomDocument svgVisibleArea() const override;
+            virtual QDomDocument svgTemplateArea() const override;
             static TextItem * fromSvg(QDomElement & element);
 
             /// Returns item's property browser
-            virtual QtAbstractPropertyBrowser * propertyBrowser();
+            virtual QtAbstractPropertyBrowser * propertyBrowser() override;
 
         private:
 
-            virtual void refreshItem();
+            virtual void refreshItem() override;
             QPainterPath getLinePath(const QString & string);
             void setCursorPositionVisible(bool isVisible);
             void updateIcon();

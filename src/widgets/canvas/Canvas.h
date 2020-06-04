@@ -77,7 +77,7 @@ namespace PhotoLayoutsEditor
             explicit Canvas(const CanvasSize & size, QWidget* parent = nullptr);
             ~Canvas();
 
-            virtual void wheelEvent(QWheelEvent* event);
+            virtual void wheelEvent(QWheelEvent* event) override;
 
             QDomDocument toSvg() const;
             static Canvas* fromSvg(QDomDocument& document);

@@ -72,14 +72,14 @@ class MyStackedLayout : public QStackedLayout
 
         MyStackedLayout(QWidget * parent = nullptr) : QStackedLayout(parent) {}
 
-        virtual QSize sizeHint() const
+        virtual QSize sizeHint() const override
         {
             QSize s = QStackedLayout::sizeHint();
             s.setHeight(this->currentWidget()->sizeHint().height());
             return s;
         }
 
-        virtual QSize minimumSize() const
+        virtual QSize minimumSize() const override
         {
             return sizeHint();
         }

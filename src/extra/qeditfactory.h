@@ -49,7 +49,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -64,7 +64,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -79,7 +79,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -94,7 +94,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtBoolPropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtBoolPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -109,7 +109,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtDoublePropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtDoublePropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -124,7 +124,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtStringPropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtStringPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -139,7 +139,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtDatePropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtDatePropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -154,7 +154,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtTimePropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtTimePropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -169,7 +169,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtDateTimePropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtDateTimePropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -184,7 +184,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtKeySequencePropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtKeySequencePropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -199,7 +199,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtCharPropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtCharPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -214,7 +214,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtEnumPropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtEnumPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -229,7 +229,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtCursorPropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtCursorPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -244,7 +244,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtColorPropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtColorPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -259,7 +259,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtFontPropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtFontPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -274,7 +274,7 @@ public:
 
 protected:
 
-    QWidget* createEditor(QtVariantPropertyManager* manager, QtProperty* property, QWidget* parent);
+    QWidget* createEditor(QtVariantPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
 // ---------------------------------------------------------------------
@@ -289,9 +289,9 @@ public:
 
 protected:
 
-    virtual void connectPropertyManager(QtIntPropertyManager* manager);
-    virtual QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent);
-    virtual void disconnectPropertyManager(QtIntPropertyManager* manager);
+    virtual void connectPropertyManager(QtIntPropertyManager* manager) override;
+    virtual QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent) override;
+    virtual void disconnectPropertyManager(QtIntPropertyManager* manager) override;
 
 Q_SIGNALS:
 

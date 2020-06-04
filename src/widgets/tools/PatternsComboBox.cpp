@@ -41,14 +41,14 @@ class PatternDelegate : public QStyledItemDelegate
         {}
         virtual ~PatternDelegate()
         {}
-        virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
+        virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const override
         {
             QSize result = option.rect.size();
             if (index.isValid())
                 result.setHeight(24);
             return result;
         }
-        virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
+        virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override
         {
             if (index.isValid())
             {

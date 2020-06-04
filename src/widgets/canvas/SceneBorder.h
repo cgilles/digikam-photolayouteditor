@@ -53,7 +53,7 @@ namespace PhotoLayoutsEditor
         public:
 
             SceneBorder(QGraphicsScene * scene = nullptr);
-            virtual QRectF boundingRect() const;
+            virtual QRectF boundingRect() const override;
 
             void setImage(const QImage & image);
 
@@ -69,8 +69,8 @@ namespace PhotoLayoutsEditor
 
         protected:
 
-            QVariant itemChange(GraphicsItemChange change, const QVariant & value);
-            void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
+            QVariant itemChange(GraphicsItemChange change, const QVariant & value) override;
+            void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget) override;
             void render(QPainter * painter, const QRect & rect);
 
         protected Q_SLOTS:

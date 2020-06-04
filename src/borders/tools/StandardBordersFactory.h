@@ -35,9 +35,9 @@ namespace PhotoLayoutsEditor
 
             explicit StandardBordersFactory(QObject* parent = nullptr);
 
-            virtual QString drawersNames() const;
+            virtual QString drawersNames() const override;
 
-            virtual BorderDrawerInterface * getDrawerInstance(const QString & name);
+            virtual BorderDrawerInterface * getDrawerInstance(const QString & name) override;
 
     };
 }

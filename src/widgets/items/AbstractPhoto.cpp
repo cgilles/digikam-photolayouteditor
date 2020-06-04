@@ -52,11 +52,11 @@ public:
         m_crop_shape(cropShape),
         m_item(item)
     {}
-    virtual void redo()
+    virtual void redo() override
     {
         this->run();
     }
-    virtual void undo()
+    virtual void undo() override
     {
         this->run();
     }
@@ -77,11 +77,11 @@ public:
         m_name(name),
         m_item(item)
     {}
-    virtual void redo()
+    virtual void redo() override
     {
         this->run();
     }
-    virtual void undo()
+    virtual void undo() override
     {
         this->run();
     }

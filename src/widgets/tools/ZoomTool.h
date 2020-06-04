@@ -44,8 +44,8 @@ namespace PhotoLayoutsEditor
 
         protected:
 
-            virtual void sceneChange();
-            virtual void sceneChanged();
+            virtual void sceneChange() override;
+            virtual void sceneChanged() override;
 
         private:
 

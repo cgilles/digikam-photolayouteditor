@@ -41,10 +41,10 @@ namespace PhotoLayoutsEditor
         public:
 
             explicit BorderEditTool(Scene * scene, QWidget * parent = nullptr);
-            virtual QStringList options() const;
-            virtual AbstractMovableModel * model();
-            virtual QObject * createItem(const QString & name);
-            virtual QWidget * createEditor(QObject * item, bool createCommands = true);
+            virtual QStringList options() const override;
+            virtual AbstractMovableModel * model() override;
+            virtual QObject * createItem(const QString & name) override;
+            virtual QWidget * createEditor(QObject * item, bool createCommands = true) override;
 
     };
 }

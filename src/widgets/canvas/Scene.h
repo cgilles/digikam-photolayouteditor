@@ -150,18 +150,18 @@ public Q_SLOTS:
 protected:
 
     virtual void contextMenuEvent(QGraphicsSceneMouseEvent * event);
-    virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent * event);
-    virtual void drawBackground(QPainter * painter, const QRectF & rect);
-    virtual void drawForeground(QPainter * painter, const QRectF & rect);
-    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event);
-    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event);
-    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event);
-    virtual void dropEvent(QGraphicsSceneDragDropEvent * event);
-    virtual void keyPressEvent(QKeyEvent * event);
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent * event);
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
-    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event);
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
+    virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent * event) override;
+    virtual void drawBackground(QPainter * painter, const QRectF & rect) override;
+    virtual void drawForeground(QPainter * painter, const QRectF & rect) override;
+    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event) override;
+    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event) override;
+    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;
+    virtual void dropEvent(QGraphicsSceneDragDropEvent * event) override;
+    virtual void keyPressEvent(QKeyEvent * event) override;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event) override;
+    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) override;
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
 
 private Q_SLOTS:
 

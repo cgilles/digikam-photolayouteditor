@@ -54,10 +54,10 @@ namespace PhotoLayoutsEditor
 
         public Q_SLOTS:
 
-            virtual void currentItemAboutToBeChanged();
-            virtual void currentItemChanged();
-            virtual void positionAboutToBeChanged();
-            virtual void positionChanged();
+            virtual void currentItemAboutToBeChanged() override;
+            virtual void currentItemChanged() override;
+            virtual void positionAboutToBeChanged() override;
+            virtual void positionChanged() override;
 
         protected Q_SLOTS:
 

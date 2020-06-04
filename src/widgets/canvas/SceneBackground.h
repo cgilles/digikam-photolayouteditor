@@ -58,7 +58,7 @@ namespace PhotoLayoutsEditor
         public:
 
             SceneBackground(QGraphicsScene * scene = nullptr);
-            virtual QRectF boundingRect() const;
+            virtual QRectF boundingRect() const override;
 
             void setSecondColor(const QColor & color);
             void setSolidColor(const QColor & color);
@@ -89,8 +89,8 @@ namespace PhotoLayoutsEditor
 
         protected:
 
-            QVariant itemChange(GraphicsItemChange change, const QVariant & value);
-            void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
+            QVariant itemChange(GraphicsItemChange change, const QVariant & value) override;
+            void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget) override;
             void render(QPainter * painter, const QRect & rect);
 
         protected Q_SLOTS:

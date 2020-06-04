@@ -47,14 +47,14 @@ class PhotoLayoutsEditor::BorderChangeCommand : public QUndoCommand
             drawer(drawer)
         {
         }
-        virtual void redo()
+        virtual void redo() override
         {
             qDebug() << "BorderChangeCommand redo";
             QVariant temp = drawer->propertyValue(propertyName);
             drawer->setPropertyValue(propertyName, value);
             value = temp;
         }
-        virtual void undo()
+        virtual void undo() override
         {
             qDebug() << "BorderChangeCommand undo";
             QVariant temp = drawer->propertyValue(propertyName);

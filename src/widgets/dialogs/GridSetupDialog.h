@@ -44,7 +44,7 @@ public:
     void setVerticalDistance(qreal value);
     qreal horizontalDistance() const;
     qreal verticalDistance() const;
-    virtual int exec();
+    virtual int exec() override;
 
 private:
 

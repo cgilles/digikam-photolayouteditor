@@ -49,7 +49,7 @@ public:
         m_item(item),
         done(false)
     {}
-    virtual void redo()
+    virtual void redo() override
     {
         if (done)
             return;
@@ -57,7 +57,7 @@ public:
         m_item->moveBy(m_translation.x(), m_translation.y());
         done = true;
     }
-    virtual void undo()
+    virtual void undo() override
     {
         if (!done)
             return;
@@ -92,7 +92,7 @@ public:
     {
         this->setText(QObject::tr("Scale item"));
     }
-    virtual void redo()
+    virtual void redo() override
     {
         if (done)
             return;
@@ -100,7 +100,7 @@ public:
         MoveItemCommand::redo();
         done = true;
     }
-    virtual void undo()
+    virtual void undo() override
     {
         if (!done)
             return;

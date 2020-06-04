@@ -37,9 +37,9 @@ namespace PhotoLayoutsEditor
             virtual ~StandardEffectsFactory()
             {}
 
-            virtual AbstractPhotoEffectInterface* getEffectInstance(const QString& name = QString());
+            virtual AbstractPhotoEffectInterface* getEffectInstance(const QString& name = QString()) override;
 
-            virtual QString effectName() const;
+            virtual QString effectName() const override;
     };
 }
 

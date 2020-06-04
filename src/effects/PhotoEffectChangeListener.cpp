@@ -43,13 +43,13 @@ class PhotoLayoutsEditor::PhotoEffectChangeCommand : public QUndoCommand
             effect(effect)
         {
         }
-        virtual void redo()
+        virtual void redo() override
         {
             QVariant temp = effect->propertyValue(propertyName);
             effect->setPropertyValue(propertyName, value);
             value = temp;
         }
-        virtual void undo()
+        virtual void undo() override
         {
             QVariant temp = effect->propertyValue(propertyName);
             effect->setPropertyValue(propertyName, value);

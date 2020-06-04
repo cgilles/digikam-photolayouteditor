@@ -50,7 +50,7 @@ public:
     {
     }
 
-    virtual void redo()
+    virtual void redo() override
     {
         if (done)
             return;
@@ -67,7 +67,7 @@ public:
         done = true;
     }
 
-    virtual void undo()
+    virtual void undo() override
     {
         if (!done)
             return;

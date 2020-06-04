@@ -91,7 +91,7 @@ public:
 
 protected:
 
-    virtual void setWaitingDataProgress(double value)
+    virtual void setWaitingDataProgress(double value) override
     {
         ProgressEvent* event = new ProgressEvent(m_thread);
         event->setData(ProgressEvent::ProgressUpdate, value * m_max_progress / 0.4);

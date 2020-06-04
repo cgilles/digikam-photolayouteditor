@@ -72,11 +72,11 @@ public:
         m_backgropund_item(backgroundItem)
     {
     }
-    virtual void redo()
+    virtual void redo() override
     {
         run();
     }
-    virtual void undo()
+    virtual void undo() override
     {
         run();
     }
@@ -117,11 +117,11 @@ public:
         m_brush(brush),
         m_background(background)
     {}
-    virtual void redo()
+    virtual void redo() override
     {
         this->run();
     }
-    virtual void undo()
+    virtual void undo() override
     {
         this->run();
     }
@@ -145,11 +145,11 @@ public:
         m_brush(brush),
         m_background(background)
     {}
-    virtual void redo()
+    virtual void redo() override
     {
         this->run();
     }
-    virtual void undo()
+    virtual void undo() override
     {
         this->run();
     }

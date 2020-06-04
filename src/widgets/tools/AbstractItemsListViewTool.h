@@ -42,10 +42,10 @@ namespace PhotoLayoutsEditor
             explicit AbstractItemsListViewTool(const QString& toolsName, Scene* scene, Canvas::SelectionMode selectionMode, QWidget* parent=nullptr);
             virtual ~AbstractItemsListViewTool();
 
-            virtual void currentItemAboutToBeChanged();
-            virtual void currentItemChanged();
-            virtual void positionAboutToBeChanged(){} // Unused
-            virtual void positionChanged(){}          // Unused
+            virtual void currentItemAboutToBeChanged() override;
+            virtual void currentItemChanged() override;
+            virtual void positionAboutToBeChanged() override {} // Unused
+            virtual void positionChanged() override {}          // Unused
             virtual QStringList options() const = 0;
             virtual QObject* createItem(const QString& name) = 0;
 

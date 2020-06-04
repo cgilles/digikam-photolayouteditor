@@ -63,7 +63,7 @@ public:
             delete item;
     }
 
-    virtual void redo()
+    virtual void redo() override
     {
         done = true;
         if (model->item(model->index(row, 0)) == item)
@@ -72,7 +72,7 @@ public:
         model->setItem(item, model->index(row, 0));
     }
 
-    virtual void undo()
+    virtual void undo() override
     {
         done = false;
         if (model->item(model->index(row, 0)) != item)
@@ -104,7 +104,7 @@ public:
             delete item;
     }
 
-    virtual void redo()
+    virtual void redo() override
     {
         done = true;
         if (model->item(model->index(row, 0)) != item)
@@ -112,7 +112,7 @@ public:
         model->removeRow(row);
     }
 
-    virtual void undo()
+    virtual void undo() override
     {
         done = false;
         if (model->item(model->index(row, 0)) == item)
@@ -139,13 +139,13 @@ public:
         model(model)
     {}
 
-    virtual void redo()
+    virtual void redo() override
     {
         model->moveRowsData(sourceStart, count, destinationRow);
         this->swap();
     }
 
-    virtual void undo()
+    virtual void undo() override
     {
         model->moveRowsData(sourceStart, count, destinationRow);
         this->swap();
