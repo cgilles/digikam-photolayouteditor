@@ -37,7 +37,6 @@
 **
 ****************************************************************************/
 
-
 #include "qtgroupboxpropertybrowser.h"
 
 #include <QSet>
