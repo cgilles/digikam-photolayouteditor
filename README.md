@@ -27,8 +27,8 @@ This tool allows you to create collage layout of images using effect.
 - Fix broken signal/slots.
 - Fix all static analyzers reports.
 - Fix captitalized class file names.
-- Fix all C++11 warnings (nullptr, override, fallthrough, etc.).
 - Fix coding style (constify, brackets, indent, etc.).
+- Fix all C++11 warnings (nullptr, override, fallthrough, overloaded virtual, etc.).
 - Remove KDE dependencies (done).
 - Port to QMainWindow (done).
 - Rewrite configuration dialog (done).
