@@ -36,7 +36,7 @@ using namespace PhotoLayoutsEditor;
 
 class PhotoLayoutsEditor::BordersGroupPrivate
 {
-    BordersGroupPrivate(BordersGroup * group) :
+    explicit BordersGroupPrivate(BordersGroup * group) :
         group(group),
         photo(nullptr)
     {}

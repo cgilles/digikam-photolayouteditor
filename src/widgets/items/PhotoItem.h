@@ -22,181 +22,187 @@
  *
  * ============================================================ */
 
-#ifndef PHOTOITEM_H
-#define PHOTOITEM_H
+#ifndef PHOTO_ITEM_H
+#define PHOTO_ITEM_H
+
+// Qt includes
 
 #include <QUrl>
+
+// Local includes
 
 #include "AbstractPhoto.h"
 
 namespace PhotoLayoutsEditor
 {
-    class PhotoItemPixmapChangeCommand;
-    class PhotoItemUrlChangeCommand;
-    class PhotoItemImagePathChangeCommand;
-    class PhotoItemImageMovedCommand;
-    class PhotoItemLoader;
 
-    class PhotoItem : public AbstractPhoto
+class PhotoItemPixmapChangeCommand;
+class PhotoItemUrlChangeCommand;
+class PhotoItemImagePathChangeCommand;
+class PhotoItemImageMovedCommand;
+class PhotoItemLoader;
+
+class PhotoItem : public AbstractPhoto
+{
+    Q_OBJECT
+
+public:
+
+    explicit PhotoItem(const QImage & photo, const QString & name = QString(), Scene * scene = nullptr);
+    explicit PhotoItem(const QPainterPath & shape, const QString & name = QString(), Scene * scene = nullptr);
+    virtual ~PhotoItem();
+
+    /// Convert photo item to SVG format
+    virtual QDomDocument toSvg() const override;
+
+    /// Convert photo item to SVG template format
+    virtual QDomDocument toTemplateSvg() const override;
+
+    /// Create Photo item from SVG format code
+    static PhotoItem * fromSvg(QDomElement & element);
+
+    /// Pixmap data
+    Q_PROPERTY(QImage m_image READ image WRITE setImage)
+    QImage & image();
+    const QImage & image() const;
+    void setImage(const QImage & image);
+
+    /// Pixmap and pixmap's url
+    void setImageUrl(const QUrl & url);
+
+    /// Scales image to fit scenes rect
+    void fitToRect(const QRect & rect);
+
+    /// Reimplemented from QGraphicsItem
+    virtual bool contains(const QPointF & point) const override
     {
-            Q_OBJECT
+        return m_image_path.contains(point);
+    }
 
-        public:
+    /// Reimplemented from AbstractPhoto
+    virtual QPainterPath itemShape() const override
+    {
+        if (this->cropShape().isEmpty())
+            return m_image_path;
+        else
+            return m_image_path & this->cropShape();
+    }
 
-            explicit PhotoItem(const QImage & photo, const QString & name = QString(), Scene * scene = nullptr);
-            explicit PhotoItem(const QPainterPath & shape, const QString & name = QString(), Scene * scene = nullptr);
-            virtual ~PhotoItem();
+    /// Reimplemented from AbstractPhoto
+    virtual QPainterPath itemOpaqueArea() const override
+    {
+        if (this->cropShape().isEmpty())
+            return m_image_path;
+        else
+            return m_image_path & this->cropShape();
+    }
 
-            /// Convert photo item to SVG format
-            virtual QDomDocument toSvg() const override;
+    /// Reimplemented from AbstractPhoto
+    virtual QPainterPath itemDrawArea() const override
+    {
+        return m_image_path;
+    }
 
-            /// Convert photo item to SVG template format
-            virtual QDomDocument toTemplateSvg() const override;
+    /// Returns item's property browser
+    virtual QtAbstractPropertyBrowser * propertyBrowser() override;
 
-            /// Create Photo item from SVG format code
-            static PhotoItem * fromSvg(QDomElement & element);
+    /// Returns if item is empty (not contains image)
+    bool isEmpty() const;
 
-            /// Pixmap data
-            Q_PROPERTY(QImage m_image READ image WRITE setImage)
-            QImage & image();
-            const QImage & image() const;
-            void setImage(const QImage & image);
+protected:
 
-            /// Pixmap and pixmap's url
-            void setImageUrl(const QUrl & url);
+    explicit PhotoItem(const QString & name = QString(), Scene * scene = nullptr);
 
-            /// Scales image to fit scenes rect
-            void fitToRect(const QRect & rect);
+    /// Converts item data to SVG format
+    virtual QDomDocument svgVisibleArea() const override;
 
-            /// Reimplemented from QGraphicsItem
-            virtual bool contains(const QPointF & point) const override
-            {
-                return m_image_path.contains(point);
-            }
+    /// Converts item data to SVG format
+    virtual QDomDocument svgTemplateArea() const override;
 
-            /// Reimplemented from AbstractPhoto
-            virtual QPainterPath itemShape() const override
-            {
-                if (this->cropShape().isEmpty())
-                    return m_image_path;
-                else
-                    return m_image_path & this->cropShape();
-            }
+    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event) override;
+    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event) override;
+    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;
+    virtual void dropEvent(QGraphicsSceneDragDropEvent * event) override;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event) override;
 
-            /// Reimplemented from AbstractPhoto
-            virtual QPainterPath itemOpaqueArea() const override
-            {
-                if (this->cropShape().isEmpty())
-                    return m_image_path;
-                else
-                    return m_image_path & this->cropShape();
-            }
+    /// Updates item icon
+    virtual void updateIcon();
 
-            /// Reimplemented from AbstractPhoto
-            virtual QPainterPath itemDrawArea() const override
-            {
-                return m_image_path;
-            }
+    /// Reimplemented from AbstractPhoto
+    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr) override;
 
-            /// Returns item's property browser
-            virtual QtAbstractPropertyBrowser * propertyBrowser() override;
+private Q_SLOTS:
 
-            /// Returns if item is empty (not contains image)
-            bool isEmpty() const;
+    void imageLoaded(const QUrl & url, const QImage & image);
 
-        protected:
+private:
 
-            explicit PhotoItem(const QString & name = QString(), Scene * scene = nullptr);
+    // Refreshes items data
+    virtual void refreshItem() override;
 
-            /// Converts item data to SVG format
-            virtual QDomDocument svgVisibleArea() const override;
+    // Setups items
+    void setupItem(const QImage & image);
 
-            /// Converts item data to SVG format
-            virtual QDomDocument svgTemplateArea() const override;
+    // Recalculates item shape
+    void recalcShape();
 
-            virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event) override;
-            virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event) override;
-            virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;
-            virtual void dropEvent(QGraphicsSceneDragDropEvent * event) override;
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
-            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
-            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event) override;
-
-            /// Updates item icon
-            virtual void updateIcon();
-
-            /// Reimplemented from AbstractPhoto
-            void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr) override;
-
-        private Q_SLOTS:
-
-            void imageLoaded(const QUrl & url, const QImage & image);
-
-        private:
-
-            // Refreshes items data
-            virtual void refreshItem() override;
-
-            // Setups items
-            void setupItem(const QImage & image);
-
-            // Recalculates item shape
-            void recalcShape();
-
-            // Highlight item
-            Q_PROPERTY(bool m_highlight READ highlightItem WRITE setHighlightItem)
-            bool highlightItem();
-            void setHighlightItem(bool isHighlighted);
-            bool m_highlight;
+    // Highlight item
+    Q_PROPERTY(bool m_highlight READ highlightItem WRITE setHighlightItem)
+    bool highlightItem();
+    void setHighlightItem(bool isHighlighted);
+    bool m_highlight;
 
 
-            class PhotoItemPrivate
-            {
-                PhotoItemPrivate(PhotoItem * item) :
-                    m_item(item),
-                    m_image_moving(false)
-                {}
+    class PhotoItemPrivate
+    {
+        PhotoItemPrivate(PhotoItem * item) :
+            m_item(item),
+            m_image_moving(false)
+        {}
 
-                static QString locateFile(const QString & filePath);
+        static QString locateFile(const QString & filePath);
 
-                PhotoItem * m_item;
+        PhotoItem * m_item;
 
-                // Pixmap
-                void setImage(const QImage & image);
-                inline QImage & image();
-                QImage m_image;
+        // Pixmap
+        void setImage(const QImage & image);
+        inline QImage & image();
+        QImage m_image;
 
-                // Pixmap's url
-                void setFileUrl(const QUrl & url);
-                inline QUrl & fileUrl();
-                QUrl m_file_path;
+        // Pixmap's url
+        void setFileUrl(const QUrl & url);
+        inline QUrl & fileUrl();
+        QUrl m_file_path;
 
-                QTransform m_brush_transform;
-                QTransform m_complete_path_transform;
-                bool m_image_moving;
+        QTransform m_brush_transform;
+        QTransform m_complete_path_transform;
+        bool m_image_moving;
 
-                friend class PhotoItem;
-                friend class PhotoItemLoader;
-                friend class PhotoItemPixmapChangeCommand;
-                friend class PhotoItemUrlChangeCommand;
-                friend class PhotoItemImageMovedCommand;
-            };
-            PhotoItemPrivate * d;
-            friend class PhotoItemPrivate;
-
-            QImage m_temp_image;
-
-            // Widget path
-            QPainterPath m_complete_path;
-            QPainterPath m_image_path;
-
-        friend class Scene;
+        friend class PhotoItem;
+        friend class PhotoItemLoader;
         friend class PhotoItemPixmapChangeCommand;
         friend class PhotoItemUrlChangeCommand;
-        friend class PhotoItemImagePathChangeCommand;
         friend class PhotoItemImageMovedCommand;
-        friend class PhotoItemLoader;
     };
-}
+    PhotoItemPrivate * d;
+    friend class PhotoItemPrivate;
 
-#endif // PHOTOITEM_H
+    QImage m_temp_image;
+
+    // Widget path
+    QPainterPath m_complete_path;
+    QPainterPath m_image_path;
+
+    friend class Scene;
+    friend class PhotoItemPixmapChangeCommand;
+    friend class PhotoItemUrlChangeCommand;
+    friend class PhotoItemImagePathChangeCommand;
+    friend class PhotoItemImageMovedCommand;
+    friend class PhotoItemLoader;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // PHOTO_ITEM_H

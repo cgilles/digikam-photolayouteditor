@@ -36,67 +36,68 @@
 
 namespace PhotoLayoutsEditor
 {
-    class BordersGroupPrivate;
-    class AbstractPhoto;
+class BordersGroupPrivate;
+class AbstractPhoto;
 
-    class BordersGroup : public AbstractMovableModel
+class BordersGroup : public AbstractMovableModel
+{
+    Q_OBJECT
+
+    BordersGroupPrivate* d;
+
+public:
+
+    explicit BordersGroup(AbstractPhoto* graphicsItem);
+    ~BordersGroup();
+
+    QPainterPath shape();
+    AbstractPhoto* graphicsItem() const;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option);
+
+    // Method used for model manipulation
+    bool prependDrawer(BorderDrawerInterface* drawer);
+    bool insertDrawer(BorderDrawerInterface* drawer, int position);
+    bool appendDrawer(BorderDrawerInterface* drawer);
+    BorderDrawerInterface* removeDrawer(int position);
+    bool moveDrawer(int sourcePosition, int destinationPosition);
+
+    QDomElement toSvg(QDomDocument& document);
+    static BordersGroup* fromSvg(QDomElement& element, AbstractPhoto* graphicsItem);
+
+Q_SIGNALS:
+
+    void drawersChanged();
+
+public Q_SLOTS:
+
+    void refresh();
+
+protected:
+
+    virtual QObject* item(const QModelIndex& index) const override;
+    virtual void setItem(QObject* graphicsItem, const QModelIndex & index) override;
+    virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+    virtual QVariant data(const QModelIndex& index, int role) const override;
+    virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
+    virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+    virtual QModelIndex parent(const QModelIndex& child) const override;
+    virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    virtual bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) override;
+
+protected Q_SLOTS:
+
+    void emitBordersChanged()
     {
-            Q_OBJECT
+        emit drawersChanged();
+    }
 
-            BordersGroupPrivate* d;
+private:
 
-        public:
+    void calculateShape();
+    Q_DISABLE_COPY(BordersGroup)
+};
 
-            BordersGroup(AbstractPhoto* graphicsItem);
-            ~BordersGroup();
-
-            QPainterPath shape();
-            AbstractPhoto* graphicsItem() const;
-            void paint(QPainter* painter, const QStyleOptionGraphicsItem* option);
-
-            // Method used for model manipulation
-            bool prependDrawer(BorderDrawerInterface* drawer);
-            bool insertDrawer(BorderDrawerInterface* drawer, int position);
-            bool appendDrawer(BorderDrawerInterface* drawer);
-            BorderDrawerInterface* removeDrawer(int position);
-            bool moveDrawer(int sourcePosition, int destinationPosition);
-
-            QDomElement toSvg(QDomDocument& document);
-            static BordersGroup* fromSvg(QDomElement& element, AbstractPhoto* graphicsItem);
-
-        Q_SIGNALS:
-
-            void drawersChanged();
-
-        public Q_SLOTS:
-
-            void refresh();
-
-        protected:
-
-            virtual QObject* item(const QModelIndex& index) const override;
-            virtual void setItem(QObject* graphicsItem, const QModelIndex & index) override;
-            virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-            virtual QVariant data(const QModelIndex& index, int role) const override;
-            virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
-            virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
-            virtual QModelIndex parent(const QModelIndex& child) const override;
-            virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
-            virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-            virtual bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) override;
-
-        protected Q_SLOTS:
-
-            void emitBordersChanged()
-            {
-                emit drawersChanged();
-            }
-
-        private:
-
-            void calculateShape();
-            Q_DISABLE_COPY(BordersGroup)
-    };
 }
 
 #endif // BORDERSGROUP_H
