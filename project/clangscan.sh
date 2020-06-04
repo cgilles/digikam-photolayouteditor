@@ -27,7 +27,7 @@ echo "Clang Static Analyzer task name: $TITLE"
 rm -fr $REPORT_DIR
 rm -fr $WEBSITE_DIR
 
-cd ../..
+cd ..
 
 rm -fr build.scan
 mkdir -p build.scan
@@ -35,7 +35,9 @@ cd build.scan
 
 scan-build cmake -G "Unix Makefiles" . \
       -DCMAKE_BUILD_TYPE=debug \
+      -DCMAKE_INSTALL_PREFIX=/usr \
       -Wno-dev \
+      -DENABLE_DPLUGIN=ON \
       ..
 
 scan-build -o $REPORT_DIR \

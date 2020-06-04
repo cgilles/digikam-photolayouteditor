@@ -37,7 +37,6 @@
 **
 ****************************************************************************/
 
-
 #include "qttreepropertybrowser.h"
 
 #include <QSet>
@@ -148,22 +147,31 @@ void QtPropertyEditorView::drawRow(QPainter *painter, const QStyleOptionViewItem
 {
     QStyleOptionViewItem opt = option;
     bool hasValue = true;
-    if (m_editorPrivate) {
+
+    if (m_editorPrivate)
+    {
         QtProperty *property = m_editorPrivate->indexToProperty(index);
+
         if (property)
             hasValue = property->hasValue();
-    }
-    if (!hasValue && m_editorPrivate->markPropertiesWithoutValue()) {
-        const QColor c = option.palette.color(QPalette::Dark);
-        painter->fillRect(option.rect, c);
-        opt.palette.setColor(QPalette::AlternateBase, c);
-    } else {
-        const QColor c = m_editorPrivate->calculatedBackgroundColor(m_editorPrivate->indexToBrowserItem(index));
-        if (c.isValid()) {
+
+        if (!hasValue && m_editorPrivate->markPropertiesWithoutValue())
+        {
+            const QColor c = option.palette.color(QPalette::Dark);
             painter->fillRect(option.rect, c);
-            opt.palette.setColor(QPalette::AlternateBase, c.lighter(112));
+            opt.palette.setColor(QPalette::AlternateBase, c);
+        }
+        else
+        {
+            const QColor c = m_editorPrivate->calculatedBackgroundColor(m_editorPrivate->indexToBrowserItem(index));
+            if (c.isValid())
+            {
+                painter->fillRect(option.rect, c);
+                opt.palette.setColor(QPalette::AlternateBase, c.lighter(112));
+            }
         }
     }
+
     QTreeWidget::drawRow(painter, opt, index);
     QColor color = static_cast<QRgb>(QApplication::style()->styleHint(QStyle::SH_Table_GridLineColor, &opt));
     painter->save();
@@ -343,36 +351,55 @@ void QtPropertyEditorDelegate::paint(QPainter *painter, const QStyleOptionViewIt
             const QModelIndex &index) const
 {
     bool hasValue = true;
-    if (m_editorPrivate) {
+    QStyleOptionViewItem opt = option;
+
+    if (m_editorPrivate)
+    {
         QtProperty *property = m_editorPrivate->indexToProperty(index);
+
         if (property)
             hasValue = property->hasValue();
-    }
-    QStyleOptionViewItem opt = option;
-    if ((m_editorPrivate && index.column() == 0) || !hasValue) {
-        QtProperty *property = m_editorPrivate->indexToProperty(index);
-        if (property && property->isModified()) {
-            opt.font.setBold(true);
-            opt.fontMetrics = QFontMetrics(opt.font);
+
+        if ((m_editorPrivate && index.column() == 0) || !hasValue)
+        {
+            QtProperty *property = m_editorPrivate->indexToProperty(index);
+            
+            if (property && property->isModified())
+            {
+                opt.font.setBold(true);
+                opt.fontMetrics = QFontMetrics(opt.font);
+            }
+        }
+        
+        QColor c;
+
+        if (!hasValue && m_editorPrivate->markPropertiesWithoutValue())
+        {
+            c = opt.palette.color(QPalette::Dark);
+            opt.palette.setColor(QPalette::Text, opt.palette.color(QPalette::BrightText));
+        }
+        else
+        {
+            c = m_editorPrivate->calculatedBackgroundColor(m_editorPrivate->indexToBrowserItem(index));
+            
+            if (c.isValid() && (opt.features & QStyleOptionViewItem::Alternate))
+                c = c.lighter(112);
+        }
+        
+        if (c.isValid())
+            painter->fillRect(option.rect, c);
+
+        opt.state &= ~QStyle::State_HasFocus;
+
+        if (index.column() == 1)
+        {
+            QTreeWidgetItem *item = m_editorPrivate->indexToItem(index);
+
+            if (m_editedItem && m_editedItem == item)
+                m_disablePainting = true;
         }
     }
-    QColor c;
-    if (!hasValue && m_editorPrivate->markPropertiesWithoutValue()) {
-        c = opt.palette.color(QPalette::Dark);
-        opt.palette.setColor(QPalette::Text, opt.palette.color(QPalette::BrightText));
-    } else {
-        c = m_editorPrivate->calculatedBackgroundColor(m_editorPrivate->indexToBrowserItem(index));
-        if (c.isValid() && (opt.features & QStyleOptionViewItem::Alternate))
-            c = c.lighter(112);
-    }
-    if (c.isValid())
-        painter->fillRect(option.rect, c);
-    opt.state &= ~QStyle::State_HasFocus;
-    if (index.column() == 1) {
-        QTreeWidgetItem *item = m_editorPrivate->indexToItem(index);
-        if (m_editedItem && m_editedItem == item)
-            m_disablePainting = true;
-        }
+
     QItemDelegate::paint(painter, opt, index);
     m_disablePainting = false;
 
@@ -636,6 +663,8 @@ void QtTreePropertyBrowserPrivate::updateItem(QTreeWidgetItem *item)
     item->setText(0, property->propertyName());
     bool wasEnabled = item->flags() & Qt::ItemIsEnabled;
     bool isEnabled = wasEnabled;
+    Q_UNUSED(isEnabled);
+
     if (property->isEnabled()) {
         QTreeWidgetItem *parent = item->parent();
         if (!parent || (parent->flags() & Qt::ItemIsEnabled))

@@ -277,8 +277,8 @@ PhotoItem::PhotoItem(const QImage & photo, const QString & name, Scene * scene) 
 PhotoItem::PhotoItem(const QPainterPath& shape, const QString& name, Scene* scene)
     : AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
       m_highlight(false),
-      m_image_path(shape),
-      d(new PhotoItemPrivate(this))
+      d(new PhotoItemPrivate(this)),
+      m_image_path(shape)
 {
     refresh();
 }
