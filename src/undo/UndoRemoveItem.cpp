@@ -35,7 +35,8 @@ UndoRemoveItem::UndoRemoveItem(AbstractPhoto * item, Scene * scene, LayersModel 
     m_item(item),
     m_parentItem(static_cast<AbstractPhoto*>(item->QGraphicsItem::parentItem())),
     m_scene(scene->toGraphicsScene()),
-    m_model(model)
+    m_model(model),
+    m_row(0)
 {
 }
 

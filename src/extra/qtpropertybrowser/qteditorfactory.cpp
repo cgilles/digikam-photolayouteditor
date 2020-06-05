@@ -2055,9 +2055,11 @@ public:
 };
 
 QtCursorEditorFactoryPrivate::QtCursorEditorFactoryPrivate()
-    : m_updatingEnum(false)
+    : q_ptr(nullptr),
+      m_enumEditorFactory(nullptr),
+      m_enumPropertyManager(nullptr),
+      m_updatingEnum(false)
 {
-
 }
 
 void QtCursorEditorFactoryPrivate::slotPropertyChanged(QtProperty *property, const QCursor &cursor)
