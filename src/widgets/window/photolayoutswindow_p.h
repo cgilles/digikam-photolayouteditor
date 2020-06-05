@@ -71,7 +71,7 @@
 #include "ToolsDockWidget.h"
 #include "EffectsEditorTool.h"
 #include "BorderEditTool.h"
-#include "AbstractPhotoEffectFactory.h"
+#include "abstractphotoeffectfactory.h"
 #include "plestatusbar.h"
 #include "CanvasSizeDialog.h"
 #include "Canvas.h"

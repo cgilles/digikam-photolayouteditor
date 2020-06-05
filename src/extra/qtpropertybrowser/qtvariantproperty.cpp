@@ -37,6 +37,10 @@
 **
 ****************************************************************************/
 
+#if defined(__GNUC__)
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wzero-as-null-pointer-constant"
+#endif
 
 #include "qtvariantproperty.h"
 #include "qtpropertymanager.h"
@@ -2357,3 +2361,7 @@ QT_END_NAMESPACE
 #endif
 
 #include "moc_qtvariantproperty.cpp"
+
+#if defined(__GNUC__)
+#   pragma GCC diagnostic pop
+#endif

@@ -5,6 +5,7 @@
  *
  * Date        : 2011-09-01
  * Description : a plugin to create photo layouts by fusion of several images.
+ * 
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
  * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
@@ -22,33 +23,33 @@
  *
  * ============================================================ */
 
-#ifndef ABSTRACTITEMINTERFACE_H
-#define ABSTRACTITEMINTERFACE_H
+#ifndef BORDER_DRAWER_FACTORY_INTERFACE_H
+#define BORDER_DRAWER_FACTORY_INTERFACE_H
+
+// Qt includes
 
 #include <QObject>
-#include <QGraphicsItem>
 
 namespace PhotoLayoutsEditor
 {
-    class Scene;
-    class ScenePrivate;
 
-    class AbstractItemInterface : public QObject, public QGraphicsItem
-    {
-        public:
+class BorderDrawerInterface;
 
-            explicit AbstractItemInterface(QGraphicsItem * parent = nullptr, QGraphicsScene * scene = nullptr);
+class BorderDrawerFactoryInterface : public QObject
+{
+    Q_OBJECT
 
-        protected:
+public:
 
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
-            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
-            virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+    explicit BorderDrawerFactoryInterface(QObject* const parent = nullptr);
+    virtual ~BorderDrawerFactoryInterface();
 
-        friend class Scene;
-        friend class ScenePrivate;
-    };
-}
+    virtual QString drawersNames() const                                  = 0;
+    virtual BorderDrawerInterface* getDrawerInstance(const QString& name) = 0;
+};
 
-#endif // ABSTRACTITEMINTERFACE_H
+} // namespace PhotoLayoutsEditor
+
+Q_DECLARE_INTERFACE(PhotoLayoutsEditor::BorderDrawerFactoryInterface, "pl.coder89.ple.BorderDrawerFactoryInterface/1.0")
+
+#endif // BORDER_DRAWER_FACTORY_INTERFACE_H

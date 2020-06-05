@@ -25,7 +25,7 @@
 #include "PhotoEffectsGroup.h"
 #include "PhotoEffectsLoader.h"
 #include "AbstractPhoto.h"
-#include "AbstractPhotoEffectFactory.h"
+#include "abstractphotoeffectfactory.h"
 #include "AbstractPhotoEffectInterface.h"
 #include "UndoCommandEvent.h"
 #include "pleglobal.h"

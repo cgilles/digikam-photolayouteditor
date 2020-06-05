@@ -22,41 +22,46 @@
  *
  * ============================================================ */
 
-#ifndef ABSTRACTPHOTOEFFECTFACTORY_H
-#define ABSTRACTPHOTOEFFECTFACTORY_H
+#ifndef ABSTRACT_PHOTO_EFFECT_FACTORY_H
+#define ABSTRACT_PHOTO_EFFECT_FACTORY_H
+
+// Qt includes
 
 #include <QObject>
 #include <QDomDocument>
 #include <QDomNodeList>
 
+// Local includes
+
 #include "AbstractPhotoEffectInterface.h"
 
 namespace PhotoLayoutsEditor
 {
-    class AbstractPhotoEffectFactory : public QObject
-    {
-        public:
 
-            AbstractPhotoEffectFactory(QObject * parent = nullptr) :
-                QObject(parent)
-            {}
-            virtual ~AbstractPhotoEffectFactory()
-            {}
+class AbstractPhotoEffectFactory : public QObject
+{
+    Q_OBJECT
 
-            /** Returns effects instance.
-            * \arg browser - as this argument you can set \class QtAbstractPropertyBrowser received from virtual
-            * \fn propertyBrowser() method of this object.
-            */
-            virtual AbstractPhotoEffectInterface * getEffectInstance(const QString & name = QString()) = 0;
+public:
 
-            /** Returns effect name.
-            * This name is used be the user to identify effect. This name should be unique becouse effects are identified by this name.
-            * Moreover, this name is used in UI to name effects.
-            */
-            virtual QString effectName() const = 0;
-    };
-}
+    explicit AbstractPhotoEffectFactory(QObject* const parent = nullptr);
+    virtual ~AbstractPhotoEffectFactory();
+
+    /** Returns effects instance.
+     * \arg browser - as this argument you can set \class QtAbstractPropertyBrowser received from virtual
+     * \fn propertyBrowser() method of this object.
+     */
+    virtual AbstractPhotoEffectInterface* getEffectInstance(const QString& name = QString()) = 0;
+
+    /** Returns effect name.
+     * This name is used be the user to identify effect. This name should be unique becouse effects are identified by this name.
+     * Moreover, this name is used in UI to name effects.
+     */
+    virtual QString effectName() const                                                       = 0;
+};
+
+} // namespace PhotoLayoutsEditor
 
 Q_DECLARE_INTERFACE(PhotoLayoutsEditor::AbstractPhotoEffectFactory,"pl.coder89.ple.AbstractPhotoEffectFactory/1.0")
 
-#endif // ABSTRACTPHOTOEFFECTFACTORY_H
+#endif // ABSTRACT_PHOTO_EFFECT_FACTORY_H

@@ -24,6 +24,8 @@ This tool allows you to create collage layout of images using effect.
 - Integrate auto-layout algorithm (https://github.com/cgilles/cute-collage).
 - Export as template do not work as expected. Result do not refect of the canvas content.
 - Fix crashes in qt properties pannel.
+- Leaving PLE with data not saved do not ask to save on new file.
+- Show Grid lines do nothing.
 - Fix broken signal/slots.
 - Fix all static analyzers reports.
 - Fix captitalized class file names.

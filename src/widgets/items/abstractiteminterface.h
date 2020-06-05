@@ -22,24 +22,42 @@
  *
  * ============================================================ */
 
-#ifndef STANDARDBORDERSFACTORY_H
-#define STANDARDBORDERSFACTORY_H
+#ifndef ABSTRACT_ITEM_INTERFACE_H
+#define ABSTRACT_ITEM_INTERFACE_H
 
-#include "borderdrawerfactoryinterface.h"
+// Qt includes
+
+#include <QObject>
+#include <QGraphicsItem>
 
 namespace PhotoLayoutsEditor
 {
-    class StandardBordersFactory : public BorderDrawerFactoryInterface
-    {
-        public:
 
-            explicit StandardBordersFactory(QObject* parent = nullptr);
+class Scene;
+class ScenePrivate;
 
-            virtual QString drawersNames() const override;
+class AbstractItemInterface : public QObject, public QGraphicsItem
+{
+    Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
-            virtual BorderDrawerInterface * getDrawerInstance(const QString & name) override;
+public:
 
-    };
-}
+    explicit AbstractItemInterface(QGraphicsItem* const parent = nullptr, QGraphicsScene* const scene = nullptr);
 
-#endif // STANDARDBORDERSFACTORY_H
+protected:
+
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event)       override;
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event)        override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event)     override;
+    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+
+private:
+   
+    friend class Scene;
+    friend class ScenePrivate;
+};
+    
+} // namespace PhotoLayoutsEditor
+
+#endif // ABSTRACT_ITEM_INTERFACE_H

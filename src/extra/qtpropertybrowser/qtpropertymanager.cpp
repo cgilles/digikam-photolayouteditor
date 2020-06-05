@@ -37,6 +37,10 @@
 **
 ****************************************************************************/
 
+#if defined(__GNUC__)
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wzero-as-null-pointer-constant"
+#endif
 
 #include "qtpropertymanager.h"
 #include "qtpropertybrowserutils_p.h"
@@ -6424,3 +6428,7 @@ QT_END_NAMESPACE
 
 #include "moc_qtpropertymanager.cpp"
 #include "qtpropertymanager.moc"
+
+#if defined(__GNUC__)
+#   pragma GCC diagnostic pop
+#endif
