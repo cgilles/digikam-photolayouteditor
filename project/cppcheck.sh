@@ -42,7 +42,6 @@ cppcheck -j$CPU_CORES \
          --platform=unix64 \
          --enable=all \
          --report-progress \
-         --suppress=*:*CImg.h* \
          --suppress=variableScope \
          --suppress=purgedConfiguration \
          --suppress=toomanyconfigs \
