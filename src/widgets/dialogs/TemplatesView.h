@@ -54,6 +54,7 @@ namespace PhotoLayoutsEditor
             QModelIndex moveCursor( QAbstractItemView::CursorAction cursorAction, Qt::KeyboardModifiers) override;
             void rowsInserted(const QModelIndex & parent, int start, int end) override;
             void rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end) override;
+            using QAbstractItemView::dataChanged;
             void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
             QModelIndex indexAt(const QPoint &point_) const override;
             void scrollTo(const QModelIndex &index, QAbstractItemView::ScrollHint) override;

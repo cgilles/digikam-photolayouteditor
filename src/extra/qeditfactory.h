@@ -49,6 +49,7 @@ public:
 
 protected:
 
+    using QtSpinBoxFactory::createEditor;
     QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -60,6 +61,7 @@ class QSliderFactory : public QtSliderFactory
 
 public:
 
+    using QtSliderFactory::createEditor;
     QSliderFactory(QObject* const parent = nullptr);
 
 protected:
@@ -79,6 +81,7 @@ public:
 
 protected:
 
+    using QtScrollBarFactory::createEditor;
     QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -94,6 +97,7 @@ public:
 
 protected:
 
+    using QtCheckBoxFactory::createEditor;
     QWidget* createEditor(QtBoolPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -109,6 +113,7 @@ public:
 
 protected:
 
+    using QtDoubleSpinBoxFactory::createEditor;
     QWidget* createEditor(QtDoublePropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -124,6 +129,7 @@ public:
 
 protected:
 
+    using QtLineEditFactory::createEditor;
     QWidget* createEditor(QtStringPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -139,6 +145,7 @@ public:
 
 protected:
 
+    using QtDateEditFactory::createEditor;
     QWidget* createEditor(QtDatePropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -154,6 +161,7 @@ public:
 
 protected:
 
+    using QtTimeEditFactory::createEditor;
     QWidget* createEditor(QtTimePropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -169,6 +177,7 @@ public:
 
 protected:
 
+    using QtDateTimeEditFactory::createEditor;
     QWidget* createEditor(QtDateTimePropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -184,6 +193,7 @@ public:
 
 protected:
 
+    using QtKeySequenceEditorFactory::createEditor;
     QWidget* createEditor(QtKeySequencePropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -199,6 +209,7 @@ public:
 
 protected:
 
+    using QtCharEditorFactory::createEditor;
     QWidget* createEditor(QtCharPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -214,6 +225,7 @@ public:
 
 protected:
 
+    using QtEnumEditorFactory::createEditor;
     QWidget* createEditor(QtEnumPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -229,6 +241,7 @@ public:
 
 protected:
 
+    using QtCursorEditorFactory::createEditor;
     QWidget* createEditor(QtCursorPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -244,6 +257,7 @@ public:
 
 protected:
 
+    using QtColorEditorFactory::createEditor;
     QWidget* createEditor(QtColorPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -259,6 +273,7 @@ public:
 
 protected:
 
+    using QtFontEditorFactory::createEditor;
     QWidget* createEditor(QtFontPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -274,6 +289,7 @@ public:
 
 protected:
 
+    using QtVariantEditorFactory::createEditor;
     QWidget* createEditor(QtVariantPropertyManager* manager, QtProperty* property, QWidget* parent) override;
 };
 
@@ -290,6 +306,7 @@ public:
 protected:
 
     virtual void connectPropertyManager(QtIntPropertyManager* manager) override;
+    using QtAbstractEditorFactory<QtIntPropertyManager>::createEditor;
     virtual QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent) override;
     virtual void disconnectPropertyManager(QtIntPropertyManager* manager) override;
 

@@ -24,15 +24,15 @@ This tool allows you to create collage layout of images using effect.
 - Integrate auto-layout algorithm (https://github.com/cgilles/cute-collage).
 - Export as template do not work as expected. Result do not refect of the canvas content.
 - Fix crashes in qt properties pannel.
-- Leaving PLE with data not saved do not ask to save on new file.
+- Leaving PLE with data not previously saved do not ask to save on new file.
 - Show Grid lines do nothing.
-- Fix broken signal/slots.
+- Fix broken signal/slots in Qt Property Editor.
 - Fix all static analyzers reports.
 - Fix captitalized class file names.
 - Fix coding style (constify, brackets, indent, etc.).
-- Fix all C++11 warnings (nullptr, override, fallthrough, overloaded virtual, etc.).
-- Remove KDE dependencies (done).
-- Port to QMainWindow (done).
-- Rewrite configuration dialog (done).
-- Port to DPlugin API (done).
-- Port as stand alone plugin (done).
+- Fix all C++11 warnings (nullptr, override, fallthrough, overloaded virtual, etc.).        (done).
+- Remove KDE dependencies                                                                   (done).
+- Port to QMainWindow                                                                       (done).
+- Rewrite configuration dialog                                                              (done).
+- Port to DPlugin API                                                                       (done).
+- Port as stand alone plugin                                                                (done).

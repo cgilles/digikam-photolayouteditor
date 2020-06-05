@@ -56,6 +56,7 @@ public:
     ~QtSpinBoxFactory();
 protected:
     void connectPropertyManager(QtIntPropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtIntPropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtIntPropertyManager *manager) override;
@@ -80,6 +81,7 @@ public:
     ~QtSliderFactory();
 protected:
     void connectPropertyManager(QtIntPropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtIntPropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtIntPropertyManager *manager) override;
@@ -104,6 +106,7 @@ public:
     ~QtScrollBarFactory();
 protected:
     void connectPropertyManager(QtIntPropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtIntPropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtIntPropertyManager *manager) override;
@@ -128,6 +131,7 @@ public:
     ~QtCheckBoxFactory();
 protected:
     void connectPropertyManager(QtBoolPropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtBoolPropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtBoolPropertyManager *manager) override;
@@ -150,6 +154,7 @@ public:
     ~QtDoubleSpinBoxFactory();
 protected:
     void connectPropertyManager(QtDoublePropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtDoublePropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtDoublePropertyManager *manager) override;
@@ -175,6 +180,7 @@ public:
     ~QtLineEditFactory();
 protected:
     void connectPropertyManager(QtStringPropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtStringPropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtStringPropertyManager *manager) override;
@@ -198,6 +204,7 @@ public:
     ~QtDateEditFactory();
 protected:
     void connectPropertyManager(QtDatePropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtDatePropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtDatePropertyManager *manager) override;
@@ -222,6 +229,7 @@ public:
     ~QtTimeEditFactory();
 protected:
     void connectPropertyManager(QtTimePropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtTimePropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtTimePropertyManager *manager) override;
@@ -244,6 +252,7 @@ public:
     ~QtDateTimeEditFactory();
 protected:
     void connectPropertyManager(QtDateTimePropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtDateTimePropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtDateTimePropertyManager *manager) override;
@@ -266,6 +275,7 @@ public:
     ~QtKeySequenceEditorFactory();
 protected:
     void connectPropertyManager(QtKeySequencePropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtKeySequencePropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtKeySequencePropertyManager *manager) override;
@@ -288,6 +298,7 @@ public:
     ~QtCharEditorFactory();
 protected:
     void connectPropertyManager(QtCharPropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtCharPropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtCharPropertyManager *manager) override;
@@ -310,6 +321,7 @@ public:
     ~QtEnumEditorFactory();
 protected:
     void connectPropertyManager(QtEnumPropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtEnumPropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtEnumPropertyManager *manager) override;
@@ -336,6 +348,7 @@ public:
     ~QtCursorEditorFactory();
 protected:
     void connectPropertyManager(QtCursorPropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtCursorPropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtCursorPropertyManager *manager) override;
@@ -358,6 +371,7 @@ public:
     ~QtColorEditorFactory();
 protected:
     void connectPropertyManager(QtColorPropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtColorPropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtColorPropertyManager *manager) override;
@@ -380,6 +394,7 @@ public:
     ~QtFontEditorFactory();
 protected:
     void connectPropertyManager(QtFontPropertyManager *manager) override;
+    using QtAbstractEditorFactory::createEditor;
     QWidget *createEditor(QtFontPropertyManager *manager, QtProperty *property,
                 QWidget *parent) override;
     void disconnectPropertyManager(QtFontPropertyManager *manager) override;
