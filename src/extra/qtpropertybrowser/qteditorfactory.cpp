@@ -148,12 +148,17 @@ class QtSpinBoxFactoryPrivate : public EditorFactoryPrivate<QSpinBox>
 {
     QtSpinBoxFactory *q_ptr;
     Q_DECLARE_PUBLIC(QtSpinBoxFactory)
-public:
 
+public:
+    
     void slotPropertyChanged(QtProperty *property, int value);
     void slotRangeChanged(QtProperty *property, int min, int max);
     void slotSingleStepChanged(QtProperty *property, int step);
     void slotSetValue(int value);
+
+private:
+    
+    QtSpinBoxFactoryPrivate(){ q_ptr = nullptr; };
 };
 
 void QtSpinBoxFactoryPrivate::slotPropertyChanged(QtProperty *property, int value)
@@ -236,7 +241,6 @@ QtSpinBoxFactory::QtSpinBoxFactory(QObject *parent)
 {
     d_ptr = new QtSpinBoxFactoryPrivate();
     d_ptr->q_ptr = this;
-
 }
 
 /*!
@@ -304,11 +308,17 @@ class QtSliderFactoryPrivate : public EditorFactoryPrivate<QSlider>
 {
     QtSliderFactory *q_ptr;
     Q_DECLARE_PUBLIC(QtSliderFactory)
+
 public:
+
     void slotPropertyChanged(QtProperty *property, int value);
     void slotRangeChanged(QtProperty *property, int min, int max);
     void slotSingleStepChanged(QtProperty *property, int step);
     void slotSetValue(int value);
+
+private:
+
+    QtSliderFactoryPrivate(){ q_ptr = nullptr; };
 };
 
 void QtSliderFactoryPrivate::slotPropertyChanged(QtProperty *property, int value)
@@ -457,11 +467,17 @@ class QtScrollBarFactoryPrivate : public  EditorFactoryPrivate<QScrollBar>
 {
     QtScrollBarFactory *q_ptr;
     Q_DECLARE_PUBLIC(QtScrollBarFactory)
+
 public:
+
     void slotPropertyChanged(QtProperty *property, int value);
     void slotRangeChanged(QtProperty *property, int min, int max);
     void slotSingleStepChanged(QtProperty *property, int step);
     void slotSetValue(int value);
+
+private:
+
+    QtScrollBarFactoryPrivate(){ q_ptr = nullptr; };
 };
 
 void QtScrollBarFactoryPrivate::slotPropertyChanged(QtProperty *property, int value)
@@ -609,9 +625,15 @@ class QtCheckBoxFactoryPrivate : public EditorFactoryPrivate<QtBoolEdit>
 {
     QtCheckBoxFactory *q_ptr;
     Q_DECLARE_PUBLIC(QtCheckBoxFactory)
+
 public:
+
     void slotPropertyChanged(QtProperty *property, bool value);
     void slotSetValue(bool value);
+
+private:
+
+    QtCheckBoxFactoryPrivate(){ q_ptr = nullptr; };
 };
 
 void QtCheckBoxFactoryPrivate::slotPropertyChanged(QtProperty *property, bool value)
@@ -718,6 +740,7 @@ class QtDoubleSpinBoxFactoryPrivate : public EditorFactoryPrivate<QDoubleSpinBox
 {
     QtDoubleSpinBoxFactory *q_ptr;
     Q_DECLARE_PUBLIC(QtDoubleSpinBoxFactory)
+
 public:
 
     void slotPropertyChanged(QtProperty *property, double value);
@@ -725,6 +748,10 @@ public:
     void slotSingleStepChanged(QtProperty *property, double step);
     void slotDecimalsChanged(QtProperty *property, int prec);
     void slotSetValue(double value);
+
+private:
+
+    QtDoubleSpinBoxFactoryPrivate(){ q_ptr = nullptr; };
 };
 
 void QtDoubleSpinBoxFactoryPrivate::slotPropertyChanged(QtProperty *property, double value)
@@ -906,11 +933,16 @@ class QtLineEditFactoryPrivate : public EditorFactoryPrivate<QLineEdit>
 {
     QtLineEditFactory *q_ptr;
     Q_DECLARE_PUBLIC(QtLineEditFactory)
+
 public:
 
     void slotPropertyChanged(QtProperty *property, const QString &value);
     void slotRegExpChanged(QtProperty *property, const QRegExp &regExp);
     void slotSetValue(const QString &value);
+
+private:
+
+    QtLineEditFactoryPrivate(){ q_ptr = nullptr; };
 };
 
 void QtLineEditFactoryPrivate::slotPropertyChanged(QtProperty *property,
@@ -1053,11 +1085,16 @@ class QtDateEditFactoryPrivate : public EditorFactoryPrivate<QDateEdit>
 {
     QtDateEditFactory *q_ptr;
     Q_DECLARE_PUBLIC(QtDateEditFactory)
+
 public:
 
     void slotPropertyChanged(QtProperty *property, const QDate &value);
     void slotRangeChanged(QtProperty *property, const QDate &min, const QDate &max);
     void slotSetValue(const QDate &value);
+
+private:
+
+    QtDateEditFactoryPrivate(){ q_ptr = nullptr; };
 };
 
 void QtDateEditFactoryPrivate::slotPropertyChanged(QtProperty *property, const QDate &value)
@@ -1189,10 +1226,15 @@ class QtTimeEditFactoryPrivate : public EditorFactoryPrivate<QTimeEdit>
 {
     QtTimeEditFactory *q_ptr;
     Q_DECLARE_PUBLIC(QtTimeEditFactory)
+
 public:
 
     void slotPropertyChanged(QtProperty *property, const QTime &value);
     void slotSetValue(const QTime &value);
+
+private:
+
+    QtTimeEditFactoryPrivate(){ q_ptr = nullptr; };
 };
 
 void QtTimeEditFactoryPrivate::slotPropertyChanged(QtProperty *property, const QTime &value)
@@ -1298,11 +1340,15 @@ class QtDateTimeEditFactoryPrivate : public EditorFactoryPrivate<QDateTimeEdit>
 {
     QtDateTimeEditFactory *q_ptr;
     Q_DECLARE_PUBLIC(QtDateTimeEditFactory)
+
 public:
 
     void slotPropertyChanged(QtProperty *property, const QDateTime &value);
     void slotSetValue(const QDateTime &value);
 
+private:
+
+    QtDateTimeEditFactoryPrivate(){ q_ptr = nullptr; };
 };
 
 void QtDateTimeEditFactoryPrivate::slotPropertyChanged(QtProperty *property,
@@ -1410,10 +1456,15 @@ class QtKeySequenceEditorFactoryPrivate : public EditorFactoryPrivate<QtKeySeque
 {
     QtKeySequenceEditorFactory *q_ptr;
     Q_DECLARE_PUBLIC(QtKeySequenceEditorFactory)
+
 public:
 
     void slotPropertyChanged(QtProperty *property, const QKeySequence &value);
     void slotSetValue(const QKeySequence &value);
+
+private:
+
+    QtKeySequenceEditorFactoryPrivate(){ q_ptr = nullptr; };
 };
 
 void QtKeySequenceEditorFactoryPrivate::slotPropertyChanged(QtProperty *property,

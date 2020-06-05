@@ -54,7 +54,7 @@ cppcheck -j$CPU_CORES \
          --suppress=ConfigurationNotChecked \
          --suppress=unmatchedSuppression \
          $IGNORE_DIRS \
-         .. \
+         ../src/ \
          2> report.cppcheck.xml
 
 cppcheck-htmlreport --file=report.cppcheck.xml \

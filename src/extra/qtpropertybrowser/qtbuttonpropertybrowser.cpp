@@ -55,6 +55,7 @@ class QtButtonPropertyBrowserPrivate
 {
     QtButtonPropertyBrowser *q_ptr;
     Q_DECLARE_PUBLIC(QtButtonPropertyBrowser)
+
 public:
 
     void init(QWidget *parent);
@@ -83,7 +84,11 @@ public:
         QList<WidgetItem *> children;
         bool expanded;
     };
+
 private:
+
+    QtButtonPropertyBrowserPrivate(){ q_ptr = nullptr; m_mainLayout = nullptr; };
+
     void updateLater();
     void updateItem(WidgetItem *item);
     void insertRow(QGridLayout *layout, int row) const;
