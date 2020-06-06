@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef ABSTRACTPROTOEFFECTINTERFACE_H
-#define ABSTRACTPROTOEFFECTINTERFACE_H
+#ifndef ABSTRACT_PHOTO_EFFECT_INTERFACE_H
+#define ABSTRACT_PHOTO_EFFECT_INTERFACE_H
+
+// Qt includes
 
 #include <QtPlugin>
 #include <QVariant>
@@ -38,160 +40,160 @@
 
 namespace PhotoLayoutsEditor
 {
-    class PhotoEffectsGroup;
-    class AbstractPhotoEffectFactory;
 
-    class AbstractPhotoEffectInterface : public QObject
+class PhotoEffectsGroup;
+class AbstractPhotoEffectFactory;
+
+class AbstractPhotoEffectInterface : public QObject
+{
+    Q_OBJECT
+
+public:
+
+    explicit AbstractPhotoEffectInterface(AbstractPhotoEffectFactory* factory, QObject* parent = nullptr) :
+        QObject(parent),
+        m_factory(factory),
+        m_group(nullptr),
+        m_strength(100)
     {
-            Q_OBJECT
+        if (!m_factory)
+            qDebug() << "No factory object for effect" << this << "from:" << __FILE__ << __LINE__;
+    }
 
-        public:
+    virtual ~AbstractPhotoEffectInterface()
+    {
+    }
 
-            explicit AbstractPhotoEffectInterface(AbstractPhotoEffectFactory* factory, QObject* parent = nullptr) :
-                QObject(parent),
-                m_factory(factory),
-                m_group(nullptr),
-                m_strength(100)
-            {
-#ifdef QT_DEBUG
-                if (!m_factory)
-                    qDebug() << "No factory object for effect" << this << "from:" << __FILE__ << __LINE__;
-#endif
-            }
+    virtual QImage apply(const QImage& image) const
+    {
+        int _opacity = strength();
 
-            virtual ~AbstractPhotoEffectInterface()
-            {
-            }
+        if (_opacity != 100)
+        {
+            QImage result(image.size(),QImage::Format_ARGB32_Premultiplied);
+            QPainter p(&result);
+            p.drawImage(0,0,image);
+            p.setCompositionMode(QPainter::CompositionMode_DestinationIn);
+            p.fillRect(image.rect(), QColor(0, 0, 0, _opacity*255/100));
+            return result;
+        }
 
-            virtual QImage apply(const QImage& image) const
-            {
-                int _opacity = strength();
+        return image;
+    }
 
-                if (_opacity != 100)
-                {
-                    QImage result(image.size(),QImage::Format_ARGB32_Premultiplied);
-                    QPainter p(&result);
-                    p.drawImage(0,0,image);
-                    p.setCompositionMode(QPainter::CompositionMode_DestinationIn);
-                    p.fillRect(image.rect(), QColor(0, 0, 0, _opacity*255/100));
-                    return result;
-                }
+    virtual QString name()     const = 0;
+    virtual QString toString() const = 0;
+    virtual operator QString() const = 0;
 
-                return image;
-            }
+    void setGroup(PhotoEffectsGroup* group)
+    {
+        if (group)
+        {
+            m_group = group;
+            disconnect(this, SIGNAL(changed()), nullptr, nullptr);
+            connect(this, SIGNAL(changed()), (QObject*)group, SLOT(emitEffectsChanged()));
+        }
+    }
 
-            virtual QString name()     const = 0;
-            virtual QString toString() const = 0;
-            virtual operator QString() const = 0;
+    PhotoEffectsGroup* group() const
+    {
+        return m_group;
+    }
 
-            void setGroup(PhotoEffectsGroup* group)
-            {
-                if (group)
-                {
-                    m_group = group;
-                    disconnect(this, SIGNAL(changed()), nullptr, nullptr);
-                    connect(this, SIGNAL(changed()), (QObject*)group, SLOT(emitEffectsChanged()));
-                }
-            }
+    AbstractPhotoEffectFactory* factory() const
+    {
+        return m_factory;
+    }
 
-            PhotoEffectsGroup* group() const
-            {
-                return m_group;
-            }
+    virtual QString propertyName(const QMetaProperty& property) const
+    {
+        if (!QString::fromLatin1("strength").compare(QLatin1String(property.name())))
+            return STRENGTH_PROPERTY;
 
-            AbstractPhotoEffectFactory* factory() const
-            {
-                return m_factory;
-            }
+        return QString();
+    }
 
-            virtual QString propertyName(const QMetaProperty& property) const
-            {
-                if (!QString::fromLatin1("strength").compare(QLatin1String(property.name())))
-                    return STRENGTH_PROPERTY;
+    virtual QVariant propertyValue(const QString& propertyName) const
+    {
+        if (propertyName == STRENGTH_PROPERTY)
+            return m_strength;
 
-                return QString();
-            }
+        return QVariant();
+    }
 
-            virtual QVariant propertyValue(const QString& propertyName) const
-            {
-                if (propertyName == STRENGTH_PROPERTY)
-                    return m_strength;
+    virtual void setPropertyValue(const QString& propertyName, const QVariant& value)
+    {
+        if (STRENGTH_PROPERTY == propertyName)
+            this->setStrength(value.toInt());
+    }
 
-                return QVariant();
-            }
+    virtual QVariant stringNames(const QMetaProperty& /*property*/)
+    {
+        return QVariant();
+    }
 
-            virtual void setPropertyValue(const QString& propertyName, const QVariant& value)
-            {
-                if (STRENGTH_PROPERTY == propertyName)
-                    this->setStrength(value.toInt());
-            }
+    virtual QVariant minimumValue(const QMetaProperty& property)
+    {
+        if (!QString::fromLatin1("strength").compare(QLatin1String(property.name())))
+            return QVariant(0);
 
-            virtual QVariant stringNames(const QMetaProperty& /*property*/)
-            {
-                return QVariant();
-            }
+        return QVariant();
+    }
 
-            virtual QVariant minimumValue(const QMetaProperty& property)
-            {
-                if (!QString::fromLatin1("strength").compare(QLatin1String(property.name())))
-                    return QVariant(0);
+    virtual QVariant maximumValue(const QMetaProperty& property)
+    {
+        if (!QString::fromLatin1("strength").compare(QLatin1String(property.name())))
+            return QVariant(100);
 
-                return QVariant();
-            }
+        return QVariant();
+    }
 
-            virtual QVariant maximumValue(const QMetaProperty& property)
-            {
-                if (!QString::fromLatin1("strength").compare(QLatin1String(property.name())))
-                    return QVariant(100);
+    virtual QVariant stepValue(const QMetaProperty& property)
+    {
+        if (!QString::fromLatin1("strength").compare(QLatin1String(property.name())))
+            return 1;
 
-                return QVariant();
-            }
+        return QVariant();
+    }
 
-            virtual QVariant stepValue(const QMetaProperty& property)
-            {
-                if (!QString::fromLatin1("strength").compare(QLatin1String(property.name())))
-                    return 1;
+    Q_PROPERTY(int strength READ strength WRITE setStrength)
 
-                return QVariant();
-            }
+    int strength() const
+    {
+        return m_strength;
+    }
 
-            Q_PROPERTY(int strength READ strength WRITE setStrength)
+    void setStrength(int strength)
+    {
+        qDebug() << strength;
 
-            int strength() const
-            {
-                return m_strength;
-            }
+        if (strength < 0 || strength > 100)
+            return;
 
-            void setStrength(int strength)
-            {
-                qDebug() << strength;
+        m_strength = strength;
+        propertiesChanged();
+    }
 
-                if (strength < 0 || strength > 100)
-                    return;
+Q_SIGNALS:
 
-                m_strength = strength;
-                propertiesChanged();
-            }
+    void changed();
 
-        Q_SIGNALS:
+public:
 
-            void changed();
+    AbstractPhotoEffectFactory* m_factory;
+    PhotoEffectsGroup*          m_group;
+    int                         m_strength;
 
-        public:
+protected:
 
-            AbstractPhotoEffectFactory* m_factory;
-            PhotoEffectsGroup*          m_group;
-            int                         m_strength;
+    void propertiesChanged()
+    {
+        emit changed();
+    }
 
-        protected:
+    friend class AbstractPhotoEffectFactory;
+};
 
-            void propertiesChanged()
-            {
-                emit changed();
-            }
+} // namespace PhotoLayoutsEditor
 
-        friend class AbstractPhotoEffectFactory;
-    };
-}
-
-#endif // ABSTRACTPROTOEFFECTINTERFACE_H
+#endif // ABSTRACT_PHOTO_EFFECT_INTERFACE_H

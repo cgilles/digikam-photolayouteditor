@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef PHOTO_LAYOUTS_EDITOR_P_H
-#define PHOTO_LAYOUTS_EDITOR_P_H
+#ifndef PHOTO_LAYOUTS_WINDOW_P_H
+#define PHOTO_LAYOUTS_WINDOW_P_H
 
 #include "photolayoutswindow.h"
 
@@ -194,4 +194,4 @@ PhotoLayoutsWindow* PhotoLayoutsWindow::m_instance = nullptr;
 
 } // namespace PhotoLayoutsEditor
 
-#endif // PHOTO_LAYOUTS_EDITOR_P_H
+#endif // PHOTO_LAYOUTS_WINDOW_P_H

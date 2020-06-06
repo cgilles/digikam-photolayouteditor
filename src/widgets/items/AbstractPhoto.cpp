@@ -23,7 +23,8 @@
  * ============================================================ */
 
 #include "AbstractPhoto_p.h"
-#include "AbstractPhoto.h"
+
+// Qt includes
 
 #include <QMenu>
 #include <QStyle>
@@ -32,34 +33,43 @@
 #include <QPolygonF>
 #include <QPainter>
 #include <QVariant>
-#include <qmath.h>
 #include <QDebug>
+#include <qmath.h>
+
+// Local includes
 
 #include "Scene.h"
 #include "PhotoEffectsGroup.h"
 #include "BordersGroup.h"
 #include "pleglobal.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-class PhotoLayoutsEditor::CropShapeChangeCommand : public QUndoCommand
+class CropShapeChangeCommand : public QUndoCommand
 {
     QPainterPath m_crop_shape;
-    AbstractPhoto * m_item;
+    AbstractPhoto* m_item;
+
 public:
+
     CropShapeChangeCommand(const QPainterPath & cropShape, AbstractPhoto * item, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Crop shape change"), parent),
         m_crop_shape(cropShape),
         m_item(item)
-    {}
+    {
+    }
+
     virtual void redo() override
     {
         this->run();
     }
+
     virtual void undo() override
     {
         this->run();
     }
+
     void run()
     {
         QPainterPath temp = m_item->d->cropShape();
@@ -67,24 +77,31 @@ public:
         m_crop_shape = temp;
     }
 };
-class PhotoLayoutsEditor::ItemNameChangeCommand : public QUndoCommand
+
+class ItemNameChangeCommand : public QUndoCommand
 {
     QString m_name;
     AbstractPhoto * m_item;
+
 public:
+
     ItemNameChangeCommand(const QString & name, AbstractPhoto * item, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Name Change"), parent),
         m_name(name),
         m_item(item)
-    {}
+    {
+    }
+
     virtual void redo() override
     {
         this->run();
     }
+
     virtual void undo() override
     {
         this->run();
     }
+
     void run()
     {
         QString temp = m_item->d->name();
@@ -688,3 +705,5 @@ QPainterPath AbstractPhoto::cropShape() const
 {
     return d->cropShape();
 }
+
+} // namespace PhotoLayoutsEditor

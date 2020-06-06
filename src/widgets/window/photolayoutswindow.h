@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef PHOTO_LAYOUTS_EDITOR_H
-#define PHOTO_LAYOUTS_EDITOR_H
+#ifndef PHOTO_LAYOUTS_WINDOW_H
+#define PHOTO_LAYOUTS_WINDOW_H
 
 // Qt includes
 
@@ -121,4 +121,4 @@ private:
 
 } // namespace PhotoLayoutsEditor
 
-#endif // PHOTO_LAYOUTS_EDITOR_H
+#endif // PHOTO_LAYOUTS_WINDOW_H
