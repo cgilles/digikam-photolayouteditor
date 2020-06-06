@@ -39,7 +39,7 @@ class GridSetupDialog : public QDialog
 
 public:
 
-    GridSetupDialog(QWidget* const parent = nullptr);
+    explicit GridSetupDialog(QWidget* const parent = nullptr);
     void setHorizontalDistance(qreal value);
     void setVerticalDistance(qreal value);
     qreal horizontalDistance() const;

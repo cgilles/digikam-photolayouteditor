@@ -22,24 +22,47 @@
  *
  * ============================================================ */
 
-#ifndef PROGRESSOBSERVER_H
-#define PROGRESSOBSERVER_H
+#ifndef PROGRESS_OBSERVER_H
+#define PROGRESS_OBSERVER_H
+
+// Qt includes
 
 #include <QString>
 
 namespace PhotoLayoutsEditor
 {
-    class ProgressObserver
+
+class ProgressObserver
+{
+
+public:
+
+    explicit ProgressObserver(ProgressObserver* parent = nullptr)
+        : parent(parent)
     {
-            ProgressObserver * parent;
+    }
+    
+    virtual ~ProgressObserver()
+    {
+    }
 
-        public:
+    virtual void progresChanged(double progress)
+    {
+        if (parent)
+            parent->progresChanged(progress);
+    }
+    
+    virtual void progresName(const QString& name)
+    {
+        if (parent)
+            parent->progresName(name);
+    }
 
-            ProgressObserver(ProgressObserver * parent = nullptr) : parent(parent) {}
-            virtual ~ProgressObserver() {}
-            virtual void progresChanged(double progress) { if (parent) parent->progresChanged(progress); }
-            virtual void progresName(const QString & name) { if (parent) parent->progresName(name); }
-    };
-}
+private:
 
-#endif // PROGRESSOBSERVER_H
+    ProgressObserver* parent;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // PROGRESS_OBSERVER_H

@@ -84,7 +84,7 @@ QColor Scene::OUTSIDE_SCENE_COLOR;
 
 class ScenePrivate
 {
-    ScenePrivate(Scene * scene) :
+    explicit ScenePrivate(Scene * scene) :
         m_scene(scene),
         model(new LayersModel(scene)),
         selection_model(new LayersSelectionModel(model, scene)),

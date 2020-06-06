@@ -54,8 +54,8 @@ namespace PhotoLayoutsEditor
 
 class ImageLoadingThread::ImageLoadingThreadPrivate
 {
-    ImageLoadingThreadPrivate() :
-        m_sem(1),
+    ImageLoadingThreadPrivate()
+      : m_sem(1),
         m_size(0),
         m_loaded_bytes(0),
         m_max_progress(1)
@@ -78,8 +78,8 @@ class RAWLoader : public DRawDecoder
 
 public:
 
-    RAWLoader(ImageLoadingThread* const thread) :
-        m_max_progress(100),
+    explicit RAWLoader(ImageLoadingThread* const thread)
+      : m_max_progress(100),
         m_thread(thread)
     {
     }

@@ -157,7 +157,7 @@ private:
 
     class PhotoItemPrivate
     {
-        PhotoItemPrivate(PhotoItem * item) :
+        explicit PhotoItemPrivate(PhotoItem * item) :
             m_item(item),
             m_image_moving(false)
         {}

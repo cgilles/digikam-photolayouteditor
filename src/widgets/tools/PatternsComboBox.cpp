@@ -36,7 +36,7 @@ using namespace PhotoLayoutsEditor;
 class PatternDelegate : public QStyledItemDelegate
 {
     public:
-        PatternDelegate(QObject * parent = nullptr) :
+        explicit PatternDelegate(QObject * parent = nullptr) :
             QStyledItemDelegate(parent)
         {}
         virtual ~PatternDelegate()

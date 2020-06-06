@@ -95,7 +95,7 @@ namespace PhotoLayoutsEditor
 
             class TextItemPrivate
             {
-                TextItemPrivate(TextItem * item) :
+                explicit TextItemPrivate(TextItem * item) :
                     m_item(item),
                     m_cursorIsVisible(false),
                     m_cursor_row(0),

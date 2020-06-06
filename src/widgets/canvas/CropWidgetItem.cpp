@@ -37,11 +37,12 @@ using namespace PhotoLayoutsEditor;
 
 class PhotoLayoutsEditor::CropWidgetItemPrivate
 {
-    CropWidgetItemPrivate (CropWidgetItem * item) :
+    explicit CropWidgetItemPrivate (CropWidgetItem * item) :
         m_item(item),
         pressedVHandler(-1),
         pressedHHandler(-1)
         {}
+
     enum
     {
         Top,

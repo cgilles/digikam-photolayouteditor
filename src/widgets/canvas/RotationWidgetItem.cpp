@@ -102,7 +102,7 @@ public:
 
 class PhotoLayoutsEditor::RotationWidgetItemPrivate
 {
-    RotationWidgetItemPrivate(RotationWidgetItem * item) :
+    explicit RotationWidgetItemPrivate(RotationWidgetItem * item) :
         item(item),
         rotation_angle(0.0),
         elipse_pressed(false)

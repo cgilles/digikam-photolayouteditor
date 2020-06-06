@@ -70,7 +70,7 @@ class MyStackedLayout : public QStackedLayout
 {
     public:
 
-        MyStackedLayout(QWidget * parent = nullptr) : QStackedLayout(parent) {}
+        explicit MyStackedLayout(QWidget * parent = nullptr) : QStackedLayout(parent) {}
 
         virtual QSize sizeHint() const override
         {

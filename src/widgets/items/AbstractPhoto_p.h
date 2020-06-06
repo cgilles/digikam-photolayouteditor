@@ -38,7 +38,7 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            AbstractPhotoPrivate(AbstractPhoto* item);
+            explicit AbstractPhotoPrivate(AbstractPhoto* item);
 
             // Crop shape
             void setCropShape(const QPainterPath& cropShape);

@@ -35,7 +35,7 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            LayersTreeMenu(LayersTree * parent);
+            explicit LayersTreeMenu(LayersTree * parent);
             void setMoveUpEnabled(bool enabled)
             {
                 moveUpItems->setEnabled(enabled);
