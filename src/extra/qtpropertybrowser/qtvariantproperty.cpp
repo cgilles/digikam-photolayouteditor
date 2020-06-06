@@ -1935,9 +1935,25 @@ QtProperty *QtVariantPropertyManager::createProperty()
 
 class QtVariantEditorFactoryPrivate
 {
-    QtVariantEditorFactory *q_ptr;
-    Q_DECLARE_PUBLIC(QtVariantEditorFactory)
 public:
+
+    explicit QtVariantEditorFactoryPrivate()
+        : m_spinBoxFactory(nullptr),
+          m_doubleSpinBoxFactory(nullptr),
+          m_checkBoxFactory(nullptr),
+          m_lineEditFactory(nullptr),
+          m_dateEditFactory(nullptr),
+          m_timeEditFactory(nullptr),
+          m_dateTimeEditFactory(nullptr),
+          m_keySequenceEditorFactory(nullptr),
+          m_charEditorFactory(nullptr),
+          m_comboBoxFactory(nullptr),
+          m_cursorEditorFactory(nullptr),
+          m_colorEditorFactory(nullptr),
+          m_fontEditorFactory(nullptr),
+          q_ptr(nullptr)
+    {
+    }
 
     QtSpinBoxFactory           *m_spinBoxFactory;
     QtDoubleSpinBoxFactory     *m_doubleSpinBoxFactory;
@@ -1955,6 +1971,11 @@ public:
 
     QMap<QtAbstractEditorFactoryBase *, int> m_factoryToType;
     QMap<int, QtAbstractEditorFactoryBase *> m_typeToFactory;
+
+private:
+
+    QtVariantEditorFactory* q_ptr;
+    Q_DECLARE_PUBLIC(QtVariantEditorFactory)
 };
 
 /*!

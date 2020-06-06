@@ -1748,13 +1748,20 @@ bool QtCharEdit::event(QEvent *e)
 
 class QtCharEditorFactoryPrivate : public EditorFactoryPrivate<QtCharEdit>
 {
-    QtCharEditorFactory *q_ptr;
-    Q_DECLARE_PUBLIC(QtCharEditorFactory)
 public:
+
+    explicit QtCharEditorFactoryPrivate()
+        : q_ptr(nullptr)
+    {
+    }
 
     void slotPropertyChanged(QtProperty *property, const QChar &value);
     void slotSetValue(const QChar &value);
 
+private:
+
+    QtCharEditorFactory* q_ptr;
+    Q_DECLARE_PUBLIC(QtCharEditorFactory)
 };
 
 void QtCharEditorFactoryPrivate::slotPropertyChanged(QtProperty *property,
@@ -1860,14 +1867,22 @@ void QtCharEditorFactory::disconnectPropertyManager(QtCharPropertyManager *manag
 
 class QtEnumEditorFactoryPrivate : public EditorFactoryPrivate<QComboBox>
 {
-    QtEnumEditorFactory *q_ptr;
-    Q_DECLARE_PUBLIC(QtEnumEditorFactory)
 public:
+
+    explicit QtEnumEditorFactoryPrivate()
+        : q_ptr(nullptr)
+    {
+    }
 
     void slotPropertyChanged(QtProperty *property, int value);
     void slotEnumNamesChanged(QtProperty *property, const QStringList &);
     void slotEnumIconsChanged(QtProperty *property, const QMap<int, QIcon> &);
     void slotSetValue(int value);
+
+private:
+    
+    QtEnumEditorFactory* q_ptr;
+    Q_DECLARE_PUBLIC(QtEnumEditorFactory)
 };
 
 void QtEnumEditorFactoryPrivate::slotPropertyChanged(QtProperty *property, int value)
@@ -2308,12 +2323,20 @@ void QtColorEditWidget::paintEvent(QPaintEvent *)
 
 class QtColorEditorFactoryPrivate : public EditorFactoryPrivate<QtColorEditWidget>
 {
-    QtColorEditorFactory *q_ptr;
-    Q_DECLARE_PUBLIC(QtColorEditorFactory)
 public:
+    
+    explicit QtColorEditorFactoryPrivate()
+        : q_ptr(nullptr)
+    {
+    }
 
     void slotPropertyChanged(QtProperty *property, const QColor &value);
     void slotSetValue(const QColor &value);
+
+private:
+
+    QtColorEditorFactory* q_ptr;
+    Q_DECLARE_PUBLIC(QtColorEditorFactory)
 };
 
 void QtColorEditorFactoryPrivate::slotPropertyChanged(QtProperty *property,
@@ -2530,12 +2553,20 @@ void QtFontEditWidget::paintEvent(QPaintEvent *)
 
 class QtFontEditorFactoryPrivate : public EditorFactoryPrivate<QtFontEditWidget>
 {
-    QtFontEditorFactory *q_ptr;
-    Q_DECLARE_PUBLIC(QtFontEditorFactory)
 public:
+
+    explicit QtFontEditorFactoryPrivate()
+        : q_ptr(nullptr)
+    {
+    }
 
     void slotPropertyChanged(QtProperty *property, const QFont &value);
     void slotSetValue(const QFont &value);
+
+private:
+    
+    QtFontEditorFactory* q_ptr;
+    Q_DECLARE_PUBLIC(QtFontEditorFactory)
 };
 
 void QtFontEditorFactoryPrivate::slotPropertyChanged(QtProperty *property,

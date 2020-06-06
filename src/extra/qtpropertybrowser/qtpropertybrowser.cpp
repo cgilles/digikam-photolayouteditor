@@ -86,9 +86,13 @@ public:
 
 class QtAbstractPropertyManagerPrivate
 {
-    QtAbstractPropertyManager *q_ptr;
-    Q_DECLARE_PUBLIC(QtAbstractPropertyManager)
 public:
+
+    explicit QtAbstractPropertyManagerPrivate()
+        : q_ptr(nullptr)
+    {
+    }
+
     void propertyDestroyed(QtProperty *property);
     void propertyChanged(QtProperty *property) const;
     void propertyRemoved(QtProperty *property,
@@ -97,6 +101,11 @@ public:
                 QtProperty *afterProperty) const;
 
     QSet<QtProperty *> m_properties;
+
+private:
+    
+    QtAbstractPropertyManager* q_ptr;
+    Q_DECLARE_PUBLIC(QtAbstractPropertyManager)
 };
 
 /*!

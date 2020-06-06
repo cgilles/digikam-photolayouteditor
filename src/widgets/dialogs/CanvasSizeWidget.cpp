@@ -23,6 +23,8 @@
 
 #include "CanvasSizeWidget.h"
 
+// Qt includes
+
 #include <QComboBox>
 #include <QPushButton>
 #include <QDoubleSpinBox>
@@ -32,24 +34,40 @@
 #include <QHBoxLayout>
 #include <QGroupBox>
 
+// Local includes
+
 #include "CanvasSize.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 class CanvasSizeWidget::Private
 {
+    explicit Private()
+        : sizeWidget(nullptr),
+          advancedWidget(nullptr),
+          xSize(nullptr),
+          ySize(nullptr),
+          sizeLabel(nullptr),
+          sizeUnitsWidget(nullptr),
+          xResolution(nullptr),
+          yResolution(nullptr),
+          resolutionUnitsWidget(nullptr)
+    {
+    }
+
     void swapSizes();
     void updateSizeLabel();
 
-    QWidget *   sizeWidget;
-    QWidget *   advancedWidget;
-    QDoubleSpinBox *  xSize;
-    QDoubleSpinBox *  ySize;
-    QLabel *    sizeLabel;
-    QComboBox * sizeUnitsWidget;
-    QDoubleSpinBox *  xResolution;
-    QDoubleSpinBox *  yResolution;
-    QComboBox * resolutionUnitsWidget;
+    QWidget *        sizeWidget;
+    QWidget *        advancedWidget;
+    QDoubleSpinBox * xSize;
+    QDoubleSpinBox * ySize;
+    QLabel *         sizeLabel;
+    QComboBox *      sizeUnitsWidget;
+    QDoubleSpinBox * xResolution;
+    QDoubleSpinBox * yResolution;
+    QComboBox *      resolutionUnitsWidget;
 
     static int WIDTH;
     static int HEIGHT;
@@ -355,3 +373,5 @@ void CanvasSizeWidget::yResolutionChanged(double yResolution)
     d->HEIGHT_RES = yResolution * resolutionFactor;
     d->updateSizeLabel();
 }
+
+} // namespace PhotoLayoutsEditor

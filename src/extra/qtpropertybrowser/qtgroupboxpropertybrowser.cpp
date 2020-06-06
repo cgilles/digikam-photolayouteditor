@@ -52,25 +52,41 @@ QT_BEGIN_NAMESPACE
 
 class QtGroupBoxPropertyBrowserPrivate
 {
-    QtGroupBoxPropertyBrowser *q_ptr;
-    Q_DECLARE_PUBLIC(QtGroupBoxPropertyBrowser)
 public:
 
+    explicit QtGroupBoxPropertyBrowserPrivate()
+        : m_mainLayout(nullptr),
+          q_ptr(nullptr)
+    {
+    }
+    
     void init(QWidget *parent);
 
     void propertyInserted(QtBrowserItem *index, QtBrowserItem *afterIndex);
     void propertyRemoved(QtBrowserItem *index);
     void propertyChanged(QtBrowserItem *index);
+
     QWidget *createEditor(QtProperty *property, QWidget *parent) const
-        { return q_ptr->createEditor(property, parent); }
+    {
+        return q_ptr->createEditor(property, parent);
+    }
 
     void slotEditorDestroyed();
     void slotUpdate();
 
     struct WidgetItem
     {
-        WidgetItem() : widget(nullptr), label(nullptr), widgetLabel(nullptr),
-                groupBox(nullptr), layout(nullptr), line(nullptr), parent(nullptr) { }
+        WidgetItem()
+            : widget(nullptr),
+              label(nullptr),
+              widgetLabel(nullptr),
+              groupBox(nullptr),
+              layout(nullptr),
+              line(nullptr),
+              parent(nullptr)
+        {
+        }
+
         QWidget *widget; // can be null
         QLabel *label;
         QLabel *widgetLabel;
@@ -80,7 +96,9 @@ public:
         WidgetItem *parent;
         QList<WidgetItem *> children;
     };
+
 private:
+
     void updateLater();
     void updateItem(WidgetItem *item);
     void insertRow(QGridLayout *layout, int row) const;
@@ -88,12 +106,16 @@ private:
 
     bool hasHeader(WidgetItem *item) const;
 
+private:
+
     QMap<QtBrowserItem *, WidgetItem *> m_indexToItem;
     QMap<WidgetItem *, QtBrowserItem *> m_itemToIndex;
     QMap<QWidget *, WidgetItem *> m_widgetToItem;
-    QGridLayout *m_mainLayout;
+    QGridLayout* m_mainLayout;
     QList<WidgetItem *> m_children;
     QList<WidgetItem *> m_recreateQueue;
+    QtGroupBoxPropertyBrowser* q_ptr;
+    Q_DECLARE_PUBLIC(QtGroupBoxPropertyBrowser)
 };
 
 void QtGroupBoxPropertyBrowserPrivate::init(QWidget *parent)

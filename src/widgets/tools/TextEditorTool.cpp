@@ -23,17 +23,28 @@
  * ============================================================ */
 
 #include "TextEditorTool.h"
-#include "TextItem.h"
-#include "ToolsDockWidget.h"
+
+// Qt includes
 
 #include <QVBoxLayout>
 
+// Local includes
+
 #include "qtpropertybrowser.h"
+#include "TextItem.h"
+#include "ToolsDockWidget.h"
 
-using namespace PhotoLayoutsEditor;
-
-class PhotoLayoutsEditor::TextEditorToolPrivate
+namespace PhotoLayoutsEditor
 {
+
+class TextEditorToolPrivate
+{
+    explicit TextEditorToolPrivate()
+        : m_create_button(nullptr),
+          m_layout(nullptr)
+    {
+    }
+
     QPushButton * m_create_button;
     QVBoxLayout * m_layout;
 
@@ -110,3 +121,5 @@ void TextEditorTool::createNewItem()
     m_create_new_item = true;
     d->m_create_button->setEnabled(false);
 }
+
+} // namespace PhotoLayoutsEditor
