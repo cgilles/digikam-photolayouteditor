@@ -69,7 +69,7 @@ public:
     void setValue(const QVariant &value);
     void setAttribute(const QString &attribute, const QVariant &value);
 protected:
-    QtVariantProperty(QtVariantPropertyManager *manager);
+    explicit QtVariantProperty(QtVariantPropertyManager *manager);
 private:
     friend class QtVariantPropertyManager;
     QtVariantPropertyPrivate *d_ptr;
@@ -81,7 +81,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtVariantPropertyManager : public QtAbstractPr
 {
     Q_OBJECT
 public:
-    QtVariantPropertyManager(QObject* parent = nullptr);
+    explicit QtVariantPropertyManager(QObject* parent = nullptr);
     ~QtVariantPropertyManager();
 
     virtual QtVariantProperty *addProperty(int propertyType, const QString &name = QString());
@@ -168,7 +168,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtVariantEditorFactory : public QtAbstractEdit
 {
     Q_OBJECT
 public:
-    QtVariantEditorFactory(QObject* parent = nullptr);
+    explicit QtVariantEditorFactory(QObject* parent = nullptr);
     ~QtVariantEditorFactory();
 protected:
     void connectPropertyManager(QtVariantPropertyManager *manager) override;

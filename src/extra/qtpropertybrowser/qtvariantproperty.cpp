@@ -154,7 +154,7 @@ class QtVariantPropertyPrivate
 
 public:
     
-    QtVariantPropertyPrivate(QtVariantPropertyManager *m)
+    explicit QtVariantPropertyPrivate(QtVariantPropertyManager *m)
         : q_ptr(nullptr),
           manager(m)
     {

@@ -37,7 +37,6 @@
 **
 ****************************************************************************/
 
-
 #ifndef QTPROPERTYMANAGER_H
 #define QTPROPERTYMANAGER_H
 
@@ -56,7 +55,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtGroupPropertyManager : public QtAbstractProp
 {
     Q_OBJECT
 public:
-    QtGroupPropertyManager(QObject *parent = nullptr);
+    explicit QtGroupPropertyManager(QObject *parent = nullptr);
     ~QtGroupPropertyManager();
 
 protected:
@@ -72,7 +71,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtIntPropertyManager : public QtAbstractProper
 {
     Q_OBJECT
 public:
-    QtIntPropertyManager(QObject *parent = nullptr);
+    explicit QtIntPropertyManager(QObject *parent = nullptr);
     ~QtIntPropertyManager();
 
     int value(const QtProperty *property) const;
@@ -106,7 +105,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtBoolPropertyManager : public QtAbstractPrope
 {
     Q_OBJECT
 public:
-    QtBoolPropertyManager(QObject *parent = nullptr);
+    explicit QtBoolPropertyManager(QObject *parent = nullptr);
     ~QtBoolPropertyManager();
 
     bool value(const QtProperty *property) const;
@@ -132,7 +131,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtDoublePropertyManager : public QtAbstractPro
 {
     Q_OBJECT
 public:
-    QtDoublePropertyManager(QObject *parent = nullptr);
+    explicit QtDoublePropertyManager(QObject *parent = nullptr);
     ~QtDoublePropertyManager();
 
     double value(const QtProperty *property) const;
@@ -169,7 +168,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtStringPropertyManager : public QtAbstractPro
 {
     Q_OBJECT
 public:
-    QtStringPropertyManager(QObject *parent = nullptr);
+    explicit QtStringPropertyManager(QObject *parent = nullptr);
     ~QtStringPropertyManager();
 
     QString value(const QtProperty *property) const;
@@ -197,7 +196,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtDatePropertyManager : public QtAbstractPrope
 {
     Q_OBJECT
 public:
-    QtDatePropertyManager(QObject *parent = nullptr);
+    explicit QtDatePropertyManager(QObject *parent = nullptr);
     ~QtDatePropertyManager();
 
     QDate value(const QtProperty *property) const;
@@ -228,7 +227,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtTimePropertyManager : public QtAbstractPrope
 {
     Q_OBJECT
 public:
-    QtTimePropertyManager(QObject *parent = nullptr);
+    explicit QtTimePropertyManager(QObject *parent = nullptr);
     ~QtTimePropertyManager();
 
     QTime value(const QtProperty *property) const;
@@ -253,7 +252,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtDateTimePropertyManager : public QtAbstractP
 {
     Q_OBJECT
 public:
-    QtDateTimePropertyManager(QObject *parent = nullptr);
+    explicit QtDateTimePropertyManager(QObject *parent = nullptr);
     ~QtDateTimePropertyManager();
 
     QDateTime value(const QtProperty *property) const;
@@ -278,7 +277,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtKeySequencePropertyManager : public QtAbstra
 {
     Q_OBJECT
 public:
-    QtKeySequencePropertyManager(QObject *parent = nullptr);
+    explicit QtKeySequencePropertyManager(QObject *parent = nullptr);
     ~QtKeySequencePropertyManager();
 
     QKeySequence value(const QtProperty *property) const;
@@ -303,7 +302,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtCharPropertyManager : public QtAbstractPrope
 {
     Q_OBJECT
 public:
-    QtCharPropertyManager(QObject *parent = nullptr);
+    explicit QtCharPropertyManager(QObject *parent = nullptr);
     ~QtCharPropertyManager();
 
     QChar value(const QtProperty *property) const;
@@ -329,7 +328,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtLocalePropertyManager : public QtAbstractPro
 {
     Q_OBJECT
 public:
-    QtLocalePropertyManager(QObject *parent = nullptr);
+    explicit QtLocalePropertyManager(QObject *parent = nullptr);
     ~QtLocalePropertyManager();
 
     QtEnumPropertyManager *subEnumPropertyManager() const;
@@ -358,7 +357,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtPointPropertyManager : public QtAbstractProp
 {
     Q_OBJECT
 public:
-    QtPointPropertyManager(QObject *parent = nullptr);
+    explicit QtPointPropertyManager(QObject *parent = nullptr);
     ~QtPointPropertyManager();
 
     QtIntPropertyManager *subIntPropertyManager() const;
@@ -387,7 +386,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtPointFPropertyManager : public QtAbstractPro
 {
     Q_OBJECT
 public:
-    QtPointFPropertyManager(QObject *parent = nullptr);
+    explicit QtPointFPropertyManager(QObject *parent = nullptr);
     ~QtPointFPropertyManager();
 
     QtDoublePropertyManager *subDoublePropertyManager() const;
@@ -419,7 +418,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtSizePropertyManager : public QtAbstractPrope
 {
     Q_OBJECT
 public:
-    QtSizePropertyManager(QObject *parent = nullptr);
+    explicit QtSizePropertyManager(QObject *parent = nullptr);
     ~QtSizePropertyManager();
 
     QtIntPropertyManager *subIntPropertyManager() const;
@@ -454,7 +453,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtSizeFPropertyManager : public QtAbstractProp
 {
     Q_OBJECT
 public:
-    QtSizeFPropertyManager(QObject *parent = nullptr);
+    explicit QtSizeFPropertyManager(QObject *parent = nullptr);
     ~QtSizeFPropertyManager();
 
     QtDoublePropertyManager *subDoublePropertyManager() const;
@@ -492,7 +491,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtRectPropertyManager : public QtAbstractPrope
 {
     Q_OBJECT
 public:
-    QtRectPropertyManager(QObject *parent = nullptr);
+    explicit QtRectPropertyManager(QObject *parent = nullptr);
     ~QtRectPropertyManager();
 
     QtIntPropertyManager *subIntPropertyManager() const;
@@ -524,7 +523,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtRectFPropertyManager : public QtAbstractProp
 {
     Q_OBJECT
 public:
-    QtRectFPropertyManager(QObject *parent = nullptr);
+    explicit QtRectFPropertyManager(QObject *parent = nullptr);
     ~QtRectFPropertyManager();
 
     QtDoublePropertyManager *subDoublePropertyManager() const;
@@ -559,7 +558,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtEnumPropertyManager : public QtAbstractPrope
 {
     Q_OBJECT
 public:
-    QtEnumPropertyManager(QObject *parent = nullptr);
+    explicit QtEnumPropertyManager(QObject *parent = nullptr);
     ~QtEnumPropertyManager();
 
     int value(const QtProperty *property) const;
@@ -591,7 +590,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtFlagPropertyManager : public QtAbstractPrope
 {
     Q_OBJECT
 public:
-    QtFlagPropertyManager(QObject *parent = nullptr);
+    explicit QtFlagPropertyManager(QObject *parent = nullptr);
     ~QtFlagPropertyManager();
 
     QtBoolPropertyManager *subBoolPropertyManager() const;
@@ -623,7 +622,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtSizePolicyPropertyManager : public QtAbstrac
 {
     Q_OBJECT
 public:
-    QtSizePolicyPropertyManager(QObject *parent = nullptr);
+    explicit QtSizePolicyPropertyManager(QObject *parent = nullptr);
     ~QtSizePolicyPropertyManager();
 
     QtIntPropertyManager *subIntPropertyManager() const;
@@ -654,7 +653,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtFontPropertyManager : public QtAbstractPrope
 {
     Q_OBJECT
 public:
-    QtFontPropertyManager(QObject *parent = nullptr);
+    explicit QtFontPropertyManager(QObject *parent = nullptr);
     ~QtFontPropertyManager();
 
     QtIntPropertyManager *subIntPropertyManager() const;
@@ -690,7 +689,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtColorPropertyManager : public QtAbstractProp
 {
     Q_OBJECT
 public:
-    QtColorPropertyManager(QObject *parent = nullptr);
+    explicit QtColorPropertyManager(QObject *parent = nullptr);
     ~QtColorPropertyManager();
 
     QtIntPropertyManager *subIntPropertyManager() const;
@@ -720,7 +719,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtCursorPropertyManager : public QtAbstractPro
 {
     Q_OBJECT
 public:
-    QtCursorPropertyManager(QObject *parent = nullptr);
+    explicit QtCursorPropertyManager(QObject *parent = nullptr);
     ~QtCursorPropertyManager();
 
 #ifndef QT_NO_CURSOR

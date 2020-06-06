@@ -52,9 +52,10 @@ class QtGroupBoxPropertyBrowserPrivate;
 class QT_QTPROPERTYBROWSER_EXPORT QtGroupBoxPropertyBrowser : public QtAbstractPropertyBrowser
 {
     Q_OBJECT
+
 public:
 
-    QtGroupBoxPropertyBrowser(QWidget *parent = nullptr);
+    explicit QtGroupBoxPropertyBrowser(QWidget *parent = nullptr);
     ~QtGroupBoxPropertyBrowser();
 
 protected:
