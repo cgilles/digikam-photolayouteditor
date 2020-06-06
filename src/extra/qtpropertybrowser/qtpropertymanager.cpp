@@ -457,48 +457,64 @@ static QList<QLocale::Country> sortCountries(const QList<QLocale::Country> &coun
 void QtMetaEnumProvider::initLocale()
 {
     QMultiMap<QString, QLocale::Language> nameToLanguage;
-    QLocale::Language language = QLocale::C;
-    while (language <= QLocale::LastLanguage) {
-        QLocale locale(language);
-        if (locale.language() == language)
-            nameToLanguage.insert(QLocale::languageToString(language), language);
-        language = (QLocale::Language)((uint)language + 1); // ++language
+    QLocale::Language language1 = QLocale::C;
+
+    while (language1 <= QLocale::LastLanguage)
+    {
+        QLocale locale(language1);
+
+        if (locale.language() == language1)
+            nameToLanguage.insert(QLocale::languageToString(language1), language1);
+
+        language1 = (QLocale::Language)((uint)language1 + 1); // ++language1
     }
 
     const QLocale system = QLocale::system();
+
     if (!nameToLanguage.contains(QLocale::languageToString(system.language())))
         nameToLanguage.insert(QLocale::languageToString(system.language()), system.language());
 
     QList<QLocale::Language> languages = nameToLanguage.values();
     QListIterator<QLocale::Language> itLang(languages);
-    while (itLang.hasNext()) {
-        QLocale::Language language = itLang.next();
+    while (itLang.hasNext())
+    {
+        QLocale::Language language2 = itLang.next();
         QList<QLocale::Country> countries;
+
 #if QT_VERSION < 0x040300
-        countries = countriesForLanguage(language);
+
+        countries = countriesForLanguage(language2);
+
 #else
-        countries = QLocale::countriesForLanguage(language);
+
+        countries = QLocale::countriesForLanguage(language2);
+
 #endif
-        if (countries.isEmpty() && language == system.language())
+
+        if (countries.isEmpty() && language2 == system.language())
             countries << system.country();
 
-        if (!countries.isEmpty() && !m_languageToIndex.contains(language)) {
-            countries = sortCountries(countries);
+        if (!countries.isEmpty() && !m_languageToIndex.contains(language2))
+        {
+            countries   = sortCountries(countries);
             int langIdx = m_languageEnumNames.count();
-            m_indexToLanguage[langIdx] = language;
-            m_languageToIndex[language] = langIdx;
+            m_indexToLanguage[langIdx] = language2;
+            m_languageToIndex[language2] = langIdx;
             QStringList countryNames;
             QListIterator<QLocale::Country> it(countries);
             int countryIdx = 0;
-            while (it.hasNext()) {
+            
+            while (it.hasNext())
+            {
                 QLocale::Country country = it.next();
                 countryNames << QLocale::countryToString(country);
                 m_indexToCountry[langIdx][countryIdx] = country;
-                m_countryToIndex[language][country] = countryIdx;
+                m_countryToIndex[language2][country] = countryIdx;
                 ++countryIdx;
             }
-            m_languageEnumNames << QLocale::languageToString(language);
-            m_countryEnumNames[language] = countryNames;
+
+            m_languageEnumNames << QLocale::languageToString(language2);
+            m_countryEnumNames[language2] = countryNames;
         }
     }
 }
@@ -5061,25 +5077,31 @@ QStringList QtFlagPropertyManager::flagNames(const QtProperty *property) const
 */
 QString QtFlagPropertyManager::valueText(const QtProperty *property) const
 {
-    const QtFlagPropertyManagerPrivate::PropertyValueMap::const_iterator it = d_ptr->m_values.constFind(property);
-    if (it == d_ptr->m_values.constEnd())
+    const QtFlagPropertyManagerPrivate::PropertyValueMap::const_iterator it1 = d_ptr->m_values.constFind(property);
+    
+    if (it1 == d_ptr->m_values.constEnd())
         return QString();
 
-    const QtFlagPropertyManagerPrivate::Data &data = it.value();
+    const QtFlagPropertyManagerPrivate::Data& data = it1.value();
 
     QString str;
     int level = 0;
     const QChar bar = QLatin1Char('|');
     const QStringList::const_iterator fncend = data.flagNames.constEnd();
-    for (QStringList::const_iterator it =  data.flagNames.constBegin(); it != fncend; ++it) {
-        if (data.val & (1 << level)) {
+
+    for (QStringList::const_iterator it2 =  data.flagNames.constBegin(); it2 != fncend; ++it2)
+    {
+        if (data.val & (1 << level))
+        {
             if (!str.isEmpty())
                 str += bar;
-            str += *it;
+            
+            str += *it2;
         }
 
         level++;
     }
+
     return str;
 }
 

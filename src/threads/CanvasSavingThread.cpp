@@ -96,34 +96,42 @@ void CanvasSavingThread::run()
     svg.setAttribute(QLatin1String("xmlns:xlink"), QLatin1String("http://www.w3.org/1999/xlink"));
     svg.setAttribute(QLatin1String("version"), QLatin1String("1.2"));
     svg.setAttribute(QLatin1String("baseProfile"), QLatin1String("tiny"));
-    QString j;
+    QString j1;
+    
     switch (m_canvas->d->m_size.sizeUnit())
     {
         case CanvasSize::Centimeters:
-            j = QLatin1String("cm");
+            j1 = QLatin1String("cm");
             break;
+
         case CanvasSize::Milimeters:
-            j = QLatin1String("mm");
+            j1 = QLatin1String("mm");
             break;
+
         case CanvasSize::Inches:
-            j = QLatin1String("in");
+            j1 = QLatin1String("in");
             break;
+
         case CanvasSize::Picas:
-            j = QLatin1String("pc");
+            j1 = QLatin1String("pc");
             break;
+
         case CanvasSize::Points:
-            j = QLatin1String("pt");
+            j1 = QLatin1String("pt");
             break;
+
         case CanvasSize::Pixels:
-            j = QLatin1String("px");
+            j1 = QLatin1String("px");
             break;
+
         default:
-            j = QLatin1String("px");
+            j1 = QLatin1String("px");
             qDebug() << "Unhandled size unit at:" << __FILE__ << ":" << __LINE__;
             break;
     }
-    svg.setAttribute(QLatin1String("width"), QString::number(m_canvas->d->m_size.size().width()) + j);
-    svg.setAttribute(QLatin1String("height"), QString::number(m_canvas->d->m_size.size().height()) + j);
+
+    svg.setAttribute(QLatin1String("width"), QString::number(m_canvas->d->m_size.size().width()) + j1);
+    svg.setAttribute(QLatin1String("height"), QString::number(m_canvas->d->m_size.size().height()) + j1);
     QDomElement resolution = document.createElementNS(m_template ? PhotoLayoutsEditor::templateUri() : PhotoLayoutsEditor::uri(), QLatin1String("page"));
     resolution.setAttribute(QLatin1String("width"), QString::number(m_canvas->d->m_size.resolution().width()));
     resolution.setAttribute(QLatin1String("height"), QString::number(m_canvas->d->m_size.resolution().height()));
@@ -135,16 +143,20 @@ void CanvasSavingThread::run()
 
     //---------------------------------------------------------------------------
 
-    Scene * scene = dynamic_cast<Scene*>(m_canvas->scene());
+    Scene* const scene = dynamic_cast<Scene*>(m_canvas->scene());
+
     if (!scene)
     {
         this->exit(1);
         return;
     }
+
     QDomDocument sceneDocument = m_template ? scene->toTemplateSvg(this) : scene->toSvg(this);
     QDomElement sceneElement = sceneDocument.documentElement();
+
     if (sceneElement.isNull())
         this->exit(1);
+
     svg.appendChild(sceneElement);
 
     //---------------------------------------------------------------------------
@@ -153,27 +165,30 @@ void CanvasSavingThread::run()
     this->sendActionUpdate( QObject::tr("Encoding data...") );
 
     QFile file(m_url.path());
+
     if (file.open(QFile::WriteOnly | QFile::Text))
     {
         QByteArray result = document.toByteArray();
         const char * data = result.data();
         int i = 0;
         const int limit = result.size();
-        int j = 1000;
-        j = (j > limit ? limit : j);
+        int j2 = 1000;
+        j2 = (j2 > limit ? limit : j2);
         this->sendActionUpdate( QObject::tr("Writing data to file...") );
+
         while (i < limit)
         {
-            i += file.write(data+i, (i+j <= limit ? j : limit-i));
+            i += file.write(data+i, (i+j2 <= limit ? j2 : limit-i));
             this->sendProgressUpdate( 0.8 + 0.2 * ((double)i / (double)limit) );
         }
+
         file.close();
         emit saved();
     }
 
     //---------------------------------------------------------------------------
 
-    ProgressEvent* finishEvent = new ProgressEvent(this);
+    ProgressEvent* const finishEvent = new ProgressEvent(this);
     finishEvent->setData(ProgressEvent::Finish, 0);
     QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), finishEvent);
     QCoreApplication::processEvents();

@@ -350,21 +350,21 @@ void QtPropertyEditorDelegate::updateEditorGeometry(QWidget *editor,
 void QtPropertyEditorDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
             const QModelIndex &index) const
 {
-    bool hasValue = true;
+    bool hasValue            = true;
     QStyleOptionViewItem opt = option;
 
     if (m_editorPrivate)
     {
-        QtProperty *property = m_editorPrivate->indexToProperty(index);
+        QtProperty* const property1 = m_editorPrivate->indexToProperty(index);
 
-        if (property)
-            hasValue = property->hasValue();
+        if (property1)
+            hasValue = property1->hasValue();
 
         if ((m_editorPrivate && index.column() == 0) || !hasValue)
         {
-            QtProperty *property = m_editorPrivate->indexToProperty(index);
+            QtProperty* const property2 = m_editorPrivate->indexToProperty(index);
             
-            if (property && property->isModified())
+            if (property2 && property2->isModified())
             {
                 opt.font.setBold(true);
                 opt.fontMetrics = QFontMetrics(opt.font);

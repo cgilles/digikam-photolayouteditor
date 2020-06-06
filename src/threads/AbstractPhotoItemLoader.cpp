@@ -67,26 +67,33 @@ void AbstractPhotoItemLoader::run()
     if (m_element.tagName() != QLatin1String("g"))
         this->exit(1);
 
-    ProgressObserver * observer = this->observer();
+    ProgressObserver* const observer = this->observer();
+
     if (observer)
     {
         observer->progresChanged(0.1);
         observer->progresName(QObject::tr("Reading properties..."));
     }
+
     // Items visibility
+
     m_item->d->m_visible = (m_element.attribute(QLatin1String("visibility")) != QLatin1String("hide"));
 
     // ID & name
+
     m_item->d->m_id = m_element.attribute(QLatin1String("id"));
     m_item->d->m_name = m_element.attribute(QLatin1String("name"));
 
     // Position & transformation
+
     m_item->d->m_pos = QPointF(0,0);
-    QString transform = m_element.attribute(QLatin1String("transform"));
-    if (!transform.isEmpty())
+    QString transform1 = m_element.attribute(QLatin1String("transform"));
+
+    if (!transform1.isEmpty())
     {
         QRegExp tra(QLatin1String("translate\\([-0-9.]+,[-0-9.]+\\)"));
-        if (tra.indexIn(transform) >= 0)
+
+        if (tra.indexIn(transform1) >= 0)
         {
             QStringList list = tra.capturedTexts();
             QString translate = list.at(0);
@@ -98,7 +105,8 @@ void AbstractPhotoItemLoader::run()
         }
 
         QRegExp rot(QLatin1String("matrix\\([-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+\\)"));
-        if (rot.indexIn(transform) >= 0)
+
+        if (rot.indexIn(transform1) >= 0)
         {
             QStringList list = rot.capturedTexts();
             QString matrix = list.at(0);
@@ -119,9 +127,10 @@ void AbstractPhotoItemLoader::run()
     if (m_element.firstChildElement().tagName() == QLatin1String("g"))
     {
         m_element = m_element.firstChildElement();
-        QString transform = m_element.attribute(QLatin1String("transform"));
+        QString transform2 = m_element.attribute(QLatin1String("transform"));
         QRegExp rot(QLatin1String("matrix\\([-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+\\)"));
-        if (rot.indexIn(transform) >= 0)
+
+        if (rot.indexIn(transform2) >= 0)
         {
             QStringList list = rot.capturedTexts();
             QString matrix = list.at(0);
@@ -141,14 +150,18 @@ void AbstractPhotoItemLoader::run()
 
     // Validation purpose
     QDomElement defs = m_element.firstChildElement(QLatin1String("defs"));
+
     while (!defs.isNull() && defs.attribute(QLatin1String("id")) != QLatin1String("data_") + m_item->id())
         defs = defs.nextSiblingElement(QLatin1String("defs"));
+
     if (defs.isNull())
         this->exit(1);
 
     QDomElement itemDataElement = defs.firstChildElement(QLatin1String("g"));
+
     while (!itemDataElement.isNull() && itemDataElement.attribute(QLatin1String("id")) != QLatin1String("vis_data_") + m_item->id())
         itemDataElement = itemDataElement.nextSiblingElement(QLatin1String("g"));
+
     if (itemDataElement.isNull())
         this->exit(1);
 
@@ -157,24 +170,30 @@ void AbstractPhotoItemLoader::run()
         observer->progresChanged(0.2);
         observer->progresName(QObject::tr("Reading borders..."));
     }
+
     // Borders
+
     if (m_item->d->m_borders_group)
     {
         m_item->d->m_borders_group->deleteLater();
         m_item->d->m_borders_group = nullptr;
     }
+
     m_item->d->m_borders_group = BordersGroup::fromSvg(itemDataElement, m_item);
+
     if (!m_item->d->m_borders_group)
         this->exit(1);
     else
         connect(m_item->d->m_borders_group, SIGNAL(drawersChanged()), m_item, SLOT(refresh()));
 
     QDomElement clipPath = defs.firstChildElement(QLatin1String("clipPath"));
+
     if (clipPath.isNull() || clipPath.attribute(QLatin1String("id")) != QLatin1String("clipPath_") + m_item->id())
         this->exit(1);
 
     // Other application specific data
     QDomElement appNS = defs.firstChildElement(QLatin1String("data"));
+
     if (appNS.isNull() || appNS.prefix() != PhotoLayoutsEditor::name())
         this->exit(1);
 
@@ -183,13 +202,17 @@ void AbstractPhotoItemLoader::run()
         observer->progresChanged(0.3);
         observer->progresName(QObject::tr("Reading effects..."));
     }
+
     // Effects
+    
     if (m_item->d->m_effects_group)
     {
         m_item->d->m_effects_group->deleteLater();
         m_item->d->m_effects_group = nullptr;
     }
+
     m_item->d->m_effects_group = PhotoEffectsGroup::fromSvg(appNS, m_item);
+    
     if (!m_item->d->m_effects_group)
         this->exit(1);
     else
@@ -200,8 +223,11 @@ void AbstractPhotoItemLoader::run()
         observer->progresChanged(0.4);
         observer->progresName(QObject::tr("Reading cropping shape..."));
     }
+
     // Crop path
+
     QDomElement cropPath = appNS.firstChildElement(QLatin1String("crop_path"));
+
     if (!cropPath.isNull())
         m_item->d->m_crop_shape = PhotoLayoutsEditor::pathFromSvg( cropPath.firstChildElement(QLatin1String("path")) );
     else
