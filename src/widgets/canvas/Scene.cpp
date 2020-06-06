@@ -1132,6 +1132,7 @@ void Scene::dropEvent(QGraphicsSceneDragDropEvent * event)
 void Scene::setGrid(double x, double y)
 {
     // Grid can't be 0
+
     if (x == 0 || y == 0)
         return;
 
@@ -1155,20 +1156,20 @@ void Scene::setGrid(double x, double y)
     qreal height = sceneRect().height();
     QList<QGraphicsItem*> children = grid_item->childItems();
     QList<QGraphicsItem*>::iterator it = children.begin();
-    QGraphicsLineItem * temp;
+    QGraphicsLineItem* temp1 = nullptr;
 
     for (qreal i = x; i < width; i+=x)
     {
         if (it != children.end())
         {
-            temp = static_cast<QGraphicsLineItem*>(*it);
-            temp->setLine(i,0,i,height);
+            temp1 = static_cast<QGraphicsLineItem*>(*it);
+            temp1->setLine(i, 0, i, height);
             ++it;
         }
         else
         {
-            temp = new QGraphicsLineItem(i, 0, i, height, nullptr);
-            grid_item->addToGroup(temp);
+            temp1 = new QGraphicsLineItem(i, 0, i, height, nullptr);
+            grid_item->addToGroup(temp1);
         }
     }
 
@@ -1176,40 +1177,39 @@ void Scene::setGrid(double x, double y)
     {
         if (it != children.end())
         {
-            temp = static_cast<QGraphicsLineItem*>(*it);
-            temp->setLine(0,i,width,i);
+            temp1 = static_cast<QGraphicsLineItem*>(*it);
+            temp1->setLine(0, i, width, i);
             ++it;
         }
         else
         {
-            temp = new QGraphicsLineItem(0, i, width, i, nullptr);
-            grid_item->addToGroup(temp);
+            temp1 = new QGraphicsLineItem(0, i, width, i, nullptr);
+            grid_item->addToGroup(temp1);
         }
     }
 
     QList<QGraphicsItem*> toRemove;
+
     while (it != children.end())
         toRemove.append(*(it++));
+
     while (toRemove.count())
     {
-        QGraphicsItem * temp = toRemove.takeAt(0);
-        grid_item->removeFromGroup(temp);
-        delete temp;
+        QGraphicsItem* const temp2 = toRemove.takeAt(0);
+        grid_item->removeFromGroup(temp2);
+        delete temp2;
     }
 }
-
 
 void Scene::setHorizontalGrid(double x)
 {
     setGrid(x, this->y_grid);
 }
 
-
 void Scene::setVerticalGrid(double y)
 {
     this->setGrid(this->x_grid, y);
 }
-
 
 void Scene::setGridVisible(bool visible)
 {
@@ -1226,12 +1226,10 @@ void Scene::setGridVisible(bool visible)
     }
 }
 
-
 bool Scene::isGridVisible()
 {
     return this->grid_visible;
 }
-
 
 void Scene::setInteractionMode(int mode)
 {
@@ -1240,7 +1238,6 @@ void Scene::setInteractionMode(int mode)
     setScalingWidgetVisible(mode & Scaling);
     setCropWidgetVisible(mode & Cropping);
 }
-
 
 void Scene::setSelectionMode(SelectionMode selectionMode)
 {
@@ -1260,18 +1257,15 @@ void Scene::setSelectionMode(SelectionMode selectionMode)
     }
 }
 
-
 void Scene::addSelectingFilter(const QMetaObject & classMeta)
 {
     d->m_selection_filters.push_back(classMeta.className());
 }
 
-
 void Scene::clearSelectingFilters()
 {
     d->m_selection_filters.clear();
 }
-
 
 void Scene::setRotationWidgetVisible(bool isVisible)
 {
@@ -1292,7 +1286,6 @@ void Scene::setRotationWidgetVisible(bool isVisible)
         this->QGraphicsScene::addItem(d->m_rot_item);
     }
 }
-
 
 void Scene::setScalingWidgetVisible(bool isVisible)
 {

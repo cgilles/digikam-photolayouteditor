@@ -395,25 +395,22 @@ QDomDocument AbstractPhoto::toTemplateSvg() const
 
 bool AbstractPhoto::fromSvg(QDomElement & element)
 {
-    qDebug() << "1";
-
     if (element.tagName() != QLatin1String("g"))
         return false;
-
-    qDebug() << "2";
 
     if (element.attribute(QLatin1String("visibility")) == QLatin1String("hide"))
         this->setVisible(false);
 
-    qDebug() << "3";
-
     // Position & transformation
+
     this->setPos(0,0);
-    QString transform = element.attribute(QLatin1String("transform"));
-    if (!transform.isEmpty())
+    QString transform1 = element.attribute(QLatin1String("transform"));
+
+    if (!transform1.isEmpty())
     {
         QRegExp tra(QLatin1String("translate\\([-0-9.]+,[-0-9.]+\\)"));
-        if (tra.indexIn(transform) >= 0)
+
+        if (tra.indexIn(transform1) >= 0)
         {
             QStringList list = tra.capturedTexts();
             QString translate = list.at(0);
@@ -425,7 +422,8 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
         }
 
         QRegExp rot(QLatin1String("matrix\\([-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+\\)"));
-        if (rot.indexIn(transform) >= 0)
+
+        if (rot.indexIn(transform1) >= 0)
         {
             QStringList list = rot.capturedTexts();
             QString matrix = list.at(0);
@@ -443,17 +441,16 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
         }
     }
 
-
-    qDebug() << "4";
-
     if (element.firstChildElement().tagName() == QLatin1String("g"))
     {
         element = element.firstChildElement();
-        QString transform = element.attribute(QLatin1String("transform"));
-        if (!transform.isEmpty())
+        QString transform2 = element.attribute(QLatin1String("transform"));
+
+        if (!transform2.isEmpty())
         {
             QRegExp rot(QLatin1String("matrix\\([-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+,[-0-9.]+\\)"));
-            if (rot.indexIn(transform) >= 0)
+
+            if (rot.indexIn(transform2) >= 0)
             {
                 QStringList list = rot.capturedTexts();
                 QString matrix = list.at(0);
@@ -472,82 +469,71 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
         }
     }
 
-
-    qDebug() << "5";
-
     // ID & name
+
     d->m_id = element.attribute(QLatin1String("id"));
     d->setName(element.attribute(QLatin1String("name")));
 
-
-    qDebug() << "6";
-
     // Validation purpose
     QDomElement defs = element.firstChildElement(QLatin1String("defs"));
+
     while (!defs.isNull() && defs.attribute(QLatin1String("id")) != QLatin1String("data_")+d->m_id)
         defs = defs.nextSiblingElement(QLatin1String("defs"));
+
     if (defs.isNull())
         return false;
 
-
-    qDebug() << "7";
-
     QDomElement itemDataElement = defs.firstChildElement(QLatin1String("g"));
+
     while (!itemDataElement.isNull() && itemDataElement.attribute(QLatin1String("id")) != QLatin1String("vis_data_")+this->id())
         itemDataElement = itemDataElement.nextSiblingElement(QLatin1String("g"));
+
     if (itemDataElement.isNull())
         return false;
 
-
-    qDebug() << "8";
-
     // Borders
+
     if (d->m_borders_group)
     {
         d->m_borders_group->deleteLater();
         d->m_borders_group = nullptr;
     }
+
     d->m_borders_group = BordersGroup::fromSvg(itemDataElement, this);
+    
     if (!d->m_borders_group)
         return false;
 
-
-    qDebug() << "9";
-
     QDomElement clipPath = defs.firstChildElement(QLatin1String("clipPath"));
+
     if (clipPath.isNull() || clipPath.attribute(QLatin1String("id")) != QLatin1String("clipPath_")+this->id())
         return false;
 
-
-    qDebug() << "10";
-
     // Other application specific data
+
     QDomElement appNS = defs.firstChildElement(QLatin1String("data"));
+
     if (appNS.isNull() || appNS.prefix() != PhotoLayoutsEditor::name())
         return false;
 
-
-    qDebug() << "11";
-
     // Effects
+
     if (d->m_effects_group)
         delete d->m_effects_group;
+
     d->m_effects_group = PhotoEffectsGroup::fromSvg(appNS, this);
+
     if (!d->m_effects_group)
         return false;
 
-
-    qDebug() << "12";
-
     // Crop path
+
     QDomElement cropPath = appNS.firstChildElement(QLatin1String("crop_path"));
+
     if (!cropPath.isNull())
         this->d->setCropShape( PhotoLayoutsEditor::pathFromSvg( cropPath.firstChildElement(QLatin1String("path")) ) );
     else
         return false;
-
-
-    qDebug() << "13";
 
     return true;
 }

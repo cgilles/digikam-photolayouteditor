@@ -24,16 +24,23 @@
 
 #include "RotationWidgetItem.h"
 
+// C++ includes
+
 #include <limits>
 
+// Qt includes
+
 #include <QUndoCommand>
+
+// Local includes
 
 #include "photolayoutswindow.h"
 #include "pleglobal.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-class PhotoLayoutsEditor::RotateItemCommand : public QUndoCommand
+class RotateItemCommand : public QUndoCommand
 {
     AbstractPhoto* item;
     QPointF        rotationPoint;
@@ -100,7 +107,7 @@ public:
     }
 };
 
-class PhotoLayoutsEditor::RotationWidgetItemPrivate
+class RotationWidgetItemPrivate
 {
     explicit RotationWidgetItemPrivate(RotationWidgetItem * item) :
         item(item),
@@ -302,7 +309,7 @@ void RotationWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
     d->rotation_angle = 0;
 }
 
-void RotationWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
+void RotationWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
     if (d->elipse_pressed)
     {
@@ -314,6 +321,7 @@ void RotationWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
     else
     {
         // Calculate movement parameters
+
         QRectF refreshRect = this->boundingRect();
         QPointF itemPos = d->viewportToItemPosition(event->screenPos(), event->widget());
         QPointF currentPos = d->viewportToItemPosition(event->buttonDownScreenPos(Qt::LeftButton), event->widget());
@@ -322,49 +330,57 @@ void RotationWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
         qreal scalar = currentPos.rx()*itemPos.rx()+currentPos.ry()*itemPos.ry();
 
         // Calculate angle
+
         qreal cos = scalar/(currentLength*newLength);
         qreal prev_rotation_angle = d->rotation_angle;
+
         if (currentPos.rx()*itemPos.ry()-currentPos.ry()*itemPos.rx()>0)
             d->rotation_angle = 180*qAcos(cos)/M_PI;
         else
             d->rotation_angle = -180*qAcos(cos)/M_PI;
 
         // Rotation with 15 deegres step - Shift modifier
+
         if (event->modifiers() & Qt::ShiftModifier)
             d->rotation_angle = qRound(d->rotation_angle / 15) * 15.0;
+
         if (d->rotation_angle == prev_rotation_angle)
             return;
 
-        QTransform transform;
-        transform.rotate(d->rotation_angle-prev_rotation_angle);
-        d->rotated_shape = transform.map(d->rotated_shape);
+        QTransform transform1;
+        transform1.rotate(d->rotation_angle-prev_rotation_angle);
+        d->rotated_shape = transform1.map(d->rotated_shape);
 
         // Updates widgets view
         refreshRect = refreshRect.united(this->boundingRect());
         this->scene()->invalidate(d->itemToViewportRect(refreshRect, event->widget()));
 
         // Rotate items
-        foreach(AbstractPhoto* item, d->m_items)
+        foreach (AbstractPhoto* const item, d->m_items)
         {
-            RotateItemCommand * rotCom = d->rotate_commands[item];
+            RotateItemCommand* rotCom = d->rotate_commands[item];
+
             if (!rotCom)
                 rotCom = d->rotate_commands[item] = new RotateItemCommand(item);
+
             rotCom->setRotationPoint(d->rotation_point+d->rotation_point_offset);
             rotCom->setAngle(d->rotation_angle);
 
             QPointF point = d->rotation_point+d->rotation_point_offset;
-            QTransform transform;
-            transform.translate(point.rx(), point.ry());
-            transform.rotate( d->rotation_angle-prev_rotation_angle );
-            transform.translate(-point.rx(), -point.ry());
+            QTransform transform2;
+            transform2.translate(point.rx(), point.ry());
+            transform2.rotate( d->rotation_angle-prev_rotation_angle );
+            transform2.translate(-point.rx(), -point.ry());
             QRectF updateRect = item->mapRectToScene(item->boundingRect());
-            QTransform rotated = item->transform() * transform;
+            QTransform rotated = item->transform() * transform2;
             item->setTransform(rotated);
             updateRect = updateRect.united( item->mapRectToScene( item->boundingRect() ) );
+
             if (item->scene())
                 item->scene()->invalidate(updateRect);
         }
     }
+
     event->accept();
 }
 
@@ -381,3 +397,5 @@ void RotationWidgetItem::setItems(const QList<AbstractPhoto*> & items)
     initRotation(itemsPath, items.at(0)->boundingRect().center() * items.at(0)->transform());
     setPos(itemsPath.boundingRect().center());
 }
+
+} // namespace PhotoLayoutsEditor

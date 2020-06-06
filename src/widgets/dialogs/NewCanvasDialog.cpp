@@ -65,9 +65,9 @@ class NewCanvasDialog::Private
         verticalButton(nullptr),
         orientationGroup(nullptr)
     {
-        QListWidgetItem* const temp = new QListWidgetItem(QLatin1String("Custom"));
-        temp->setData(PAPER_SIZE_ROLE, -1);
-        paperSizes.append(temp);
+        QListWidgetItem* const temp1 = new QListWidgetItem(QLatin1String("Custom"));
+        temp1->setData(PAPER_SIZE_ROLE, -1);
+        paperSizes.append(temp1);
 
         names.insert( QPrinter::A0,        QPair<QString,QString>(QLatin1String("A0"),        QLatin1String("a0")));
         names.insert( QPrinter::A1,        QPair<QString,QString>(QLatin1String("A1"),        QLatin1String("a1")));
@@ -121,9 +121,9 @@ class NewCanvasDialog::Private
             {
                 qDebug() << "Found template is directories:" << dv.path();
 
-                QListWidgetItem* const temp = new QListWidgetItem(pair->first);
-                temp->setData(PAPER_SIZE_ROLE, pair.key());
-                paperSizes.append(temp);
+                QListWidgetItem* const temp2 = new QListWidgetItem(pair->first);
+                temp2->setData(PAPER_SIZE_ROLE, pair.key());
+                paperSizes.append(temp2);
                 continue;
             }
 
@@ -133,9 +133,9 @@ class NewCanvasDialog::Private
             {
                 qDebug() << "Found template is directories:" << dh.path();
 
-                QListWidgetItem* const temp = new QListWidgetItem(pair->first);
-                temp->setData(PAPER_SIZE_ROLE, pair.key());
-                paperSizes.append(temp);
+                QListWidgetItem* const temp3 = new QListWidgetItem(pair->first);
+                temp3->setData(PAPER_SIZE_ROLE, pair.key());
+                paperSizes.append(temp3);
                 continue;
             }
         }
