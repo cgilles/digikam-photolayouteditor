@@ -1513,6 +1513,7 @@ static QIcon drawCheckBox(bool value)
     pixmap.fill(Qt::transparent);
     {
         // Center?
+        // cppcheck-suppress knownConditionTrueFalse
         const int xoff = (pixmapWidth  > indicatorWidth)  ? (pixmapWidth  - indicatorWidth)  / 2 : 0;
         const int yoff = (pixmapHeight > indicatorHeight) ? (pixmapHeight - indicatorHeight) / 2 : 0;
         QPainter painter(&pixmap);

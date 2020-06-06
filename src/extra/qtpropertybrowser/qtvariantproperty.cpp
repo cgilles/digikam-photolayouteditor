@@ -459,8 +459,10 @@ void QtVariantPropertyManagerPrivate::removeSubProperty(QtVariantProperty *prope
 {
     QtProperty *internChild = wrappedProperty(property);
     bool wasDestroyingSubProperties = m_destroyingSubProperties;
+    Q_UNUSED(m_destroyingSubProperties);
     m_destroyingSubProperties = true;
     delete property;
+    Q_UNUSED(m_destroyingSubProperties);
     m_destroyingSubProperties = wasDestroyingSubProperties;
     m_internalToProperty.remove(internChild);
     propertyToWrappedProperty()->remove(property);

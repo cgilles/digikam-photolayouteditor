@@ -76,7 +76,7 @@ class CanvasEditToolPrivate
         Manual = 4
     };
 
-    CanvasEditToolPrivate(CanvasEditTool * /*parent*/) :
+    explicit CanvasEditToolPrivate(CanvasEditTool * /*parent*/) :
 //        m_parent(parent),
 //        background_gradient_widget(nullptr),
         background_type_widget(nullptr),
@@ -342,6 +342,7 @@ void CanvasEditTool::imageUrlRequest()
             d->background_image_label->setIcon(QIcon(tempPX));
             d->background_image_label->setIconSize(tempPX.size());
 
+            Q_UNUSED(this->hold_update);
             this->hold_update = true;
             QSizeF sceneSize = scene()->sceneRect().size();
             QSize  imageSize = d->m_image.size();
@@ -356,6 +357,7 @@ void CanvasEditTool::imageUrlRequest()
             else
                 d->background_image_scalling->setCurrentText( d->background_image_scalling_map.value(CanvasEditToolPrivate::Scaled) );
 
+            Q_UNUSED(this->hold_update);
             this->hold_update = false;
             this->setImageBackground();
 
@@ -680,6 +682,7 @@ void CanvasEditTool::updateWidgets()
         d->border_image_label->setIconSize(tempPX.size());
     }
 
+    Q_UNUSED(this->hold_update);
     this->hold_update = true;
 
     if (background->isPattern())
@@ -725,6 +728,8 @@ void CanvasEditTool::updateWidgets()
         d->background_color->setColor(background->firstColor());
         d->background_type_widget->setCurrentText(d->background_types.key(CanvasEditToolPrivate::ColorFill));
     }
+
+    Q_UNUSED(this->hold_update);
     this->hold_update = false;
 }
 
