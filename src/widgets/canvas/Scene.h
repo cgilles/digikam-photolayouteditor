@@ -85,13 +85,13 @@ class Scene : public QGraphicsScene
 
 public:
 
-    explicit Scene(const QRectF& dimension, QObject* parent = nullptr);
+    explicit Scene(const QRectF& dimension, QObject* const parent = nullptr);
     ~Scene();
 
-    SceneBackground * background();
-    SceneBorder * border();
+    SceneBackground* background();
+    SceneBorder* border();
 
-    LayersModel * model() const;
+    LayersModel* model() const;
     LayersSelectionModel * selectionModel() const;
 
     void addItem(AbstractPhoto * photo);
@@ -114,16 +114,17 @@ public:
     qreal gridHorizontalDistance() const;
     qreal gridVerticalDistance() const;
 
-    const QGraphicsScene * toGraphicsScene() const
+    const QGraphicsScene* toGraphicsScene() const
     {
         return this;
     }
 
-    QGraphicsScene * toGraphicsScene()
+    QGraphicsScene* toGraphicsScene()
     {
         return this;
     }
-    void render(QPainter * painter, const QRectF & target = QRectF(), const QRectF & source = QRectF(), Qt::AspectRatioMode aspectRatioMode = Qt::KeepAspectRatio);
+
+    void render(QPainter* painter, const QRectF& target = QRectF(), const QRectF& source = QRectF(), Qt::AspectRatioMode aspectRatioMode = Qt::KeepAspectRatio);
 
     void readSceneMousePress(MousePressListener * mouseListener);
 
@@ -170,6 +171,8 @@ private Q_SLOTS:
 
 private:
 
+    Scene(const Scene&);
+
     bool askAboutRemoving(int count);
     bool canDecode(const QMimeData * mimeData);
 
@@ -200,6 +203,6 @@ private:
     friend class MoveItemsCommand;
 };
 
-}
+} // namespace PhotoLayoutsEditor
 
 #endif // SCENE_H

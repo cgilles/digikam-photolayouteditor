@@ -84,8 +84,8 @@ QColor Scene::OUTSIDE_SCENE_COLOR;
 
 class ScenePrivate
 {
-    explicit ScenePrivate(Scene * scene) :
-        m_scene(scene),
+    explicit ScenePrivate(Scene* scene)
+      : m_scene(scene),
         model(new LayersModel(scene)),
         selection_model(new LayersSelectionModel(model, scene)),
         m_pressed_object(nullptr),
@@ -290,6 +290,10 @@ class ScenePrivate
     // Used for drag&drop images
     PhotoItem*                   m_hovered_photo;
 
+private:
+    
+    ScenePrivate(const ScenePrivate&);
+
     friend class Scene;
 };
 
@@ -300,7 +304,9 @@ class AddItemsCommand
         int position;
         Scene * scene;
         bool done;
+
     public:
+
         AddItemsCommand(AbstractPhoto * item, int position, Scene * scene, QUndoCommand * parent = nullptr) :
             QUndoCommand(QObject::tr("Add item"), parent),
             position(position),
@@ -309,13 +315,16 @@ class AddItemsCommand
         {
             items << item;
         }
+
         AddItemsCommand(const QList<AbstractPhoto*> & items, int position, Scene * scene, QUndoCommand * parent = nullptr) :
             QUndoCommand(QObject::tr("Add item", "Add items", items.count()), parent),
             items(items),
             position(position),
             scene(scene),
             done(false)
-        {}
+        {
+        }
+
         ~AddItemsCommand()
         {
             if (done)
@@ -324,6 +333,7 @@ class AddItemsCommand
                 item->deleteLater();
             items.clear();
         }
+
         virtual void redo() override
         {
             foreach(AbstractPhoto* item, items)
@@ -331,6 +341,7 @@ class AddItemsCommand
             scene->model()->insertItems(items, position);
             done = true;
         }
+
         virtual void undo() override
         {
             QRectF region;
@@ -533,13 +544,13 @@ private:
     }
 };
 
-Scene::Scene(const QRectF & dimension, QObject * parent) :
-    QGraphicsScene(dimension, parent),
-    d(new ScenePrivate(this)),
-    x_grid(0),
-    y_grid(0),
-    grid_item(nullptr),
-    grid_changed(true)
+Scene::Scene(const QRectF& dimension, QObject* const parent)
+    : QGraphicsScene(dimension, parent),
+      d(new ScenePrivate(this)),
+      x_grid(0),
+      y_grid(0),
+      grid_item(nullptr),
+      grid_changed(true)
 {
     if (!OUTSIDE_SCENE_COLOR.isValid())
     {

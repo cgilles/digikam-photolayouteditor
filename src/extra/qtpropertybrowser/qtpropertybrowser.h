@@ -102,10 +102,16 @@ public:
     void addSubProperty(QtProperty *property);
     void insertSubProperty(QtProperty *property, QtProperty *afterProperty);
     void removeSubProperty(QtProperty *property);
+
 protected:
+
     explicit QtProperty(QtAbstractPropertyManager *manager);
     void propertyChanged();
+
 private:
+
+    QtProperty(const QtProperty&);
+    
     friend class QtAbstractPropertyManager;
     QtPropertyPrivate *d_ptr;
 };
@@ -252,13 +258,19 @@ class QtBrowserItemPrivate;
 class QT_QTPROPERTYBROWSER_EXPORT QtBrowserItem
 {
 public:
+
     QtProperty *property() const;
     QtBrowserItem *parent() const;
     QList<QtBrowserItem *> children() const;
     QtAbstractPropertyBrowser *browser() const;
+
 private:
+
     explicit QtBrowserItem(QtAbstractPropertyBrowser *browser, QtProperty *property, QtBrowserItem *parent);
     ~QtBrowserItem();
+
+    QtBrowserItem(const QtBrowserItem&);
+
     QtBrowserItemPrivate *d_ptr;
     friend class QtAbstractPropertyBrowserPrivate;
 };

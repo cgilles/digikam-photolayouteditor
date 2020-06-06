@@ -23,6 +23,13 @@
  * ============================================================ */
 
 #include "CanvasLoadingThread.h"
+
+// Qt includes
+
+#include <QCoreApplication>
+
+// Local includes
+
 #include "ProgressEvent.h"
 #include "AbstractPhotoItemLoader.h"
 #include "PhotoItemLoader.h"
@@ -36,9 +43,8 @@
 #include "SceneBorder.h"
 #include "photolayoutswindow.h"
 
-#include <QCoreApplication>
-
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 class CanvasLoadingThread::CanvasLoadingThreadPrivate
 {
@@ -57,9 +63,9 @@ class CanvasLoadingThread::CanvasLoadingThreadPrivate
     friend class CanvasLoadingThread;
 };
 
-CanvasLoadingThread::CanvasLoadingThread(QObject *parent) :
-    QThread(parent),
-    d(new CanvasLoadingThreadPrivate)
+CanvasLoadingThread::CanvasLoadingThread(QObject* const parent)
+    : QThread(parent),
+      d(new CanvasLoadingThreadPrivate)
 {
 }
 
@@ -88,6 +94,7 @@ void CanvasLoadingThread::addItem(AbstractPhoto * item, QDomElement & element)
 {
     if (!item || element.isNull())
         return;
+
     d->data.insert(item, element);
 }
 
@@ -95,6 +102,7 @@ void CanvasLoadingThread::addBackground(SceneBackground * background, QDomElemen
 {
     if (element.attribute(QLatin1String("class")) != QLatin1String("background") || !background)
         return;
+
     d->background.first = background;
     d->background.second = element;
 }
@@ -103,6 +111,7 @@ void CanvasLoadingThread::addBorder(SceneBorder * border, QDomElement & element)
 {
     if (element.attribute(QLatin1String("class")) != QLatin1String("border") || !border)
         return;
+
     d->border.first = border;
     d->border.second = element;
 }
@@ -120,12 +129,14 @@ void CanvasLoadingThread::run()
         actionUpdateEvent->setData(ProgressEvent::ActionUpdate, QObject::tr("Loading background...") );
         QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), actionUpdateEvent);
         QCoreApplication::processEvents();
+
         if (d->background.first)
         {
             SceneBackgroundLoader * loader = new SceneBackgroundLoader(d->background.first, d->background.second);
             loader->start();
             loader->wait();
         }
+
         ProgressEvent * progressUpdateEvent = new ProgressEvent(this);
         progressUpdateEvent->setData(ProgressEvent::ProgressUpdate, 1/((double)d->data.count()+2) );
         QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), progressUpdateEvent);
@@ -135,6 +146,7 @@ void CanvasLoadingThread::run()
     // Items
     int count = d->data.count();
     d->i = 0;
+
     for (QMap<AbstractPhoto*,QDomElement>::iterator it = d->data.begin(); it != d->data.end(); ++it, ++(d->i))
     {
         ProgressEvent * actionUpdateEvent = new ProgressEvent(this);
@@ -143,7 +155,8 @@ void CanvasLoadingThread::run()
         QCoreApplication::processEvents();
 
         QDomElement e = it.value();
-        if (e.attribute(QLatin1String("class")) == QLatin1String("PhotoItem"))
+
+        if      (e.attribute(QLatin1String("class")) == QLatin1String("PhotoItem"))
         {
             PhotoItemLoader * loader = new PhotoItemLoader(dynamic_cast<PhotoItem*>(it.key()), it.value());
             loader->setObserver(this);
@@ -170,12 +183,14 @@ void CanvasLoadingThread::run()
         actionUpdateEvent->setData(ProgressEvent::ActionUpdate, QObject::tr("Loading border...") );
         QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), actionUpdateEvent);
         QCoreApplication::processEvents();
+
         if (d->border.first)
         {
             SceneBorderLoader * borderLoader = new SceneBorderLoader(d->border.first, d->border.second);
             borderLoader->start();
             borderLoader->wait();
         }
+
         ProgressEvent * progressUpdateEvent = new ProgressEvent(this);
         progressUpdateEvent->setData(ProgressEvent::ProgressUpdate, 1/((double)d->data.count()+2) );
         QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), progressUpdateEvent);
@@ -187,3 +202,5 @@ void CanvasLoadingThread::run()
     QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), finishEvent);
     QCoreApplication::processEvents();
 }
+
+} // namespace PhotoLayoutsEditor

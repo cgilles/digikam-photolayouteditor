@@ -37,7 +37,6 @@
 **
 ****************************************************************************/
 
-
 #ifndef QTVARIANTPROPERTY_H
 #define QTVARIANTPROPERTY_H
 
@@ -58,6 +57,7 @@ class QtVariantPropertyPrivate;
 class QT_QTPROPERTYBROWSER_EXPORT QtVariantProperty : public QtProperty
 {
 public:
+
     ~QtVariantProperty();
     QVariant value() const;
     QVariant attributeValue(const QString &attribute) const;
@@ -68,9 +68,15 @@ public:
 
     void setValue(const QVariant &value);
     void setAttribute(const QString &attribute, const QVariant &value);
+
 protected:
+
     explicit QtVariantProperty(QtVariantPropertyManager *manager);
+
 private:
+
+    QtVariantProperty(const QtVariantProperty&);
+
     friend class QtVariantPropertyManager;
     QtVariantPropertyPrivate *d_ptr;
 };

@@ -22,43 +22,54 @@
  *
  * ============================================================ */
 
-#ifndef CANVASLOADINGTHREAD_H
-#define CANVASLOADINGTHREAD_H
+#ifndef CANVAS_LOADING_THREAD_H
+#define CANVAS_LOADING_THREAD_H
+
+// Qt includes
 
 #include <QThread>
 #include <QDomDocument>
+
+// Local includes
 
 #include "ProgressObserver.h"
 
 namespace PhotoLayoutsEditor
 {
-    class AbstractPhoto;
-    class SceneBackground;
-    class SceneBorder;
-    class CanvasLoadingThread : public QThread, public ProgressObserver
-    {
-            Q_OBJECT
 
-        public:
+class AbstractPhoto;
+class SceneBackground;
+class SceneBorder;
 
-            explicit CanvasLoadingThread(QObject *parent = nullptr);
-            ~CanvasLoadingThread();
-            virtual void progresChanged(double progress) override;
-            virtual void progresName(const QString & name) override;
-            void addItem(AbstractPhoto * item, QDomElement & element);
-            void addBackground(SceneBackground * background, QDomElement & element);
-            void addBorder(SceneBorder * border, QDomElement & element);
+class CanvasLoadingThread : public QThread, public ProgressObserver
+{
+    Q_OBJECT
 
-        protected:
+public:
 
-            virtual void run() override;
+    explicit CanvasLoadingThread(QObject* const parent = nullptr);
+    ~CanvasLoadingThread();
 
-        private:
+    virtual void progresChanged(double progress) override;
+    virtual void progresName(const QString& name) override;
+    void addItem(AbstractPhoto* item, QDomElement& element);
+    void addBackground(SceneBackground* background, QDomElement& element);
+    void addBorder(SceneBorder* border, QDomElement& element);
 
-            class CanvasLoadingThreadPrivate;
-            CanvasLoadingThreadPrivate * d;
-            friend class CanvasLoadingThreadPrivate;
-    };
-}
+protected:
 
-#endif // CANVASLOADINGTHREAD_H
+    virtual void run() override;
+
+private:
+
+    CanvasLoadingThread(const CanvasLoadingThread&);
+
+    class CanvasLoadingThreadPrivate;
+    CanvasLoadingThreadPrivate* d;
+
+    friend class CanvasLoadingThreadPrivate;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // CANVAS_LOADING_THREAD_H
