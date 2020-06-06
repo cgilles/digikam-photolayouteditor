@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef ABSTRACTMOVABLEMODEL_H
-#define ABSTRACTMOVABLEMODEL_H
+#ifndef ABSTRACT_MOVABLE_MODEL_H
+#define ABSTRACT_MOVABLE_MODEL_H
+
+// Qt includes
 
 #include <QAbstractItemModel>
 #include <QDebug>
@@ -32,18 +34,20 @@
 
 namespace PhotoLayoutsEditor
 {
-    class MoveRowsCommand;
 
-    class AbstractMovableModel : public QAbstractItemModel
-    {
+class MoveRowsCommand;
 
-        public:
+class AbstractMovableModel : public QAbstractItemModel
+{
+public:
 
-            AbstractMovableModel(QObject * parent = nullptr);
-            virtual bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) = 0;
-            virtual void setItem(QObject * graphicsItem, const QModelIndex & index) = 0;
-            virtual QObject * item(const QModelIndex & index) const = 0;
-    };
-}
+    explicit AbstractMovableModel(QObject * parent = nullptr);
 
-#endif // ABSTRACTMOVABLEMODEL_H
+    virtual bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) = 0;
+    virtual void setItem(QObject * graphicsItem, const QModelIndex & index)          = 0;
+    virtual QObject * item(const QModelIndex & index) const                          = 0;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // ABSTRACT_MOVABLE_MODEL_H

@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef LAYERSTREETITLEWIDGET_H
-#define LAYERSTREETITLEWIDGET_H
+#ifndef LAYERS_TREE_TITLE_WIDGET_H
+#define LAYERS_TREE_TITLE_WIDGET_H
+
+// Qt includes
 
 #include <QWidget>
 #include <QLabel>
@@ -33,44 +35,48 @@
 
 namespace PhotoLayoutsEditor
 {
-    class LayersTreeTitleWidget : public QWidget
+
+class LayersTreeTitleWidget : public QWidget
+{
+public:
+
+    explicit LayersTreeTitleWidget (QWidget * parent = nullptr) :
+        QWidget(parent),
+        m_layout(new QHBoxLayout(this)),
+        m_label(new QLabel(QObject::tr("Layers"),this)),
+        m_up_btn(new QPushButton(QIcon(QLatin1String(":/arrow_top.png")), QString(), this)),
+        m_dwn_btn(new QPushButton(QIcon(QLatin1String(":/arrow_down.png")), QString(), this))
     {
-            QHBoxLayout * m_layout;
-            QLabel * m_label;
-            QPushButton * m_up_btn;
-            QPushButton * m_dwn_btn;
+        m_layout->addWidget(m_label,1);
+        m_layout->addWidget(m_up_btn);
+        m_layout->addWidget(m_dwn_btn);
+        this->setLayout(m_layout);
+        m_layout->setContentsMargins(QMargins());
+        m_layout->setSpacing(0);
+        m_layout->update();
 
-        public:
+        m_up_btn->setFixedSize(24,24);
+        m_dwn_btn->setFixedSize(24,24);
+    }
 
-            LayersTreeTitleWidget (QWidget * parent = nullptr) :
-                QWidget(parent),
-                m_layout(new QHBoxLayout(this)),
-                m_label(new QLabel(QObject::tr("Layers"),this)),
-                m_up_btn(new QPushButton(QIcon(QLatin1String(":/arrow_top.png")), QString(), this)),
-                m_dwn_btn(new QPushButton(QIcon(QLatin1String(":/arrow_down.png")), QString(), this))
-            {
-                m_layout->addWidget(m_label,1);
-                m_layout->addWidget(m_up_btn);
-                m_layout->addWidget(m_dwn_btn);
-                this->setLayout(m_layout);
-                m_layout->setContentsMargins(QMargins());
-                m_layout->setSpacing(0);
-                m_layout->update();
+    QAbstractButton * moveUpButton() const
+    {
+        return m_up_btn;
+    }
 
-                m_up_btn->setFixedSize(24,24);
-                m_dwn_btn->setFixedSize(24,24);
-            }
+    QAbstractButton * moveDownButton() const
+    {
+        return m_dwn_btn;
+    }
 
-            QAbstractButton * moveUpButton() const
-            {
-                return m_up_btn;
-            }
+private:
+    
+    QHBoxLayout * m_layout;
+    QLabel * m_label;
+    QPushButton * m_up_btn;
+    QPushButton * m_dwn_btn;
+};
 
-            QAbstractButton * moveDownButton() const
-            {
-                return m_dwn_btn;
-            }
-    };
-}
+} // namespace PhotoLayoutsEditor
 
-#endif // LAYERSTREETITLEWIDGET_H
+#endif // LAYERS_TREE_TITLE_WIDGET_H
