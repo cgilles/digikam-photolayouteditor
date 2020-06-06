@@ -52,7 +52,6 @@
 #include <QApplication>
 #include <QMimeData>
 #include <QTemporaryFile>
-#include <QDebug>
 #include <QSettings>
 
 // Local includes

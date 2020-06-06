@@ -24,13 +24,16 @@
 
 #include "ToolsDockWidget.h"
 
+// Qt includes
+
 #include <QDebug>
 #include <QButtonGroup>
 #include <QGridLayout>
 #include <QPropertyAnimation>
 #include <QScrollArea>
 #include <QIcon>
-#include <QDebug>
+
+// Local includes
 
 #include "CanvasEditTool.h"
 #include "EffectsEditorTool.h"
@@ -38,7 +41,8 @@
 #include "BorderEditTool.h"
 #include "ZoomTool.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 class ToolsDockWidget::ToolsDockWidgetPrivate
 {
@@ -488,3 +492,5 @@ void ToolsDockWidget::resizeEvent(QResizeEvent * event)
     if (!row)
         d->formLayout->setColumnStretch(col, 1);
 }
+
+} // namespace PhotoLayoutsEditor

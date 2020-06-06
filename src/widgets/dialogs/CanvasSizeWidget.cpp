@@ -82,10 +82,10 @@ class CanvasSizeWidget::Private
 
 int CanvasSizeWidget::Private::WIDTH = 800;
 int CanvasSizeWidget::Private::HEIGHT = 800;
-QString CanvasSizeWidget::Private::currentSizeUnit = QString();
+QString CanvasSizeWidget::Private::currentSizeUnit;
 qreal CanvasSizeWidget::Private::WIDTH_RES = 72;
 qreal CanvasSizeWidget::Private::HEIGHT_RES = 72;
-QString CanvasSizeWidget::Private::currentResolutionUnit = QString();
+QString CanvasSizeWidget::Private::currentResolutionUnit;
 
 void CanvasSizeWidget::Private::swapSizes()
 {

@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef LAYERSMOTELITEM_H
-#define LAYERSMOTELITEM_H
+#ifndef LAYERS_MODEL_ITEM_H
+#define LAYERS_MODEL_ITEM_H
+
+// Qt includes
 
 #include <QObject>
 #include <QDebug>
@@ -84,4 +86,4 @@ namespace PhotoLayoutsEditor
     };
 }
 
-#endif // LAYERSMOTELITEM_H
+#endif // LAYERS_MODEL_ITEM_H

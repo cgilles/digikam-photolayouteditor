@@ -27,7 +27,6 @@
 // Qt includes
 
 #include <QVariant>
-#include <QDebug>
 #include <QIcon>
 #include <QString>
 #include <QDebug>
@@ -37,7 +36,8 @@
 #include "LayersModel.h"
 #include "AbstractPhoto.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 LayersModelItem::LayersModelItem(AbstractPhoto * photo, LayersModelItem * parent, LayersModel * model) :
     parentItem(nullptr),
@@ -225,3 +225,5 @@ void LayersModelItem::refreshZValues()
         --i;
     }
 }
+
+} // namespace PhotoLayoutsEditor

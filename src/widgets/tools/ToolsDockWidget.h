@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef TOOLSDOCKWIDGET_H
-#define TOOLSDOCKWIDGET_H
+#ifndef TOOLS_DOCK_WIDGET_H
+#define TOOLS_DOCK_WIDGET_H
+
+// Qt includes
 
 #include <QDockWidget>
 #include <QLayout>
@@ -142,4 +144,4 @@ namespace PhotoLayoutsEditor
     };
 }
 
-#endif // TOOLSDOCKWIDGET_H
+#endif // TOOLS_DOCK_WIDGET_H

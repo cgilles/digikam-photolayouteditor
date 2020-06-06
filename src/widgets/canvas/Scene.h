@@ -25,6 +25,8 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+// Qt includes
+
 #include <QGraphicsScene>
 #include <QPainter>
 #include <QColor>
@@ -32,7 +34,8 @@
 #include <QWidget>
 #include <QGraphicsItem>
 
-// Local
+// Local includes
+
 #include "PhotoItem.h"
 #include "TextItem.h"
 

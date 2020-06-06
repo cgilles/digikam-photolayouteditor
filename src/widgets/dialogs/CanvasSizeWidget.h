@@ -21,8 +21,10 @@
  *
  * ============================================================ */
 
-#ifndef CANVASSIZEWIDGET_H
-#define CANVASSIZEWIDGET_H
+#ifndef CANVAS_SIZE_WIDGET_H
+#define CANVAS_SIZE_WIDGET_H
+
+// Qt includes
 
 #include <QWidget>
 
@@ -71,6 +73,7 @@ namespace PhotoLayoutsEditor
             Private* d;
             friend class Private;
     };
-}
 
-#endif // CANVASSIZEWIDGET_H
+} // namespace PhotoLayoutsEditor
+
+#endif // CANVAS_SIZE_WIDGET_H
