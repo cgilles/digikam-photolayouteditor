@@ -111,6 +111,7 @@ protected:
 private:
 
     QtProperty(const QtProperty&);
+    QtProperty& operator=(const QtProperty&);
     
     friend class QtAbstractPropertyManager;
     QtPropertyPrivate *d_ptr;
@@ -270,6 +271,7 @@ private:
     ~QtBrowserItem();
 
     QtBrowserItem(const QtBrowserItem&);
+    QtBrowserItem& operator=(const QtBrowserItem&);
 
     QtBrowserItemPrivate *d_ptr;
     friend class QtAbstractPropertyBrowserPrivate;

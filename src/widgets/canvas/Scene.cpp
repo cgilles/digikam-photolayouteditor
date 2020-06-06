@@ -293,6 +293,7 @@ class ScenePrivate
 private:
     
     ScenePrivate(const ScenePrivate&);
+    ScenePrivate& operator=(const ScenePrivate&);
 
     friend class Scene;
 };

@@ -63,6 +63,7 @@ protected:
 private:
 
     CanvasLoadingThread(const CanvasLoadingThread&);
+    CanvasLoadingThread& operator=(const CanvasLoadingThread&);
 
     class CanvasLoadingThreadPrivate;
     CanvasLoadingThreadPrivate* d;

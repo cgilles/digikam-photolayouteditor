@@ -172,6 +172,7 @@ private Q_SLOTS:
 private:
 
     Scene(const Scene&);
+    Scene& operator=(const Scene&);
 
     bool askAboutRemoving(int count);
     bool canDecode(const QMimeData * mimeData);
