@@ -151,8 +151,14 @@ static QtProperty *wrappedProperty(QtProperty *property)
 class QtVariantPropertyPrivate
 {
     QtVariantProperty *q_ptr;
+
 public:
-    QtVariantPropertyPrivate(QtVariantPropertyManager *m) : manager(m) {}
+    
+    QtVariantPropertyPrivate(QtVariantPropertyManager *m)
+        : q_ptr(nullptr),
+          manager(m)
+    {
+    }
 
     QtVariantPropertyManager *manager;
 };
@@ -390,16 +396,21 @@ public:
     const QString m_regExpAttribute;
 };
 
-QtVariantPropertyManagerPrivate::QtVariantPropertyManagerPrivate() :
-    m_constraintAttribute(QLatin1String("constraint")),
-    m_singleStepAttribute(QLatin1String("singleStep")),
-    m_decimalsAttribute(QLatin1String("decimals")),
-    m_enumIconsAttribute(QLatin1String("enumIcons")),
-    m_enumNamesAttribute(QLatin1String("enumNames")),
-    m_flagNamesAttribute(QLatin1String("flagNames")),
-    m_maximumAttribute(QLatin1String("maximum")),
-    m_minimumAttribute(QLatin1String("minimum")),
-    m_regExpAttribute(QLatin1String("regExp"))
+QtVariantPropertyManagerPrivate::QtVariantPropertyManagerPrivate()
+    : q_ptr(nullptr),
+      m_creatingProperty(false),
+      m_creatingSubProperties(false),
+      m_destroyingSubProperties(false),
+      m_propertyType(0),
+      m_constraintAttribute(QLatin1String("constraint")),
+      m_singleStepAttribute(QLatin1String("singleStep")),
+      m_decimalsAttribute(QLatin1String("decimals")),
+      m_enumIconsAttribute(QLatin1String("enumIcons")),
+      m_enumNamesAttribute(QLatin1String("enumNames")),
+      m_flagNamesAttribute(QLatin1String("flagNames")),
+      m_maximumAttribute(QLatin1String("maximum")),
+      m_minimumAttribute(QLatin1String("minimum")),
+      m_regExpAttribute(QLatin1String("regExp"))
 {
 }
 

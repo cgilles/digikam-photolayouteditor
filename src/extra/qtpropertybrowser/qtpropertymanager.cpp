@@ -2275,6 +2275,8 @@ public:
 };
 
 QtLocalePropertyManagerPrivate::QtLocalePropertyManagerPrivate()
+    : q_ptr(nullptr),
+      m_enumPropertyManager(nullptr)
 {
 }
 
@@ -5236,6 +5238,9 @@ public:
 };
 
 QtSizePolicyPropertyManagerPrivate::QtSizePolicyPropertyManagerPrivate()
+    : q_ptr(nullptr),
+      m_intPropertyManager(nullptr),
+      m_enumPropertyManager(nullptr)
 {
 }
 
@@ -5575,9 +5580,14 @@ public:
     QTimer *m_fontDatabaseChangeTimer;
 };
 
-QtFontPropertyManagerPrivate::QtFontPropertyManagerPrivate() :
-    m_settingValue(false),
-    m_fontDatabaseChangeTimer(nullptr)
+QtFontPropertyManagerPrivate::QtFontPropertyManagerPrivate()
+    : q_ptr(nullptr),
+      m_intPropertyManager(nullptr),
+      m_enumPropertyManager(nullptr),
+      m_boolPropertyManager(nullptr),
+      m_settingValue(false),
+      m_fontDatabaseChangeTimer(nullptr)
+      
 {
 }
 

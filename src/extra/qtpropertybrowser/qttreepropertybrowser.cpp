@@ -449,13 +449,14 @@ bool QtPropertyEditorDelegate::eventFilter(QObject *object, QEvent *event)
 }
 
 //  -------- QtTreePropertyBrowserPrivate implementation
-QtTreePropertyBrowserPrivate::QtTreePropertyBrowserPrivate() :
-    m_treeWidget(nullptr),
-    m_headerVisible(true),
-    m_resizeMode(QtTreePropertyBrowser::Stretch),
-    m_delegate(nullptr),
-    m_markPropertiesWithoutValue(false),
-    m_browserChangedBlocked(false)
+QtTreePropertyBrowserPrivate::QtTreePropertyBrowserPrivate()
+    : q_ptr(nullptr),
+      m_treeWidget(nullptr),
+      m_headerVisible(true),
+      m_resizeMode(QtTreePropertyBrowser::Stretch),
+      m_delegate(nullptr),
+      m_markPropertiesWithoutValue(false),
+      m_browserChangedBlocked(false)
 {
 }
 
