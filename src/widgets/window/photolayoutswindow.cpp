@@ -355,7 +355,7 @@ void PhotoLayoutsWindow::prepareSignalsConnections()
     d->toolsWidget->setDefaultTool();
 }
 
-void PhotoLayoutsWindow::open()
+void PhotoLayoutsWindow::openFile()
 {
     NewCanvasDialog* const dialog = new NewCanvasDialog(this);
     dialog->setModal(true);
@@ -371,7 +371,7 @@ void PhotoLayoutsWindow::open()
 
     if (dialog->hasTemplateSelected() && !(tmp = dialog->templateSelected()).isEmpty())
     {
-        open(QUrl(dialog->templateSelected()));
+        openFile(QUrl(dialog->templateSelected()));
     }
     else
     {
@@ -388,7 +388,7 @@ void PhotoLayoutsWindow::open()
     delete dialog;
 }
 
-void PhotoLayoutsWindow::openDialog()
+void PhotoLayoutsWindow::openFileDialog()
 {
     if (!d->fileDialog)
     {
@@ -407,11 +407,11 @@ void PhotoLayoutsWindow::openDialog()
     {
         QUrl url = d->fileDialog->selectedUrls().first();
         qDebug() << url;
-        open(url);
+        openFile(url);
     }
 }
 
-void PhotoLayoutsWindow::open(const QUrl& fileUrl)
+void PhotoLayoutsWindow::openFile(const QUrl& fileUrl)
 {
     if (d->canvas && (d->canvas->file() == fileUrl))
     {
@@ -426,7 +426,7 @@ void PhotoLayoutsWindow::open(const QUrl& fileUrl)
     }
 }
 
-void PhotoLayoutsWindow::save()
+void PhotoLayoutsWindow::saveFile()
 {
     qDebug() << !d->canvas->file().isValid() << d->canvas->file().fileName().isEmpty() << d->canvas->isTemplate();
 
@@ -437,7 +437,7 @@ void PhotoLayoutsWindow::save()
 
     if (!d->canvas->file().isValid() || d->canvas->file().fileName().isEmpty() || d->canvas->isTemplate())
     {
-        saveAs();
+        saveAsFile();
     }
     else
     {
@@ -445,7 +445,7 @@ void PhotoLayoutsWindow::save()
     }
 }
 
-void PhotoLayoutsWindow::saveAs()
+void PhotoLayoutsWindow::saveAsFile()
 {
     if (!d->fileDialog)
     {
@@ -612,7 +612,7 @@ bool PhotoLayoutsWindow::closeDocument()
         {
             case QMessageBox::Yes:
             {
-                save();
+                saveFile();
                 break;
             }
 

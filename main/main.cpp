@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
     parser.clearPositionalArguments();
 
     PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(nullptr);
-    w->open();
+    w->openFile();
 
     if (!urlList.isEmpty())
     {

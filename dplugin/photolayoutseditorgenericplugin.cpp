@@ -116,7 +116,7 @@ void PhotoLayoutsEditorPlugin::slotPhotoLayoutsEditor()
     {
         PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(this);
         w->setInterface(iface);
-        w->open();
+        w->openFile();
         w->loadImages(images);
         w->show();
     }

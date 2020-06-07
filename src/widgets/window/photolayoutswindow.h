@@ -69,13 +69,13 @@ public:
 
 public Q_SLOTS:
 
-    void open();
-    void openDialog();
-    void open(const QUrl& fileUrl);
-    void save();
-    void saveAs();
+    void openFile();
+    void openFileDialog();
+    void openFile(const QUrl& fileUrl);
+    void saveFile();
+    void saveFile(const QUrl& fileUrl, bool setFileAsDefault = true);
+    void saveAsFile();
     void saveAsTemplate();
-    void saveFile(const QUrl& fileUrl = QUrl(), bool setFileAsDefault = true);
     void exportFile();
     void printPreview();
     void print();
