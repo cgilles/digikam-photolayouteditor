@@ -47,6 +47,10 @@ public:
 
     explicit QSpinBoxFactory(QObject* const parent = nullptr);
 
+Q_SIGNALS:
+
+    void editingFinished();
+
 protected:
 
     using QtSpinBoxFactory::createEditor;
@@ -62,6 +66,10 @@ class QSliderFactory : public QtSliderFactory
 public:
 
     explicit QSliderFactory(QObject* const parent = nullptr);
+
+Q_SIGNALS:
+
+    void editingFinished();
 
 protected:
 
@@ -79,6 +87,10 @@ public:
 
     explicit QScrollBarFactory(QObject* const parent = nullptr);
 
+Q_SIGNALS:
+
+    void editingFinished();
+
 protected:
 
     using QtScrollBarFactory::createEditor;
@@ -94,6 +106,10 @@ class QCheckBoxFactory : public QtCheckBoxFactory
 public:
 
     explicit QCheckBoxFactory(QObject* const parent = nullptr);
+
+Q_SIGNALS:
+
+    void editingFinished();
 
 protected:
 
@@ -131,6 +147,10 @@ public:
 
     explicit QLineEditFactory(QObject* const parent = nullptr);
 
+Q_SIGNALS:
+
+    void editingFinished();
+
 protected:
 
     using QtLineEditFactory::createEditor;
@@ -146,6 +166,10 @@ class QDateEditFactory : public QtDateEditFactory
 public:
 
     explicit QDateEditFactory(QObject* const parent = nullptr);
+
+Q_SIGNALS:
+
+    void editingFinished();
 
 protected:
 
@@ -163,6 +187,10 @@ public:
 
     explicit QTimeEditFactory(QObject* const parent = nullptr);
 
+Q_SIGNALS:
+
+    void editingFinished();
+
 protected:
 
     using QtTimeEditFactory::createEditor;
@@ -178,6 +206,10 @@ class QDateTimeEditFactory : public QtDateTimeEditFactory
 public:
 
     explicit QDateTimeEditFactory(QObject* const parent = nullptr);
+
+Q_SIGNALS:
+
+    void editingFinished();
 
 protected:
 
@@ -195,6 +227,10 @@ public:
 
     explicit QKeySequenceEditorFactory(QObject* const parent = nullptr);
 
+Q_SIGNALS:
+
+    void editingFinished();
+
 protected:
 
     using QtKeySequenceEditorFactory::createEditor;
@@ -210,6 +246,10 @@ class QCharEditorFactory : public QtCharEditorFactory
 public:
 
     explicit QCharEditorFactory(QObject* const parent = nullptr);
+
+Q_SIGNALS:
+
+    void editingFinished();
 
 protected:
 
@@ -227,6 +267,10 @@ public:
 
     explicit QEnumEditorFactory(QObject* const parent = nullptr);
 
+Q_SIGNALS:
+
+    void editingFinished();
+
 protected:
 
     using QtEnumEditorFactory::createEditor;
@@ -242,6 +286,10 @@ class QCursorEditorFactory : public QtCursorEditorFactory
 public:
 
     explicit QCursorEditorFactory(QObject* const parent = nullptr);
+
+Q_SIGNALS:
+
+    void editingFinished();
 
 protected:
 
@@ -259,6 +307,10 @@ public:
 
     explicit QColorEditorFactory(QObject* const parent = nullptr);
 
+Q_SIGNALS:
+
+    void editingFinished();
+
 protected:
 
     using QtColorEditorFactory::createEditor;
@@ -275,6 +327,10 @@ public:
 
     explicit QFontEditorFactory(QObject* const parent = nullptr);
 
+Q_SIGNALS:
+
+    void editingFinished();
+
 protected:
 
     using QtFontEditorFactory::createEditor;
@@ -290,6 +346,10 @@ class QVariantEditorFactory : public QtVariantEditorFactory
 public:
 
     explicit QVariantEditorFactory(QObject* const parent = nullptr);
+
+Q_SIGNALS:
+
+    void editingFinished();
 
 protected:
 

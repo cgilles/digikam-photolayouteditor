@@ -26,9 +26,10 @@ This tool allows you to create collage layout of images using effect.
 - Fix crashes in qt properties pannel.
 - Leaving PLE with data not previously saved do not ask to save on new file.
 - Show Grid lines do nothing.
-- Fix broken signal/slots in Qt Property Editor.
+- Effects in Qt Property Editor cannot be cumulated (Borders work as espected).
 - Fix captitalized class file names.
 - Fix coding style (constify, brackets, indent, etc.).
+- Fix broken signal/slots in Qt Property Editor.                                            (done).
 - Fix all static analyzers reports.                                                         (done).
 - Fix all C++11 warnings (nullptr, override, fallthrough, overloaded virtual, etc.).        (done).
 - Remove KDE dependencies                                                                   (done).

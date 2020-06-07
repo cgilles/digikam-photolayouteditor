@@ -47,7 +47,7 @@ QSpinBoxFactory::QSpinBoxFactory(QObject* const parent)
 QWidget* QSpinBoxFactory::createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtSpinBoxFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -62,7 +62,7 @@ QSliderFactory::QSliderFactory(QObject* const parent)
 QWidget* QSliderFactory::createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtSliderFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -77,7 +77,7 @@ QScrollBarFactory::QScrollBarFactory(QObject* const parent)
 QWidget* QScrollBarFactory::createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtScrollBarFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -92,7 +92,7 @@ QCheckBoxFactory::QCheckBoxFactory(QObject* const parent)
 QWidget* QCheckBoxFactory::createEditor(QtBoolPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtCheckBoxFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -102,13 +102,12 @@ QWidget* QCheckBoxFactory::createEditor(QtBoolPropertyManager* manager, QtProper
 QDoubleSpinBoxFactory::QDoubleSpinBoxFactory(QObject* const parent)
     : QtDoubleSpinBoxFactory(parent)
 {
-    connect(this, SIGNAL(destroyed(QObject*)), this, SIGNAL(editingFinished()));
 }
 
 QWidget* QDoubleSpinBoxFactory::createEditor(QtDoublePropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtDoubleSpinBoxFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -123,7 +122,7 @@ QLineEditFactory::QLineEditFactory(QObject* const parent)
 QWidget* QLineEditFactory::createEditor(QtStringPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtLineEditFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
     return widget;
 }
 
@@ -137,7 +136,7 @@ QDateEditFactory::QDateEditFactory(QObject* const parent) :
 QWidget* QDateEditFactory::createEditor(QtDatePropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtDateEditFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -152,7 +151,7 @@ QTimeEditFactory::QTimeEditFactory(QObject* const parent)
 QWidget* QTimeEditFactory::createEditor(QtTimePropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtTimeEditFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
     return widget;
 }
 
@@ -166,7 +165,7 @@ QDateTimeEditFactory::QDateTimeEditFactory(QObject* const parent) :
 QWidget* QDateTimeEditFactory::createEditor(QtDateTimePropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtDateTimeEditFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -181,7 +180,7 @@ QKeySequenceEditorFactory::QKeySequenceEditorFactory(QObject* const parent)
 QWidget* QKeySequenceEditorFactory::createEditor(QtKeySequencePropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtKeySequenceEditorFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -196,7 +195,7 @@ QCharEditorFactory::QCharEditorFactory(QObject* const parent) :
 QWidget* QCharEditorFactory::createEditor(QtCharPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtCharEditorFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -211,7 +210,7 @@ QEnumEditorFactory::QEnumEditorFactory(QObject* const parent)
 QWidget* QEnumEditorFactory::createEditor(QtEnumPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtEnumEditorFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -226,7 +225,7 @@ QCursorEditorFactory::QCursorEditorFactory(QObject* const parent)
 QWidget* QCursorEditorFactory::createEditor(QtCursorPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtCursorEditorFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -241,7 +240,7 @@ QColorEditorFactory::QColorEditorFactory(QObject* const parent) :
 QWidget* QColorEditorFactory::createEditor(QtColorPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtColorEditorFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -256,7 +255,7 @@ QFontEditorFactory::QFontEditorFactory(QObject* const parent)
 QWidget* QFontEditorFactory::createEditor(QtFontPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtFontEditorFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
@@ -271,7 +270,7 @@ QVariantEditorFactory::QVariantEditorFactory(QObject* const parent)
 QWidget* QVariantEditorFactory::createEditor(QtVariantPropertyManager* manager, QtProperty* property, QWidget* parent)
 {
     QWidget* const widget = QtVariantEditorFactory::createEditor(manager, property, parent);
-    connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
+    connect(widget ,SIGNAL(destroyed()), this, SIGNAL(editingFinished()));
 
     return widget;
 }
