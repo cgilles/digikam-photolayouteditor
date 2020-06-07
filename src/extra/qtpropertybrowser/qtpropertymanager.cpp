@@ -5171,8 +5171,8 @@ QtFlagPropertyManager::QtFlagPropertyManager(QObject *parent)
     d_ptr->q_ptr = this;
 
     d_ptr->m_boolPropertyManager = new QtBoolPropertyManager(this);
-    connect(d_ptr->m_boolPropertyManager, SIGNAL(valueChanged(QtProperty *, bool)),
-                this, SLOT(slotBoolChanged(QtProperty *, bool)));
+    connect(d_ptr->m_boolPropertyManager, SIGNAL(valueChanged(QtProperty*,bool)),
+                this, SLOT(slotBoolChanged(QtProperty*,bool)));
     connect(d_ptr->m_boolPropertyManager, SIGNAL(propertyDestroyed(QtProperty*)),
                 this, SLOT(slotPropertyDestroyed(QtProperty*)));
 }
@@ -5928,8 +5928,8 @@ QtFontPropertyManager::QtFontPropertyManager(QObject *parent)
     connect(d_ptr->m_enumPropertyManager, SIGNAL(valueChanged(QtProperty*,int)),
                 this, SLOT(slotEnumChanged(QtProperty*,int)));
     d_ptr->m_boolPropertyManager = new QtBoolPropertyManager(this);
-    connect(d_ptr->m_boolPropertyManager, SIGNAL(valueChanged(QtProperty *, bool)),
-                this, SLOT(slotBoolChanged(QtProperty *, bool)));
+    connect(d_ptr->m_boolPropertyManager, SIGNAL(valueChanged(QtProperty*,bool)),
+                this, SLOT(slotBoolChanged(QtProperty*,bool)));
 
     connect(d_ptr->m_intPropertyManager, SIGNAL(propertyDestroyed(QtProperty*)),
                 this, SLOT(slotPropertyDestroyed(QtProperty*)));
