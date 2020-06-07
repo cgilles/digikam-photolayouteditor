@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef QEDIT_FACTORY_H
-#define QEDIT_FACTORY_H
+#ifndef PLE_EDIT_FACTORY_H
+#define PLE_EDIT_FACTORY_H
 
 // Qt includes
 
@@ -320,7 +320,7 @@ Q_SIGNALS:
 
 private Q_SLOTS:
 
-    void slotEditorDestroyed(QObject* const object);
+    void slotEditorDestroyed(QObject*);
 
 private:
 
@@ -331,4 +331,4 @@ private:
 
 } // namespace PhotoLayoutsEditor
 
-#endif // QEDIT_FACTORY_H
+#endif // PLE_EDIT_FACTORY_H

@@ -108,7 +108,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/ProgressEvent.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/pleglobal.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qeditfactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/pleeditfactory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtbuttonpropertybrowser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qteditorfactory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtgroupboxpropertybrowser.cpp

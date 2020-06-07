@@ -27,7 +27,7 @@
 #   pragma GCC diagnostic ignored "-Wzero-as-null-pointer-constant"
 #endif
 
-#include "qeditfactory.h"
+#include "pleeditfactory.h"
 
 // Qt includes
 

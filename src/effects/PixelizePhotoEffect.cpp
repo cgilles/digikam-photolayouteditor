@@ -33,7 +33,7 @@
 
 #include "qttreepropertybrowser.h"
 #include "qtpropertymanager.h"
-#include "qeditfactory.h"
+#include "pleeditfactory.h"
 
 using namespace PhotoLayoutsEditor;
 

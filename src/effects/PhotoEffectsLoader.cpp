@@ -33,7 +33,7 @@
 #include "PhotoEffectsGroup.h"
 #include "AbstractPhoto.h"
 #include "UndoCommandEvent.h"
-#include "qeditfactory.h"
+#include "pleeditfactory.h"
 #include "pleglobal.h"
 #include "abstractphotoeffectfactory.h"
 #include "AbstractPhotoEffectInterface.h"

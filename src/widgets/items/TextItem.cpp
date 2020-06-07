@@ -24,7 +24,7 @@
 
 #include "TextItem.h"
 #include "pleglobal.h"
-#include "qeditfactory.h"
+#include "pleeditfactory.h"
 #include "TextColorChangeListener.h"
 #include "TextFontChangeListener.h"
 

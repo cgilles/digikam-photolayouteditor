@@ -36,7 +36,7 @@
 #include "BorderDrawerInterface.h"
 #include "borderdrawerfactoryinterface.h"
 #include "BorderChangeListener.h"
-#include "qeditfactory.h"
+#include "pleeditfactory.h"
 #include "qttreepropertybrowser.h"
 
 namespace PhotoLayoutsEditor
