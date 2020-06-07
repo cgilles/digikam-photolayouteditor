@@ -111,8 +111,6 @@ private:
 
 private:
 
-    static PhotoLayoutsWindow* m_instance;
-
     class Private;
     Private* const d;
 

@@ -146,51 +146,63 @@ DInfoInterface* PhotoLayoutsWindow::interface() const
 
 void PhotoLayoutsWindow::setupActions()
 {
-    connect(d->ui->openNewFileAction, SIGNAL(triggered()), this, SLOT(open()));
+    connect(d->ui->openNewFileAction, SIGNAL(triggered()),
+            this, SLOT(openFile()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->openFileAction, SIGNAL(triggered()), this, SLOT(openDialog()));
+    connect(d->ui->openFileAction, SIGNAL(triggered()),
+            this, SLOT(openFileDialog()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->saveAction, SIGNAL(triggered()), this, SLOT(save()));
+    connect(d->ui->saveAction, SIGNAL(triggered()),
+            this, SLOT(saveFile()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->saveAsAction, SIGNAL(triggered()), this, SLOT(saveAs()));
+    connect(d->ui->saveAsAction, SIGNAL(triggered()),
+            this, SLOT(saveAsFile()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->saveAsTemplateAction, SIGNAL(triggered()), this, SLOT(saveAsTemplate()));
+    connect(d->ui->saveAsTemplateAction, SIGNAL(triggered()),
+            this, SLOT(saveAsTemplate()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->exportFileAction, SIGNAL(triggered()), this, SLOT(exportFile()));
+    connect(d->ui->exportFileAction, SIGNAL(triggered()),
+            this, SLOT(exportFile()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->printPreviewAction, SIGNAL(triggered()), this, SLOT(printPreview()));
+    connect(d->ui->printPreviewAction, SIGNAL(triggered()),
+            this, SLOT(printPreview()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->printAction, SIGNAL(triggered()), this, SLOT(print()));
+    connect(d->ui->printAction, SIGNAL(triggered()),
+            this, SLOT(print()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->closeAction, SIGNAL(triggered()), this, SLOT(closeDocument()));
+    connect(d->ui->closeAction, SIGNAL(triggered()),
+            this, SLOT(closeDocument()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->quitAction, SIGNAL(triggered()), this, SLOT(close()));
+    connect(d->ui->quitAction, SIGNAL(triggered()),
+            this, SLOT(close()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->settingsAction, SIGNAL(triggered()), this, SLOT(settings()));
+    connect(d->ui->settingsAction, SIGNAL(triggered()),
+            this, SLOT(settings()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->addImageAction, SIGNAL(triggered()), this, SLOT(loadNewImage()));
+    connect(d->ui->addImageAction, SIGNAL(triggered()),
+            this, SLOT(loadNewImage()));
 
     //------------------------------------------------------------------------
 
@@ -199,19 +211,23 @@ void PhotoLayoutsWindow::setupActions()
     d->ui->showGridToggleAction->setChecked(config.value(QLatin1String("ShowGrid"), false).toBool());
     config.endGroup();
 
-    connect(d->ui->showGridToggleAction, SIGNAL(triggered(bool)), this, SLOT(setGridVisible(bool)));
+    connect(d->ui->showGridToggleAction, SIGNAL(triggered(bool)),
+            this, SLOT(setGridVisible(bool)));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->gridConfigAction, SIGNAL(triggered()), this, SLOT(setupGrid()));
+    connect(d->ui->gridConfigAction, SIGNAL(triggered()),
+            this, SLOT(setupGrid()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->changeCanvasSizeAction, SIGNAL(triggered()), this, SLOT(changeCanvasSize()));
+    connect(d->ui->changeCanvasSizeAction, SIGNAL(triggered()),
+            this, SLOT(changeCanvasSize()));
 
     //------------------------------------------------------------------------
 
-    connect(d->ui->aboutAction, SIGNAL(triggered()), this, SLOT(slotAbout()));
+    connect(d->ui->aboutAction, SIGNAL(triggered()),
+            this, SLOT(slotAbout()));
 }
 
 void PhotoLayoutsWindow::refreshActions()
@@ -532,7 +548,7 @@ void PhotoLayoutsWindow::exportFile()
     QString ext      = imageFileSaveDialog->selectedNameFilter().section(QLatin1String("*."), 1, 1);
     ext              = ext.left(ext.length() - 1);
 
-    if (result == QFileDialog::Accepted && !urls.isEmpty() && !ext.isEmpty())
+    if ((result == QFileDialog::Accepted) && !urls.isEmpty() && !ext.isEmpty())
     {
         QUrl url = urls.first();
 

@@ -190,7 +190,7 @@ private:
     Canvas*    m_canvas;
 };
 
-PhotoLayoutsWindow* PhotoLayoutsWindow::m_instance = nullptr;
+static PhotoLayoutsWindow* m_instance = nullptr;
 
 } // namespace PhotoLayoutsEditor
 
