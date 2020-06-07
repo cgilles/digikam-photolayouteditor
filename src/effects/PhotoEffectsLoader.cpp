@@ -23,6 +23,13 @@
  * ============================================================ */
 
 #include "PhotoEffectsLoader.h"
+
+// Qt includes
+
+#include <QApplication>
+
+// Local includes
+
 #include "PhotoEffectsGroup.h"
 #include "AbstractPhoto.h"
 #include "UndoCommandEvent.h"
@@ -36,9 +43,8 @@
 #include "qtvariantproperty.h"
 #include "qttreepropertybrowser.h"
 
-#include <QApplication>
-
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 PhotoEffectsLoader * PhotoEffectsLoader::m_instance = nullptr;
 QMap<QString, AbstractPhotoEffectFactory*> PhotoEffectsLoader::registeredEffects;
@@ -241,3 +247,5 @@ AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectFromSvg(QDomElement 
     }
     return result;
 }
+
+} // namespace PhotoLayoutsEditor

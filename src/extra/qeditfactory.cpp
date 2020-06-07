@@ -52,6 +52,8 @@ QWidget* QSpinBoxFactory::createEditor(QtIntPropertyManager* manager, QtProperty
     return widget;
 }
 
+// ---------------------------------------------------------------------
+
 QSliderFactory::QSliderFactory(QObject* const parent)
     : QtSliderFactory(parent)
 {
@@ -64,6 +66,8 @@ QWidget* QSliderFactory::createEditor(QtIntPropertyManager* manager, QtProperty*
 
     return widget;
 }
+
+// ---------------------------------------------------------------------
 
 QScrollBarFactory::QScrollBarFactory(QObject* const parent)
     : QtScrollBarFactory(parent)
@@ -78,6 +82,8 @@ QWidget* QScrollBarFactory::createEditor(QtIntPropertyManager* manager, QtProper
     return widget;
 }
 
+// ---------------------------------------------------------------------
+
 QCheckBoxFactory::QCheckBoxFactory(QObject* const parent)
     : QtCheckBoxFactory(parent)
 {
@@ -91,9 +97,12 @@ QWidget* QCheckBoxFactory::createEditor(QtBoolPropertyManager* manager, QtProper
     return widget;
 }
 
+// ---------------------------------------------------------------------
+
 QDoubleSpinBoxFactory::QDoubleSpinBoxFactory(QObject* const parent)
     : QtDoubleSpinBoxFactory(parent)
 {
+    connect(this, SIGNAL(destroyed(QObject*)), this, SIGNAL(editingFinished()));
 }
 
 QWidget* QDoubleSpinBoxFactory::createEditor(QtDoublePropertyManager* manager, QtProperty* property, QWidget* parent)
@@ -103,6 +112,8 @@ QWidget* QDoubleSpinBoxFactory::createEditor(QtDoublePropertyManager* manager, Q
 
     return widget;
 }
+
+// ---------------------------------------------------------------------
 
 QLineEditFactory::QLineEditFactory(QObject* const parent)
     : QtLineEditFactory(parent)
@@ -115,6 +126,8 @@ QWidget* QLineEditFactory::createEditor(QtStringPropertyManager* manager, QtProp
     connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
     return widget;
 }
+
+// ---------------------------------------------------------------------
 
 QDateEditFactory::QDateEditFactory(QObject* const parent) :
     QtDateEditFactory(parent)
@@ -129,6 +142,8 @@ QWidget* QDateEditFactory::createEditor(QtDatePropertyManager* manager, QtProper
     return widget;
 }
 
+// ---------------------------------------------------------------------
+
 QTimeEditFactory::QTimeEditFactory(QObject* const parent)
     : QtTimeEditFactory(parent)
 {
@@ -140,6 +155,8 @@ QWidget* QTimeEditFactory::createEditor(QtTimePropertyManager* manager, QtProper
     connect(widget ,SIGNAL(destroyed()), this, SLOT(emitEditingFinished()));
     return widget;
 }
+
+// ---------------------------------------------------------------------
 
 QDateTimeEditFactory::QDateTimeEditFactory(QObject* const parent) :
     QtDateTimeEditFactory(parent)
@@ -154,6 +171,8 @@ QWidget* QDateTimeEditFactory::createEditor(QtDateTimePropertyManager* manager, 
     return widget;
 }
 
+// ---------------------------------------------------------------------
+
 QKeySequenceEditorFactory::QKeySequenceEditorFactory(QObject* const parent)
     : QtKeySequenceEditorFactory(parent)
 {
@@ -166,6 +185,8 @@ QWidget* QKeySequenceEditorFactory::createEditor(QtKeySequencePropertyManager* m
 
     return widget;
 }
+
+// ---------------------------------------------------------------------
 
 QCharEditorFactory::QCharEditorFactory(QObject* const parent) :
     QtCharEditorFactory(parent)
@@ -180,6 +201,8 @@ QWidget* QCharEditorFactory::createEditor(QtCharPropertyManager* manager, QtProp
     return widget;
 }
 
+// ---------------------------------------------------------------------
+
 QEnumEditorFactory::QEnumEditorFactory(QObject* const parent)
     : QtEnumEditorFactory(parent)
 {
@@ -192,6 +215,8 @@ QWidget* QEnumEditorFactory::createEditor(QtEnumPropertyManager* manager, QtProp
 
     return widget;
 }
+
+// ---------------------------------------------------------------------
 
 QCursorEditorFactory::QCursorEditorFactory(QObject* const parent)
     : QtCursorEditorFactory(parent)
@@ -206,6 +231,8 @@ QWidget* QCursorEditorFactory::createEditor(QtCursorPropertyManager* manager, Qt
     return widget;
 }
 
+// ---------------------------------------------------------------------
+
 QColorEditorFactory::QColorEditorFactory(QObject* const parent) :
     QtColorEditorFactory(parent)
 {
@@ -218,6 +245,8 @@ QWidget* QColorEditorFactory::createEditor(QtColorPropertyManager* manager, QtPr
 
     return widget;
 }
+
+// ---------------------------------------------------------------------
 
 QFontEditorFactory::QFontEditorFactory(QObject* const parent)
     : QtFontEditorFactory(parent)
@@ -232,6 +261,8 @@ QWidget* QFontEditorFactory::createEditor(QtFontPropertyManager* manager, QtProp
     return widget;
 }
 
+// ---------------------------------------------------------------------
+
 QVariantEditorFactory::QVariantEditorFactory(QObject* const parent)
     : QtVariantEditorFactory(parent)
 {
@@ -244,6 +275,8 @@ QWidget* QVariantEditorFactory::createEditor(QtVariantPropertyManager* manager, 
 
     return widget;
 }
+
+// ---------------------------------------------------------------------
 
 QSliderEditFactory::QSliderEditFactory(QObject* const parent)
     : QtAbstractEditorFactory<QtIntPropertyManager>(parent)

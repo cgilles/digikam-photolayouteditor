@@ -111,6 +111,10 @@ public:
 
     explicit QDoubleSpinBoxFactory(QObject* const parent = nullptr);
 
+Q_SIGNALS:
+
+    void editingFinished();
+
 protected:
 
     using QtDoubleSpinBoxFactory::createEditor;

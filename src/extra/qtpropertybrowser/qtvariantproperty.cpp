@@ -1019,8 +1019,8 @@ QtVariantPropertyManager::QtVariantPropertyManager(QObject *parent)
             QVariant::Date;
     d_ptr->m_typeToAttributeToAttributeType[QVariant::Date][d_ptr->m_maximumAttribute] =
             QVariant::Date;
-    connect(datePropertyManager, SIGNAL(valueChanged(QtProperty*,QRegExp)),
-                this, SLOT(slotValueChanged(QtProperty*,QRegExp)));
+    connect(datePropertyManager, SIGNAL(valueChanged(QtProperty*,QDate)),
+                this, SLOT(slotValueChanged(QtProperty*,QDate)));
     connect(datePropertyManager, SIGNAL(rangeChanged(QtProperty*,QDate,QDate)),
                 this, SLOT(slotRangeChanged(QtProperty*,QDate,QDate)));
     // TimePropertyManager
