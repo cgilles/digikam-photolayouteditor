@@ -1027,8 +1027,8 @@ QtVariantPropertyManager::QtVariantPropertyManager(QObject *parent)
     QtTimePropertyManager *timePropertyManager = new QtTimePropertyManager(this);
     d_ptr->m_typeToPropertyManager[QVariant::Time] = timePropertyManager;
     d_ptr->m_typeToValueType[QVariant::Time] = QVariant::Time;
-    connect(timePropertyManager, SIGNAL(valueChanged(QtProperty *, const QTime &)),
-                this, SLOT(slotValueChanged(QtProperty *, const QTime &)));
+    connect(timePropertyManager, SIGNAL(valueChanged(QtProperty*,QTime)),
+                this, SLOT(slotValueChanged(QtProperty*,QTime)));
     // DateTimePropertyManager
     QtDateTimePropertyManager *dateTimePropertyManager = new QtDateTimePropertyManager(this);
     d_ptr->m_typeToPropertyManager[QVariant::DateTime] = dateTimePropertyManager;
