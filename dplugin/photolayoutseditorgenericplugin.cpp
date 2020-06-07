@@ -35,7 +35,7 @@
 
 // Local includes
 
-#include "photolayoutswindow.h"
+#include "plewindow.h"
 
 using namespace PhotoLayoutsEditor;
 
@@ -114,7 +114,7 @@ void PhotoLayoutsEditorPlugin::slotPhotoLayoutsEditor()
 
     if (!images.isEmpty())
     {
-        PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(this);
+        PLEWindow* const w = PLEWindow::instance(this);
         w->setInterface(iface);
         w->openFile();
         w->loadImages(images);

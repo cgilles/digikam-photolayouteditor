@@ -25,7 +25,7 @@
 #ifndef PHOTO_LAYOUTS_WINDOW_P_H
 #define PHOTO_LAYOUTS_WINDOW_P_H
 
-#include "photolayoutswindow.h"
+#include "plewindow.h"
 
 // Qt includes
 
@@ -88,7 +88,7 @@
 #include "BorderDrawerInterface.h"
 #include "borderdrawersloader.h"
 #include "NewCanvasDialog.h"
-#include "ui_photolayoutswindow.h"
+#include "ui_plewindow.h"
 
 using namespace Digikam;
 
@@ -100,7 +100,7 @@ inline void cleanupIconsResource() { Q_CLEANUP_RESOURCE(icons); }
 namespace PhotoLayoutsEditor
 {
 
-class PhotoLayoutsWindow::Private
+class PLEWindow::Private
 {
     public:
 
@@ -150,7 +150,7 @@ class PhotoLayoutsWindow::Private
 
         Canvas*                                         canvas;
         DInfoInterface*                                 interface;
-        Ui::PhotoLayoutWindow*                          ui;
+        Ui::PLEWindow*                                  ui;
         DPluginGeneric*                                 plugin;
 };
 
@@ -190,7 +190,7 @@ private:
     Canvas*    m_canvas;
 };
 
-static PhotoLayoutsWindow* m_instance = nullptr;
+static PLEWindow* m_instance = nullptr;
 
 } // namespace PhotoLayoutsEditor
 

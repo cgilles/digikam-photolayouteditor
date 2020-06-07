@@ -26,7 +26,7 @@
 #include "UndoCommandEvent.h"
 #include "ProgressEvent.h"
 #include "pleglobal.h"
-#include "photolayoutswindow.h"
+#include "plewindow.h"
 
 #include <QtGlobal>
 #include <QDebug>
@@ -37,7 +37,7 @@ bool UndoCommandEventFilter::eventFilter(QObject * watched, QEvent * event)
 {
     if (event->type() == UndoCommandEvent::registeredEventType())
     {
-        PhotoLayoutsWindow* editor = qobject_cast<PhotoLayoutsWindow*>(watched);
+        PLEWindow* editor = qobject_cast<PLEWindow*>(watched);
         if (!editor)
             return false;
         //editor->undoCommandEvent(dynamic_cast<UndoCommandEvent*>(event));
@@ -45,7 +45,7 @@ bool UndoCommandEventFilter::eventFilter(QObject * watched, QEvent * event)
     }
     if (event->type() == ProgressEvent::registeredEventType())
     {
-        PhotoLayoutsWindow* editor = qobject_cast<PhotoLayoutsWindow*>(watched);
+        PLEWindow* editor = qobject_cast<PLEWindow*>(watched);
         if (!editor)
             return false;
         editor->progressEvent(dynamic_cast<ProgressEvent*>(event));

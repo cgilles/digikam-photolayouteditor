@@ -24,7 +24,7 @@
 
 #include "CropWidgetItem.h"
 #include "AbstractPhoto.h"
-#include "photolayoutswindow.h"
+#include "plewindow.h"
 #include <limits>
 
 #include <QGraphicsSceneMouseEvent>
@@ -248,14 +248,14 @@ void CropWidgetItem::keyPressEvent(QKeyEvent * event)
             if (d->m_items.count() > 1)
             {
                 commandGroupOpened = true;
-                PhotoLayoutsWindow::instance()->beginUndoCommandGroup(QObject::tr("Crop items"));
+                PLEWindow::instance()->beginUndoCommandGroup(QObject::tr("Crop items"));
             }
 
             foreach(AbstractPhoto* item, d->m_items)
                 item->setCropShape( this->mapToItem(item, p) );
 
             if (commandGroupOpened)
-                PhotoLayoutsWindow::instance()->endUndoCommandGroup();
+                PLEWindow::instance()->endUndoCommandGroup();
         }
         else
         {

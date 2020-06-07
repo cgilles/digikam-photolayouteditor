@@ -149,7 +149,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesView.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/pleconfigdialog.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/photolayoutswindow.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/plewindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/plestatusbar.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/AbstractPhoto.cpp
@@ -175,7 +175,7 @@ qt5_add_resources(photolayoutseditorcore_SRCS
 )
 
 qt5_wrap_ui(photolayoutseditorcore_SRCS
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/photolayoutswindow.ui
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/plewindow.ui
 )
 
 add_library(photolayoutseditorcore STATIC ${photolayoutseditorcore_SRCS})

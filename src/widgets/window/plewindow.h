@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef PHOTO_LAYOUTS_WINDOW_H
-#define PHOTO_LAYOUTS_WINDOW_H
+#ifndef PLE_WINDOW_H
+#define PLE_WINDOW_H
 
 // Qt includes
 
@@ -48,14 +48,14 @@ class CanvasSizeChangeCommand;
 class ProgressEvent;
 class UndoCommandEventFilter;
 
-class PhotoLayoutsWindow : public QMainWindow
+class PLEWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
 
-    ~PhotoLayoutsWindow();
-    static PhotoLayoutsWindow* instance(DPluginGeneric* const plugin = nullptr);
+    ~PLEWindow();
+    static PLEWindow* instance(DPluginGeneric* const plugin = nullptr);
 
     void addUndoCommand(QUndoCommand* const command);
     void beginUndoCommandGroup(const QString& name);
@@ -101,7 +101,7 @@ protected Q_SLOTS:
 
 private:
 
-    explicit PhotoLayoutsWindow(DPluginGeneric* const plugin = nullptr);
+    explicit PLEWindow(DPluginGeneric* const plugin = nullptr);
 
     void setupActions();
     void createWidgets();
@@ -119,4 +119,4 @@ private:
 
 } // namespace PhotoLayoutsEditor
 
-#endif // PHOTO_LAYOUTS_WINDOW_H
+#endif // PLE_WINDOW_H

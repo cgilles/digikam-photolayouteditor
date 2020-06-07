@@ -28,7 +28,7 @@
 #include "Canvas_p.h"
 #include "Scene.h"
 #include "ProgressEvent.h"
-#include "photolayoutswindow.h"
+#include "plewindow.h"
 
 #include <QFile>
 #include <QDomDocument>
@@ -78,7 +78,7 @@ void CanvasSavingThread::run()
 
     ProgressEvent * startEvent = new ProgressEvent(this);
     startEvent->setData(ProgressEvent::Init, 0);
-    QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), startEvent);
+    QCoreApplication::postEvent(PLEWindow::instance(), startEvent);
     QCoreApplication::processEvents();
 
     this->sendActionUpdate( QObject::tr("Creating canvas...") );
@@ -190,7 +190,7 @@ void CanvasSavingThread::run()
 
     ProgressEvent* const finishEvent = new ProgressEvent(this);
     finishEvent->setData(ProgressEvent::Finish, 0);
-    QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), finishEvent);
+    QCoreApplication::postEvent(PLEWindow::instance(), finishEvent);
     QCoreApplication::processEvents();
 
     this->exit(0);
@@ -205,7 +205,7 @@ void CanvasSavingThread::sendProgressUpdate(double v)
 {
     ProgressEvent* event = new ProgressEvent(this);
     event->setData(ProgressEvent::ProgressUpdate, v);
-    QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), event);
+    QCoreApplication::postEvent(PLEWindow::instance(), event);
     QCoreApplication::processEvents();
 }
 
@@ -213,6 +213,6 @@ void CanvasSavingThread::sendActionUpdate(const QString& str)
 {
     ProgressEvent* event = new ProgressEvent(this);
     event->setData(ProgressEvent::ActionUpdate, str);
-    QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), event);
+    QCoreApplication::postEvent(PLEWindow::instance(), event);
     QCoreApplication::processEvents();
 }

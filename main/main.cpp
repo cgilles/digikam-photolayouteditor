@@ -36,7 +36,7 @@
 
 // Local includes
 
-#include "photolayoutswindow.h"
+#include "plewindow.h"
 
 using namespace PhotoLayoutsEditor;
 using namespace Digikam;
@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 
     parser.clearPositionalArguments();
 
-    PhotoLayoutsWindow* const w = PhotoLayoutsWindow::instance(nullptr);
+    PLEWindow* const w = PLEWindow::instance(nullptr);
     w->openFile();
 
     if (!urlList.isEmpty())

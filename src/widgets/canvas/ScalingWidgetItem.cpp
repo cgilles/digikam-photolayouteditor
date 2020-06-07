@@ -24,7 +24,7 @@
 
 #include "ScalingWidgetItem.h"
 #include "AbstractPhoto.h"
-#include "photolayoutswindow.h"
+#include "plewindow.h"
 #include "pleglobal.h"
 #include <limits>
 
@@ -476,7 +476,7 @@ void ScalingWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
 void ScalingWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
 {
     if (d->scale_commands.count() > 1)
-        PhotoLayoutsWindow::instance()->beginUndoCommandGroup( QObject::tr("Scale item", "Scale items", d->scale_commands.count()) );
+        PLEWindow::instance()->beginUndoCommandGroup( QObject::tr("Scale item", "Scale items", d->scale_commands.count()) );
     for (QMap<AbstractPhoto*,ScaleItemCommand*>::iterator it = d->scale_commands.begin(); it != d->scale_commands.end(); ++it)
     {
         if (it.value())
@@ -487,11 +487,11 @@ void ScalingWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
         }
     }
     if (d->scale_commands.count() > 1)
-        PhotoLayoutsWindow::instance()->endUndoCommandGroup();
+        PLEWindow::instance()->endUndoCommandGroup();
     d->scale_commands.clear();
 
     if (d->move_commands.count() > 1)
-        PhotoLayoutsWindow::instance()->beginUndoCommandGroup( QObject::tr("Move item", "Move items", d->move_commands.count()) );
+        PLEWindow::instance()->beginUndoCommandGroup( QObject::tr("Move item", "Move items", d->move_commands.count()) );
     for (QMap<AbstractPhoto*,MoveItemCommand*>::iterator it = d->move_commands.begin(); it != d->move_commands.end(); ++it)
     {
         if (it.value())
@@ -502,7 +502,7 @@ void ScalingWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
         }
     }
     if (d->move_commands.count() > 1)
-        PhotoLayoutsWindow::instance()->endUndoCommandGroup();
+        PLEWindow::instance()->endUndoCommandGroup();
     d->move_commands.clear();
 }
 

@@ -63,7 +63,7 @@
 #include "SceneBackground.h"
 #include "MousePressListener.h"
 #include "ToolsDockWidget.h"
-#include "photolayoutswindow.h"
+#include "plewindow.h"
 #include "ImageLoadingThread.h"
 #include "ProgressEvent.h"
 #include "CanvasLoadingThread.h"
@@ -712,7 +712,7 @@ void Scene::changeSelectedImage()
     if (!item)
         return;
 
-    QUrl url = ImageDialog::getImageURL(PhotoLayoutsWindow::instance(), QUrl());
+    QUrl url = ImageDialog::getImageURL(PLEWindow::instance(), QUrl());
     if (url.isEmpty())
         return;
 
@@ -1096,7 +1096,7 @@ void Scene::dropEvent(QGraphicsSceneDragDropEvent * event)
     d->paste_scene_pos = event->scenePos();
 
     const QMimeData * mimeData = event->mimeData();
-    if ( PhotoLayoutsWindow::instance()->hasInterface() &&
+    if ( PLEWindow::instance()->hasInterface() &&
             mimeData->hasFormat(QLatin1String("digikam/item-ids")))
     {
         QList<QUrl> urls;
@@ -1654,7 +1654,7 @@ bool Scene::askAboutRemoving(int count)
 
 bool Scene::canDecode(const QMimeData * mimeData)
 {
-    if (PhotoLayoutsWindow::instance()->hasInterface() &&
+    if (PLEWindow::instance()->hasInterface() &&
             mimeData->hasFormat(QLatin1String("digikam/item-ids")))
         return true;
 

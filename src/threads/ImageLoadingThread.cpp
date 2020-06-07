@@ -44,7 +44,7 @@
 // Local includes
 
 #include "ProgressEvent.h"
-#include "photolayoutswindow.h"
+#include "plewindow.h"
 
 using namespace Digikam;
 
@@ -95,7 +95,7 @@ protected:
     {
         ProgressEvent* event = new ProgressEvent(m_thread);
         event->setData(ProgressEvent::ProgressUpdate, value * m_max_progress / 0.4);
-        QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), event);
+        QCoreApplication::postEvent(PLEWindow::instance(), event);
         QCoreApplication::processEvents();
     }
 };
@@ -139,7 +139,7 @@ void ImageLoadingThread::run()
     {
         ProgressEvent* startEvent = new ProgressEvent(this);
         startEvent->setData(ProgressEvent::Init, 0);
-        QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), startEvent);
+        QCoreApplication::postEvent(PLEWindow::instance(), startEvent);
         QCoreApplication::processEvents();
 
         if (DRawDecoder::isRawFile(url))
@@ -149,7 +149,7 @@ void ImageLoadingThread::run()
 
         ProgressEvent* finishEvent = new ProgressEvent(this);
         finishEvent->setData(ProgressEvent::Finish, 1);
-        QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), finishEvent);
+        QCoreApplication::postEvent(PLEWindow::instance(), finishEvent);
         QCoreApplication::processEvents();
     }
 
@@ -184,7 +184,7 @@ void ImageLoadingThread::loadRaw(const QUrl& url)
 {
     ProgressEvent* loadingImageActionEvent = new ProgressEvent(this);
     loadingImageActionEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Loading ").append(url.fileName()) ));
-    QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), loadingImageActionEvent);
+    QCoreApplication::postEvent(PLEWindow::instance(), loadingImageActionEvent);
     QCoreApplication::processEvents();
 
     RAWLoader* loader = new RAWLoader(this);
@@ -202,7 +202,7 @@ void ImageLoadingThread::loadRaw(const QUrl& url)
     {
         ProgressEvent * buildImageEvent = new ProgressEvent(this);
         buildImageEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Decoding image") ));
-        QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), buildImageEvent);
+        QCoreApplication::postEvent(PLEWindow::instance(), buildImageEvent);
         QCoreApplication::processEvents();
 
         uchar* image = new uchar[width*height*4];
@@ -215,7 +215,7 @@ void ImageLoadingThread::loadRaw(const QUrl& url)
             {
                 ProgressEvent * event = new ProgressEvent(this);
                 event->setData(ProgressEvent::ProgressUpdate, d->m_max_progress * (0.7 + 0.3 * (((float)h)/((float)height))) );
-                QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), event);
+                QCoreApplication::postEvent(PLEWindow::instance(), event);
                 QCoreApplication::processEvents();
 
                 for (int w = 0; w < width; ++w)
@@ -253,7 +253,7 @@ void ImageLoadingThread::loadRaw(const QUrl& url)
 
         ProgressEvent* emitEvent = new ProgressEvent(this);
         emitEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Finishing...") ));
-        QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), emitEvent);
+        QCoreApplication::postEvent(PLEWindow::instance(), emitEvent);
         QCoreApplication::processEvents();
 
         delete [] image;
@@ -267,7 +267,7 @@ void ImageLoadingThread::loadImage(const QUrl& url)
 {
     ProgressEvent* loadingImageActionEvent = new ProgressEvent(this);
     loadingImageActionEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Loading ").append(url.fileName()) ));
-    QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), loadingImageActionEvent);
+    QCoreApplication::postEvent(PLEWindow::instance(), loadingImageActionEvent);
     QCoreApplication::processEvents();
 
     QFile f(url.path());
@@ -287,7 +287,7 @@ void ImageLoadingThread::loadImage(const QUrl& url)
         this->yieldCurrentThread();
         ProgressEvent* event = new ProgressEvent(this);
         event->setData(ProgressEvent::ProgressUpdate, (d->m_loaded_bytes * d->m_max_progress) / (d->m_size * 1.4));
-        QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), event);
+        QCoreApplication::postEvent(PLEWindow::instance(), event);
         QCoreApplication::processEvents();
     }
     while (temp.size() == s);
@@ -297,14 +297,14 @@ void ImageLoadingThread::loadImage(const QUrl& url)
 
     ProgressEvent* buildImageEvent = new ProgressEvent(this);
     buildImageEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Decoding image") ));
-    QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), buildImageEvent);
+    QCoreApplication::postEvent(PLEWindow::instance(), buildImageEvent);
     QCoreApplication::processEvents();
 
     QImage img = QImage::fromData(ba);
 
     ProgressEvent* emitEvent = new ProgressEvent(this);
     emitEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Finishing...") ));
-    QCoreApplication::postEvent(PhotoLayoutsWindow::instance(), emitEvent);
+    QCoreApplication::postEvent(PLEWindow::instance(), emitEvent);
     QCoreApplication::processEvents();
 
     emit imageLoaded(url, img);

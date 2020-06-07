@@ -22,12 +22,12 @@
  *
  * ============================================================ */
 
-#include "photolayoutswindow_p.h"
+#include "plewindow_p.h"
 
 namespace PhotoLayoutsEditor
 {
 
-PhotoLayoutsWindow::PhotoLayoutsWindow(DPluginGeneric* const plugin)
+PLEWindow::PLEWindow(DPluginGeneric* const plugin)
     : QMainWindow(nullptr),
       d(new Private)
 {
@@ -35,7 +35,7 @@ PhotoLayoutsWindow::PhotoLayoutsWindow(DPluginGeneric* const plugin)
     d->plugin  = plugin;
     initIconsResource();
 
-    d->ui = new Ui::PhotoLayoutWindow;
+    d->ui = new Ui::PLEWindow;
     d->ui->setupUi(this);
 
     setWindowTitle(QObject::tr("Photo Layouts Editor"));
@@ -57,7 +57,7 @@ PhotoLayoutsWindow::PhotoLayoutsWindow(DPluginGeneric* const plugin)
     config.endGroup();
 }
 
-PhotoLayoutsWindow::~PhotoLayoutsWindow()
+PLEWindow::~PLEWindow()
 {
     QSettings config(QLatin1String("PhotoLayoutEditor"));
     config.beginGroup(QLatin1String("MainWindow"));
@@ -79,7 +79,7 @@ PhotoLayoutsWindow::~PhotoLayoutsWindow()
     cleanupIconsResource();
 }
 
-PhotoLayoutsWindow* PhotoLayoutsWindow::instance(DPluginGeneric* const plugin)
+PLEWindow* PLEWindow::instance(DPluginGeneric* const plugin)
 {
     if (m_instance)
     {
@@ -88,11 +88,11 @@ PhotoLayoutsWindow* PhotoLayoutsWindow::instance(DPluginGeneric* const plugin)
     else
     {
         qApp->installEventFilter(new UndoCommandEventFilter(qApp));
-        return (m_instance = new PhotoLayoutsWindow(plugin));
+        return (m_instance = new PLEWindow(plugin));
     }
 }
 
-void PhotoLayoutsWindow::addUndoCommand(QUndoCommand* const command)
+void PLEWindow::addUndoCommand(QUndoCommand* const command)
 {
     if (command)
     {
@@ -110,7 +110,7 @@ void PhotoLayoutsWindow::addUndoCommand(QUndoCommand* const command)
     }
 }
 
-void PhotoLayoutsWindow::beginUndoCommandGroup(const QString& name)
+void PLEWindow::beginUndoCommandGroup(const QString& name)
 {
     if (d->canvas)
     {
@@ -118,7 +118,7 @@ void PhotoLayoutsWindow::beginUndoCommandGroup(const QString& name)
     }
 }
 
-void PhotoLayoutsWindow::endUndoCommandGroup()
+void PLEWindow::endUndoCommandGroup()
 {
     if (d->canvas)
     {
@@ -126,7 +126,7 @@ void PhotoLayoutsWindow::endUndoCommandGroup()
     }
 }
 
-void PhotoLayoutsWindow::setInterface(DInfoInterface* const interface)
+void PLEWindow::setInterface(DInfoInterface* const interface)
 {
     if (interface)
     {
@@ -134,17 +134,17 @@ void PhotoLayoutsWindow::setInterface(DInfoInterface* const interface)
     }
 }
 
-bool PhotoLayoutsWindow::hasInterface() const
+bool PLEWindow::hasInterface() const
 {
     return (bool) d->interface;
 }
 
-DInfoInterface* PhotoLayoutsWindow::interface() const
+DInfoInterface* PLEWindow::interface() const
 {
     return this->d->interface;
 }
 
-void PhotoLayoutsWindow::setupActions()
+void PLEWindow::setupActions()
 {
     connect(d->ui->openNewFileAction, SIGNAL(triggered()),
             this, SLOT(openFile()));
@@ -230,7 +230,7 @@ void PhotoLayoutsWindow::setupActions()
             this, SLOT(slotAbout()));
 }
 
-void PhotoLayoutsWindow::refreshActions()
+void PLEWindow::refreshActions()
 {
     bool isEnabledForCanvas = false;
 
@@ -256,7 +256,7 @@ void PhotoLayoutsWindow::refreshActions()
     d->toolsWidget->setEnabled(isEnabledForCanvas);
 }
 
-void PhotoLayoutsWindow::createWidgets()
+void PLEWindow::createWidgets()
 {
     // Tools
     d->toolsWidget = ToolsDockWidget::instance(this);
@@ -288,7 +288,7 @@ void PhotoLayoutsWindow::createWidgets()
     setStatusBar(d->statusBar);
 }
 
-void PhotoLayoutsWindow::createCanvas(const CanvasSize & size)
+void PLEWindow::createCanvas(const CanvasSize & size)
 {
     if (d->canvas)
     {
@@ -300,7 +300,7 @@ void PhotoLayoutsWindow::createCanvas(const CanvasSize & size)
     this->prepareSignalsConnections();
 }
 
-void PhotoLayoutsWindow::createCanvas(const QUrl& fileUrl)
+void PLEWindow::createCanvas(const QUrl& fileUrl)
 {
     if (d->canvas)
     {
@@ -332,7 +332,7 @@ void PhotoLayoutsWindow::createCanvas(const QUrl& fileUrl)
     file.close();
 }
 
-void PhotoLayoutsWindow::prepareSignalsConnections()
+void PLEWindow::prepareSignalsConnections()
 {
     d->centralWidget->layout()->addWidget(d->canvas);
     d->tree->setModel(d->canvas->model());
@@ -371,7 +371,7 @@ void PhotoLayoutsWindow::prepareSignalsConnections()
     d->toolsWidget->setDefaultTool();
 }
 
-void PhotoLayoutsWindow::openFile()
+void PLEWindow::openFile()
 {
     NewCanvasDialog* const dialog = new NewCanvasDialog(this);
     dialog->setModal(true);
@@ -404,7 +404,7 @@ void PhotoLayoutsWindow::openFile()
     delete dialog;
 }
 
-void PhotoLayoutsWindow::openFileDialog()
+void PLEWindow::openFileDialog()
 {
     if (!d->fileDialog)
     {
@@ -427,7 +427,7 @@ void PhotoLayoutsWindow::openFileDialog()
     }
 }
 
-void PhotoLayoutsWindow::openFile(const QUrl& fileUrl)
+void PLEWindow::openFile(const QUrl& fileUrl)
 {
     if (d->canvas && (d->canvas->file() == fileUrl))
     {
@@ -442,7 +442,7 @@ void PhotoLayoutsWindow::openFile(const QUrl& fileUrl)
     }
 }
 
-void PhotoLayoutsWindow::saveFile()
+void PLEWindow::saveFile()
 {
     qDebug() << !d->canvas->file().isValid() << d->canvas->file().fileName().isEmpty() << d->canvas->isTemplate();
 
@@ -461,7 +461,7 @@ void PhotoLayoutsWindow::saveFile()
     }
 }
 
-void PhotoLayoutsWindow::saveAsFile()
+void PLEWindow::saveAsFile()
 {
     if (!d->fileDialog)
     {
@@ -482,7 +482,7 @@ void PhotoLayoutsWindow::saveAsFile()
     }
 }
 
-void PhotoLayoutsWindow::saveAsTemplate()
+void PLEWindow::saveAsTemplate()
 {
     if (!d->fileDialog)
     {
@@ -514,7 +514,7 @@ void PhotoLayoutsWindow::saveAsTemplate()
     }
 }
 
-void PhotoLayoutsWindow::saveFile(const QUrl & fileUrl, bool setFileAsDefault)
+void PLEWindow::saveFile(const QUrl & fileUrl, bool setFileAsDefault)
 {
     if (d->canvas)
     {
@@ -528,7 +528,7 @@ void PhotoLayoutsWindow::saveFile(const QUrl & fileUrl, bool setFileAsDefault)
     }
 }
 
-void PhotoLayoutsWindow::exportFile()
+void PLEWindow::exportFile()
 {
     if (!d->canvas)
     {
@@ -578,7 +578,7 @@ void PhotoLayoutsWindow::exportFile()
     delete imageFileSaveDialog;
 }
 
-void PhotoLayoutsWindow::printPreview()
+void PLEWindow::printPreview()
 {
     if (d->canvas && d->canvas->scene())
     {
@@ -595,7 +595,7 @@ void PhotoLayoutsWindow::printPreview()
     }
 }
 
-void PhotoLayoutsWindow::print()
+void PLEWindow::print()
 {
     QPrinter* const printer    = new QPrinter();
     d->canvas->preparePrinter(printer);
@@ -609,7 +609,7 @@ void PhotoLayoutsWindow::print()
     delete printer;
 }
 
-bool PhotoLayoutsWindow::closeDocument()
+bool PLEWindow::closeDocument()
 {
     if (d->canvas)
     {
@@ -654,7 +654,7 @@ bool PhotoLayoutsWindow::closeDocument()
     return true;
 }
 
-void PhotoLayoutsWindow::progressEvent(ProgressEvent* event)
+void PLEWindow::progressEvent(ProgressEvent* event)
 {
     if (d->canvas)
     {
@@ -662,7 +662,7 @@ void PhotoLayoutsWindow::progressEvent(ProgressEvent* event)
     }
 }
 
-bool PhotoLayoutsWindow::queryClose()
+bool PLEWindow::queryClose()
 {
     if (closeDocument())
     {
@@ -674,7 +674,7 @@ bool PhotoLayoutsWindow::queryClose()
     }
 }
 
-void PhotoLayoutsWindow::settings()
+void PLEWindow::settings()
 {
     QPointer<PLEConfigDialog> const dialog = new PLEConfigDialog(this);
     dialog->show();
@@ -688,7 +688,7 @@ void PhotoLayoutsWindow::settings()
     config.endGroup();
 }
 
-void PhotoLayoutsWindow::loadImages(const QList<QUrl>& urls)
+void PLEWindow::loadImages(const QList<QUrl>& urls)
 {
     if (!d->canvas)
     {
@@ -701,14 +701,14 @@ void PhotoLayoutsWindow::loadImages(const QList<QUrl>& urls)
     }
 }
 
-void PhotoLayoutsWindow::loadNewImage()
+void PLEWindow::loadNewImage()
 {
     QList<QUrl> urls = ImageDialog::getImageURLs(this, QUrl());
 
     loadImages(urls);
 }
 
-void PhotoLayoutsWindow::setGridVisible(bool isVisible)
+void PLEWindow::setGridVisible(bool isVisible)
 {
     d->ui->showGridToggleAction->setChecked(isVisible);
 
@@ -724,7 +724,7 @@ void PhotoLayoutsWindow::setGridVisible(bool isVisible)
     }
 }
 
-void PhotoLayoutsWindow::setupGrid()
+void PLEWindow::setupGrid()
 {
     if (d->canvas && d->canvas->scene())
     {
@@ -738,7 +738,7 @@ void PhotoLayoutsWindow::setupGrid()
     }
 }
 
-void PhotoLayoutsWindow::changeCanvasSize()
+void PLEWindow::changeCanvasSize()
 {
     if (!d->canvas)
     {
@@ -768,7 +768,7 @@ void PhotoLayoutsWindow::changeCanvasSize()
     delete ccd;
 }
 
-void PhotoLayoutsWindow::setTemplateEditMode(bool isEnabled)
+void PLEWindow::setTemplateEditMode(bool isEnabled)
 {
     Q_UNUSED(isEnabled);
 
@@ -777,19 +777,19 @@ void PhotoLayoutsWindow::setTemplateEditMode(bool isEnabled)
     //d->canvas->setTemplateEditMode(isEnabled);
 }
 
-void PhotoLayoutsWindow::loadEffects()
+void PLEWindow::loadEffects()
 {
     StandardEffectsFactory* const stdEffects = new StandardEffectsFactory(PhotoEffectsLoader::instance());
     PhotoEffectsLoader::registerEffect(stdEffects);
 }
 
-void PhotoLayoutsWindow::loadBorders()
+void PLEWindow::loadBorders()
 {
     StandardBordersFactory* const stdBorders = new StandardBordersFactory(BorderDrawersLoader::instance());
     BorderDrawersLoader::registerDrawer(stdBorders);
 }
 
-void PhotoLayoutsWindow::slotAbout()
+void PLEWindow::slotAbout()
 {
     if (d->plugin)
     {

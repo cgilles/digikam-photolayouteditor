@@ -33,7 +33,7 @@
 // Local includes
 
 #include "UndoCommandEvent.h"
-#include "photolayoutswindow.h"
+#include "plewindow.h"
 
 namespace PhotoLayoutsEditor
 {
@@ -55,7 +55,7 @@ QString templateUri()
 
 void PLE_PostUndoCommand(QUndoCommand* const command)
 {
-    PhotoLayoutsWindow::instance()->addUndoCommand(command);
+    PLEWindow::instance()->addUndoCommand(command);
 }
 
 QDomDocument pathToSvg(const QPainterPath& path)

@@ -45,7 +45,7 @@
 #include "ImageLoadingThread.h"
 #include "pleglobal.h"
 #include "ProgressEvent.h"
-#include "photolayoutswindow.h"
+#include "plewindow.h"
 #include "CanvasLoadingThread.h"
 #include "CanvasSavingThread.h"
 #include "plestatusbar.h"
@@ -638,7 +638,7 @@ void Canvas::progressEvent(ProgressEvent * event)
             temp->setValue(0);
             this->setEnabled(false);
             {
-                PLEStatusBar * sb = dynamic_cast<PLEStatusBar*>(PhotoLayoutsWindow::instance()->statusBar());
+                PLEStatusBar * sb = dynamic_cast<PLEStatusBar*>(PLEWindow::instance()->statusBar());
                 if (sb)
                     sb->runBusyIndicator();
             }
@@ -659,7 +659,7 @@ void Canvas::progressEvent(ProgressEvent * event)
             }
             this->setEnabled(true);
             {
-                PLEStatusBar * sb = dynamic_cast<PLEStatusBar*>(PhotoLayoutsWindow::instance()->statusBar());
+                PLEStatusBar * sb = dynamic_cast<PLEStatusBar*>(PLEWindow::instance()->statusBar());
                 if (sb)
                     sb->stopBusyIndicator();
             }
