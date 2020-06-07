@@ -39,13 +39,13 @@
 namespace PhotoLayoutsEditor
 {
 
-class QSpinBoxFactory : public QtSpinBoxFactory
+class PLESpinBoxFactory : public QtSpinBoxFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QSpinBoxFactory(QObject* const parent = nullptr);
+    explicit PLESpinBoxFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -59,13 +59,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QSliderFactory : public QtSliderFactory
+class PLESliderFactory : public QtSliderFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QSliderFactory(QObject* const parent = nullptr);
+    explicit PLESliderFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -79,13 +79,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QScrollBarFactory : public QtScrollBarFactory
+class PLEScrollBarFactory : public QtScrollBarFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QScrollBarFactory(QObject* const parent = nullptr);
+    explicit PLEScrollBarFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -99,13 +99,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QCheckBoxFactory : public QtCheckBoxFactory
+class PLECheckBoxFactory : public QtCheckBoxFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QCheckBoxFactory(QObject* const parent = nullptr);
+    explicit PLECheckBoxFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -119,13 +119,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QDoubleSpinBoxFactory : public QtDoubleSpinBoxFactory
+class PLEDoubleSpinBoxFactory : public QtDoubleSpinBoxFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QDoubleSpinBoxFactory(QObject* const parent = nullptr);
+    explicit PLEDoubleSpinBoxFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -139,13 +139,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QLineEditFactory : public QtLineEditFactory
+class PLELineEditFactory : public QtLineEditFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QLineEditFactory(QObject* const parent = nullptr);
+    explicit PLELineEditFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -159,13 +159,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QDateEditFactory : public QtDateEditFactory
+class PLEDateEditFactory : public QtDateEditFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QDateEditFactory(QObject* const parent = nullptr);
+    explicit PLEDateEditFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -179,13 +179,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QTimeEditFactory : public QtTimeEditFactory
+class PLETimeEditFactory : public QtTimeEditFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QTimeEditFactory(QObject* const parent = nullptr);
+    explicit PLETimeEditFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -199,13 +199,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QDateTimeEditFactory : public QtDateTimeEditFactory
+class PLEDateTimeEditFactory : public QtDateTimeEditFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QDateTimeEditFactory(QObject* const parent = nullptr);
+    explicit PLEDateTimeEditFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -219,13 +219,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QKeySequenceEditorFactory : public QtKeySequenceEditorFactory
+class PLEKeySequenceEditorFactory : public QtKeySequenceEditorFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QKeySequenceEditorFactory(QObject* const parent = nullptr);
+    explicit PLEKeySequenceEditorFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -239,13 +239,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QCharEditorFactory : public QtCharEditorFactory
+class PLECharEditorFactory : public QtCharEditorFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QCharEditorFactory(QObject* const parent = nullptr);
+    explicit PLECharEditorFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -259,13 +259,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QEnumEditorFactory : public QtEnumEditorFactory
+class PLEEnumEditorFactory : public QtEnumEditorFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QEnumEditorFactory(QObject* const parent = nullptr);
+    explicit PLEEnumEditorFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -279,13 +279,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QCursorEditorFactory : public QtCursorEditorFactory
+class PLECursorEditorFactory : public QtCursorEditorFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QCursorEditorFactory(QObject* const parent = nullptr);
+    explicit PLECursorEditorFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -299,13 +299,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QColorEditorFactory : public QtColorEditorFactory
+class PLEColorEditorFactory : public QtColorEditorFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QColorEditorFactory(QObject* const parent = nullptr);
+    explicit PLEColorEditorFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -319,13 +319,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QFontEditorFactory : public QtFontEditorFactory
+class PLEFontEditorFactory : public QtFontEditorFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QFontEditorFactory(QObject* const parent = nullptr);
+    explicit PLEFontEditorFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -339,13 +339,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QVariantEditorFactory : public QtVariantEditorFactory
+class PLEVariantEditorFactory : public QtVariantEditorFactory
 {
     Q_OBJECT
 
 public:
 
-    explicit QVariantEditorFactory(QObject* const parent = nullptr);
+    explicit PLEVariantEditorFactory(QObject* const parent = nullptr);
 
 Q_SIGNALS:
 
@@ -359,13 +359,13 @@ protected:
 
 // ---------------------------------------------------------------------
 
-class QSliderEditFactory : public QtAbstractEditorFactory<QtIntPropertyManager>
+class PLESliderEditFactory : public QtAbstractEditorFactory<QtIntPropertyManager>
 {
     Q_OBJECT
 
 public:
 
-    explicit QSliderEditFactory(QObject* const parent = nullptr);
+    explicit PLESliderEditFactory(QObject* const parent = nullptr);
 
 protected:
 

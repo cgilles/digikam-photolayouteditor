@@ -119,16 +119,16 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
 
     // QVariant::Int
     QtIntPropertyManager * integerManager = new QtIntPropertyManager(browser);
-    QSliderEditFactory * integerFactory = new QSliderEditFactory(browser);
+    PLESliderEditFactory * integerFactory = new PLESliderEditFactory(browser);
     browser->setFactoryForManager(integerManager, integerFactory);
 
     // Double type of property
     QtDoublePropertyManager * doubleManager = nullptr;
-    QDoubleSpinBoxFactory * doubleFactory = nullptr;
+    PLEDoubleSpinBoxFactory * doubleFactory = nullptr;
 
     // QVariant others....
     QtVariantPropertyManager * variantManager = nullptr;
-    QVariantEditorFactory * variantFactory = nullptr;
+    PLEVariantEditorFactory * variantFactory = nullptr;
 
     const QMetaObject * meta = effect->metaObject();
     int propertiesCount = meta->propertyCount();
@@ -146,7 +146,7 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
                     if (!integerManager || !integerFactory)
                     {
                         integerManager = new QtIntPropertyManager(browser);
-                        integerFactory = new QSliderEditFactory(browser);
+                        integerFactory = new PLESliderEditFactory(browser);
                         browser->setFactoryForManager(integerManager, integerFactory);
                     }
                     property = integerManager->addProperty(propertyName);
@@ -161,7 +161,7 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
                     if (!doubleManager || !doubleFactory)
                     {
                         doubleManager = new QtDoublePropertyManager(browser);
-                        doubleFactory = new QDoubleSpinBoxFactory(browser);
+                        doubleFactory = new PLEDoubleSpinBoxFactory(browser);
                         browser->setFactoryForManager(doubleManager, doubleFactory);
                     }
                     property = doubleManager->addProperty(propertyName);
@@ -176,7 +176,7 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
                     if (!variantManager || !variantFactory)
                     {
                         variantManager = new QtVariantPropertyManager(browser);
-                        variantFactory = new QVariantEditorFactory(browser);
+                        variantFactory = new PLEVariantEditorFactory(browser);
                         browser->setFactoryForManager(variantManager, variantFactory);
                     }
                     property = variantManager->addProperty(metaProperty.type(), propertyName);

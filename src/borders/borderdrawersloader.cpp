@@ -198,19 +198,19 @@ QWidget* BorderDrawersLoader::createEditor(BorderDrawerInterface* drawer, bool c
 
     // QVariant type of property
     QtVariantPropertyManager* variantManager = nullptr;
-    QVariantEditorFactory* variantFactory    = nullptr;
+    PLEVariantEditorFactory* variantFactory    = nullptr;
 
     // Integer type of property
     QtIntPropertyManager* integerManager     = nullptr;
-    QSliderEditFactory* integerFactory       = nullptr;
+    PLESliderEditFactory* integerFactory       = nullptr;
 
     // Double type of property
     QtDoublePropertyManager* doubleManager   = nullptr;
-    QDoubleSpinBoxFactory* doubleFactory     = nullptr;
+    PLEDoubleSpinBoxFactory* doubleFactory     = nullptr;
 
     // Enum type of property
     QtEnumPropertyManager* enumManager       = nullptr;
-    QEnumEditorFactory* enumFactory          = nullptr;
+    PLEEnumEditorFactory* enumFactory          = nullptr;
 
     const QMetaObject* meta                  = drawer->metaObject();
     int propertiesCount                      = meta->propertyCount();
@@ -234,7 +234,7 @@ QWidget* BorderDrawersLoader::createEditor(BorderDrawerInterface* drawer, bool c
                 if (!integerManager || !integerFactory)
                 {
                     integerManager = new QtIntPropertyManager(browser);
-                    integerFactory = new QSliderEditFactory(browser);
+                    integerFactory = new PLESliderEditFactory(browser);
                     browser->setFactoryForManager(integerManager, integerFactory);
                 }
 
@@ -251,7 +251,7 @@ QWidget* BorderDrawersLoader::createEditor(BorderDrawerInterface* drawer, bool c
                 if (!doubleManager || !doubleFactory)
                 {
                     doubleManager = new QtDoublePropertyManager(browser);
-                    doubleFactory = new QDoubleSpinBoxFactory(browser);
+                    doubleFactory = new PLEDoubleSpinBoxFactory(browser);
                     browser->setFactoryForManager(doubleManager, doubleFactory);
                 }
 
@@ -272,7 +272,7 @@ QWidget* BorderDrawersLoader::createEditor(BorderDrawerInterface* drawer, bool c
                     if (!enumManager || !enumFactory)
                     {
                         enumManager = new QtEnumPropertyManager(browser);
-                        enumFactory = new QEnumEditorFactory(browser);
+                        enumFactory = new PLEEnumEditorFactory(browser);
                         browser->setFactoryForManager(enumManager, enumFactory);
                     }
 
@@ -289,7 +289,7 @@ QWidget* BorderDrawersLoader::createEditor(BorderDrawerInterface* drawer, bool c
                 if (!variantManager || !variantFactory)
                 {
                     variantManager = new QtVariantPropertyManager(browser);
-                    variantFactory = new QVariantEditorFactory(browser);
+                    variantFactory = new PLEVariantEditorFactory(browser);
                     browser->setFactoryForManager(variantManager, variantFactory);
                 }
 

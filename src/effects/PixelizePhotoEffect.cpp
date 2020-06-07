@@ -112,7 +112,7 @@ QtAbstractPropertyBrowser* PixelizePhotoEffect::propertyBrowser() const
 {
     QtAbstractPropertyBrowser* browser = PhotoEffectsLoader::propertyBrowser();
     QtIntPropertyManager* intManager   = new QtIntPropertyManager(browser);
-    QSliderEditFactory* sliderFactory  = new QSliderEditFactory(browser);
+    PLESliderEditFactory* sliderFactory  = new PLESliderEditFactory(browser);
     browser->setFactoryForManager(intManager, sliderFactory);
 
     // Radius property

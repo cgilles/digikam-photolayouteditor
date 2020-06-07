@@ -792,7 +792,7 @@ QtAbstractPropertyBrowser * TextItem::propertyBrowser()
 
     // Color
     QtColorPropertyManager * colorManager = new QtColorPropertyManager(browser);
-    QColorEditorFactory * colorFactory = new QColorEditorFactory(browser);
+    PLEColorEditorFactory * colorFactory = new PLEColorEditorFactory(browser);
     browser->setFactoryForManager(colorManager, colorFactory);
     QtProperty * colorProperty = colorManager->addProperty(QObject::tr("Text color"));
     colorManager->setValue(colorProperty, m_color);
@@ -805,7 +805,7 @@ QtAbstractPropertyBrowser * TextItem::propertyBrowser()
 
     // Font
     QtFontPropertyManager * fontManager = new QtFontPropertyManager(browser);
-    QFontEditorFactory * fontFactory = new QFontEditorFactory(browser);
+    PLEFontEditorFactory * fontFactory = new PLEFontEditorFactory(browser);
     browser->setFactoryForManager(fontManager, fontFactory);
     QtProperty * fontProperty = fontManager->addProperty(QObject::tr("Font"));
     fontManager->setValue(fontProperty, m_font);
