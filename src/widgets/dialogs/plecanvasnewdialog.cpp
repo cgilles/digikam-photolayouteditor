@@ -45,8 +45,8 @@
 // Local includes
 
 #include "plecanvassizewidget.h"
-#include "TemplatesView.h"
-#include "TemplatesModel.h"
+#include "templatesview.h"
+#include "templatesmodel.h"
 #include "plecanvassize.h"
 
 #define PAPER_SIZE_ROLE 128

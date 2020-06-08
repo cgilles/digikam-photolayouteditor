@@ -141,9 +141,9 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/plecanvasnewdialog.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/plecanvassizewidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/pleconfigdialog.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/GridSetupDialog.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesModel.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesView.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/gridsetupdialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/templatesmodel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/templatesview.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/plewindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/plestatusbar.cpp

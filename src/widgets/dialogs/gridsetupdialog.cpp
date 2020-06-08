@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "GridSetupDialog.h"
+#include "gridsetupdialog.h"
 
 // Qt includes
 

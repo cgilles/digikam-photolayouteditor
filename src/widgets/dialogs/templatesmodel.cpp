@@ -21,11 +21,14 @@
  *
  * ============================================================ */
 
-#include "TemplatesModel.h"
+#include "templatesmodel.h"
+
+// Qt includes
 
 #include <QMessageBox>
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 TemplatesModel::TemplatesModel(QObject *parent) :
     QAbstractItemModel(parent)
@@ -108,3 +111,5 @@ void TemplatesModel::addTemplate(const QString & path, const QString & name)
     insertRows(rowCount(), 1);
     templates.last() = new TemplateItem(path, name);
 }
+
+} // namespace PhotoLayoutsEditor

@@ -79,7 +79,7 @@
 #include "LayersSelectionModel.h"
 #include "UndoCommandEventFilter.h"
 #include "PhotoEffectsLoader.h"
-#include "GridSetupDialog.h"
+#include "gridsetupdialog.h"
 #include "pleconfigdialog.h"
 #include "StandardEffectsFactory.h"
 #include "StandardBordersFactory.h"

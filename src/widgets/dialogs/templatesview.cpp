@@ -21,7 +21,7 @@
  *
  * ============================================================ */
 
-#include "TemplatesView.h"
+#include "templatesview.h"
 
 #include <QScrollBar>
 #include <QPainter>
@@ -29,7 +29,7 @@
 #include <QApplication>
 #include <QMouseEvent>
 
-#include "TemplatesModel.h"
+#include "templatesmodel.h"
 
 QHash<int, QRectF> rectForRow;
 
