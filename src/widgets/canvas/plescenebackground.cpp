@@ -23,7 +23,6 @@
  * ============================================================ */
 
 #include "plescenebackground.h"
-#include "pleglobal.h"
 
 // C++ std includes
 
@@ -39,7 +38,12 @@
 #include <QPixmap>
 #include <QBuffer>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
+
+#include "pleglobal.h"
+
+namespace PhotoLayoutsEditor
+{
 
 class PhotoLayoutsEditor::PLESceneBackground::BackgroundImageChangedCommand : public QUndoCommand
 {
@@ -49,6 +53,7 @@ class PhotoLayoutsEditor::PLESceneBackground::BackgroundImageChangedCommand : pu
     QSize m_size;
     bool m_repeat;
     PLESceneBackground * m_backgropund_item;
+
 public:
 
     BackgroundImageChangedCommand(const QImage & image, Qt::Alignment alignment, const QSize & size, bool repeat, PLESceneBackground * backgroundItem, QUndoCommand * parent = nullptr) :
@@ -72,14 +77,17 @@ public:
         m_backgropund_item(backgroundItem)
     {
     }
+
     virtual void redo() override
     {
         run();
     }
+
     virtual void undo() override
     {
         run();
     }
+
     void run()
     {
         QImage temp = m_backgropund_item->m_image;
@@ -107,24 +115,31 @@ public:
         m_backgropund_item->update();
     }
 };
-class PhotoLayoutsEditor::PLESceneBackground::BackgroundFirstBrushChangeCommand : public QUndoCommand
+
+class PLESceneBackground::BackgroundFirstBrushChangeCommand : public QUndoCommand
 {
     QBrush m_brush;
     PLESceneBackground * m_background;
+
 public:
+
     BackgroundFirstBrushChangeCommand(const QBrush & brush, PLESceneBackground * background, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_brush(brush),
         m_background(background)
-    {}
+    {
+    }
+
     virtual void redo() override
     {
         this->run();
     }
+
     virtual void undo() override
     {
         this->run();
     }
+
     void run()
     {
         QBrush temp = m_background->m_first_brush;
@@ -135,24 +150,31 @@ public:
         m_background->update();
     }
 };
-class PhotoLayoutsEditor::PLESceneBackground::BackgroundSecondBrushChangeCommand : public QUndoCommand
+
+class PLESceneBackground::BackgroundSecondBrushChangeCommand : public QUndoCommand
 {
     QBrush m_brush;
     PLESceneBackground * m_background;
+
 public:
+
     BackgroundSecondBrushChangeCommand(const QBrush & brush, PLESceneBackground * background, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_brush(brush),
         m_background(background)
-    {}
+    {
+    }
+
     virtual void redo() override
     {
         this->run();
     }
+
     virtual void undo() override
     {
         this->run();
     }
+
     void run()
     {
         QBrush temp = m_background->m_second_brush;
@@ -184,6 +206,7 @@ void PLESceneBackground::setSecondColor(const QColor & color)
 {
     bool colorChanged = (m_second_brush.color() != color);
     bool patternChanged = (m_second_brush.style() != Qt::SolidPattern);
+
     if (colorChanged || patternChanged)
     {
         QUndoCommand * command = new BackgroundSecondBrushChangeCommand(QBrush(color), this);
@@ -206,6 +229,7 @@ void PLESceneBackground::setSolidColor(const QColor & color)
 
     if (colorChanged || patternChaged)
         command = new BackgroundFirstBrushChangeCommand(QBrush(color), this, parent);
+
     if (secondColorChanged)
         command = new BackgroundSecondBrushChangeCommand(QBrush(Qt::transparent), this, parent);
 
@@ -221,12 +245,15 @@ void PLESceneBackground::setPattern(const QColor & firstColor, const QColor & se
     bool color2Changed = (secondColor != m_second_brush.color() || m_second_brush.style() != Qt::SolidPattern);
 
     QUndoCommand * parent = nullptr;
+
     if (color1Changed && color2Changed)
         parent = new QUndoCommand(QLatin1String("Background Change"));
+
     QUndoCommand * command = nullptr;
 
     if (color1Changed)
         command = new BackgroundFirstBrushChangeCommand(QBrush(firstColor, patternStyle), this, parent);
+
     if (color2Changed)
         command = new BackgroundSecondBrushChangeCommand(QBrush(secondColor, Qt::SolidPattern), this, parent);
 
@@ -247,12 +274,15 @@ void PLESceneBackground::setImage(const QImage & image, const QColor & backgroun
     bool colorChanged = (m_second_brush.color() != backgroundColor || m_second_brush.style() != Qt::SolidPattern);
 
     QUndoCommand * parent = nullptr;
+
     if (imageChanged && colorChanged)
         parent = new QUndoCommand(QObject::tr("Background Change"));
 
     QUndoCommand * command = nullptr;
+
     if (imageChanged)
         command = new BackgroundImageChangedCommand(image, align, aspectRatio, repeat, this, parent);
+
     if (colorChanged)
         command = new BackgroundSecondBrushChangeCommand(QBrush(backgroundColor, Qt::SolidPattern), this, parent);
 
@@ -273,12 +303,15 @@ void PLESceneBackground::setImage(const QImage & image, const QColor & backgroun
     bool colorChanged = (m_second_brush.color() != backgroundColor || m_second_brush.style() != Qt::SolidPattern);
 
     QUndoCommand * parent = nullptr;
+
     if (imageChanged && colorChanged)
         parent = new QUndoCommand(QObject::tr("Background Change"));
 
     QUndoCommand * command = nullptr;
+
     if (imageChanged)
         command = new BackgroundImageChangedCommand(image, align, fixedSize, repeat, this, parent);
+
     if (colorChanged)
         command = new BackgroundSecondBrushChangeCommand(QBrush(backgroundColor, Qt::SolidPattern), this, parent);
 
@@ -290,14 +323,14 @@ void PLESceneBackground::setImage(const QImage & image, const QColor & backgroun
 
 bool PLESceneBackground::isColor() const
 {
-    return m_first_brush.style() == Qt::SolidPattern;
+    return (m_first_brush.style() == Qt::SolidPattern);
 }
 
 bool PLESceneBackground::isGradient() const
 {
-    return m_first_brush.style() == Qt::LinearGradientPattern ||
-           m_first_brush.style() == Qt::RadialGradientPattern ||
-           m_first_brush.style() == Qt::ConicalGradientPattern;
+    return (m_first_brush.style() == Qt::LinearGradientPattern ||
+            m_first_brush.style() == Qt::RadialGradientPattern ||
+            m_first_brush.style() == Qt::ConicalGradientPattern);
 }
 
 bool PLESceneBackground::isImage() const
@@ -318,6 +351,7 @@ QDomElement PLESceneBackground::toSvg(QDomDocument & document) const
     result.appendChild(defs);
     QDomElement type = document.createElement(QLatin1String("type"));
     defs.appendChild(type);
+
     if (this->isColor())
     {
         type.appendChild( document.createTextNode(QLatin1String("color")));
@@ -406,6 +440,7 @@ QDomElement PLESceneBackground::toSvg(QDomDocument & document) const
         result.appendChild(bckColor);
 
         QDomElement bckg = document.createElement(QLatin1String("rect"));
+
         if (m_image_repeat)
         {
             bckg.setAttribute(QLatin1String("x"), 0);
@@ -420,6 +455,7 @@ QDomElement PLESceneBackground::toSvg(QDomDocument & document) const
             bckg.setAttribute(QLatin1String("width"), pattern.attribute(QLatin1String("width")));
             bckg.setAttribute(QLatin1String("height"),pattern.attribute(QLatin1String("height")));
         }
+
         bckg.setAttribute(QLatin1String("fill"), QLatin1String("url(#")+pattern.attribute(QLatin1String("id")) + QLatin1Char(')'));
         result.appendChild(bckg);
     }
@@ -435,54 +471,72 @@ bool PLESceneBackground::fromSvg(QDomElement & element)
 {
     QDomNodeList list = element.childNodes();
     QDomElement background;
+
     for (int i = list.count()-1; i >= 0; --i)
     {
         if (!list.at(i).isElement())
             continue;
+
         background = list.at(i).toElement();
+
         if (background.attribute(QLatin1String("id")) != QLatin1String("background"))
         {
             background = QDomElement();
             continue;
         }
     }
+
     if (background.isNull())
         return false;
 
     QDomElement defs = background.firstChildElement(QLatin1String("defs"));
+
     if (defs.isNull())
         return false;
+
     QString type = defs.firstChildElement(QLatin1String("type")).text();
+
     if (type == QLatin1String("color"))
     {
         QDomElement rect = background.firstChildElement(QLatin1String("rect"));
+
         if (rect.isNull())
             return false;
+
         QColor color(rect.attribute(QLatin1String("fill")));
         color.setAlphaF(rect.attribute(QLatin1String("opacity")).toDouble());
+
         if (!color.isValid())
             return false;
+
         m_first_brush.setColor(color);
     }
     else if (type == QLatin1String("pattern"))
     {
         bool ok = true;
         QDomElement bse = defs.firstChildElement(QLatin1String("brush_style"));
+
         if (bse.isNull()) return false;
+
         Qt::BrushStyle bs = (Qt::BrushStyle) bse.text().toInt(&ok);
 
         QDomElement c1e = defs.firstChildElement(QLatin1String("color1"));
+
         if (c1e.isNull()) return false;
+
         QColor color1(c1e.text());
         color1.setAlphaF(c1e.attribute(QLatin1String("opacity")).toInt());
 
         QDomElement c2e = defs.firstChildElement(QLatin1String("color2"));
+
         if (c2e.isNull()) return false;
+
         QColor color2(c2e.text());
         color2.setAlphaF(c2e.attribute(QLatin1String("opacity")).toInt());
 
         if (!color1.isValid() || !color2.isValid() || !ok || bs <= Qt::SolidPattern || bs >= Qt::LinearGradientPattern)
             return false;
+
         m_first_brush.setStyle(bs);
         m_first_brush.setColor(color1);
         m_second_brush.setStyle(Qt::SolidPattern);
@@ -495,11 +549,15 @@ bool PLESceneBackground::fromSvg(QDomElement & element)
         m_image_repeat = (bool) defs.firstChildElement(QLatin1String("repeat")).text().toInt();
 
         QDomElement pattern = defs.firstChildElement(QLatin1String("pattern"));
+
         if (pattern.isNull())
             return false;
+
         QDomElement image = pattern.firstChildElement(QLatin1String("image"));
+
         if (image.isNull())
             return false;
+
         m_image_size.setWidth(image.attribute(QLatin1String("width")).remove(QLatin1String("px")).toInt());
         m_image_size.setHeight(image.attribute(QLatin1String("height")).remove(QLatin1String("px")).toInt());
         m_image = QImage::fromData( QByteArray::fromBase64(image.attributeNS(QLatin1String("http://www.w3.org/1999/xlink"), QLatin1String("href")).remove(QLatin1String("data:image/png;base64,")).toLatin1()) );
@@ -511,9 +569,12 @@ bool PLESceneBackground::fromSvg(QDomElement & element)
         m_second_brush.setColor(backgroundColor);
     }
     else if (type == QLatin1String("gradient"))
-    {}
+    {
+    }
     else
+    {
         return false;
+    }
 
     render();
 
@@ -566,14 +627,19 @@ QVariant PLESceneBackground::itemChange(GraphicsItemChange change, const QVarian
     {
         case QGraphicsItem::ItemParentChange:
             return QVariant(0);
+
         case QGraphicsItem::ItemSceneChange:
             this->disconnect(scene(), nullptr, this, nullptr);
             break;
+
         case QGraphicsItem::ItemSceneHasChanged:
             sceneChanged();
             break;
-        default: break;
+
+        default:
+            break;
     }
+
     return QGraphicsItem::itemChange(change, value);
 }
 
@@ -581,6 +647,7 @@ void PLESceneBackground::paint(QPainter * painter, const QStyleOptionGraphicsIte
 {
     if (!m_rect.isValid())
         return;
+
     painter->setRenderHint(QPainter::SmoothPixmapTransform);
     painter->drawImage(QPoint(0,0), m_temp_image, option->exposedRect);
 }
@@ -589,8 +656,10 @@ void PLESceneBackground::render(QPainter * painter, const QRect & rect)
 {
     if (!rect.isValid())
         return;
+
     QRect r = rect;
     painter->fillRect(r, m_second_brush);
+
     if (this->isImage())
     {
         QSize scaleSize = (m_image_aspect_ratio == Qt::IgnoreAspectRatio ? m_image_size : rect.size());
@@ -600,17 +669,22 @@ void PLESceneBackground::render(QPainter * painter, const QRect & rect)
         QSize imSize = m_first_brush.textureImage().size();
         QTransform tr;
         qreal x = 0;
+
         if (m_image_align & Qt::AlignHCenter)
             x = (bgSize.width() - imSize.width()) / 2.0;
         else if (m_image_align & Qt::AlignRight)
             x = bgSize.width() - imSize.width();
+
         qreal y = 0;
+
         if (m_image_align & Qt::AlignVCenter)
             y = (bgSize.height() - imSize.height()) / 2.0;
         else if (m_image_align & Qt::AlignBottom)
             y = bgSize.height() - imSize.height();
+
         tr.translate(x,y);
         m_first_brush.setTransform(tr);
+
         if (!this->m_image_repeat)
             r = m_first_brush.transform().mapRect(QRect(0, 0, m_image_size.width(), m_image_size.height()));
     }
@@ -623,6 +697,7 @@ void PLESceneBackground::render()
     QPainter p(&this->m_temp_image);
     this->render(&p, this->m_temp_image.rect());
     p.end();
+
     emit changed();
 }
 
@@ -634,19 +709,25 @@ void PLESceneBackground::sceneChanged()
         this->connect(scene(), SIGNAL(sceneRectChanged(QRectF)), this, SLOT(sceneRectChanged(QRectF)));
     }
     else
+    {
         sceneRectChanged(QRectF());
+    }
 }
 
 void PLESceneBackground::sceneRectChanged(const QRectF & sceneRect)
 {
     if (sceneRect.isValid())
     {
-        m_rect = sceneRect;
+        m_rect       = sceneRect;
         m_temp_image = QImage(m_rect.size().toSize(), QImage::Format_ARGB32);
         m_temp_image.fill(Qt::transparent);
         QPainter p(&m_temp_image);
         render(&p, m_rect.toRect());
     }
     else
+    {
         m_rect = QRectF();
+    }
 }
+
+} // namespace PhotoLayoutsEditor
