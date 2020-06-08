@@ -28,7 +28,7 @@
 #include <QThread>
 #include <QUrl>
 
-#include "ProgressObserver.h"
+#include "progressobserver.h"
 
 namespace PhotoLayoutsEditor
 {

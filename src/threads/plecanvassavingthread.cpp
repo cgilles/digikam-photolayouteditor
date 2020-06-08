@@ -35,7 +35,7 @@
 
 #include "plecanvas_p.h"
 #include "plescene.h"
-#include "ProgressEvent.h"
+#include "progressevent.h"
 #include "plewindow.h"
 
 using namespace PhotoLayoutsEditor;

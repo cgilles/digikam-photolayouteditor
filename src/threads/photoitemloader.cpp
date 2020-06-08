@@ -22,10 +22,10 @@
  *
  * ============================================================ */
 
-#include "PhotoItemLoader.h"
+#include "photoitemloader.h"
 #include "photoitem.h"
-#include "ImageLoadingThread.h"
-#include "ProgressObserver.h"
+#include "imageloadingthread.h"
+#include "progressobserver.h"
 #include "pleglobal.h"
 
 #include <QBuffer>

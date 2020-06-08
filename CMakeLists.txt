@@ -97,10 +97,10 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plescenebackgroundloader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plesceneborderloader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/abstractphotoitemloader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/ImageLoadingThread.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/PhotoItemLoader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/TextItemLoader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/ProgressEvent.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/imageloadingthread.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/photoitemloader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/textitemloader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/progressevent.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/pleglobal.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/pleeditfactory.cpp

@@ -30,10 +30,10 @@
 
 // Local includes
 
-#include "ProgressEvent.h"
+#include "progressevent.h"
 #include "abstractphotoitemloader.h"
-#include "PhotoItemLoader.h"
-#include "TextItemLoader.h"
+#include "photoitemloader.h"
+#include "textitemloader.h"
 #include "plescenebackgroundloader.h"
 #include "plesceneborderloader.h"
 #include "abstractphoto.h"

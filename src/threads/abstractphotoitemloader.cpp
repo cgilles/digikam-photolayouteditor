@@ -25,7 +25,7 @@
 #include "abstractphotoitemloader.h"
 #include "abstractphoto.h"
 #include "abstractphoto_p.h"
-#include "ProgressObserver.h"
+#include "progressobserver.h"
 #include "pleglobal.h"
 
 #include <QDebug>

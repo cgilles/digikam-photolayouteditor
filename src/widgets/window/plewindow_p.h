@@ -84,7 +84,7 @@
 #include "StandardEffectsFactory.h"
 #include "StandardBordersFactory.h"
 #include "pleglobal.h"
-#include "ProgressEvent.h"
+#include "progressevent.h"
 #include "BorderDrawerInterface.h"
 #include "borderdrawersloader.h"
 #include "plecanvasnewdialog.h"

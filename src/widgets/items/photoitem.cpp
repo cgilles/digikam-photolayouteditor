@@ -44,8 +44,8 @@
 #include "BordersGroup.h"
 #include "pleglobal.h"
 #include "plewindow.h"
-#include "ImageLoadingThread.h"
-#include "ProgressEvent.h"
+#include "imageloadingthread.h"
+#include "progressevent.h"
 
 #define EMPTY_FILL_COLOR QColor(255, 0, 0, 120)
 

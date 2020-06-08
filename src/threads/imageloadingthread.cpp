@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "ImageLoadingThread.h"
+#include "imageloadingthread.h"
 
 // Qt includes
 
@@ -43,7 +43,7 @@
 
 // Local includes
 
-#include "ProgressEvent.h"
+#include "progressevent.h"
 #include "plewindow.h"
 
 using namespace Digikam;

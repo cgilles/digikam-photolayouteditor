@@ -32,7 +32,7 @@
 
 // Local includes
 
-#include "ProgressObserver.h"
+#include "progressobserver.h"
 
 namespace PhotoLayoutsEditor
 {

@@ -22,9 +22,9 @@
  *
  * ============================================================ */
 
-#include "TextItemLoader.h"
+#include "textitemloader.h"
 #include "textitem.h"
-#include "ProgressObserver.h"
+#include "progressobserver.h"
 
 using namespace PhotoLayoutsEditor;
 

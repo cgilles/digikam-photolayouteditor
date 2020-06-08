@@ -24,7 +24,7 @@
 
 #include "UndoCommandEventFilter.h"
 #include "UndoCommandEvent.h"
-#include "ProgressEvent.h"
+#include "progressevent.h"
 #include "pleglobal.h"
 #include "plewindow.h"
 
