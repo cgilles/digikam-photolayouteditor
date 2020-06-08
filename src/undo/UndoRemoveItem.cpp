@@ -25,8 +25,8 @@
 #include "UndoRemoveItem.h"
 #include "plescene.h"
 #include "abstractphoto.h"
-#include "LayersModel.h"
-#include "LayersModelItem.h"
+#include "layersmodel.h"
+#include "layersmodelitem.h"
 
 using namespace PhotoLayoutsEditor;
 

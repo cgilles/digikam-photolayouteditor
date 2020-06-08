@@ -70,9 +70,9 @@
 #include "photoitem.h"
 #include "plesceneborder.h"
 #include "imagedialog.h"
-#include "LayersModel.h"
-#include "LayersModelItem.h"
-#include "LayersSelectionModel.h"
+#include "layersmodel.h"
+#include "layersmodelitem.h"
+#include "layersselectionmodel.h"
 
 using namespace Digikam;
 

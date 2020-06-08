@@ -66,8 +66,8 @@
 // Local includes
 
 #include "plecanvassize.h"
-#include "LayersTree.h"
-#include "LayersTreeTitleWidget.h"
+#include "layerstree.h"
+#include "layerstreetitlewidget.h"
 #include "toolsdockwidget.h"
 #include "effectseditortool.h"
 #include "borderedittool.h"
@@ -76,7 +76,7 @@
 #include "plecanvassizedialog.h"
 #include "plecanvas.h"
 #include "plescene.h"
-#include "LayersSelectionModel.h"
+#include "layersselectionmodel.h"
 #include "UndoCommandEventFilter.h"
 #include "PhotoEffectsLoader.h"
 #include "gridsetupdialog.h"

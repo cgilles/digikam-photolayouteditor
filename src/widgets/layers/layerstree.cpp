@@ -22,12 +22,10 @@
  *
  * ============================================================ */
 
-#include "LayersTree.h"
-#include "abstractphoto.h"
-#include "LayersTreeDelegate.h"
-#include "LayersTreeMenu.h"
+#include "layerstree.h"
 
-// Qt
+// Qt includes
+
 #include <QStandardItemModel>
 #include <QDebug>
 #include <QHeaderView>
@@ -36,7 +34,14 @@
 #include <QGraphicsItem>
 #include <QContextMenuEvent>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
+
+#include "abstractphoto.h"
+#include "layerstreedelegate.h"
+#include "layerstreemenu.h"
+
+namespace PhotoLayoutsEditor
+{
 
 LayersTree::LayersTree(QWidget * parent) :
     QTreeView(parent),
@@ -165,3 +170,5 @@ void LayersTree::moveSelectedRowsDown()
 {
     emit selectedRowsAboutToBeMovedDown();
 }
+
+} // namespace PhotoLayoutsEditor

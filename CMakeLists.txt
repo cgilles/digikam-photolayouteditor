@@ -118,12 +118,12 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoCommandEvent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoCommandEventFilter.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTree.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTreeDelegate.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTreeMenu.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersModel.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersModelItem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersSelectionModel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/layerstree.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/layerstreedelegate.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/layerstreemenu.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/layersmodel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/layersmodelitem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/layersselectionmodel.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/abstractitemslistviewtool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/abstractitemstool.cpp

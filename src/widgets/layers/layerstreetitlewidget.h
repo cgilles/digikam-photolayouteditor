@@ -40,8 +40,8 @@ class LayersTreeTitleWidget : public QWidget
 {
 public:
 
-    explicit LayersTreeTitleWidget (QWidget * parent = nullptr) :
-        QWidget(parent),
+    explicit LayersTreeTitleWidget(QWidget* const parent = nullptr)
+      : QWidget(parent),
         m_layout(new QHBoxLayout(this)),
         m_label(new QLabel(QObject::tr("Layers"),this)),
         m_up_btn(new QPushButton(QIcon(QLatin1String(":/arrow_top.png")), QString(), this)),
@@ -59,22 +59,22 @@ public:
         m_dwn_btn->setFixedSize(24,24);
     }
 
-    QAbstractButton * moveUpButton() const
+    QAbstractButton* moveUpButton() const
     {
         return m_up_btn;
     }
 
-    QAbstractButton * moveDownButton() const
+    QAbstractButton* moveDownButton() const
     {
         return m_dwn_btn;
     }
 
 private:
-    
-    QHBoxLayout * m_layout;
-    QLabel * m_label;
-    QPushButton * m_up_btn;
-    QPushButton * m_dwn_btn;
+
+    QHBoxLayout* m_layout;
+    QLabel*      m_label;
+    QPushButton* m_up_btn;
+    QPushButton* m_dwn_btn;
 };
 
 } // namespace PhotoLayoutsEditor

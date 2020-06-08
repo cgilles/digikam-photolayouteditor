@@ -22,12 +22,25 @@
  *
  * ============================================================ */
 
-#include "LayersSelectionModel.h"
-#include "LayersModel.h"
+#ifndef LAYERS_SELECTION_MODEL_H
+#define LAYERS_SELECTION_MODEL_H
 
-using namespace PhotoLayoutsEditor;
+// Qt includes
 
-LayersSelectionModel::LayersSelectionModel(LayersModel * model, QObject *parent) :
-    QItemSelectionModel(model, parent)
+#include <QItemSelectionModel>
+
+namespace PhotoLayoutsEditor
 {
-}
+
+class LayersModel;
+
+class LayersSelectionModel : public QItemSelectionModel
+{
+    public:
+
+        explicit LayersSelectionModel(LayersModel* const model, QObject* const parent = nullptr);
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // LAYERSSELECTIONMODEL_H

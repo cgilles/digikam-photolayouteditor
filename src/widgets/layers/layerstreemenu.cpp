@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#include "LayersTreeMenu.h"
-#include "LayersTree.h"
+#include "layerstreemenu.h"
+#include "layerstree.h"
 
 using namespace PhotoLayoutsEditor;
 

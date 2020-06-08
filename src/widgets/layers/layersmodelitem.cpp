@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "LayersModelItem.h"
+#include "layersmodelitem.h"
 
 // Qt includes
 
@@ -33,7 +33,7 @@
 
 // Local includes
 
-#include "LayersModel.h"
+#include "layersmodel.h"
 #include "abstractphoto.h"
 
 namespace PhotoLayoutsEditor

@@ -22,24 +22,66 @@
  *
  * ============================================================ */
 
-#ifndef LAYERSSELECTIONMODEL_H
-#define LAYERSSELECTIONMODEL_H
+#ifndef LAYERS_TREE_H
+#define LAYERS_TREE_H
 
 // Qt includes
 
-#include <QItemSelectionModel>
+#include <QMenu>
+#include <QWidget>
+#include <QAction>
+#include <QTreeView>
+#include <QAbstractItemModel>
+
+// Local includes
+
+#include "layersmodel.h"
+
+class QGraphicsItem;
 
 namespace PhotoLayoutsEditor
 {
-    class LayersModel;
 
-    class LayersSelectionModel : public QItemSelectionModel
-    {
-        public:
+class LayersTree;
+class LayersTreeMenu;
+class SwitchableIcon;
 
-            explicit LayersSelectionModel(LayersModel * model, QObject *parent = nullptr);
+class LayersTree : public QTreeView
+{
+    Q_OBJECT
 
-    };
-}
+public:
 
-#endif // LAYERSSELECTIONMODEL_H
+    explicit LayersTree(QWidget* parent = nullptr);
+
+    virtual void setModel(QAbstractItemModel* model) override;
+
+public Q_SLOTS:
+
+    void setSingleSelection();
+    void setMultiSelection();
+
+Q_SIGNALS:
+
+    void selectedRowsAboutToBeRemoved();
+    void selectedRowsAboutToBeMovedUp();
+    void selectedRowsAboutToBeMovedDown();
+
+protected:
+
+    void contextMenuEvent(QContextMenuEvent* event) override;
+
+protected Q_SLOTS:
+
+    void removeSelectedRows();
+    void moveSelectedRowsUp();
+    void moveSelectedRowsDown();
+
+private:
+
+    LayersTreeMenu * m_menu;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // LAYERS_TREE_H

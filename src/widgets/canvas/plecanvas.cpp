@@ -38,9 +38,9 @@
 // Local includes
 
 #include "plescene.h"
-#include "LayersModel.h"
-#include "LayersModelItem.h"
-#include "LayersSelectionModel.h"
+#include "layersmodel.h"
+#include "layersmodelitem.h"
+#include "layersselectionmodel.h"
 #include "UndoMoveRowsCommand.h"
 #include "imageloadingthread.h"
 #include "pleglobal.h"

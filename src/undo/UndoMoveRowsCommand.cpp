@@ -24,12 +24,17 @@
 
 #include "UndoMoveRowsCommand.h"
 
-#include "LayersModel.h"
-#include "LayersModelItem.h"
+// Qt includes
 
 #include <QDebug>
 
-using namespace PhotoLayoutsEditor;
+// Local incudes
+
+#include "layersmodel.h"
+#include "layersmodelitem.h"
+
+namespace PhotoLayoutsEditor
+{
 
 UndoMoveRowsCommand::UndoMoveRowsCommand(int startingRow, int rowsCount, const QModelIndex & sourceParent, int destinationRow, const QModelIndex & destinationParent, LayersModel * model, QUndoCommand * parent) :
     QUndoCommand(parent),
@@ -134,3 +139,5 @@ void UndoMoveRowsCommand::reverse()
         m_src_parent_row = temp2;
     }
 }
+
+} // namespace PhotoLayoutsEditor

@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#include "LayersTreeDelegate.h"
-#include "LayersModelItem.h"
+#include "layerstreedelegate.h"
+#include "layersmodelitem.h"
 #include "abstractphoto.h"
 
 #include <QPainter>
