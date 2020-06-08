@@ -27,7 +27,7 @@
 
 #include <QObject>
 
-#include "BorderDrawerInterface.h"
+#include "borderdrawerinterface.h"
 
 class QtProperty;
 

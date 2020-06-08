@@ -22,50 +22,60 @@
  *
  * ============================================================ */
 
-#include "BorderChangeListener.h"
-#include "BordersGroup.h"
-#include "pleglobal.h"
-#include "pleeditfactory.h"
+#include "borderchangelistener.h"
 
-#include "qtpropertybrowser.h"
-#include "qtvariantproperty.h"
+// Qt includes
 
 #include <QUndoCommand>
 #include <QMetaProperty>
 #include <QDebug>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
 
-class PhotoLayoutsEditor::BorderChangeCommand : public QUndoCommand
+#include "bordersgroup.h"
+#include "pleglobal.h"
+#include "pleeditfactory.h"
+#include "qtpropertybrowser.h"
+#include "qtvariantproperty.h"
+
+namespace PhotoLayoutsEditor
 {
-        BorderDrawerInterface * drawer;
-        QString propertyName;
-        QVariant value;
-    public:
-        BorderChangeCommand(BorderDrawerInterface * drawer, QUndoCommand * parent = nullptr) :
-            QUndoCommand(QObject::tr("Border Change"), parent),
-            drawer(drawer)
-        {
-        }
-        virtual void redo() override
-        {
-            qDebug() << "BorderChangeCommand redo";
-            QVariant temp = drawer->propertyValue(propertyName);
-            drawer->setPropertyValue(propertyName, value);
-            value = temp;
-        }
-        virtual void undo() override
-        {
-            qDebug() << "BorderChangeCommand undo";
-            QVariant temp = drawer->propertyValue(propertyName);
-            drawer->setPropertyValue(propertyName, value);
-            value = temp;
-        }
-        void setPropertyValue(const QString & propertyName, const QVariant & value)
-        {
-            this->propertyName = propertyName;
-            this->value = value;
-        }
+
+class BorderChangeCommand : public QUndoCommand
+{
+    BorderDrawerInterface * drawer;
+    QString propertyName;
+    QVariant value;
+
+public:
+
+    BorderChangeCommand(BorderDrawerInterface * drawer, QUndoCommand * parent = nullptr) :
+        QUndoCommand(QObject::tr("Border Change"), parent),
+        drawer(drawer)
+    {
+    }
+
+    virtual void redo() override
+    {
+        qDebug() << "BorderChangeCommand redo";
+        QVariant temp = drawer->propertyValue(propertyName);
+        drawer->setPropertyValue(propertyName, value);
+        value = temp;
+    }
+
+    virtual void undo() override
+    {
+        qDebug() << "BorderChangeCommand undo";
+        QVariant temp = drawer->propertyValue(propertyName);
+        drawer->setPropertyValue(propertyName, value);
+        value = temp;
+    }
+
+    void setPropertyValue(const QString & propertyName, const QVariant & value)
+    {
+        this->propertyName = propertyName;
+        this->value = value;
+    }
 };
 
 BorderChangeListener::BorderChangeListener(BorderDrawerInterface * drawer, QObject * parent, bool createCommands) :
@@ -124,3 +134,5 @@ void BorderChangeListener::editingFinished()
     }
     command = nullptr;
 }
+
+} // namespace PhotoLayoutsEditor

@@ -40,7 +40,7 @@
 
 #include "plescene.h"
 #include "PhotoEffectsGroup.h"
-#include "BordersGroup.h"
+#include "bordersgroup.h"
 #include "pleglobal.h"
 
 namespace PhotoLayoutsEditor

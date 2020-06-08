@@ -25,7 +25,7 @@
 #ifndef SOLIDBORDERDRAWER_H
 #define SOLIDBORDERDRAWER_H
 
-#include "BorderDrawerInterface.h"
+#include "borderdrawerinterface.h"
 
 #include <QColor>
 

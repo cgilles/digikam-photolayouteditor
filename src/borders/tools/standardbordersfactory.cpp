@@ -22,24 +22,36 @@
  *
  * ============================================================ */
 
-#ifndef STANDARDBORDERSFACTORY_H
-#define STANDARDBORDERSFACTORY_H
+#include "standardbordersfactory.h"
 
-#include "borderdrawerfactoryinterface.h"
+// Local includes
+
+#include "polaroidborderdrawer.h"
+#include "solidborderdrawer.h"
 
 namespace PhotoLayoutsEditor
 {
-    class StandardBordersFactory : public BorderDrawerFactoryInterface
-    {
-        public:
 
-            explicit StandardBordersFactory(QObject* parent = nullptr);
-
-            virtual QString drawersNames() const override;
-
-            virtual BorderDrawerInterface * getDrawerInstance(const QString & name) override;
-
-    };
+StandardBordersFactory::StandardBordersFactory(QObject* const parent)
+    : BorderDrawerFactoryInterface(parent)
+{
 }
 
-#endif // STANDARDBORDERSFACTORY_H
+QString StandardBordersFactory::drawersNames() const
+{
+    return QObject::tr("Polaroid border") + QLatin1String(";") +
+           QObject::tr("Solid border");
+}
+
+BorderDrawerInterface* StandardBordersFactory::getDrawerInstance(const QString& name)
+{
+    if (name == QObject::tr("Solid border"))
+       return new SolidBorderDrawer(this);
+
+    if (name == QObject::tr("Polaroid border"))
+       return new PolaroidBorderDrawer(this);
+
+    return nullptr;
+}
+
+} // namespace PhotoLayoutsEditor

@@ -72,13 +72,13 @@ add_subdirectory(data)
 set(photolayoutseditorcore_SRCS
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/borderdrawerfactoryinterface.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderChangeListener.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderDrawerInterface.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/borderchangelistener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/borderdrawerinterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/borderdrawersloader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BordersGroup.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/StandardBordersFactory.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/PolaroidBorderDrawer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/SolidBorderDrawer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/bordersgroup.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/standardbordersfactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/polaroidborderdrawer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/solidborderdrawer.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/abstractphotoeffectfactory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/abstractphotoeffectinterface.cpp

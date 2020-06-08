@@ -22,4 +22,27 @@
  *
  * ============================================================ */
 
-#include "BorderDrawerInterface.h"
+#ifndef STANDARD_BORDERS_FACTORY_H
+#define STANDARD_BORDERS_FACTORY_H
+
+// Local includes
+
+#include "borderdrawerfactoryinterface.h"
+
+namespace PhotoLayoutsEditor
+{
+
+class StandardBordersFactory : public BorderDrawerFactoryInterface
+{
+public:
+
+    explicit StandardBordersFactory(QObject* const parent = nullptr);
+
+    virtual QString drawersNames() const override;
+
+    virtual BorderDrawerInterface* getDrawerInstance(const QString& name) override;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // STANDARD_BORDERS_FACTORY_H

@@ -41,7 +41,7 @@
 #include "PhotoEffectsGroup.h"
 #include "PhotoEffectsLoader.h"
 #include "imagedialog.h"
-#include "BordersGroup.h"
+#include "bordersgroup.h"
 #include "pleglobal.h"
 #include "plewindow.h"
 #include "imageloadingthread.h"

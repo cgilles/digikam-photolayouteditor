@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#include "BordersGroup.h"
-#include "BorderDrawerInterface.h"
+#include "bordersgroup.h"
+#include "borderdrawerinterface.h"
 #include "abstractphoto.h"
 #include "abstractphoto_p.h"
 #include "borderdrawersloader.h"

@@ -25,7 +25,7 @@
 #ifndef POLAROIDBORDERDRAWER_H
 #define POLAROIDBORDERDRAWER_H
 
-#include "BorderDrawerInterface.h"
+#include "borderdrawerinterface.h"
 
 #include <QColor>
 

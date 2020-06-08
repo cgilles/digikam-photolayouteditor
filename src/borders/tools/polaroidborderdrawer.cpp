@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#include "PolaroidBorderDrawer.h"
-#include "StandardBordersFactory.h"
+#include "polaroidborderdrawer.h"
+#include "standardbordersfactory.h"
 
 #include <QPainter>
 #include <QPaintEngine>

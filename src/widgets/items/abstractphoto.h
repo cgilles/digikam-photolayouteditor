@@ -38,7 +38,7 @@
 // Local includes
 
 #include "abstractiteminterface.h"
-#include "BordersGroup.h"
+#include "bordersgroup.h"
 #include "PhotoEffectsGroup.h"
 
 class QtAbstractPropertyBrowser;

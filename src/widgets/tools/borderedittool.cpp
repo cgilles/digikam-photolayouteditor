@@ -39,7 +39,7 @@
 
 #include "toolsdockwidget.h"
 #include "abstractphoto.h"
-#include "BordersGroup.h"
+#include "bordersgroup.h"
 #include "borderdrawersloader.h"
 #include "pleeditfactory.h"
 #include "qttreepropertybrowser.h"

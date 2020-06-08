@@ -22,20 +22,25 @@
  *
  * ============================================================ */
 
-#ifndef BORDERSGROUP_H
-#define BORDERSGROUP_H
+#ifndef BORDERS_GROUP_H
+#define BORDERS_GROUP_H
 
 #include "abstractmovablemodel.h"
+
+// Qt includes
 
 #include <QPainter>
 #include <QPainterPath>
 #include <QDomDocument>
 #include <QStyleOptionGraphicsItem>
 
-#include "BorderDrawerInterface.h"
+// Local includes
+
+#include "borderdrawerinterface.h"
 
 namespace PhotoLayoutsEditor
 {
+
 class BordersGroupPrivate;
 class AbstractPhoto;
 
@@ -98,6 +103,6 @@ private:
     Q_DISABLE_COPY(BordersGroup)
 };
 
-}
+} // namespace PhotoLayoutsEditor
 
-#endif // BORDERSGROUP_H
+#endif // BORDERS_GROUP_H

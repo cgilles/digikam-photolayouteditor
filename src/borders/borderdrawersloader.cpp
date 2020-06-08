@@ -33,9 +33,9 @@
 
 // Local includes
 
-#include "BorderDrawerInterface.h"
+#include "borderdrawerinterface.h"
 #include "borderdrawerfactoryinterface.h"
-#include "BorderChangeListener.h"
+#include "borderchangelistener.h"
 #include "pleeditfactory.h"
 #include "qttreepropertybrowser.h"
 

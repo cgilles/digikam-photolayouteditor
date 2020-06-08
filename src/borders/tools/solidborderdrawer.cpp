@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#include "SolidBorderDrawer.h"
-#include "StandardBordersFactory.h"
+#include "solidborderdrawer.h"
+#include "standardbordersfactory.h"
 
 #include <QPainter>
 #include <QPaintEngine>

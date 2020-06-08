@@ -22,28 +22,4 @@
  *
  * ============================================================ */
 
-#include "StandardBordersFactory.h"
-#include "PolaroidBorderDrawer.h"
-#include "SolidBorderDrawer.h"
-
-using namespace PhotoLayoutsEditor;
-
-StandardBordersFactory::StandardBordersFactory(QObject * parent) :
-    BorderDrawerFactoryInterface(parent)
-{
-}
-
-QString StandardBordersFactory::drawersNames() const
-{
-    return QObject::tr("Polaroid border") + QLatin1String(";") +
-           QObject::tr("Solid border");
-}
-
-BorderDrawerInterface * StandardBordersFactory::getDrawerInstance(const QString & name)
-{
-    if (name == QObject::tr("Solid border"))
-       return new SolidBorderDrawer(this);
-    if (name == QObject::tr("Polaroid border"))
-       return new PolaroidBorderDrawer(this);
-    return nullptr;
-}
+#include "borderdrawerinterface.h"
