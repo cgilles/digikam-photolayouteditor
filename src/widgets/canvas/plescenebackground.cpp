@@ -209,116 +209,132 @@ void PLESceneBackground::setSecondColor(const QColor & color)
 
     if (colorChanged || patternChanged)
     {
-        QUndoCommand * command = new BackgroundSecondBrushChangeCommand(QBrush(color), this);
+        QUndoCommand* command = new BackgroundSecondBrushChangeCommand(QBrush(color), this);
         PLE_PostUndoCommand(command);
     }
 }
 
 void PLESceneBackground::setSolidColor(const QColor & color)
 {
-    bool colorChanged = (m_first_brush.color() != color);
-    bool patternChaged = (m_first_brush.style() != Qt::SolidPattern);
+    bool colorChanged       = (m_first_brush.color() != color);
+    bool patternChaged      = (m_first_brush.style() != Qt::SolidPattern);
     bool secondColorChanged = (m_second_brush.color() != Qt::transparent);
 
-    QUndoCommand * parent = nullptr;
-    QUndoCommand * command = nullptr;
+    QUndoCommand* parent    = nullptr;
+    QUndoCommand* command   = nullptr;
 
     if ((colorChanged && secondColorChanged) ||
         (patternChaged && secondColorChanged))
+    {
         parent = new QUndoCommand(QObject::tr("Background Change"));
+        PLE_PostUndoCommand(parent);
+    }
 
     if (colorChanged || patternChaged)
+    {
         command = new BackgroundFirstBrushChangeCommand(QBrush(color), this, parent);
+        PLE_PostUndoCommand(command);
+    }
 
     if (secondColorChanged)
+    {
         command = new BackgroundSecondBrushChangeCommand(QBrush(Qt::transparent), this, parent);
-
-    if (parent)
-        PLE_PostUndoCommand(parent);
-    else if (command)
         PLE_PostUndoCommand(command);
+    }
 }
 
 void PLESceneBackground::setPattern(const QColor & firstColor, const QColor & secondColor, Qt::BrushStyle patternStyle)
 {
-    bool color1Changed = (firstColor != m_first_brush.color() || patternStyle != m_first_brush.style());
-    bool color2Changed = (secondColor != m_second_brush.color() || m_second_brush.style() != Qt::SolidPattern);
+    bool color1Changed   = (firstColor != m_first_brush.color() || patternStyle != m_first_brush.style());
+    bool color2Changed   = (secondColor != m_second_brush.color() || m_second_brush.style() != Qt::SolidPattern);
 
-    QUndoCommand * parent = nullptr;
+    QUndoCommand* parent = nullptr;
 
     if (color1Changed && color2Changed)
+    {
         parent = new QUndoCommand(QLatin1String("Background Change"));
+        PLE_PostUndoCommand(parent);
+    }
 
-    QUndoCommand * command = nullptr;
+    QUndoCommand* command = nullptr;
 
     if (color1Changed)
+    {
         command = new BackgroundFirstBrushChangeCommand(QBrush(firstColor, patternStyle), this, parent);
+        PLE_PostUndoCommand(command);
+    }
 
     if (color2Changed)
+    {
         command = new BackgroundSecondBrushChangeCommand(QBrush(secondColor, Qt::SolidPattern), this, parent);
-
-    if (parent)
-        PLE_PostUndoCommand(parent);
-    else
         PLE_PostUndoCommand(command);
+    }
 }
 
 void PLESceneBackground::setImage(const QImage & image, const QColor & backgroundColor, Qt::Alignment align, Qt::AspectRatioMode aspectRatio, bool repeat)
 {
-    bool imageChanged = (m_first_brush.textureImage() != image ||
-                         m_first_brush.style() != Qt::TexturePattern ||
-                         m_image_align != align ||
-                         m_image_aspect_ratio != aspectRatio ||
-                         m_image_repeat != repeat);
+    bool imageChanged    = (m_first_brush.textureImage() != image ||
+                            m_first_brush.style() != Qt::TexturePattern ||
+                            m_image_align != align ||
+                            m_image_aspect_ratio != aspectRatio ||
+                            m_image_repeat != repeat);
 
-    bool colorChanged = (m_second_brush.color() != backgroundColor || m_second_brush.style() != Qt::SolidPattern);
+    bool colorChanged    = (m_second_brush.color() != backgroundColor || m_second_brush.style() != Qt::SolidPattern);
 
-    QUndoCommand * parent = nullptr;
+    QUndoCommand* parent = nullptr;
 
     if (imageChanged && colorChanged)
+    {
         parent = new QUndoCommand(QObject::tr("Background Change"));
+        PLE_PostUndoCommand(parent);
+    }
 
-    QUndoCommand * command = nullptr;
+    QUndoCommand* command = nullptr;
 
     if (imageChanged)
+    {
         command = new BackgroundImageChangedCommand(image, align, aspectRatio, repeat, this, parent);
+        PLE_PostUndoCommand(command);
+    }
 
     if (colorChanged)
+    {
         command = new BackgroundSecondBrushChangeCommand(QBrush(backgroundColor, Qt::SolidPattern), this, parent);
-
-    if (parent)
-        PLE_PostUndoCommand(parent);
-    else if (command)
         PLE_PostUndoCommand(command);
+    }
 }
 
 void PLESceneBackground::setImage(const QImage & image, const QColor & backgroundColor, Qt::Alignment align, const QSize & fixedSize, bool repeat)
 {
-    bool imageChanged = (m_first_brush.textureImage() != image ||
-                         m_first_brush.style() != Qt::TexturePattern ||
-                         m_image_align != align ||
-                         m_image_size != fixedSize ||
-                         m_image_repeat != repeat);
+    bool imageChanged    = (m_first_brush.textureImage() != image ||
+                            m_first_brush.style() != Qt::TexturePattern ||
+                            m_image_align != align ||
+                            m_image_size != fixedSize ||
+                            m_image_repeat != repeat);
 
-    bool colorChanged = (m_second_brush.color() != backgroundColor || m_second_brush.style() != Qt::SolidPattern);
+    bool colorChanged    = (m_second_brush.color() != backgroundColor || m_second_brush.style() != Qt::SolidPattern);
 
-    QUndoCommand * parent = nullptr;
+    QUndoCommand* parent = nullptr;
 
     if (imageChanged && colorChanged)
+    {
         parent = new QUndoCommand(QObject::tr("Background Change"));
+        PLE_PostUndoCommand(parent);
+    }
 
-    QUndoCommand * command = nullptr;
+    QUndoCommand* command = nullptr;
 
     if (imageChanged)
+    {
         command = new BackgroundImageChangedCommand(image, align, fixedSize, repeat, this, parent);
+        PLE_PostUndoCommand(command);
+    }
 
     if (colorChanged)
+    {
         command = new BackgroundSecondBrushChangeCommand(QBrush(backgroundColor, Qt::SolidPattern), this, parent);
-
-    if (parent)
-        PLE_PostUndoCommand(parent);
-    else if (command)
         PLE_PostUndoCommand(command);
+    }
 }
 
 bool PLESceneBackground::isColor() const
@@ -335,7 +351,7 @@ bool PLESceneBackground::isGradient() const
 
 bool PLESceneBackground::isImage() const
 {
-    return m_first_brush.style() == Qt::TexturePattern;
+    return (m_first_brush.style() == Qt::TexturePattern);
 }
 
 bool PLESceneBackground::isPattern() const
