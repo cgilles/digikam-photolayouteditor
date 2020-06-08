@@ -34,7 +34,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-PLESceneBackgroundLoader::PLESceneBackgroundLoader(PLESceneBackground * background, QDomElement & element, QObject * parent) :
+PLESceneBackgroundLoader::PLESceneBackgroundLoader(PLESceneBackground * background, QDomElement& element, QObject* parent) :
     QThread(parent),
     m_background(background),
     m_element(element)

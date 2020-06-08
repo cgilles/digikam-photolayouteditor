@@ -23,14 +23,20 @@
  * ============================================================ */
 
 #include "layerstreedelegate.h"
-#include "layersmodelitem.h"
-#include "abstractphoto.h"
+
+// Qt includes
 
 #include <QPainter>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
 
-LayersTreeDelegate::LayersTreeDelegate(QWidget * parent) :
+#include "layersmodelitem.h"
+#include "abstractphoto.h"
+
+namespace PhotoLayoutsEditor
+{
+
+LayersTreeDelegate::LayersTreeDelegate(QWidget* parent) :
     QStyledItemDelegate(parent),
     m_eye(QPixmap::fromImage(QImage(QLatin1String(":/eye.png")))),
     m_eye_off(m_eye.size()),
@@ -54,12 +60,12 @@ LayersTreeDelegate::LayersTreeDelegate(QWidget * parent) :
     p.end();
 }
 
-void LayersTreeDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
+void LayersTreeDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     if (index.column() == LayersModelItem::EyeIcon)
     {
         painter->fillRect(option.rect,Qt::white);
-        AbstractPhoto * photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
+        AbstractPhoto* photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
         if (photo)
         {
             QPoint point = option.rect.topLeft();
@@ -74,7 +80,7 @@ void LayersTreeDelegate::paint(QPainter * painter, const QStyleOptionViewItem & 
     else if (index.column() == LayersModelItem::PadLockIcon)
     {
         painter->fillRect(option.rect,Qt::white);
-        AbstractPhoto * photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
+        AbstractPhoto* photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
         if (photo)
         {
             QPoint point = option.rect.topLeft();
@@ -89,7 +95,7 @@ void LayersTreeDelegate::paint(QPainter * painter, const QStyleOptionViewItem & 
         QStyledItemDelegate::paint(painter,option,index);
 }
 
-QSize LayersTreeDelegate::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
+QSize LayersTreeDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     if (index.column() == LayersModelItem::EyeIcon)
         return m_eye.size();
@@ -99,11 +105,11 @@ QSize LayersTreeDelegate::sizeHint(const QStyleOptionViewItem & option, const QM
         return QStyledItemDelegate::sizeHint(option,index);
 }
 
-void LayersTreeDelegate::itemClicked(const QModelIndex & index)
+void LayersTreeDelegate::itemClicked(const QModelIndex& index)
 {
     if (index.column() == LayersModelItem::EyeIcon)
     {
-        AbstractPhoto * photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
+        AbstractPhoto* photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
         if (photo)
         {
             photo->setVisible(!photo->isVisible());
@@ -112,7 +118,7 @@ void LayersTreeDelegate::itemClicked(const QModelIndex & index)
     }
     else if (index.column() == LayersModelItem::PadLockIcon)
     {
-        AbstractPhoto * photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
+        AbstractPhoto* photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
         if (photo)
         {
             photo->setFlags(photo->flags() ^ QGraphicsItem::ItemIsSelectable);
@@ -120,3 +126,5 @@ void LayersTreeDelegate::itemClicked(const QModelIndex & index)
         }
     }
 }
+
+} // namespace PhotoLayoutsEditor

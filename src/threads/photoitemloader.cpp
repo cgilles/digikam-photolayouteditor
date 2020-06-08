@@ -33,7 +33,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-PhotoItemLoader::PhotoItemLoader(PhotoItem * item, QDomElement & element, QObject * parent) :
+PhotoItemLoader::PhotoItemLoader(PhotoItem * item, QDomElement& element, QObject* parent) :
     AbstractPhotoItemLoader(item, element, parent)
 {
 }

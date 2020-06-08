@@ -39,7 +39,7 @@ QColor SolidBorderDrawer::m_default_color = Qt::red;
 int SolidBorderDrawer::m_default_spacing = 0;
 Qt::PenJoinStyle SolidBorderDrawer::m_default_corners_style = Qt::MiterJoin;
 
-SolidBorderDrawer::SolidBorderDrawer(StandardBordersFactory * factory, QObject * parent) :
+SolidBorderDrawer::SolidBorderDrawer(StandardBordersFactory* factory, QObject* parent) :
     BorderDrawerInterface(factory, parent),
     m_width(m_default_width),
     m_color(m_default_color),
@@ -55,7 +55,7 @@ SolidBorderDrawer::SolidBorderDrawer(StandardBordersFactory * factory, QObject *
 
     if (m_properties.isEmpty())
     {
-        const QMetaObject * meta = this->metaObject();
+        const QMetaObject* meta = this->metaObject();
         int count                = meta->propertyCount();
 
         while (count--)
@@ -73,7 +73,7 @@ SolidBorderDrawer::SolidBorderDrawer(StandardBordersFactory * factory, QObject *
     }
 }
 
-QPainterPath SolidBorderDrawer::path(const QPainterPath & path)
+QPainterPath SolidBorderDrawer::path(const QPainterPath& path)
 {
     QPainterPath temp = path;
     if (m_spacing != 0)
@@ -95,7 +95,7 @@ QPainterPath SolidBorderDrawer::path(const QPainterPath & path)
     return m_path;
 }
 
-void SolidBorderDrawer::paint(QPainter * painter, const QStyleOptionGraphicsItem * /*option*/)
+void SolidBorderDrawer::paint(QPainter* painter, const QStyleOptionGraphicsItem* /*option*/)
 {
     if (m_path.isEmpty())
         return;
@@ -106,30 +106,30 @@ void SolidBorderDrawer::paint(QPainter * painter, const QStyleOptionGraphicsItem
     painter->restore();
 }
 
-QString SolidBorderDrawer::propertyName(const QMetaProperty & property) const
+QString SolidBorderDrawer::propertyName(const QMetaProperty& property) const
 {
     return m_properties.value(property.name());
 }
 
-QVariant SolidBorderDrawer::propertyValue(const QString & propertyName) const
+QVariant SolidBorderDrawer::propertyValue(const QString& propertyName) const
 {
-    const QMetaObject * meta = this->metaObject();
+    const QMetaObject* meta = this->metaObject();
     int index = meta->indexOfProperty( m_properties.key(propertyName) );
     if (index >= meta->propertyCount())
         return QVariant();
     return meta->property( index ).read(this);
 }
 
-void SolidBorderDrawer::setPropertyValue(const QString & propertyName, const QVariant & value)
+void SolidBorderDrawer::setPropertyValue(const QString& propertyName, const QVariant& value)
 {
-    const QMetaObject * meta = this->metaObject();
+    const QMetaObject* meta = this->metaObject();
     int index = meta->indexOfProperty( m_properties.key(propertyName) );
     if (index >= meta->propertyCount())
         return;
     meta->property( index ).write(this, value);
 }
 
-QDomElement SolidBorderDrawer::toSvg(QDomDocument & document) const
+QDomElement SolidBorderDrawer::toSvg(QDomDocument& document) const
 {
     QDomElement result = document.createElement(QLatin1String("path"));
     int count = m_path.elementCount();
@@ -173,7 +173,7 @@ SolidBorderDrawer::operator QString() const
     return this->toString();
 }
 
-QVariant SolidBorderDrawer::stringNames(const QMetaProperty & property)
+QVariant SolidBorderDrawer::stringNames(const QMetaProperty& property)
 {
     const char * name = property.name();
     if (!QString::fromLatin1("corners_style").compare(QLatin1String(name)))
@@ -181,7 +181,7 @@ QVariant SolidBorderDrawer::stringNames(const QMetaProperty & property)
     return QVariant();
 }
 
-QVariant SolidBorderDrawer::minimumValue(const QMetaProperty & property)
+QVariant SolidBorderDrawer::minimumValue(const QMetaProperty& property)
 {
     const char * name = property.name();
     if (!QString::fromLatin1("width").compare(QLatin1String(name)))
@@ -191,7 +191,7 @@ QVariant SolidBorderDrawer::minimumValue(const QMetaProperty & property)
     return QVariant();
 }
 
-QVariant SolidBorderDrawer::maximumValue(const QMetaProperty & property)
+QVariant SolidBorderDrawer::maximumValue(const QMetaProperty& property)
 {
     const char * name = property.name();
     if (!QString::fromLatin1("width").compare(QLatin1String(name)))
@@ -201,7 +201,7 @@ QVariant SolidBorderDrawer::maximumValue(const QMetaProperty & property)
     return QVariant();
 }
 
-QVariant SolidBorderDrawer::stepValue(const QMetaProperty & property)
+QVariant SolidBorderDrawer::stepValue(const QMetaProperty& property)
 {
     const char * name = property.name();
     if (!QString::fromLatin1("width").compare(QLatin1String(name)))

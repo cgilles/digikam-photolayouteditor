@@ -23,14 +23,20 @@
  * ============================================================ */
 
 #include "polaroidborderdrawer.h"
-#include "standardbordersfactory.h"
+
+// Qt includes
 
 #include <QPainter>
 #include <QPaintEngine>
 #include <QMetaProperty>
 #include <QDebug>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
+
+#include "standardbordersfactory.h"
+
+namespace PhotoLayoutsEditor
+{
 
 QMap<const char *,QString> PolaroidBorderDrawer::m_properties;
 int PolaroidBorderDrawer::m_default_width = 20;
@@ -38,16 +44,16 @@ QString PolaroidBorderDrawer::m_default_text = QObject::tr("Write here some text
 QColor PolaroidBorderDrawer::m_default_color = Qt::black;
 QFont PolaroidBorderDrawer::m_default_font(QFont().family(), 24);
 
-PolaroidBorderDrawer::PolaroidBorderDrawer(StandardBordersFactory * factory, QObject * parent) :
-    BorderDrawerInterface(factory, parent),
-    m_width(m_default_width),
-    m_text(m_default_text),
-    m_color(m_default_color),
-    m_font(m_default_font)
+PolaroidBorderDrawer::PolaroidBorderDrawer(StandardBordersFactory* factory, QObject* parent)
+    : BorderDrawerInterface(factory, parent),
+      m_width(m_default_width),
+      m_text(m_default_text),
+      m_color(m_default_color),
+      m_font(m_default_font)
 {
     if (m_properties.isEmpty())
     {
-        const QMetaObject * meta = this->metaObject();
+        const QMetaObject* meta = this->metaObject();
         int count = meta->propertyCount();
 
         while (count--)
@@ -66,7 +72,7 @@ PolaroidBorderDrawer::PolaroidBorderDrawer(StandardBordersFactory * factory, QOb
     }
 }
 
-QPainterPath PolaroidBorderDrawer::path(const QPainterPath & path)
+QPainterPath PolaroidBorderDrawer::path(const QPainterPath& path)
 {
     QPainterPath temp;
 
@@ -90,7 +96,7 @@ QPainterPath PolaroidBorderDrawer::path(const QPainterPath & path)
     return m_path;
 }
 
-void PolaroidBorderDrawer::paint(QPainter * painter, const QStyleOptionGraphicsItem * /*option*/)
+void PolaroidBorderDrawer::paint(QPainter* painter, const QStyleOptionGraphicsItem* /*option*/)
 {
     if (m_path.isEmpty())
         return;
@@ -104,34 +110,40 @@ void PolaroidBorderDrawer::paint(QPainter * painter, const QStyleOptionGraphicsI
     painter->restore();
 }
 
-QString PolaroidBorderDrawer::propertyName(const QMetaProperty & property) const
+QString PolaroidBorderDrawer::propertyName(const QMetaProperty& property) const
 {
     return m_properties.value(property.name());
 }
 
-QVariant PolaroidBorderDrawer::propertyValue(const QString & propertyName) const
+QVariant PolaroidBorderDrawer::propertyValue(const QString& propertyName) const
 {
     if (!m_properties.key(propertyName))
         return QVariant();
-    const QMetaObject * meta = this->metaObject();
+
+    const QMetaObject* meta = this->metaObject();
     int index = meta->indexOfProperty( m_properties.key(propertyName) );
+
     if (index >= meta->propertyCount())
         return QVariant();
+
     return meta->property( index ).read(this);
 }
 
-void PolaroidBorderDrawer::setPropertyValue(const QString & propertyName, const QVariant & value)
+void PolaroidBorderDrawer::setPropertyValue(const QString& propertyName, const QVariant& value)
 {
     if (!m_properties.key(propertyName))
         return;
-    const QMetaObject * meta = this->metaObject();
+
+    const QMetaObject* meta = this->metaObject();
     int index = meta->indexOfProperty( m_properties.key(propertyName) );
+
     if (index >= meta->propertyCount())
         return;
+
     meta->property( index ).write(this, value);
 }
 
-QDomElement PolaroidBorderDrawer::toSvg(QDomDocument & document) const
+QDomElement PolaroidBorderDrawer::toSvg(QDomDocument& document) const
 {
     QDomElement result = document.createElement(QLatin1String("g"));
     QDomElement path  = document.createElement(QLatin1String("path"));
@@ -167,7 +179,7 @@ PolaroidBorderDrawer::operator QString() const
     return this->toString();
 }
 
-QVariant PolaroidBorderDrawer::minimumValue(const QMetaProperty & property)
+QVariant PolaroidBorderDrawer::minimumValue(const QMetaProperty& property)
 {
     const char * name = property.name();
 
@@ -177,7 +189,7 @@ QVariant PolaroidBorderDrawer::minimumValue(const QMetaProperty & property)
     return QVariant();
 }
 
-QVariant PolaroidBorderDrawer::maximumValue(const QMetaProperty & property)
+QVariant PolaroidBorderDrawer::maximumValue(const QMetaProperty& property)
 {
     const char * name = property.name();
 
@@ -187,7 +199,7 @@ QVariant PolaroidBorderDrawer::maximumValue(const QMetaProperty & property)
     return QVariant();
 }
 
-QVariant PolaroidBorderDrawer::stepValue(const QMetaProperty & property)
+QVariant PolaroidBorderDrawer::stepValue(const QMetaProperty& property)
 {
     const char * name = property.name();
 
@@ -197,7 +209,7 @@ QVariant PolaroidBorderDrawer::stepValue(const QMetaProperty & property)
     return QVariant();
 }
 
-QString PolaroidBorderDrawer::pathToSvg(const QPainterPath & path) const
+QString PolaroidBorderDrawer::pathToSvg(const QPainterPath& path) const
 {
     int count = path.elementCount();
     QString str_path_d;
@@ -205,6 +217,7 @@ QString PolaroidBorderDrawer::pathToSvg(const QPainterPath & path) const
     for (int i = 0; i < count; ++i)
     {
         QPainterPath::Element e = path.elementAt(i);
+
         switch (e.type)
         {
             case QPainterPath::LineToElement:
@@ -223,5 +236,8 @@ QString PolaroidBorderDrawer::pathToSvg(const QPainterPath & path) const
     }
 
     str_path_d.append(QLatin1String("z"));
+
     return str_path_d;
 }
+
+} // namespace PhotoLayoutsEditor

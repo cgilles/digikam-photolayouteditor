@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef BORDERDRAWERINTERFACE_H
-#define BORDERDRAWERINTERFACE_H
+#ifndef BORDER_DRAWER_INTERFACE_H
+#define BORDER_DRAWER_INTERFACE_H
+
+// Qt includes
 
 #include <QObject>
 #include <QDomDocument>
@@ -34,72 +36,74 @@
 
 namespace PhotoLayoutsEditor
 {
-    class BordersGroup;
-    class BorderDrawerFactoryInterface;
 
-    class BorderDrawerInterface : public QObject
+class BordersGroup;
+class BorderDrawerFactoryInterface;
+
+class BorderDrawerInterface : public QObject
+{
+    Q_OBJECT
+
+public:
+
+    explicit BorderDrawerInterface(BorderDrawerFactoryInterface* factory, QObject* parent = nullptr)
+        : QObject(parent),
+          m_group(nullptr),
+          m_factory(factory)
     {
-            Q_OBJECT
+    }
 
-        public:
+    void setGroup(BordersGroup* group)
+    {
+        this->m_group = group;
+    }
 
-            explicit BorderDrawerInterface(BorderDrawerFactoryInterface* factory, QObject* parent = nullptr) :
-                QObject(parent),
-                m_group(nullptr),
-                m_factory(factory)
-            {
-            }
+    BordersGroup* group() const
+    {
+        return this->m_group;
+    }
 
-            void setGroup(BordersGroup* group)
-            {
-                this->m_group = group;
-            }
+    BorderDrawerFactoryInterface* factory() const
+    {
+        return m_factory;
+    }
 
-            BordersGroup* group() const
-            {
-                return this->m_group;
-            }
+public:
 
-            BorderDrawerFactoryInterface* factory() const
-            {
-                return m_factory;
-            }
+    virtual QPainterPath path(const QPainterPath& path) = 0;
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option) = 0;
 
-        public:
+    virtual QString propertyName(const QMetaProperty& property) const = 0;
+    virtual QVariant propertyValue(const QString& propertyName) const = 0;
+    virtual void setPropertyValue(const QString& propertyName, const QVariant& value) = 0;
 
-            virtual QPainterPath path(const QPainterPath& path) = 0;
-            virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option) = 0;
+    virtual QVariant stringNames(const QMetaProperty& /*property*/) { return QVariant(); }
+    virtual QVariant minimumValue(const QMetaProperty& /*property*/){ return QVariant(); }
+    virtual QVariant maximumValue(const QMetaProperty& /*property*/){ return QVariant(); }
+    virtual QVariant stepValue(const QMetaProperty& /*property*/)   { return QVariant(); }
 
-            virtual QString propertyName(const QMetaProperty& property) const = 0;
-            virtual QVariant propertyValue(const QString& propertyName) const = 0;
-            virtual void setPropertyValue(const QString& propertyName, const QVariant& value) = 0;
+    virtual QDomElement toSvg(QDomDocument& document) const = 0;
+    virtual QString name() const = 0;
+    virtual QString toString() const = 0;
+    virtual operator QString() const = 0;
 
-            virtual QVariant stringNames(const QMetaProperty& /*property*/) { return QVariant(); }
-            virtual QVariant minimumValue(const QMetaProperty& /*property*/){ return QVariant(); }
-            virtual QVariant maximumValue(const QMetaProperty& /*property*/){ return QVariant(); }
-            virtual QVariant stepValue(const QMetaProperty& /*property*/)   { return QVariant(); }
+public:
 
-            virtual QDomElement toSvg(QDomDocument& document) const = 0;
-            virtual QString name() const = 0;
-            virtual QString toString() const = 0;
-            virtual operator QString() const = 0;
+    BordersGroup* m_group;
+    BorderDrawerFactoryInterface* m_factory;
 
-        public:
+Q_SIGNALS:
 
-            BordersGroup* m_group;
-            BorderDrawerFactoryInterface* m_factory;
+    void changed();
 
-        Q_SIGNALS:
+protected:
 
-            void changed();
+    void propertiesChanged()
+    {
+        emit changed();
+    }
+};
 
-        protected:
-
-            void propertiesChanged()
-            {
-                emit changed();
-            }
-    };
 }
 
-#endif // BORDERDRAWERINTERFACE_H
+#endif // BORDER_DRAWER_INTERFACE_H

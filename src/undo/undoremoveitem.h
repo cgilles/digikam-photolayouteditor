@@ -37,24 +37,24 @@ namespace PhotoLayoutsEditor
 
     class UndoRemoveItem : public QUndoCommand
     {
-            AbstractPhoto * m_item;
-            AbstractPhoto * m_parentItem;
+            AbstractPhoto* m_item;
+            AbstractPhoto* m_parentItem;
             QGraphicsScene * m_scene;
-            LayersModel * m_model;
+            LayersModel* m_model;
             QModelIndex m_parentIndex;
             QModelIndex m_itemIndex;
             int m_row;
 
         public:
 
-            UndoRemoveItem(AbstractPhoto * item, PLEScene * scene, LayersModel * model, QUndoCommand * parent = nullptr);
+            UndoRemoveItem(AbstractPhoto* item, PLEScene * scene, LayersModel* model, QUndoCommand * parent = nullptr);
             ~UndoRemoveItem();
             virtual void redo() override;
             virtual void undo() override;
 
         private:
 
-            void appendChild(AbstractPhoto * item, const QModelIndex & parent);
+            void appendChild(AbstractPhoto* item, const QModelIndex& parent);
             static bool compareGraphicsItems(QGraphicsItem * i1, QGraphicsItem * i2);
     };
 }

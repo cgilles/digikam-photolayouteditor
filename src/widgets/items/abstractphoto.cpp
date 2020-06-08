@@ -53,7 +53,7 @@ class CropShapeChangeCommand : public QUndoCommand
 
 public:
 
-    CropShapeChangeCommand(const QPainterPath & cropShape, AbstractPhoto * item, QUndoCommand * parent = nullptr) :
+    CropShapeChangeCommand(const QPainterPath& cropShape, AbstractPhoto* item, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Crop shape change"), parent),
         m_crop_shape(cropShape),
         m_item(item)
@@ -81,11 +81,11 @@ public:
 class ItemNameChangeCommand : public QUndoCommand
 {
     QString m_name;
-    AbstractPhoto * m_item;
+    AbstractPhoto* m_item;
 
 public:
 
-    ItemNameChangeCommand(const QString & name, AbstractPhoto * item, QUndoCommand * parent = nullptr) :
+    ItemNameChangeCommand(const QString& name, AbstractPhoto* item, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Name Change"), parent),
         m_name(name),
         m_item(item)
@@ -110,7 +110,7 @@ public:
     }
 };
 
-AbstractPhoto::AbstractPhoto(const QString & name, PLEScene * scene) :
+AbstractPhoto::AbstractPhoto(const QString& name, PLEScene * scene) :
     AbstractItemInterface(nullptr, nullptr),
     d(new AbstractPhotoPrivate(this))
 {
@@ -145,7 +145,7 @@ void AbstractPhoto::setupItem()
     this->setFlag(QGraphicsItem::ItemSendsScenePositionChanges);
 }
 
-QString AbstractPhoto::uniqueName(const QString & name)
+QString AbstractPhoto::uniqueName(const QString& name)
 {
     QString temp;
     QString result;
@@ -165,7 +165,7 @@ QString AbstractPhoto::uniqueName(const QString & name)
     QList<QGraphicsItem*> items = scene->items();
     foreach(QGraphicsItem* item, items)
     {
-        AbstractPhoto * myItem = dynamic_cast<AbstractPhoto*>(item);
+        AbstractPhoto* myItem = dynamic_cast<AbstractPhoto*>(item);
         if (!myItem || myItem == this || myItem->name().isEmpty())
             continue;
         while (myItem->name() == result)
@@ -410,7 +410,7 @@ QDomDocument AbstractPhoto::toTemplateSvg() const
     return document;
 }
 
-bool AbstractPhoto::fromSvg(QDomElement & element)
+bool AbstractPhoto::fromSvg(QDomElement& element)
 {
     if (element.tagName() != QLatin1String("g"))
         return false;
@@ -555,7 +555,7 @@ bool AbstractPhoto::fromSvg(QDomElement & element)
     return true;
 }
 
-void AbstractPhoto::setName(const QString & name)
+void AbstractPhoto::setName(const QString& name)
 {
     QString newName = this->uniqueName(name);
     QUndoCommand * command = new ItemNameChangeCommand(newName, this);
@@ -567,13 +567,13 @@ QString AbstractPhoto::name() const
     return d->name();
 }
 
-void AbstractPhoto::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * /*widget*/)
+void AbstractPhoto::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* /*widget*/)
 {
     if (d->m_borders_group)
         d->m_borders_group->paint(painter, option);
 }
 
-QVariant AbstractPhoto::itemChange(GraphicsItemChange change, const QVariant & value)
+QVariant AbstractPhoto::itemChange(GraphicsItemChange change, const QVariant& value)
 {
     switch (change)
     {
@@ -669,7 +669,7 @@ PhotoEffectsGroup * AbstractPhoto::effectsGroup() const
     return d->m_effects_group;
 }
 
-BordersGroup * AbstractPhoto::bordersGroup() const
+BordersGroup* AbstractPhoto::bordersGroup() const
 {
     return d->m_borders_group;
 }
@@ -692,7 +692,7 @@ void AbstractPhoto::refresh()
     emit changed();
 }
 
-void AbstractPhoto::setCropShape(const QPainterPath & cropShape)
+void AbstractPhoto::setCropShape(const QPainterPath& cropShape)
 {
     if (cropShape != this->d->cropShape())
     {

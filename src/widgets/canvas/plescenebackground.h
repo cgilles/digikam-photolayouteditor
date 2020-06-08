@@ -71,8 +71,8 @@ namespace PhotoLayoutsEditor
             bool isImage() const;
             bool isPattern() const;
 
-            QDomElement toSvg(QDomDocument & document) const;
-            bool fromSvg(QDomElement & element);
+            QDomElement toSvg(QDomDocument& document) const;
+            bool fromSvg(QDomElement& element);
 
             QColor firstColor() const;
             QColor secondColor() const;
@@ -89,9 +89,9 @@ namespace PhotoLayoutsEditor
 
         protected:
 
-            QVariant itemChange(GraphicsItemChange change, const QVariant & value) override;
-            void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget) override;
-            void render(QPainter * painter, const QRect & rect);
+            QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
+            void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+            void render(QPainter* painter, const QRect & rect);
 
         protected Q_SLOTS:
 

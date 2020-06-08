@@ -54,8 +54,8 @@ namespace PhotoLayoutsEditor
 
         public Q_SLOTS:
 
-            void sizeUnitsChanged(const QString & unitName);
-            void resolutionUnitsChanged(const QString & unitName);
+            void sizeUnitsChanged(const QString& unitName);
+            void resolutionUnitsChanged(const QString& unitName);
             void setHorizontal(bool isHorizontal);
             void setVertical(bool isVertical);
             void widthChanged(double width);
@@ -65,7 +65,7 @@ namespace PhotoLayoutsEditor
 
         private:
 
-            void setupUI(const QSizeF & size, const QString & sizeUnits, const QSizeF & resolution, const QString & resolutionUnits);
+            void setupUI(const QSizeF & size, const QString& sizeUnits, const QSizeF & resolution, const QString& resolutionUnits);
 
             void prepareSignalsConnections();
 

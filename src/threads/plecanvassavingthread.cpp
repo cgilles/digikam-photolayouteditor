@@ -67,7 +67,7 @@ void PLECanvasSavingThread::progresChanged(double progress)
     this->sendProgressUpdate(0.05 + progress * 0.75);
 }
 
-void PLECanvasSavingThread::progresName(const QString & name)
+void PLECanvasSavingThread::progresName(const QString& name)
 {
     this->sendActionUpdate(name);
 }

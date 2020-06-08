@@ -36,7 +36,7 @@
 namespace PhotoLayoutsEditor
 {
 
-UndoMoveRowsCommand::UndoMoveRowsCommand(int startingRow, int rowsCount, const QModelIndex & sourceParent, int destinationRow, const QModelIndex & destinationParent, LayersModel * model, QUndoCommand * parent) :
+UndoMoveRowsCommand::UndoMoveRowsCommand(int startingRow, int rowsCount, const QModelIndex& sourceParent, int destinationRow, const QModelIndex& destinationParent, LayersModel* model, QUndoCommand * parent) :
     QUndoCommand(parent),
     m_model(model)
 {
@@ -134,7 +134,7 @@ void UndoMoveRowsCommand::reverse()
     }
     else
     {
-        LayersModelItem * temp2 = m_dest_parent_row;
+        LayersModelItem* temp2 = m_dest_parent_row;
         m_dest_parent_row = m_src_parent_row;
         m_src_parent_row = temp2;
     }

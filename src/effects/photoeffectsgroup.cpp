@@ -41,7 +41,7 @@
 namespace PhotoLayoutsEditor
 {
 
-PhotoEffectsGroup::PhotoEffectsGroup(AbstractPhoto * photo, QObject * parent) :
+PhotoEffectsGroup::PhotoEffectsGroup(AbstractPhoto* photo, QObject* parent) :
     AbstractMovableModel(parent),
     m_photo(photo)
 {
@@ -52,7 +52,7 @@ PhotoEffectsGroup::~PhotoEffectsGroup()
 {
 }
 
-QDomElement PhotoEffectsGroup::toSvg(QDomDocument & document) const
+QDomElement PhotoEffectsGroup::toSvg(QDomDocument& document) const
 {
     QDomElement effectsGroup = document.createElement(QLatin1String("effects"));
     for (int i = m_effects_list.count()-1; i >= 0; --i)
@@ -65,7 +65,7 @@ QDomElement PhotoEffectsGroup::toSvg(QDomDocument & document) const
     return effectsGroup;
 }
 
-PhotoEffectsGroup * PhotoEffectsGroup::fromSvg(const QDomElement & element, AbstractPhoto * graphicsItem)
+PhotoEffectsGroup * PhotoEffectsGroup::fromSvg(const QDomElement& element, AbstractPhoto* graphicsItem)
 {
     QDomElement temp = element;
     if (temp.tagName() != QLatin1String("effects"))
@@ -117,19 +117,19 @@ QImage PhotoEffectsGroup::apply(const QImage & image)
     return temp;
 }
 
-AbstractPhoto * PhotoEffectsGroup::photo() const
+AbstractPhoto* PhotoEffectsGroup::photo() const
 {
     return m_photo;
 }
 
-QObject * PhotoEffectsGroup::item(const QModelIndex & index) const
+QObject* PhotoEffectsGroup::item(const QModelIndex& index) const
 {
     if (index.isValid() && index.row() < rowCount())
         return m_effects_list.at(index.row());
     return nullptr;
 }
 
-void PhotoEffectsGroup::setItem(QObject * item, const QModelIndex & index)
+void PhotoEffectsGroup::setItem(QObject* item, const QModelIndex& index)
 {
     AbstractPhotoEffectInterface * effect = dynamic_cast<AbstractPhotoEffectInterface*>(item);
     if (!effect || !index.isValid())
@@ -148,7 +148,7 @@ void PhotoEffectsGroup::setItem(QObject * item, const QModelIndex & index)
     emitEffectsChanged(effect);
 }
 
-AbstractPhotoEffectInterface * PhotoEffectsGroup::graphicsItem(const QModelIndex & index) const
+AbstractPhotoEffectInterface * PhotoEffectsGroup::graphicsItem(const QModelIndex& index) const
 {
     return static_cast<AbstractPhotoEffectInterface*>(index.internalPointer());
 }
@@ -177,12 +177,12 @@ bool PhotoEffectsGroup::moveRowsData(int sourcePosition, int sourceCount, int de
     return true;
 }
 
-int PhotoEffectsGroup::columnCount(const QModelIndex & /*parent*/) const
+int PhotoEffectsGroup::columnCount(const QModelIndex& /*parent*/) const
 {
     return 1;
 }
 
-QVariant PhotoEffectsGroup::data(const QModelIndex & index, int role) const
+QVariant PhotoEffectsGroup::data(const QModelIndex& index, int role) const
 {
     if (role != Qt::DisplayRole)
         return QVariant();
@@ -199,7 +199,7 @@ QVariant PhotoEffectsGroup::data(const QModelIndex & index, int role) const
     }
 }
 
-Qt::ItemFlags PhotoEffectsGroup::flags(const QModelIndex & index) const
+Qt::ItemFlags PhotoEffectsGroup::flags(const QModelIndex& index) const
 {
     Qt::ItemFlags result = QAbstractItemModel::flags(index);
     if (index.isValid() && !index.internalPointer())
@@ -207,7 +207,7 @@ Qt::ItemFlags PhotoEffectsGroup::flags(const QModelIndex & index) const
     return result;
 }
 
-QModelIndex PhotoEffectsGroup::index(int row, int column, const QModelIndex & parent) const
+QModelIndex PhotoEffectsGroup::index(int row, int column, const QModelIndex& parent) const
 {
     if (column != 0)
         return QModelIndex();
@@ -218,7 +218,7 @@ QModelIndex PhotoEffectsGroup::index(int row, int column, const QModelIndex & pa
     return createIndex(row,column,m_effects_list.at(row));
 }
 
-bool PhotoEffectsGroup::insertRows(int row, int count, const QModelIndex & parent)
+bool PhotoEffectsGroup::insertRows(int row, int count, const QModelIndex& parent)
 {
     if (row < 0 || row > rowCount() || count < 1 || parent.isValid())
         return false;
@@ -230,12 +230,12 @@ bool PhotoEffectsGroup::insertRows(int row, int count, const QModelIndex & paren
     return true;
 }
 
-QModelIndex PhotoEffectsGroup::parent(const QModelIndex & /*index*/) const
+QModelIndex PhotoEffectsGroup::parent(const QModelIndex& /*index*/) const
 {
     return QModelIndex();
 }
 
-int PhotoEffectsGroup::rowCount(const QModelIndex & parent) const
+int PhotoEffectsGroup::rowCount(const QModelIndex& parent) const
 {
     if (!parent.isValid())
         return this->m_effects_list.count();
@@ -243,7 +243,7 @@ int PhotoEffectsGroup::rowCount(const QModelIndex & parent) const
         return 0;
 }
 
-bool PhotoEffectsGroup::removeRows(int row, int count, const QModelIndex & parent)
+bool PhotoEffectsGroup::removeRows(int row, int count, const QModelIndex& parent)
 {
     if (count <= 0 || parent.isValid() || row < 0 || row >= rowCount(parent) || row+count > rowCount(parent))
         return false;

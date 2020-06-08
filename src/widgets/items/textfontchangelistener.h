@@ -41,7 +41,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit TextFontChangeListener(TextItem * item, QObject * parent = nullptr);
+            explicit TextFontChangeListener(TextItem * item, QObject* parent = nullptr);
 
         public Q_SLOTS:
 

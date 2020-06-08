@@ -58,14 +58,14 @@ class PhotoEffectChangeCommand : public QUndoCommand
             effect->setPropertyValue(propertyName, value);
             value = temp;
         }
-        void setPropertyValue(const QString & propertyName, const QVariant & value)
+        void setPropertyValue(const QString& propertyName, const QVariant& value)
         {
             this->propertyName = propertyName;
             this->value = value;
         }
 };
 
-PhotoEffectChangeListener::PhotoEffectChangeListener(AbstractPhotoEffectInterface * effect, QObject * parent, bool createCommands) :
+PhotoEffectChangeListener::PhotoEffectChangeListener(AbstractPhotoEffectInterface * effect, QObject* parent, bool createCommands) :
     QObject(parent),
     effect(effect),
     command(nullptr),

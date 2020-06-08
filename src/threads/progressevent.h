@@ -43,7 +43,7 @@ namespace PhotoLayoutsEditor
                 Finish
             };
 
-            explicit ProgressEvent(QObject * sender) :
+            explicit ProgressEvent(QObject* sender) :
                 QEvent(ProgressEvent::registeredEventType()),
                 m_type(Unknown),
                 m_sender(sender)
@@ -66,7 +66,7 @@ namespace PhotoLayoutsEditor
                 return this->m_data;
             }
 
-            QObject * sender() const
+            QObject* sender() const
             {
                 return m_sender;
             }
@@ -81,7 +81,7 @@ namespace PhotoLayoutsEditor
 
             ProgressEvent::Type m_type;
             QVariant m_data;
-            QObject * m_sender;
+            QObject* m_sender;
 
             Q_DISABLE_COPY(ProgressEvent)
     };

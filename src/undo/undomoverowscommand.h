@@ -35,16 +35,16 @@ namespace PhotoLayoutsEditor
 
     class UndoMoveRowsCommand : public QUndoCommand
     {
-            LayersModel * m_model;
-            LayersModelItem * m_src_parent_row;
-            LayersModelItem * m_dest_parent_row;
+            LayersModel* m_model;
+            LayersModelItem* m_src_parent_row;
+            LayersModelItem* m_dest_parent_row;
             int m_starting_row;
             int m_rows_count;
             int m_destination_row;
 
         public:
 
-            UndoMoveRowsCommand(int startingRow, int rowsCount, const QModelIndex & sourceParent, int destinationRow, const QModelIndex & destinationParent, LayersModel * model, QUndoCommand * parent = nullptr);
+            UndoMoveRowsCommand(int startingRow, int rowsCount, const QModelIndex& sourceParent, int destinationRow, const QModelIndex& destinationParent, LayersModel* model, QUndoCommand * parent = nullptr);
             virtual void redo() override;
             virtual void undo() override;
 

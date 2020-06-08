@@ -359,7 +359,7 @@ bool PLESceneBackground::isPattern() const
     return !(isColor() || isGradient() || isImage());
 }
 
-QDomElement PLESceneBackground::toSvg(QDomDocument & document) const
+QDomElement PLESceneBackground::toSvg(QDomDocument& document) const
 {
     QDomElement result = document.createElement(QLatin1String("g"));
     result.setAttribute(QLatin1String("id"), QLatin1String("background"));
@@ -483,7 +483,7 @@ QDomElement PLESceneBackground::toSvg(QDomDocument & document) const
     return result;
 }
 
-bool PLESceneBackground::fromSvg(QDomElement & element)
+bool PLESceneBackground::fromSvg(QDomElement& element)
 {
     QDomNodeList list = element.childNodes();
     QDomElement background;
@@ -637,7 +637,7 @@ bool PLESceneBackground::imageRepeated() const
     return m_image_repeat;
 }
 
-QVariant PLESceneBackground::itemChange(GraphicsItemChange change, const QVariant &value)
+QVariant PLESceneBackground::itemChange(GraphicsItemChange change, const QVariant&value)
 {
     switch(change)
     {
@@ -659,7 +659,7 @@ QVariant PLESceneBackground::itemChange(GraphicsItemChange change, const QVarian
     return QGraphicsItem::itemChange(change, value);
 }
 
-void PLESceneBackground::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * /*widget*/)
+void PLESceneBackground::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* /*widget*/)
 {
     if (!m_rect.isValid())
         return;
@@ -668,7 +668,7 @@ void PLESceneBackground::paint(QPainter * painter, const QStyleOptionGraphicsIte
     painter->drawImage(QPoint(0,0), m_temp_image, option->exposedRect);
 }
 
-void PLESceneBackground::render(QPainter * painter, const QRect & rect)
+void PLESceneBackground::render(QPainter* painter, const QRect & rect)
 {
     if (!rect.isValid())
         return;

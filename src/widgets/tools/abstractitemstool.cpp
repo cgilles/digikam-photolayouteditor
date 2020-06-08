@@ -28,18 +28,18 @@
 
 using namespace PhotoLayoutsEditor;
 
-AbstractItemsTool::AbstractItemsTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent) :
+AbstractItemsTool::AbstractItemsTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget* parent) :
     AbstractTool(scene, selectionMode, parent),
     m_photo(nullptr)
 {
 }
 
-AbstractPhoto * AbstractItemsTool::currentItem()
+AbstractPhoto* AbstractItemsTool::currentItem()
 {
     return m_photo;
 }
 
-void AbstractItemsTool::setCurrentItem(AbstractPhoto * photo)
+void AbstractItemsTool::setCurrentItem(AbstractPhoto* photo)
 {
     if (m_photo == photo)
         return;

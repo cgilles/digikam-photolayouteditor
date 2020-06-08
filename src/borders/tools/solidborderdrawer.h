@@ -52,19 +52,19 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit SolidBorderDrawer(StandardBordersFactory * factory, QObject * parent = nullptr);
+            explicit SolidBorderDrawer(StandardBordersFactory* factory, QObject* parent = nullptr);
 
-            virtual QPainterPath path(const QPainterPath & path) override;
+            virtual QPainterPath path(const QPainterPath& path) override;
 
-            virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option) override;
+            virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option) override;
 
-            virtual QString propertyName(const QMetaProperty & property) const override;
+            virtual QString propertyName(const QMetaProperty& property) const override;
 
-            virtual QVariant propertyValue(const QString & propertyName) const override;
+            virtual QVariant propertyValue(const QString& propertyName) const override;
 
-            virtual void setPropertyValue(const QString & propertyName, const QVariant & value) override;
+            virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override;
 
-            virtual QDomElement toSvg(QDomDocument & document) const override;
+            virtual QDomElement toSvg(QDomDocument& document) const override;
 
             virtual QString name() const override;
 
@@ -91,7 +91,7 @@ namespace PhotoLayoutsEditor
             {
                 return m_corners_style_names.value(m_corners_style);
             }
-            void setCornersStyle(const QString & cornersStyle)
+            void setCornersStyle(const QString& cornersStyle)
             {
                 m_default_corners_style = m_corners_style = m_corners_style_names.key(cornersStyle);
                 this->propertiesChanged();
@@ -122,10 +122,10 @@ namespace PhotoLayoutsEditor
                 this->propertiesChanged();
             }
 
-            virtual QVariant stringNames(const QMetaProperty & property) override;
-            virtual QVariant minimumValue(const QMetaProperty & property) override;
-            virtual QVariant maximumValue(const QMetaProperty & property) override;
-            virtual QVariant stepValue(const QMetaProperty & property) override;
+            virtual QVariant stringNames(const QMetaProperty& property) override;
+            virtual QVariant minimumValue(const QMetaProperty& property) override;
+            virtual QVariant maximumValue(const QMetaProperty& property) override;
+            virtual QVariant stepValue(const QMetaProperty& property) override;
     };
 }
 

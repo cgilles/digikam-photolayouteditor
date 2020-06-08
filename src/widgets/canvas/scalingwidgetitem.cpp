@@ -49,11 +49,11 @@ namespace PhotoLayoutsEditor
 
 class MoveItemCommand : public QUndoCommand
 {
-    AbstractPhoto * m_item;
+    AbstractPhoto* m_item;
     QPointF m_translation;
     bool done;
 public:
-    MoveItemCommand(AbstractPhoto * item, QUndoCommand * parent = nullptr) :
+    MoveItemCommand(AbstractPhoto* item, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Move item"), parent),
         m_item(item),
         done(false)
@@ -90,11 +90,11 @@ public:
 
 class ScaleItemCommand : public MoveItemCommand
 {
-    AbstractPhoto * m_item;
+    AbstractPhoto* m_item;
     QTransform scale;
     bool done;
 public:
-    ScaleItemCommand(AbstractPhoto * item, QUndoCommand * parent = nullptr) :
+    ScaleItemCommand(AbstractPhoto* item, QUndoCommand * parent = nullptr) :
         MoveItemCommand(item, parent),
         m_item(item),
         done(false)
@@ -305,7 +305,7 @@ QPainterPath ScalingWidgetItem::shape() const
     return (d->m_shape + d->m_handlers_path);
 }
 
-void ScalingWidgetItem::paint(QPainter * painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * widget)
+void ScalingWidgetItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* /*option*/, QWidget* widget)
 {
     // Get the view
     QGraphicsView * view = qobject_cast<QGraphicsView*>(widget->parentWidget());

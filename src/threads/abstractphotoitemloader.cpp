@@ -32,7 +32,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-AbstractPhotoItemLoader::AbstractPhotoItemLoader(AbstractPhoto * item, QDomElement & element, QObject * parent) :
+AbstractPhotoItemLoader::AbstractPhotoItemLoader(AbstractPhoto* item, QDomElement& element, QObject* parent) :
     QThread(parent),
     m_item(item),
     m_element(element),
@@ -42,7 +42,7 @@ AbstractPhotoItemLoader::AbstractPhotoItemLoader(AbstractPhoto * item, QDomEleme
     connect(this, SIGNAL(finished()), this, SLOT(deleteLater()));
 }
 
-AbstractPhoto * AbstractPhotoItemLoader::item() const
+AbstractPhoto* AbstractPhotoItemLoader::item() const
 {
     return m_item;
 }

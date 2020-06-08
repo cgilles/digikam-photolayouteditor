@@ -22,10 +22,14 @@
  *
  * ============================================================ */
 
-#ifndef BORDERCHANGELISTENERS_H
-#define BORDERCHANGELISTENERS_H
+#ifndef BORDER_CHANGE_LISTENERS_H
+#define BORDER_CHANGE_LISTENERS_H
+
+// Qt includes
 
 #include <QObject>
+
+// Local includes
 
 #include "borderdrawerinterface.h"
 
@@ -33,24 +37,27 @@ class QtProperty;
 
 namespace PhotoLayoutsEditor
 {
-    class BorderChangeCommand;
-    class BorderChangeListener : public QObject
-    {
-            Q_OBJECT
 
-            BorderDrawerInterface * drawer;
-            BorderChangeCommand * command;
-            bool createCommands;
+class BorderChangeCommand;
 
-        public:
+class BorderChangeListener : public QObject
+{
+        Q_OBJECT
 
-            explicit BorderChangeListener(BorderDrawerInterface * drawer, QObject * parent, bool createCommands);
+    BorderDrawerInterface* drawer;
+    BorderChangeCommand* command;
+    bool createCommands;
 
-        public Q_SLOTS:
+public:
 
-            void propertyChanged(QtProperty * property);
-            void editingFinished();
-    };
-}
+    explicit BorderChangeListener(BorderDrawerInterface* drawer, QObject* parent, bool createCommands);
 
-#endif // BORDERCHANGELISTENERS_H
+public Q_SLOTS:
+
+    void propertyChanged(QtProperty* property);
+    void editingFinished();
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // BORDER_CHANGE_LISTENERS_H

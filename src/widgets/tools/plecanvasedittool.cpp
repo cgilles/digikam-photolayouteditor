@@ -153,12 +153,12 @@ class PLECanvasEditToolPrivate
     QComboBox * background_type_widget;
     QStackedLayout * background_widgets;
 
-    QWidget * background_color_widget;
+    QWidget* background_color_widget;
     DColorSelector * background_color;
 
-//    QWidget * background_gradient_widget;
+//    QWidget* background_gradient_widget;
 
-    QWidget * background_image_widget;
+    QWidget* background_image_widget;
     QFormLayout * backgroundImageFormLayout;
 //    QUrlRequester * background_image_file;
     QPixmap background_image_empty_pixmap;
@@ -181,7 +181,7 @@ class PLECanvasEditToolPrivate
     QPushButton * border_image_label;
     QImage m_border_image;
 
-    QWidget * background_pattern_widget;
+    QWidget* background_pattern_widget;
     DColorSelector * background_pattern_color1;
     DColorSelector * background_pattern_color2;
     PatternsComboBox * background_pattern_type;
@@ -191,7 +191,7 @@ class PLECanvasEditToolPrivate
     friend class PLECanvasEditTool;
 };
 
-PLECanvasEditTool::PLECanvasEditTool(PLEScene * scene, QWidget * parent)
+PLECanvasEditTool::PLECanvasEditTool(PLEScene * scene, QWidget* parent)
     : AbstractTool(scene, PLECanvas::Viewing, parent),
       d(new PLECanvasEditToolPrivate(this)),
       hold_update(false)
@@ -204,7 +204,7 @@ PLECanvasEditTool::~PLECanvasEditTool()
     delete d;
 }
 
-void PLECanvasEditTool::backgroundTypeChanged(const QString & typeName)
+void PLECanvasEditTool::backgroundTypeChanged(const QString& typeName)
 {
     qDebug() << typeName;
     PLECanvasEditToolPrivate::BackgroundType bt = d->background_types.value(typeName);
@@ -416,7 +416,7 @@ void PLECanvasEditTool::borderImageUrlRequest()
     startUrl = QFileInfo(url.toLocalFile()).path();
 }
 
-void PLECanvasEditTool::imageScallingChanged(const QString & scallingName)
+void PLECanvasEditTool::imageScallingChanged(const QString& scallingName)
 {
     PLECanvasEditToolPrivate::ScallingType st = d->background_image_scalling_map.key(scallingName);
     d->background_sizeBox->setVisible(st == PLECanvasEditToolPrivate::Manual);

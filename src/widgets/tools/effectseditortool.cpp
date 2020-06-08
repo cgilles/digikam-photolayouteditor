@@ -44,7 +44,7 @@
 namespace PhotoLayoutsEditor
 {
 
-EffectsEditorTool::EffectsEditorTool(PLEScene * scene, QWidget * parent) :
+EffectsEditorTool::EffectsEditorTool(PLEScene * scene, QWidget* parent) :
     AbstractItemsListViewTool(QObject::tr("Effects"), scene, PLECanvas::SingleSelcting, parent)
 {
 }
@@ -61,12 +61,12 @@ AbstractMovableModel * EffectsEditorTool::model()
     return nullptr;
 }
 
-QObject * EffectsEditorTool::createItem(const QString & name)
+QObject* EffectsEditorTool::createItem(const QString& name)
 {
     return PhotoEffectsLoader::getEffectByName(name);
 }
 
-QWidget * EffectsEditorTool::createEditor(QObject * item, bool createCommands)
+QWidget* EffectsEditorTool::createEditor(QObject* item, bool createCommands)
 {
     AbstractPhotoEffectInterface * effect = qobject_cast<AbstractPhotoEffectInterface*>(item);
     if (!effect)

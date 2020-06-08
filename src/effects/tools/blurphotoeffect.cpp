@@ -27,7 +27,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-BlurPhotoEffect::BlurPhotoEffect(StandardEffectsFactory * factory, QObject * parent) :
+BlurPhotoEffect::BlurPhotoEffect(StandardEffectsFactory * factory, QObject* parent) :
     AbstractPhotoEffectInterface(factory, parent),
     m_radius(10)
 {

@@ -47,7 +47,7 @@
 namespace PhotoLayoutsEditor
 {
 
-BorderEditTool::BorderEditTool(PLEScene * scene, QWidget * parent) :
+BorderEditTool::BorderEditTool(PLEScene * scene, QWidget* parent) :
     AbstractItemsListViewTool(QObject::tr("Borders editor"), scene, PLECanvas::SingleSelcting, parent)
 {
 }
@@ -64,14 +64,14 @@ AbstractMovableModel * BorderEditTool::model()
     return nullptr;
 }
 
-QObject * BorderEditTool::createItem(const QString & name)
+QObject* BorderEditTool::createItem(const QString& name)
 {
     return BorderDrawersLoader::getDrawerByName(name);
 }
 
-QWidget * BorderEditTool::createEditor(QObject * item, bool createCommands)
+QWidget* BorderEditTool::createEditor(QObject* item, bool createCommands)
 {
-    BorderDrawerInterface * drawer = qobject_cast<BorderDrawerInterface*>(item);
+    BorderDrawerInterface* drawer = qobject_cast<BorderDrawerInterface*>(item);
     if (!drawer)
         return nullptr;
     return BorderDrawersLoader::createEditor(drawer, createCommands);

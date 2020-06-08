@@ -36,19 +36,19 @@ using namespace PhotoLayoutsEditor;
 class PatternDelegate : public QStyledItemDelegate
 {
     public:
-        explicit PatternDelegate(QObject * parent = nullptr) :
+        explicit PatternDelegate(QObject* parent = nullptr) :
             QStyledItemDelegate(parent)
         {}
         virtual ~PatternDelegate()
         {}
-        virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const override
+        virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
         {
             QSize result = option.rect.size();
             if (index.isValid())
                 result.setHeight(24);
             return result;
         }
-        virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override
+        virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
         {
             if (index.isValid())
             {
@@ -61,7 +61,7 @@ class PatternDelegate : public QStyledItemDelegate
         }
 };
 
-PatternsComboBox::PatternsComboBox(QWidget * parent) :
+PatternsComboBox::PatternsComboBox(QWidget* parent) :
     QComboBox(parent)
 {
     addItem(QLatin1String(""), QVariant((int)Qt::Dense1Pattern));

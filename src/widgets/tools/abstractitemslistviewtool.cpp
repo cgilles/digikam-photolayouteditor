@@ -53,7 +53,7 @@ class ItemCreatedCommand : public QUndoCommand
     bool                  done;
 
 public:
-    ItemCreatedCommand(QObject * item, int row, AbstractMovableModel * model, QUndoCommand * parent = nullptr) :
+    ItemCreatedCommand(QObject* item, int row, AbstractMovableModel * model, QUndoCommand * parent = nullptr) :
         QUndoCommand(parent),
         item(item),
         row(row),
@@ -94,7 +94,7 @@ class ItemRemovedCommand : public QUndoCommand
 
 public:
 
-    ItemRemovedCommand(QObject * item, int row, AbstractMovableModel * model, QUndoCommand * parent = nullptr) :
+    ItemRemovedCommand(QObject* item, int row, AbstractMovableModel * model, QUndoCommand * parent = nullptr) :
         QUndoCommand(parent),
         item(item),
         row(row),
@@ -185,7 +185,7 @@ class AbstractItemsListViewToolPrivate
     QPushButton * m_down_button;
     QPushButton * m_up_button;
     AbstractListToolViewDelegate * m_delegate;
-//    QObject * m_editors_object;
+//    QObject* m_editors_object;
 
     void closeChooser()
     {
@@ -206,7 +206,7 @@ class AbstractItemsListViewToolPrivate
     friend class AbstractItemsListViewTool;
 };
 
-AbstractItemsListViewTool::AbstractItemsListViewTool(const QString & toolName, PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent) :
+AbstractItemsListViewTool::AbstractItemsListViewTool(const QString& toolName, PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget* parent) :
     AbstractItemsTool(scene, selectionMode, parent),
     d(new AbstractItemsListViewToolPrivate)
 {
@@ -280,11 +280,11 @@ void AbstractItemsListViewTool::currentItemChanged()
     d->setButtonsEnabled(true);
 }
 
-void AbstractItemsListViewTool::viewCurrentEditor(const QModelIndex & index)
+void AbstractItemsListViewTool::viewCurrentEditor(const QModelIndex& index)
 {
     closeEditor();
     d->setButtonsEnabled(true);
-    QWidget * editor = createEditor(static_cast<QObject*>(index.internalPointer()), true);
+    QWidget* editor = createEditor(static_cast<QObject*>(index.internalPointer()), true);
     if (editor)
     {
         static_cast<QGridLayout*>(layout())->addWidget(editor,2,0,1,-1);
@@ -292,11 +292,11 @@ void AbstractItemsListViewTool::viewCurrentEditor(const QModelIndex & index)
     }
 }
 
-void AbstractItemsListViewTool::viewCurrentEditor(QObject * object)
+void AbstractItemsListViewTool::viewCurrentEditor(QObject* object)
 {
     closeEditor();
     d->setButtonsEnabled(true);
-    QWidget * editor = createEditor(object, false);
+    QWidget* editor = createEditor(object, false);
     if (editor)
     {
         static_cast<QGridLayout*>(layout())->addWidget(editor,2,0,1,-1);
@@ -397,7 +397,7 @@ void AbstractItemsListViewTool::closeEditor()
     QLayoutItem * itemBrowser = static_cast<QGridLayout*>(layout())->itemAtPosition(2,0);
     if (!itemBrowser)
         return;
-    QWidget * browser = itemBrowser->widget();
+    QWidget* browser = itemBrowser->widget();
     if (!browser)
         return;
     static_cast<QGridLayout*>(layout())->removeWidget(browser);
@@ -454,7 +454,7 @@ void AbstractListToolViewDelegate::editorAccepted()
     emit editorClosed();
 }
 
-void AbstractListToolViewDelegate::itemSelected(const QString & selectedItem)
+void AbstractListToolViewDelegate::itemSelected(const QString& selectedItem)
 {
     if (m_model)
     {

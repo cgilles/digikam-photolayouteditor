@@ -298,7 +298,7 @@ bool QtVariantProperty::compare(QtProperty* otherProperty)const
 
     \sa value()
 */
-void QtVariantProperty::setValue(const QVariant &value)
+void QtVariantProperty::setValue(const QVariant&value)
 {
     d_ptr->manager->setValue(this, value);
 }
@@ -312,7 +312,7 @@ void QtVariantProperty::setValue(const QVariant &value)
 
     \sa attributeValue()
 */
-void QtVariantProperty::setAttribute(const QString &attribute, const QVariant &value)
+void QtVariantProperty::setAttribute(const QString &attribute, const QVariant&value)
 {
     d_ptr->manager->setAttribute(this, attribute, value);
 }
@@ -368,7 +368,7 @@ public:
     void slotPropertyInserted(QtProperty *property, QtProperty *parent, QtProperty *after);
     void slotPropertyRemoved(QtProperty *property, QtProperty *parent);
 
-    void valueChanged(QtProperty *property, const QVariant &val);
+    void valueChanged(QtProperty *property, const QVariant&val);
 
     int internalPropertyToType(QtProperty *property) const;
     QtVariantProperty *createSubProperty(QtVariantProperty *parent, QtVariantProperty *after,
@@ -499,7 +499,7 @@ void QtVariantPropertyManagerPrivate::slotPropertyRemoved(QtProperty *property, 
     removeSubProperty(varProperty);
 }
 
-void QtVariantPropertyManagerPrivate::valueChanged(QtProperty *property, const QVariant &val)
+void QtVariantPropertyManagerPrivate::valueChanged(QtProperty *property, const QVariant&val)
 {
     QtVariantProperty *varProp = m_internalToProperty.value(property, nullptr);
     if (!varProp)
@@ -928,7 +928,7 @@ void QtVariantPropertyManagerPrivate::slotFlagNamesChanged(QtProperty *property,
 */
 
 /*!
-    \fn void QtVariantPropertyManager::valueChanged(QtProperty *property, const QVariant &value)
+    \fn void QtVariantPropertyManager::valueChanged(QtProperty *property, const QVariant&value)
 
     This signal is emitted whenever a property created by this manager
     changes its value, passing a pointer to the \a property and the
@@ -939,7 +939,7 @@ void QtVariantPropertyManagerPrivate::slotFlagNamesChanged(QtProperty *property,
 
 /*!
     \fn void QtVariantPropertyManager::attributeChanged(QtProperty *property,
-                const QString &attribute, const QVariant &value)
+                const QString &attribute, const QVariant&value)
 
     This signal is emitted whenever an attribute of a property created
     by this manager changes its value, passing a pointer to the \a
@@ -1635,7 +1635,7 @@ int QtVariantPropertyManager::attributeType(int propertyType, const QString &att
 }
 
 /*!
-    \fn void QtVariantPropertyManager::setValue(QtProperty *property, const QVariant &value)
+    \fn void QtVariantPropertyManager::setValue(QtProperty *property, const QVariant&value)
 
     Sets the value of the given \a property to \a value.
 
@@ -1646,7 +1646,7 @@ int QtVariantPropertyManager::attributeType(int propertyType, const QString &att
 
     \sa value(), QtVariantProperty::setValue(), valueChanged()
 */
-void QtVariantPropertyManager::setValue(QtProperty *property, const QVariant &val)
+void QtVariantPropertyManager::setValue(QtProperty *property, const QVariant&val)
 {
     int propType = val.userType();
     if (!propType)
@@ -1747,7 +1747,7 @@ void QtVariantPropertyManager::setValue(QtProperty *property, const QVariant &va
     \sa attributeValue(), QtVariantProperty::setAttribute(), attributeChanged()
 */
 void QtVariantPropertyManager::setAttribute(QtProperty *property,
-        const QString &attribute, const QVariant &value)
+        const QString &attribute, const QVariant&value)
 {
     QVariant oldAttr = attributeValue(property, attribute);
     if (!oldAttr.isValid())

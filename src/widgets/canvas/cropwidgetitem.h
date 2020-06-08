@@ -46,7 +46,7 @@ namespace PhotoLayoutsEditor
             virtual QRectF boundingRect() const override;
             virtual QPainterPath opaqueArea() const override;
             virtual QPainterPath shape() const override;
-            virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget) override;
+            virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
             virtual void keyPressEvent(QKeyEvent * event) override;
             virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
@@ -58,7 +58,7 @@ namespace PhotoLayoutsEditor
 
         Q_SIGNALS:
 
-            void cropShapeSelected(const QPainterPath & shape);
+            void cropShapeSelected(const QPainterPath& shape);
             void cancelCrop();
 
         private Q_SLOTS:

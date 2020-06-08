@@ -54,7 +54,7 @@ public:
 
 protected Q_SLOTS:
 
-    void viewCurrentEditor(const QModelIndex & index);
+    void viewCurrentEditor(const QModelIndex& index);
     void viewCurrentEditor(QObject* object);
     void createChooser();
     void closeChooser();

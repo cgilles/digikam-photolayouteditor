@@ -82,7 +82,7 @@ void PLECanvasLoadingThread::progresChanged(double progress)
     QCoreApplication::processEvents();
 }
 
-void PLECanvasLoadingThread::progresName(const QString & name)
+void PLECanvasLoadingThread::progresName(const QString& name)
 {
     ProgressEvent * actionUpdateEvent = new ProgressEvent(this);
     actionUpdateEvent->setData(ProgressEvent::ActionUpdate, name);
@@ -90,7 +90,7 @@ void PLECanvasLoadingThread::progresName(const QString & name)
     QCoreApplication::processEvents();
 }
 
-void PLECanvasLoadingThread::addItem(AbstractPhoto * item, QDomElement & element)
+void PLECanvasLoadingThread::addItem(AbstractPhoto* item, QDomElement& element)
 {
     if (!item || element.isNull())
         return;
@@ -98,7 +98,7 @@ void PLECanvasLoadingThread::addItem(AbstractPhoto * item, QDomElement & element
     d->data.insert(item, element);
 }
 
-void PLECanvasLoadingThread::addBackground(PLESceneBackground * background, QDomElement & element)
+void PLECanvasLoadingThread::addBackground(PLESceneBackground * background, QDomElement& element)
 {
     if (element.attribute(QLatin1String("class")) != QLatin1String("background") || !background)
         return;
@@ -107,7 +107,7 @@ void PLECanvasLoadingThread::addBackground(PLESceneBackground * background, QDom
     d->background.second = element;
 }
 
-void PLECanvasLoadingThread::addBorder(PLESceneBorder * border, QDomElement & element)
+void PLECanvasLoadingThread::addBorder(PLESceneBorder * border, QDomElement& element)
 {
     if (element.attribute(QLatin1String("class")) != QLatin1String("border") || !border)
         return;

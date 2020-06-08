@@ -40,8 +40,8 @@ class PLECanvasSizeDialog : public QDialog
 
 public:
 
-    explicit PLECanvasSizeDialog(QWidget * parent = nullptr);
-    explicit PLECanvasSizeDialog(const PLECanvasSize & canvasSize, QWidget * parent = nullptr);
+    explicit PLECanvasSizeDialog(QWidget* parent = nullptr);
+    explicit PLECanvasSizeDialog(const PLECanvasSize & canvasSize, QWidget* parent = nullptr);
     ~PLECanvasSizeDialog();
 
     Q_PROPERTY(PLECanvasSize canvas_size READ canvasSize)
@@ -49,9 +49,9 @@ public:
 
 protected Q_SLOTS:
 
-    void recalculatePaperSize(const QString & paperSize);
-    void sizeUnitsChanged(const QString & unit);
-    void resolutionUnitsChanged(const QString & unit);
+    void recalculatePaperSize(const QString& paperSize);
+    void sizeUnitsChanged(const QString& unit);
+    void resolutionUnitsChanged(const QString& unit);
     void setHorizontal(bool);
     void setVertical(bool);
     void widthChanged(double width);
@@ -61,7 +61,7 @@ protected Q_SLOTS:
 
 private:
 
-    void setupDialog(const QSizeF & size, const QString & sizeUnits, const QSizeF & resolution, const QString & resolutionUnits);
+    void setupDialog(const QSizeF & size, const QString& sizeUnits, const QSizeF & resolution, const QString& resolutionUnits);
     void prepareSignalsConnections();
 
     PLECanvasSizeDialogPrivate * d;

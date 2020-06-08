@@ -27,7 +27,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-LayersTreeMenu::LayersTreeMenu(LayersTree * parent) :
+LayersTreeMenu::LayersTreeMenu(LayersTree* parent) :
     QMenu(parent)
 {
     moveUpItems = this->addAction(QObject::tr("Move up"));

@@ -39,12 +39,12 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit TemplatesView(QWidget * parent = nullptr);
+            explicit TemplatesView(QWidget* parent = nullptr);
 
             void mousePressEvent(QMouseEvent * event) override;
             void updateGeometries() override;
             void resizeEvent(QResizeEvent*) override;
-            void paintOutline(QPainter * painter, const QRectF &rectangle);
+            void paintOutline(QPainter* painter, const QRectF &rectangle);
             void paintEvent(QPaintEvent*) override;
             QRegion visualRegionForSelection(const QItemSelection &selection) const override;
             void setSelection(const QRect &rect, QFlags<QItemSelectionModel::SelectionFlag> flags) override;
@@ -52,15 +52,15 @@ namespace PhotoLayoutsEditor
             int horizontalOffset() const override;
             int verticalOffset() const override;
             QModelIndex moveCursor( QAbstractItemView::CursorAction cursorAction, Qt::KeyboardModifiers) override;
-            void rowsInserted(const QModelIndex & parent, int start, int end) override;
-            void rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end) override;
+            void rowsInserted(const QModelIndex& parent, int start, int end) override;
+            void rowsAboutToBeRemoved(const QModelIndex& parent, int start, int end) override;
             using QAbstractItemView::dataChanged;
-            void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
+            void dataChanged(const QModelIndex&topLeft, const QModelIndex&bottomRight);
             QModelIndex indexAt(const QPoint &point_) const override;
-            void scrollTo(const QModelIndex &index, QAbstractItemView::ScrollHint) override;
+            void scrollTo(const QModelIndex&index, QAbstractItemView::ScrollHint) override;
             bool isIndexHidden(const QModelIndex&) const override;
             QRectF viewportRectForRow(int row) const;
-            QRect visualRect(const QModelIndex &index) const override;
+            QRect visualRect(const QModelIndex&index) const override;
             void calculateRectsIfNecessary() const;
             void setModel(QAbstractItemModel * model) override;
 

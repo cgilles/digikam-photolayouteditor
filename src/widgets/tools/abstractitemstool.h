@@ -51,22 +51,22 @@ private:
 
 public:
 
-    AbstractItemsTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent = nullptr);
+    AbstractItemsTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget* parent = nullptr);
 
     /** Current photo property
     * This property holds an information which item is currently editing.
     */
-    Q_PROPERTY(AbstractPhoto * m_photo READ currentItem WRITE setCurrentItem)
+    Q_PROPERTY(AbstractPhoto* m_photo READ currentItem WRITE setCurrentItem)
 
-    AbstractPhoto * currentItem();
-    void setCurrentItem(AbstractPhoto * photo);
+    AbstractPhoto* currentItem();
+    void setCurrentItem(AbstractPhoto* photo);
 
     QPointF mousePosition();
     void setMousePosition(const QPointF & position);
 
 Q_SIGNALS:
 
-    void itemCreated(AbstractPhoto * item);
+    void itemCreated(AbstractPhoto* item);
 
 public Q_SLOTS:
 

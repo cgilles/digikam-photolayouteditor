@@ -41,25 +41,25 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit ColorizePhotoEffect(StandardEffectsFactory * factory, QObject * parent = nullptr);
+            explicit ColorizePhotoEffect(StandardEffectsFactory * factory, QObject* parent = nullptr);
             virtual QImage apply(const QImage & image) const override;
             virtual QString name() const override;
             virtual QString toString() const override;
             virtual operator QString() const override;
 
-            virtual QString propertyName(const QMetaProperty & property) const override
+            virtual QString propertyName(const QMetaProperty& property) const override
             {
                 if (!QString::fromLatin1("color").compare(QLatin1String(property.name())))
                     return COLOR_PROPERTY;
                 return AbstractPhotoEffectInterface::propertyName(property);
             }
-            virtual QVariant propertyValue(const QString & propertyName) const override
+            virtual QVariant propertyValue(const QString& propertyName) const override
             {
                 if (propertyName == COLOR_PROPERTY)
                     return m_color;
                 return AbstractPhotoEffectInterface::propertyValue(propertyName);
             }
-            virtual void setPropertyValue(const QString & propertyName, const QVariant & value) override
+            virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override
             {
                 if (COLOR_PROPERTY == propertyName)
                     this->setColor(value.value<QColor>());

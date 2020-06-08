@@ -210,7 +210,7 @@ QPainterPath CropWidgetItem::shape() const
     return d->m_item_shape;
 }
 
-void CropWidgetItem::paint(QPainter * painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * widget)
+void CropWidgetItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* /*option*/, QWidget* widget)
 {
     // Get the view
     QGraphicsView * view = qobject_cast<QGraphicsView*>(widget->parentWidget());

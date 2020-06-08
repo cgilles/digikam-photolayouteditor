@@ -43,15 +43,15 @@ namespace PhotoLayoutsEditor
 
 class BorderChangeCommand : public QUndoCommand
 {
-    BorderDrawerInterface * drawer;
+    BorderDrawerInterface* drawer;
     QString propertyName;
     QVariant value;
 
 public:
 
-    BorderChangeCommand(BorderDrawerInterface * drawer, QUndoCommand * parent = nullptr) :
-        QUndoCommand(QObject::tr("Border Change"), parent),
-        drawer(drawer)
+    BorderChangeCommand(BorderDrawerInterface* drawer, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Border Change"), parent),
+          drawer(drawer)
     {
     }
 
@@ -71,22 +71,22 @@ public:
         value = temp;
     }
 
-    void setPropertyValue(const QString & propertyName, const QVariant & value)
+    void setPropertyValue(const QString& propertyName, const QVariant& value)
     {
         this->propertyName = propertyName;
         this->value = value;
     }
 };
 
-BorderChangeListener::BorderChangeListener(BorderDrawerInterface * drawer, QObject * parent, bool createCommands) :
-    QObject(parent),
-    drawer(drawer),
-    command(nullptr),
-    createCommands(createCommands)
+BorderChangeListener::BorderChangeListener(BorderDrawerInterface* drawer, QObject* parent, bool createCommands)
+    : QObject(parent),
+      drawer(drawer),
+      command(nullptr),
+      createCommands(createCommands)
 {
 }
 
-void BorderChangeListener::propertyChanged(QtProperty * property)
+void BorderChangeListener::propertyChanged(QtProperty* property)
 {
     if (!drawer)
         return;

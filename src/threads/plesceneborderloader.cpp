@@ -29,7 +29,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-PLESceneBorderLoader::PLESceneBorderLoader(PLESceneBorder * border, QDomElement & element, QObject * parent) :
+PLESceneBorderLoader::PLESceneBorderLoader(PLESceneBorder * border, QDomElement& element, QObject* parent) :
     QThread(parent),
     m_border(border),
     m_element(element)

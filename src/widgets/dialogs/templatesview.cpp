@@ -42,7 +42,7 @@ class TemplateItemDelegate : public QAbstractItemDelegate
 {
     public:
 
-        virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override
+        virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
         {
             if (!index.internalPointer())
                 return;
@@ -84,7 +84,7 @@ class TemplateItemDelegate : public QAbstractItemDelegate
             painter->restore();
         }
 
-        virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const override
+        virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
         {
             QSize result;
             if (!index.internalPointer())
@@ -93,7 +93,7 @@ class TemplateItemDelegate : public QAbstractItemDelegate
         }
 };
 
-TemplatesView::TemplatesView(QWidget * parent) :
+TemplatesView::TemplatesView(QWidget* parent) :
     QAbstractItemView(parent),
 //    columns(0),
     idealWidth(0),
@@ -134,7 +134,7 @@ void TemplatesView::resizeEvent(QResizeEvent *) //
     updateGeometries();
 }
 
-void TemplatesView::paintOutline(QPainter * painter, const QRectF &rectangle)
+void TemplatesView::paintOutline(QPainter* painter, const QRectF &rectangle)
 {
     const QRectF rect = rectangle.adjusted(0, 0, -1, -1);
     painter->save();
@@ -278,19 +278,19 @@ QModelIndex TemplatesView::moveCursor( QAbstractItemView::CursorAction cursorAct
     return index;
 }
 
-void TemplatesView::rowsInserted(const QModelIndex & parent, int start, int end)
+void TemplatesView::rowsInserted(const QModelIndex& parent, int start, int end)
 {
     hashIsDirty = true;
     QAbstractItemView::rowsInserted(parent, start, end);
 }
 
-void TemplatesView::rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end)
+void TemplatesView::rowsAboutToBeRemoved(const QModelIndex& parent, int start, int end)
 {
     hashIsDirty = true;
     QAbstractItemView::rowsAboutToBeRemoved(parent, start, end);
 }
 
-void TemplatesView::dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight)
+void TemplatesView::dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight)
 {
     hashIsDirty = true;
     QAbstractItemView::dataChanged(topLeft, bottomRight);
@@ -312,7 +312,7 @@ QModelIndex TemplatesView::indexAt(const QPoint & point_) const
     return QModelIndex();
 }
 
-void TemplatesView::scrollTo(const QModelIndex & index, QAbstractItemView::ScrollHint)
+void TemplatesView::scrollTo(const QModelIndex& index, QAbstractItemView::ScrollHint)
 {
     QRect viewRect = viewport()->rect();
     QRect itemRect = visualRect(index);
@@ -330,7 +330,7 @@ void TemplatesView::scrollTo(const QModelIndex & index, QAbstractItemView::Scrol
     viewport()->update();
 }
 
-bool TemplatesView::isIndexHidden(const QModelIndex &) const
+bool TemplatesView::isIndexHidden(const QModelIndex&) const
 {
     return false;
 }
@@ -350,7 +350,7 @@ QRectF TemplatesView::viewportRectForRow(int row) const //
                   rect.height());
 }
 
-QRect TemplatesView::visualRect(const QModelIndex & index) const //
+QRect TemplatesView::visualRect(const QModelIndex& index) const //
 {
     QRect rect;
     if (index.isValid())

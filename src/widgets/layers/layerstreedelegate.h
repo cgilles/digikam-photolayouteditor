@@ -41,17 +41,17 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit LayersTreeDelegate(QWidget * parent = nullptr);
-            virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override;
-            virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const override;
+            explicit LayersTreeDelegate(QWidget* parent = nullptr);
+            virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+            virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 
         public Q_SLOTS:
 
-            void itemClicked(const QModelIndex & index);
+            void itemClicked(const QModelIndex& index);
 
         Q_SIGNALS:
 
-            void itemRepaintNeeded(const QModelIndex & index);
+            void itemRepaintNeeded(const QModelIndex& index);
     };
 }
 

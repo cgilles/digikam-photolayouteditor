@@ -56,13 +56,13 @@ namespace PhotoLayoutsEditor
             static QMap<QString, AbstractPhotoEffectFactory*> registeredEffects;
 
             static PhotoEffectsLoader * m_instance;
-            explicit PhotoEffectsLoader(QObject * parent);
+            explicit PhotoEffectsLoader(QObject* parent);
 
         public:
 
-            static PhotoEffectsLoader * instance(QObject * parent = nullptr);
+            static PhotoEffectsLoader * instance(QObject* parent = nullptr);
             PhotoEffectsGroup * group() const;
-            AbstractPhoto * photo() const;
+            AbstractPhoto* photo() const;
 
           /**
             * Name propetry
@@ -72,7 +72,7 @@ namespace PhotoLayoutsEditor
             {
                 return m_name;
             }
-            virtual void setName(const QString & name)
+            virtual void setName(const QString& name)
             {
                 m_name = name;
             }
@@ -91,11 +91,11 @@ namespace PhotoLayoutsEditor
 
           /** Returns factory object for the given name
             */
-            static AbstractPhotoEffectFactory * getFactoryByName(const QString & name);
+            static AbstractPhotoEffectFactory * getFactoryByName(const QString& name);
 
           /** Return an instance of effect using its name.
             */
-            static AbstractPhotoEffectInterface * getEffectByName(const QString & name);
+            static AbstractPhotoEffectInterface * getEffectByName(const QString& name);
 
           /** Returns property browser for effect.
             * \arg effect is the object of \class AbstractPhotoEffectInterface base type which represents effect with set of properties to configure.
@@ -105,11 +105,11 @@ namespace PhotoLayoutsEditor
 
           /** Returns DOM node which contains effects attributes
             */
-            static QDomElement effectToSvg(AbstractPhotoEffectInterface * effect, QDomDocument & document);
+            static QDomElement effectToSvg(AbstractPhotoEffectInterface * effect, QDomDocument& document);
 
           /** Reads node attributes from DOM node and returns ready effect object.
             */
-            static AbstractPhotoEffectInterface * getEffectFromSvg(QDomElement & element);
+            static AbstractPhotoEffectInterface * getEffectFromSvg(QDomElement& element);
 
         protected:
 

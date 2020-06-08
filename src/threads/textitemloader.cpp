@@ -28,7 +28,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-TextItemLoader::TextItemLoader(TextItem * item, QDomElement & element, QObject * parent) :
+TextItemLoader::TextItemLoader(TextItem * item, QDomElement& element, QObject* parent) :
     AbstractPhotoItemLoader(item, element, parent)
 {
 }

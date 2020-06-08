@@ -49,7 +49,7 @@ class RotateItemCommand : public QUndoCommand
 
 public:
 
-    RotateItemCommand(AbstractPhoto * item, QUndoCommand * parent = nullptr) :
+    RotateItemCommand(AbstractPhoto* item, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Rotate item"), parent),
         item(item),
         angle(0),
@@ -117,7 +117,7 @@ class RotationWidgetItemPrivate
         m_elipse.addEllipse(-10,-10,20,20);
     }
 
-    QPointF viewportToItemPosition(const QPoint & pos, QWidget * widget)
+    QPointF viewportToItemPosition(const QPoint & pos, QWidget* widget)
     {
         QGraphicsView *view = nullptr;
 
@@ -133,7 +133,7 @@ class RotationWidgetItemPrivate
         return pos;
     }
 
-    QRectF itemToViewportRect(const QRectF & rect, QWidget * widget)
+    QRectF itemToViewportRect(const QRectF & rect, QWidget* widget)
     {
         QGraphicsView *view = nullptr;
 
@@ -192,7 +192,7 @@ RotationWidgetItem::RotationWidgetItem(const QList<AbstractPhoto*> & items, QGra
     this->setItems(items);
 }
 
-void RotationWidgetItem::paint(QPainter * painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * widget)
+void RotationWidgetItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* /*option*/, QWidget* widget)
 {
     // Get the view
     QGraphicsView * view = qobject_cast<QGraphicsView*>(widget->parentWidget());
@@ -228,7 +228,7 @@ QRectF RotationWidgetItem::boundingRect() const
     return shape().boundingRect();
 }
 
-void RotationWidgetItem::initRotation(const QPainterPath & path, const QPointF & rotationPoint)
+void RotationWidgetItem::initRotation(const QPainterPath& path, const QPointF & rotationPoint)
 {
     d->rotated_shape = path;
     QRectF boundingRect = path.boundingRect();

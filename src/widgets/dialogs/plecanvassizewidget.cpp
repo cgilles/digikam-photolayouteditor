@@ -59,8 +59,8 @@ class PLECanvasSizeWidget::Private
     void swapSizes();
     void updateSizeLabel();
 
-    QWidget *        sizeWidget;
-    QWidget *        advancedWidget;
+    QWidget*        sizeWidget;
+    QWidget*        advancedWidget;
     QDoubleSpinBox * xSize;
     QDoubleSpinBox * ySize;
     QLabel *         sizeLabel;
@@ -132,7 +132,7 @@ PLECanvasSizeWidget::Orientation PLECanvasSizeWidget::orientation() const
         return PLECanvasSizeWidget::Horizontal;
 }
 
-void PLECanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, const QSizeF & resolution, const QString & resolutionUnits)
+void PLECanvasSizeWidget::setupUI(const QSizeF & size, const QString& sizeUnits, const QSizeF & resolution, const QString& resolutionUnits)
 {
     QString tempSizeUnits = sizeUnits;
     QString tempResolutionUnits = resolutionUnits;
@@ -250,7 +250,7 @@ PLECanvasSize PLECanvasSizeWidget::canvasSize() const
     return result;
 }
 
-void PLECanvasSizeWidget::sizeUnitsChanged(const QString & unitName)
+void PLECanvasSizeWidget::sizeUnitsChanged(const QString& unitName)
 {
     d->currentSizeUnit = unitName;
     PLECanvasSize::SizeUnits sizeUnit = PLECanvasSize::sizeUnit(unitName);
@@ -277,7 +277,7 @@ void PLECanvasSizeWidget::sizeUnitsChanged(const QString & unitName)
     d->ySize->setValue(HEIGHT);
 }
 
-void PLECanvasSizeWidget::resolutionUnitsChanged(const QString & unitName)
+void PLECanvasSizeWidget::resolutionUnitsChanged(const QString& unitName)
 {
     d->currentResolutionUnit = unitName;
     PLECanvasSize::ResolutionUnits unit = PLECanvasSize::resolutionUnit(unitName);

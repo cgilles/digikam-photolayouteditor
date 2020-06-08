@@ -29,7 +29,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-UndoBorderChangeCommand::UndoBorderChangeCommand(AbstractPhoto * photo, qreal newWidth, Qt::PenJoinStyle newCornerStyle, const QColor & newColor, QUndoCommand * parent) :
+UndoBorderChangeCommand::UndoBorderChangeCommand(AbstractPhoto* photo, qreal newWidth, Qt::PenJoinStyle newCornerStyle, const QColor & newColor, QUndoCommand * parent) :
     QUndoCommand(QObject::tr("Border changed"), parent),
     m_photo(photo),
     m_width(newWidth),

@@ -35,7 +35,7 @@ TemplatesModel::TemplatesModel(QObject *parent) :
 {
 }
 
-QModelIndex TemplatesModel::index(int row, int column, const QModelIndex & parent) const
+QModelIndex TemplatesModel::index(int row, int column, const QModelIndex& parent) const
 {
     if (!hasIndex(row, column, parent) || parent.isValid())
         return QModelIndex();
@@ -43,21 +43,21 @@ QModelIndex TemplatesModel::index(int row, int column, const QModelIndex & paren
     return createIndex(row, column, templates[row]);
 }
 
-int TemplatesModel::columnCount(const QModelIndex & parent) const
+int TemplatesModel::columnCount(const QModelIndex& parent) const
 {
     if (parent.isValid())
         return 0;
     return 1;
 }
 
-int TemplatesModel::rowCount(const QModelIndex & parent) const
+int TemplatesModel::rowCount(const QModelIndex& parent) const
 {
     if (parent.isValid())
         return 0;
     return templates.count();
 }
 
-bool TemplatesModel::insertRows(int row, int count, const QModelIndex & parent)
+bool TemplatesModel::insertRows(int row, int count, const QModelIndex& parent)
 {
     if (count < 0 || row > this->rowCount())
         return false;
@@ -69,14 +69,14 @@ bool TemplatesModel::insertRows(int row, int count, const QModelIndex & parent)
     return true;
 }
 
-bool TemplatesModel::removeRows(int row, int count, const QModelIndex & /*parent*/)
+bool TemplatesModel::removeRows(int row, int count, const QModelIndex& /*parent*/)
 {
     while (count--)
         templates[row]->deleteLater();
     return true;
 }
 
-QVariant TemplatesModel::data(const QModelIndex & index, int role) const
+QVariant TemplatesModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid())
         return QVariant();
@@ -106,7 +106,7 @@ QModelIndex TemplatesModel::parent(const QModelIndex& /*child*/) const
     return QModelIndex();
 }
 
-void TemplatesModel::addTemplate(const QString & path, const QString & name)
+void TemplatesModel::addTemplate(const QString& path, const QString& name)
 {
     insertRows(rowCount(), 1);
     templates.last() = new TemplateItem(path, name);

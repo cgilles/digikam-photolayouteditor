@@ -27,7 +27,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-GrayscalePhotoEffect::GrayscalePhotoEffect(StandardEffectsFactory * factory, QObject * parent) :
+GrayscalePhotoEffect::GrayscalePhotoEffect(StandardEffectsFactory * factory, QObject* parent) :
     AbstractPhotoEffectInterface(factory, parent)
 {
 }

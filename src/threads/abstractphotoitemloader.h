@@ -37,14 +37,14 @@ namespace PhotoLayoutsEditor
     {
             Q_OBJECT
 
-            AbstractPhoto * m_item;
+            AbstractPhoto* m_item;
             QDomElement m_element;
             ProgressObserver * m_observer;
 
         public:
 
-            explicit AbstractPhotoItemLoader(AbstractPhoto * item, QDomElement & element, QObject * parent = nullptr);
-            AbstractPhoto * item() const;
+            explicit AbstractPhotoItemLoader(AbstractPhoto* item, QDomElement& element, QObject* parent = nullptr);
+            AbstractPhoto* item() const;
             QDomElement element() const;
             void setObserver(ProgressObserver * observer);
             ProgressObserver * observer() const;

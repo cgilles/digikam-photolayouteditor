@@ -80,7 +80,7 @@ public Q_SLOTS:
 protected:
 
     virtual QObject* item(const QModelIndex& index) const override;
-    virtual void setItem(QObject* graphicsItem, const QModelIndex & index) override;
+    virtual void setItem(QObject* graphicsItem, const QModelIndex& index) override;
     virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
     virtual QVariant data(const QModelIndex& index, int role) const override;
     virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;

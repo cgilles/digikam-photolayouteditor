@@ -102,8 +102,8 @@ class PLECanvasSizeDialogPrivate
         void updateSizeLabel();
         void setPaper(QPrinter::PageSize pageSize);
 
-        QWidget *   sizeWidget;
-        QWidget *   advancedWidget;
+        QWidget*   sizeWidget;
+        QWidget*   advancedWidget;
         QComboBox * paperSize;
         QDoubleSpinBox *  xSize;
         QDoubleSpinBox *  ySize;
@@ -296,7 +296,7 @@ void PLECanvasSizeDialogPrivate::setPaper(QPrinter::PageSize pageSize)
     ySize->setValue(result.height());
 }
 
-PLECanvasSizeDialog::PLECanvasSizeDialog(QWidget * parent) :
+PLECanvasSizeDialog::PLECanvasSizeDialog(QWidget* parent) :
     QDialog(parent),
     d(new PLECanvasSizeDialogPrivate)
 {
@@ -306,7 +306,7 @@ PLECanvasSizeDialog::PLECanvasSizeDialog(QWidget * parent) :
                 d->currentResolutionUnit);
 }
 
-PLECanvasSizeDialog::PLECanvasSizeDialog(const PLECanvasSize & canvasSize, QWidget * parent) :
+PLECanvasSizeDialog::PLECanvasSizeDialog(const PLECanvasSize & canvasSize, QWidget* parent) :
     QDialog(parent),
     d(new PLECanvasSizeDialogPrivate)
 {
@@ -322,9 +322,9 @@ PLECanvasSizeDialog::~PLECanvasSizeDialog()
 }
 
 void PLECanvasSizeDialog::setupDialog(const QSizeF & size,
-                                   const QString & sizeUnits,
+                                   const QString& sizeUnits,
                                    const QSizeF & resolution,
-                                   const QString & resolutionUnits)
+                                   const QString& resolutionUnits)
 {
     setWindowTitle(QObject::tr("PLECanvas Size"));
 
@@ -337,7 +337,7 @@ void PLECanvasSizeDialog::setupDialog(const QSizeF & size,
             PLECanvasSize::resolutionUnit(tempResolutionUnits) == PLECanvasSize::UnknownResolutionUnit)
         tempResolutionUnits = PLECanvasSize::resolutionUnitName(PLECanvasSize::PixelsPerInch);;
 
-    QWidget * main        = new QWidget(this);
+    QWidget* main        = new QWidget(this);
     QVBoxLayout * vLayout = new QVBoxLayout(main);
     setLayout(vLayout);
 
@@ -477,14 +477,14 @@ PLECanvasSize PLECanvasSizeDialog::canvasSize() const
     return result;
 }
 
-void PLECanvasSizeDialog::recalculatePaperSize(const QString & paperSize)
+void PLECanvasSizeDialog::recalculatePaperSize(const QString& paperSize)
 {
     d->setPaper( d->paperSizes.value(paperSize, QPrinter::Custom) );
     d->updateSizeLabel();
     sizeUnitsChanged(d->sizeUnitsWidget->currentText());
 }
 
-void PLECanvasSizeDialog::sizeUnitsChanged(const QString & unitName)
+void PLECanvasSizeDialog::sizeUnitsChanged(const QString& unitName)
 {
     d->currentSizeUnit = unitName;
     PLECanvasSize::SizeUnits sizeUnit = PLECanvasSize::sizeUnit(unitName);
@@ -511,7 +511,7 @@ void PLECanvasSizeDialog::sizeUnitsChanged(const QString & unitName)
     d->ySize->setValue(HEIGHT);
 }
 
-void PLECanvasSizeDialog::resolutionUnitsChanged(const QString & unitName)
+void PLECanvasSizeDialog::resolutionUnitsChanged(const QString& unitName)
 {
     d->currentResolutionUnit = unitName;
     PLECanvasSize::ResolutionUnits unit = PLECanvasSize::resolutionUnit(unitName);

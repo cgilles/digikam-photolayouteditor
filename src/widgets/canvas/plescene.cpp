@@ -105,7 +105,7 @@ class PLEScenePrivate
         m_border = new PLESceneBorder(m_scene);
     }
 
-    QList<QGraphicsItem*> itemsAtPosition(const QPointF & scenePos, QWidget * widget)
+    QList<QGraphicsItem*> itemsAtPosition(const QPointF & scenePos, QWidget* widget)
     {
         QGraphicsView * view = widget ? qobject_cast<QGraphicsView*>(widget->parentWidget()) : nullptr;
         if (!view)
@@ -117,13 +117,13 @@ class PLEScenePrivate
         return m_scene->items(pointRect, Qt::IntersectsItemShape, Qt::DescendingOrder, viewTransform);
     }
 
-    AbstractItemInterface * itemAt(const QPointF & scenePos, QWidget * widget)
+    AbstractItemInterface * itemAt(const QPointF & scenePos, QWidget* widget)
     {
         QList<QGraphicsItem*> items = itemsAtPosition(scenePos, widget);
         return items.count() ? dynamic_cast<AbstractItemInterface*>(items.first()) : nullptr;
     }
 
-    QList<AbstractItemInterface*> itemsAt(const QPointF & scenePos, QWidget * widget)
+    QList<AbstractItemInterface*> itemsAt(const QPointF & scenePos, QWidget* widget)
     {
         QList<QGraphicsItem*> items = itemsAtPosition(scenePos, widget);
         QList<AbstractItemInterface*> r;
@@ -307,7 +307,7 @@ class AddItemsCommand
 
     public:
 
-        AddItemsCommand(AbstractPhoto * item, int position, PLEScene * scene, QUndoCommand * parent = nullptr) :
+        AddItemsCommand(AbstractPhoto* item, int position, PLEScene * scene, QUndoCommand * parent = nullptr) :
             QUndoCommand(QObject::tr("Add item"), parent),
             position(position),
             scene(scene),
@@ -416,7 +416,7 @@ class RemoveItemsCommand
 
     public:
 
-        RemoveItemsCommand(AbstractPhoto * item, PLEScene * scene, QUndoCommand * parent = nullptr) :
+        RemoveItemsCommand(AbstractPhoto* item, PLEScene * scene, QUndoCommand * parent = nullptr) :
             QUndoCommand(QLatin1String("Remove item"), parent),
             item(item),
             item_row(0),
@@ -487,7 +487,7 @@ class RemoveItemsCommand
             return false;
         }
 
-        void appendChild(AbstractPhoto * item, const QModelIndex & parent)
+        void appendChild(AbstractPhoto* item, const QModelIndex& parent)
         {
             QList<QGraphicsItem*> items = item->childItems();
             if (items.count())
@@ -497,7 +497,7 @@ class RemoveItemsCommand
                 int i = 0;
                 foreach(QGraphicsItem* childItem, items)
                 {
-                    AbstractPhoto * photo = dynamic_cast<AbstractPhoto*>(childItem);
+                    AbstractPhoto* photo = dynamic_cast<AbstractPhoto*>(childItem);
                     if (photo)
                     {
                         if (m_scene->model()->insertRow(i,parent))
@@ -517,7 +517,7 @@ class CropItemsCommand
 {
     QMap<AbstractPhoto*,QPainterPath> data;
 public:
-    CropItemsCommand(const QPainterPath & path, const QList<AbstractPhoto*> & items, QUndoCommand * parent = nullptr) :
+    CropItemsCommand(const QPainterPath& path, const QList<AbstractPhoto*> & items, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Crop item", "Crop items", items.count()), parent)
     {
         qDebug() << "scene crop shape" << path.boundingRect();
@@ -599,7 +599,7 @@ PLESceneBorder * PLEScene::border()
 }
 
 
-LayersModel * PLEScene::model() const
+LayersModel* PLEScene::model() const
 {
     return d->model;
 }
@@ -611,7 +611,7 @@ LayersSelectionModel * PLEScene::selectionModel() const
 }
 
 
-void PLEScene::addItem(AbstractPhoto * item)
+void PLEScene::addItem(AbstractPhoto* item)
 {
     // Prevent multiple addition of the item
     if (item->scene() == this)
@@ -674,7 +674,7 @@ void PLEScene::addItems(const QList<AbstractPhoto*> & items)
         PLE_PostUndoCommand(command);
 }
 
-void PLEScene::removeItem(AbstractPhoto * item)
+void PLEScene::removeItem(AbstractPhoto* item)
 {
     if (!askAboutRemoving(1))
         return;
@@ -744,18 +744,18 @@ void PLEScene::contextMenuEvent(QGraphicsSceneMouseEvent * event)
             PhotoItem * item = dynamic_cast<PhotoItem*>(items.first());
             if (item)
             {
-                QAction * removeAction = menu.addAction( QObject::tr("Change item's image") );
+                QAction* removeAction = menu.addAction( QObject::tr("Change item's image") );
                 connect(removeAction, SIGNAL(triggered()), this, SLOT(changeSelectedImage()));
             }
         }
 
-        QAction * removeAction = menu.addAction( QObject::tr("Delete selected item", "Delete selected items", items.count()) );
+        QAction* removeAction = menu.addAction( QObject::tr("Delete selected item", "Delete selected items", items.count()) );
         connect(removeAction, SIGNAL(triggered()), this, SLOT(removeSelectedItems()));
         menu.addSeparator();
     }
 
     // Background
-    QAction * background = menu.addAction( QObject::tr("PLECanvas background") );
+    QAction* background = menu.addAction( QObject::tr("PLECanvas background") );
     connect(background, SIGNAL(triggered()), ToolsDockWidget::instance(), SLOT(setPLECanvasWidgetVisible()));
 
     menu.exec(event->screenPos());
@@ -984,7 +984,7 @@ void PLEScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event)
 }
 
 
-void PLEScene::drawBackground(QPainter * painter, const QRectF & rect)
+void PLEScene::drawBackground(QPainter* painter, const QRectF & rect)
 {
     // Transparent scene background
     if (isSelectionVisible())
@@ -1011,7 +1011,7 @@ void PLEScene::drawBackground(QPainter * painter, const QRectF & rect)
 }
 
 
-void PLEScene::drawForeground(QPainter * painter, const QRectF & rect)
+void PLEScene::drawForeground(QPainter* painter, const QRectF & rect)
 {
     QGraphicsScene::drawForeground(painter, rect.intersected(this->sceneRect()));
 
@@ -1446,7 +1446,7 @@ QDomDocument PLEScene::toSvg(ProgressObserver * observer, bool asTemplate)
     int i = 1;
     foreach(QGraphicsItem* item, itemsList)
     {
-        AbstractPhoto * photo = dynamic_cast<AbstractPhoto*>(item);
+        AbstractPhoto* photo = dynamic_cast<AbstractPhoto*>(item);
 
         if (photo)
         {
@@ -1478,7 +1478,7 @@ QDomDocument PLEScene::toSvg(ProgressObserver * observer, bool asTemplate)
 }
 
 
-PLEScene * PLEScene::fromSvg(QDomElement & sceneElement)
+PLEScene * PLEScene::fromSvg(QDomElement& sceneElement)
 {
     if (sceneElement.isNull() || sceneElement.tagName() != QLatin1String("g") || sceneElement.attribute(QLatin1String("id")) != QLatin1String("PLEScene"))
         return nullptr;
@@ -1503,7 +1503,7 @@ PLEScene * PLEScene::fromSvg(QDomElement & sceneElement)
         if (element.isNull() || element.tagName() != QLatin1String("g"))
             continue;
         QString itemClass = element.attribute(QLatin1String("class"));
-        AbstractPhoto * item;
+        AbstractPhoto* item;
         if (itemClass == QLatin1String("PhotoItem"))
         {
             item = new PhotoItem();
@@ -1550,7 +1550,7 @@ PLEScene * PLEScene::fromSvg(QDomElement & sceneElement)
 }
 
 
-void PLEScene::render(QPainter * painter, const QRectF & target, const QRectF & source, Qt::AspectRatioMode aspectRatioMode)
+void PLEScene::render(QPainter* painter, const QRectF & target, const QRectF & source, Qt::AspectRatioMode aspectRatioMode)
 {
     if (d->m_rot_item)
         d->m_rot_item->hide();

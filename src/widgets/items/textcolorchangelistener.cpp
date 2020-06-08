@@ -28,7 +28,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-TextColorChangeListener::TextColorChangeListener(TextItem * item, QObject * parent) :
+TextColorChangeListener::TextColorChangeListener(TextItem * item, QObject* parent) :
     QObject(parent),
     m_item(item)
 {}

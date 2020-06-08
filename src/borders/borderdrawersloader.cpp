@@ -83,7 +83,7 @@ void BorderDrawersLoader::registerDrawer(BorderDrawerFactoryInterface* factory)
     factory->setParent(instance());
     QStringList names = factory->drawersNames().split(QLatin1Char(';'), QString::SkipEmptyParts);
 
-    foreach (QString name, names)
+    foreach (const QString& name, names)
     {
         instance()->d->factories.insert(name, factory);
     }
@@ -198,19 +198,19 @@ QWidget* BorderDrawersLoader::createEditor(BorderDrawerInterface* drawer, bool c
 
     // QVariant type of property
     QtVariantPropertyManager* variantManager = nullptr;
-    PLEVariantEditorFactory* variantFactory    = nullptr;
+    PLEVariantEditorFactory* variantFactory  = nullptr;
 
     // Integer type of property
     QtIntPropertyManager* integerManager     = nullptr;
-    PLESliderEditFactory* integerFactory       = nullptr;
+    PLESliderEditFactory* integerFactory     = nullptr;
 
     // Double type of property
     QtDoublePropertyManager* doubleManager   = nullptr;
-    PLEDoubleSpinBoxFactory* doubleFactory     = nullptr;
+    PLEDoubleSpinBoxFactory* doubleFactory   = nullptr;
 
     // Enum type of property
     QtEnumPropertyManager* enumManager       = nullptr;
-    PLEEnumEditorFactory* enumFactory          = nullptr;
+    PLEEnumEditorFactory* enumFactory        = nullptr;
 
     const QMetaObject* meta                  = drawer->metaObject();
     int propertiesCount                      = meta->propertyCount();

@@ -114,11 +114,11 @@ public:
     virtual QDomDocument toTemplateSvg() const;
 
     /// Reads item data from SVG structure
-    bool fromSvg(QDomElement & element);
+    bool fromSvg(QDomElement& element);
 
     /// Name of item property
     Q_PROPERTY(QString name READ name WRITE setName)
-    void setName(const QString & name);
+    void setName(const QString& name);
     QString name() const;
 
     /// Icon of the item [50px x 50px]
@@ -136,15 +136,15 @@ public:
     PhotoEffectsGroup * effectsGroup() const;
 
     /// Borders group property
-    Q_PROPERTY(BordersGroup * m_borders_group READ bordersGroup)
-    BordersGroup * bordersGroup() const;
+    Q_PROPERTY(BordersGroup* m_borders_group READ bordersGroup)
+    BordersGroup* bordersGroup() const;
 
     Q_PROPERTY(QString m_id READ id)
     QString id() const;
 
     /// Crops item to shape passed in method's argument
     Q_PROPERTY(QPainterPath m_crop_shape READ cropShape WRITE setCropShape)
-    void setCropShape(const QPainterPath & cropShape);
+    void setCropShape(const QPainterPath& cropShape);
     QPainterPath cropShape() const;
 
     /// Returns item's property browser
@@ -164,10 +164,10 @@ Q_SIGNALS:
 
 protected:
 
-    explicit AbstractPhoto(const QString & name, PLEScene * scene);
+    explicit AbstractPhoto(const QString& name, PLEScene * scene);
 
     // For widgets drawing
-    static AbstractPhoto * getInstance() { return nullptr; }
+    static AbstractPhoto* getInstance() { return nullptr; }
 
     /** Returns SVG visible part of data.
         * This is a pure virtual method which should returns QDomElement with part of SVG document
@@ -188,10 +188,10 @@ protected:
     virtual QDomDocument svgTemplateArea() const = 0;
 
     // Draws abstract item presentation
-    virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget) override;
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
     // Items change slot
-    virtual QVariant itemChange(GraphicsItemChange change, const QVariant & value) override;
+    virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
 
     // Mouse events
     virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event) override;
@@ -206,7 +206,7 @@ protected:
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent * event) override;
 
     // Creates unique name (on whole scene)
-    QString uniqueName(const QString & name);
+    QString uniqueName(const QString& name);
 
     // Photo resizer class
     class AbstractPhotoResizer;

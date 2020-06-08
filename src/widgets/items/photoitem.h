@@ -48,8 +48,8 @@ class PhotoItem : public AbstractPhoto
 
 public:
 
-    explicit PhotoItem(const QImage & photo, const QString & name = QString(), PLEScene * scene = nullptr);
-    explicit PhotoItem(const QPainterPath & shape, const QString & name = QString(), PLEScene * scene = nullptr);
+    explicit PhotoItem(const QImage & photo, const QString& name = QString(), PLEScene * scene = nullptr);
+    explicit PhotoItem(const QPainterPath& shape, const QString& name = QString(), PLEScene * scene = nullptr);
     virtual ~PhotoItem();
 
     /// Convert photo item to SVG format
@@ -59,7 +59,7 @@ public:
     virtual QDomDocument toTemplateSvg() const override;
 
     /// Create Photo item from SVG format code
-    static PhotoItem * fromSvg(QDomElement & element);
+    static PhotoItem * fromSvg(QDomElement& element);
 
     /// Pixmap data
     Q_PROPERTY(QImage m_image READ image WRITE setImage)
@@ -111,7 +111,7 @@ public:
 
 protected:
 
-    explicit PhotoItem(const QString & name = QString(), PLEScene * scene = nullptr);
+    explicit PhotoItem(const QString& name = QString(), PLEScene * scene = nullptr);
 
     /// Converts item data to SVG format
     virtual QDomDocument svgVisibleArea() const override;
@@ -131,7 +131,7 @@ protected:
     virtual void updateIcon();
 
     /// Reimplemented from AbstractPhoto
-    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr) override;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
 
 private Q_SLOTS:
 
@@ -162,7 +162,7 @@ private:
             m_image_moving(false)
         {}
 
-        static QString locateFile(const QString & filePath);
+        static QString locateFile(const QString& filePath);
 
         PhotoItem * m_item;
 

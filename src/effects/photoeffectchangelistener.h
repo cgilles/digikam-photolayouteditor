@@ -45,7 +45,7 @@ class PhotoEffectChangeListener : public QObject
 
     public:
 
-        explicit PhotoEffectChangeListener(AbstractPhotoEffectInterface * effect, QObject * parent, bool createCommands);
+        explicit PhotoEffectChangeListener(AbstractPhotoEffectInterface * effect, QObject* parent, bool createCommands);
 
     public Q_SLOTS:
 

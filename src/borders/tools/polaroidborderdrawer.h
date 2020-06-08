@@ -52,19 +52,19 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit PolaroidBorderDrawer(StandardBordersFactory * factory, QObject * parent = nullptr);
+            explicit PolaroidBorderDrawer(StandardBordersFactory* factory, QObject* parent = nullptr);
 
-            virtual QPainterPath path(const QPainterPath & path) override;
+            virtual QPainterPath path(const QPainterPath& path) override;
 
-            virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option) override;
+            virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option) override;
 
-            virtual QString propertyName(const QMetaProperty & property) const override;
+            virtual QString propertyName(const QMetaProperty& property) const override;
 
-            virtual QVariant propertyValue(const QString & propertyName) const override;
+            virtual QVariant propertyValue(const QString& propertyName) const override;
 
-            virtual void setPropertyValue(const QString & propertyName, const QVariant & value) override;
+            virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override;
 
-            virtual QDomElement toSvg(QDomDocument & document) const override;
+            virtual QDomElement toSvg(QDomDocument& document) const override;
 
             virtual QString name() const override;
 
@@ -91,7 +91,7 @@ namespace PhotoLayoutsEditor
             {
                 return m_text;
             }
-            void setText(const QString & text)
+            void setText(const QString& text)
             {
                 m_text = text;
                 this->propertiesChanged();
@@ -122,13 +122,13 @@ namespace PhotoLayoutsEditor
                 this->propertiesChanged();
             }
 
-            virtual QVariant minimumValue(const QMetaProperty & property) override;
-            virtual QVariant maximumValue(const QMetaProperty & property) override;
-            virtual QVariant stepValue(const QMetaProperty & property) override;
+            virtual QVariant minimumValue(const QMetaProperty& property) override;
+            virtual QVariant maximumValue(const QMetaProperty& property) override;
+            virtual QVariant stepValue(const QMetaProperty& property) override;
 
         private:
 
-            QString pathToSvg(const QPainterPath & path) const;
+            QString pathToSvg(const QPainterPath& path) const;
     };
 }
 

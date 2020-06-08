@@ -25,37 +25,40 @@
 #ifndef LAYERSTREEMENU_H
 #define LAYERSTREEMENU_H
 
+// Qt includes
+
 #include <QMenu>
 
 namespace PhotoLayoutsEditor
 {
-    class LayersTree;
 
-    class LayersTreeMenu : public QMenu
+class LayersTree;
+
+class LayersTreeMenu : public QMenu
+{
+public:
+
+    explicit LayersTreeMenu(LayersTree* parent);
+    void setMoveUpEnabled(bool enabled)
     {
-        public:
+        moveUpItems->setEnabled(enabled);
+    }
+    void setMoveDownEnabled(bool enabled)
+    {
+        moveDownItems->setEnabled(enabled);
+    }
+    void setDeleteEnabled(bool enabled)
+    {
+        deleteItems->setEnabled(enabled);
+    }
 
-            explicit LayersTreeMenu(LayersTree * parent);
-            void setMoveUpEnabled(bool enabled)
-            {
-                moveUpItems->setEnabled(enabled);
-            }
-            void setMoveDownEnabled(bool enabled)
-            {
-                moveDownItems->setEnabled(enabled);
-            }
-            void setDeleteEnabled(bool enabled)
-            {
-                deleteItems->setEnabled(enabled);
-            }
+private:
 
-        private:
+    QAction* moveUpItems;
+    QAction* moveDownItems;
+    QAction* deleteItems;
+};
 
-            QAction * moveUpItems;
-            QAction * moveDownItems;
-            QAction * deleteItems;
-    };
-}
-
+} // namespace PhotoLayoutsEditor
 
 #endif // LAYERSTREEMENU_H

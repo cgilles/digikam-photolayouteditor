@@ -39,7 +39,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit MousePressListener(QObject * parent = nullptr) :
+            explicit MousePressListener(QObject* parent = nullptr) :
                 QObject(parent)
             {}
 

@@ -97,9 +97,9 @@ public:
     LayersModel* model() const;
     LayersSelectionModel * selectionModel() const;
 
-    void addItem(AbstractPhoto * photo);
+    void addItem(AbstractPhoto* photo);
     void addItems(const QList<AbstractPhoto*> & item);
-    void removeItem(AbstractPhoto * item);
+    void removeItem(AbstractPhoto* item);
     void removeItems(const QList<AbstractPhoto*> & items);
     QList<AbstractPhoto*> selectedItems() const;
     void setInteractionMode(int mode);
@@ -108,7 +108,7 @@ public:
     QDomDocument toSvg(ProgressObserver * observer);
     QDomDocument toTemplateSvg(ProgressObserver * observer);
     QDomDocument toSvg(ProgressObserver * observer, bool asTemplate);
-    static PLEScene * fromSvg(QDomElement & svgImage);
+    static PLEScene * fromSvg(QDomElement& svgImage);
     void addSelectingFilter(const QMetaObject & classMeta);
     void clearSelectingFilters();
     void setRotationWidgetVisible(bool isVisible);
@@ -133,8 +133,8 @@ public:
 
 Q_SIGNALS:
 
-    void finishEditing(const QPainterPath & path);
-    void itemAboutToBeRemoved(AbstractPhoto * item);
+    void finishEditing(const QPainterPath& path);
+    void itemAboutToBeRemoved(AbstractPhoto* item);
     void itemsAboutToBeRemoved(const QList<AbstractPhoto*> & items);
     void mousePressedPoint(const QPointF & point);
 
@@ -155,8 +155,8 @@ protected:
 
     virtual void contextMenuEvent(QGraphicsSceneMouseEvent * event);
     virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent * event) override;
-    virtual void drawBackground(QPainter * painter, const QRectF & rect) override;
-    virtual void drawForeground(QPainter * painter, const QRectF & rect) override;
+    virtual void drawBackground(QPainter* painter, const QRectF & rect) override;
+    virtual void drawForeground(QPainter* painter, const QRectF & rect) override;
     virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event) override;
     virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event) override;
     virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;

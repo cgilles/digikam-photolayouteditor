@@ -74,7 +74,7 @@ class MyStackedLayout : public QStackedLayout
 {
     public:
 
-        explicit MyStackedLayout(QWidget * parent = nullptr) : QStackedLayout(parent) {}
+        explicit MyStackedLayout(QWidget* parent = nullptr) : QStackedLayout(parent) {}
 
         virtual QSize sizeHint() const override
         {
@@ -89,14 +89,14 @@ class MyStackedLayout : public QStackedLayout
         }
 };
 
-ToolsDockWidget * ToolsDockWidget::instance(QWidget * parent)
+ToolsDockWidget * ToolsDockWidget::instance(QWidget* parent)
 {
     if (!m_instance)
         m_instance = new ToolsDockWidget(parent);
     return m_instance;
 }
 
-ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
+ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     QDockWidget(QObject::tr("Tools"),parent),
 //    m_has_selection(false),
     m_current_item(nullptr),
@@ -106,7 +106,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
     this->setFeatures(QDockWidget::DockWidgetMovable);
     this->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 
-    QWidget * widget = new QWidget(this);
+    QWidget* widget = new QWidget(this);
     QVBoxLayout * layout = new QVBoxLayout(widget);
     //layout->setSizeConstraint(QLayout::SetMinimumSize);
 
@@ -261,17 +261,17 @@ void ToolsDockWidget::setScene(PLEScene * scene)
     if (sender() && !scene && this->m_scene)
         return;
     m_scene = scene;
-    QWidget * w = d->toolArea->widget();
+    QWidget* w = d->toolArea->widget();
     AbstractTool * tool = dynamic_cast<AbstractTool*>(w);
     if (tool)
         tool->setScene(m_scene);
 }
 
-void ToolsDockWidget::itemSelected(AbstractPhoto * photo)
+void ToolsDockWidget::itemSelected(AbstractPhoto* photo)
 {
     qDebug() << "itemSelected" << (QGraphicsItem*)photo;
     m_current_item = photo;
-    QWidget * w = d->toolArea->widget();
+    QWidget* w = d->toolArea->widget();
     if (!w)
         return;
     AbstractItemsTool * tool =qobject_cast<AbstractItemsTool*>(w);
@@ -282,7 +282,7 @@ void ToolsDockWidget::itemSelected(AbstractPhoto * photo)
 
 void ToolsDockWidget::mousePositionChoosen(const QPointF & position)
 {
-    QWidget * w = d->toolArea->widget();
+    QWidget* w = d->toolArea->widget();
     if (!w)
         return;
     AbstractItemsTool * tool =qobject_cast<AbstractItemsTool*>(w);
@@ -290,7 +290,7 @@ void ToolsDockWidget::mousePositionChoosen(const QPointF & position)
         tool->setMousePosition(position);
 }
 
-void ToolsDockWidget::emitNewItemCreated(AbstractPhoto * item)
+void ToolsDockWidget::emitNewItemCreated(AbstractPhoto* item)
 {
     if (!item)
         return;

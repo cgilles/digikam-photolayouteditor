@@ -44,7 +44,7 @@ class ZoomTool::ZoomToolPrivate
     friend class ZoomTool;
 };
 
-ZoomTool::ZoomTool(PLEScene * scene, QWidget * parent) :
+ZoomTool::ZoomTool(PLEScene * scene, QWidget* parent) :
     AbstractTool(scene, PLECanvas::Viewing, parent),
     d(new ZoomToolPrivate)
 {

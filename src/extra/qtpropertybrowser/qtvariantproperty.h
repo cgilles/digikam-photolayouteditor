@@ -66,8 +66,8 @@ public:
 
     virtual bool compare(QtProperty* otherProperty)const override;
 
-    void setValue(const QVariant &value);
-    void setAttribute(const QString &attribute, const QVariant &value);
+    void setValue(const QVariant&value);
+    void setAttribute(const QString &attribute, const QVariant&value);
 
 protected:
 
@@ -111,13 +111,13 @@ public:
     static int groupTypeId();
     static int iconMapTypeId();
 public Q_SLOTS:
-    virtual void setValue(QtProperty *property, const QVariant &val);
+    virtual void setValue(QtProperty *property, const QVariant&val);
     virtual void setAttribute(QtProperty *property,
-                const QString &attribute, const QVariant &value);
+                const QString &attribute, const QVariant&value);
 Q_SIGNALS:
-    void valueChanged(QtProperty *property, const QVariant &val);
+    void valueChanged(QtProperty *property, const QVariant&val);
     void attributeChanged(QtProperty *property,
-                const QString &attribute, const QVariant &val);
+                const QString &attribute, const QVariant&val);
 protected:
     virtual bool hasValue(const QtProperty *property) const override;
     QString valueText(const QtProperty *property) const override;

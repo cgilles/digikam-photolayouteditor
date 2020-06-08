@@ -49,7 +49,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            AbstractTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent = nullptr) :
+            AbstractTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget* parent = nullptr) :
                 QWidget(parent),
                 m_scene(scene),
                 sel_mode(selectionMode)

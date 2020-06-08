@@ -27,7 +27,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-SepiaPhotoEffect::SepiaPhotoEffect(StandardEffectsFactory * factory, QObject * parent) :
+SepiaPhotoEffect::SepiaPhotoEffect(StandardEffectsFactory * factory, QObject* parent) :
     AbstractPhotoEffectInterface(factory, parent)
 {
 }

@@ -167,7 +167,7 @@ public:
         m_item_p->command = nullptr;
     }
 
-    void addText(const QString & text)
+    void addText(const QString& text)
     {
         m_item_p->addText(row, at+this->text.length(), text);
         this->text.append(text);
@@ -413,7 +413,7 @@ void TextItem::TextItemPrivate::addNewLine()
     PLE_PostUndoCommand( new AddLineUndoCommand(m_cursor_row, m_cursor_character, this) );
 }
 
-void TextItem::TextItemPrivate::addText(const QString & text)
+void TextItem::TextItemPrivate::addText(const QString& text)
 {
     if (!text.length())
         return;
@@ -426,7 +426,7 @@ void TextItem::TextItemPrivate::addText(const QString & text)
     command->addText(text);
 }
 
-void TextItem::TextItemPrivate::addText(int row, int at, const QString & text)
+void TextItem::TextItemPrivate::addText(int row, int at, const QString& text)
 {
     row = row < m_string_list.count() ? row : m_string_list.count()-1;
     row = row < 0 ? 0 : row;
@@ -456,7 +456,7 @@ void TextItem::TextItemPrivate::closeEditor()
     command = nullptr;
 }
 
-TextItem::TextItem(const QString & text, PLEScene * scene) :
+TextItem::TextItem(const QString& text, PLEScene * scene) :
     AbstractPhoto((text.isEmpty() ? QObject::tr("Text item") : text), scene),
     d(new TextItemPrivate(this)),
     m_color(DEFAULT_COLOR),
@@ -617,7 +617,7 @@ void TextItem::setText(const QStringList & textList)
     PLE_PostUndoCommand(undo);
 }
 
-void TextItem::setText(const QString & text)
+void TextItem::setText(const QString& text)
 {
     QString temp = text;
     temp.remove(QLatin1Char('\t'));
@@ -645,7 +645,7 @@ QPainterPath TextItem::itemDrawArea() const
     return m_complete_path;
 }
 
-void TextItem::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
+void TextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     if (!m_text_path.isEmpty())
     {
@@ -765,7 +765,7 @@ QDomDocument TextItem::svgTemplateArea() const
     return document;
 }
 
-TextItem * TextItem::fromSvg(QDomElement & element)
+TextItem * TextItem::fromSvg(QDomElement& element)
 {
     TextItem * result = new TextItem();
     if (result->AbstractPhoto::fromSvg(element))
@@ -874,7 +874,7 @@ QtAbstractPropertyBrowser * TextItem::propertyBrowser()
     return browser;
 }
 
-QPainterPath TextItem::getLinePath(const QString & string)
+QPainterPath TextItem::getLinePath(const QString& string)
 {
     QPainterPath result;
     result.addText(0, 0, m_font, string);

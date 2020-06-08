@@ -55,13 +55,13 @@ namespace PhotoLayoutsEditor
         Q_SIGNALS:
 
             void editorClosed();
-            void showEditor(QObject * object);
+            void showEditor(QObject* object);
 
         protected Q_SLOTS:
 
             void editorAccepted();
             void editorCancelled();
-            void itemSelected(const QString & selectedItem);
+            void itemSelected(const QString& selectedItem);
 
         friend class AbstractItemsListViewTool;
     };
@@ -72,7 +72,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit AbstractListToolView(QWidget * parent = nullptr) :
+            explicit AbstractListToolView(QWidget* parent = nullptr) :
                 QListView(parent)
             {
                 this->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -91,7 +91,7 @@ namespace PhotoLayoutsEditor
 
         Q_SIGNALS:
 
-            void selectedIndex(const QModelIndex & index);
+            void selectedIndex(const QModelIndex& index);
 
         protected:
 

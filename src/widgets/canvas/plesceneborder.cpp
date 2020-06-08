@@ -101,7 +101,7 @@ void PLESceneBorder::setImage(const QImage & image)
     PLE_PostUndoCommand(command);
 }
 
-QDomElement PLESceneBorder::toSvg(QDomDocument & document) const
+QDomElement PLESceneBorder::toSvg(QDomDocument& document) const
 {
     QDomElement result = document.createElement(QLatin1String("g"));
     result.setAttribute(QLatin1String("id"), QLatin1String("border"));
@@ -140,7 +140,7 @@ QDomElement PLESceneBorder::toSvg(QDomDocument & document) const
     return result;
 }
 
-bool PLESceneBorder::fromSvg(QDomElement & /*element*/)
+bool PLESceneBorder::fromSvg(QDomElement& /*element*/)
 {
 /*    QDomNodeList list = element.childNodes();
     QDomElement border;
@@ -239,7 +239,7 @@ QSize PLESceneBorder::imageSize() const
     return m_image.size();
 }
 
-QVariant PLESceneBorder::itemChange(GraphicsItemChange change, const QVariant &value)
+QVariant PLESceneBorder::itemChange(GraphicsItemChange change, const QVariant&value)
 {
     switch(change)
     {
@@ -256,7 +256,7 @@ QVariant PLESceneBorder::itemChange(GraphicsItemChange change, const QVariant &v
     return QGraphicsItem::itemChange(change, value);
 }
 
-void PLESceneBorder::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * /*widget*/)
+void PLESceneBorder::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* /*widget*/)
 {
     if (m_temp_image.isNull() || !m_rect.isValid())
         return;
@@ -264,7 +264,7 @@ void PLESceneBorder::paint(QPainter * painter, const QStyleOptionGraphicsItem * 
     painter->drawImage(QPoint(0,0), m_temp_image, option->exposedRect);
 }
 
-void PLESceneBorder::render(QPainter * painter, const QRect & rect)
+void PLESceneBorder::render(QPainter* painter, const QRect & rect)
 {
     if (rect.isValid())
     {

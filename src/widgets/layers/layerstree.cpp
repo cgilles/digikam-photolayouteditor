@@ -43,7 +43,7 @@
 namespace PhotoLayoutsEditor
 {
 
-LayersTree::LayersTree(QWidget * parent) :
+LayersTree::LayersTree(QWidget* parent) :
     QTreeView(parent),
     m_menu(new LayersTreeMenu(this))
 {

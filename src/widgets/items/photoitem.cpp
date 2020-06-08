@@ -217,7 +217,7 @@ public:
 
 PhotoItemImageMovedCommand * PhotoItemImageMovedCommand::m_instance = nullptr;
 
-QString PhotoItem::PhotoItemPrivate::locateFile(const QString & filePath)
+QString PhotoItem::PhotoItemPrivate::locateFile(const QString& filePath)
 {
     QString resultPath = filePath;
     if (!resultPath.isEmpty())
@@ -270,7 +270,7 @@ QUrl & PhotoItem::PhotoItemPrivate::fileUrl()
     return m_file_path;
 }
 
-PhotoItem::PhotoItem(const QImage & photo, const QString & name, PLEScene * scene) :
+PhotoItem::PhotoItem(const QImage & photo, const QString& name, PLEScene * scene) :
     AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))
@@ -287,7 +287,7 @@ PhotoItem::PhotoItem(const QPainterPath& shape, const QString& name, PLEScene* s
     refresh();
 }
 
-PhotoItem::PhotoItem(const QString & name, PLEScene * scene) :
+PhotoItem::PhotoItem(const QString& name, PLEScene * scene) :
     AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))
@@ -436,7 +436,7 @@ QDomDocument PhotoItem::toTemplateSvg() const
     return document1;
 }
 
-PhotoItem * PhotoItem::fromSvg(QDomElement & element)
+PhotoItem * PhotoItem::fromSvg(QDomElement& element)
 {
     PhotoItem * item = new PhotoItem();
     if (item->AbstractPhoto::fromSvg(element))
@@ -797,7 +797,7 @@ void PhotoItem::fitToRect(const QRect & rect)
     refresh();
 }
 
-void PhotoItem::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
+void PhotoItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     painter->fillPath(itemOpaqueArea(), EMPTY_FILL_COLOR);
     if (!m_temp_image.isNull())

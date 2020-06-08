@@ -56,7 +56,7 @@
 namespace PhotoLayoutsEditor
 {
 
-PLECanvas::PLECanvas(const PLECanvasSize & size, QWidget * parent) :
+PLECanvas::PLECanvas(const PLECanvasSize & size, QWidget* parent) :
     QGraphicsView(parent),
     d(new PLECanvasPrivate)
 {
@@ -65,7 +65,7 @@ PLECanvas::PLECanvas(const PLECanvasSize & size, QWidget * parent) :
     this->init();
 }
 
-PLECanvas::PLECanvas(PLEScene * scene, QWidget * parent) :
+PLECanvas::PLECanvas(PLEScene * scene, QWidget* parent) :
     QGraphicsView(parent),
     d(new PLECanvasPrivate)
 {
@@ -170,7 +170,7 @@ void PLECanvas::setSelectionMode(SelectionMode mode)
         m_selection_mode = mode;
 }
 
-LayersModel * PLECanvas::model() const
+LayersModel* PLECanvas::model() const
 {
     return m_scene->model();
 }
@@ -271,7 +271,7 @@ void PLECanvas::addImages(const QList<QUrl> & images)
     ilt->start();
 }
 
-void PLECanvas::addText(const QString & text)
+void PLECanvas::addText(const QString& text)
 {
     // Create & setup item
     TextItem * it = new TextItem(text);
@@ -280,7 +280,7 @@ void PLECanvas::addText(const QString & text)
     m_scene->addItem(it);
 }
 
-void PLECanvas::addNewItem(AbstractPhoto * item)
+void PLECanvas::addNewItem(AbstractPhoto* item)
 {
     if (!item)
         return;
@@ -312,7 +312,7 @@ void PLECanvas::imageLoaded(const QUrl & url, const QImage & image)
     }
 }
 
-void PLECanvas::moveRowsCommand(const QModelIndex & startIndex, int count, const QModelIndex & parentIndex, int move, const QModelIndex & destinationParent)
+void PLECanvas::moveRowsCommand(const QModelIndex& startIndex, int count, const QModelIndex& parentIndex, int move, const QModelIndex& destinationParent)
 {
     int destination = startIndex.row();
     if (move > 0)
@@ -441,7 +441,7 @@ void PLECanvas::moveSelectedRowsDown()
     this->selectionChanged();
 }
 
-void PLECanvas::removeItem(AbstractPhoto * item)
+void PLECanvas::removeItem(AbstractPhoto* item)
 {
     if (item)
         m_scene->removeItem(item);
@@ -483,7 +483,7 @@ void PLECanvas::selectionChanged()
     {
         if (selectedItems.count() == 1)
         {
-            AbstractPhoto * item = selectedItems.at(0);
+            AbstractPhoto* item = selectedItems.at(0);
             emit hasSelectionChanged(true);
             emit selectedItem(item);
         }
@@ -499,9 +499,9 @@ void PLECanvas::selectionChanged()
 
 void PLECanvas::selectionChanged(const QItemSelection & newSelection, const QItemSelection & oldSelection)
 {
-    LayersModelItem * temp;
-    const QModelIndexList & oldSel = oldSelection.indexes();
-    const QModelIndexList & newSel = newSelection.indexes();
+    LayersModelItem* temp;
+    const QModelIndexList& oldSel = oldSelection.indexes();
+    const QModelIndexList& newSel = newSelection.indexes();
     QSet<QModelIndex> deselected = oldSel.toSet().subtract(newSel.toSet());
     foreach(QModelIndex index, deselected)
     {
@@ -726,7 +726,7 @@ QDomDocument PLECanvas::toSvg() const
     return result;
 }
 
-PLECanvas * PLECanvas::fromSvg(QDomDocument & document)
+PLECanvas * PLECanvas::fromSvg(QDomDocument& document)
 {
     PLECanvas * result = nullptr;
     QDomNodeList children = document.childNodes();

@@ -35,7 +35,7 @@ namespace PhotoLayoutsEditor
     {
         public:
 
-            explicit PLESceneBorderLoader(PLESceneBorder * border, QDomElement & element, QObject * parent = nullptr);
+            explicit PLESceneBorderLoader(PLESceneBorder * border, QDomElement& element, QObject* parent = nullptr);
 
         protected:
 
@@ -44,7 +44,7 @@ namespace PhotoLayoutsEditor
         private:
 
             PLESceneBorder * m_border;
-            QDomElement & m_element;
+            QDomElement& m_element;
     };
 }
 

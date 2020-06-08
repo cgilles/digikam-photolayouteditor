@@ -49,13 +49,13 @@ namespace PhotoLayoutsEditor
 PhotoEffectsLoader * PhotoEffectsLoader::m_instance = nullptr;
 QMap<QString, AbstractPhotoEffectFactory*> PhotoEffectsLoader::registeredEffects;
 
-PhotoEffectsLoader::PhotoEffectsLoader(QObject * parent) :
+PhotoEffectsLoader::PhotoEffectsLoader(QObject* parent) :
     QObject(parent),
     m_effect(nullptr)
 {
 }
 
-PhotoEffectsLoader * PhotoEffectsLoader::instance(QObject * parent)
+PhotoEffectsLoader * PhotoEffectsLoader::instance(QObject* parent)
 {
     if (m_instance)
     {
@@ -71,7 +71,7 @@ PhotoEffectsGroup * PhotoEffectsLoader::group() const
     return qobject_cast<PhotoEffectsGroup*>(this->parent());
 }
 
-AbstractPhoto * PhotoEffectsLoader::photo() const
+AbstractPhoto* PhotoEffectsLoader::photo() const
 {
     PhotoEffectsGroup * tempGroup = this->group();
     if (tempGroup)
@@ -96,12 +96,12 @@ QStringList PhotoEffectsLoader::registeredEffectsNames()
     return registeredEffects.keys();
 }
 
-AbstractPhotoEffectFactory * PhotoEffectsLoader::getFactoryByName(const QString & name)
+AbstractPhotoEffectFactory * PhotoEffectsLoader::getFactoryByName(const QString& name)
 {
     return registeredEffects.value(name, nullptr);
 }
 
-AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectByName(const QString & effectName)
+AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectByName(const QString& effectName)
 {
     AbstractPhotoEffectFactory * factory = PhotoEffectsLoader::registeredEffects[effectName];
     if (factory)
@@ -130,7 +130,7 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
     QtVariantPropertyManager * variantManager = nullptr;
     PLEVariantEditorFactory * variantFactory = nullptr;
 
-    const QMetaObject * meta = effect->metaObject();
+    const QMetaObject* meta = effect->metaObject();
     int propertiesCount = meta->propertyCount();
     for (int i = 0; i < propertiesCount; ++i)
     {
@@ -204,11 +204,11 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
     return browser;
 }
 
-QDomElement PhotoEffectsLoader::effectToSvg(AbstractPhotoEffectInterface * effect, QDomDocument & document)
+QDomElement PhotoEffectsLoader::effectToSvg(AbstractPhotoEffectInterface * effect, QDomDocument& document)
 {
     QDomElement element = document.createElement(QLatin1String("effect"));
     element.setAttribute(QLatin1String("name"), effect->name());
-    const QMetaObject * meta = effect->metaObject();
+    const QMetaObject* meta = effect->metaObject();
     int count = meta->propertyCount();
     for (int i = 0; i < count; ++i)
     {
@@ -218,7 +218,7 @@ QDomElement PhotoEffectsLoader::effectToSvg(AbstractPhotoEffectInterface * effec
     return element;
 }
 
-AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectFromSvg(QDomElement & element)
+AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectFromSvg(QDomElement& element)
 {
     if ( element.tagName() != QLatin1String("effect"))
         return nullptr;
@@ -235,7 +235,7 @@ AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectFromSvg(QDomElement 
     if ( !instance()->registeredEffectsNames().contains( effectName ) )
         return nullptr;
     AbstractPhotoEffectInterface * result = instance()->getEffectByName( effectName );
-    const QMetaObject * meta = result->metaObject();
+    const QMetaObject* meta = result->metaObject();
     int count = meta->propertyCount();
     for (int i = 0; i < count; ++i)
     {

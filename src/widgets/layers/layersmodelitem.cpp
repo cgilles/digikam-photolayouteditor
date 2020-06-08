@@ -39,10 +39,10 @@
 namespace PhotoLayoutsEditor
 {
 
-LayersModelItem::LayersModelItem(AbstractPhoto * photo, LayersModelItem * parent, LayersModel * model) :
-    parentItem(nullptr),
-    itemPhoto(photo),
-    itemModel(model)
+LayersModelItem::LayersModelItem(AbstractPhoto* photo, LayersModelItem* parent, LayersModel* model)
+    : parentItem(nullptr),
+      itemPhoto(photo),
+      itemModel(model)
 {
     if (parent != this)
     {
@@ -54,17 +54,17 @@ LayersModelItem::LayersModelItem(AbstractPhoto * photo, LayersModelItem * parent
 
 LayersModelItem::~LayersModelItem()
 {
-    foreach(LayersModelItem* child, childItems)
+    foreach(LayersModelItem* const child, childItems)
         delete child;
 }
 
-void LayersModelItem::removeChild(LayersModelItem * child)
+void LayersModelItem::removeChild(LayersModelItem* child)
 {
     if (child && child->parent() == this)
         child->setParent(nullptr);
 }
 
-LayersModelItem * LayersModelItem::parent() const
+LayersModelItem* LayersModelItem::parent() const
 {
     return parentItem;
 }
@@ -86,12 +86,12 @@ int LayersModelItem::childCount() const
     return childItems.count();
 }
 
-LayersModelItem * LayersModelItem::child(int row) const
+LayersModelItem* LayersModelItem::child(int row) const
 {
     return childItems.value(row);
 }
 
-void LayersModelItem::setParent(LayersModelItem * parent)
+void LayersModelItem::setParent(LayersModelItem* parent)
 {
     if (parent == this->parentItem)
         return;
@@ -103,7 +103,7 @@ void LayersModelItem::setParent(LayersModelItem * parent)
     this->QObject::setParent(parent);
 }
 
-void LayersModelItem::setData(const QList<QVariant> & data)
+void LayersModelItem::setData(const QList<QVariant>& data)
 {
     int i = 0;
     for (QList<QVariant>::const_iterator it = data.begin(); it != data.end(); ++it)
@@ -113,7 +113,7 @@ void LayersModelItem::setData(const QList<QVariant> & data)
     }
 }
 
-bool LayersModelItem::setData(const QVariant & data, int type)
+bool LayersModelItem::setData(const QVariant& data, int type)
 {
     if (type >= COLUMN_COUNT || !this->itemPhoto)
         return false;
@@ -132,7 +132,7 @@ void LayersModelItem::updateData()
     }
 }
 
-void LayersModelItem::setPhoto(AbstractPhoto * photo)
+void LayersModelItem::setPhoto(AbstractPhoto* photo)
 {
     if (itemPhoto)
         disconnect(itemPhoto, SIGNAL(updated()), this, nullptr);
@@ -151,7 +151,7 @@ void LayersModelItem::setPhoto(AbstractPhoto * photo)
     }
 }
 
-AbstractPhoto * LayersModelItem::photo() const
+AbstractPhoto* LayersModelItem::photo() const
 {
     return this->itemPhoto;
 }
@@ -174,7 +174,7 @@ QList<QVariant> LayersModelItem::data() const
     return result;
 }
 
-bool LayersModelItem::insertChildren(int position, LayersModelItem * item)
+bool LayersModelItem::insertChildren(int position, LayersModelItem* item)
 {
     if (position < 0 || position > childItems.size())
         return false;
@@ -197,7 +197,7 @@ bool LayersModelItem::removeChildren(int position, int count)
     return true;
 }
 
-bool LayersModelItem::moveChildren(int sourcePosition, int count, LayersModelItem * destParent, int destPosition)
+bool LayersModelItem::moveChildren(int sourcePosition, int count, LayersModelItem* destParent, int destPosition)
 {
     if (!count || (sourcePosition < destPosition && sourcePosition+count-1 >= destPosition) || !destParent)
         return false;
@@ -219,7 +219,7 @@ void LayersModelItem::refreshZValues()
     int i = childItems.count();
     foreach(LayersModelItem* item, childItems)
     {
-        AbstractPhoto * photo = item->photo();
+        AbstractPhoto* photo = item->photo();
         if (photo)
             photo->setZValue(i);
         --i;

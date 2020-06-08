@@ -28,7 +28,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-TextFontChangeListener::TextFontChangeListener(TextItem * item, QObject * parent) :
+TextFontChangeListener::TextFontChangeListener(TextItem * item, QObject* parent) :
     QObject(parent),
     m_item(item)
 {}

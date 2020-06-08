@@ -49,7 +49,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit TextItem(const QString & text = QString(), PLEScene * scene = nullptr);
+            explicit TextItem(const QString& text = QString(), PLEScene * scene = nullptr);
             virtual void focusInEvent(QFocusEvent *event) override;
             virtual void focusOutEvent(QFocusEvent *event) override;
             virtual void keyPressEvent(QKeyEvent * event) override;
@@ -68,7 +68,7 @@ namespace PhotoLayoutsEditor
             void setText(const QStringList & textList);
 
             QString textMultiline() const;
-            void setText(const QString & text);
+            void setText(const QString& text);
 
             virtual QPainterPath itemShape() const override;
             virtual QPainterPath itemOpaqueArea() const override;
@@ -80,7 +80,7 @@ namespace PhotoLayoutsEditor
             virtual QDomDocument toTemplateSvg() const override;
             virtual QDomDocument svgVisibleArea() const override;
             virtual QDomDocument svgTemplateArea() const override;
-            static TextItem * fromSvg(QDomElement & element);
+            static TextItem * fromSvg(QDomElement& element);
 
             /// Returns item's property browser
             virtual QtAbstractPropertyBrowser * propertyBrowser() override;
@@ -88,7 +88,7 @@ namespace PhotoLayoutsEditor
         private:
 
             virtual void refreshItem() override;
-            QPainterPath getLinePath(const QString & string);
+            QPainterPath getLinePath(const QString& string);
             void setCursorPositionVisible(bool isVisible);
             void updateIcon();
 
@@ -113,8 +113,8 @@ namespace PhotoLayoutsEditor
                 void removeTextAfter();
                 void removeTextBefore();
                 void addNewLine();
-                void addText(const QString & text);
-                void addText(int row, int at, const QString & text);
+                void addText(const QString& text);
+                void addText(int row, int at, const QString& text);
                 void removeText(int row, int at, int length);
                 void closeEditor();
 

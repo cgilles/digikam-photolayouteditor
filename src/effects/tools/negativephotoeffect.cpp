@@ -27,7 +27,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-NegativePhotoEffect::NegativePhotoEffect(StandardEffectsFactory * factory, QObject * parent) :
+NegativePhotoEffect::NegativePhotoEffect(StandardEffectsFactory * factory, QObject* parent) :
     AbstractPhotoEffectInterface(factory, parent)
 {
 }

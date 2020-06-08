@@ -41,7 +41,7 @@ void AbstractPhotoPrivate::setCropShape(const QPainterPath& cropShape)
     m_item->refresh();
 }
 
-QPainterPath & AbstractPhotoPrivate::cropShape()
+QPainterPath& AbstractPhotoPrivate::cropShape()
 {
     return m_crop_shape;
 }

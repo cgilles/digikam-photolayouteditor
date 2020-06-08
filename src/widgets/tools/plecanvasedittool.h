@@ -42,14 +42,14 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit PLECanvasEditTool(PLEScene * scene, QWidget * parent = nullptr);
+            explicit PLECanvasEditTool(PLEScene * scene, QWidget* parent = nullptr);
             virtual ~PLECanvasEditTool();
 
         Q_SIGNALS:
 
         public Q_SLOTS:
 
-            void backgroundTypeChanged(const QString & typeName);
+            void backgroundTypeChanged(const QString& typeName);
 
         protected:
 
@@ -76,7 +76,7 @@ namespace PhotoLayoutsEditor
             // Image background
             void imageUrlRequest();
             void borderImageUrlRequest();
-            void imageScallingChanged(const QString & scallingName);
+            void imageScallingChanged(const QString& scallingName);
             void imageTiledChanged(int state);
             void imageHorizontalAlignmentChanged(int index);
             void imageVerticalAlignmentChanged(int index);
