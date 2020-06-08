@@ -42,7 +42,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit PLECanvasEditTool(Scene * scene, QWidget * parent = nullptr);
+            explicit PLECanvasEditTool(PLEScene * scene, QWidget * parent = nullptr);
             virtual ~PLECanvasEditTool();
 
         Q_SIGNALS:

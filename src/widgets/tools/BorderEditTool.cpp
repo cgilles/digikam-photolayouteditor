@@ -42,7 +42,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-BorderEditTool::BorderEditTool(Scene * scene, QWidget * parent) :
+BorderEditTool::BorderEditTool(PLEScene * scene, QWidget * parent) :
     AbstractItemsListViewTool(QObject::tr("Borders editor"), scene, PLECanvas::SingleSelcting, parent)
 {
 }

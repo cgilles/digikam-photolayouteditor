@@ -38,8 +38,8 @@ namespace PhotoLayoutsEditor
 {
 
 class AbstractPhoto;
-class SceneBackground;
-class SceneBorder;
+class PLESceneBackground;
+class PLESceneBorder;
 
 class PLECanvasLoadingThread : public QThread, public ProgressObserver
 {
@@ -53,8 +53,8 @@ public:
     virtual void progresChanged(double progress) override;
     virtual void progresName(const QString& name) override;
     void addItem(AbstractPhoto* item, QDomElement& element);
-    void addBackground(SceneBackground* background, QDomElement& element);
-    void addBorder(SceneBorder* border, QDomElement& element);
+    void addBackground(PLESceneBackground* background, QDomElement& element);
+    void addBorder(PLESceneBorder* border, QDomElement& element);
 
 protected:
 

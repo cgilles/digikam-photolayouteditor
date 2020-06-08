@@ -31,7 +31,7 @@
 
 // Local includes
 
-#include "Scene.h"
+#include "plescene.h"
 #include "plecanvas.h"
 #include "ToolsDockWidget.h"
 
@@ -43,26 +43,26 @@ namespace PhotoLayoutsEditor
     {
             Q_OBJECT
 
-            Scene * m_scene;
+            PLEScene * m_scene;
 
             PLECanvas::SelectionMode sel_mode;
 
         public:
 
-            AbstractTool(Scene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent = nullptr) :
+            AbstractTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent = nullptr) :
                 QWidget(parent),
                 m_scene(scene),
                 sel_mode(selectionMode)
             {}
 
-            Scene * scene() const
+            PLEScene * scene() const
             {
                 return m_scene;
             }
 
         protected:
 
-            void setScene(Scene * scene)
+            void setScene(PLEScene * scene)
             {
                 if (m_scene == scene)
                     return;

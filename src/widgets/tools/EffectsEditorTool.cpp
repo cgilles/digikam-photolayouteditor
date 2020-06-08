@@ -39,7 +39,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-EffectsEditorTool::EffectsEditorTool(Scene * scene, QWidget * parent) :
+EffectsEditorTool::EffectsEditorTool(PLEScene * scene, QWidget * parent) :
     AbstractItemsListViewTool(QObject::tr("Effects"), scene, PLECanvas::SingleSelcting, parent)
 {
 }

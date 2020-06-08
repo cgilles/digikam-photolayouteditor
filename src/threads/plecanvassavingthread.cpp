@@ -34,7 +34,7 @@
 // Local includes
 
 #include "plecanvas_p.h"
-#include "Scene.h"
+#include "plescene.h"
 #include "ProgressEvent.h"
 #include "plewindow.h"
 
@@ -146,7 +146,7 @@ void PLECanvasSavingThread::run()
 
     //---------------------------------------------------------------------------
 
-    Scene* const scene = dynamic_cast<Scene*>(m_canvas->scene());
+    PLEScene* const scene = dynamic_cast<PLEScene*>(m_canvas->scene());
 
     if (!scene)
     {

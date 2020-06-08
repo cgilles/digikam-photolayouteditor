@@ -49,7 +49,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit TextItem(const QString & text = QString(), Scene * scene = nullptr);
+            explicit TextItem(const QString & text = QString(), PLEScene * scene = nullptr);
             virtual void focusInEvent(QFocusEvent *event) override;
             virtual void focusOutEvent(QFocusEvent *event) override;
             virtual void keyPressEvent(QKeyEvent * event) override;

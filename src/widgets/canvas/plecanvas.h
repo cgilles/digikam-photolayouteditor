@@ -50,7 +50,7 @@ namespace PhotoLayoutsEditor
 
 class PLECanvasPrivate;
 class PLECanvasSavingThread;
-class Scene;
+class PLEScene;
 class LayersModel;
 class LayersSelectionModel;
 class AbstractPhoto;
@@ -103,7 +103,7 @@ public:
     /// Set selection mode
     void setSelectionMode(SelectionMode mode);
 
-    Scene* scene() const
+    PLEScene* scene() const
     {
         return m_scene;
     }
@@ -122,7 +122,7 @@ public:
 
     void preparePrinter(QPrinter* printer);
 
-    operator Scene*()
+    operator PLEScene*()
     {
         return m_scene;
     }
@@ -254,7 +254,7 @@ private Q_SLOTS:
 
 private:
 
-    explicit PLECanvas(Scene* scene, QWidget* parent = nullptr);
+    explicit PLECanvas(PLEScene* scene, QWidget* parent = nullptr);
 
     void init();
     void setupGUI();
@@ -266,7 +266,7 @@ private:
     bool          m_is_saved;
     int           m_saved_on_index;
 
-    Scene*        m_scene;
+    PLEScene*        m_scene;
     QUndoStack*   m_undo_stack;
     double        m_scale_factor;
 

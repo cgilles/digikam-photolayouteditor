@@ -270,7 +270,7 @@ QUrl & PhotoItem::PhotoItemPrivate::fileUrl()
     return m_file_path;
 }
 
-PhotoItem::PhotoItem(const QImage & photo, const QString & name, Scene * scene) :
+PhotoItem::PhotoItem(const QImage & photo, const QString & name, PLEScene * scene) :
     AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))
@@ -278,7 +278,7 @@ PhotoItem::PhotoItem(const QImage & photo, const QString & name, Scene * scene) 
     setupItem(photo);
 }
 
-PhotoItem::PhotoItem(const QPainterPath& shape, const QString& name, Scene* scene)
+PhotoItem::PhotoItem(const QPainterPath& shape, const QString& name, PLEScene* scene)
     : AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
       m_highlight(false),
       d(new PhotoItemPrivate(this)),
@@ -287,7 +287,7 @@ PhotoItem::PhotoItem(const QPainterPath& shape, const QString& name, Scene* scen
     refresh();
 }
 
-PhotoItem::PhotoItem(const QString & name, Scene * scene) :
+PhotoItem::PhotoItem(const QString & name, PLEScene * scene) :
     AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))

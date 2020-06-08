@@ -31,9 +31,9 @@
 
 namespace PhotoLayoutsEditor
 {
-    class SceneBorderLoader;
+    class PLESceneBorderLoader;
 
-    class SceneBorder : public QObject, public QGraphicsItem
+    class PLESceneBorder : public QObject, public QGraphicsItem
     {
             Q_OBJECT
             Q_INTERFACES(QGraphicsItem)
@@ -52,7 +52,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit SceneBorder(QGraphicsScene * scene = nullptr);
+            explicit PLESceneBorder(QGraphicsScene * scene = nullptr);
             virtual QRectF boundingRect() const override;
 
             void setImage(const QImage & image);
@@ -85,7 +85,7 @@ namespace PhotoLayoutsEditor
 
             void sceneRectChanged(const QRectF & sceneRect);
 
-        friend class SceneBorderLoader;
+        friend class PLESceneBorderLoader;
         friend class BorderImageChangedCommand;
         friend class BorderFirstBrushChangeCommand;
         friend class BorderSecondBrushChangeCommand;

@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "SceneBackground.h"
+#include "plescenebackground.h"
 #include "pleglobal.h"
 
 // C++ std includes
@@ -41,17 +41,17 @@
 
 using namespace PhotoLayoutsEditor;
 
-class PhotoLayoutsEditor::SceneBackground::BackgroundImageChangedCommand : public QUndoCommand
+class PhotoLayoutsEditor::PLESceneBackground::BackgroundImageChangedCommand : public QUndoCommand
 {
     QImage m_image;
     Qt::Alignment m_alignment;
     Qt::AspectRatioMode m_aspect_ratio;
     QSize m_size;
     bool m_repeat;
-    SceneBackground * m_backgropund_item;
+    PLESceneBackground * m_backgropund_item;
 public:
 
-    BackgroundImageChangedCommand(const QImage & image, Qt::Alignment alignment, const QSize & size, bool repeat, SceneBackground * backgroundItem, QUndoCommand * parent = nullptr) :
+    BackgroundImageChangedCommand(const QImage & image, Qt::Alignment alignment, const QSize & size, bool repeat, PLESceneBackground * backgroundItem, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_image(image),
         m_alignment(alignment),
@@ -62,7 +62,7 @@ public:
     {
     }
 
-    BackgroundImageChangedCommand(const QImage & image, Qt::Alignment alignment, Qt::AspectRatioMode aspectRatio, bool repeat, SceneBackground * backgroundItem, QUndoCommand * parent = nullptr) :
+    BackgroundImageChangedCommand(const QImage & image, Qt::Alignment alignment, Qt::AspectRatioMode aspectRatio, bool repeat, PLESceneBackground * backgroundItem, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_image(image),
         m_alignment(alignment),
@@ -107,12 +107,12 @@ public:
         m_backgropund_item->update();
     }
 };
-class PhotoLayoutsEditor::SceneBackground::BackgroundFirstBrushChangeCommand : public QUndoCommand
+class PhotoLayoutsEditor::PLESceneBackground::BackgroundFirstBrushChangeCommand : public QUndoCommand
 {
     QBrush m_brush;
-    SceneBackground * m_background;
+    PLESceneBackground * m_background;
 public:
-    BackgroundFirstBrushChangeCommand(const QBrush & brush, SceneBackground * background, QUndoCommand * parent = nullptr) :
+    BackgroundFirstBrushChangeCommand(const QBrush & brush, PLESceneBackground * background, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_brush(brush),
         m_background(background)
@@ -135,12 +135,12 @@ public:
         m_background->update();
     }
 };
-class PhotoLayoutsEditor::SceneBackground::BackgroundSecondBrushChangeCommand : public QUndoCommand
+class PhotoLayoutsEditor::PLESceneBackground::BackgroundSecondBrushChangeCommand : public QUndoCommand
 {
     QBrush m_brush;
-    SceneBackground * m_background;
+    PLESceneBackground * m_background;
 public:
-    BackgroundSecondBrushChangeCommand(const QBrush & brush, SceneBackground * background, QUndoCommand * parent = nullptr) :
+    BackgroundSecondBrushChangeCommand(const QBrush & brush, PLESceneBackground * background, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_brush(brush),
         m_background(background)
@@ -164,7 +164,7 @@ public:
     }
 };
 
-SceneBackground::SceneBackground(QGraphicsScene * scene) :
+PLESceneBackground::PLESceneBackground(QGraphicsScene * scene) :
     QGraphicsItem(nullptr),
     m_first_brush(Qt::transparent),
     m_second_brush(Qt::transparent)
@@ -175,12 +175,12 @@ SceneBackground::SceneBackground(QGraphicsScene * scene) :
     sceneChanged();
 }
 
-QRectF SceneBackground::boundingRect() const
+QRectF PLESceneBackground::boundingRect() const
 {
     return m_rect;
 }
 
-void SceneBackground::setSecondColor(const QColor & color)
+void PLESceneBackground::setSecondColor(const QColor & color)
 {
     bool colorChanged = (m_second_brush.color() != color);
     bool patternChanged = (m_second_brush.style() != Qt::SolidPattern);
@@ -191,7 +191,7 @@ void SceneBackground::setSecondColor(const QColor & color)
     }
 }
 
-void SceneBackground::setSolidColor(const QColor & color)
+void PLESceneBackground::setSolidColor(const QColor & color)
 {
     bool colorChanged = (m_first_brush.color() != color);
     bool patternChaged = (m_first_brush.style() != Qt::SolidPattern);
@@ -215,7 +215,7 @@ void SceneBackground::setSolidColor(const QColor & color)
         PLE_PostUndoCommand(command);
 }
 
-void SceneBackground::setPattern(const QColor & firstColor, const QColor & secondColor, Qt::BrushStyle patternStyle)
+void PLESceneBackground::setPattern(const QColor & firstColor, const QColor & secondColor, Qt::BrushStyle patternStyle)
 {
     bool color1Changed = (firstColor != m_first_brush.color() || patternStyle != m_first_brush.style());
     bool color2Changed = (secondColor != m_second_brush.color() || m_second_brush.style() != Qt::SolidPattern);
@@ -236,7 +236,7 @@ void SceneBackground::setPattern(const QColor & firstColor, const QColor & secon
         PLE_PostUndoCommand(command);
 }
 
-void SceneBackground::setImage(const QImage & image, const QColor & backgroundColor, Qt::Alignment align, Qt::AspectRatioMode aspectRatio, bool repeat)
+void PLESceneBackground::setImage(const QImage & image, const QColor & backgroundColor, Qt::Alignment align, Qt::AspectRatioMode aspectRatio, bool repeat)
 {
     bool imageChanged = (m_first_brush.textureImage() != image ||
                          m_first_brush.style() != Qt::TexturePattern ||
@@ -262,7 +262,7 @@ void SceneBackground::setImage(const QImage & image, const QColor & backgroundCo
         PLE_PostUndoCommand(command);
 }
 
-void SceneBackground::setImage(const QImage & image, const QColor & backgroundColor, Qt::Alignment align, const QSize & fixedSize, bool repeat)
+void PLESceneBackground::setImage(const QImage & image, const QColor & backgroundColor, Qt::Alignment align, const QSize & fixedSize, bool repeat)
 {
     bool imageChanged = (m_first_brush.textureImage() != image ||
                          m_first_brush.style() != Qt::TexturePattern ||
@@ -288,29 +288,29 @@ void SceneBackground::setImage(const QImage & image, const QColor & backgroundCo
         PLE_PostUndoCommand(command);
 }
 
-bool SceneBackground::isColor() const
+bool PLESceneBackground::isColor() const
 {
     return m_first_brush.style() == Qt::SolidPattern;
 }
 
-bool SceneBackground::isGradient() const
+bool PLESceneBackground::isGradient() const
 {
     return m_first_brush.style() == Qt::LinearGradientPattern ||
            m_first_brush.style() == Qt::RadialGradientPattern ||
            m_first_brush.style() == Qt::ConicalGradientPattern;
 }
 
-bool SceneBackground::isImage() const
+bool PLESceneBackground::isImage() const
 {
     return m_first_brush.style() == Qt::TexturePattern;
 }
 
-bool SceneBackground::isPattern() const
+bool PLESceneBackground::isPattern() const
 {
     return !(isColor() || isGradient() || isImage());
 }
 
-QDomElement SceneBackground::toSvg(QDomDocument & document) const
+QDomElement PLESceneBackground::toSvg(QDomDocument & document) const
 {
     QDomElement result = document.createElement(QLatin1String("g"));
     result.setAttribute(QLatin1String("id"), QLatin1String("background"));
@@ -431,7 +431,7 @@ QDomElement SceneBackground::toSvg(QDomDocument & document) const
     return result;
 }
 
-bool SceneBackground::fromSvg(QDomElement & element)
+bool PLESceneBackground::fromSvg(QDomElement & element)
 {
     QDomNodeList list = element.childNodes();
     QDomElement background;
@@ -520,47 +520,47 @@ bool SceneBackground::fromSvg(QDomElement & element)
     return true;
 }
 
-QColor SceneBackground::firstColor() const
+QColor PLESceneBackground::firstColor() const
 {
     return m_first_brush.color();
 }
 
-QColor SceneBackground::secondColor() const
+QColor PLESceneBackground::secondColor() const
 {
     return m_second_brush.color();
 }
 
-Qt::BrushStyle SceneBackground::pattern() const
+Qt::BrushStyle PLESceneBackground::pattern() const
 {
     return m_first_brush.style();
 }
 
-QImage SceneBackground::image() const
+QImage PLESceneBackground::image() const
 {
     return m_image;
 }
 
-Qt::Alignment SceneBackground::imageAlignment() const
+Qt::Alignment PLESceneBackground::imageAlignment() const
 {
     return m_image_align;
 }
 
-Qt::AspectRatioMode SceneBackground::imageAspectRatio() const
+Qt::AspectRatioMode PLESceneBackground::imageAspectRatio() const
 {
     return m_image_aspect_ratio;
 }
 
-QSize SceneBackground::imageSize() const
+QSize PLESceneBackground::imageSize() const
 {
     return m_image_size;
 }
 
-bool SceneBackground::imageRepeated() const
+bool PLESceneBackground::imageRepeated() const
 {
     return m_image_repeat;
 }
 
-QVariant SceneBackground::itemChange(GraphicsItemChange change, const QVariant &value)
+QVariant PLESceneBackground::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     switch(change)
     {
@@ -577,7 +577,7 @@ QVariant SceneBackground::itemChange(GraphicsItemChange change, const QVariant &
     return QGraphicsItem::itemChange(change, value);
 }
 
-void SceneBackground::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * /*widget*/)
+void PLESceneBackground::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * /*widget*/)
 {
     if (!m_rect.isValid())
         return;
@@ -585,7 +585,7 @@ void SceneBackground::paint(QPainter * painter, const QStyleOptionGraphicsItem *
     painter->drawImage(QPoint(0,0), m_temp_image, option->exposedRect);
 }
 
-void SceneBackground::render(QPainter * painter, const QRect & rect)
+void PLESceneBackground::render(QPainter * painter, const QRect & rect)
 {
     if (!rect.isValid())
         return;
@@ -617,7 +617,7 @@ void SceneBackground::render(QPainter * painter, const QRect & rect)
     painter->fillRect(r, m_first_brush);
 }
 
-void SceneBackground::render()
+void PLESceneBackground::render()
 {
     this->m_temp_image.fill(Qt::transparent);
     QPainter p(&this->m_temp_image);
@@ -626,7 +626,7 @@ void SceneBackground::render()
     emit changed();
 }
 
-void SceneBackground::sceneChanged()
+void PLESceneBackground::sceneChanged()
 {
     if (scene())
     {
@@ -637,7 +637,7 @@ void SceneBackground::sceneChanged()
         sceneRectChanged(QRectF());
 }
 
-void SceneBackground::sceneRectChanged(const QRectF & sceneRect)
+void PLESceneBackground::sceneRectChanged(const QRectF & sceneRect)
 {
     if (sceneRect.isValid())
     {

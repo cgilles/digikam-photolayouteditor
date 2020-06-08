@@ -44,7 +44,7 @@ class ZoomTool::ZoomToolPrivate
     friend class ZoomTool;
 };
 
-ZoomTool::ZoomTool(Scene * scene, QWidget * parent) :
+ZoomTool::ZoomTool(PLEScene * scene, QWidget * parent) :
     AbstractTool(scene, PLECanvas::Viewing, parent),
     d(new ZoomToolPrivate)
 {
@@ -70,32 +70,32 @@ ZoomTool::ZoomTool(Scene * scene, QWidget * parent) :
 
 ZoomTool::~ZoomTool()
 {
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
-    scene->readSceneMousePress(nullptr);
+    scene->readPLESceneMousePress(nullptr);
     delete d;
 }
 
 void ZoomTool::sceneChange()
 {
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
-    scene->readSceneMousePress(nullptr);
+    scene->readPLESceneMousePress(nullptr);
 }
 
 void ZoomTool::sceneChanged()
 {
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
-    scene->readSceneMousePress( d->listener );
+    scene->readPLESceneMousePress( d->listener );
 }
 
 void ZoomTool::zoom(const QPointF & point)
 {
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
     QList<QGraphicsView*> views = scene->views();

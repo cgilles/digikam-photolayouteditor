@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "SceneBorder.h"
+#include "plesceneborder.h"
 
 // C++ std includes
 
@@ -42,14 +42,14 @@
 
 using namespace PhotoLayoutsEditor;
 
-class PhotoLayoutsEditor::SceneBorder::BorderImageChangedCommand : public QUndoCommand
+class PhotoLayoutsEditor::PLESceneBorder::BorderImageChangedCommand : public QUndoCommand
 {
     QImage       m_image;
-    SceneBorder* m_backgropund_item;
+    PLESceneBorder* m_backgropund_item;
 
 public:
 
-    BorderImageChangedCommand(const QImage & image, SceneBorder * borderItem, QUndoCommand * parent = nullptr) :
+    BorderImageChangedCommand(const QImage & image, PLESceneBorder * borderItem, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Border Change"), parent),
         m_image(image),
         m_backgropund_item(borderItem)
@@ -75,7 +75,7 @@ public:
     }
 };
 
-SceneBorder::SceneBorder(QGraphicsScene * scene) :
+PLESceneBorder::PLESceneBorder(QGraphicsScene * scene) :
     QGraphicsItem(nullptr)
 {
     scene->addItem(this);
@@ -84,12 +84,12 @@ SceneBorder::SceneBorder(QGraphicsScene * scene) :
     sceneChanged();
 }
 
-QRectF SceneBorder::boundingRect() const
+QRectF PLESceneBorder::boundingRect() const
 {
     return m_rect;
 }
 
-void SceneBorder::setImage(const QImage & image)
+void PLESceneBorder::setImage(const QImage & image)
 {
     bool imageChanged = m_image != image;
 
@@ -101,7 +101,7 @@ void SceneBorder::setImage(const QImage & image)
     PLE_PostUndoCommand(command);
 }
 
-QDomElement SceneBorder::toSvg(QDomDocument & document) const
+QDomElement PLESceneBorder::toSvg(QDomDocument & document) const
 {
     QDomElement result = document.createElement(QLatin1String("g"));
     result.setAttribute(QLatin1String("id"), QLatin1String("border"));
@@ -140,7 +140,7 @@ QDomElement SceneBorder::toSvg(QDomDocument & document) const
     return result;
 }
 
-bool SceneBorder::fromSvg(QDomElement & /*element*/)
+bool PLESceneBorder::fromSvg(QDomElement & /*element*/)
 {
 /*    QDomNodeList list = element.childNodes();
     QDomElement border;
@@ -229,17 +229,17 @@ bool SceneBorder::fromSvg(QDomElement & /*element*/)
     return true;
 }
 
-QImage SceneBorder::image() const
+QImage PLESceneBorder::image() const
 {
     return m_image;
 }
 
-QSize SceneBorder::imageSize() const
+QSize PLESceneBorder::imageSize() const
 {
     return m_image.size();
 }
 
-QVariant SceneBorder::itemChange(GraphicsItemChange change, const QVariant &value)
+QVariant PLESceneBorder::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     switch(change)
     {
@@ -256,7 +256,7 @@ QVariant SceneBorder::itemChange(GraphicsItemChange change, const QVariant &valu
     return QGraphicsItem::itemChange(change, value);
 }
 
-void SceneBorder::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * /*widget*/)
+void PLESceneBorder::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * /*widget*/)
 {
     if (m_temp_image.isNull() || !m_rect.isValid())
         return;
@@ -264,7 +264,7 @@ void SceneBorder::paint(QPainter * painter, const QStyleOptionGraphicsItem * opt
     painter->drawImage(QPoint(0,0), m_temp_image, option->exposedRect);
 }
 
-void SceneBorder::render(QPainter * painter, const QRect & rect)
+void PLESceneBorder::render(QPainter * painter, const QRect & rect)
 {
     if (rect.isValid())
     {
@@ -272,7 +272,7 @@ void SceneBorder::render(QPainter * painter, const QRect & rect)
     }
 }
 
-void SceneBorder::render()
+void PLESceneBorder::render()
 {
     if (m_rect.isValid())
     {
@@ -282,7 +282,7 @@ void SceneBorder::render()
     }
 }
 
-void SceneBorder::sceneChanged()
+void PLESceneBorder::sceneChanged()
 {
     if (scene())
     {
@@ -293,7 +293,7 @@ void SceneBorder::sceneChanged()
         sceneRectChanged(QRectF());
 }
 
-void SceneBorder::sceneRectChanged(const QRectF & sceneRect)
+void PLESceneBorder::sceneRectChanged(const QRectF & sceneRect)
 {
     if (sceneRect.isValid())
     {

@@ -37,7 +37,7 @@
 
 // Local includes
 
-#include "Scene.h"
+#include "plescene.h"
 #include "LayersModel.h"
 #include "LayersModelItem.h"
 #include "LayersSelectionModel.h"
@@ -61,11 +61,11 @@ PLECanvas::PLECanvas(const PLECanvasSize & size, QWidget * parent) :
     d(new PLECanvasPrivate)
 {
     d->m_size = size;
-    m_scene = new Scene(QRectF(QPointF(0,0), d->m_size.size(PLECanvasSize::Pixels)), this);
+    m_scene = new PLEScene(QRectF(QPointF(0,0), d->m_size.size(PLECanvasSize::Pixels)), this);
     this->init();
 }
 
-PLECanvas::PLECanvas(Scene * scene, QWidget * parent) :
+PLECanvas::PLECanvas(PLEScene * scene, QWidget * parent) :
     QGraphicsView(parent),
     d(new PLECanvasPrivate)
 {
@@ -141,28 +141,28 @@ void PLECanvas::setSelectionMode(SelectionMode mode)
     {
         this->setInteractive(true);
         this->setDragMode(QGraphicsView::ScrollHandDrag);
-        m_scene->setSelectionMode(Scene::NoSelection);
+        m_scene->setSelectionMode(PLEScene::NoSelection);
         goto save;
     }
     else if (mode & Zooming)
     {
         this->setInteractive(true);
         this->setDragMode(QGraphicsView::NoDrag);
-        m_scene->setSelectionMode(Scene::NoSelection);
+        m_scene->setSelectionMode(PLEScene::NoSelection);
         goto save;
     }
     else if (mode & MultiSelecting)
     {
         this->setInteractive(true);
         this->setDragMode(QGraphicsView::RubberBandDrag);
-        m_scene->setSelectionMode(Scene::MultiSelection);
+        m_scene->setSelectionMode(PLEScene::MultiSelection);
         goto save;
     }
     else if (mode & SingleSelcting)
     {
         this->setInteractive(true);
         this->setDragMode(QGraphicsView::NoDrag);
-        m_scene->setSelectionMode(Scene::SingleSelection);
+        m_scene->setSelectionMode(PLEScene::SingleSelection);
         goto save;
     }
     return;
@@ -525,7 +525,7 @@ void PLECanvas::selectionChanged(const QItemSelection & newSelection, const QIte
 void PLECanvas::enableDefaultSelectionMode()
 {
     this->unsetCursor();
-    m_scene->setInteractionMode(Scene::Selecting | Scene::Moving);
+    m_scene->setInteractionMode(PLEScene::Selecting | PLEScene::Moving);
     setSelectionMode(MultiSelecting);
     m_scene->clearSelectingFilters();
 }
@@ -533,7 +533,7 @@ void PLECanvas::enableDefaultSelectionMode()
 void PLECanvas::enableViewingMode()
 {
     this->unsetCursor();
-    m_scene->setInteractionMode(Scene::View);
+    m_scene->setInteractionMode(PLEScene::View);
     setSelectionMode(Viewing);
     m_scene->clearSelectingFilters();
 }
@@ -549,7 +549,7 @@ void PLECanvas::enableZoomingMode()
 void PLECanvas::enablePLECanvasEditingMode()
 {
     this->unsetCursor();
-    m_scene->setInteractionMode(Scene::NoSelection);
+    m_scene->setInteractionMode(PLEScene::NoSelection);
     setSelectionMode(Viewing);
     this->setCursor(QCursor(Qt::ArrowCursor));
     m_scene->clearSelectingFilters();
@@ -558,7 +558,7 @@ void PLECanvas::enablePLECanvasEditingMode()
 void PLECanvas::enableEffectsEditingMode()
 {
     this->unsetCursor();
-    m_scene->setInteractionMode(Scene::Selecting);
+    m_scene->setInteractionMode(PLEScene::Selecting);
     setSelectionMode(SingleSelcting);
     this->setCursor(QCursor(Qt::ArrowCursor));
     m_scene->clearSelectingFilters();
@@ -568,7 +568,7 @@ void PLECanvas::enableEffectsEditingMode()
 void PLECanvas::enableTextEditingMode()
 {
     this->unsetCursor();
-    m_scene->setInteractionMode(Scene::Selecting | Scene::MouseTracking | Scene::OneclickFocusItems);
+    m_scene->setInteractionMode(PLEScene::Selecting | PLEScene::MouseTracking | PLEScene::OneclickFocusItems);
     setSelectionMode(SingleSelcting);
     m_scene->clearSelectingFilters();
     m_scene->addSelectingFilter(TextItem::staticMetaObject);
@@ -577,7 +577,7 @@ void PLECanvas::enableTextEditingMode()
 void PLECanvas::enableRotateEditingMode()
 {
     this->unsetCursor();
-    m_scene->setInteractionMode(Scene::Selecting | Scene::Rotating);
+    m_scene->setInteractionMode(PLEScene::Selecting | PLEScene::Rotating);
     setSelectionMode(SingleSelcting);
     this->setCursor(Qt::ArrowCursor);
     m_scene->clearSelectingFilters();
@@ -586,7 +586,7 @@ void PLECanvas::enableRotateEditingMode()
 void PLECanvas::enableScaleEditingMode()
 {
     this->unsetCursor();
-    m_scene->setInteractionMode(Scene::Selecting | Scene::Scaling);
+    m_scene->setInteractionMode(PLEScene::Selecting | PLEScene::Scaling);
     setSelectionMode(SingleSelcting);
     this->setCursor(Qt::ArrowCursor);
     m_scene->clearSelectingFilters();
@@ -595,7 +595,7 @@ void PLECanvas::enableScaleEditingMode()
 void PLECanvas::enableCropEditingMode()
 {
     this->unsetCursor();
-    m_scene->setInteractionMode(Scene::Selecting | Scene::Cropping);
+    m_scene->setInteractionMode(PLEScene::Selecting | PLEScene::Cropping);
     setSelectionMode(SingleSelcting);
     this->setCursor(Qt::ArrowCursor);
     m_scene->clearSelectingFilters();
@@ -604,7 +604,7 @@ void PLECanvas::enableCropEditingMode()
 void PLECanvas::enableBordersEditingMode()
 {
     this->unsetCursor();
-    m_scene->setInteractionMode(Scene::Selecting);
+    m_scene->setInteractionMode(PLEScene::Selecting);
     setSelectionMode(SingleSelcting);
     this->setCursor(Qt::ArrowCursor);
     m_scene->clearSelectingFilters();
@@ -767,9 +767,9 @@ PLECanvas * PLECanvas::fromSvg(QDomDocument & document)
                 if (dimension.isValid())
                 {
                     QDomElement sceneElement = element.firstChildElement(QLatin1String("g"));
-                    while (!sceneElement.isNull() && sceneElement.attribute(QLatin1String("id")) != QLatin1String("Scene"))
+                    while (!sceneElement.isNull() && sceneElement.attribute(QLatin1String("id")) != QLatin1String("PLEScene"))
                         sceneElement = sceneElement.nextSiblingElement(QLatin1String("g"));
-                    Scene * scene = Scene::fromSvg(sceneElement);
+                    PLEScene * scene = PLEScene::fromSvg(sceneElement);
                     if (scene)
                     {
                         result = new PLECanvas(scene);

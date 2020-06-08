@@ -38,7 +38,7 @@
 
 // Local includes
 
-#include "Scene.h"
+#include "plescene.h"
 #include "PhotoEffectsGroup.h"
 #include "BordersGroup.h"
 #include "pleglobal.h"
@@ -110,7 +110,7 @@ public:
     }
 };
 
-AbstractPhoto::AbstractPhoto(const QString & name, Scene * scene) :
+AbstractPhoto::AbstractPhoto(const QString & name, PLEScene * scene) :
     AbstractItemInterface(nullptr, nullptr),
     d(new AbstractPhotoPrivate(this))
 {
@@ -158,7 +158,7 @@ QString AbstractPhoto::uniqueName(const QString & name)
         temp.append(QLatin1String("..."));
     }
     result = temp;
-    Scene * scene = qobject_cast<Scene*>(this->scene());
+    PLEScene * scene = qobject_cast<PLEScene*>(this->scene());
     if (!scene)
         return result;
     int nameNumber = 1;

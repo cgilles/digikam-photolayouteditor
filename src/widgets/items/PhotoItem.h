@@ -48,8 +48,8 @@ class PhotoItem : public AbstractPhoto
 
 public:
 
-    explicit PhotoItem(const QImage & photo, const QString & name = QString(), Scene * scene = nullptr);
-    explicit PhotoItem(const QPainterPath & shape, const QString & name = QString(), Scene * scene = nullptr);
+    explicit PhotoItem(const QImage & photo, const QString & name = QString(), PLEScene * scene = nullptr);
+    explicit PhotoItem(const QPainterPath & shape, const QString & name = QString(), PLEScene * scene = nullptr);
     virtual ~PhotoItem();
 
     /// Convert photo item to SVG format
@@ -111,7 +111,7 @@ public:
 
 protected:
 
-    explicit PhotoItem(const QString & name = QString(), Scene * scene = nullptr);
+    explicit PhotoItem(const QString & name = QString(), PLEScene * scene = nullptr);
 
     /// Converts item data to SVG format
     virtual QDomDocument svgVisibleArea() const override;
@@ -195,7 +195,7 @@ private:
     QPainterPath m_complete_path;
     QPainterPath m_image_path;
 
-    friend class Scene;
+    friend class PLEScene;
     friend class PhotoItemPixmapChangeCommand;
     friend class PhotoItemUrlChangeCommand;
     friend class PhotoItemImagePathChangeCommand;

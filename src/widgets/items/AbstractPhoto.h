@@ -25,7 +25,8 @@
 #ifndef ABSTRACT_PHOTO_H
 #define ABSTRACT_PHOTO_H
 
-// Qt
+// Qt includes
+
 #include <QPainter>
 #include <QPixmap>
 #include <QDebug>
@@ -34,7 +35,8 @@
 #include <QIcon>
 #include <QDomNode>
 
-// Local
+// Local includes
+
 #include "abstractiteminterface.h"
 #include "BordersGroup.h"
 #include "PhotoEffectsGroup.h"
@@ -43,7 +45,7 @@ class QtAbstractPropertyBrowser;
 
 namespace PhotoLayoutsEditor
 {
-    class Scene;
+    class PLEScene;
     class LayersModelItem;
     class AbstractPhotoEffectInterface;
 
@@ -162,7 +164,7 @@ namespace PhotoLayoutsEditor
 
         protected:
 
-            explicit AbstractPhoto(const QString & name, Scene * scene);
+            explicit AbstractPhoto(const QString & name, PLEScene * scene);
 
             // For widgets drawing
             static AbstractPhoto * getInstance() { return nullptr; }
@@ -220,7 +222,7 @@ namespace PhotoLayoutsEditor
             AbstractPhotoPrivate * d;
             friend class AbstractPhotoPrivate;
 
-            friend class Scene;
+            friend class PLEScene;
             friend class PhotoEffectsGroup;
             friend class BordersGroup;
 

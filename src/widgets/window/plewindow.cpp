@@ -366,7 +366,7 @@ void PLEWindow::prepareSignalsConnections()
     connect(d->toolsWidget,                         SIGNAL(cropToolSelected()),                 d->canvas,              SLOT(enableCropEditingMode()));
     connect(d->toolsWidget,                         SIGNAL(borderToolSelected()),               d->canvas,              SLOT(enableBordersEditingMode()));
     connect(d->toolsWidget,                         SIGNAL(newItemCreated(AbstractPhoto*)),     d->canvas,              SLOT(addNewItem(AbstractPhoto*)));
-    connect(d->canvas->scene()->toGraphicsScene(),  SIGNAL(mousePressedPoint(QPointF)),         d->toolsWidget,         SLOT(mousePositionChoosen(QPointF)));
+    connect(d->canvas->scene()->toGraphicsPLEScene(),  SIGNAL(mousePressedPoint(QPointF)),         d->toolsWidget,         SLOT(mousePositionChoosen(QPointF)));
 
     d->toolsWidget->setDefaultTool();
 }

@@ -22,14 +22,19 @@
  *
  * ============================================================ */
 
-#include "SceneBackgroundLoader.h"
-#include "SceneBackground.h"
+#include "plescenebackgroundloader.h"
+
+// Qt includes
 
 #include <QDebug>
 
+// Local includes
+
+#include "plescenebackground.h"
+
 using namespace PhotoLayoutsEditor;
 
-SceneBackgroundLoader::SceneBackgroundLoader(SceneBackground * background, QDomElement & element, QObject * parent) :
+PLESceneBackgroundLoader::PLESceneBackgroundLoader(PLESceneBackground * background, QDomElement & element, QObject * parent) :
     QThread(parent),
     m_background(background),
     m_element(element)
@@ -38,7 +43,7 @@ SceneBackgroundLoader::SceneBackgroundLoader(SceneBackground * background, QDomE
     connect(this, SIGNAL(finished()), this, SLOT(deleteLater()));
 }
 
-void SceneBackgroundLoader::run()
+void PLESceneBackgroundLoader::run()
 {
     if (!m_background || m_element.isNull())
         this->exit(1);

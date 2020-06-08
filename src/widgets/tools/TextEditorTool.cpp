@@ -51,7 +51,7 @@ class TextEditorToolPrivate
     friend class TextEditorTool;
 };
 
-TextEditorTool::TextEditorTool(Scene * scene, QWidget * parent) :
+TextEditorTool::TextEditorTool(PLEScene * scene, QWidget * parent) :
     AbstractItemsTool(scene, PLECanvas::SingleSelcting, parent),
     d(new TextEditorToolPrivate),
     m_text_item(nullptr),

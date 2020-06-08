@@ -56,10 +56,10 @@
 
 // Local incudes
 
-#include "SceneBackground.h"
+#include "plescenebackground.h"
 #include "MousePressListener.h"
 #include "PatternsComboBox.h"
-#include "SceneBorder.h"
+#include "plesceneborder.h"
 
 using namespace Digikam;
 
@@ -191,7 +191,7 @@ class PLECanvasEditToolPrivate
     friend class PLECanvasEditTool;
 };
 
-PLECanvasEditTool::PLECanvasEditTool(Scene * scene, QWidget * parent)
+PLECanvasEditTool::PLECanvasEditTool(PLEScene * scene, QWidget * parent)
     : AbstractTool(scene, PLECanvas::Viewing, parent),
       d(new PLECanvasEditToolPrivate(this)),
       hold_update(false)
@@ -227,18 +227,18 @@ void PLECanvasEditTool::backgroundTypeChanged(const QString & typeName)
 
 void PLECanvasEditTool::sceneChange()
 {
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
 }
 
 void PLECanvasEditTool::sceneChanged()
 {
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
 
-    SceneBackground * background = scene->background();
+    PLESceneBackground * background = scene->background();
     this->connect(background, SIGNAL(changed()), this, SLOT(updateWidgets()));
 
     this->updateWidgets();
@@ -251,7 +251,7 @@ void PLECanvasEditTool::colorBackgroundSelected()
     if (this->hold_update)
         return;
 
-    SceneBackground * background = scene()->background();
+    PLESceneBackground * background = scene()->background();
     background->setSolidColor(d->background_color->color());
 }
 
@@ -263,7 +263,7 @@ void PLECanvasEditTool::imageBackgroundSelected()
     d->background_widgets->setCurrentWidget(d->background_image_widget);
     if (d->m_image.isNull())
         return;
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
 
@@ -285,7 +285,7 @@ void PLECanvasEditTool::patternBackgroundSelected()
 
 void PLECanvasEditTool::solidColorChanged(const QColor & color)
 {
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
     scene->background()->setSolidColor(color);
@@ -295,7 +295,7 @@ void PLECanvasEditTool::imageBackgroundColorChanged(const QColor & color)
 {
     if (this->hold_update)
         return;
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
     scene->background()->setSecondColor(color);
@@ -305,7 +305,7 @@ void PLECanvasEditTool::patternFirstColorChanged(const QColor & /*color*/)
 {
     if (this->hold_update)
         return;
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
     this->setPatternBackground();
@@ -315,7 +315,7 @@ void PLECanvasEditTool::patternSecondColorChanged(const QColor & /*color*/)
 {
     if (this->hold_update)
         return;
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
     this->setPatternBackground();
@@ -325,7 +325,7 @@ void PLECanvasEditTool::patternStyleChanged(Qt::BrushStyle /*patternStyle*/)
 {
     if (this->hold_update)
         return;
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
     this->setPatternBackground();
@@ -459,7 +459,7 @@ void PLECanvasEditTool::setImageBackground()
     if (d->m_image.isNull() || this->hold_update)
         return;
 
-    SceneBackground * background = scene()->background();
+    PLESceneBackground * background = scene()->background();
     bool tiled = d->background_image_tiled->isChecked();
     Qt::Alignment alignment = d->background_image_Halignment_map.key( d->background_image_HAlign->currentText() ) |
                               d->background_image_Valignment_map.key( d->background_image_VAlign->currentText() );
@@ -490,7 +490,7 @@ void PLECanvasEditTool::setPatternBackground()
     if (this->hold_update)
         return;
 
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     scene->background()->setPattern(d->background_pattern_color1->color(),
                                     d->background_pattern_color2->color(),
                                     d->background_pattern_type->pattern());
@@ -501,7 +501,7 @@ void PLECanvasEditTool::setImageBorder()
     if (d->m_border_image.isNull() || this->hold_update)
         return;
 
-    SceneBorder * border = scene()->border();
+    PLESceneBorder * border = scene()->border();
     if (border)
         border->setImage(d->m_border_image);
 }
@@ -640,8 +640,8 @@ void PLECanvasEditTool::setupGUI()
 
     if (scene())
     {
-        Scene * scene = this->scene();
-        SceneBackground * background = scene->background();
+        PLEScene * scene = this->scene();
+        PLESceneBackground * background = scene->background();
         if (background->isColor())
             this->colorBackgroundSelected();
         else if (background->isGradient())
@@ -651,7 +651,7 @@ void PLECanvasEditTool::setupGUI()
         else if (background->isPattern())
             this->patternBackgroundSelected();
 
-        SceneBorder * border = scene->border();
+        PLESceneBorder * border = scene->border();
         d->m_border_image = border->image();
         if (!d->m_border_image.isNull())
         {
@@ -669,15 +669,15 @@ void PLECanvasEditTool::readMousePosition(const QPointF & scenePos)
 
 void PLECanvasEditTool::updateWidgets()
 {
-    Scene * scene = this->scene();
+    PLEScene * scene = this->scene();
     if (!scene)
         return;
 
-    SceneBackground * background = scene->background();
+    PLESceneBackground * background = scene->background();
     if (!background)
         return;
 
-    SceneBorder * border = scene->border();
+    PLESceneBorder * border = scene->border();
     if (!border)
         return;
 

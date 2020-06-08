@@ -99,11 +99,11 @@ set(photolayoutseditorcore_SRCS
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plecanvasloadingthread.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plecanvassavingthread.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plescenebackgroundloader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plesceneborderloader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/AbstractPhotoItemLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/ImageLoadingThread.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/PhotoItemLoader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/SceneBackgroundLoader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/SceneBorderLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/TextItemLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/ProgressEvent.cpp
 
@@ -160,13 +160,13 @@ set(photolayoutseditorcore_SRCS
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plecanvas.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plecanvassize.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plescenebackground.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plesceneborder.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plescene.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/CropWidgetItem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/MousePressListener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/RotationWidgetItem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/ScalingWidgetItem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/SceneBackground.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/SceneBorder.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/Scene.cpp
 )
 
 qt5_add_resources(photolayoutseditorcore_SRCS

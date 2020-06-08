@@ -34,13 +34,13 @@
 #include "AbstractPhotoItemLoader.h"
 #include "PhotoItemLoader.h"
 #include "TextItemLoader.h"
-#include "SceneBackgroundLoader.h"
-#include "SceneBorderLoader.h"
+#include "plescenebackgroundloader.h"
+#include "plesceneborderloader.h"
 #include "AbstractPhoto.h"
 #include "PhotoItem.h"
 #include "TextItem.h"
-#include "SceneBackground.h"
-#include "SceneBorder.h"
+#include "plescenebackground.h"
+#include "plesceneborder.h"
 #include "plewindow.h"
 
 namespace PhotoLayoutsEditor
@@ -57,8 +57,8 @@ class PLECanvasLoadingThread::PLECanvasLoadingThreadPrivate
     int                                  i;
     int                                  count;
     QMap<AbstractPhoto*, QDomElement>    data;
-    QPair<SceneBackground*, QDomElement> background;
-    QPair<SceneBorder*, QDomElement>     border;
+    QPair<PLESceneBackground*, QDomElement> background;
+    QPair<PLESceneBorder*, QDomElement>     border;
 
     friend class PLECanvasLoadingThread;
 };
@@ -98,7 +98,7 @@ void PLECanvasLoadingThread::addItem(AbstractPhoto * item, QDomElement & element
     d->data.insert(item, element);
 }
 
-void PLECanvasLoadingThread::addBackground(SceneBackground * background, QDomElement & element)
+void PLECanvasLoadingThread::addBackground(PLESceneBackground * background, QDomElement & element)
 {
     if (element.attribute(QLatin1String("class")) != QLatin1String("background") || !background)
         return;
@@ -107,7 +107,7 @@ void PLECanvasLoadingThread::addBackground(SceneBackground * background, QDomEle
     d->background.second = element;
 }
 
-void PLECanvasLoadingThread::addBorder(SceneBorder * border, QDomElement & element)
+void PLECanvasLoadingThread::addBorder(PLESceneBorder * border, QDomElement & element)
 {
     if (element.attribute(QLatin1String("class")) != QLatin1String("border") || !border)
         return;
@@ -132,7 +132,7 @@ void PLECanvasLoadingThread::run()
 
         if (d->background.first)
         {
-            SceneBackgroundLoader * loader = new SceneBackgroundLoader(d->background.first, d->background.second);
+            PLESceneBackgroundLoader * loader = new PLESceneBackgroundLoader(d->background.first, d->background.second);
             loader->start();
             loader->wait();
         }
@@ -186,7 +186,7 @@ void PLECanvasLoadingThread::run()
 
         if (d->border.first)
         {
-            SceneBorderLoader * borderLoader = new SceneBorderLoader(d->border.first, d->border.second);
+            PLESceneBorderLoader * borderLoader = new PLESceneBorderLoader(d->border.first, d->border.second);
             borderLoader->start();
             borderLoader->wait();
         }

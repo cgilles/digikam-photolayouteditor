@@ -401,7 +401,7 @@ void TextItem::TextItemPrivate::closeEditor()
     command = nullptr;
 }
 
-TextItem::TextItem(const QString & text, Scene * scene) :
+TextItem::TextItem(const QString & text, PLEScene * scene) :
     AbstractPhoto((text.isEmpty() ? QObject::tr("Text item") : text), scene),
     d(new TextItemPrivate(this)),
     m_color(DEFAULT_COLOR),

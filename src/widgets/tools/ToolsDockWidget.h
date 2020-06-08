@@ -35,7 +35,7 @@
 
 namespace PhotoLayoutsEditor
 {
-    class Scene;
+    class PLEScene;
     class AbstractTool;
     class AbstractPhoto;
     class AbstractItemsTool;
@@ -68,7 +68,7 @@ namespace PhotoLayoutsEditor
 
             AbstractPhoto * m_current_item;
 
-            Scene * m_scene;
+            PLEScene * m_scene;
 
             static ToolsDockWidget * m_instance;
 
@@ -115,7 +115,7 @@ namespace PhotoLayoutsEditor
 
         public Q_SLOTS:
 
-            void setScene(Scene * scene = nullptr);
+            void setScene(PLEScene * scene = nullptr);
             void itemSelected(AbstractPhoto * photo);
             void mousePositionChoosen(const QPointF & position);
             void emitNewItemCreated(AbstractPhoto * item);

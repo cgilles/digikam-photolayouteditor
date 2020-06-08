@@ -22,14 +22,14 @@
  *
  * ============================================================ */
 
-#include "SceneBorderLoader.h"
-#include "SceneBorder.h"
+#include "plesceneborderloader.h"
+#include "plesceneborder.h"
 
 #include <QDebug>
 
 using namespace PhotoLayoutsEditor;
 
-SceneBorderLoader::SceneBorderLoader(SceneBorder * border, QDomElement & element, QObject * parent) :
+PLESceneBorderLoader::PLESceneBorderLoader(PLESceneBorder * border, QDomElement & element, QObject * parent) :
     QThread(parent),
     m_border(border),
     m_element(element)
@@ -38,7 +38,7 @@ SceneBorderLoader::SceneBorderLoader(SceneBorder * border, QDomElement & element
     connect(this, SIGNAL(finished()), this, SLOT(deleteLater()));
 }
 
-void SceneBorderLoader::run()
+void PLESceneBorderLoader::run()
 {
     if (!m_border || m_element.isNull())
         this->exit(1);

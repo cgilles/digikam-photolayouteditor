@@ -31,8 +31,8 @@
 
 namespace PhotoLayoutsEditor
 {
-    class SceneBackgroundLoader;
-    class SceneBackground : public QObject, public QGraphicsItem
+    class PLESceneBackgroundLoader;
+    class PLESceneBackground : public QObject, public QGraphicsItem
     {
             Q_OBJECT
             Q_INTERFACES(QGraphicsItem)
@@ -57,7 +57,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit SceneBackground(QGraphicsScene * scene = nullptr);
+            explicit PLESceneBackground(QGraphicsScene * scene = nullptr);
             virtual QRectF boundingRect() const override;
 
             void setSecondColor(const QColor & color);
@@ -105,7 +105,7 @@ namespace PhotoLayoutsEditor
 
             void sceneRectChanged(const QRectF & sceneRect);
 
-        friend class SceneBackgroundLoader;
+        friend class PLESceneBackgroundLoader;
         friend class BackgroundImageChangedCommand;
         friend class BackgroundFirstBrushChangeCommand;
         friend class BackgroundSecondBrushChangeCommand;

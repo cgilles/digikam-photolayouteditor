@@ -254,7 +254,7 @@ void ToolsDockWidget::setDefaultTool()
     this->setHandToolVisible(true);
 }
 
-void ToolsDockWidget::setScene(Scene * scene)
+void ToolsDockWidget::setScene(PLEScene * scene)
 {
     if (scene)
         this->connect(scene, SIGNAL(destroyed()), this, SLOT(setScene()));

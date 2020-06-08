@@ -30,12 +30,12 @@
 
 namespace PhotoLayoutsEditor
 {
-    class SceneBackground;
-    class SceneBackgroundLoader : public QThread
+    class PLESceneBackground;
+    class PLESceneBackgroundLoader : public QThread
     {
         public:
 
-            explicit SceneBackgroundLoader(SceneBackground * background, QDomElement & element, QObject * parent = nullptr);
+            explicit PLESceneBackgroundLoader(PLESceneBackground * background, QDomElement & element, QObject * parent = nullptr);
 
         protected:
 
@@ -43,7 +43,7 @@ namespace PhotoLayoutsEditor
 
         private:
 
-            SceneBackground * m_background;
+            PLESceneBackground * m_background;
             QDomElement & m_element;
     };
 }

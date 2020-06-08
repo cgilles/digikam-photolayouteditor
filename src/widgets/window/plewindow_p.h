@@ -75,7 +75,7 @@
 #include "plestatusbar.h"
 #include "plecanvassizedialog.h"
 #include "plecanvas.h"
-#include "Scene.h"
+#include "plescene.h"
 #include "LayersSelectionModel.h"
 #include "UndoCommandEventFilter.h"
 #include "PhotoEffectsLoader.h"

@@ -30,12 +30,12 @@
 
 namespace PhotoLayoutsEditor
 {
-    class SceneBorder;
-    class SceneBorderLoader : public QThread
+    class PLESceneBorder;
+    class PLESceneBorderLoader : public QThread
     {
         public:
 
-            explicit SceneBorderLoader(SceneBorder * border, QDomElement & element, QObject * parent = nullptr);
+            explicit PLESceneBorderLoader(PLESceneBorder * border, QDomElement & element, QObject * parent = nullptr);
 
         protected:
 
@@ -43,7 +43,7 @@ namespace PhotoLayoutsEditor
 
         private:
 
-            SceneBorder * m_border;
+            PLESceneBorder * m_border;
             QDomElement & m_element;
     };
 }

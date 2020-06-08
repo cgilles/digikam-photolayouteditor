@@ -42,12 +42,12 @@
 namespace PhotoLayoutsEditor
 {
 
-class ScenePrivate;
+class PLEScenePrivate;
 
 // My classes declarations
 class PLECanvas;
-class SceneBackground;
-class SceneBorder;
+class PLESceneBackground;
+class PLESceneBorder;
 class MousePressListener;
 class LayersModel;
 class LayersSelectionModel;
@@ -61,11 +61,11 @@ class CropItemsCommand;
 
 class ProgressObserver;
 
-class Scene : public QGraphicsScene
+class PLEScene : public QGraphicsScene
 {
     Q_OBJECT
 
-    ScenePrivate* d;
+    PLEScenePrivate* d;
 
     enum EditMode
     {
@@ -88,11 +88,11 @@ class Scene : public QGraphicsScene
 
 public:
 
-    explicit Scene(const QRectF& dimension, QObject* const parent = nullptr);
-    ~Scene();
+    explicit PLEScene(const QRectF& dimension, QObject* const parent = nullptr);
+    ~PLEScene();
 
-    SceneBackground* background();
-    SceneBorder* border();
+    PLESceneBackground* background();
+    PLESceneBorder* border();
 
     LayersModel* model() const;
     LayersSelectionModel * selectionModel() const;
@@ -108,7 +108,7 @@ public:
     QDomDocument toSvg(ProgressObserver * observer);
     QDomDocument toTemplateSvg(ProgressObserver * observer);
     QDomDocument toSvg(ProgressObserver * observer, bool asTemplate);
-    static Scene * fromSvg(QDomElement & svgImage);
+    static PLEScene * fromSvg(QDomElement & svgImage);
     void addSelectingFilter(const QMetaObject & classMeta);
     void clearSelectingFilters();
     void setRotationWidgetVisible(bool isVisible);
@@ -117,19 +117,19 @@ public:
     qreal gridHorizontalDistance() const;
     qreal gridVerticalDistance() const;
 
-    const QGraphicsScene* toGraphicsScene() const
+    const QGraphicsScene* toGraphicsPLEScene() const
     {
         return this;
     }
 
-    QGraphicsScene* toGraphicsScene()
+    QGraphicsScene* toGraphicsPLEScene()
     {
         return this;
     }
 
     void render(QPainter* painter, const QRectF& target = QRectF(), const QRectF& source = QRectF(), Qt::AspectRatioMode aspectRatioMode = Qt::KeepAspectRatio);
 
-    void readSceneMousePress(MousePressListener * mouseListener);
+    void readPLESceneMousePress(MousePressListener * mouseListener);
 
 Q_SIGNALS:
 
@@ -174,8 +174,8 @@ private Q_SLOTS:
 
 private:
 
-    Scene(const Scene&);
-    Scene& operator=(const Scene&);
+    PLEScene(const PLEScene&);
+    PLEScene& operator=(const PLEScene&);
 
     bool askAboutRemoving(int count);
     bool canDecode(const QMimeData * mimeData);
@@ -202,7 +202,7 @@ private:
 
     friend class PLECanvas;
     friend class PLECanvasWidget;
-    friend class ScenePrivate;
+    friend class PLEScenePrivate;
     friend class AbstractPhoto;
     friend class MoveItemsCommand;
 };

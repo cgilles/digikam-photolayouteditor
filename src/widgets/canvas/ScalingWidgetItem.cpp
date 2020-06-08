@@ -441,23 +441,23 @@ void ScalingWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
     {
         foreach(AbstractPhoto* item, d->m_items)
         {
-            QRectF beforeScene = item->mapRectToScene(item->boundingRect());
+            QRectF beforePLEScene = item->mapRectToScene(item->boundingRect());
             item->setTransform( item->transform() * sc );
-            QRectF afterScene = item->mapRectToScene(item->boundingRect());
+            QRectF afterPLEScene = item->mapRectToScene(item->boundingRect());
             QPointF p(0,0);
             if (d->pressedVHandler == ScalingWidgetItemPrivate::Top)
-                p.setY(beforeScene.bottom() - afterScene.bottom());
+                p.setY(beforePLEScene.bottom() - afterPLEScene.bottom());
             else if (d->pressedVHandler == ScalingWidgetItemPrivate::Bottom)
-                p.setY(beforeScene.top() - afterScene.top());
+                p.setY(beforePLEScene.top() - afterPLEScene.top());
             else
-                p.setY((beforeScene.center() - afterScene.center()).y());
+                p.setY((beforePLEScene.center() - afterPLEScene.center()).y());
 
             if (d->pressedHHandler == ScalingWidgetItemPrivate::Left)
-                p.setX(beforeScene.right() - afterScene.right());
+                p.setX(beforePLEScene.right() - afterPLEScene.right());
             else if (d->pressedHHandler == ScalingWidgetItemPrivate::Right)
-                p.setX(beforeScene.left() - afterScene.left());
+                p.setX(beforePLEScene.left() - afterPLEScene.left());
             else
-                p.setX((beforeScene.center() - afterScene.center()).x());
+                p.setX((beforePLEScene.center() - afterPLEScene.center()).x());
 
             ScaleItemCommand * scaleCom = d->scale_commands[item];
             if (!scaleCom)

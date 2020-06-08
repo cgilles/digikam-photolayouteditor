@@ -33,8 +33,8 @@
 namespace PhotoLayoutsEditor
 {
 
-class Scene;
-class ScenePrivate;
+class PLEScene;
+class PLEScenePrivate;
 
 class AbstractItemInterface : public QObject, public QGraphicsItem
 {
@@ -54,8 +54,8 @@ protected:
 
 private:
    
-    friend class Scene;
-    friend class ScenePrivate;
+    friend class PLEScene;
+    friend class PLEScenePrivate;
 };
     
 } // namespace PhotoLayoutsEditor
