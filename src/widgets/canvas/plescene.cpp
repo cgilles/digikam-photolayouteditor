@@ -290,7 +290,7 @@ class PLEScenePrivate
     PhotoItem*                   m_hovered_photo;
 
 private:
-    
+
     PLEScenePrivate(const PLEScenePrivate&);
     PLEScenePrivate& operator=(const PLEScenePrivate&);
 
@@ -682,20 +682,27 @@ void PLEScene::removeItem(AbstractPhoto * item)
     PLE_PostUndoCommand(command);
 }
 
-void PLEScene::removeItems(const QList<AbstractPhoto *> & items)
+void PLEScene::removeItems(const QList<AbstractPhoto*> & items)
 {
     if (!askAboutRemoving(items.count()))
+    {
         return;
-    QUndoCommand * command = nullptr;
-    QUndoCommand * parent = nullptr;
+    }
+
+    QUndoCommand* command = nullptr;
+    QUndoCommand* parent  = nullptr;
+
     if (items.count() > 1)
+    {
         parent = new QUndoCommand( QObject::tr("Remove item", "Remove items", items.count()) );
-    foreach (AbstractPhoto * item, items)
-        command = new RemoveItemsCommand(item, this, parent);
-    if (parent)
         PLE_PostUndoCommand(parent);
-    else
+    }
+
+    foreach (AbstractPhoto* const item, items)
+    {
+        command = new RemoveItemsCommand(item, this, parent);
         PLE_PostUndoCommand(command);
+    }
 }
 
 void PLEScene::removeSelectedItems()
