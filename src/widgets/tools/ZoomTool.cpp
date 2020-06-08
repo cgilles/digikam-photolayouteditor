@@ -23,7 +23,7 @@
  * ============================================================ */
 
 #include "ZoomTool.h"
-#include "MousePressListener.h"
+#include "mousepresslistener.h"
 
 #include <QButtonGroup>
 #include <QRadioButton>

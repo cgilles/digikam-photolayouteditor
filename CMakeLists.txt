@@ -113,7 +113,6 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qttreepropertybrowser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtvariantproperty.cpp
 
-
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoMoveRowsCommand.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoRemoveItem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoCommandEvent.cpp
@@ -162,10 +161,10 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plescenebackground.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plesceneborder.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plescene.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/CropWidgetItem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/MousePressListener.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/RotationWidgetItem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/ScalingWidgetItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/cropwidgetitem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/mousepresslistener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/rotationwidgetitem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/scalingwidgetitem.cpp
 )
 
 qt5_add_resources(photolayoutseditorcore_SRCS

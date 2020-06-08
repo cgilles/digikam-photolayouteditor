@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "RotationWidgetItem.h"
+#include "rotationwidgetitem.h"
 
 // C++ includes
 

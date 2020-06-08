@@ -22,11 +22,13 @@
  *
  * ============================================================ */
 
-#include "ScalingWidgetItem.h"
-#include "abstractphoto.h"
-#include "plewindow.h"
-#include "pleglobal.h"
+#include "scalingwidgetitem.h"
+
+// C++ includes
+
 #include <limits>
+
+// Qt includes
 
 #include <QPainter>
 #include <QGraphicsScene>
@@ -36,9 +38,16 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QMap>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
 
-class PhotoLayoutsEditor::MoveItemCommand : public QUndoCommand
+#include "abstractphoto.h"
+#include "plewindow.h"
+#include "pleglobal.h"
+
+namespace PhotoLayoutsEditor
+{
+
+class MoveItemCommand : public QUndoCommand
 {
     AbstractPhoto * m_item;
     QPointF m_translation;
@@ -79,7 +88,7 @@ public:
     }
 };
 
-class PhotoLayoutsEditor::ScaleItemCommand : public MoveItemCommand
+class ScaleItemCommand : public MoveItemCommand
 {
     AbstractPhoto * m_item;
     QTransform scale;
@@ -120,7 +129,7 @@ public:
     }
 };
 
-class PhotoLayoutsEditor::ScalingWidgetItemPrivate
+class ScalingWidgetItemPrivate
 {
     enum
     {
@@ -537,3 +546,5 @@ void ScalingWidgetItem::updateShapes()
     if (this->scene())
         this->scene()->update( this->mapRectToScene(updatePath.boundingRect()) );
 }
+
+} // namespace PhotoLayoutsEditor

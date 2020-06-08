@@ -57,7 +57,7 @@
 // Local incudes
 
 #include "plescenebackground.h"
-#include "MousePressListener.h"
+#include "mousepresslistener.h"
 #include "PatternsComboBox.h"
 #include "plesceneborder.h"
 

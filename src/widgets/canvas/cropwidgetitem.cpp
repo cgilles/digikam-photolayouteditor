@@ -22,10 +22,13 @@
  *
  * ============================================================ */
 
-#include "CropWidgetItem.h"
-#include "abstractphoto.h"
-#include "plewindow.h"
+#include "cropwidgetitem.h"
+
+// C++ includes
+
 #include <limits>
+
+// Qt includes
 
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsView>
@@ -33,9 +36,15 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
 
-class PhotoLayoutsEditor::CropWidgetItemPrivate
+#include "abstractphoto.h"
+#include "plewindow.h"
+
+namespace PhotoLayoutsEditor
+{
+    
+class CropWidgetItemPrivate
 {
     explicit CropWidgetItemPrivate (CropWidgetItem * item) :
         m_item(item),
@@ -464,3 +473,5 @@ void CropWidgetItem::updateShapes()
 
     this->update();
 }
+
+} // namespace PhotoLayoutsEditor

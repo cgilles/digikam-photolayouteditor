@@ -57,11 +57,11 @@
 // Local includes
 
 #include "pleglobal.h"
-#include "RotationWidgetItem.h"
-#include "ScalingWidgetItem.h"
-#include "CropWidgetItem.h"
+#include "rotationwidgetitem.h"
+#include "scalingwidgetitem.h"
+#include "cropwidgetitem.h"
 #include "plescenebackground.h"
-#include "MousePressListener.h"
+#include "mousepresslistener.h"
 #include "ToolsDockWidget.h"
 #include "plewindow.h"
 #include "imageloadingthread.h"
