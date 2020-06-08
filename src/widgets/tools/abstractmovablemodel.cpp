@@ -22,14 +22,22 @@
  *
  * ============================================================ */
 
-#include "AbstractMovableModel.h"
-#include "pleglobal.h"
+#include "abstractmovablemodel.h"
+
+// Qt includes
 
 #include <QUndoCommand>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
 
-AbstractMovableModel::AbstractMovableModel(QObject * parent) :
-    QAbstractItemModel(parent)
+#include "pleglobal.h"
+
+namespace PhotoLayoutsEditor
+{
+
+AbstractMovableModel::AbstractMovableModel(QObject* const parent)
+    : QAbstractItemModel(parent)
 {
 }
+
+} // namespace PhotoLayoutsEditor

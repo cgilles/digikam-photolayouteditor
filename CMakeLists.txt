@@ -71,11 +71,6 @@ add_subdirectory(data)
 
 set(photolayoutseditorcore_SRCS
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/models/AbstractMovableModel.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/models/LayersModel.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/models/LayersModelItem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/models/LayersSelectionModel.cpp
-
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/borderdrawerfactoryinterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderChangeListener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/BorderDrawerInterface.cpp
@@ -118,8 +113,6 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qttreepropertybrowser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtvariantproperty.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/listeners/TextColorChangeListener.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/listeners/TextFontChangeListener.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoMoveRowsCommand.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo/UndoRemoveItem.cpp
@@ -129,10 +122,14 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTreeDelegate.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersTreeMenu.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersModel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersModelItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersSelectionModel.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/AbstractItemsListViewTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/AbstractItemsTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/AbstractTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/abstractmovablemodel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/BorderEditTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/plecanvasedittool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/EffectsEditorTool.cpp
@@ -152,9 +149,11 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/plewindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/plestatusbar.cpp
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/textcolorchangelistener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/textfontchangelistener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/textitem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/AbstractPhoto.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/AbstractPhoto_p.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/TextItem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/abstractiteminterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/PhotoItem.cpp
 

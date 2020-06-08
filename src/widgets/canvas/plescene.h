@@ -37,7 +37,7 @@
 // Local includes
 
 #include "PhotoItem.h"
-#include "TextItem.h"
+#include "textitem.h"
 
 namespace PhotoLayoutsEditor
 {

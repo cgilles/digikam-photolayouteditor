@@ -25,7 +25,7 @@
 #ifndef BORDERSGROUP_H
 #define BORDERSGROUP_H
 
-#include "AbstractMovableModel.h"
+#include "abstractmovablemodel.h"
 
 #include <QPainter>
 #include <QPainterPath>

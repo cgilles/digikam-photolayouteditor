@@ -41,11 +41,11 @@ class AbstractMovableModel : public QAbstractItemModel
 {
 public:
 
-    explicit AbstractMovableModel(QObject * parent = nullptr);
+    explicit AbstractMovableModel(QObject* const parent = nullptr);
 
     virtual bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) = 0;
-    virtual void setItem(QObject * graphicsItem, const QModelIndex & index)          = 0;
-    virtual QObject * item(const QModelIndex & index) const                          = 0;
+    virtual void setItem(QObject* graphicsItem, const QModelIndex& index)            = 0;
+    virtual QObject* item(const QModelIndex& index) const                            = 0;
 };
 
 } // namespace PhotoLayoutsEditor

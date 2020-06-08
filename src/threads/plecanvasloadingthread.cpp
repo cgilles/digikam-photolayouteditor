@@ -38,7 +38,7 @@
 #include "plesceneborderloader.h"
 #include "AbstractPhoto.h"
 #include "PhotoItem.h"
-#include "TextItem.h"
+#include "textitem.h"
 #include "plescenebackground.h"
 #include "plesceneborder.h"
 #include "plewindow.h"

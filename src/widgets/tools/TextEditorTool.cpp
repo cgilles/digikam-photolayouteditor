@@ -31,7 +31,7 @@
 // Local includes
 
 #include "qtpropertybrowser.h"
-#include "TextItem.h"
+#include "textitem.h"
 #include "ToolsDockWidget.h"
 
 namespace PhotoLayoutsEditor

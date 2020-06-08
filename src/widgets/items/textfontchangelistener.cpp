@@ -22,20 +22,20 @@
  *
  * ============================================================ */
 
-#include "TextColorChangeListener.h"
-#include "TextItem.h"
+#include "textfontchangelistener.h"
+#include "textitem.h"
 #include "qtpropertymanager.h"
 
 using namespace PhotoLayoutsEditor;
 
-TextColorChangeListener::TextColorChangeListener(TextItem * item, QObject * parent) :
+TextFontChangeListener::TextFontChangeListener(TextItem * item, QObject * parent) :
     QObject(parent),
     m_item(item)
 {}
 
-void TextColorChangeListener::propertyChanged(QtProperty * property)
+void TextFontChangeListener::propertyChanged(QtProperty * property)
 {
-    QtColorPropertyManager * manager = dynamic_cast<QtColorPropertyManager*>(property->propertyManager());
-    if (manager && m_item->color() != manager->value(property))
-        m_item->setColor(manager->value(property));
+    QtFontPropertyManager * manager = dynamic_cast<QtFontPropertyManager*>(property->propertyManager());
+    if (manager && m_item->font() != manager->value(property))
+        m_item->setFont(manager->value(property));
 }

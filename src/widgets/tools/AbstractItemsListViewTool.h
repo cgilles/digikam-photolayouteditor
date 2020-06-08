@@ -26,7 +26,7 @@
 #define ABSTRACTITEMSLISTVIEWTOOL_H
 
 #include "AbstractItemsTool.h"
-#include "AbstractMovableModel.h"
+#include "abstractmovablemodel.h"
 
 namespace PhotoLayoutsEditor
 {

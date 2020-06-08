@@ -22,41 +22,51 @@
  *
  * ============================================================ */
 
-#include "TextItem.h"
-#include "pleglobal.h"
-#include "pleeditfactory.h"
-#include "TextColorChangeListener.h"
-#include "TextFontChangeListener.h"
+#include "textitem.h"
+
+// Qt includes
 
 #include <QTimeLine>
 #include <QInputMethodEvent>
 
+// Local includes
+
+#include "pleglobal.h"
+#include "pleeditfactory.h"
+#include "textcolorchangelistener.h"
+#include "textfontchangelistener.h"
 #include "qttreepropertybrowser.h"
 #include "qtpropertymanager.h"
 
 #define IS_NULL(node) if (node.isNull()) goto _delete;
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 QColor TextItem::DEFAULT_COLOR = Qt::black;
-QFont TextItem::DEFAULT_FONT = QFont();
+QFont  TextItem::DEFAULT_FONT  = QFont();
 
-class PhotoLayoutsEditor::TextChangeUndoCommand : public QUndoCommand
+class TextChangeUndoCommand : public QUndoCommand
 {
     QStringList m_text;
     TextItem * m_item;
+
 public:
+
     TextChangeUndoCommand(const QStringList & text, TextItem * item, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Text change"), parent),
         m_text(text),
         m_item(item)
-    {}
+    {
+    }
+
     virtual void redo() override
     {
         QStringList temp = m_item->d->m_string_list;
         m_item->d->m_string_list = m_text;
         m_text = temp;
     }
+
     virtual void undo() override
     {
         QStringList temp = m_item->d->m_string_list;
@@ -64,24 +74,30 @@ public:
         m_text = temp;
     }
 };
-class PhotoLayoutsEditor::TextColorUndoCommand : public QUndoCommand
+
+class TextColorUndoCommand : public QUndoCommand
 {
-        TextItem * m_item;
-        QColor m_color;
-    public:
-        TextColorUndoCommand(const QColor & color, TextItem * item, QUndoCommand * parent = nullptr) :
+    TextItem * m_item;
+    QColor m_color;
+
+public:
+
+    TextColorUndoCommand(const QColor & color, TextItem * item, QUndoCommand * parent = nullptr) :
             QUndoCommand(QObject::tr("Text color change"), parent),
             m_item(item),
             m_color(color)
         {}
+        
         virtual void redo() override
         {
             run();
         }
+
         virtual void undo() override
         {
             run();
         }
+        
         void run()
         {
             QColor temp = m_item->m_color;
@@ -90,24 +106,30 @@ class PhotoLayoutsEditor::TextColorUndoCommand : public QUndoCommand
             m_item->refresh();
         }
 };
-class PhotoLayoutsEditor::TextFontUndoCommand : public QUndoCommand
+
+class TextFontUndoCommand : public QUndoCommand
 {
-        TextItem * m_item;
-        QFont m_font;
-    public:
-        TextFontUndoCommand(const QFont & font, TextItem * item, QUndoCommand * parent = nullptr) :
+    TextItem * m_item;
+    QFont m_font;
+
+public:
+
+    TextFontUndoCommand(const QFont & font, TextItem * item, QUndoCommand * parent = nullptr) :
             QUndoCommand(QObject::tr("Text font change"), parent),
             m_item(item),
             m_font(font)
         {}
+
         virtual void redo() override
         {
             run();
         }
+
         virtual void undo() override
         {
             run();
         }
+
         void run()
         {
             QFont temp = m_item->m_font;
@@ -116,56 +138,70 @@ class PhotoLayoutsEditor::TextFontUndoCommand : public QUndoCommand
             m_item->refresh();
         }
 };
-class PhotoLayoutsEditor::AddTextUndoCommand : public QUndoCommand
+
+class AddTextUndoCommand : public QUndoCommand
 {
     TextItem::TextItemPrivate * m_item_p;
     QString text;
     int row;
     int at;
+
 public:
+
     AddTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(at)
-    {}
+    {
+    }
+    
     virtual void redo() override
     {
         m_item_p->addText(row, at, text);
     }
+
     virtual void undo() override
     {
         m_item_p->removeText(row, at, this->text.length());
         m_item_p->command = nullptr;
     }
+
     void addText(const QString & text)
     {
         m_item_p->addText(row, at+this->text.length(), text);
         this->text.append(text);
     }
 };
-class PhotoLayoutsEditor::RemoveTextUndoCommand : public QUndoCommand
+
+class RemoveTextUndoCommand : public QUndoCommand
 {
     TextItem::TextItemPrivate * m_item_p;
     QString text;
     int row;
     int at;
+
 public:
+
     RemoveTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(at)
-    {}
+    {
+    }
+
     virtual void redo() override
     {
         m_item_p->removeText(row, at, text.length());
     }
+    
     virtual void undo() override
     {
         m_item_p->addText(row, at, text);
         m_item_p->command = nullptr;
     }
+    
     virtual void removeLeft()
     {
         text.prepend(m_item_p->m_string_list[row][--at]);
@@ -173,6 +209,7 @@ public:
         --(m_item_p->m_cursor_character);
         m_item_p->m_item->refreshItem();
     }
+    
     virtual void removeRight()
     {
         text.append(m_item_p->m_string_list[row][at]);
@@ -180,18 +217,23 @@ public:
         m_item_p->m_item->refreshItem();
     }
 };
-class PhotoLayoutsEditor::AddLineUndoCommand : public QUndoCommand
+
+class AddLineUndoCommand : public QUndoCommand
 {
     TextItem::TextItemPrivate * m_item_p;
     int row;
     int at;
+
 public:
+
     AddLineUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(at)
-    {}
+    {
+    }
+
     virtual void redo() override
     {
         int length = m_item_p->m_string_list[row].length()-at;
@@ -204,6 +246,7 @@ public:
         m_item_p->m_item->refreshItem();
         m_item_p->command = nullptr;
     }
+
     virtual void undo() override
     {
         m_item_p->m_cursor_character = at = m_item_p->m_string_list[row-1].length();
@@ -214,18 +257,23 @@ public:
         m_item_p->command = nullptr;
     }
 };
-class PhotoLayoutsEditor::MergeLineUndoCommand : public QUndoCommand
+
+class MergeLineUndoCommand : public QUndoCommand
 {
     TextItem::TextItemPrivate * m_item_p;
     int row;
     int at;
+
 public:
+
     MergeLineUndoCommand(int row, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
         at(0)
-    {}
+    {
+    }
+
     virtual void redo() override
     {
         m_item_p->m_cursor_row = --row;
@@ -235,6 +283,7 @@ public:
         m_item_p->command = nullptr;
         m_item_p->m_item->refreshItem();
     }
+
     virtual void undo() override
     {
         QString temp = m_item_p->m_string_list[row].right( m_item_p->m_string_list[row].length()-at );
@@ -250,9 +299,11 @@ public:
 void TextItem::TextItemPrivate::moveCursorLeft()
 {
     --m_cursor_character;
+
     if (m_cursor_character < 0)
     {
         --m_cursor_row;
+
         if (m_cursor_row < 0)
         {
             ++m_cursor_row;
@@ -261,15 +312,18 @@ void TextItem::TextItemPrivate::moveCursorLeft()
         else
             m_cursor_character = m_string_list.at(m_cursor_row).length();
     }
+
     command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorRight()
 {
     ++m_cursor_character;
+
     if (m_cursor_character > m_string_list.at(m_cursor_row).length())
     {
         ++m_cursor_row;
+
         if (m_cursor_row >= m_string_list.count())
         {
             --m_cursor_row;
@@ -278,6 +332,7 @@ void TextItem::TextItemPrivate::moveCursorRight()
         else
             m_cursor_character = 0;
     }
+
     command = nullptr;
 }
 
@@ -843,3 +898,5 @@ void TextItem::updateIcon()
     p.drawText(px.rect(), Qt::AlignCenter, QLatin1String("T"));
     this->setIcon(QIcon(px));
 }
+
+} // namespace PhotoLayoutsEditor

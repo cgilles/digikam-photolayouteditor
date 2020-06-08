@@ -28,7 +28,7 @@
 #include <QPixmap>
 #include <QDomDocument>
 
-#include "AbstractMovableModel.h"
+#include "abstractmovablemodel.h"
 
 namespace PhotoLayoutsEditor
 {
