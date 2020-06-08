@@ -22,43 +22,35 @@
  *
  * ============================================================ */
 
-#include "AbstractItemsTool.h"
-#include "abstractphoto.h"
-#include "ToolsDockWidget.h"
+#ifndef BORDEREDITTOOL_H
+#define BORDEREDITTOOL_H
 
-using namespace PhotoLayoutsEditor;
+// Local includes
 
-AbstractItemsTool::AbstractItemsTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent) :
-    AbstractTool(scene, selectionMode, parent),
-    m_photo(nullptr)
+#include "abstractitemslistviewtool.h"
+
+// Qt includes
+
+#include <QDockWidget>
+#include <QDoubleSpinBox>
+#include <QComboBox>
+#include <QPushButton>
+
+namespace PhotoLayoutsEditor
 {
+    class BorderEditTool : public AbstractItemsListViewTool
+    {
+            Q_OBJECT
+
+        public:
+
+            explicit BorderEditTool(PLEScene * scene, QWidget * parent = nullptr);
+            virtual QStringList options() const override;
+            virtual AbstractMovableModel * model() override;
+            virtual QObject * createItem(const QString & name) override;
+            virtual QWidget * createEditor(QObject * item, bool createCommands = true) override;
+
+    };
 }
 
-AbstractPhoto * AbstractItemsTool::currentItem()
-{
-    return m_photo;
-}
-
-void AbstractItemsTool::setCurrentItem(AbstractPhoto * photo)
-{
-    if (m_photo == photo)
-        return;
-    currentItemAboutToBeChanged();
-    m_photo = photo;
-    setEnabled((bool)m_photo);
-    currentItemChanged();
-}
-
-QPointF AbstractItemsTool::mousePosition()
-{
-    return m_point;
-}
-
-void AbstractItemsTool::setMousePosition(const QPointF & position)
-{
-    if (m_point == position)
-        return;
-    positionAboutToBeChanged();
-    m_point = position;
-    positionChanged();
-}
+#endif // BORDEREDITTOOL_H

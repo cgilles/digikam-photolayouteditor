@@ -125,17 +125,17 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersModelItem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/layers/LayersSelectionModel.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/AbstractItemsListViewTool.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/AbstractItemsTool.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/AbstractTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/abstractitemslistviewtool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/abstractitemstool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/abstracttool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/abstractmovablemodel.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/BorderEditTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/borderedittool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/plecanvasedittool.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/EffectsEditorTool.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/TextEditorTool.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/ToolsDockWidget.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/ZoomTool.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/PatternsComboBox.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/effectseditortool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/texteditortool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/toolsdockwidget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/zoomtool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/patternscombobox.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/plecanvassizedialog.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/plecanvasnewdialog.cpp

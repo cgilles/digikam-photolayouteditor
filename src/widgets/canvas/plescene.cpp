@@ -62,7 +62,7 @@
 #include "cropwidgetitem.h"
 #include "plescenebackground.h"
 #include "mousepresslistener.h"
-#include "ToolsDockWidget.h"
+#include "toolsdockwidget.h"
 #include "plewindow.h"
 #include "imageloadingthread.h"
 #include "progressevent.h"

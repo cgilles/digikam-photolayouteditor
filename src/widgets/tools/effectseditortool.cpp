@@ -22,12 +22,9 @@
  *
  * ============================================================ */
 
-#include "EffectsEditorTool.h"
-#include "abstractphoto.h"
-#include "PhotoEffectsLoader.h"
-#include "PhotoEffectsGroup.h"
-#include "abstractphotoeffectinterface.h"
-#include "ToolsDockWidget.h"
+#include "effectseditortool.h"
+
+// Qt includes
 
 #include <QGridLayout>
 #include <QLabel>
@@ -35,9 +32,17 @@
 #include <QPushButton>
 #include <QComboBox>
 
-#include "qtpropertybrowser.h"
+// Local includes
 
-using namespace PhotoLayoutsEditor;
+#include "qtpropertybrowser.h"
+#include "abstractphoto.h"
+#include "PhotoEffectsLoader.h"
+#include "PhotoEffectsGroup.h"
+#include "abstractphotoeffectinterface.h"
+#include "toolsdockwidget.h"
+
+namespace PhotoLayoutsEditor
+{
 
 EffectsEditorTool::EffectsEditorTool(PLEScene * scene, QWidget * parent) :
     AbstractItemsListViewTool(QObject::tr("Effects"), scene, PLECanvas::SingleSelcting, parent)
@@ -68,3 +73,5 @@ QWidget * EffectsEditorTool::createEditor(QObject * item, bool createCommands)
         return nullptr;
     return PhotoEffectsLoader::propertyBrowser(effect, createCommands);
 }
+
+} // namespace PhotoLayoutsEditor

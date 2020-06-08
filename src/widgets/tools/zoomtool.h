@@ -25,7 +25,7 @@
 #ifndef ZOOMTOOL_H
 #define ZOOMTOOL_H
 
-#include "AbstractTool.h"
+#include "abstracttool.h"
 
 namespace PhotoLayoutsEditor
 {

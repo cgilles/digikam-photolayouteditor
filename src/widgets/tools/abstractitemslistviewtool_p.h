@@ -25,6 +25,8 @@
 #ifndef ABSTRACTITEMSLISTVIEWTOOL_P_H
 #define ABSTRACTITEMSLISTVIEWTOOL_P_H
 
+#include "abstractitemslistviewtool.h"
+
 #include <QWidget>
 #include <QListView>
 #include <QPushButton>

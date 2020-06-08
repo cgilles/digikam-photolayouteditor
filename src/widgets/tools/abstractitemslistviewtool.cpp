@@ -22,8 +22,9 @@
  *
  * ============================================================ */
 
-#include "AbstractItemsListViewTool.h"
-#include "AbstractItemsListViewTool_p.h"
+#include "abstractitemslistviewtool_p.h"
+
+// Qt includes
 
 #include <QGridLayout>
 #include <QLabel>
@@ -33,13 +34,16 @@
 #include <QIcon>
 #include <QDebug>
 
+// Local includes
+
 #include "qtpropertybrowser.h"
 #include "abstractphoto.h"
-#include "ToolsDockWidget.h"
+#include "toolsdockwidget.h"
 #include "borderdrawersloader.h"
 #include "pleglobal.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 class ItemCreatedCommand : public QUndoCommand
 {
@@ -164,7 +168,7 @@ public:
     }
 };
 
-class PhotoLayoutsEditor::AbstractItemsListViewToolPrivate
+class AbstractItemsListViewToolPrivate
 {
     AbstractItemsListViewToolPrivate() :
         m_list_widget(nullptr),
@@ -463,3 +467,5 @@ void AbstractListToolViewDelegate::itemSelected(const QString & selectedItem)
 
     m_acceptButton->setEnabled(!selectedItem.isEmpty());
 }
+
+} // namespace PhotoLayoutsEditor

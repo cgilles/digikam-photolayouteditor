@@ -22,11 +22,9 @@
  *
  * ============================================================ */
 
-#include "BorderEditTool.h"
-#include "ToolsDockWidget.h"
-#include "abstractphoto.h"
-#include "BordersGroup.h"
-#include "borderdrawersloader.h"
+#include "borderedittool.h"
+
+// Qt includes
 
 #include <QDebug>
 #include <QGridLayout>
@@ -37,10 +35,17 @@
 #include <QMetaProperty>
 #include <QPushButton>
 
+// Local includes
+
+#include "toolsdockwidget.h"
+#include "abstractphoto.h"
+#include "BordersGroup.h"
+#include "borderdrawersloader.h"
 #include "pleeditfactory.h"
 #include "qttreepropertybrowser.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 BorderEditTool::BorderEditTool(PLEScene * scene, QWidget * parent) :
     AbstractItemsListViewTool(QObject::tr("Borders editor"), scene, PLECanvas::SingleSelcting, parent)
@@ -71,3 +76,5 @@ QWidget * BorderEditTool::createEditor(QObject * item, bool createCommands)
         return nullptr;
     return BorderDrawersLoader::createEditor(drawer, createCommands);
 }
+
+} // namespace PhotoLayoutsEditor

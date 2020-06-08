@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "TextEditorTool.h"
+#include "texteditortool.h"
 
 // Qt includes
 
@@ -32,7 +32,7 @@
 
 #include "qtpropertybrowser.h"
 #include "textitem.h"
-#include "ToolsDockWidget.h"
+#include "toolsdockwidget.h"
 
 namespace PhotoLayoutsEditor
 {

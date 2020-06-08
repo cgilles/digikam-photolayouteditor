@@ -22,49 +22,28 @@
  *
  * ============================================================ */
 
-#ifndef TEXTEDITORTOOL_H
-#define TEXTEDITORTOOL_H
+#ifndef EFFECTSEDITORTOOL_H
+#define EFFECTSEDITORTOOL_H
 
-#include "AbstractItemsTool.h"
-
-class QtAbstractPropertyBrowser;
+#include "abstractitemslistviewtool.h"
 
 namespace PhotoLayoutsEditor
 {
-    class TextItem;
-    class TextEditorToolPrivate;
+    class AbstractPhotoEffectInterface;
 
-    class TextEditorTool : public AbstractItemsTool
+    class EffectsEditorTool : public AbstractItemsListViewTool
     {
             Q_OBJECT
 
-            TextEditorToolPrivate * d;
-
-            TextItem * m_text_item;
-            TextItem * m_created_text_item;
-            QtAbstractPropertyBrowser * m_browser;
-            bool m_create_new_item;
-
         public:
 
-            explicit TextEditorTool(PLEScene * scene, QWidget * parent = nullptr);
-            ~TextEditorTool();
+            explicit EffectsEditorTool(PLEScene * scene, QWidget * parent = nullptr);
+            virtual QStringList options() const override;
+            virtual AbstractMovableModel * model() override;
+            virtual QObject * createItem(const QString & name) override;
+            virtual QWidget * createEditor(QObject * item, bool createCommands = true) override;
 
-        Q_SIGNALS:
-
-        public Q_SLOTS:
-
-            virtual void currentItemAboutToBeChanged() override;
-            virtual void currentItemChanged() override;
-            virtual void positionAboutToBeChanged() override;
-            virtual void positionChanged() override;
-
-        protected Q_SLOTS:
-
-            void createNewItem();
-
-        friend class TextEditorToolPrivate;
     };
 }
 
-#endif // TEXTEDITORTOOL_H
+#endif // EFFECTSEDITORTOOL_H

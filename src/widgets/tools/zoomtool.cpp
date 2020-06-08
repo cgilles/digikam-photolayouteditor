@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "ZoomTool.h"
+#include "zoomtool.h"
 #include "mousepresslistener.h"
 
 #include <QButtonGroup>

@@ -58,7 +58,7 @@
 
 #include "plescenebackground.h"
 #include "mousepresslistener.h"
-#include "PatternsComboBox.h"
+#include "patternscombobox.h"
 #include "plesceneborder.h"
 
 using namespace Digikam;

@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "PatternsComboBox.h"
+#include "patternscombobox.h"
 
 #include <QStyledItemDelegate>
 #include <QStylePainter>

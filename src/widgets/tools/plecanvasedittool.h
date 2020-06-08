@@ -28,7 +28,7 @@
 #include <QWidget>
 #include <QComboBox>
 
-#include "AbstractTool.h"
+#include "abstracttool.h"
 
 namespace PhotoLayoutsEditor
 {

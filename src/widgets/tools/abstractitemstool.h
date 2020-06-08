@@ -25,9 +25,13 @@
 #ifndef ABSTRACT_ITEMS_TOOL_H
 #define ABSTRACT_ITEMS_TOOL_H
 
+// Qt includes
+
 #include <QWidget>
 
-#include "AbstractTool.h"
+// Local includes
+
+#include "abstracttool.h"
 
 namespace PhotoLayoutsEditor
 {

@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "ToolsDockWidget.h"
+#include "toolsdockwidget.h"
 
 // Qt includes
 
@@ -36,10 +36,10 @@
 // Local includes
 
 #include "plecanvasedittool.h"
-#include "EffectsEditorTool.h"
-#include "TextEditorTool.h"
-#include "BorderEditTool.h"
-#include "ZoomTool.h"
+#include "effectseditortool.h"
+#include "texteditortool.h"
+#include "borderedittool.h"
+#include "zoomtool.h"
 
 namespace PhotoLayoutsEditor
 {

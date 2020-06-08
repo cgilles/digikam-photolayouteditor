@@ -5,7 +5,6 @@
  *
  * Date        : 2011-09-01
  * Description : a plugin to create photo layouts by fusion of several images.
- * 
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
  * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
@@ -23,4 +22,43 @@
  *
  * ============================================================ */
 
-#include "AbstractTool.h"
+#include "abstractitemstool.h"
+#include "abstractphoto.h"
+#include "toolsdockwidget.h"
+
+using namespace PhotoLayoutsEditor;
+
+AbstractItemsTool::AbstractItemsTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent) :
+    AbstractTool(scene, selectionMode, parent),
+    m_photo(nullptr)
+{
+}
+
+AbstractPhoto * AbstractItemsTool::currentItem()
+{
+    return m_photo;
+}
+
+void AbstractItemsTool::setCurrentItem(AbstractPhoto * photo)
+{
+    if (m_photo == photo)
+        return;
+    currentItemAboutToBeChanged();
+    m_photo = photo;
+    setEnabled((bool)m_photo);
+    currentItemChanged();
+}
+
+QPointF AbstractItemsTool::mousePosition()
+{
+    return m_point;
+}
+
+void AbstractItemsTool::setMousePosition(const QPointF & position)
+{
+    if (m_point == position)
+        return;
+    positionAboutToBeChanged();
+    m_point = position;
+    positionChanged();
+}

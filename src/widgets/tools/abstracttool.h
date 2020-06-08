@@ -33,7 +33,7 @@
 
 #include "plescene.h"
 #include "plecanvas.h"
-#include "ToolsDockWidget.h"
+#include "toolsdockwidget.h"
 
 namespace PhotoLayoutsEditor
 {
