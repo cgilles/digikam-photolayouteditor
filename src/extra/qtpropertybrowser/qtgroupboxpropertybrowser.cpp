@@ -337,16 +337,20 @@ void QtGroupBoxPropertyBrowserPrivate::propertyRemoved(QtBrowserItem *index)
         QWidget *w = nullptr;
         QGridLayout *l = nullptr;
         int oldRow = -1;
+        Q_UNUSED(oldRow);
         if (!par) {
             w = q_ptr;
             l = m_mainLayout;
             oldRow = m_children.indexOf(parentItem);
+            Q_UNUSED(oldRow);
         } else {
             w = par->groupBox;
             l = par->layout;
             oldRow = par->children.indexOf(parentItem);
             if (hasHeader(par))
                 oldRow += 2;
+
+            Q_UNUSED(oldRow);
         }
 
         if (parentItem->widget) {
