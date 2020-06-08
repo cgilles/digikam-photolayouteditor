@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef PHOTO_LAYOUTS_WINDOW_P_H
-#define PHOTO_LAYOUTS_WINDOW_P_H
+#ifndef PLE_WINDOW_P_H
+#define PLE_WINDOW_P_H
 
 #include "plewindow.h"
 
@@ -194,4 +194,4 @@ static PLEWindow* m_instance = nullptr;
 
 } // namespace PhotoLayoutsEditor
 
-#endif // PHOTO_LAYOUTS_WINDOW_P_H
+#endif // PLE_WINDOW_P_H

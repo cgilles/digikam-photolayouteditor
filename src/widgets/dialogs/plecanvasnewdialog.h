@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef NEW_CANVAS_DIALOG_H
-#define NEW_CANVAS_DIALOG_H
+#ifndef PLE_CANVAS_NEW_DIALOG_H
+#define PLE_CANVAS_NEW_DIALOG_H
 
 // Qt includes
 
@@ -69,4 +69,4 @@ private:
 
 } // namespace PhotoLayoutsEditor
 
-#endif // NEW_CANVAS_DIALOG_H
+#endif // PLE_CANVAS_NEW_DIALOG_H
