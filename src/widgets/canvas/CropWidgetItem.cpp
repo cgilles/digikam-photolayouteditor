@@ -23,7 +23,7 @@
  * ============================================================ */
 
 #include "CropWidgetItem.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 #include "plewindow.h"
 #include <limits>
 

@@ -23,7 +23,7 @@
  * ============================================================ */
 
 #include "UndoBorderChangeCommand.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 
 #include <QDebug>
 

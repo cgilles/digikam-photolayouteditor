@@ -22,9 +22,9 @@
  *
  * ============================================================ */
 
-#include "AbstractPhotoItemLoader.h"
-#include "AbstractPhoto.h"
-#include "AbstractPhoto_p.h"
+#include "abstractphotoitemloader.h"
+#include "abstractphoto.h"
+#include "abstractphoto_p.h"
 #include "ProgressObserver.h"
 #include "pleglobal.h"
 

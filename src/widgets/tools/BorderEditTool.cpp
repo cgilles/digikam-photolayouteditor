@@ -24,7 +24,7 @@
 
 #include "BorderEditTool.h"
 #include "ToolsDockWidget.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 #include "BordersGroup.h"
 #include "borderdrawersloader.h"
 

@@ -28,7 +28,7 @@
 #include <QObject>
 
 #include "qtpropertybrowser.h"
-#include "AbstractPhotoEffectInterface.h"
+#include "abstractphotoeffectinterface.h"
 
 namespace PhotoLayoutsEditor
 {

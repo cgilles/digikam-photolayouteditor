@@ -23,7 +23,7 @@
  * ============================================================ */
 
 #include "PhotoItemLoader.h"
-#include "PhotoItem.h"
+#include "photoitem.h"
 #include "ImageLoadingThread.h"
 #include "ProgressObserver.h"
 #include "pleglobal.h"

@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "AbstractPhoto_p.h"
+#include "abstractphoto_p.h"
 
 // Qt includes
 

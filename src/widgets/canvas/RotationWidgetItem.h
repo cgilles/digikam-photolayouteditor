@@ -33,7 +33,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 
 namespace PhotoLayoutsEditor
 {

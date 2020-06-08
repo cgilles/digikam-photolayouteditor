@@ -23,7 +23,7 @@
  * ============================================================ */
 
 #include "ScalingWidgetItem.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 #include "plewindow.h"
 #include "pleglobal.h"
 #include <limits>

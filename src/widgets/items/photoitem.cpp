@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "PhotoItem.h"
+#include "photoitem.h"
 
 // Qt includes
 

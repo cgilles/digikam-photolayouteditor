@@ -24,7 +24,7 @@
 
 #include "UndoRemoveItem.h"
 #include "plescene.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 #include "LayersModel.h"
 #include "LayersModelItem.h"
 

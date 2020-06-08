@@ -28,7 +28,7 @@
 #include <QImage>
 #include <QUrl>
 
-#include "AbstractPhotoItemLoader.h"
+#include "abstractphotoitemloader.h"
 
 namespace PhotoLayoutsEditor
 {

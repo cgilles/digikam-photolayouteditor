@@ -34,7 +34,7 @@
 #include <QDebug>
 
 #include "qtpropertybrowser.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 #include "ToolsDockWidget.h"
 #include "borderdrawersloader.h"
 #include "pleglobal.h"

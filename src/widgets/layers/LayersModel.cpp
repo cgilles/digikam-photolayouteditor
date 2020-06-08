@@ -36,7 +36,7 @@
 // Local includes
 
 #include "LayersModelItem.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 
 namespace PhotoLayoutsEditor
 {

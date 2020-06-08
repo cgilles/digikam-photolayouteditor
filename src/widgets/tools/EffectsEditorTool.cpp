@@ -23,10 +23,10 @@
  * ============================================================ */
 
 #include "EffectsEditorTool.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 #include "PhotoEffectsLoader.h"
 #include "PhotoEffectsGroup.h"
-#include "AbstractPhotoEffectInterface.h"
+#include "abstractphotoeffectinterface.h"
 #include "ToolsDockWidget.h"
 
 #include <QGridLayout>

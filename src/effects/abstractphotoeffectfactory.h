@@ -33,7 +33,7 @@
 
 // Local includes
 
-#include "AbstractPhotoEffectInterface.h"
+#include "abstractphotoeffectinterface.h"
 
 namespace PhotoLayoutsEditor
 {

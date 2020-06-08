@@ -31,12 +31,12 @@
 // Local includes
 
 #include "PhotoEffectsGroup.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 #include "UndoCommandEvent.h"
 #include "pleeditfactory.h"
 #include "pleglobal.h"
 #include "abstractphotoeffectfactory.h"
-#include "AbstractPhotoEffectInterface.h"
+#include "abstractphotoeffectinterface.h"
 #include "PhotoEffectChangeListener.h"
 #include "qtpropertybrowser.h"
 #include "qtpropertymanager.h"

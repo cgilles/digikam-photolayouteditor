@@ -23,7 +23,7 @@
  * ============================================================ */
 
 #include "AbstractItemsTool.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 #include "ToolsDockWidget.h"
 
 using namespace PhotoLayoutsEditor;

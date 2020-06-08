@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#include "AbstractPhoto_p.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto_p.h"
+#include "abstractphoto.h"
 
 using namespace PhotoLayoutsEditor;
 

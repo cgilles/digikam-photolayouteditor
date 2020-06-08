@@ -25,7 +25,7 @@
 #ifndef NEGATIVEPHOTOEFFECT_H
 #define NEGATIVEPHOTOEFFECT_H
 
-#include "AbstractPhotoEffectInterface.h"
+#include "abstractphotoeffectinterface.h"
 
 #include <QImage>
 #include <QRect>

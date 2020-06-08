@@ -25,7 +25,7 @@
 #ifndef GRAYSCALEPHOTOEFFECT_P_H
 #define GRAYSCALEPHOTOEFFECT_P_H
 
-#include "AbstractPhotoEffectInterface.h"
+#include "abstractphotoeffectinterface.h"
 
 namespace PhotoLayoutsEditor
 {

@@ -24,7 +24,7 @@
 
 #include "LayersTreeDelegate.h"
 #include "LayersModelItem.h"
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 
 #include <QPainter>
 

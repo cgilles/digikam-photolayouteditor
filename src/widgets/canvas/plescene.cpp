@@ -67,7 +67,7 @@
 #include "ImageLoadingThread.h"
 #include "ProgressEvent.h"
 #include "plecanvasloadingthread.h"
-#include "PhotoItem.h"
+#include "photoitem.h"
 #include "plesceneborder.h"
 #include "imagedialog.h"
 #include "LayersModel.h"

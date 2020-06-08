@@ -81,7 +81,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/borders/tools/SolidBorderDrawer.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/abstractphotoeffectfactory.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/AbstractPhotoEffectInterface.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/abstractphotoeffectinterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/PhotoEffectChangeListener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/PhotoEffectsGroup.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/PhotoEffectsLoader.cpp
@@ -96,7 +96,7 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plecanvassavingthread.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plescenebackgroundloader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plesceneborderloader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/AbstractPhotoItemLoader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/abstractphotoitemloader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/ImageLoadingThread.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/PhotoItemLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/TextItemLoader.cpp
@@ -152,10 +152,10 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/textcolorchangelistener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/textfontchangelistener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/textitem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/AbstractPhoto.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/AbstractPhoto_p.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/abstractphoto.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/abstractphoto_p.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/abstractiteminterface.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/PhotoItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/photoitem.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plecanvas.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plecanvassize.cpp

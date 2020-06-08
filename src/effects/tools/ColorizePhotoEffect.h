@@ -25,7 +25,7 @@
 #ifndef COLORIZEPHOTOEFFECT_H
 #define COLORIZEPHOTOEFFECT_H
 
-#include "AbstractPhotoEffectInterface.h"
+#include "abstractphotoeffectinterface.h"
 
 #define COLOR_PROPERTY QLatin1String("Color")
 

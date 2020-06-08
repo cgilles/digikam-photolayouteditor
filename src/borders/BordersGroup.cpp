@@ -24,8 +24,8 @@
 
 #include "BordersGroup.h"
 #include "BorderDrawerInterface.h"
-#include "AbstractPhoto.h"
-#include "AbstractPhoto_p.h"
+#include "abstractphoto.h"
+#include "abstractphoto_p.h"
 #include "borderdrawersloader.h"
 
 #include <QGraphicsScene>

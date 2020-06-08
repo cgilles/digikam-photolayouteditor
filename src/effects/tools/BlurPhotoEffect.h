@@ -25,7 +25,7 @@
 #ifndef BLURPHOTOEFFECT_H
 #define BLURPHOTOEFFECT_H
 
-#include "AbstractPhotoEffectInterface.h"
+#include "abstractphotoeffectinterface.h"
 
 #include <QImage>
 #include <QRect>

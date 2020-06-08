@@ -25,7 +25,7 @@
 #ifndef SEPIAPHOTOEFFECT_P_H
 #define SEPIAPHOTOEFFECT_P_H
 
-#include "AbstractPhotoEffectInterface.h"
+#include "abstractphotoeffectinterface.h"
 
 namespace PhotoLayoutsEditor
 {

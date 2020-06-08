@@ -25,7 +25,7 @@
 #ifndef TEXTITEMLOADER_H
 #define TEXTITEMLOADER_H
 
-#include "AbstractPhotoItemLoader.h"
+#include "abstractphotoitemloader.h"
 
 namespace PhotoLayoutsEditor
 {

@@ -25,7 +25,7 @@
 #ifndef TEXTITEM_H
 #define TEXTITEM_H
 
-#include "AbstractPhoto.h"
+#include "abstractphoto.h"
 
 #include <QObject>
 #include <QUndoCommand>

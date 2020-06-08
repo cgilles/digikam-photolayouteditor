@@ -22,4 +22,4 @@
  *
  * ============================================================ */
 
-#include "AbstractPhotoEffectInterface.h"
+#include "abstractphotoeffectinterface.h"
