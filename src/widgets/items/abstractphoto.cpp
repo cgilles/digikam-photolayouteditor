@@ -39,7 +39,7 @@
 // Local includes
 
 #include "plescene.h"
-#include "PhotoEffectsGroup.h"
+#include "photoeffectsgroup.h"
 #include "bordersgroup.h"
 #include "pleglobal.h"
 

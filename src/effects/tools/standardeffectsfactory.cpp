@@ -22,19 +22,23 @@
  *
  * ============================================================ */
 
-#include "StandardEffectsFactory.h"
+#include "standardeffectsfactory.h"
 
-#include "BlurPhotoEffect.h"
-#include "ColorizePhotoEffect.h"
-#include "GrayscalePhotoEffect.h"
-#include "SepiaPhotoEffect.h"
-#include "NegativePhotoEffect.h"
+// Local includes
 
-using namespace PhotoLayoutsEditor;
+#include "blurphotoeffect.h"
+#include "colorizephotoeffect.h"
+#include "grayscalephotoeffect.h"
+#include "sepiaphotoeffect.h"
+#include "negativephotoeffect.h"
 
-StandardEffectsFactory::StandardEffectsFactory(QObject* parent) :
-    AbstractPhotoEffectFactory(parent)
-{}
+namespace PhotoLayoutsEditor
+{
+
+StandardEffectsFactory::StandardEffectsFactory(QObject* parent)
+    : AbstractPhotoEffectFactory(parent)
+{
+}
 
 AbstractPhotoEffectInterface * StandardEffectsFactory::getEffectInstance(const QString& name)
 {
@@ -59,3 +63,5 @@ QString StandardEffectsFactory::effectName() const
            QObject::tr("Sepia effect") + QLatin1String(";") +
            QObject::tr("Negative effect");
 }
+
+} // namespace PhotoLayoutsEditor

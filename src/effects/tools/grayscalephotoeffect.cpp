@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#include "GrayscalePhotoEffect.h"
-#include "StandardEffectsFactory.h"
+#include "grayscalephotoeffect.h"
+#include "standardeffectsfactory.h"
 
 using namespace PhotoLayoutsEditor;
 

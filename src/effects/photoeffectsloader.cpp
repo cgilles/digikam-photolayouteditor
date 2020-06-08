@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "PhotoEffectsLoader.h"
+#include "photoeffectsloader.h"
 
 // Qt includes
 
@@ -30,14 +30,14 @@
 
 // Local includes
 
-#include "PhotoEffectsGroup.h"
+#include "photoeffectsgroup.h"
 #include "abstractphoto.h"
 #include "undocommandevent.h"
 #include "pleeditfactory.h"
 #include "pleglobal.h"
 #include "abstractphotoeffectfactory.h"
 #include "abstractphotoeffectinterface.h"
-#include "PhotoEffectChangeListener.h"
+#include "photoeffectchangelistener.h"
 #include "qtpropertybrowser.h"
 #include "qtpropertymanager.h"
 #include "qtvariantproperty.h"

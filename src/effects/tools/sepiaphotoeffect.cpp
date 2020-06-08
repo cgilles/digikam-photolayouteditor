@@ -22,42 +22,38 @@
  *
  * ============================================================ */
 
-#include "ColorizePhotoEffect.h"
-#include "StandardEffectsFactory.h"
+#include "sepiaphotoeffect.h"
+#include "standardeffectsfactory.h"
 
 using namespace PhotoLayoutsEditor;
 
-QColor ColorizePhotoEffect::m_last_color = QColor(255,255,255,0);
-
-ColorizePhotoEffect::ColorizePhotoEffect(StandardEffectsFactory * factory, QObject * parent) :
-    AbstractPhotoEffectInterface(factory, parent),
-    m_color(m_last_color)
+SepiaPhotoEffect::SepiaPhotoEffect(StandardEffectsFactory * factory, QObject * parent) :
+    AbstractPhotoEffectInterface(factory, parent)
 {
 }
 
-QImage ColorizePhotoEffect::apply(const QImage & image) const
+QImage SepiaPhotoEffect::apply(const QImage & image) const
 {
-    QColor tempColor = color();
-    if (!strength() || !tempColor.alpha())
+    if (!strength())
         return image;
     QImage result = image;
     QPainter p(&result);
     p.setCompositionMode(QPainter::CompositionMode_SourceOver);
-    p.drawImage(0,0,AbstractPhotoEffectInterface::apply(colorized(image, tempColor)));
+    p.drawImage(0,0,AbstractPhotoEffectInterface::apply(sepia_converted(image)));
     return result;
 }
 
-QString ColorizePhotoEffect::name() const
+QString SepiaPhotoEffect::name() const
 {
-    return QObject::tr("Colorize effect");
+    return QObject::tr("Sepia effect");
 }
 
-QString ColorizePhotoEffect::toString() const
+QString SepiaPhotoEffect::toString() const
 {
-    return this->name() + QLatin1String(" [") + color().name() + QLatin1Char(']');
+    return this->name();
 }
 
-ColorizePhotoEffect::operator QString() const
+SepiaPhotoEffect::operator QString() const
 {
     return toString();
 }

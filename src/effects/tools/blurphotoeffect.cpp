@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#include "BlurPhotoEffect.h"
-#include "StandardEffectsFactory.h"
+#include "blurphotoeffect.h"
+#include "standardeffectsfactory.h"
 
 using namespace PhotoLayoutsEditor;
 

@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#include "NegativePhotoEffect.h"
-#include "StandardEffectsFactory.h"
+#include "negativephotoeffect.h"
+#include "standardeffectsfactory.h"
 
 using namespace PhotoLayoutsEditor;
 

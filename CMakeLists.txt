@@ -82,15 +82,15 @@ set(photolayoutseditorcore_SRCS
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/abstractphotoeffectfactory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/abstractphotoeffectinterface.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/PhotoEffectChangeListener.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/PhotoEffectsGroup.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/PhotoEffectsLoader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/StandardEffectsFactory.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/BlurPhotoEffect.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/ColorizePhotoEffect.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/GrayscalePhotoEffect.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/SepiaPhotoEffect.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/NegativePhotoEffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/photoeffectchangelistener.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/photoeffectsgroup.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/photoeffectsloader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/standardeffectsfactory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/blurphotoeffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/colorizephotoeffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/grayscalephotoeffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/sepiaphotoeffect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/negativephotoeffect.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plecanvasloadingthread.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plecanvassavingthread.cpp

@@ -27,7 +27,7 @@
 
 // Local includes
 
-#include "PhotoEffectsLoader.h"
+#include "photoeffectsloader.h"
 
 using namespace PhotoLayoutsEditor;
 

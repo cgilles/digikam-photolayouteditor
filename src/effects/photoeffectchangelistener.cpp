@@ -22,17 +22,20 @@
  *
  * ============================================================ */
 
-#include "PhotoEffectChangeListener.h"
-#include "PhotoEffectsGroup.h"
+#include "photoeffectchangelistener.h"
+
+// Local includes
+
+#include "photoeffectsgroup.h"
 #include "abstractphoto.h"
 #include "pleglobal.h"
-
 #include "qtpropertymanager.h"
 #include "qtvariantproperty.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-class PhotoLayoutsEditor::PhotoEffectChangeCommand : public QUndoCommand
+class PhotoEffectChangeCommand : public QUndoCommand
 {
         AbstractPhotoEffectInterface * effect;
         QString propertyName;
@@ -118,3 +121,5 @@ void PhotoEffectChangeListener::editingFinished()
     }
     command = nullptr;
 }
+
+} // namespace PhotoLayoutsEditor
