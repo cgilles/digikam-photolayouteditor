@@ -32,7 +32,7 @@
 
 // Local includes
 
-#include "UndoCommandEvent.h"
+#include "undocommandevent.h"
 #include "plewindow.h"
 
 namespace PhotoLayoutsEditor

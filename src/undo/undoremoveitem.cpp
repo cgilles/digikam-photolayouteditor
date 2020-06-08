@@ -22,21 +22,25 @@
  *
  * ============================================================ */
 
-#include "UndoRemoveItem.h"
+#include "undoremoveitem.h"
+
+// Local includes
+
 #include "plescene.h"
 #include "abstractphoto.h"
 #include "layersmodel.h"
 #include "layersmodelitem.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-UndoRemoveItem::UndoRemoveItem(AbstractPhoto * item, PLEScene * scene, LayersModel * model, QUndoCommand * parent) :
-    QUndoCommand(QObject::tr("Remove item"), parent),
-    m_item(item),
-    m_parentItem(static_cast<AbstractPhoto*>(item->QGraphicsItem::parentItem())),
-    m_scene(scene->toGraphicsPLEScene()),
-    m_model(model),
-    m_row(0)
+UndoRemoveItem::UndoRemoveItem(AbstractPhoto * item, PLEScene * scene, LayersModel * model, QUndoCommand * parent)
+    : QUndoCommand(QObject::tr("Remove item"), parent),
+      m_item(item),
+      m_parentItem(static_cast<AbstractPhoto*>(item->QGraphicsItem::parentItem())),
+      m_scene(scene->toGraphicsPLEScene()),
+      m_model(model),
+      m_row(0)
 {
 }
 
@@ -108,3 +112,5 @@ void UndoRemoveItem::appendChild(AbstractPhoto * item, const QModelIndex & paren
         }
     }
 }
+
+} // namespace PhotoLayoutsEditor

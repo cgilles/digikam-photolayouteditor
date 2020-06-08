@@ -77,7 +77,7 @@
 #include "plecanvas.h"
 #include "plescene.h"
 #include "layersselectionmodel.h"
-#include "UndoCommandEventFilter.h"
+#include "undocommandeventfilter.h"
 #include "PhotoEffectsLoader.h"
 #include "gridsetupdialog.h"
 #include "pleconfigdialog.h"

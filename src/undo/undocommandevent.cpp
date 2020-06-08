@@ -22,34 +22,12 @@
  *
  * ============================================================ */
 
-#include "UndoCommandEventFilter.h"
-#include "UndoCommandEvent.h"
-#include "progressevent.h"
-#include "pleglobal.h"
-#include "plewindow.h"
-
-#include <QtGlobal>
-#include <QDebug>
+#include "undocommandevent.h"
 
 using namespace PhotoLayoutsEditor;
 
-bool UndoCommandEventFilter::eventFilter(QObject * watched, QEvent * event)
+UndoCommandEvent::UndoCommandEvent() :
+    QEvent(registeredEventType()),
+    m_command(nullptr)
 {
-    if (event->type() == UndoCommandEvent::registeredEventType())
-    {
-        PLEWindow* editor = qobject_cast<PLEWindow*>(watched);
-        if (!editor)
-            return false;
-        //editor->undoCommandEvent(dynamic_cast<UndoCommandEvent*>(event));
-        return true;
-    }
-    if (event->type() == ProgressEvent::registeredEventType())
-    {
-        PLEWindow* editor = qobject_cast<PLEWindow*>(watched);
-        if (!editor)
-            return false;
-        editor->progressEvent(dynamic_cast<ProgressEvent*>(event));
-        return true;
-    }
-    return QObject::eventFilter(watched, event);
 }

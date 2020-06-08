@@ -41,7 +41,7 @@
 #include "layersmodel.h"
 #include "layersmodelitem.h"
 #include "layersselectionmodel.h"
-#include "UndoMoveRowsCommand.h"
+#include "undomoverowscommand.h"
 #include "imageloadingthread.h"
 #include "pleglobal.h"
 #include "progressevent.h"

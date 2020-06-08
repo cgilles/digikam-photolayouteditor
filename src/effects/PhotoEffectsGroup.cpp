@@ -23,17 +23,23 @@
  * ============================================================ */
 
 #include "PhotoEffectsGroup.h"
-#include "PhotoEffectsLoader.h"
-#include "abstractphoto.h"
-#include "abstractphotoeffectfactory.h"
-#include "abstractphotoeffectinterface.h"
-#include "UndoCommandEvent.h"
-#include "pleglobal.h"
+
+// Qt includes
 
 #include <QPainter>
 #include <QApplication>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
+
+#include "PhotoEffectsLoader.h"
+#include "abstractphoto.h"
+#include "abstractphotoeffectfactory.h"
+#include "abstractphotoeffectinterface.h"
+#include "undocommandevent.h"
+#include "pleglobal.h"
+
+namespace PhotoLayoutsEditor
+{
 
 PhotoEffectsGroup::PhotoEffectsGroup(AbstractPhoto * photo, QObject * parent) :
     AbstractMovableModel(parent),
@@ -265,3 +271,5 @@ void PhotoEffectsGroup::emitEffectsChanged(AbstractPhotoEffectInterface * effect
         emit dataChanged(index(0,0),index(rowCount()-1,0));
     emit effectsChanged();
 }
+
+} // namespace PhotoLayoutsEditor

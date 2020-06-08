@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "UndoMoveRowsCommand.h"
+#include "undomoverowscommand.h"
 
 // Qt includes
 
