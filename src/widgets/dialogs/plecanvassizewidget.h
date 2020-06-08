@@ -30,8 +30,8 @@
 
 namespace PhotoLayoutsEditor
 {
-    class CanvasSize;
-    class CanvasSizeWidget : public QWidget
+    class PLECanvasSize;
+    class PLECanvasSizeWidget : public QWidget
     {
             Q_OBJECT
 
@@ -43,10 +43,10 @@ namespace PhotoLayoutsEditor
                 Vertical
             };
 
-            explicit CanvasSizeWidget(QWidget* parent = nullptr);
-            ~CanvasSizeWidget();
+            explicit PLECanvasSizeWidget(QWidget* parent = nullptr);
+            ~PLECanvasSizeWidget();
             Orientation orientation() const;
-            CanvasSize canvasSize() const;
+            PLECanvasSize canvasSize() const;
 
         Q_SIGNALS:
 

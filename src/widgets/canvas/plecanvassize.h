@@ -31,9 +31,9 @@
 
 namespace PhotoLayoutsEditor
 {
-    class CanvasSizeDialog;
+    class PLECanvasSizeDialog;
 
-    class CanvasSize
+    class PLECanvasSize
     {
         public:
 
@@ -83,8 +83,8 @@ namespace PhotoLayoutsEditor
             static int toPixels(qreal value, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit);
             static qreal fromPixels(int pixels, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit);
 
-            CanvasSize();
-            CanvasSize(const QSizeF & size, SizeUnits sUnit, const QSizeF & resolution, ResolutionUnits rUnit);
+            PLECanvasSize();
+            PLECanvasSize(const QSizeF & size, SizeUnits sUnit, const QSizeF & resolution, ResolutionUnits rUnit);
 
             QSizeF size() const;
             void setSize(const QSizeF & size);
@@ -98,8 +98,8 @@ namespace PhotoLayoutsEditor
             void setResolutionUnit(ResolutionUnits unit);
             bool isValid() const;
 
-            bool operator ==(const CanvasSize & size) const;
-            bool operator !=(const CanvasSize & size) const;
+            bool operator ==(const PLECanvasSize & size) const;
+            bool operator !=(const PLECanvasSize & size) const;
 
         private:
 
@@ -116,7 +116,7 @@ namespace PhotoLayoutsEditor
             ResolutionUnits m_resolution_unit;
             QSizeF m_resolution;
 
-        friend class CanvasSizeDialog;
+        friend class PLECanvasSizeDialog;
     };
 }
 

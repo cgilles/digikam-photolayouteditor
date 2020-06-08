@@ -65,7 +65,7 @@
 
 // Local includes
 
-#include "CanvasSize.h"
+#include "plecanvassize.h"
 #include "LayersTree.h"
 #include "LayersTreeTitleWidget.h"
 #include "ToolsDockWidget.h"
@@ -73,8 +73,8 @@
 #include "BorderEditTool.h"
 #include "abstractphotoeffectfactory.h"
 #include "plestatusbar.h"
-#include "CanvasSizeDialog.h"
-#include "Canvas.h"
+#include "plecanvassizedialog.h"
+#include "plecanvas.h"
 #include "Scene.h"
 #include "LayersSelectionModel.h"
 #include "UndoCommandEventFilter.h"
@@ -87,7 +87,7 @@
 #include "ProgressEvent.h"
 #include "BorderDrawerInterface.h"
 #include "borderdrawersloader.h"
-#include "NewCanvasDialog.h"
+#include "plecanvasnewdialog.h"
 #include "ui_plewindow.h"
 
 using namespace Digikam;
@@ -148,7 +148,7 @@ class PLEWindow::Private
 
         QFileDialog*                                    fileDialog;
 
-        Canvas*                                         canvas;
+        PLECanvas*                                         canvas;
         DInfoInterface*                                 interface;
         Ui::PLEWindow*                                  ui;
         DPluginGeneric*                                 plugin;
@@ -156,12 +156,12 @@ class PLEWindow::Private
 
 // ---------------------------------------------------------------------
 
-class CanvasSizeChangeCommand : public QUndoCommand
+class PLECanvasSizeChangeCommand : public QUndoCommand
 {
 public:
 
-    CanvasSizeChangeCommand(const CanvasSize& size, Canvas* canvas, QUndoCommand* parent = nullptr)
-      : QUndoCommand(QObject::tr("Canvas size change"), parent),
+    PLECanvasSizeChangeCommand(const PLECanvasSize& size, PLECanvas* canvas, QUndoCommand* parent = nullptr)
+      : QUndoCommand(QObject::tr("PLECanvas size change"), parent),
         m_size(size),
         m_canvas(canvas)
     {
@@ -179,15 +179,15 @@ public:
 
     void run()
     {
-        CanvasSize temp = m_canvas->canvasSize();
-        m_canvas->setCanvasSize(m_size);
+        PLECanvasSize temp = m_canvas->canvasSize();
+        m_canvas->setPLECanvasSize(m_size);
         m_size          = temp;
     }
 
 private:
 
-    CanvasSize m_size;
-    Canvas*    m_canvas;
+    PLECanvasSize m_size;
+    PLECanvas*    m_canvas;
 };
 
 static PLEWindow* m_instance = nullptr;

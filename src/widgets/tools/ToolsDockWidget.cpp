@@ -35,7 +35,7 @@
 
 // Local includes
 
-#include "CanvasEditTool.h"
+#include "plecanvasedittool.h"
 #include "EffectsEditorTool.h"
 #include "TextEditorTool.h"
 #include "BorderEditTool.h"
@@ -58,7 +58,7 @@ class ToolsDockWidget::ToolsDockWidgetPrivate
     }
 
     ZoomTool*          zoom_tool;
-    CanvasEditTool*    canvas_tool;
+    PLECanvasEditTool*    canvas_tool;
     EffectsEditorTool* effects_tool;
     TextEditorTool*    text_tool;
     BorderEditTool*    border_tool;
@@ -156,7 +156,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
     group->addButton(m_tool_zoom);
     connect(m_tool_zoom,SIGNAL(toggled(bool)),this,SLOT(setZoomWidgetVisible(bool)));
 
-    // Canvas edit tool
+    // PLECanvas edit tool
     m_canvas_button = new QPushButton(QIcon(QLatin1String(":/tool_canvas.png")), QString(), widget);
     m_canvas_button->setToolTip(QObject::tr("This tool allows you to edit canvas properties like size and background."));
     m_canvas_button->setIconSize(QSize(24,24));
@@ -164,7 +164,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget * parent) :
     m_canvas_button->setCheckable(true);
     m_canvas_button->setFlat(true);
     group->addButton(m_canvas_button);
-    connect(m_canvas_button,SIGNAL(toggled(bool)),this,SLOT(setCanvasWidgetVisible(bool)));
+    connect(m_canvas_button,SIGNAL(toggled(bool)),this,SLOT(setPLECanvasWidgetVisible(bool)));
 
     // Text tool
     m_text_button = new QPushButton(QIcon(QLatin1String(":/tool_text.png")), QString(), 
@@ -340,7 +340,7 @@ void ToolsDockWidget::setZoomWidgetVisible(bool isVisible)
     }
 }
 
-void ToolsDockWidget::setCanvasWidgetVisible(bool isVisible)
+void ToolsDockWidget::setPLECanvasWidgetVisible(bool isVisible)
 {
     if (d->canvas_tool)
     {
@@ -351,7 +351,7 @@ void ToolsDockWidget::setCanvasWidgetVisible(bool isVisible)
     emit canvasToolSelectionChanged(isVisible);
     if (isVisible)
     {
-        d->canvas_tool = new CanvasEditTool(nullptr, d->toolArea);
+        d->canvas_tool = new PLECanvasEditTool(nullptr, d->toolArea);
         d->canvas_tool->setScene(m_scene);
         d->toolArea->setWidget(d->canvas_tool);
         emit requireMultiSelection();

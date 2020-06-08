@@ -21,7 +21,7 @@
  *
  * ============================================================ */
 
-#include "CanvasSizeWidget.h"
+#include "plecanvassizewidget.h"
 
 // Qt includes
 
@@ -36,12 +36,12 @@
 
 // Local includes
 
-#include "CanvasSize.h"
+#include "plecanvassize.h"
 
 namespace PhotoLayoutsEditor
 {
 
-class CanvasSizeWidget::Private
+class PLECanvasSizeWidget::Private
 {
     explicit Private()
         : sizeWidget(nullptr),
@@ -77,17 +77,17 @@ class CanvasSizeWidget::Private
     static qreal HEIGHT_RES;
     static QString currentResolutionUnit;
 
-    friend class CanvasSizeWidget;
+    friend class PLECanvasSizeWidget;
 };
 
-int CanvasSizeWidget::Private::WIDTH = 800;
-int CanvasSizeWidget::Private::HEIGHT = 800;
-QString CanvasSizeWidget::Private::currentSizeUnit;
-qreal CanvasSizeWidget::Private::WIDTH_RES = 72;
-qreal CanvasSizeWidget::Private::HEIGHT_RES = 72;
-QString CanvasSizeWidget::Private::currentResolutionUnit;
+int PLECanvasSizeWidget::Private::WIDTH = 800;
+int PLECanvasSizeWidget::Private::HEIGHT = 800;
+QString PLECanvasSizeWidget::Private::currentSizeUnit;
+qreal PLECanvasSizeWidget::Private::WIDTH_RES = 72;
+qreal PLECanvasSizeWidget::Private::HEIGHT_RES = 72;
+QString PLECanvasSizeWidget::Private::currentResolutionUnit;
 
-void CanvasSizeWidget::Private::swapSizes()
+void PLECanvasSizeWidget::Private::swapSizes()
 {
     // swap dimensions
     qreal temp = WIDTH;
@@ -106,7 +106,7 @@ void CanvasSizeWidget::Private::swapSizes()
     yResolution->setValue(temp);
 }
 
-void CanvasSizeWidget::Private::updateSizeLabel()
+void PLECanvasSizeWidget::Private::updateSizeLabel()
 {
     sizeLabel->setText(QString::number(WIDTH)
                         .append(QLatin1String(" x "))
@@ -114,7 +114,7 @@ void CanvasSizeWidget::Private::updateSizeLabel()
                         .append(QLatin1String(" px"))));
 }
 
-CanvasSizeWidget::CanvasSizeWidget(QWidget *parent) :
+PLECanvasSizeWidget::PLECanvasSizeWidget(QWidget *parent) :
     QWidget(parent),
     d(new Private)
 {
@@ -124,30 +124,30 @@ CanvasSizeWidget::CanvasSizeWidget(QWidget *parent) :
             d->currentResolutionUnit);
 }
 
-CanvasSizeWidget::Orientation CanvasSizeWidget::orientation() const
+PLECanvasSizeWidget::Orientation PLECanvasSizeWidget::orientation() const
 {
     if (d->WIDTH < d->HEIGHT)
-        return CanvasSizeWidget::Vertical;
+        return PLECanvasSizeWidget::Vertical;
     else
-        return CanvasSizeWidget::Horizontal;
+        return PLECanvasSizeWidget::Horizontal;
 }
 
-void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, const QSizeF & resolution, const QString & resolutionUnits)
+void PLECanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, const QSizeF & resolution, const QString & resolutionUnits)
 {
     QString tempSizeUnits = sizeUnits;
     QString tempResolutionUnits = resolutionUnits;
     if (tempSizeUnits.isEmpty() ||
-            CanvasSize::sizeUnit(tempSizeUnits) == CanvasSize::UnknownSizeUnit)
-        tempSizeUnits = CanvasSize::sizeUnitName(CanvasSize::Pixels);;
+            PLECanvasSize::sizeUnit(tempSizeUnits) == PLECanvasSize::UnknownSizeUnit)
+        tempSizeUnits = PLECanvasSize::sizeUnitName(PLECanvasSize::Pixels);;
     if (tempResolutionUnits.isEmpty() ||
-            CanvasSize::resolutionUnit(tempResolutionUnits) == CanvasSize::UnknownResolutionUnit)
-        tempResolutionUnits = CanvasSize::resolutionUnitName(CanvasSize::PixelsPerInch);;
+            PLECanvasSize::resolutionUnit(tempResolutionUnits) == PLECanvasSize::UnknownResolutionUnit)
+        tempResolutionUnits = PLECanvasSize::resolutionUnitName(PLECanvasSize::PixelsPerInch);;
 
     QVBoxLayout * vLayout = new  QVBoxLayout();
     this->setLayout(vLayout);
 
     /// ----------------------- CANVAS SIZE PART -----------------------
-    d->sizeWidget = new QGroupBox(QObject::tr("Canvas size"), this);
+    d->sizeWidget = new QGroupBox(QObject::tr("PLECanvas size"), this);
     vLayout->addWidget(d->sizeWidget);
 
     QGridLayout * gridLayout = new QGridLayout(d->sizeWidget);
@@ -158,10 +158,10 @@ void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, c
     d->xSize->setMinimum(0.00001);
     d->xSize->setMaximum(999999);
     d->xSize->setValue(size.width());
-    d->WIDTH = CanvasSize::toPixels(size.width(),
+    d->WIDTH = PLECanvasSize::toPixels(size.width(),
                                     resolution.width(),
-                                    CanvasSize::sizeUnit(tempSizeUnits),
-                                    CanvasSize::resolutionUnit(tempResolutionUnits));
+                                    PLECanvasSize::sizeUnit(tempSizeUnits),
+                                    PLECanvasSize::resolutionUnit(tempResolutionUnits));
     gridLayout->addWidget(new QLabel(QObject::tr("Width"), d->sizeWidget),0,0);
     gridLayout->addWidget(d->xSize,0,1);
 
@@ -170,16 +170,16 @@ void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, c
     d->ySize->setMinimum(0.00001);
     d->ySize->setMaximum(999999);
     d->ySize->setValue(size.height());
-    d->HEIGHT = CanvasSize::toPixels(size.height(),
+    d->HEIGHT = PLECanvasSize::toPixels(size.height(),
                                      resolution.height(),
-                                     CanvasSize::sizeUnit(tempSizeUnits),
-                                     CanvasSize::resolutionUnit(tempResolutionUnits));
+                                     PLECanvasSize::sizeUnit(tempSizeUnits),
+                                     PLECanvasSize::resolutionUnit(tempResolutionUnits));
     gridLayout->addWidget(new QLabel(QObject::tr("Height"), d->sizeWidget),1,0);
     gridLayout->addWidget(d->ySize,1,1);
 
     // Unit widget
     d->sizeUnitsWidget = new QComboBox(d->sizeWidget);
-    d->sizeUnitsWidget->addItems(CanvasSize::sizeUnitsNames());
+    d->sizeUnitsWidget->addItems(PLECanvasSize::sizeUnitsNames());
     d->sizeUnitsWidget->setCurrentText(tempSizeUnits);
     d->currentSizeUnit = tempSizeUnits;
     gridLayout->addWidget(d->sizeUnitsWidget,1,2);
@@ -200,7 +200,7 @@ void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, c
     d->xResolution->setMaximum(999999);
     d->xResolution->setValue(resolution.width());
     d->xResolution->setDecimals(3);
-    d->WIDTH_RES = resolution.width() * CanvasSize::resolutionUnitFactor(tempResolutionUnits);
+    d->WIDTH_RES = resolution.width() * PLECanvasSize::resolutionUnitFactor(tempResolutionUnits);
     gridLayout->addWidget(new QLabel(QObject::tr("Resolution X"), d->advancedWidget),0,0);
     gridLayout->addWidget(d->xResolution,0,1);
 
@@ -210,13 +210,13 @@ void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, c
     d->yResolution->setMaximum(999999);
     d->yResolution->setValue(resolution.height());
     d->yResolution->setDecimals(3);
-    d->HEIGHT_RES = resolution.height() * CanvasSize::resolutionUnitFactor(tempResolutionUnits);
+    d->HEIGHT_RES = resolution.height() * PLECanvasSize::resolutionUnitFactor(tempResolutionUnits);
     gridLayout->addWidget(new QLabel(QObject::tr("Resolution Y"), d->advancedWidget),1,0);
     gridLayout->addWidget(d->yResolution,1,1);
 
     // Unit widget
     d->resolutionUnitsWidget = new QComboBox(d->sizeWidget);
-    d->resolutionUnitsWidget->addItems(CanvasSize::resolutionUnitsNames());
+    d->resolutionUnitsWidget->addItems(PLECanvasSize::resolutionUnitsNames());
     d->resolutionUnitsWidget->setCurrentText(tempResolutionUnits);
     d->currentResolutionUnit = tempResolutionUnits;
     gridLayout->addWidget(d->resolutionUnitsWidget,1,2);
@@ -226,12 +226,12 @@ void CanvasSizeWidget::setupUI(const QSizeF & size, const QString & sizeUnits, c
     d->updateSizeLabel();
 }
 
-CanvasSizeWidget::~CanvasSizeWidget()
+PLECanvasSizeWidget::~PLECanvasSizeWidget()
 {
     delete d;
 }
 
-void CanvasSizeWidget::prepareSignalsConnections()
+void PLECanvasSizeWidget::prepareSignalsConnections()
 {
     connect(d->xSize, SIGNAL(valueChanged(double)), this, SLOT(widthChanged(double)));
     connect(d->ySize, SIGNAL(valueChanged(double)), this, SLOT(heightChanged(double)));
@@ -241,20 +241,20 @@ void CanvasSizeWidget::prepareSignalsConnections()
     connect(d->resolutionUnitsWidget, SIGNAL(currentIndexChanged(QString)), this, SLOT(resolutionUnitsChanged(QString)));
 }
 
-CanvasSize CanvasSizeWidget::canvasSize() const
+PLECanvasSize PLECanvasSizeWidget::canvasSize() const
 {
-    CanvasSize result(QSizeF(d->xSize->value(), d->ySize->value()),
-                      CanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
+    PLECanvasSize result(QSizeF(d->xSize->value(), d->ySize->value()),
+                      PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
                       QSizeF(d->xResolution->value(), d->yResolution->value()),
-                      CanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
+                      PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
     return result;
 }
 
-void CanvasSizeWidget::sizeUnitsChanged(const QString & unitName)
+void PLECanvasSizeWidget::sizeUnitsChanged(const QString & unitName)
 {
     d->currentSizeUnit = unitName;
-    CanvasSize::SizeUnits sizeUnit = CanvasSize::sizeUnit(unitName);
-    if (sizeUnit == CanvasSize::Pixels)
+    PLECanvasSize::SizeUnits sizeUnit = PLECanvasSize::sizeUnit(unitName);
+    if (sizeUnit == PLECanvasSize::Pixels)
     {
         d->xSize->setValue(d->WIDTH);
         d->ySize->setValue(d->HEIGHT);
@@ -264,12 +264,12 @@ void CanvasSizeWidget::sizeUnitsChanged(const QString & unitName)
     }
     d->xSize->setDecimals(5);
     d->ySize->setDecimals(5);
-    CanvasSize::ResolutionUnits resolutionUnit = CanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
-    qreal WIDTH = CanvasSize::fromPixels(d->WIDTH,
+    PLECanvasSize::ResolutionUnits resolutionUnit = PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
+    qreal WIDTH = PLECanvasSize::fromPixels(d->WIDTH,
                                          d->xResolution->value(),
                                          sizeUnit,
                                          resolutionUnit);
-    qreal HEIGHT = CanvasSize::fromPixels(d->HEIGHT,
+    qreal HEIGHT = PLECanvasSize::fromPixels(d->HEIGHT,
                                           d->yResolution->value(),
                                           sizeUnit,
                                           resolutionUnit);
@@ -277,22 +277,22 @@ void CanvasSizeWidget::sizeUnitsChanged(const QString & unitName)
     d->ySize->setValue(HEIGHT);
 }
 
-void CanvasSizeWidget::resolutionUnitsChanged(const QString & unitName)
+void PLECanvasSizeWidget::resolutionUnitsChanged(const QString & unitName)
 {
     d->currentResolutionUnit = unitName;
-    CanvasSize::ResolutionUnits unit = CanvasSize::resolutionUnit(unitName);
-    if (unit == CanvasSize::PixelsPerInch)
+    PLECanvasSize::ResolutionUnits unit = PLECanvasSize::resolutionUnit(unitName);
+    if (unit == PLECanvasSize::PixelsPerInch)
     {
         d->xResolution->setValue(d->WIDTH_RES);
         d->yResolution->setValue(d->HEIGHT_RES);
         return;
     }
-    qreal factor = CanvasSize::resolutionUnitFactor(unit);
+    qreal factor = PLECanvasSize::resolutionUnitFactor(unit);
     d->xResolution->setValue(d->WIDTH_RES / factor);
     d->yResolution->setValue(d->HEIGHT_RES / factor);
 }
 
-void CanvasSizeWidget::setHorizontal(bool isHorizontal)
+void PLECanvasSizeWidget::setHorizontal(bool isHorizontal)
 {
     if (isHorizontal)
     {
@@ -305,7 +305,7 @@ void CanvasSizeWidget::setHorizontal(bool isHorizontal)
     }
 }
 
-void CanvasSizeWidget::setVertical(bool isVertical)
+void PLECanvasSizeWidget::setVertical(bool isVertical)
 {
     if (isVertical)
     {
@@ -318,57 +318,57 @@ void CanvasSizeWidget::setVertical(bool isVertical)
     }
 }
 
-void CanvasSizeWidget::widthChanged(double width)
+void PLECanvasSizeWidget::widthChanged(double width)
 {
-    width = CanvasSize::toPixels(width,
+    width = PLECanvasSize::toPixels(width,
                                  d->xResolution->value(),
-                                 CanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
-                                 CanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
+                                 PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
+                                 PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
     d->WIDTH = width;
     this->setHorizontal(d->WIDTH > d->HEIGHT);
     this->setVertical(d->WIDTH < d->HEIGHT);
     d->updateSizeLabel();
 }
 
-void CanvasSizeWidget::heightChanged(double height)
+void PLECanvasSizeWidget::heightChanged(double height)
 {
-    height = CanvasSize::toPixels(height,
+    height = PLECanvasSize::toPixels(height,
                                   d->yResolution->value(),
-                                  CanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
-                                  CanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
+                                  PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
+                                  PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
     d->HEIGHT = height;
     this->setHorizontal(d->WIDTH > d->HEIGHT);
     this->setVertical(d->WIDTH < d->HEIGHT);
     d->updateSizeLabel();
 }
 
-void CanvasSizeWidget::xResolutionChanged(double xResolution)
+void PLECanvasSizeWidget::xResolutionChanged(double xResolution)
 {
-    CanvasSize::SizeUnits sizeUnit = CanvasSize::sizeUnit(d->sizeUnitsWidget->currentText());
-    if (sizeUnit == CanvasSize::Pixels)
+    PLECanvasSize::SizeUnits sizeUnit = PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText());
+    if (sizeUnit == PLECanvasSize::Pixels)
         return;
-    CanvasSize::ResolutionUnits resolutionUnit = CanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
-    qreal resolutionFactor = CanvasSize::resolutionUnitFactor(resolutionUnit);
-    int width = CanvasSize::toPixels(d->xSize->value(),
+    PLECanvasSize::ResolutionUnits resolutionUnit = PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
+    qreal resolutionFactor = PLECanvasSize::resolutionUnitFactor(resolutionUnit);
+    int width = PLECanvasSize::toPixels(d->xSize->value(),
                                      xResolution,
-                                     CanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
-                                     CanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
+                                     PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
+                                     PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
     d->WIDTH = width;
     d->WIDTH_RES = xResolution * resolutionFactor;
     d->updateSizeLabel();
 }
 
-void CanvasSizeWidget::yResolutionChanged(double yResolution)
+void PLECanvasSizeWidget::yResolutionChanged(double yResolution)
 {
-    CanvasSize::SizeUnits sizeUnit = CanvasSize::sizeUnit(d->sizeUnitsWidget->currentText());
-    if (sizeUnit == CanvasSize::Pixels)
+    PLECanvasSize::SizeUnits sizeUnit = PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText());
+    if (sizeUnit == PLECanvasSize::Pixels)
         return;
-    CanvasSize::ResolutionUnits resolutionUnit = CanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
-    qreal resolutionFactor = CanvasSize::resolutionUnitFactor(resolutionUnit);
-    int height = CanvasSize::toPixels(d->ySize->value(),
+    PLECanvasSize::ResolutionUnits resolutionUnit = PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
+    qreal resolutionFactor = PLECanvasSize::resolutionUnitFactor(resolutionUnit);
+    int height = PLECanvasSize::toPixels(d->ySize->value(),
                                       yResolution,
-                                      CanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
-                                      CanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
+                                      PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
+                                      PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
     d->HEIGHT = height;
     d->HEIGHT_RES = yResolution * resolutionFactor;
     d->updateSizeLabel();

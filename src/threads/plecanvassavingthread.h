@@ -22,55 +22,52 @@
  *
  * ============================================================ */
 
-#ifndef CANVAS_LOADING_THREAD_H
-#define CANVAS_LOADING_THREAD_H
-
-// Qt includes
+#ifndef CANVASSAVINGTHREAD_H
+#define CANVASSAVINGTHREAD_H
 
 #include <QThread>
-#include <QDomDocument>
-
-// Local includes
+#include <QUrl>
 
 #include "ProgressObserver.h"
 
 namespace PhotoLayoutsEditor
 {
+    class PLECanvas;
+    class PLECanvasSavingThread : public QThread, public ProgressObserver
+    {
+            Q_OBJECT
 
-class AbstractPhoto;
-class SceneBackground;
-class SceneBorder;
+        public:
 
-class CanvasLoadingThread : public QThread, public ProgressObserver
-{
-    Q_OBJECT
+            explicit PLECanvasSavingThread(QObject* parent = nullptr);
+            void save(PLECanvas * canvas, const QUrl& url);
+            void saveAsTemplate(PLECanvas * canvas, const QUrl& url);
+            virtual void progresChanged(double progress) override;
+            virtual void progresName(const QString& name) override;
 
-public:
+        Q_SIGNALS:
 
-    explicit CanvasLoadingThread(QObject* const parent = nullptr);
-    ~CanvasLoadingThread();
+            void saved();
 
-    virtual void progresChanged(double progress) override;
-    virtual void progresName(const QString& name) override;
-    void addItem(AbstractPhoto* item, QDomElement& element);
-    void addBackground(SceneBackground* background, QDomElement& element);
-    void addBorder(SceneBorder* border, QDomElement& element);
+        protected:
 
-protected:
+            virtual void run() override;
 
-    virtual void run() override;
+        private Q_SLOTS:
 
-private:
+            void bytesWritten(qint64);
 
-    CanvasLoadingThread(const CanvasLoadingThread&);
-    CanvasLoadingThread& operator=(const CanvasLoadingThread&);
+        private:
 
-    class CanvasLoadingThreadPrivate;
-    CanvasLoadingThreadPrivate* d;
+            void sendProgressUpdate(double v);
+            void sendActionUpdate(const QString& str);
 
-    friend class CanvasLoadingThreadPrivate;
-};
+        private:
 
-} // namespace PhotoLayoutsEditor
+            PLECanvas* m_canvas;
+            QUrl    m_url;
+            bool    m_template;
+    };
+}
 
-#endif // CANVAS_LOADING_THREAD_H
+#endif // CANVASSAVINGTHREAD_H

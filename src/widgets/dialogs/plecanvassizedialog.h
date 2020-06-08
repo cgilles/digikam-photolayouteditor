@@ -25,27 +25,27 @@
 #ifndef CANVAS_SIZE_DIALOG_H
 #define CANVAS_SIZE_DIALOG_H
 
-#include "CanvasSize.h"
+#include "plecanvassize.h"
 
 #include <QDialog>
 #include <QSize>
 
 namespace PhotoLayoutsEditor
 {
-class CanvasSizeDialogPrivate;
+class PLECanvasSizeDialogPrivate;
 
-class CanvasSizeDialog : public QDialog
+class PLECanvasSizeDialog : public QDialog
 {
     Q_OBJECT
 
 public:
 
-    explicit CanvasSizeDialog(QWidget * parent = nullptr);
-    explicit CanvasSizeDialog(const CanvasSize & canvasSize, QWidget * parent = nullptr);
-    ~CanvasSizeDialog();
+    explicit PLECanvasSizeDialog(QWidget * parent = nullptr);
+    explicit PLECanvasSizeDialog(const PLECanvasSize & canvasSize, QWidget * parent = nullptr);
+    ~PLECanvasSizeDialog();
 
-    Q_PROPERTY(CanvasSize canvas_size READ canvasSize)
-    CanvasSize canvasSize() const;
+    Q_PROPERTY(PLECanvasSize canvas_size READ canvasSize)
+    PLECanvasSize canvasSize() const;
 
 protected Q_SLOTS:
 
@@ -64,7 +64,7 @@ private:
     void setupDialog(const QSizeF & size, const QString & sizeUnits, const QSizeF & resolution, const QString & resolutionUnits);
     void prepareSignalsConnections();
 
-    CanvasSizeDialogPrivate * d;
+    PLECanvasSizeDialogPrivate * d;
 };
 
 } // namespace PhotoLayoutsEditor

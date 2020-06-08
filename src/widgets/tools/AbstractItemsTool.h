@@ -47,7 +47,7 @@ private:
 
 public:
 
-    AbstractItemsTool(Scene * scene, Canvas::SelectionMode selectionMode, QWidget * parent = nullptr);
+    AbstractItemsTool(Scene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent = nullptr);
 
     /** Current photo property
     * This property holds an information which item is currently editing.

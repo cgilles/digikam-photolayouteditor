@@ -97,9 +97,9 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/SepiaPhotoEffect.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/effects/tools/NegativePhotoEffect.cpp
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plecanvasloadingthread.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/plecanvassavingthread.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/AbstractPhotoItemLoader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/CanvasLoadingThread.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/CanvasSavingThread.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/ImageLoadingThread.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/PhotoItemLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads/SceneBackgroundLoader.cpp
@@ -134,20 +134,20 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/AbstractItemsTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/AbstractTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/BorderEditTool.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/CanvasEditTool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/plecanvasedittool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/EffectsEditorTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/TextEditorTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/ToolsDockWidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/ZoomTool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/tools/PatternsComboBox.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/CanvasSizeDialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/plecanvassizedialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/plecanvasnewdialog.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/plecanvassizewidget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/pleconfigdialog.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/GridSetupDialog.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/NewCanvasDialog.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/CanvasSizeWidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/TemplatesView.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs/pleconfigdialog.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/plewindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/window/plestatusbar.cpp
@@ -158,8 +158,8 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/abstractiteminterface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items/PhotoItem.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/Canvas.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/CanvasSize.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plecanvas.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/plecanvassize.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/CropWidgetItem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/MousePressListener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/RotationWidgetItem.cpp

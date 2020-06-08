@@ -39,7 +39,7 @@ namespace PhotoLayoutsEditor
     class AbstractTool;
     class AbstractPhoto;
     class AbstractItemsTool;
-    class CanvasEditTool;
+    class PLECanvasEditTool;
 
     class ToolsDockWidget : public QDockWidget
     {
@@ -61,7 +61,7 @@ namespace PhotoLayoutsEditor
 
 //            QStackedLayout * m_tool_widget_layout;
 //            AbstractTool   * m_zoom_widget;
-//            CanvasEditTool * m_canvas_widget;
+//            PLECanvasEditTool * m_canvas_widget;
 //            AbstractItemsTool * m_effects_widget;
 //            AbstractItemsTool * m_text_widget;
 //            AbstractItemsTool * m_border_widget;
@@ -122,7 +122,7 @@ namespace PhotoLayoutsEditor
             void setPointerToolVisible(bool isSelected = true);
             void setHandToolVisible(bool isSelected = true);
             void setZoomWidgetVisible(bool isSelected = true);
-            void setCanvasWidgetVisible(bool isVisible = true);
+            void setPLECanvasWidgetVisible(bool isVisible = true);
             void setEffectsWidgetVisible(bool isVisible = true);
             void setTextWidgetVisible(bool isVisible = true);
             void setRotateWidgetVisible(bool isVisible = true);

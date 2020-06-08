@@ -31,7 +31,7 @@
 namespace PhotoLayoutsEditor
 {
     class AbstractPhoto;
-    class CanvasLoadingThread;
+    class PLECanvasLoadingThread;
     class ProgressObserver;
     class AbstractPhotoItemLoader : public QThread
     {
@@ -53,7 +53,7 @@ namespace PhotoLayoutsEditor
 
             virtual void run() override;
 
-        friend class CanvasLoadingThread;
+        friend class PLECanvasLoadingThread;
     };
 }
 

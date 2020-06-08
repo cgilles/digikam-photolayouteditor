@@ -22,16 +22,16 @@
  *
  * ============================================================ */
 
-#include "CanvasSize.h"
+#include "plecanvassize.h"
 
 using namespace PhotoLayoutsEditor;
 
-QMap<CanvasSize::ResolutionUnits,qreal> CanvasSize::resolution_factors;
-QMap<CanvasSize::ResolutionUnits,QString> CanvasSize::resolution_names;
-QMap<CanvasSize::SizeUnits,qreal> CanvasSize::size_factors;
-QMap<CanvasSize::SizeUnits,QString> CanvasSize::size_names;
+QMap<PLECanvasSize::ResolutionUnits,qreal> PLECanvasSize::resolution_factors;
+QMap<PLECanvasSize::ResolutionUnits,QString> PLECanvasSize::resolution_names;
+QMap<PLECanvasSize::SizeUnits,qreal> PLECanvasSize::size_factors;
+QMap<PLECanvasSize::SizeUnits,QString> PLECanvasSize::size_names;
 
-void CanvasSize::prepare_maps()
+void PLECanvasSize::prepare_maps()
 {
     if (resolution_factors.isEmpty() || resolution_names.isEmpty())
     {
@@ -73,61 +73,61 @@ void CanvasSize::prepare_maps()
     }
 }
 
-QList<qreal> CanvasSize::resolutionUnitsFactors()
+QList<qreal> PLECanvasSize::resolutionUnitsFactors()
 {
     prepare_maps();
     return resolution_factors.values();
 }
 
-QList<QString> CanvasSize::resolutionUnitsNames()
+QList<QString> PLECanvasSize::resolutionUnitsNames()
 {
     prepare_maps();
     return resolution_names.values();
 }
 
-QList<CanvasSize::ResolutionUnits> CanvasSize::resolutionUnits()
+QList<PLECanvasSize::ResolutionUnits> PLECanvasSize::resolutionUnits()
 {
     prepare_maps();
     return resolution_factors.keys();
 }
 
-qreal CanvasSize::resolutionUnitFactor(CanvasSize::ResolutionUnits unit)
+qreal PLECanvasSize::resolutionUnitFactor(PLECanvasSize::ResolutionUnits unit)
 {
     prepare_maps();
     return resolution_factors.value(unit, 0);
 }
 
-qreal CanvasSize::resolutionUnitFactor(QString unitName)
+qreal PLECanvasSize::resolutionUnitFactor(QString unitName)
 {
     prepare_maps();
     return resolution_factors.value( resolution_names.key(unitName, UnknownResolutionUnit) );
 }
 
-QString CanvasSize::resolutionUnitName(CanvasSize::ResolutionUnits unit)
+QString PLECanvasSize::resolutionUnitName(PLECanvasSize::ResolutionUnits unit)
 {
     prepare_maps();
     return resolution_names.value(unit);
 }
 
-QString CanvasSize::resolutionUnitName(qreal factor)
+QString PLECanvasSize::resolutionUnitName(qreal factor)
 {
     prepare_maps();
     return resolution_names.value(resolution_factors.key(factor));
 }
 
-CanvasSize::ResolutionUnits CanvasSize::resolutionUnit(qreal factor)
+PLECanvasSize::ResolutionUnits PLECanvasSize::resolutionUnit(qreal factor)
 {
     prepare_maps();
     return resolution_factors.key(factor, UnknownResolutionUnit);
 }
 
-CanvasSize::ResolutionUnits CanvasSize::resolutionUnit(QString name)
+PLECanvasSize::ResolutionUnits PLECanvasSize::resolutionUnit(QString name)
 {
     prepare_maps();
     return resolution_names.key(name, UnknownResolutionUnit);
 }
 
-qreal CanvasSize::resolutionConvert(qreal value, ResolutionUnits from, ResolutionUnits to)
+qreal PLECanvasSize::resolutionConvert(qreal value, ResolutionUnits from, ResolutionUnits to)
 {
     qreal fromFactor = resolutionUnitFactor(from);
     qreal toFactor = resolutionUnitFactor(to);
@@ -138,61 +138,61 @@ qreal CanvasSize::resolutionConvert(qreal value, ResolutionUnits from, Resolutio
     return value;
 }
 
-QList<qreal> CanvasSize::sizeUnitsFactors()
+QList<qreal> PLECanvasSize::sizeUnitsFactors()
 {
     prepare_maps();
     return size_factors.values();
 }
 
-QList<QString> CanvasSize::sizeUnitsNames()
+QList<QString> PLECanvasSize::sizeUnitsNames()
 {
     prepare_maps();
     return size_names.values();
 }
 
-QList<CanvasSize::SizeUnits> CanvasSize::sizeUnits()
+QList<PLECanvasSize::SizeUnits> PLECanvasSize::sizeUnits()
 {
     prepare_maps();
     return size_factors.keys();
 }
 
-qreal CanvasSize::sizeUnitFactor(CanvasSize::SizeUnits unit)
+qreal PLECanvasSize::sizeUnitFactor(PLECanvasSize::SizeUnits unit)
 {
     prepare_maps();
     return size_factors.value(unit);
 }
 
-qreal CanvasSize::sizeUnitFactor(QString unitName)
+qreal PLECanvasSize::sizeUnitFactor(QString unitName)
 {
     prepare_maps();
     return size_factors.value(size_names.key(unitName, UnknownSizeUnit));
 }
 
-QString CanvasSize::sizeUnitName(CanvasSize::SizeUnits unit)
+QString PLECanvasSize::sizeUnitName(PLECanvasSize::SizeUnits unit)
 {
     prepare_maps();
     return size_names.value(unit);
 }
 
-QString CanvasSize::sizeUnitName(qreal factor)
+QString PLECanvasSize::sizeUnitName(qreal factor)
 {
     prepare_maps();
     return size_names.value(size_factors.key(factor));
 }
 
-CanvasSize::SizeUnits CanvasSize::sizeUnit(qreal factor)
+PLECanvasSize::SizeUnits PLECanvasSize::sizeUnit(qreal factor)
 {
     prepare_maps();
     return size_factors.key(factor, UnknownSizeUnit);
 }
 
-CanvasSize::SizeUnits CanvasSize::sizeUnit(QString name)
+PLECanvasSize::SizeUnits PLECanvasSize::sizeUnit(QString name)
 {
     prepare_maps();
     return size_names.key(name, UnknownSizeUnit);
 }
 
-qreal CanvasSize::sizeConvert(qreal value, SizeUnits from, SizeUnits to)
+qreal PLECanvasSize::sizeConvert(qreal value, SizeUnits from, SizeUnits to)
 {
     qreal fromFactor = sizeUnitFactor(from);
     qreal toFactor = sizeUnitFactor(to);
@@ -203,7 +203,7 @@ qreal CanvasSize::sizeConvert(qreal value, SizeUnits from, SizeUnits to)
     return value;
 }
 
-int CanvasSize::toPixels(qreal value, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit)
+int PLECanvasSize::toPixels(qreal value, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit)
 {
     if (sUnit == Pixels)
         return value;
@@ -212,14 +212,14 @@ int CanvasSize::toPixels(qreal value, qreal resolution, SizeUnits sUnit, Resolut
     return qRound(result);
 }
 
-qreal CanvasSize::fromPixels(int pixels, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit)
+qreal PLECanvasSize::fromPixels(int pixels, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit)
 {
     qreal sizeFactor = sizeUnitFactor(sUnit);
     qreal resolutionFactor = resolutionUnitFactor(rUnit);
     return (pixels * sizeFactor) / (resolution * resolutionFactor);
 }
 
-CanvasSize::CanvasSize()
+PLECanvasSize::PLECanvasSize()
 {
     prepare_maps();
     m_size = QSizeF();
@@ -228,7 +228,7 @@ CanvasSize::CanvasSize()
     m_resolution_unit = UnknownResolutionUnit;
 }
 
-CanvasSize::CanvasSize(const QSizeF & size, SizeUnits sUnit, const QSizeF & resolution, ResolutionUnits rUnit)
+PLECanvasSize::PLECanvasSize(const QSizeF & size, SizeUnits sUnit, const QSizeF & resolution, ResolutionUnits rUnit)
 {
     prepare_maps();
     m_size = size;
@@ -237,19 +237,19 @@ CanvasSize::CanvasSize(const QSizeF & size, SizeUnits sUnit, const QSizeF & reso
     m_resolution_unit = rUnit;
 }
 
-QSizeF CanvasSize::size() const
+QSizeF PLECanvasSize::size() const
 {
     return m_size;
 }
 
-void CanvasSize::setSize(const QSizeF & size)
+void PLECanvasSize::setSize(const QSizeF & size)
 {
     if (!size.isValid())
         return;
     m_size = size;
 }
 
-QSizeF CanvasSize::size(SizeUnits unit) const
+QSizeF PLECanvasSize::size(SizeUnits unit) const
 {
     QSizeF result;
     result.setWidth( toPixels(m_size.width(), m_resolution.width(), m_size_unit, m_resolution_unit) );
@@ -262,66 +262,66 @@ QSizeF CanvasSize::size(SizeUnits unit) const
     return result;
 }
 
-CanvasSize::SizeUnits CanvasSize::sizeUnit() const
+PLECanvasSize::SizeUnits PLECanvasSize::sizeUnit() const
 {
     return m_size_unit;
 }
 
-void CanvasSize::setSizeUnit(SizeUnits unit)
+void PLECanvasSize::setSizeUnit(SizeUnits unit)
 {
     if (unit < Pixels || unit > Picas)
         return;
     m_size_unit = unit;
 }
 
-QSizeF CanvasSize::resolution() const
+QSizeF PLECanvasSize::resolution() const
 {
     return m_resolution;
 }
 
-QSizeF CanvasSize::resolution(ResolutionUnits unit) const
+QSizeF PLECanvasSize::resolution(ResolutionUnits unit) const
 {
     if (!this->isValid())
         return QSizeF();
 
     QSizeF result = m_resolution;
-    if (m_resolution_unit != CanvasSize::PixelsPerInch)
+    if (m_resolution_unit != PLECanvasSize::PixelsPerInch)
     {
-        qreal factor = CanvasSize::resolutionUnitFactor(m_resolution_unit);
+        qreal factor = PLECanvasSize::resolutionUnitFactor(m_resolution_unit);
         result.setWidth(result.width() * factor);
         result.setHeight(result.height() * factor);
     }
 
     if (unit != m_resolution_unit &&
-            unit != CanvasSize::UnknownResolutionUnit)
+            unit != PLECanvasSize::UnknownResolutionUnit)
     {
-        qreal factor = CanvasSize::resolutionUnitFactor(unit);
+        qreal factor = PLECanvasSize::resolutionUnitFactor(unit);
         result.setWidth(result.width() / factor);
         result.setHeight(result.height() / factor);
     }
     return result;
 }
 
-void CanvasSize::setResolution(const QSizeF & resolution)
+void PLECanvasSize::setResolution(const QSizeF & resolution)
 {
     if (!resolution.isValid())
         return;
     m_resolution = resolution;
 }
 
-CanvasSize::ResolutionUnits CanvasSize::resolutionUnit() const
+PLECanvasSize::ResolutionUnits PLECanvasSize::resolutionUnit() const
 {
     return m_resolution_unit;
 }
 
-void CanvasSize::setResolutionUnit(ResolutionUnits unit)
+void PLECanvasSize::setResolutionUnit(ResolutionUnits unit)
 {
     if (unit < PixelsPerMilimeter || unit > PixelsPerPicas)
         return;
     m_resolution_unit = unit;
 }
 
-bool CanvasSize::isValid() const
+bool PLECanvasSize::isValid() const
 {
     return m_size.isValid() &&
             m_resolution.isValid() &&
@@ -329,7 +329,7 @@ bool CanvasSize::isValid() const
             (m_resolution_unit != UnknownResolutionUnit);
 }
 
-bool CanvasSize::operator ==(const CanvasSize & size) const
+bool PLECanvasSize::operator ==(const PLECanvasSize & size) const
 {
     return this->m_size == size.m_size &&
             this->m_size_unit == size.m_size_unit &&
@@ -337,7 +337,7 @@ bool CanvasSize::operator ==(const CanvasSize & size) const
             this->m_resolution_unit == size.m_resolution_unit;
 }
 
-bool CanvasSize::operator !=(const CanvasSize & size) const
+bool PLECanvasSize::operator !=(const PLECanvasSize & size) const
 {
     return !(*this == size);
 }

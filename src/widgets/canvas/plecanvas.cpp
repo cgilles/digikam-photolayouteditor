@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "Canvas_p.h"
+#include "plecanvas_p.h"
 
 // Qt includes
 
@@ -46,8 +46,8 @@
 #include "pleglobal.h"
 #include "ProgressEvent.h"
 #include "plewindow.h"
-#include "CanvasLoadingThread.h"
-#include "CanvasSavingThread.h"
+#include "plecanvasloadingthread.h"
+#include "plecanvassavingthread.h"
 #include "plestatusbar.h"
 
 #define MAX_SCALE_LIMIT 4
@@ -56,18 +56,18 @@
 namespace PhotoLayoutsEditor
 {
 
-Canvas::Canvas(const CanvasSize & size, QWidget * parent) :
+PLECanvas::PLECanvas(const PLECanvasSize & size, QWidget * parent) :
     QGraphicsView(parent),
-    d(new CanvasPrivate)
+    d(new PLECanvasPrivate)
 {
     d->m_size = size;
-    m_scene = new Scene(QRectF(QPointF(0,0), d->m_size.size(CanvasSize::Pixels)), this);
+    m_scene = new Scene(QRectF(QPointF(0,0), d->m_size.size(PLECanvasSize::Pixels)), this);
     this->init();
 }
 
-Canvas::Canvas(Scene * scene, QWidget * parent) :
+PLECanvas::PLECanvas(Scene * scene, QWidget * parent) :
     QGraphicsView(parent),
-    d(new CanvasPrivate)
+    d(new PLECanvasPrivate)
 {
     Q_ASSERT(scene != nullptr);
     m_scene = scene;
@@ -77,12 +77,12 @@ Canvas::Canvas(Scene * scene, QWidget * parent) :
     this->init();
 }
 
-Canvas::~Canvas()
+PLECanvas::~PLECanvas()
 {
     delete d;
 }
 
-void Canvas::init()
+void PLECanvas::init()
 {
     m_is_saved = true;
     m_saved_on_index = 0;
@@ -94,7 +94,7 @@ void Canvas::init()
     this->prepareSignalsConnection();
 }
 
-void Canvas::setupGUI()
+void PLECanvas::setupGUI()
 {
     this->setAcceptDrops(true);
     this->setAutoFillBackground(true);
@@ -125,7 +125,7 @@ void Canvas::setupGUI()
     this->setScene(m_scene);
 }
 
-void Canvas::prepareSignalsConnection()
+void PLECanvas::prepareSignalsConnection()
 {
     connect(m_scene, SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
     connect(m_scene, SIGNAL(itemAboutToBeRemoved(AbstractPhoto*)), this, SLOT(removeItem(AbstractPhoto*)));
@@ -135,7 +135,7 @@ void Canvas::prepareSignalsConnection()
     connect(m_undo_stack, SIGNAL(cleanChanged(bool)), this, SLOT(isSavedChanged(bool)));
 }
 
-void Canvas::setSelectionMode(SelectionMode mode)
+void PLECanvas::setSelectionMode(SelectionMode mode)
 {
     if (mode & Viewing)
     {
@@ -170,59 +170,59 @@ void Canvas::setSelectionMode(SelectionMode mode)
         m_selection_mode = mode;
 }
 
-LayersModel * Canvas::model() const
+LayersModel * PLECanvas::model() const
 {
     return m_scene->model();
 }
 
-LayersSelectionModel * Canvas::selectionModel() const
+LayersSelectionModel * PLECanvas::selectionModel() const
 {
     return m_scene->selectionModel();
 }
 
-CanvasSize Canvas::canvasSize() const
+PLECanvasSize PLECanvas::canvasSize() const
 {
     return d->m_size;
 }
 
-void Canvas::setCanvasSize(const CanvasSize & size)
+void PLECanvas::setPLECanvasSize(const PLECanvasSize & size)
 {
     if (!size.isValid())
         return;
     d->m_size = size;
-    m_scene->setSceneRect(QRectF(QPointF(0,0), size.size(CanvasSize::Pixels)));
+    m_scene->setSceneRect(QRectF(QPointF(0,0), size.size(PLECanvasSize::Pixels)));
 }
 
-void Canvas::preparePrinter(QPrinter * printer)
+void PLECanvas::preparePrinter(QPrinter * printer)
 {
     printer->setPageMargins(0, 0, 0, 0, QPrinter::Millimeter);
-    CanvasSize::SizeUnits su = d->m_size.sizeUnit();
+    PLECanvasSize::SizeUnits su = d->m_size.sizeUnit();
     QSizeF cs = d->m_size.size();
     bool setResolution = true;
 
     switch (su)
     {
-        case CanvasSize::Centimeters:
+        case PLECanvasSize::Centimeters:
             cs *= 10;
             break;
 
-        case CanvasSize::Milimeters:
+        case PLECanvasSize::Milimeters:
             printer->setPaperSize(cs, QPrinter::Millimeter);
             break;
 
-        case CanvasSize::Inches:
+        case PLECanvasSize::Inches:
             printer->setPaperSize(cs, QPrinter::Inch);
             break;
 
-        case CanvasSize::Points:
+        case PLECanvasSize::Points:
             printer->setPaperSize(cs, QPrinter::Point);
             break;
 
-        case CanvasSize::Picas:
+        case PLECanvasSize::Picas:
             printer->setPaperSize(cs, QPrinter::Pica);
             break;
 
-        case CanvasSize::Pixels:
+        case PLECanvasSize::Pixels:
             printer->setPaperSize(cs, QPrinter::DevicePixel);
             setResolution = false;
             break;
@@ -236,12 +236,12 @@ void Canvas::preparePrinter(QPrinter * printer)
 
     if (setResolution)
     {
-        QSize printerResolution = d->m_size.resolution(CanvasSize::PixelsPerInch).toSize();
+        QSize printerResolution = d->m_size.resolution(PLECanvasSize::PixelsPerInch).toSize();
         printer->setResolution(qMin(printerResolution.width(), printerResolution.height()));
     }
 }
 
-void Canvas::addImage(const QImage & image)
+void PLECanvas::addImage(const QImage & image)
 {
     // Create & setup item
     PhotoItem * it = new PhotoItem(image);
@@ -253,7 +253,7 @@ void Canvas::addImage(const QImage & image)
     it->fitToRect(m_scene->sceneRect().toRect());
 }
 
-void Canvas::addImage(const QUrl & imageUrl)
+void PLECanvas::addImage(const QUrl & imageUrl)
 {
     ImageLoadingThread * ilt = new ImageLoadingThread(this);
     ilt->setImageUrl(imageUrl);
@@ -262,7 +262,7 @@ void Canvas::addImage(const QUrl & imageUrl)
     ilt->start();
 }
 
-void Canvas::addImages(const QList<QUrl> & images)
+void PLECanvas::addImages(const QList<QUrl> & images)
 {
     ImageLoadingThread * ilt = new ImageLoadingThread(this);
     ilt->setImagesUrls(images);
@@ -271,7 +271,7 @@ void Canvas::addImages(const QList<QUrl> & images)
     ilt->start();
 }
 
-void Canvas::addText(const QString & text)
+void PLECanvas::addText(const QString & text)
 {
     // Create & setup item
     TextItem * it = new TextItem(text);
@@ -280,7 +280,7 @@ void Canvas::addText(const QString & text)
     m_scene->addItem(it);
 }
 
-void Canvas::addNewItem(AbstractPhoto * item)
+void PLECanvas::addNewItem(AbstractPhoto * item)
 {
     if (!item)
         return;
@@ -294,14 +294,14 @@ void Canvas::addNewItem(AbstractPhoto * item)
     item->setFocus( Qt::OtherFocusReason );
 }
 
-void Canvas::setAntialiasing(bool antialiasing)
+void PLECanvas::setAntialiasing(bool antialiasing)
 {
     this->setRenderHint(QPainter::Antialiasing, antialiasing);                            /// It causes worst quality!
     this->setOptimizationFlag(QGraphicsView::DontAdjustForAntialiasing, antialiasing);    /// It causes worst quality!
     this->update();
 }
 
-void Canvas::imageLoaded(const QUrl & url, const QImage & image)
+void PLECanvas::imageLoaded(const QUrl & url, const QImage & image)
 {
     if (!image.isNull())
     {
@@ -312,7 +312,7 @@ void Canvas::imageLoaded(const QUrl & url, const QImage & image)
     }
 }
 
-void Canvas::moveRowsCommand(const QModelIndex & startIndex, int count, const QModelIndex & parentIndex, int move, const QModelIndex & destinationParent)
+void PLECanvas::moveRowsCommand(const QModelIndex & startIndex, int count, const QModelIndex & parentIndex, int move, const QModelIndex & destinationParent)
 {
     int destination = startIndex.row();
     if (move > 0)
@@ -325,7 +325,7 @@ void Canvas::moveRowsCommand(const QModelIndex & startIndex, int count, const QM
     m_undo_stack->push(undo);
 }
 
-void Canvas::moveSelectedRowsUp()
+void PLECanvas::moveSelectedRowsUp()
 {
     QModelIndexList selectedIndexes = selectionModel()->selectedIndexes();
     if (!selectedIndexes.count())
@@ -383,7 +383,7 @@ void Canvas::moveSelectedRowsUp()
     this->selectionChanged();
 }
 
-void Canvas::moveSelectedRowsDown()
+void PLECanvas::moveSelectedRowsDown()
 {
     QModelIndexList selectedIndexes = selectionModel()->selectedIndexes();
     if (!selectedIndexes.count())
@@ -441,18 +441,18 @@ void Canvas::moveSelectedRowsDown()
     this->selectionChanged();
 }
 
-void Canvas::removeItem(AbstractPhoto * item)
+void PLECanvas::removeItem(AbstractPhoto * item)
 {
     if (item)
         m_scene->removeItem(item);
 }
 
-void Canvas::removeItems(const QList<AbstractPhoto*> & items)
+void PLECanvas::removeItems(const QList<AbstractPhoto*> & items)
 {
     m_scene->removeItems(items);
 }
 
-void Canvas::removeSelectedRows()
+void PLECanvas::removeSelectedRows()
 {
     QList<AbstractPhoto*> items;
     QModelIndexList selectedIndexes = selectionModel()->selectedRows();
@@ -461,7 +461,7 @@ void Canvas::removeSelectedRows()
     m_scene->removeItems(items);
 }
 
-void Canvas::selectionChanged()
+void PLECanvas::selectionChanged()
 {
     QList<AbstractPhoto*> selectedItems = m_scene->selectedItems();
     QModelIndexList oldSelected = selectionModel()->selectedIndexes();
@@ -497,7 +497,7 @@ void Canvas::selectionChanged()
         emit hasSelectionChanged(selectedItems.count());
 }
 
-void Canvas::selectionChanged(const QItemSelection & newSelection, const QItemSelection & oldSelection)
+void PLECanvas::selectionChanged(const QItemSelection & newSelection, const QItemSelection & oldSelection)
 {
     LayersModelItem * temp;
     const QModelIndexList & oldSel = oldSelection.indexes();
@@ -522,7 +522,7 @@ void Canvas::selectionChanged(const QItemSelection & newSelection, const QItemSe
     }
 }
 
-void Canvas::enableDefaultSelectionMode()
+void PLECanvas::enableDefaultSelectionMode()
 {
     this->unsetCursor();
     m_scene->setInteractionMode(Scene::Selecting | Scene::Moving);
@@ -530,7 +530,7 @@ void Canvas::enableDefaultSelectionMode()
     m_scene->clearSelectingFilters();
 }
 
-void Canvas::enableViewingMode()
+void PLECanvas::enableViewingMode()
 {
     this->unsetCursor();
     m_scene->setInteractionMode(Scene::View);
@@ -538,7 +538,7 @@ void Canvas::enableViewingMode()
     m_scene->clearSelectingFilters();
 }
 
-void Canvas::enableZoomingMode()
+void PLECanvas::enableZoomingMode()
 {
     this->unsetCursor();
     setSelectionMode(Zooming);
@@ -546,7 +546,7 @@ void Canvas::enableZoomingMode()
     m_scene->clearSelectingFilters();
 }
 
-void Canvas::enableCanvasEditingMode()
+void PLECanvas::enablePLECanvasEditingMode()
 {
     this->unsetCursor();
     m_scene->setInteractionMode(Scene::NoSelection);
@@ -555,7 +555,7 @@ void Canvas::enableCanvasEditingMode()
     m_scene->clearSelectingFilters();
 }
 
-void Canvas::enableEffectsEditingMode()
+void PLECanvas::enableEffectsEditingMode()
 {
     this->unsetCursor();
     m_scene->setInteractionMode(Scene::Selecting);
@@ -565,7 +565,7 @@ void Canvas::enableEffectsEditingMode()
     m_scene->addSelectingFilter(PhotoItem::staticMetaObject);
 }
 
-void Canvas::enableTextEditingMode()
+void PLECanvas::enableTextEditingMode()
 {
     this->unsetCursor();
     m_scene->setInteractionMode(Scene::Selecting | Scene::MouseTracking | Scene::OneclickFocusItems);
@@ -574,7 +574,7 @@ void Canvas::enableTextEditingMode()
     m_scene->addSelectingFilter(TextItem::staticMetaObject);
 }
 
-void Canvas::enableRotateEditingMode()
+void PLECanvas::enableRotateEditingMode()
 {
     this->unsetCursor();
     m_scene->setInteractionMode(Scene::Selecting | Scene::Rotating);
@@ -583,7 +583,7 @@ void Canvas::enableRotateEditingMode()
     m_scene->clearSelectingFilters();
 }
 
-void Canvas::enableScaleEditingMode()
+void PLECanvas::enableScaleEditingMode()
 {
     this->unsetCursor();
     m_scene->setInteractionMode(Scene::Selecting | Scene::Scaling);
@@ -592,7 +592,7 @@ void Canvas::enableScaleEditingMode()
     m_scene->clearSelectingFilters();
 }
 
-void Canvas::enableCropEditingMode()
+void PLECanvas::enableCropEditingMode()
 {
     this->unsetCursor();
     m_scene->setInteractionMode(Scene::Selecting | Scene::Cropping);
@@ -601,7 +601,7 @@ void Canvas::enableCropEditingMode()
     m_scene->clearSelectingFilters();
 }
 
-void Canvas::enableBordersEditingMode()
+void PLECanvas::enableBordersEditingMode()
 {
     this->unsetCursor();
     m_scene->setInteractionMode(Scene::Selecting);
@@ -610,7 +610,7 @@ void Canvas::enableBordersEditingMode()
     m_scene->clearSelectingFilters();
 }
 
-void Canvas::refreshWidgetConnections(bool isVisible)
+void PLECanvas::refreshWidgetConnections(bool isVisible)
 {
     if (isVisible)
     {
@@ -621,12 +621,12 @@ void Canvas::refreshWidgetConnections(bool isVisible)
         disconnect(this,SIGNAL(hasSelectionChanged(bool)),sender(), nullptr);
 }
 
-void Canvas::newUndoCommand(QUndoCommand * command)
+void PLECanvas::newUndoCommand(QUndoCommand * command)
 {
     m_undo_stack->push(command);
 }
 
-void Canvas::progressEvent(ProgressEvent * event)
+void PLECanvas::progressEvent(ProgressEvent * event)
 {
     QProgressBar * temp = d->progressMap[event->sender()];
     switch (event->type())
@@ -671,7 +671,7 @@ void Canvas::progressEvent(ProgressEvent * event)
     event->setAccepted(temp);
 }
 
-void Canvas::wheelEvent(QWheelEvent * event)
+void PLECanvas::wheelEvent(QWheelEvent * event)
 {
     int steps = event->delta() / 120;
     double scaleFactor;
@@ -679,7 +679,7 @@ void Canvas::wheelEvent(QWheelEvent * event)
     scale(scaleFactor, event->pos());
 }
 
-QDomDocument Canvas::toSvg() const
+QDomDocument PLECanvas::toSvg() const
 {
     QDomDocument result(QLatin1String(" svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\""));
     QDomElement svg;// = ;//m_scene->toSvg(result);
@@ -688,27 +688,27 @@ QDomDocument Canvas::toSvg() const
     svg.setAttribute(QLatin1String("height"), QString::number(d->m_size.size().height()));
     switch (d->m_size.sizeUnit())
     {
-        case CanvasSize::Centimeters:
+        case PLECanvasSize::Centimeters:
             svg.setAttribute(QLatin1String("width"), svg.attribute(QLatin1String("width")) + QLatin1String("cm"));
             svg.setAttribute(QLatin1String("height"), svg.attribute(QLatin1String("height")) + QLatin1String("cm"));
             break;
-        case CanvasSize::Milimeters:
+        case PLECanvasSize::Milimeters:
             svg.setAttribute(QLatin1String("width"), svg.attribute(QLatin1String("width")) + QLatin1String("mm"));
             svg.setAttribute(QLatin1String("height"), svg.attribute(QLatin1String("height")) + QLatin1String("mm"));
             break;
-        case CanvasSize::Inches:
+        case PLECanvasSize::Inches:
             svg.setAttribute(QLatin1String("width"), svg.attribute(QLatin1String("width")) + QLatin1String("in"));
             svg.setAttribute(QLatin1String("height"), svg.attribute(QLatin1String("height")) + QLatin1String("in"));
             break;
-        case CanvasSize::Picas:
+        case PLECanvasSize::Picas:
             svg.setAttribute(QLatin1String("width"), svg.attribute(QLatin1String("width")) + QLatin1String("pc"));
             svg.setAttribute(QLatin1String("height"), svg.attribute(QLatin1String("height")) + QLatin1String("pc"));
             break;
-        case CanvasSize::Points:
+        case PLECanvasSize::Points:
             svg.setAttribute(QLatin1String("width"), svg.attribute(QLatin1String("width")) + QLatin1String("pt"));
             svg.setAttribute(QLatin1String("height"), svg.attribute(QLatin1String("height")) + QLatin1String("pt"));
             break;
-        case CanvasSize::Pixels:
+        case PLECanvasSize::Pixels:
             svg.setAttribute(QLatin1String("width"), svg.attribute(QLatin1String("width")) + QLatin1String("px"));
             svg.setAttribute(QLatin1String("height"), svg.attribute(QLatin1String("height")) + QLatin1String("px"));
             break;
@@ -721,14 +721,14 @@ QDomDocument Canvas::toSvg() const
     QDomElement resolution = result.createElementNS(PhotoLayoutsEditor::uri(), QLatin1String("page"));
     resolution.setAttribute(QLatin1String("width"), QString::number(d->m_size.resolution().width()));
     resolution.setAttribute(QLatin1String("height"), QString::number(d->m_size.resolution().height()));
-    resolution.setAttribute(QLatin1String("unit"), CanvasSize::resolutionUnitName(d->m_size.resolutionUnit()));
+    resolution.setAttribute(QLatin1String("unit"), PLECanvasSize::resolutionUnitName(d->m_size.resolutionUnit()));
     svg.appendChild(resolution);
     return result;
 }
 
-Canvas * Canvas::fromSvg(QDomDocument & document)
+PLECanvas * PLECanvas::fromSvg(QDomDocument & document)
 {
-    Canvas * result = nullptr;
+    PLECanvas * result = nullptr;
     QDomNodeList children = document.childNodes();
 
     if (children.count())
@@ -745,7 +745,7 @@ Canvas * Canvas::fromSvg(QDomDocument & document)
             QString resUnit = pageElement.attribute(QLatin1String("unit"));
             qDebug() << pageElement.namespaceURI() << PhotoLayoutsEditor::templateUri();
 
-            // Canvas size validation
+            // PLECanvas size validation
             QRegExp sizeRegExp(QLatin1String("[0-9.]+((cm)|(mm)|(in)|(pc)|(pt)|(px))"));
             QRegExp resRegExp(QLatin1String("[0-9.]+"));
             if (sizeRegExp.exactMatch(width) &&
@@ -753,15 +753,15 @@ Canvas * Canvas::fromSvg(QDomDocument & document)
                     width.right(2) == height.right(2) &&
                     resRegExp.exactMatch(xResolution) &&
                     resRegExp.exactMatch(yResolution) &&
-                    CanvasSize::resolutionUnit(resUnit) != CanvasSize::UnknownResolutionUnit)
+                    PLECanvasSize::resolutionUnit(resUnit) != PLECanvasSize::UnknownResolutionUnit)
             {
-                CanvasSize size;
-                size.setSizeUnit( CanvasSize::sizeUnit(width.right(2)) );
+                PLECanvasSize size;
+                size.setSizeUnit( PLECanvasSize::sizeUnit(width.right(2)) );
                 width.remove(width.length()-2, 2);
                 height.remove(height.length()-2, 2);
                 QSizeF dimension(width.toDouble(),height.toDouble());
                 size.setSize(dimension);
-                size.setResolutionUnit( CanvasSize::resolutionUnit(resUnit) );
+                size.setResolutionUnit( PLECanvasSize::resolutionUnit(resUnit) );
                 QSizeF resolution(xResolution.toDouble(), yResolution.toDouble());
                 size.setResolution(resolution);
                 if (dimension.isValid())
@@ -772,7 +772,7 @@ Canvas * Canvas::fromSvg(QDomDocument & document)
                     Scene * scene = Scene::fromSvg(sceneElement);
                     if (scene)
                     {
-                        result = new Canvas(scene);
+                        result = new PLECanvas(scene);
                         result->setEnabled(false);
                         result->d->m_size = size;
                         result->d->m_template = (pageElement.namespaceURI() == PhotoLayoutsEditor::templateUri());
@@ -789,7 +789,7 @@ Canvas * Canvas::fromSvg(QDomDocument & document)
     return result;
 }
 
-void Canvas::scale(qreal factor, const QPoint & center)
+void PLECanvas::scale(qreal factor, const QPoint & center)
 {
     // Scaling limitation
     if (factor <= 0 || !scene() || ((m_scale_factor*factor <= 0.1 && factor < 1) || (m_scale_factor*factor > 7)))
@@ -805,7 +805,7 @@ void Canvas::scale(qreal factor, const QPoint & center)
     m_scale_factor *= factor;
 }
 
-void Canvas::scale(const QRect & rect)
+void PLECanvas::scale(const QRect & rect)
 {
     QRectF r(this->mapToScene(rect.topLeft()),
              this->mapToScene(rect.bottomRight()));
@@ -826,18 +826,18 @@ void Canvas::scale(const QRect & rect)
     this->scale(newFactor, rect.center());
 }
 
-QUrl Canvas::file() const
+QUrl PLECanvas::file() const
 {
     return m_file;
 }
 
-void Canvas::setFile(const QUrl & file)
+void PLECanvas::setFile(const QUrl & file)
 {
     if (file.isValid() && !file.isEmpty())
         m_file = file;
 }
 
-void Canvas::save(const QUrl & fileUrl, bool setAsDefault)
+void PLECanvas::save(const QUrl & fileUrl, bool setAsDefault)
 {
     QUrl tempFile = fileUrl;
     if (fileUrl.isEmpty() || !fileUrl.isValid())
@@ -855,12 +855,12 @@ void Canvas::save(const QUrl & fileUrl, bool setAsDefault)
     if (setAsDefault)
        m_file = tempFile;
 
-    CanvasSavingThread * thread = new CanvasSavingThread(this);
+    PLECanvasSavingThread * thread = new PLECanvasSavingThread(this);
     connect(thread, SIGNAL(saved()), this, SLOT(savingFinished()));
     thread->save(this, m_file);
 }
 
-void Canvas::saveTemplate(const QUrl & fileUrl)
+void PLECanvas::saveTemplate(const QUrl & fileUrl)
 {
     if (fileUrl.isEmpty() || !fileUrl.isValid())
     {
@@ -870,23 +870,23 @@ void Canvas::saveTemplate(const QUrl & fileUrl)
         return;
     }
 
-    CanvasSavingThread * thread = new CanvasSavingThread(this);
+    PLECanvasSavingThread * thread = new PLECanvasSavingThread(this);
     connect(thread, SIGNAL(saved()), this, SLOT(savingFinished()));
     thread->saveAsTemplate(this, fileUrl);
 }
 
-bool Canvas::isSaved()
+bool PLECanvas::isSaved()
 {
     return m_is_saved;
 }
 
-void Canvas::isSavedChanged(int /*currentCommandIndex*/)
+void PLECanvas::isSavedChanged(int /*currentCommandIndex*/)
 {
     m_is_saved = (m_saved_on_index == m_undo_stack->index());
     emit savedStateChanged();
 }
 
-void Canvas::isSavedChanged(bool /*isStackClean*/)
+void PLECanvas::isSavedChanged(bool /*isStackClean*/)
 {
     if (m_undo_stack->isClean())
         m_is_saved = m_undo_stack->isClean();
@@ -896,20 +896,20 @@ void Canvas::isSavedChanged(bool /*isStackClean*/)
 }
 
 
-bool Canvas::isTemplate() const
+bool PLECanvas::isTemplate() const
 {
     return d->m_template;
 }
 
 
-void Canvas::savingFinished()
+void PLECanvas::savingFinished()
 {
     m_is_saved = true;
     m_saved_on_index = m_undo_stack->index();
     emit savedStateChanged();
 }
 
-void Canvas::renderCanvas(QPaintDevice * device)
+void PLECanvas::renderPLECanvas(QPaintDevice * device)
 {
     if (scene())
     {
@@ -919,10 +919,10 @@ void Canvas::renderCanvas(QPaintDevice * device)
 
         scene()->setSelectionVisible(false);
         QPainter p(device);
-        if (d->m_size.sizeUnit() != CanvasSize::Pixels &&
-                d->m_size.sizeUnit() != CanvasSize::UnknownSizeUnit)
+        if (d->m_size.sizeUnit() != PLECanvasSize::Pixels &&
+                d->m_size.sizeUnit() != PLECanvasSize::UnknownSizeUnit)
         {
-            QSizeF resolution = d->m_size.resolution(CanvasSize::PixelsPerInch);
+            QSizeF resolution = d->m_size.resolution(PLECanvasSize::PixelsPerInch);
             p.setTransform( QTransform::fromScale( device->logicalDpiX() / resolution.width(),
                                                    device->logicalDpiY() / resolution.height()) );
         }
@@ -934,17 +934,17 @@ void Canvas::renderCanvas(QPaintDevice * device)
     }
 }
 
-void Canvas::renderCanvas(QPrinter * device)
+void PLECanvas::renderPLECanvas(QPrinter * device)
 {
-    renderCanvas(static_cast<QPaintDevice*>(device));
+    renderPLECanvas(static_cast<QPaintDevice*>(device));
 }
 
-void Canvas::beginRowsRemoving()
+void PLECanvas::beginRowsRemoving()
 {
     m_undo_stack->beginMacro(QObject::tr("Remove items"));
 }
 
-void Canvas::endRowsRemoving()
+void PLECanvas::endRowsRemoving()
 {
     m_undo_stack->endMacro();
 }

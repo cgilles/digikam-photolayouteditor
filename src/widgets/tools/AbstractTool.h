@@ -25,10 +25,14 @@
 #ifndef ABSTRACTTOOL_H
 #define ABSTRACTTOOL_H
 
+// Qt includes
+
 #include <QWidget>
 
+// Local includes
+
 #include "Scene.h"
-#include "Canvas.h"
+#include "plecanvas.h"
 #include "ToolsDockWidget.h"
 
 namespace PhotoLayoutsEditor
@@ -41,11 +45,11 @@ namespace PhotoLayoutsEditor
 
             Scene * m_scene;
 
-            Canvas::SelectionMode sel_mode;
+            PLECanvas::SelectionMode sel_mode;
 
         public:
 
-            AbstractTool(Scene * scene, Canvas::SelectionMode selectionMode, QWidget * parent = nullptr) :
+            AbstractTool(Scene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent = nullptr) :
                 QWidget(parent),
                 m_scene(scene),
                 sel_mode(selectionMode)

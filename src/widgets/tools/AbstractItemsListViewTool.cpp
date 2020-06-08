@@ -202,7 +202,7 @@ class PhotoLayoutsEditor::AbstractItemsListViewToolPrivate
     friend class AbstractItemsListViewTool;
 };
 
-AbstractItemsListViewTool::AbstractItemsListViewTool(const QString & toolName, Scene * scene, Canvas::SelectionMode selectionMode, QWidget * parent) :
+AbstractItemsListViewTool::AbstractItemsListViewTool(const QString & toolName, Scene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent) :
     AbstractItemsTool(scene, selectionMode, parent),
     d(new AbstractItemsListViewToolPrivate)
 {

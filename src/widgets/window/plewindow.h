@@ -42,9 +42,9 @@ using namespace Digikam;
 namespace PhotoLayoutsEditor
 {
 
-class Canvas;
-class CanvasSize;
-class CanvasSizeChangeCommand;
+class PLECanvas;
+class PLECanvasSize;
+class PLECanvasSizeChangeCommand;
 class ProgressEvent;
 class UndoCommandEventFilter;
 
@@ -82,11 +82,11 @@ public Q_SLOTS:
     bool closeDocument();
     void loadNewImage();
     void setGridVisible(bool isVisible);
-    void createCanvas(const CanvasSize& size);
-    void createCanvas(const QUrl& fileUrl);
+    void createPLECanvas(const PLECanvasSize& size);
+    void createPLECanvas(const QUrl& fileUrl);
     void settings();
     void setupGrid();
-    void changeCanvasSize();
+    void changePLECanvasSize();
     void setTemplateEditMode(bool isEnabled);
 
 protected:

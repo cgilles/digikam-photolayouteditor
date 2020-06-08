@@ -222,7 +222,7 @@ void PLEWindow::setupActions()
     //------------------------------------------------------------------------
 
     connect(d->ui->changeCanvasSizeAction, SIGNAL(triggered()),
-            this, SLOT(changeCanvasSize()));
+            this, SLOT(changePLECanvasSize()));
 
     //------------------------------------------------------------------------
 
@@ -232,28 +232,28 @@ void PLEWindow::setupActions()
 
 void PLEWindow::refreshActions()
 {
-    bool isEnabledForCanvas = false;
+    bool isEnabledForPLECanvas = false;
 
     if (d->canvas)
     {
-        isEnabledForCanvas = true;
+        isEnabledForPLECanvas = true;
         d->ui->undoAction->setEnabled(d->canvas->undoStack()->canUndo());
         d->ui->redoAction->setEnabled(d->canvas->undoStack()->canRedo());
-        d->ui->saveAction->setEnabled(isEnabledForCanvas && !d->canvas->isSaved());
+        d->ui->saveAction->setEnabled(isEnabledForPLECanvas && !d->canvas->isSaved());
     }
 
-    d->ui->saveAsAction->setEnabled(isEnabledForCanvas);
-    d->ui->saveAsTemplateAction->setEnabled(isEnabledForCanvas);
-    d->ui->exportFileAction->setEnabled(isEnabledForCanvas);
-    d->ui->printPreviewAction->setEnabled(isEnabledForCanvas);
-    d->ui->printAction->setEnabled(isEnabledForCanvas);
-    d->ui->closeAction->setEnabled(isEnabledForCanvas);
-    d->ui->addImageAction->setEnabled(isEnabledForCanvas);
-    d->ui->showGridToggleAction->setEnabled(isEnabledForCanvas);
-    d->ui->gridConfigAction->setEnabled(isEnabledForCanvas);
-    d->ui->changeCanvasSizeAction->setEnabled(isEnabledForCanvas);
-    d->treeWidget->setEnabled(isEnabledForCanvas);
-    d->toolsWidget->setEnabled(isEnabledForCanvas);
+    d->ui->saveAsAction->setEnabled(isEnabledForPLECanvas);
+    d->ui->saveAsTemplateAction->setEnabled(isEnabledForPLECanvas);
+    d->ui->exportFileAction->setEnabled(isEnabledForPLECanvas);
+    d->ui->printPreviewAction->setEnabled(isEnabledForPLECanvas);
+    d->ui->printAction->setEnabled(isEnabledForPLECanvas);
+    d->ui->closeAction->setEnabled(isEnabledForPLECanvas);
+    d->ui->addImageAction->setEnabled(isEnabledForPLECanvas);
+    d->ui->showGridToggleAction->setEnabled(isEnabledForPLECanvas);
+    d->ui->gridConfigAction->setEnabled(isEnabledForPLECanvas);
+    d->ui->changeCanvasSizeAction->setEnabled(isEnabledForPLECanvas);
+    d->treeWidget->setEnabled(isEnabledForPLECanvas);
+    d->toolsWidget->setEnabled(isEnabledForPLECanvas);
 }
 
 void PLEWindow::createWidgets()
@@ -288,7 +288,7 @@ void PLEWindow::createWidgets()
     setStatusBar(d->statusBar);
 }
 
-void PLEWindow::createCanvas(const CanvasSize & size)
+void PLEWindow::createPLECanvas(const PLECanvasSize & size)
 {
     if (d->canvas)
     {
@@ -296,11 +296,11 @@ void PLEWindow::createCanvas(const CanvasSize & size)
         d->canvas->deleteLater();
     }
 
-    d->canvas = new Canvas(size, d->centralWidget);
+    d->canvas = new PLECanvas(size, d->centralWidget);
     this->prepareSignalsConnections();
 }
 
-void PLEWindow::createCanvas(const QUrl& fileUrl)
+void PLEWindow::createPLECanvas(const QUrl& fileUrl)
 {
     if (d->canvas)
     {
@@ -311,7 +311,7 @@ void PLEWindow::createCanvas(const QUrl& fileUrl)
     QFile file(fileUrl.toLocalFile());
     QDomDocument document;
     document.setContent(&file, true);
-    d->canvas = Canvas::fromSvg(document);
+    d->canvas = PLECanvas::fromSvg(document);
 
     if (d->canvas)
     {
@@ -358,7 +358,7 @@ void PLEWindow::prepareSignalsConnections()
     connect(d->toolsWidget,                         SIGNAL(pointerToolSelected()),              d->canvas,              SLOT(enableDefaultSelectionMode()));
     connect(d->toolsWidget,                         SIGNAL(handToolSelected()),                 d->canvas,              SLOT(enableViewingMode()));
     connect(d->toolsWidget,                         SIGNAL(zoomToolSelected()),                 d->canvas,              SLOT(enableZoomingMode()));
-    connect(d->toolsWidget,                         SIGNAL(canvasToolSelected()),               d->canvas,              SLOT(enableCanvasEditingMode()));
+    connect(d->toolsWidget,                         SIGNAL(canvasToolSelected()),               d->canvas,              SLOT(enablePLECanvasEditingMode()));
     connect(d->toolsWidget,                         SIGNAL(effectsToolSelected()),              d->canvas,              SLOT(enableEffectsEditingMode()));
     connect(d->toolsWidget,                         SIGNAL(textToolSelected()),                 d->canvas,              SLOT(enableTextEditingMode()));
     connect(d->toolsWidget,                         SIGNAL(rotateToolSelected()),               d->canvas,              SLOT(enableRotateEditingMode()));
@@ -373,7 +373,7 @@ void PLEWindow::prepareSignalsConnections()
 
 void PLEWindow::openFile()
 {
-    NewCanvasDialog* const dialog = new NewCanvasDialog(this);
+    PLECanvasNewDialog* const dialog = new PLECanvasNewDialog(this);
     dialog->setModal(true);
 
     int result = dialog->exec();
@@ -391,12 +391,12 @@ void PLEWindow::openFile()
     }
     else
     {
-        CanvasSize size = dialog->canvasSize();
+        PLECanvasSize size = dialog->canvasSize();
 
         if (size.isValid())
         {
             closeDocument();
-            createCanvas(size);
+            createPLECanvas(size);
             refreshActions();
         }
     }
@@ -437,7 +437,7 @@ void PLEWindow::openFile(const QUrl& fileUrl)
     if (fileUrl.isValid())
     {
         closeDocument();
-        createCanvas(fileUrl);
+        createPLECanvas(fileUrl);
         refreshActions();
     }
 }
@@ -554,7 +554,7 @@ void PLEWindow::exportFile()
 
         QPixmap image(d->canvas->sceneRect().size().toSize());
         image.fill(Qt::transparent);
-        d->canvas->renderCanvas(&image);
+        d->canvas->renderPLECanvas(&image);
         QImageWriter writer(url.toLocalFile());
         writer.setFormat(ext.toLatin1());
 
@@ -587,7 +587,7 @@ void PLEWindow::printPreview()
         QPrintPreviewDialog* const dialog = new QPrintPreviewDialog(printer, this);
 
         connect(dialog, SIGNAL(paintRequested(QPrinter*)),
-                d->canvas, SLOT(renderCanvas(QPrinter*)));
+                d->canvas, SLOT(renderPLECanvas(QPrinter*)));
 
         dialog->exec();
         delete dialog;
@@ -602,7 +602,7 @@ void PLEWindow::print()
     QPrintDialog* const dialog = new QPrintDialog(printer, this);
 
     connect(dialog, SIGNAL(accepted(QPrinter*)),
-            d->canvas, SLOT(renderCanvas(QPrinter*)));
+            d->canvas, SLOT(renderPLECanvas(QPrinter*)));
 
     dialog->exec();
     delete dialog;
@@ -738,16 +738,16 @@ void PLEWindow::setupGrid()
     }
 }
 
-void PLEWindow::changeCanvasSize()
+void PLEWindow::changePLECanvasSize()
 {
     if (!d->canvas)
     {
         return;
     }
 
-    CanvasSizeDialog* const ccd = new CanvasSizeDialog(d->canvas->canvasSize(), this);
+    PLECanvasSizeDialog* const ccd = new PLECanvasSizeDialog(d->canvas->canvasSize(), this);
     int result                  = ccd->exec();
-    CanvasSize size             = ccd->canvasSize();
+    PLECanvasSize size             = ccd->canvasSize();
 
     if (result == QDialog::Accepted)
     {
@@ -755,7 +755,7 @@ void PLEWindow::changeCanvasSize()
         {
             if (d->canvas->canvasSize() != size)
             {
-                CanvasSizeChangeCommand* const command = new CanvasSizeChangeCommand(size, d->canvas);
+                PLECanvasSizeChangeCommand* const command = new PLECanvasSizeChangeCommand(size, d->canvas);
                 PLE_PostUndoCommand(command);
             }
         }

@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "NewCanvasDialog.h"
+#include "plecanvasnewdialog.h"
 
 // Qt includes
 
@@ -44,17 +44,17 @@
 
 // Local includes
 
-#include "CanvasSizeWidget.h"
+#include "plecanvassizewidget.h"
 #include "TemplatesView.h"
 #include "TemplatesModel.h"
-#include "CanvasSize.h"
+#include "plecanvassize.h"
 
 #define PAPER_SIZE_ROLE 128
 
 namespace PhotoLayoutsEditor
 {
 
-class NewCanvasDialog::Private
+class PLECanvasNewDialog::Private
 {
     Private()
       : stack(nullptr),
@@ -144,7 +144,7 @@ class NewCanvasDialog::Private
     QStackedLayout*                     stack;
     QListWidget*                        paperSize;
     TemplatesView*                      templatesList;
-    CanvasSizeWidget*                   canvasSize;
+    PLECanvasSizeWidget*                   canvasSize;
 
     QPushButton*                        horizontalButton;
     QPushButton*                        verticalButton;
@@ -154,32 +154,32 @@ class NewCanvasDialog::Private
 
     QMap<int, QPair<QString, QString> > names;
 
-    friend class NewCanvasDialog;
+    friend class PLECanvasNewDialog;
 };
 
-NewCanvasDialog::NewCanvasDialog(QWidget* const parent)
+PLECanvasNewDialog::PLECanvasNewDialog(QWidget* const parent)
     : QDialog(parent),
       d(new Private)
 {
     setupUI();
 }
 
-NewCanvasDialog::~NewCanvasDialog()
+PLECanvasNewDialog::~PLECanvasNewDialog()
 {
     delete d;
 }
 
-bool NewCanvasDialog::hasTemplateSelected() const
+bool PLECanvasNewDialog::hasTemplateSelected() const
 {
     return (d->stack->currentWidget() == d->templatesList);
 }
 
-QString NewCanvasDialog::templateSelected() const
+QString PLECanvasNewDialog::templateSelected() const
 {
     return d->templatesList->selectedPath();
 }
 
-CanvasSize NewCanvasDialog::canvasSize() const
+PLECanvasSize PLECanvasNewDialog::canvasSize() const
 {
     if (d->stack->currentWidget() == d->canvasSize)
     {
@@ -323,11 +323,11 @@ CanvasSize NewCanvasDialog::canvasSize() const
             h     = t;
         }
 
-        return CanvasSize(QSizeF(w, h), CanvasSize::Milimeters, QSizeF(72, 72), CanvasSize::PixelsPerInch);
+        return PLECanvasSize(QSizeF(w, h), PLECanvasSize::Milimeters, QSizeF(72, 72), PLECanvasSize::PixelsPerInch);
     }
 }
 
-void NewCanvasDialog::paperSizeSelected(QListWidgetItem* current, QListWidgetItem* /*previous*/)
+void PLECanvasNewDialog::paperSizeSelected(QListWidgetItem* current, QListWidgetItem* /*previous*/)
 {
     int size = current->data(PAPER_SIZE_ROLE).toInt();
 
@@ -359,7 +359,7 @@ void NewCanvasDialog::paperSizeSelected(QListWidgetItem* current, QListWidgetIte
     }
 }
 
-void NewCanvasDialog::orientationChanged()
+void PLECanvasNewDialog::orientationChanged()
 {
     if (d->stack->currentWidget() == d->templatesList)
     {
@@ -367,14 +367,14 @@ void NewCanvasDialog::orientationChanged()
     }
     else
     {
-        if (d->canvasSize->orientation() == CanvasSizeWidget::Vertical)
+        if (d->canvasSize->orientation() == PLECanvasSizeWidget::Vertical)
             d->verticalButton->setChecked(true);
         else
             d->horizontalButton->setChecked(true);
     }
 }
 
-void NewCanvasDialog::setHorizontal(bool isset)
+void PLECanvasNewDialog::setHorizontal(bool isset)
 {
     if (!isset || d->horizontalButton->isChecked())
         return;
@@ -383,7 +383,7 @@ void NewCanvasDialog::setHorizontal(bool isset)
         this->paperSizeSelected(d->paperSize->currentItem(), nullptr);
 }
 
-void NewCanvasDialog::setVertical(bool isset)
+void PLECanvasNewDialog::setVertical(bool isset)
 {
     if (!isset || d->verticalButton->isChecked())
         return;
@@ -392,9 +392,9 @@ void NewCanvasDialog::setVertical(bool isset)
         this->paperSizeSelected(d->paperSize->currentItem(), nullptr);
 }
 
-void NewCanvasDialog::setupUI()
+void PLECanvasNewDialog::setupUI()
 {
-    setWindowTitle(QObject::tr("Create New Canvas..."));
+    setWindowTitle(QObject::tr("Create New PLECanvas..."));
 
     QVBoxLayout* const layout = new QVBoxLayout();
     setLayout(layout);
@@ -449,7 +449,7 @@ void NewCanvasDialog::setupUI()
     d->stack = new QStackedLayout();
     rightLayout->addLayout(d->stack, 1);
 
-    d->canvasSize = new CanvasSizeWidget(this);
+    d->canvasSize = new PLECanvasSizeWidget(this);
     d->stack->addWidget(d->canvasSize);
 
     connect(d->canvasSize, SIGNAL(orientationChanged()),
@@ -477,7 +477,7 @@ void NewCanvasDialog::setupUI()
             this, SLOT(reject()));
 }
 
-void NewCanvasDialog::loadTemplatesList(const QString& path, TemplatesModel* const model)
+void PLECanvasNewDialog::loadTemplatesList(const QString& path, TemplatesModel* const model)
 {
     QStringList sl = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation,
                                                QLatin1String("photolayoutseditor"),

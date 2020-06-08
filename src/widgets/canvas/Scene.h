@@ -45,7 +45,7 @@ namespace PhotoLayoutsEditor
 class ScenePrivate;
 
 // My classes declarations
-class Canvas;
+class PLECanvas;
 class SceneBackground;
 class SceneBorder;
 class MousePressListener;
@@ -200,8 +200,8 @@ private:
     static const int           DEFAULT_EDITING_MODE   = Moving & Selecting;
     static QColor              OUTSIDE_SCENE_COLOR;
 
-    friend class Canvas;
-    friend class CanvasWidget;
+    friend class PLECanvas;
+    friend class PLECanvasWidget;
     friend class ScenePrivate;
     friend class AbstractPhoto;
     friend class MoveItemsCommand;

@@ -22,54 +22,57 @@
  *
  * ============================================================ */
 
-#include "CanvasSavingThread.h"
+#include "plecanvassavingthread.h"
 
-#include "Canvas.h"
-#include "Canvas_p.h"
-#include "Scene.h"
-#include "ProgressEvent.h"
-#include "plewindow.h"
+// Qt includes
 
 #include <QFile>
 #include <QDomDocument>
 #include <QCoreApplication>
 #include <QDebug>
 
+// Local includes
+
+#include "plecanvas_p.h"
+#include "Scene.h"
+#include "ProgressEvent.h"
+#include "plewindow.h"
+
 using namespace PhotoLayoutsEditor;
 
-CanvasSavingThread::CanvasSavingThread(QObject* parent) :
+PLECanvasSavingThread::PLECanvasSavingThread(QObject* parent) :
     QThread(parent),
     m_canvas(nullptr),
     m_template(false)
 {
 }
 
-void CanvasSavingThread::save(Canvas* canvas, const QUrl & url)
+void PLECanvasSavingThread::save(PLECanvas* canvas, const QUrl & url)
 {
     m_canvas = canvas;
     m_url    = url;
     this->start();
 }
 
-void CanvasSavingThread::saveAsTemplate(Canvas * canvas, const QUrl& url)
+void PLECanvasSavingThread::saveAsTemplate(PLECanvas * canvas, const QUrl& url)
 {
-    m_canvas = canvas;
-    m_url    = url;
+    m_canvas   = canvas;
+    m_url      = url;
     m_template = true;
     this->start();
 }
 
-void CanvasSavingThread::progresChanged(double progress)
+void PLECanvasSavingThread::progresChanged(double progress)
 {
     this->sendProgressUpdate(0.05 + progress * 0.75);
 }
 
-void CanvasSavingThread::progresName(const QString & name)
+void PLECanvasSavingThread::progresName(const QString & name)
 {
     this->sendActionUpdate(name);
 }
 
-void CanvasSavingThread::run()
+void PLECanvasSavingThread::run()
 {
     if (!m_canvas || !m_url.isValid())
         return;
@@ -100,27 +103,27 @@ void CanvasSavingThread::run()
     
     switch (m_canvas->d->m_size.sizeUnit())
     {
-        case CanvasSize::Centimeters:
+        case PLECanvasSize::Centimeters:
             j1 = QLatin1String("cm");
             break;
 
-        case CanvasSize::Milimeters:
+        case PLECanvasSize::Milimeters:
             j1 = QLatin1String("mm");
             break;
 
-        case CanvasSize::Inches:
+        case PLECanvasSize::Inches:
             j1 = QLatin1String("in");
             break;
 
-        case CanvasSize::Picas:
+        case PLECanvasSize::Picas:
             j1 = QLatin1String("pc");
             break;
 
-        case CanvasSize::Points:
+        case PLECanvasSize::Points:
             j1 = QLatin1String("pt");
             break;
 
-        case CanvasSize::Pixels:
+        case PLECanvasSize::Pixels:
             j1 = QLatin1String("px");
             break;
 
@@ -135,7 +138,7 @@ void CanvasSavingThread::run()
     QDomElement resolution = document.createElementNS(m_template ? PhotoLayoutsEditor::templateUri() : PhotoLayoutsEditor::uri(), QLatin1String("page"));
     resolution.setAttribute(QLatin1String("width"), QString::number(m_canvas->d->m_size.resolution().width()));
     resolution.setAttribute(QLatin1String("height"), QString::number(m_canvas->d->m_size.resolution().height()));
-    resolution.setAttribute(QLatin1String("unit"), CanvasSize::resolutionUnitName(m_canvas->d->m_size.resolutionUnit()));
+    resolution.setAttribute(QLatin1String("unit"), PLECanvasSize::resolutionUnitName(m_canvas->d->m_size.resolutionUnit()));
     svg.appendChild(resolution);
 
     this->sendProgressUpdate( 0.05 );
@@ -196,12 +199,12 @@ void CanvasSavingThread::run()
     this->exit(0);
 }
 
-void CanvasSavingThread::bytesWritten(qint64 b)
+void PLECanvasSavingThread::bytesWritten(qint64 b)
 {
     qDebug() << "writen" << b;
 }
 
-void CanvasSavingThread::sendProgressUpdate(double v)
+void PLECanvasSavingThread::sendProgressUpdate(double v)
 {
     ProgressEvent* event = new ProgressEvent(this);
     event->setData(ProgressEvent::ProgressUpdate, v);
@@ -209,7 +212,7 @@ void CanvasSavingThread::sendProgressUpdate(double v)
     QCoreApplication::processEvents();
 }
 
-void CanvasSavingThread::sendActionUpdate(const QString& str)
+void PLECanvasSavingThread::sendActionUpdate(const QString& str)
 {
     ProgressEvent* event = new ProgressEvent(this);
     event->setData(ProgressEvent::ActionUpdate, str);

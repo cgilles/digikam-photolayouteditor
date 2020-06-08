@@ -28,7 +28,7 @@
 
 using namespace PhotoLayoutsEditor;
 
-AbstractItemsTool::AbstractItemsTool(Scene * scene, Canvas::SelectionMode selectionMode, QWidget * parent) :
+AbstractItemsTool::AbstractItemsTool(Scene * scene, PLECanvas::SelectionMode selectionMode, QWidget * parent) :
     AbstractTool(scene, selectionMode, parent),
     m_photo(nullptr)
 {

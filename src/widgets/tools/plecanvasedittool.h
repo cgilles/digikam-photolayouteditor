@@ -32,18 +32,18 @@
 
 namespace PhotoLayoutsEditor
 {
-    class CanvasEditToolPrivate;
-    class CanvasEditTool : public AbstractTool
+    class PLECanvasEditToolPrivate;
+    class PLECanvasEditTool : public AbstractTool
     {
             Q_OBJECT
 
-            CanvasEditToolPrivate * d;
+            PLECanvasEditToolPrivate * d;
             bool hold_update;
 
         public:
 
-            explicit CanvasEditTool(Scene * scene, QWidget * parent = nullptr);
-            virtual ~CanvasEditTool();
+            explicit PLECanvasEditTool(Scene * scene, QWidget * parent = nullptr);
+            virtual ~PLECanvasEditTool();
 
         Q_SIGNALS:
 

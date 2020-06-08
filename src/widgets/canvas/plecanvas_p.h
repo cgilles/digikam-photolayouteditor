@@ -22,10 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef CANVAS_P_H
-#define CANVAS_P_H
+#ifndef PLE_CANVAS_P_H
+#define PLE_CANVAS_P_H
 
-#include "Canvas.h"
+#include "plecanvas.h"
 
 // Qt includes
 
@@ -34,32 +34,32 @@
 
 // Local includes
 
-#include "CanvasSize.h"
+#include "plecanvassize.h"
 
 namespace PhotoLayoutsEditor
 {
 
-class CanvasSavingThread;
+class PLECanvasSavingThread;
 
-class CanvasPrivate
+class PLECanvasPrivate
 {
 public:
 
-    CanvasPrivate() :
-        m_template(false)
+    PLECanvasPrivate()
+        : m_template(false)
     {
     }
 
-    CanvasSize                   m_size;
-    bool                         m_template;
-    QMap<QObject*,QProgressBar*> progressMap;
+    PLECanvasSize                    m_size;
+    bool                          m_template;
+    QMap<QObject*, QProgressBar*> progressMap;
 
 public:
 
-    friend class Canvas;
-    friend class CanvasSavingThread;
+    friend class PLECanvas;
+    friend class PLECanvasSavingThread;
 };
 
 } // namespace PhotoLayoutsEditor
 
-#endif // CANVAS_P_H
+#endif // PLE_CANVAS_P_H

@@ -33,21 +33,21 @@
 namespace PhotoLayoutsEditor
 {
 
-class CanvasSize;
+class PLECanvasSize;
 class TemplatesModel;
 
-class NewCanvasDialog : public QDialog
+class PLECanvasNewDialog : public QDialog
 {
     Q_OBJECT
 
 public:
 
-    explicit NewCanvasDialog(QWidget* parent = nullptr);
-    ~NewCanvasDialog();
+    explicit PLECanvasNewDialog(QWidget* parent = nullptr);
+    ~PLECanvasNewDialog();
 
     bool hasTemplateSelected() const;
     QString templateSelected() const;
-    CanvasSize canvasSize()    const;
+    PLECanvasSize canvasSize()    const;
 
 private Q_SLOTS:
 

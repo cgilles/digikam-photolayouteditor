@@ -40,7 +40,7 @@
 using namespace PhotoLayoutsEditor;
 
 EffectsEditorTool::EffectsEditorTool(Scene * scene, QWidget * parent) :
-    AbstractItemsListViewTool(QObject::tr("Effects"), scene, Canvas::SingleSelcting, parent)
+    AbstractItemsListViewTool(QObject::tr("Effects"), scene, PLECanvas::SingleSelcting, parent)
 {
 }
 

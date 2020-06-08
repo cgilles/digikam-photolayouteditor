@@ -22,7 +22,7 @@
  *
  * ============================================================ */
 
-#include "CanvasLoadingThread.h"
+#include "plecanvasloadingthread.h"
 
 // Qt includes
 
@@ -46,9 +46,9 @@
 namespace PhotoLayoutsEditor
 {
 
-class CanvasLoadingThread::CanvasLoadingThreadPrivate
+class PLECanvasLoadingThread::PLECanvasLoadingThreadPrivate
 {
-    CanvasLoadingThreadPrivate()
+    PLECanvasLoadingThreadPrivate()
     {
         i     = 0;
         count = 0;
@@ -60,21 +60,21 @@ class CanvasLoadingThread::CanvasLoadingThreadPrivate
     QPair<SceneBackground*, QDomElement> background;
     QPair<SceneBorder*, QDomElement>     border;
 
-    friend class CanvasLoadingThread;
+    friend class PLECanvasLoadingThread;
 };
 
-CanvasLoadingThread::CanvasLoadingThread(QObject* const parent)
+PLECanvasLoadingThread::PLECanvasLoadingThread(QObject* const parent)
     : QThread(parent),
-      d(new CanvasLoadingThreadPrivate)
+      d(new PLECanvasLoadingThreadPrivate)
 {
 }
 
-CanvasLoadingThread::~CanvasLoadingThread()
+PLECanvasLoadingThread::~PLECanvasLoadingThread()
 {
     delete d;
 }
 
-void CanvasLoadingThread::progresChanged(double progress)
+void PLECanvasLoadingThread::progresChanged(double progress)
 {
     ProgressEvent * progressUpdateEvent = new ProgressEvent(this);
     progressUpdateEvent->setData(ProgressEvent::ProgressUpdate, ((double)d->i+1)/((double)d->data.count()+1) + (progress / (double)d->data.count()+1) );
@@ -82,7 +82,7 @@ void CanvasLoadingThread::progresChanged(double progress)
     QCoreApplication::processEvents();
 }
 
-void CanvasLoadingThread::progresName(const QString & name)
+void PLECanvasLoadingThread::progresName(const QString & name)
 {
     ProgressEvent * actionUpdateEvent = new ProgressEvent(this);
     actionUpdateEvent->setData(ProgressEvent::ActionUpdate, name);
@@ -90,7 +90,7 @@ void CanvasLoadingThread::progresName(const QString & name)
     QCoreApplication::processEvents();
 }
 
-void CanvasLoadingThread::addItem(AbstractPhoto * item, QDomElement & element)
+void PLECanvasLoadingThread::addItem(AbstractPhoto * item, QDomElement & element)
 {
     if (!item || element.isNull())
         return;
@@ -98,7 +98,7 @@ void CanvasLoadingThread::addItem(AbstractPhoto * item, QDomElement & element)
     d->data.insert(item, element);
 }
 
-void CanvasLoadingThread::addBackground(SceneBackground * background, QDomElement & element)
+void PLECanvasLoadingThread::addBackground(SceneBackground * background, QDomElement & element)
 {
     if (element.attribute(QLatin1String("class")) != QLatin1String("background") || !background)
         return;
@@ -107,7 +107,7 @@ void CanvasLoadingThread::addBackground(SceneBackground * background, QDomElemen
     d->background.second = element;
 }
 
-void CanvasLoadingThread::addBorder(SceneBorder * border, QDomElement & element)
+void PLECanvasLoadingThread::addBorder(SceneBorder * border, QDomElement & element)
 {
     if (element.attribute(QLatin1String("class")) != QLatin1String("border") || !border)
         return;
@@ -116,7 +116,7 @@ void CanvasLoadingThread::addBorder(SceneBorder * border, QDomElement & element)
     d->border.second = element;
 }
 
-void CanvasLoadingThread::run()
+void PLECanvasLoadingThread::run()
 {
     ProgressEvent * startEvent = new ProgressEvent(this);
     startEvent->setData(ProgressEvent::Init, 0);

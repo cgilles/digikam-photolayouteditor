@@ -66,7 +66,7 @@
 #include "plewindow.h"
 #include "ImageLoadingThread.h"
 #include "ProgressEvent.h"
-#include "CanvasLoadingThread.h"
+#include "plecanvasloadingthread.h"
 #include "PhotoItem.h"
 #include "SceneBorder.h"
 #include "imagedialog.h"
@@ -748,8 +748,8 @@ void Scene::contextMenuEvent(QGraphicsSceneMouseEvent * event)
     }
 
     // Background
-    QAction * background = menu.addAction( QObject::tr("Canvas background") );
-    connect(background, SIGNAL(triggered()), ToolsDockWidget::instance(), SLOT(setCanvasWidgetVisible()));
+    QAction * background = menu.addAction( QObject::tr("PLECanvas background") );
+    connect(background, SIGNAL(triggered()), ToolsDockWidget::instance(), SLOT(setPLECanvasWidgetVisible()));
 
     menu.exec(event->screenPos());
 }
@@ -1485,7 +1485,7 @@ Scene * Scene::fromSvg(QDomElement & sceneElement)
     Scene * result = new Scene(dimension);
 
     // Loading thread
-    CanvasLoadingThread * thread = new CanvasLoadingThread(result);
+    PLECanvasLoadingThread * thread = new PLECanvasLoadingThread(result);
 
     // Create elements
     int errorsCount = 0;

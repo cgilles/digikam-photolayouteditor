@@ -32,7 +32,9 @@
   *
   */
 
-#include "CanvasEditTool.h"
+#include "plecanvasedittool.h"
+
+// Qt includes
 
 #include <QApplication>
 #include <QFormLayout>
@@ -47,8 +49,13 @@
 #include <QMessageBox>
 #include <QStandardPaths>
 
+// digiKam includes
+
 #include "dcolorselector.h"
 #include "imagedialog.h"
+
+// Local incudes
+
 #include "SceneBackground.h"
 #include "MousePressListener.h"
 #include "PatternsComboBox.h"
@@ -59,7 +66,7 @@ using namespace Digikam;
 namespace PhotoLayoutsEditor
 {
 
-class CanvasEditToolPrivate
+class PLECanvasEditToolPrivate
 {
     enum BackgroundType
     {
@@ -76,7 +83,7 @@ class CanvasEditToolPrivate
         Manual = 4
     };
 
-    explicit CanvasEditToolPrivate(CanvasEditTool * /*parent*/) :
+    explicit PLECanvasEditToolPrivate(PLECanvasEditTool * /*parent*/) :
 //        m_parent(parent),
 //        background_gradient_widget(nullptr),
         background_type_widget(nullptr),
@@ -140,7 +147,7 @@ class CanvasEditToolPrivate
         background_image_height->setEnabled(enabled);
     }
 
-//    CanvasEditTool * m_parent;
+//    PLECanvasEditTool * m_parent;
 
     QMap<QString, BackgroundType> background_types;
     QComboBox * background_type_widget;
@@ -181,51 +188,51 @@ class CanvasEditToolPrivate
 
     MousePressListener mouse_listener;
 
-    friend class CanvasEditTool;
+    friend class PLECanvasEditTool;
 };
 
-CanvasEditTool::CanvasEditTool(Scene * scene, QWidget * parent)
-    : AbstractTool(scene, Canvas::Viewing, parent),
-      d(new CanvasEditToolPrivate(this)),
+PLECanvasEditTool::PLECanvasEditTool(Scene * scene, QWidget * parent)
+    : AbstractTool(scene, PLECanvas::Viewing, parent),
+      d(new PLECanvasEditToolPrivate(this)),
       hold_update(false)
 {
     setupGUI();
 }
 
-CanvasEditTool::~CanvasEditTool()
+PLECanvasEditTool::~PLECanvasEditTool()
 {
     delete d;
 }
 
-void CanvasEditTool::backgroundTypeChanged(const QString & typeName)
+void PLECanvasEditTool::backgroundTypeChanged(const QString & typeName)
 {
     qDebug() << typeName;
-    CanvasEditToolPrivate::BackgroundType bt = d->background_types.value(typeName);
+    PLECanvasEditToolPrivate::BackgroundType bt = d->background_types.value(typeName);
     switch (bt)
     {
-        case CanvasEditToolPrivate::ColorFill:
+        case PLECanvasEditToolPrivate::ColorFill:
             colorBackgroundSelected();
             break;
-        case CanvasEditToolPrivate::GradientFill:
+        case PLECanvasEditToolPrivate::GradientFill:
             gradientBackgroundSelected();
             break;
-        case CanvasEditToolPrivate::ImageFill:
+        case PLECanvasEditToolPrivate::ImageFill:
             imageBackgroundSelected();
             break;
-        case CanvasEditToolPrivate::PatternFill:
+        case PLECanvasEditToolPrivate::PatternFill:
             patternBackgroundSelected();
             break;
     }
 }
 
-void CanvasEditTool::sceneChange()
+void PLECanvasEditTool::sceneChange()
 {
     Scene * scene = this->scene();
     if (!scene)
         return;
 }
 
-void CanvasEditTool::sceneChanged()
+void PLECanvasEditTool::sceneChanged()
 {
     Scene * scene = this->scene();
     if (!scene)
@@ -237,7 +244,7 @@ void CanvasEditTool::sceneChanged()
     this->updateWidgets();
 }
 
-void CanvasEditTool::colorBackgroundSelected()
+void PLECanvasEditTool::colorBackgroundSelected()
 {
     d->background_widgets->setCurrentWidget(d->background_color_widget);
 
@@ -248,10 +255,10 @@ void CanvasEditTool::colorBackgroundSelected()
     background->setSolidColor(d->background_color->color());
 }
 
-void CanvasEditTool::gradientBackgroundSelected()
+void PLECanvasEditTool::gradientBackgroundSelected()
 {}
 
-void CanvasEditTool::imageBackgroundSelected()
+void PLECanvasEditTool::imageBackgroundSelected()
 {
     d->background_widgets->setCurrentWidget(d->background_image_widget);
     if (d->m_image.isNull())
@@ -266,7 +273,7 @@ void CanvasEditTool::imageBackgroundSelected()
     this->setImageBackground();
 }
 
-void CanvasEditTool::patternBackgroundSelected()
+void PLECanvasEditTool::patternBackgroundSelected()
 {
     d->background_widgets->setCurrentWidget(d->background_pattern_widget);
 
@@ -276,7 +283,7 @@ void CanvasEditTool::patternBackgroundSelected()
     this->setPatternBackground();
 }
 
-void CanvasEditTool::solidColorChanged(const QColor & color)
+void PLECanvasEditTool::solidColorChanged(const QColor & color)
 {
     Scene * scene = this->scene();
     if (!scene)
@@ -284,7 +291,7 @@ void CanvasEditTool::solidColorChanged(const QColor & color)
     scene->background()->setSolidColor(color);
 }
 
-void CanvasEditTool::imageBackgroundColorChanged(const QColor & color)
+void PLECanvasEditTool::imageBackgroundColorChanged(const QColor & color)
 {
     if (this->hold_update)
         return;
@@ -294,7 +301,7 @@ void CanvasEditTool::imageBackgroundColorChanged(const QColor & color)
     scene->background()->setSecondColor(color);
 }
 
-void CanvasEditTool::patternFirstColorChanged(const QColor & /*color*/)
+void PLECanvasEditTool::patternFirstColorChanged(const QColor & /*color*/)
 {
     if (this->hold_update)
         return;
@@ -304,7 +311,7 @@ void CanvasEditTool::patternFirstColorChanged(const QColor & /*color*/)
     this->setPatternBackground();
 }
 
-void CanvasEditTool::patternSecondColorChanged(const QColor & /*color*/)
+void PLECanvasEditTool::patternSecondColorChanged(const QColor & /*color*/)
 {
     if (this->hold_update)
         return;
@@ -314,7 +321,7 @@ void CanvasEditTool::patternSecondColorChanged(const QColor & /*color*/)
     this->setPatternBackground();
 }
 
-void CanvasEditTool::patternStyleChanged(Qt::BrushStyle /*patternStyle*/)
+void PLECanvasEditTool::patternStyleChanged(Qt::BrushStyle /*patternStyle*/)
 {
     if (this->hold_update)
         return;
@@ -324,7 +331,7 @@ void CanvasEditTool::patternStyleChanged(Qt::BrushStyle /*patternStyle*/)
     this->setPatternBackground();
 }
 
-void CanvasEditTool::imageUrlRequest()
+void PLECanvasEditTool::imageUrlRequest()
 {
     static QString startUrl(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
     QUrl url = ImageDialog::getImageURL(this, QUrl::fromLocalFile(startUrl), QString());
@@ -351,11 +358,11 @@ void CanvasEditTool::imageUrlRequest()
             d->background_image_width->setValue(imageSize.width());
             d->background_image_height->setValue(imageSize.height());
             if (widthSmaller && heightSmaller)
-                d->background_image_scalling->setCurrentText( d->background_image_scalling_map.value(CanvasEditToolPrivate::Manual) );
+                d->background_image_scalling->setCurrentText( d->background_image_scalling_map.value(PLECanvasEditToolPrivate::Manual) );
             else if (widthSmaller || heightSmaller)
-                d->background_image_scalling->setCurrentText( d->background_image_scalling_map.value(CanvasEditToolPrivate::Expanded) );
+                d->background_image_scalling->setCurrentText( d->background_image_scalling_map.value(PLECanvasEditToolPrivate::Expanded) );
             else
-                d->background_image_scalling->setCurrentText( d->background_image_scalling_map.value(CanvasEditToolPrivate::Scaled) );
+                d->background_image_scalling->setCurrentText( d->background_image_scalling_map.value(PLECanvasEditToolPrivate::Scaled) );
 
             Q_UNUSED(this->hold_update);
             this->hold_update = false;
@@ -376,7 +383,7 @@ void CanvasEditTool::imageUrlRequest()
     startUrl = QFileInfo(url.toLocalFile()).path();
 }
 
-void CanvasEditTool::borderImageUrlRequest()
+void PLECanvasEditTool::borderImageUrlRequest()
 {
     static QString startUrl(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
     QUrl url = ImageDialog::getImageURL(this, QUrl::fromLocalFile(startUrl), QString());
@@ -409,29 +416,29 @@ void CanvasEditTool::borderImageUrlRequest()
     startUrl = QFileInfo(url.toLocalFile()).path();
 }
 
-void CanvasEditTool::imageScallingChanged(const QString & scallingName)
+void PLECanvasEditTool::imageScallingChanged(const QString & scallingName)
 {
-    CanvasEditToolPrivate::ScallingType st = d->background_image_scalling_map.key(scallingName);
-    d->background_sizeBox->setVisible(st == CanvasEditToolPrivate::Manual);
+    PLECanvasEditToolPrivate::ScallingType st = d->background_image_scalling_map.key(scallingName);
+    d->background_sizeBox->setVisible(st == PLECanvasEditToolPrivate::Manual);
     this->setImageBackground();
 }
 
-void CanvasEditTool::imageTiledChanged(int /*state*/)
-{
-    this->setImageBackground();
-}
-
-void CanvasEditTool::imageHorizontalAlignmentChanged(int /*index*/)
+void PLECanvasEditTool::imageTiledChanged(int /*state*/)
 {
     this->setImageBackground();
 }
 
-void CanvasEditTool::imageVerticalAlignmentChanged(int /*index*/)
+void PLECanvasEditTool::imageHorizontalAlignmentChanged(int /*index*/)
 {
     this->setImageBackground();
 }
 
-void CanvasEditTool::imageWidthChanged()
+void PLECanvasEditTool::imageVerticalAlignmentChanged(int /*index*/)
+{
+    this->setImageBackground();
+}
+
+void PLECanvasEditTool::imageWidthChanged()
 {
     static int width = -1;
     if (width != d->background_image_width->value())
@@ -439,7 +446,7 @@ void CanvasEditTool::imageWidthChanged()
     width = d->background_image_width->value();
 }
 
-void CanvasEditTool::imageHeightChanged()
+void PLECanvasEditTool::imageHeightChanged()
 {
     static int height = -1;
     if (height != d->background_image_height->value())
@@ -447,7 +454,7 @@ void CanvasEditTool::imageHeightChanged()
     height = d->background_image_height->value();
 }
 
-void CanvasEditTool::setImageBackground()
+void PLECanvasEditTool::setImageBackground()
 {
     if (d->m_image.isNull() || this->hold_update)
         return;
@@ -456,8 +463,8 @@ void CanvasEditTool::setImageBackground()
     bool tiled = d->background_image_tiled->isChecked();
     Qt::Alignment alignment = d->background_image_Halignment_map.key( d->background_image_HAlign->currentText() ) |
                               d->background_image_Valignment_map.key( d->background_image_VAlign->currentText() );
-    CanvasEditToolPrivate::ScallingType scalingMode = d->background_image_scalling_map.key(d->background_image_scalling->currentText());
-    if (scalingMode == CanvasEditToolPrivate::Manual)
+    PLECanvasEditToolPrivate::ScallingType scalingMode = d->background_image_scalling_map.key(d->background_image_scalling->currentText());
+    if (scalingMode == PLECanvasEditToolPrivate::Manual)
     {
         QSize size(d->background_image_width->value(),
                    d->background_image_height->value());
@@ -468,7 +475,7 @@ void CanvasEditTool::setImageBackground()
         Qt::AspectRatioMode aspectRatio;
         switch (scalingMode)
         {
-            case CanvasEditToolPrivate::Expanded:
+            case PLECanvasEditToolPrivate::Expanded:
                 aspectRatio = Qt::KeepAspectRatioByExpanding;
                 break;
             default:
@@ -478,7 +485,7 @@ void CanvasEditTool::setImageBackground()
     }
 }
 
-void CanvasEditTool::setPatternBackground()
+void PLECanvasEditTool::setPatternBackground()
 {
     if (this->hold_update)
         return;
@@ -489,7 +496,7 @@ void CanvasEditTool::setPatternBackground()
                                     d->background_pattern_type->pattern());
 }
 
-void CanvasEditTool::setImageBorder()
+void PLECanvasEditTool::setImageBorder()
 {
     if (d->m_border_image.isNull() || this->hold_update)
         return;
@@ -499,12 +506,12 @@ void CanvasEditTool::setImageBorder()
         border->setImage(d->m_border_image);
 }
 
-void CanvasEditTool::setupGUI()
+void PLECanvasEditTool::setupGUI()
 {
     QVBoxLayout * layout = new QVBoxLayout();
     this->setLayout(layout);
 
-    // Canvas border group
+    // PLECanvas border group
     QGroupBox * borderGroup = new QGroupBox(QObject::tr("Border"), this);
     layout->addWidget(borderGroup);
     QFormLayout * borderLayout = new QFormLayout();
@@ -518,7 +525,7 @@ void CanvasEditTool::setupGUI()
         d->border_image_label->setIconSize(d->border_image_empty_pixmap.size());
     }
 
-    // Canvas background group
+    // PLECanvas background group
     QGroupBox * backgroundGroup = new QGroupBox(QObject::tr("Background"), this);
     layout->addWidget(backgroundGroup);
     QFormLayout * backgroundLayout = new QFormLayout();
@@ -655,12 +662,12 @@ void CanvasEditTool::setupGUI()
     }
 }
 
-void CanvasEditTool::readMousePosition(const QPointF & scenePos)
+void PLECanvasEditTool::readMousePosition(const QPointF & scenePos)
 {
     qDebug() << scenePos;
 }
 
-void CanvasEditTool::updateWidgets()
+void PLECanvasEditTool::updateWidgets()
 {
     Scene * scene = this->scene();
     if (!scene)
@@ -691,7 +698,7 @@ void CanvasEditTool::updateWidgets()
         d->background_pattern_type->setPattern(background->pattern());
         d->background_pattern_color1->setColor(background->firstColor());
         d->background_pattern_color2->setColor(background->secondColor());
-        d->background_type_widget->setCurrentText(d->background_types.key(CanvasEditToolPrivate::PatternFill));
+        d->background_type_widget->setCurrentText(d->background_types.key(PLECanvasEditToolPrivate::PatternFill));
     }
     else if (background->isImage())
     {
@@ -704,29 +711,29 @@ void CanvasEditTool::updateWidgets()
         d->background_image_VAlign->setCurrentText( d->background_image_Valignment_map.value(background->imageAlignment() & (Qt::AlignVertical_Mask)) );
         d->background_image_width->setValue( background->imageSize().width() );
         d->background_image_height->setValue( background->imageSize().height() );
-        CanvasEditToolPrivate::ScallingType scallingType;
+        PLECanvasEditToolPrivate::ScallingType scallingType;
         switch (background->imageAspectRatio())
         {
             case Qt::KeepAspectRatioByExpanding:
-                scallingType = CanvasEditToolPrivate::Expanded;
+                scallingType = PLECanvasEditToolPrivate::Expanded;
                 break;
             case Qt::KeepAspectRatio:
-                scallingType = CanvasEditToolPrivate::Scaled;
+                scallingType = PLECanvasEditToolPrivate::Scaled;
                 break;
             default:
-                scallingType = CanvasEditToolPrivate::Manual;
+                scallingType = PLECanvasEditToolPrivate::Manual;
         }
         d->background_image_scalling->setCurrentText( d->background_image_scalling_map.value(scallingType) );
         d->background_image_tiled->setChecked( background->imageRepeated() );
         d->background_image_color->setColor( background->secondColor() );
-        d->background_type_widget->setCurrentText(d->background_types.key(CanvasEditToolPrivate::ImageFill));
+        d->background_type_widget->setCurrentText(d->background_types.key(PLECanvasEditToolPrivate::ImageFill));
         d->setImageWidgetsEnabled(!d->m_image.isNull());
     }
     else
     {
         d->background_widgets->setCurrentWidget(d->background_color_widget);
         d->background_color->setColor(background->firstColor());
-        d->background_type_widget->setCurrentText(d->background_types.key(CanvasEditToolPrivate::ColorFill));
+        d->background_type_widget->setCurrentText(d->background_types.key(PLECanvasEditToolPrivate::ColorFill));
     }
 
     Q_UNUSED(this->hold_update);

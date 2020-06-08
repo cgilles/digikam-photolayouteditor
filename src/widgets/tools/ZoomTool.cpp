@@ -45,7 +45,7 @@ class ZoomTool::ZoomToolPrivate
 };
 
 ZoomTool::ZoomTool(Scene * scene, QWidget * parent) :
-    AbstractTool(scene, Canvas::Viewing, parent),
+    AbstractTool(scene, PLECanvas::Viewing, parent),
     d(new ZoomToolPrivate)
 {
     QVBoxLayout * layout = new QVBoxLayout();
@@ -102,7 +102,7 @@ void ZoomTool::zoom(const QPointF & point)
     qreal factor = 1 + (d->out->isChecked() ? -0.1 : 0.1);
     foreach(QGraphicsView* view, views)
     {
-        Canvas * canvas = qobject_cast<Canvas*>(view);
+        PLECanvas * canvas = qobject_cast<PLECanvas*>(view);
         if (!canvas)
             continue;
         if (d->listener->wasDragged())
