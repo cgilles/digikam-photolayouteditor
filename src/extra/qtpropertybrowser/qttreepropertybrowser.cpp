@@ -230,7 +230,8 @@ class QtPropertyEditorDelegate : public QItemDelegate
 public:
     explicit QtPropertyEditorDelegate(QObject *parent = nullptr)
         : QItemDelegate(parent), m_editorPrivate(nullptr), m_editedItem(nullptr), m_editedWidget(nullptr), m_disablePainting(false)
-        {}
+    {
+    }
 
     void setEditorPrivate(QtTreePropertyBrowserPrivate *editorPrivate)
         { m_editorPrivate = editorPrivate; }
@@ -247,9 +248,11 @@ public:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex&index) const override;
 
     void setModelData(QWidget *, QAbstractItemModel *,
-            const QModelIndex&) const override {}
+            const QModelIndex&) const override {
+    }
 
-    void setEditorData(QWidget *, const QModelIndex&) const override {}
+    void setEditorData(QWidget *, const QModelIndex&) const override {
+    }
 
     bool eventFilter(QObject *object, QEvent *event) override;
     void closeEditor(QtProperty *property);

@@ -150,7 +150,7 @@ class PLECanvasEditToolPrivate
 //    PLECanvasEditTool * m_parent;
 
     QMap<QString, BackgroundType> background_types;
-    QComboBox * background_type_widget;
+    QComboBox* background_type_widget;
     QStackedLayout * background_widgets;
 
     QWidget* background_color_widget;
@@ -162,14 +162,14 @@ class PLECanvasEditToolPrivate
     QFormLayout * backgroundImageFormLayout;
 //    QUrlRequester * background_image_file;
     QPixmap background_image_empty_pixmap;
-    QPushButton * background_image_label;
-    QComboBox * background_image_scalling;
+    QPushButton* background_image_label;
+    QComboBox* background_image_scalling;
     QMap<ScallingType, QString> background_image_scalling_map;
     QCheckBox * background_image_tiled;
     QGroupBox * background_alignBox;
-    QComboBox * background_image_HAlign;
+    QComboBox* background_image_HAlign;
     QMap<Qt::Alignment, QString> background_image_Halignment_map;
-    QComboBox * background_image_VAlign;
+    QComboBox* background_image_VAlign;
     QMap<Qt::Alignment, QString> background_image_Valignment_map;
     QGroupBox * background_sizeBox;
     QSpinBox * background_image_width;
@@ -178,7 +178,7 @@ class PLECanvasEditToolPrivate
     QImage m_image;
 
     QPixmap border_image_empty_pixmap;
-    QPushButton * border_image_label;
+    QPushButton* border_image_label;
     QImage m_border_image;
 
     QWidget* background_pattern_widget;
@@ -256,7 +256,8 @@ void PLECanvasEditTool::colorBackgroundSelected()
 }
 
 void PLECanvasEditTool::gradientBackgroundSelected()
-{}
+{
+    }
 
 void PLECanvasEditTool::imageBackgroundSelected()
 {

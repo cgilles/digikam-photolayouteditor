@@ -160,7 +160,8 @@ private:
         explicit PhotoItemPrivate(PhotoItem* item) :
             m_item(item),
             m_image_moving(false)
-        {}
+        {
+    }
 
         static QString locateFile(const QString& filePath);
 

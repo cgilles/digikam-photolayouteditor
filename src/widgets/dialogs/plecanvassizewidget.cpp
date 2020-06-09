@@ -63,11 +63,11 @@ class PLECanvasSizeWidget::Private
     QWidget*        advancedWidget;
     QDoubleSpinBox * xSize;
     QDoubleSpinBox * ySize;
-    QLabel *         sizeLabel;
-    QComboBox *      sizeUnitsWidget;
+    QLabel*         sizeLabel;
+    QComboBox*      sizeUnitsWidget;
     QDoubleSpinBox * xResolution;
     QDoubleSpinBox * yResolution;
-    QComboBox *      resolutionUnitsWidget;
+    QComboBox*      resolutionUnitsWidget;
 
     static int WIDTH;
     static int HEIGHT;
@@ -150,7 +150,7 @@ void PLECanvasSizeWidget::setupUI(const QSizeF & size, const QString& sizeUnits,
     d->sizeWidget = new QGroupBox(QObject::tr("PLECanvas size"), this);
     vLayout->addWidget(d->sizeWidget);
 
-    QGridLayout * gridLayout = new QGridLayout(d->sizeWidget);
+    QGridLayout* gridLayout = new QGridLayout(d->sizeWidget);
     d->sizeWidget->setLayout(gridLayout);
 
     // Width widget

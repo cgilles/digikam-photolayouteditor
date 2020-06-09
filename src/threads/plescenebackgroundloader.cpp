@@ -120,7 +120,8 @@ void PLESceneBackgroundLoader::run()
         m_background->m_second_brush.setColor(backgroundColor);
     }
     else if (type == QLatin1String("gradient"))
-    {}
+    {
+    }
     else
         this->exit(1);
 

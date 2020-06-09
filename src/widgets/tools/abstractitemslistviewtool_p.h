@@ -50,7 +50,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            AbstractListToolViewDelegate(AbstractMovableModel * model, QModelIndex index, AbstractItemsListViewTool * parent);
+            AbstractListToolViewDelegate(AbstractMovableModel* model, QModelIndex index, AbstractItemsListViewTool* parent);
 
         Q_SIGNALS:
 

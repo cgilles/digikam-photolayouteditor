@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef BORDEREDITTOOL_H
-#define BORDEREDITTOOL_H
+#ifndef BORDER_EDIT_TOOL_H
+#define BORDER_EDIT_TOOL_H
 
 // Local includes
 
@@ -38,19 +38,21 @@
 
 namespace PhotoLayoutsEditor
 {
-    class BorderEditTool : public AbstractItemsListViewTool
-    {
-            Q_OBJECT
 
-        public:
+class BorderEditTool : public AbstractItemsListViewTool
+{
+    Q_OBJECT
 
-            explicit BorderEditTool(PLEScene* scene, QWidget* parent = nullptr);
-            virtual QStringList options() const override;
-            virtual AbstractMovableModel * model() override;
-            virtual QObject* createItem(const QString& name) override;
-            virtual QWidget* createEditor(QObject* item, bool createCommands = true) override;
+public:
 
-    };
-}
+    explicit BorderEditTool(PLEScene* scene, QWidget* parent = nullptr);
 
-#endif // BORDEREDITTOOL_H
+    virtual QStringList options() const override;
+    virtual AbstractMovableModel* model() override;
+    virtual QObject* createItem(const QString& name) override;
+    virtual QWidget* createEditor(QObject* item, bool createCommands = true) override;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // BORDER_EDIT_TOOL_H

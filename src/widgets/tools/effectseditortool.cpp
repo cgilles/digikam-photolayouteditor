@@ -54,10 +54,11 @@ QStringList EffectsEditorTool::options() const
     return PhotoEffectsLoader::registeredEffectsNames();
 }
 
-AbstractMovableModel * EffectsEditorTool::model()
+AbstractMovableModel* EffectsEditorTool::model()
 {
     if (currentItem() && currentItem()->effectsGroup())
         return currentItem()->effectsGroup();
+
     return nullptr;
 }
 
@@ -69,8 +70,10 @@ QObject* EffectsEditorTool::createItem(const QString& name)
 QWidget* EffectsEditorTool::createEditor(QObject* item, bool createCommands)
 {
     AbstractPhotoEffectInterface* effect = qobject_cast<AbstractPhotoEffectInterface*>(item);
+
     if (!effect)
         return nullptr;
+
     return PhotoEffectsLoader::propertyBrowser(effect, createCommands);
 }
 

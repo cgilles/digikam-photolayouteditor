@@ -140,7 +140,8 @@ public:
         m_item(item),
         m_image_path(m_item->m_image_path)
 //        , command(0)
-    {}
+    {
+    }
     virtual void redo() override
     {
         m_item->m_image_path = QPainterPath();
@@ -168,7 +169,8 @@ class PhotoItemImageMovedCommand : public QUndoCommand
         QUndoCommand(QObject::tr("Image Position Change"), parent),
         m_item(item),
         done(true)
-    {}
+    {
+    }
 
 public:
 

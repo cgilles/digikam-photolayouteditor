@@ -37,63 +37,69 @@
 
 namespace PhotoLayoutsEditor
 {
-    class ToolsDockWidget;
 
-    class AbstractTool : public QWidget
+class ToolsDockWidget;
+
+class AbstractTool : public QWidget
+{
+    Q_OBJECT
+
+    PLEScene* m_scene;
+
+    PLECanvas::SelectionMode sel_mode;
+
+public:
+
+    AbstractTool(PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent = nullptr)
+        : QWidget(parent),
+          m_scene(scene),
+          sel_mode(selectionMode)
     {
-            Q_OBJECT
+    }
 
-            PLEScene* m_scene;
+    PLEScene* scene() const
+    {
+        return m_scene;
+    }
 
-            PLECanvas::SelectionMode sel_mode;
+protected:
 
-        public:
+    void setScene(PLEScene* scene)
+    {
+        if (m_scene == scene)
+            return;
+        this->sceneChange();
+        this->m_scene = scene;
+        if (scene)
+        {
+            connect(m_scene, SIGNAL(destroyed()), this, SLOT(sceneDestroyed()));
+            this->setEnabled(true);
+        }
+        else
+            this->setEnabled(false);
 
-            AbstractTool(PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent = nullptr) :
-                QWidget(parent),
-                m_scene(scene),
-                sel_mode(selectionMode)
-            {}
+        this->sceneChanged();
+    }
 
-            PLEScene* scene() const
-            {
-                return m_scene;
-            }
+    virtual void sceneChange()
+    {
+    }
 
-        protected:
+    virtual void sceneChanged()
+    {
+    }
 
-            void setScene(PLEScene* scene)
-            {
-                if (m_scene == scene)
-                    return;
-                this->sceneChange();
-                this->m_scene = scene;
-                if (scene)
-                {
-                    connect(m_scene, SIGNAL(destroyed()), this, SLOT(sceneDestroyed()));
-                    this->setEnabled(true);
-                }
-                else
-                    this->setEnabled(false);
-                this->sceneChanged();
-            }
+protected Q_SLOTS:
 
-            virtual void sceneChange()
-            {}
+    void sceneDestroyed()
+    {
+        if (sender() == m_scene)
+            this->setScene(nullptr);
+    }
 
-            virtual void sceneChanged()
-            {}
+    friend class ToolsDockWidget;
+};
 
-        protected Q_SLOTS:
-
-            void sceneDestroyed()
-            {
-                if (sender() == m_scene)
-                    this->setScene(nullptr);
-            }
-
-        friend class ToolsDockWidget;
-    };
-}
+} // namespace PhotoLayoutsEditor
 
 #endif // ABSTRACTTOOL_H

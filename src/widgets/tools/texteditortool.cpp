@@ -45,7 +45,7 @@ class TextEditorToolPrivate
     {
     }
 
-    QPushButton * m_create_button;
+    QPushButton* m_create_button;
     QVBoxLayout* m_layout;
 
     friend class TextEditorTool;

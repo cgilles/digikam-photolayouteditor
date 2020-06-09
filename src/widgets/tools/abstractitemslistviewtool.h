@@ -47,8 +47,10 @@ public:
 
     virtual void currentItemAboutToBeChanged() override;
     virtual void currentItemChanged() override;
-    virtual void positionAboutToBeChanged() override {} // Unused
-    virtual void positionChanged() override {}          // Unused
+    virtual void positionAboutToBeChanged() override {
+    } // Unused
+    virtual void positionChanged() override {
+    }          // Unused
     virtual QStringList options() const = 0;
     virtual QObject* createItem(const QString& name) = 0;
 

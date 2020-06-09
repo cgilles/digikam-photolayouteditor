@@ -46,11 +46,12 @@ namespace PhotoLayoutsEditor
     
 class CropWidgetItemPrivate
 {
-    explicit CropWidgetItemPrivate (CropWidgetItem * item) :
-        m_item(item),
-        pressedVHandler(-1),
-        pressedHHandler(-1)
-        {}
+    explicit CropWidgetItemPrivate (CropWidgetItem* item)
+        : m_item(item),
+          pressedVHandler(-1),
+          pressedHHandler(-1)
+    {
+    }
 
     enum
     {
@@ -83,7 +84,7 @@ class CropWidgetItemPrivate
         m_elipse.addEllipse(QPointF(0,0), 10, 10);
     }
 
-    CropWidgetItem * m_item;
+    CropWidgetItem* m_item;
 
     QTransform currentViewTransform;
     void transformDrawings(const QTransform & viewTransform);
@@ -443,10 +444,12 @@ void CropWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 }
 
 void CropWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* /*event*/)
-{}
+{
+    }
 
 void CropWidgetItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* /*event*/)
-{}
+{
+    }
 
 void CropWidgetItem::setItems(const QList<AbstractPhoto*>& items)
 {

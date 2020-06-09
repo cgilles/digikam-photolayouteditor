@@ -57,10 +57,11 @@ QStringList BorderEditTool::options() const
     return BorderDrawersLoader::registeredDrawers();
 }
 
-AbstractMovableModel * BorderEditTool::model()
+AbstractMovableModel* BorderEditTool::model()
 {
     if (currentItem() && currentItem()->bordersGroup())
         return currentItem()->bordersGroup();
+
     return nullptr;
 }
 
@@ -72,8 +73,10 @@ QObject* BorderEditTool::createItem(const QString& name)
 QWidget* BorderEditTool::createEditor(QObject* item, bool createCommands)
 {
     BorderDrawerInterface* drawer = qobject_cast<BorderDrawerInterface*>(item);
+
     if (!drawer)
         return nullptr;
+
     return BorderDrawersLoader::createEditor(drawer, createCommands);
 }
 

@@ -223,7 +223,8 @@ bool PLESceneBorder::fromSvg(QDomElement& /*element*/)
         m_second_brush.setColor(borderColor);
     }
     else if (type == "gradient")
-    {}
+    {
+    }
     else
         return false;
 

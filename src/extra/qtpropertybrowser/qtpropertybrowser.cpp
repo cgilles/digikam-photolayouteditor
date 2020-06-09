@@ -1145,19 +1145,24 @@ void QtAbstractPropertyManager::uninitializeProperty(QtProperty *property)
 class QtBrowserItemPrivate
 {
 public:
-    QtBrowserItemPrivate(QtAbstractPropertyBrowser *browser, QtProperty *property, QtBrowserItem *parent)
-        : m_browser(browser), m_property(property), m_parent(parent), q_ptr(nullptr) {}
+    QtBrowserItemPrivate(QtAbstractPropertyBrowser* browser, QtProperty* property, QtBrowserItem* parent)
+        : m_browser(browser),
+          m_property(property),
+          m_parent(parent),
+          q_ptr(nullptr)
+    {
+    }
 
-    void addChild(QtBrowserItem *index, QtBrowserItem *after);
-    void removeChild(QtBrowserItem *index);
+    void addChild(QtBrowserItem* index, QtBrowserItem* after);
+    void removeChild(QtBrowserItem* index);
 
     QtAbstractPropertyBrowser* const m_browser;
-    QtProperty *m_property;
-    QtBrowserItem *m_parent;
+    QtProperty* m_property;
+    QtBrowserItem* m_parent;
 
-    QtBrowserItem *q_ptr;
+    QtBrowserItem* q_ptr;
 
-    QList<QtBrowserItem *> m_children;
+    QList<QtBrowserItem*> m_children;
 
 };
 

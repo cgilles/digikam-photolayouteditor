@@ -160,7 +160,9 @@ public:
     virtual QWidget *createEditor(QtProperty *property, QWidget *parent) = 0;
 protected:
     explicit QtAbstractEditorFactoryBase(QObject *parent = nullptr)
-        : QObject(parent) {}
+        : QObject(parent)
+    {
+    }
 
     virtual void breakConnection(QtAbstractPropertyManager *manager) = 0;
 protected Q_SLOTS:
@@ -173,7 +175,8 @@ template <class PropertyManager>
 class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
 {
 public:
-    explicit QtAbstractEditorFactory(QObject *parent) : QtAbstractEditorFactoryBase(parent) {}
+    explicit QtAbstractEditorFactory(QObject *parent) : QtAbstractEditorFactoryBase(parent) {
+    }
     
     QWidget *createEditor(QtProperty *property, QWidget *parent) override
     {

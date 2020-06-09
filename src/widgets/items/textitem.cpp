@@ -86,7 +86,8 @@ public:
             QUndoCommand(QObject::tr("Text color change"), parent),
             m_item(item),
             m_color(color)
-        {}
+        {
+    }
         
         virtual void redo() override
         {
@@ -118,7 +119,8 @@ public:
             QUndoCommand(QObject::tr("Text font change"), parent),
             m_item(item),
             m_font(font)
-        {}
+        {
+    }
 
         virtual void redo() override
         {

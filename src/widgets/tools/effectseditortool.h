@@ -22,28 +22,32 @@
  *
  * ============================================================ */
 
-#ifndef EFFECTSEDITORTOOL_H
-#define EFFECTSEDITORTOOL_H
+#ifndef EFFECTS_EDITOR_TOOL_H
+#define EFFECTS_EDITOR_TOOL_H
+
+// Local includes
 
 #include "abstractitemslistviewtool.h"
 
 namespace PhotoLayoutsEditor
 {
-    class AbstractPhotoEffectInterface;
 
-    class EffectsEditorTool : public AbstractItemsListViewTool
-    {
-            Q_OBJECT
+class AbstractPhotoEffectInterface;
 
-        public:
+class EffectsEditorTool : public AbstractItemsListViewTool
+{
+    Q_OBJECT
 
-            explicit EffectsEditorTool(PLEScene* scene, QWidget* parent = nullptr);
-            virtual QStringList options() const override;
-            virtual AbstractMovableModel * model() override;
-            virtual QObject* createItem(const QString& name) override;
-            virtual QWidget* createEditor(QObject* item, bool createCommands = true) override;
+public:
 
-    };
-}
+    explicit EffectsEditorTool(PLEScene* scene, QWidget* parent = nullptr);
 
-#endif // EFFECTSEDITORTOOL_H
+    virtual QStringList options() const override;
+    virtual AbstractMovableModel* model() override;
+    virtual QObject* createItem(const QString& name) override;
+    virtual QWidget* createEditor(QObject* item, bool createCommands = true) override;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // EFFECTS_EDITOR_TOOL_H

@@ -68,13 +68,14 @@ class ToolsDockWidget::ToolsDockWidgetPrivate
     friend class ToolsDockWidget;
 };
 
-ToolsDockWidget * ToolsDockWidget::m_instance = nullptr;
+ToolsDockWidget* ToolsDockWidget::m_instance = nullptr;
 
 class MyStackedLayout : public QStackedLayout
 {
     public:
 
-        explicit MyStackedLayout(QWidget* parent = nullptr) : QStackedLayout(parent) {}
+        explicit MyStackedLayout(QWidget* parent = nullptr) : QStackedLayout(parent) {
+    }
 
         virtual QSize sizeHint() const override
         {
@@ -89,7 +90,7 @@ class MyStackedLayout : public QStackedLayout
         }
 };
 
-ToolsDockWidget * ToolsDockWidget::instance(QWidget* parent)
+ToolsDockWidget* ToolsDockWidget::instance(QWidget* parent)
 {
     if (!m_instance)
         m_instance = new ToolsDockWidget(parent);
@@ -456,7 +457,7 @@ void ToolsDockWidget::setBordersWidgetVisible(bool isVisible)
     }
 }
 
-void ToolsDockWidget::resizeEvent(QResizeEvent * event)
+void ToolsDockWidget::resizeEvent(QResizeEvent* event)
 {
     QList<QWidget*> l;
     l << m_tool_pointer

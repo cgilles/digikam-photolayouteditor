@@ -57,7 +57,8 @@ public:
         QUndoCommand(QObject::tr("Move item"), parent),
         m_item(item),
         done(false)
-    {}
+    {
+    }
     virtual void redo() override
     {
         if (done)
@@ -516,7 +517,8 @@ void ScalingWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* /*event*/)
 }
 
 void ScalingWidgetItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* /*event*/)
-{}
+{
+    }
 
 void ScalingWidgetItem::setScaleItems(const QList<AbstractPhoto*> & items)
 {

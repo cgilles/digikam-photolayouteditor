@@ -104,17 +104,17 @@ class PLECanvasSizeDialogPrivate
 
         QWidget*   sizeWidget;
         QWidget*   advancedWidget;
-        QComboBox * paperSize;
+        QComboBox* paperSize;
         QDoubleSpinBox *  xSize;
         QDoubleSpinBox *  ySize;
         QButtonGroup*  orientationGroup;
-        QPushButton *   verticalButton;
-        QLabel *    sizeLabel;
-        QPushButton *   horizontalButton;
-        QComboBox * sizeUnitsWidget;
+        QPushButton*   verticalButton;
+        QLabel*    sizeLabel;
+        QPushButton*   horizontalButton;
+        QComboBox* sizeUnitsWidget;
         QDoubleSpinBox *  xResolution;
         QDoubleSpinBox *  yResolution;
-        QComboBox * resolutionUnitsWidget;
+        QComboBox* resolutionUnitsWidget;
 
         static int WIDTH;
         static int HEIGHT;
@@ -342,7 +342,7 @@ void PLECanvasSizeDialog::setupDialog(const QSizeF & size,
     setLayout(vLayout);
 
     /// ----------------------- TEMPLATES PART -----------------------
-    QGridLayout * gridLayout = new QGridLayout();
+    QGridLayout* gridLayout = new QGridLayout();
     d->paperSize = new QComboBox(main);
     d->paperSize->addItem( QObject::tr("Custom") );
     d->paperSize->insertSeparator(1);
@@ -399,7 +399,7 @@ void PLECanvasSizeDialog::setupDialog(const QSizeF & size,
     d->verticalButton->setCheckable(true);
     d->verticalButton->setFlat(true);
     d->verticalButton->setIconSize(QSize(24,24));
-    QHBoxLayout * hLayout = new QHBoxLayout();
+    QHBoxLayout* hLayout = new QHBoxLayout();
     hLayout->addWidget(d->horizontalButton);
     hLayout->addWidget(d->verticalButton);
     gridLayout->addWidget(new QLabel(QObject::tr("Orientation"), d->sizeWidget),2,0);

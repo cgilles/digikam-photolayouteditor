@@ -395,7 +395,9 @@ class QtMetaEnumWrapper : public QObject
 public:
     QSizePolicy::Policy policy() const { return QSizePolicy::Ignored; }
 private:
-    explicit QtMetaEnumWrapper(QObject *parent) : QObject(parent) {}
+    explicit QtMetaEnumWrapper(QObject *parent) : QObject(parent)
+    {
+    }
 };
 
 class QtMetaEnumProvider
@@ -648,7 +650,8 @@ public:
     
     struct Data
     {
-        Data() : val(0), minVal(-INT_MAX), maxVal(INT_MAX), singleStep(1) {}
+        Data() : val(0), minVal(-INT_MAX), maxVal(INT_MAX), singleStep(1) {
+    }
         int val;
         int minVal;
         int maxVal;
@@ -932,7 +935,8 @@ public:
 
     struct Data
     {
-        Data() : val(0), minVal(-INT_MAX), maxVal(INT_MAX), singleStep(1), decimals(2) {}
+        Data() : val(0), minVal(-INT_MAX), maxVal(INT_MAX), singleStep(1), decimals(2) {
+    }
         double val;
         double minVal;
         double maxVal;
@@ -1632,7 +1636,8 @@ public:
     struct Data
     {
         Data() : val(QDate::currentDate()), minVal(QDate(1752, 9, 14)),
-                maxVal(QDate(7999, 12, 31)) {}
+                maxVal(QDate(7999, 12, 31)) {
+    }
         QDate val;
         QDate minVal;
         QDate maxVal;
@@ -3121,7 +3126,8 @@ public:
 
     struct Data
     {
-        Data() : val(QSize(0, 0)), minVal(QSize(0, 0)), maxVal(QSize(INT_MAX, INT_MAX)) {}
+        Data() : val(QSize(0, 0)), minVal(QSize(0, 0)), maxVal(QSize(INT_MAX, INT_MAX)) {
+    }
         QSize val;
         QSize minVal;
         QSize maxVal;
@@ -3475,7 +3481,8 @@ public:
 
     struct Data
     {
-        Data() : val(QSizeF(0, 0)), minVal(QSizeF(0, 0)), maxVal(QSizeF(INT_MAX, INT_MAX)), decimals(2) {}
+        Data() : val(QSizeF(0, 0)), minVal(QSizeF(0, 0)), maxVal(QSizeF(INT_MAX, INT_MAX)), decimals(2) {
+    }
         QSizeF val;
         QSizeF minVal;
         QSizeF maxVal;
@@ -3882,7 +3889,8 @@ public:
 
     struct Data
     {
-        Data() : val(0, 0, 0, 0) {}
+        Data() : val(0, 0, 0, 0) {
+    }
         QRect val;
         QRect constraint;
     };
@@ -4300,7 +4308,8 @@ public:
 
     struct Data
     {
-        Data() : val(0, 0, 0, 0), decimals(2) {}
+        Data() : val(0, 0, 0, 0), decimals(2) {
+    }
         QRectF val;
         QRectF constraint;
         int decimals;
@@ -4775,7 +4784,8 @@ public:
 
     struct Data
     {
-        Data() : val(-1) {}
+        Data() : val(-1) {
+    }
         int val;
         QStringList enumNames;
         QMap<int, QIcon> enumIcons;
@@ -5056,7 +5066,8 @@ public:
 
     struct Data
     {
-        Data() : val(-1) {}
+        Data() : val(-1) {
+    }
         int val;
         QStringList flagNames;
     };

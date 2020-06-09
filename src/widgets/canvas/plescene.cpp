@@ -370,7 +370,8 @@ class MoveItemsCommand
             m_items(items),
             m_scene(scene),
             done(true)
-        {}
+        {
+    }
         virtual void redo() override
         {
             if (!done)

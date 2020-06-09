@@ -53,13 +53,15 @@ class ItemCreatedCommand : public QUndoCommand
     bool                  done;
 
 public:
-    ItemCreatedCommand(QObject* item, int row, AbstractMovableModel * model, QUndoCommand* parent = nullptr) :
-        QUndoCommand(parent),
-        item(item),
-        row(row),
-        model(model),
-        done(false)
-    {}
+
+    ItemCreatedCommand(QObject* item, int row, AbstractMovableModel* model, QUndoCommand* parent = nullptr)
+        : QUndoCommand(parent),
+          item(item),
+          row(row),
+          model(model),
+          done(false)
+    {
+    }
 
     ~ItemCreatedCommand()
     {
@@ -94,13 +96,14 @@ class ItemRemovedCommand : public QUndoCommand
 
 public:
 
-    ItemRemovedCommand(QObject* item, int row, AbstractMovableModel * model, QUndoCommand* parent = nullptr) :
+    ItemRemovedCommand(QObject* item, int row, AbstractMovableModel* model, QUndoCommand* parent = nullptr) :
         QUndoCommand(parent),
         item(item),
         row(row),
         model(model),
         done(true)
-    {}
+    {
+    }
 
     ~ItemRemovedCommand()
     {
@@ -135,13 +138,14 @@ class ItemMoveRowsCommand : public QUndoCommand
 
 public:
 
-    ItemMoveRowsCommand(int sourceStart, int count, int destinationRow, AbstractMovableModel * model, QUndoCommand* parent = nullptr) :
-        QUndoCommand(parent),
-        sourceStart(sourceStart),
-        count(count),
-        destinationRow(destinationRow),
-        model(model)
-    {}
+    ItemMoveRowsCommand(int sourceStart, int count, int destinationRow, AbstractMovableModel* model, QUndoCommand* parent = nullptr)
+        : QUndoCommand(parent),
+          sourceStart(sourceStart),
+          count(count),
+          destinationRow(destinationRow),
+          model(model)
+    {
+    }
 
     virtual void redo() override
     {
@@ -178,13 +182,15 @@ class AbstractItemsListViewToolPrivate
         m_up_button(nullptr),
         m_delegate(nullptr)
 //        , m_editors_object(nullptr)
-    {}
-    AbstractListToolView * m_list_widget;
-    QPushButton * m_add_button;
-    QPushButton * m_remove_button;
-    QPushButton * m_down_button;
-    QPushButton * m_up_button;
-    AbstractListToolViewDelegate * m_delegate;
+    {
+    }
+
+    AbstractListToolView* m_list_widget;
+    QPushButton* m_add_button;
+    QPushButton* m_remove_button;
+    QPushButton* m_down_button;
+    QPushButton* m_up_button;
+    AbstractListToolViewDelegate* m_delegate;
 //    QObject* m_editors_object;
 
     void closeChooser()
@@ -210,17 +216,17 @@ AbstractItemsListViewTool::AbstractItemsListViewTool(const QString& toolName, PL
     AbstractItemsTool(scene, selectionMode, parent),
     d(new AbstractItemsListViewToolPrivate)
 {
-    QGridLayout * layout = new QGridLayout(this);
+    QGridLayout* layout = new QGridLayout(this);
 
     // Title
-    QLabel * title = new QLabel(toolName, this);
+    QLabel* title = new QLabel(toolName, this);
     QFont titleFont = title->font();
     titleFont.setBold(true);
     title->setFont(titleFont);
     layout->addWidget(title,0,0);
 
     // Move add/remove buttons
-    QHBoxLayout * addLayout = new QHBoxLayout();
+    QHBoxLayout* addLayout = new QHBoxLayout();
     d->m_add_button = new QPushButton(QIcon::fromTheme(QLatin1String(":/action_add.png")), QString());
     d->m_add_button->setIconSize(QSize(16,16));
     d->m_add_button->setFixedSize(24,24);
@@ -235,7 +241,7 @@ AbstractItemsListViewTool::AbstractItemsListViewTool(const QString& toolName, PL
     connect(d->m_remove_button,SIGNAL(clicked()),this,SLOT(removeSelected()));
 
     // Move up/down buttons
-    QHBoxLayout * moveLayout = new QHBoxLayout();
+    QHBoxLayout* moveLayout = new QHBoxLayout();
     d->m_down_button = new QPushButton(QIcon::fromTheme(QLatin1String(":/arrow_down.png")), QString());
     d->m_down_button->setIconSize(QSize(16,16));
     d->m_down_button->setFixedSize(24,24);
@@ -306,7 +312,7 @@ void AbstractItemsListViewTool::viewCurrentEditor(QObject* object)
 
 void AbstractItemsListViewTool::createChooser()
 {
-    AbstractMovableModel * model = this->model();
+    AbstractMovableModel* model = this->model();
     if (model)
     {
         // Calculate chooser position
@@ -341,12 +347,12 @@ void AbstractItemsListViewTool::removeSelected()
     if (!d->m_list_widget)
         return;
     QModelIndex index = d->m_list_widget->selectedIndex();
-    AbstractMovableModel * model = this->model();
+    AbstractMovableModel* model = this->model();
     if (model && index.isValid())
     {
         if (index.internalPointer())
         {
-            ItemRemovedCommand * command = new ItemRemovedCommand(static_cast<QObject*>(index.internalPointer()), index.row(), model);
+            ItemRemovedCommand* command = new ItemRemovedCommand(static_cast<QObject*>(index.internalPointer()), index.row(), model);
             PLE_PostUndoCommand(command);
         }
         else
@@ -359,7 +365,7 @@ void AbstractItemsListViewTool::moveSelectedDown()
     if (!d->m_list_widget)
         return;
     QModelIndex index = d->m_list_widget->selectedIndex();
-    AbstractMovableModel * model = this->model();
+    AbstractMovableModel* model = this->model();
     if (model && index.row() < model->rowCount()-1)
     {
         if (index.internalPointer())
@@ -378,7 +384,7 @@ void AbstractItemsListViewTool::moveSelectedUp()
     if (!d->m_list_widget)
         return;
     QModelIndex index = d->m_list_widget->selectedIndex();
-    AbstractMovableModel * model = this->model();
+    AbstractMovableModel* model = this->model();
     if (model && index.row() > 0)
     {
         if (index.internalPointer())
@@ -394,7 +400,7 @@ void AbstractItemsListViewTool::moveSelectedUp()
 
 void AbstractItemsListViewTool::closeEditor()
 {
-    QLayoutItem * itemBrowser = static_cast<QGridLayout*>(layout())->itemAtPosition(2,0);
+    QLayoutItem* itemBrowser = static_cast<QGridLayout*>(layout())->itemAtPosition(2,0);
     if (!itemBrowser)
         return;
     QWidget* browser = itemBrowser->widget();
@@ -404,7 +410,7 @@ void AbstractItemsListViewTool::closeEditor()
     browser->deleteLater();
 }
 
-AbstractListToolViewDelegate::AbstractListToolViewDelegate(AbstractMovableModel * model, QModelIndex index, AbstractItemsListViewTool * parent) :
+AbstractListToolViewDelegate::AbstractListToolViewDelegate(AbstractMovableModel* model, QModelIndex index, AbstractItemsListViewTool* parent) :
     QWidget(parent),
     m_parent(parent),
     m_model(model),
@@ -412,12 +418,12 @@ AbstractListToolViewDelegate::AbstractListToolViewDelegate(AbstractMovableModel 
     m_object(nullptr)
 {
     // GUI setup
-    QHBoxLayout * layout = new QHBoxLayout();
+    QHBoxLayout* layout = new QHBoxLayout();
     layout->setContentsMargins(QMargins());
     layout->setSpacing(0);
     this->setLayout(layout);
     QStringList registeredDrawers = parent->options();
-    QComboBox * comboBox = new QComboBox(this);
+    QComboBox* comboBox = new QComboBox(this);
     comboBox->addItems(registeredDrawers);
     comboBox->setCurrentIndex(-1);
     connect(comboBox,SIGNAL(currentIndexChanged(QString)),this,SLOT(itemSelected(QString)));
@@ -427,7 +433,7 @@ AbstractListToolViewDelegate::AbstractListToolViewDelegate(AbstractMovableModel 
     m_acceptButton->setEnabled(false);
     connect(m_acceptButton,SIGNAL(clicked()),this,SLOT(editorAccepted()));
     layout->addWidget(m_acceptButton);
-    QPushButton * cancelButton = new QPushButton(QIcon::fromTheme(QLatin1String(":/action_delete.png")), QString(), this);
+    QPushButton* cancelButton = new QPushButton(QIcon::fromTheme(QLatin1String(":/action_delete.png")), QString(), this);
     cancelButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
     connect(cancelButton,SIGNAL(clicked()),this,SLOT(editorCancelled()));
     layout->addWidget(cancelButton);

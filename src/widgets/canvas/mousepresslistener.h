@@ -41,7 +41,8 @@ namespace PhotoLayoutsEditor
 
             explicit MousePressListener(QObject* parent = nullptr) :
                 QObject(parent)
-            {}
+            {
+    }
 
             bool wasDragged()
             {
