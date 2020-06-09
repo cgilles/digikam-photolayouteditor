@@ -85,7 +85,7 @@ bool PhotoEffectsLoader::registerEffect(AbstractPhotoEffectFactory* effectFactor
     QString effectName = effectFactory->effectName();
     QStringList names = effectName.split(QLatin1Char(';'), QString::SkipEmptyParts);
     bool result = true;
-    foreach (QString name, names)
+    foreach (const QString& name, names)
         result &= (registeredEffects.insert(name, effectFactory) != registeredEffects.end());
     effectFactory->setParent(instance());
     return result;

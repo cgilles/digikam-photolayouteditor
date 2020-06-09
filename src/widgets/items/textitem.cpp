@@ -815,7 +815,7 @@ void TextItem::refreshItem()
     int maxBearing = 0;
     int maxWidth = 0;
     const int lineSpacing = m_metrics.lineSpacing();
-    foreach (QString string, d->m_string_list)
+    foreach (const QString& string, d->m_string_list)
     {
         if (string.length())
         {

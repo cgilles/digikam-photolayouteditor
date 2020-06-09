@@ -321,9 +321,9 @@ PLECanvasSizeDialog::~PLECanvasSizeDialog()
     delete d;
 }
 
-void PLECanvasSizeDialog::setupDialog(const QSizeF & size,
+void PLECanvasSizeDialog::setupDialog(const QSizeF& size,
                                    const QString& sizeUnits,
-                                   const QSizeF & resolution,
+                                   const QSizeF& resolution,
                                    const QString& resolutionUnits)
 {
     setWindowTitle(QObject::tr("PLECanvas Size"));

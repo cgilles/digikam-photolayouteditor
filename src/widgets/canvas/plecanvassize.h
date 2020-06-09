@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef CANVASSIZE_H
-#define CANVASSIZE_H
+#ifndef CANVAS_SIZE_H
+#define CANVAS_SIZE_H
+
+// Qt includes
 
 #include <QString>
 #include <QMap>
@@ -31,93 +33,95 @@
 
 namespace PhotoLayoutsEditor
 {
-    class PLECanvasSizeDialog;
 
-    class PLECanvasSize
+class PLECanvasSizeDialog;
+
+class PLECanvasSize
+{
+public:
+
+    enum ResolutionUnits
     {
-        public:
-
-            enum ResolutionUnits
-            {
-                UnknownResolutionUnit,
-                PixelsPerMilimeter,
-                PixelsPerCentimeter,
-                PixelsPerInch,
-                PixelsPerPoint,
-                PixelsPerPicas
-            };
-
-            enum SizeUnits
-            {
-                UnknownSizeUnit,
-                Pixels,
-                Milimeters,
-                Centimeters,
-                Inches,
-                Points,
-                Picas
-            };
-
-            static QList<qreal> resolutionUnitsFactors();
-            static QList<QString> resolutionUnitsNames();
-            static QList<ResolutionUnits> resolutionUnits();
-            static qreal resolutionUnitFactor(ResolutionUnits unit);
-            static qreal resolutionUnitFactor(QString unitName);
-            static QString resolutionUnitName(ResolutionUnits unit);
-            static QString resolutionUnitName(qreal factor);
-            static ResolutionUnits resolutionUnit(qreal factor);
-            static ResolutionUnits resolutionUnit(QString name);
-            static qreal resolutionConvert(qreal value, ResolutionUnits from, ResolutionUnits to);
-
-            static QList<qreal> sizeUnitsFactors();
-            static QList<QString> sizeUnitsNames();
-            static QList<SizeUnits> sizeUnits();
-            static qreal sizeUnitFactor(SizeUnits unit);
-            static qreal sizeUnitFactor(QString unitName);
-            static QString sizeUnitName(SizeUnits unit);
-            static QString sizeUnitName(qreal factor);
-            static SizeUnits sizeUnit(qreal factor);
-            static SizeUnits sizeUnit(QString name);
-            static qreal sizeConvert(qreal value, SizeUnits from, SizeUnits to);
-
-            static int toPixels(qreal value, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit);
-            static qreal fromPixels(int pixels, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit);
-
-            PLECanvasSize();
-            PLECanvasSize(const QSizeF & size, SizeUnits sUnit, const QSizeF & resolution, ResolutionUnits rUnit);
-
-            QSizeF size() const;
-            void setSize(const QSizeF & size);
-            QSizeF size(SizeUnits unit) const;
-            SizeUnits sizeUnit() const;
-            void setSizeUnit(SizeUnits unit);
-            QSizeF resolution() const;
-            QSizeF resolution(ResolutionUnits unit) const;
-            void setResolution(const QSizeF & resolution);
-            ResolutionUnits resolutionUnit() const;
-            void setResolutionUnit(ResolutionUnits unit);
-            bool isValid() const;
-
-            bool operator ==(const PLECanvasSize& size) const;
-            bool operator !=(const PLECanvasSize& size) const;
-
-        private:
-
-            static QMap<ResolutionUnits,qreal> resolution_factors;
-            static QMap<ResolutionUnits,QString> resolution_names;
-
-            static QMap<SizeUnits,qreal> size_factors;
-            static QMap<SizeUnits,QString> size_names;
-
-            static void prepare_maps();
-
-            SizeUnits m_size_unit;
-            QSizeF m_size;
-            ResolutionUnits m_resolution_unit;
-            QSizeF m_resolution;
-
-        friend class PLECanvasSizeDialog;
+        UnknownResolutionUnit,
+        PixelsPerMilimeter,
+        PixelsPerCentimeter,
+        PixelsPerInch,
+        PixelsPerPoint,
+        PixelsPerPicas
     };
-}
 
-#endif // CANVASSIZE_H
+    enum SizeUnits
+    {
+        UnknownSizeUnit,
+        Pixels,
+        Milimeters,
+        Centimeters,
+        Inches,
+        Points,
+        Picas
+    };
+
+    static QList<qreal> resolutionUnitsFactors();
+    static QList<QString> resolutionUnitsNames();
+    static QList<ResolutionUnits> resolutionUnits();
+    static qreal resolutionUnitFactor(ResolutionUnits unit);
+    static qreal resolutionUnitFactor(QString unitName);
+    static QString resolutionUnitName(ResolutionUnits unit);
+    static QString resolutionUnitName(qreal factor);
+    static ResolutionUnits resolutionUnit(qreal factor);
+    static ResolutionUnits resolutionUnit(QString name);
+    static qreal resolutionConvert(qreal value, ResolutionUnits from, ResolutionUnits to);
+
+    static QList<qreal> sizeUnitsFactors();
+    static QList<QString> sizeUnitsNames();
+    static QList<SizeUnits> sizeUnits();
+    static qreal sizeUnitFactor(SizeUnits unit);
+    static qreal sizeUnitFactor(QString unitName);
+    static QString sizeUnitName(SizeUnits unit);
+    static QString sizeUnitName(qreal factor);
+    static SizeUnits sizeUnit(qreal factor);
+    static SizeUnits sizeUnit(QString name);
+    static qreal sizeConvert(qreal value, SizeUnits from, SizeUnits to);
+
+    static int toPixels(qreal value, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit);
+    static qreal fromPixels(int pixels, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit);
+
+    PLECanvasSize();
+    PLECanvasSize(const QSizeF& size, SizeUnits sUnit, const QSizeF& resolution, ResolutionUnits rUnit);
+
+    QSizeF size() const;
+    void setSize(const QSizeF& size);
+    QSizeF size(SizeUnits unit) const;
+    SizeUnits sizeUnit() const;
+    void setSizeUnit(SizeUnits unit);
+    QSizeF resolution() const;
+    QSizeF resolution(ResolutionUnits unit) const;
+    void setResolution(const QSizeF& resolution);
+    ResolutionUnits resolutionUnit() const;
+    void setResolutionUnit(ResolutionUnits unit);
+    bool isValid() const;
+
+    bool operator ==(const PLECanvasSize& size) const;
+    bool operator !=(const PLECanvasSize& size) const;
+
+private:
+
+    static QMap<ResolutionUnits,qreal> resolution_factors;
+    static QMap<ResolutionUnits,QString> resolution_names;
+
+    static QMap<SizeUnits,qreal> size_factors;
+    static QMap<SizeUnits,QString> size_names;
+
+    static void prepare_maps();
+
+    SizeUnits m_size_unit;
+    QSizeF m_size;
+    ResolutionUnits m_resolution_unit;
+    QSizeF m_resolution;
+
+    friend class PLECanvasSizeDialog;
+};
+    
+} // namespace PhotoLayoutsEditor
+
+#endif // CANVAS_SIZE_H

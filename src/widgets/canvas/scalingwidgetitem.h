@@ -22,53 +22,57 @@
  *
  * ============================================================ */
 
-#ifndef SCALINGWIDGETITEM_H
+#ifndef SCALING_WIDGET_ITEM_H
 #define SCALINGWIDGETITEM_H
+
+// Local includes
 
 #include "abstractiteminterface.h"
 
 namespace PhotoLayoutsEditor
 {
-    class AbstractPhoto;
-    class ScalingWidgetItemPrivate;
 
-    class MoveItemCommand;
-    class ScaleItemCommand;
+class AbstractPhoto;
+class ScalingWidgetItemPrivate;
 
-    class ScalingWidgetItem : public AbstractItemInterface
-    {
-            Q_OBJECT
+class MoveItemCommand;
+class ScaleItemCommand;
 
-            ScalingWidgetItemPrivate * d;
+class ScalingWidgetItem : public AbstractItemInterface
+{
+    Q_OBJECT
 
-        public:
+    ScalingWidgetItemPrivate* d;
 
-            explicit ScalingWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem* parent = nullptr, QGraphicsScene* scene = nullptr);
-            virtual ~ScalingWidgetItem();
+public:
 
-            virtual QRectF boundingRect() const override;
-            virtual QPainterPath opaqueArea() const override;
-            virtual QPainterPath shape() const override;
-            virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+    explicit ScalingWidgetItem(const QList<AbstractPhoto*>& items, QGraphicsItem* parent = nullptr, QGraphicsScene* scene = nullptr);
+    virtual ~ScalingWidgetItem();
 
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
-            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
-            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
-            virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual QRectF boundingRect() const override;
+    virtual QPainterPath opaqueArea() const override;
+    virtual QPainterPath shape() const override;
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
-        private:
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
 
-            void setScaleItems(const QList<AbstractPhoto*> & items);
+private:
 
-        private Q_SLOTS:
+    void setScaleItems(const QList<AbstractPhoto*>& items);
 
-            void updateShapes();
+private Q_SLOTS:
 
-        friend class ScalingWidgetItemPrivate;
+    void updateShapes();
 
-        friend class MoveItemCommand;
-        friend class ScaleItemCommand;
-    };
-}
+    friend class ScalingWidgetItemPrivate;
 
-#endif // SCALINGWIDGETITEM_H
+    friend class MoveItemCommand;
+    friend class ScaleItemCommand;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // SCALING_WIDGET_ITEM_H

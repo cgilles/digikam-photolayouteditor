@@ -583,7 +583,7 @@ QDomDocument PhotoItem::svgTemplateArea() const
 
 void PhotoItem::dragEnterEvent(QGraphicsSceneDragDropEvent * event)
 {
-    const QMimeData * mimeData = event->mimeData();
+    const QMimeData* mimeData = event->mimeData();
     if ( PLEWindow::instance()->hasInterface() &&
             mimeData->hasFormat(QLatin1String("digikam/item-ids")))
     {
@@ -616,7 +616,7 @@ void PhotoItem::dragLeaveEvent(QGraphicsSceneDragDropEvent * /*event*/)
 
 void PhotoItem::dragMoveEvent(QGraphicsSceneDragDropEvent * event)
 {
-    const QMimeData * mimeData = event->mimeData();
+    const QMimeData* mimeData = event->mimeData();
     if ( PLEWindow::instance()->hasInterface() &&
             mimeData->hasFormat(QLatin1String("digikam/item-ids")))
     {
@@ -645,7 +645,7 @@ void PhotoItem::dragMoveEvent(QGraphicsSceneDragDropEvent * event)
 void PhotoItem::dropEvent(QGraphicsSceneDragDropEvent * event)
 {
     QImage img;
-    const QMimeData * mimeData = event->mimeData();
+    const QMimeData* mimeData = event->mimeData();
     if ( PLEWindow::instance()->hasInterface() &&
             mimeData->hasFormat(QLatin1String("digikam/item-ids")))
     {

@@ -61,7 +61,7 @@ protected Q_SLOTS:
 
 private:
 
-    void setupDialog(const QSizeF & size, const QString& sizeUnits, const QSizeF & resolution, const QString& resolutionUnits);
+    void setupDialog(const QSizeF& size, const QString& sizeUnits, const QSizeF& resolution, const QString& resolutionUnits);
     void prepareSignalsConnections();
 
     PLECanvasSizeDialogPrivate * d;

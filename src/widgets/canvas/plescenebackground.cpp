@@ -56,7 +56,7 @@ class PhotoLayoutsEditor::PLESceneBackground::BackgroundImageChangedCommand : pu
 
 public:
 
-    BackgroundImageChangedCommand(const QImage& image, Qt::Alignment alignment, const QSize & size, bool repeat, PLESceneBackground* backgroundItem, QUndoCommand* parent = nullptr) :
+    BackgroundImageChangedCommand(const QImage& image, Qt::Alignment alignment, const QSize& size, bool repeat, PLESceneBackground* backgroundItem, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_image(image),
         m_alignment(alignment),
@@ -123,7 +123,7 @@ class PLESceneBackground::BackgroundFirstBrushChangeCommand : public QUndoComman
 
 public:
 
-    BackgroundFirstBrushChangeCommand(const QBrush & brush, PLESceneBackground* background, QUndoCommand* parent = nullptr) :
+    BackgroundFirstBrushChangeCommand(const QBrush& brush, PLESceneBackground* background, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_brush(brush),
         m_background(background)
@@ -158,7 +158,7 @@ class PLESceneBackground::BackgroundSecondBrushChangeCommand : public QUndoComma
 
 public:
 
-    BackgroundSecondBrushChangeCommand(const QBrush & brush, PLESceneBackground* background, QUndoCommand* parent = nullptr) :
+    BackgroundSecondBrushChangeCommand(const QBrush& brush, PLESceneBackground* background, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Background Change"), parent),
         m_brush(brush),
         m_background(background)
@@ -304,7 +304,7 @@ void PLESceneBackground::setImage(const QImage& image, const QColor& backgroundC
     }
 }
 
-void PLESceneBackground::setImage(const QImage& image, const QColor& backgroundColor, Qt::Alignment align, const QSize & fixedSize, bool repeat)
+void PLESceneBackground::setImage(const QImage& image, const QColor& backgroundColor, Qt::Alignment align, const QSize& fixedSize, bool repeat)
 {
     bool imageChanged    = (m_first_brush.textureImage() != image ||
                             m_first_brush.style() != Qt::TexturePattern ||
@@ -637,7 +637,7 @@ bool PLESceneBackground::imageRepeated() const
     return m_image_repeat;
 }
 
-QVariant PLESceneBackground::itemChange(GraphicsItemChange change, const QVariant&value)
+QVariant PLESceneBackground::itemChange(GraphicsItemChange change, const QVariant& value)
 {
     switch(change)
     {
@@ -730,7 +730,7 @@ void PLESceneBackground::sceneChanged()
     }
 }
 
-void PLESceneBackground::sceneRectChanged(const QRectF & sceneRect)
+void PLESceneBackground::sceneRectChanged(const QRectF& sceneRect)
 {
     if (sceneRect.isValid())
     {

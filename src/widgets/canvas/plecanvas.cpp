@@ -175,7 +175,7 @@ LayersModel* PLECanvas::model() const
     return m_scene->model();
 }
 
-LayersSelectionModel * PLECanvas::selectionModel() const
+LayersSelectionModel* PLECanvas::selectionModel() const
 {
     return m_scene->selectionModel();
 }
@@ -447,7 +447,7 @@ void PLECanvas::removeItem(AbstractPhoto* item)
         m_scene->removeItem(item);
 }
 
-void PLECanvas::removeItems(const QList<AbstractPhoto*> & items)
+void PLECanvas::removeItems(const QList<AbstractPhoto*>& items)
 {
     m_scene->removeItems(items);
 }
@@ -456,7 +456,7 @@ void PLECanvas::removeSelectedRows()
 {
     QList<AbstractPhoto*> items;
     QModelIndexList selectedIndexes = selectionModel()->selectedRows();
-    foreach (QModelIndex index, selectedIndexes)
+    foreach (const QModelIndex& index, selectedIndexes)
         items << static_cast<LayersModelItem*>(index.internalPointer())->photo();
     m_scene->removeItems(items);
 }
@@ -466,12 +466,12 @@ void PLECanvas::selectionChanged()
     QList<AbstractPhoto*> selectedItems = m_scene->selectedItems();
     QModelIndexList oldSelected = selectionModel()->selectedIndexes();
     QModelIndexList newSelected = model()->itemsToIndexes(selectedItems);
-    foreach (QModelIndex index, oldSelected)
+    foreach (const QModelIndex& index, oldSelected)
     {
         if (!newSelected.contains(index) && index.column() == LayersModelItem::NameString)
             selectionModel()->select(index, QItemSelectionModel::Rows | QItemSelectionModel::Deselect);
     }
-    foreach (QModelIndex index, newSelected)
+    foreach (const QModelIndex& index, newSelected)
     {
         if (!selectionModel()->isSelected(index) && index.column() == LayersModelItem::NameString)
             selectionModel()->select(index, QItemSelectionModel::Rows | QItemSelectionModel::Select);

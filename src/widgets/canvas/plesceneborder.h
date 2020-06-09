@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef SCENEBORDER_H
-#define SCENEBORDER_H
+#ifndef SCENE_BORDER_H
+#define SCENE_BORDER_H
+
+// Qt includes
 
 #include <QBrush>
 #include <QGraphicsItem>
@@ -31,65 +33,67 @@
 
 namespace PhotoLayoutsEditor
 {
-    class PLESceneBorderLoader;
 
-    class PLESceneBorder : public QObject, public QGraphicsItem
-    {
-            Q_OBJECT
-            Q_INTERFACES(QGraphicsItem)
+class PLESceneBorderLoader;
 
-            QRectF m_rect;
+class PLESceneBorder : public QObject, public QGraphicsItem
+{
+    Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
-            // Image border specific data
-            QImage m_image;
+    QRectF m_rect;
 
-            // For painting/rendering purpose
-            QImage m_temp_image;
+    // Image border specific data
+    QImage m_image;
 
-            class BorderImageChangedCommand;
-            class BorderFirstBrushChangeCommand;
-            class BorderSecondBrushChangeCommand;
+    // For painting/rendering purpose
+    QImage m_temp_image;
 
-        public:
+    class BorderImageChangedCommand;
+    class BorderFirstBrushChangeCommand;
+    class BorderSecondBrushChangeCommand;
 
-            explicit PLESceneBorder(QGraphicsScene* scene = nullptr);
-            virtual QRectF boundingRect() const override;
+public:
 
-            void setImage(const QImage& image);
+    explicit PLESceneBorder(QGraphicsScene* scene = nullptr);
+    virtual QRectF boundingRect() const override;
 
-            QDomElement toSvg(QDomDocument& document) const;
-            bool fromSvg(QDomElement& element);
+    void setImage(const QImage& image);
 
-            QImage image() const;
-            QSize imageSize() const;
+    QDomElement toSvg(QDomDocument& document) const;
+    bool fromSvg(QDomElement& element);
 
-        Q_SIGNALS:
+    QImage image() const;
+    QSize imageSize() const;
 
-            void changed();
+Q_SIGNALS:
 
-        protected:
+    void changed();
 
-            QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
-            void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
-            void render(QPainter* painter, const QRect& rect);
+protected:
 
-        protected Q_SLOTS:
+    QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+    void render(QPainter* painter, const QRect& rect);
 
-            void render();
+protected Q_SLOTS:
 
-        private:
+    void render();
 
-            void sceneChanged();
+private:
 
-        private Q_SLOTS:
+    void sceneChanged();
 
-            void sceneRectChanged(const QRectF & sceneRect);
+private Q_SLOTS:
 
-        friend class PLESceneBorderLoader;
-        friend class BorderImageChangedCommand;
-        friend class BorderFirstBrushChangeCommand;
-        friend class BorderSecondBrushChangeCommand;
-    };
-}
+    void sceneRectChanged(const QRectF& sceneRect);
 
-#endif // SCENEBORDER_H
+    friend class PLESceneBorderLoader;
+    friend class BorderImageChangedCommand;
+    friend class BorderFirstBrushChangeCommand;
+    friend class BorderSecondBrushChangeCommand;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // SCENE_BORDER_H

@@ -68,7 +68,7 @@ class LayersModel : public QAbstractItemModel
         bool appendItems(const QList<AbstractPhoto*>& items, const QModelIndex& parent);
         bool insertItems(const QList<AbstractPhoto*>& items, int position, const QModelIndex& parent = QModelIndex());
         bool prependItems(const QList<AbstractPhoto*>& items, const QModelIndex& parent);
-        QModelIndexList itemsToIndexes(const QList<AbstractPhoto*> & items) const;
+        QModelIndexList itemsToIndexes(const QList<AbstractPhoto*>& items) const;
         QList<AbstractPhoto*> indexesToItems(const QModelIndexList& indexes) const;
         QModelIndex findIndex(AbstractPhoto* item, const QModelIndex& parent = QModelIndex()) const;
         QModelIndex findIndex(LayersModelItem* item, const QModelIndex& parent = QModelIndex()) const;

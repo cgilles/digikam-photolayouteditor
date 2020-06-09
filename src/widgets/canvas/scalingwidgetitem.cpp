@@ -119,7 +119,7 @@ public:
         MoveItemCommand::undo();
         done = false;
     }
-    void addScale(const QTransform & scale)
+    void addScale(const QTransform& scale)
     {
         this->scale *= scale;
     }
@@ -164,9 +164,9 @@ class ScalingWidgetItemPrivate
     }
 
     QTransform currentViewTransform;
-    void transformDrawings(const QTransform & viewTransform);
+    void transformDrawings(const QTransform& viewTransform);
     void calculateHandlers();
-    void correctRect(QRectF & r);
+    void correctRect(QRectF& r);
 
     QList<AbstractPhoto*> m_items;
     QPainterPath m_crop_shape;
@@ -188,7 +188,7 @@ class ScalingWidgetItemPrivate
     friend class ScalingWidgetItem;
 };
 
-void ScalingWidgetItemPrivate::transformDrawings(const QTransform & viewTransform)
+void ScalingWidgetItemPrivate::transformDrawings(const QTransform& viewTransform)
 {
     if (currentViewTransform == viewTransform)
         return;
@@ -257,7 +257,7 @@ void ScalingWidgetItemPrivate::calculateHandlers()
     m_handlers_path += m_elipse;
 }
 
-void ScalingWidgetItemPrivate::correctRect(QRectF & r)
+void ScalingWidgetItemPrivate::correctRect(QRectF& r)
 {
     if (r.bottom() < r.top())
     {
@@ -276,7 +276,7 @@ void ScalingWidgetItemPrivate::correctRect(QRectF & r)
     }
 }
 
-ScalingWidgetItem::ScalingWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem* parent, QGraphicsScene* scene) :
+ScalingWidgetItem::ScalingWidgetItem(const QList<AbstractPhoto*>& items, QGraphicsItem* parent, QGraphicsScene* scene) :
     AbstractItemInterface(parent, scene),
     d(new ScalingWidgetItemPrivate)
 {
@@ -520,7 +520,7 @@ void ScalingWidgetItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* /*event*
 {
     }
 
-void ScalingWidgetItem::setScaleItems(const QList<AbstractPhoto*> & items)
+void ScalingWidgetItem::setScaleItems(const QList<AbstractPhoto*>& items)
 {
     d->m_items = items;
 

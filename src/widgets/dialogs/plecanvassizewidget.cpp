@@ -132,7 +132,7 @@ PLECanvasSizeWidget::Orientation PLECanvasSizeWidget::orientation() const
         return PLECanvasSizeWidget::Horizontal;
 }
 
-void PLECanvasSizeWidget::setupUI(const QSizeF & size, const QString& sizeUnits, const QSizeF & resolution, const QString& resolutionUnits)
+void PLECanvasSizeWidget::setupUI(const QSizeF& size, const QString& sizeUnits, const QSizeF& resolution, const QString& resolutionUnits)
 {
     QString tempSizeUnits = sizeUnits;
     QString tempResolutionUnits = resolutionUnits;

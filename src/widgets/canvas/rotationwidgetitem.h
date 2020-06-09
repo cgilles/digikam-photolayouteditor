@@ -48,7 +48,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit RotationWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem* parent = nullptr);
+            explicit RotationWidgetItem(const QList<AbstractPhoto*>& items, QGraphicsItem* parent = nullptr);
             virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
             virtual QPainterPath shape() const override;
             virtual QPainterPath opaqueArea() const override;
@@ -67,7 +67,7 @@ namespace PhotoLayoutsEditor
             virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
             virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 
-            void setItems(const QList<AbstractPhoto*> & items);
+            void setItems(const QList<AbstractPhoto*>& items);
 
         Q_SIGNALS:
 

@@ -200,12 +200,12 @@ bool LayersModel::prependItem(AbstractPhoto* item, const QModelIndex& parent)
     return insertItem(item, 0, parent);
 }
 
-bool LayersModel::appendItems(const QList<AbstractPhoto*> & items, const QModelIndex& parent)
+bool LayersModel::appendItems(const QList<AbstractPhoto*>& items, const QModelIndex& parent)
 {
     return insertItems(items, getItem(parent)->childCount(), parent);
 }
 
-bool LayersModel::insertItems(const QList<AbstractPhoto*> & items, int position, const QModelIndex& parent)
+bool LayersModel::insertItems(const QList<AbstractPhoto*>& items, int position, const QModelIndex& parent)
 {
     foreach (AbstractPhoto* item, items)
         if (!insertItem(item, position++, parent))
@@ -213,7 +213,7 @@ bool LayersModel::insertItems(const QList<AbstractPhoto*> & items, int position,
     return true;
 }
 
-bool LayersModel::prependItems(const QList<AbstractPhoto*> & items, const QModelIndex& parent)
+bool LayersModel::prependItems(const QList<AbstractPhoto*>& items, const QModelIndex& parent)
 {
     return insertItems(items, 0, parent);
 }
@@ -255,7 +255,7 @@ QModelIndexList LayersModel::itemsToIndexes(const QList<AbstractPhoto*>& items) 
 QList<AbstractPhoto*> LayersModel::indexesToItems(const QModelIndexList& indexes) const
 {
     QList<AbstractPhoto*> items;
-    foreach (QModelIndex index, indexes)
+    foreach (const QModelIndex& index, indexes)
         items.append(getItem(index)->photo());
     return items;
 }

@@ -316,7 +316,7 @@ class AddItemsCommand
             items << item;
         }
 
-        AddItemsCommand(const QList<AbstractPhoto*> & items, int position, PLEScene* scene, QUndoCommand* parent = nullptr) :
+        AddItemsCommand(const QList<AbstractPhoto*>& items, int position, PLEScene* scene, QUndoCommand* parent = nullptr) :
             QUndoCommand(QObject::tr("Add item", "Add items", items.count()), parent),
             items(items),
             position(position),
@@ -518,7 +518,7 @@ class CropItemsCommand
 {
     QMap<AbstractPhoto*,QPainterPath> data;
 public:
-    CropItemsCommand(const QPainterPath& path, const QList<AbstractPhoto*> & items, QUndoCommand* parent = nullptr) :
+    CropItemsCommand(const QPainterPath& path, const QList<AbstractPhoto*>& items, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Crop item", "Crop items", items.count()), parent)
     {
         qDebug() << "scene crop shape" << path.boundingRect();
@@ -606,7 +606,7 @@ LayersModel* PLEScene::model() const
 }
 
 
-LayersSelectionModel * PLEScene::selectionModel() const
+LayersSelectionModel* PLEScene::selectionModel() const
 {
     return d->selection_model;
 }
@@ -620,7 +620,7 @@ void PLEScene::addItem(AbstractPhoto* item)
 
     QModelIndexList selectedIndexes = d->selection_model->selectedIndexes();
     unsigned insertionRow = -1;
-    foreach (QModelIndex index, selectedIndexes)
+    foreach (const QModelIndex& index, selectedIndexes)
     {
         if (index.column() != LayersModelItem::NameString)
             continue;
@@ -635,7 +635,7 @@ void PLEScene::addItem(AbstractPhoto* item)
     PLE_PostUndoCommand(command);
 }
 
-void PLEScene::addItems(const QList<AbstractPhoto*> & items)
+void PLEScene::addItems(const QList<AbstractPhoto*>& items)
 {
     // Prevent multiple addition of the item
     QList<AbstractPhoto*> tempItems;
@@ -650,7 +650,7 @@ void PLEScene::addItems(const QList<AbstractPhoto*> & items)
 
     QModelIndexList selectedIndexes = d->selection_model->selectedIndexes();
     unsigned insertionRow = -1;
-    foreach (QModelIndex index, selectedIndexes)
+    foreach (const QModelIndex& index, selectedIndexes)
     {
         if (index.column() != LayersModelItem::NameString)
             continue;
@@ -683,7 +683,7 @@ void PLEScene::removeItem(AbstractPhoto* item)
     PLE_PostUndoCommand(command);
 }
 
-void PLEScene::removeItems(const QList<AbstractPhoto*> & items)
+void PLEScene::removeItems(const QList<AbstractPhoto*>& items)
 {
     if (!askAboutRemoving(items.count()))
     {
@@ -985,7 +985,7 @@ void PLEScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 }
 
 
-void PLEScene::drawBackground(QPainter* painter, const QRectF & rect)
+void PLEScene::drawBackground(QPainter* painter, const QRectF& rect)
 {
     // Transparent scene background
     if (isSelectionVisible())
@@ -1012,7 +1012,7 @@ void PLEScene::drawBackground(QPainter* painter, const QRectF & rect)
 }
 
 
-void PLEScene::drawForeground(QPainter* painter, const QRectF & rect)
+void PLEScene::drawForeground(QPainter* painter, const QRectF& rect)
 {
     QGraphicsScene::drawForeground(painter, rect.intersected(this->sceneRect()));
 
@@ -1103,7 +1103,7 @@ void PLEScene::dropEvent(QGraphicsSceneDragDropEvent * event)
 
     d->paste_scene_pos = event->scenePos();
 
-    const QMimeData * mimeData = event->mimeData();
+    const QMimeData* mimeData = event->mimeData();
     if ( PLEWindow::instance()->hasInterface() &&
             mimeData->hasFormat(QLatin1String("digikam/item-ids")))
     {
@@ -1122,7 +1122,7 @@ void PLEScene::dropEvent(QGraphicsSceneDragDropEvent * event)
     {
         QList<QUrl> urls = mimeData->urls();
         QList<QUrl> list;
-        foreach (QUrl url, urls)
+        foreach (const QUrl& url, urls)
             list << QUrl(url);
 
         ImageLoadingThread* ilt = new ImageLoadingThread(this);
@@ -1551,7 +1551,7 @@ PLEScene* PLEScene::fromSvg(QDomElement& sceneElement)
 }
 
 
-void PLEScene::render(QPainter* painter, const QRectF & target, const QRectF & source, Qt::AspectRatioMode aspectRatioMode)
+void PLEScene::render(QPainter* painter, const QRectF& target, const QRectF& source, Qt::AspectRatioMode aspectRatioMode)
 {
     if (d->m_rot_item)
         d->m_rot_item->hide();
@@ -1660,14 +1660,14 @@ bool PLEScene::askAboutRemoving(int count)
 }
 
 
-bool PLEScene::canDecode(const QMimeData * mimeData)
+bool PLEScene::canDecode(const QMimeData* mimeData)
 {
     if (PLEWindow::instance()->hasInterface() &&
             mimeData->hasFormat(QLatin1String("digikam/item-ids")))
         return true;
 
     QList<QUrl> urls = mimeData->urls();
-    foreach (QUrl url, urls)
+    foreach (const QUrl& url, urls)
     {
         QImageReader ir(url.toLocalFile());
         if (!ir.canRead())

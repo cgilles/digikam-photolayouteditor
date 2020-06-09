@@ -22,57 +22,63 @@
  *
  * ============================================================ */
 
-#ifndef MOUSEPRESSLISTENER_H
-#define MOUSEPRESSLISTENER_H
+#ifndef MOUSE_PRESS_LISTENER_H
+#define MOUSE_PRESS_LISTENER_H
+
+// Qt includes
 
 #include <QObject>
 #include <QPointF>
 
 namespace PhotoLayoutsEditor
 {
-    class MousePressListener : public QObject
+class MousePressListener : public QObject
+{
+    Q_OBJECT
+
+    QPointF press;
+    QPointF release;
+
+public:
+
+    explicit MousePressListener(QObject* parent = nullptr) :
+        QObject(parent)
     {
-            Q_OBJECT
-
-            QPointF press;
-            QPointF release;
-
-        public:
-
-            explicit MousePressListener(QObject* parent = nullptr) :
-                QObject(parent)
-            {
-    }
-
-            bool wasDragged()
-            {
-                return press != release && !press.isNull();
-            }
-            QPointF mousePressPosition() const
-            {
-                return press;
-            }
-            QPointF mouseReleasePosition() const
-            {
-                return release;
-            }
-
-        public Q_SLOTS:
-
-            void mousePress(const QPointF& scenePos)
-            {
-                emit mousePressed((press = scenePos));
-            }
-            void mouseRelease(const QPointF& scenePos)
-            {
-                emit mouseReleased((release = scenePos));
-            }
-
-        Q_SIGNALS:
-
-            void mousePressed(const QPointF& scenePos);
-            void mouseReleased(const QPointF& scenePos);
-    };
 }
 
-#endif // MOUSEPRESSLISTENER_H
+    bool wasDragged()
+    {
+        return press != release && !press.isNull();
+    }
+
+    QPointF mousePressPosition() const
+    {
+        return press;
+    }
+
+    QPointF mouseReleasePosition() const
+    {
+        return release;
+    }
+
+public Q_SLOTS:
+
+    void mousePress(const QPointF& scenePos)
+    {
+        emit mousePressed((press = scenePos));
+    }
+
+    void mouseRelease(const QPointF& scenePos)
+    {
+        emit mouseReleased((release = scenePos));
+    }
+
+Q_SIGNALS:
+
+    void mousePressed(const QPointF& scenePos);
+    void mouseReleased(const QPointF& scenePos);
+};
+
+}
+
+#endif // MOUSE_PRESS_LISTENER_H

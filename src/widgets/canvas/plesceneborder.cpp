@@ -243,7 +243,7 @@ QSize PLESceneBorder::imageSize() const
     return m_image.size();
 }
 
-QVariant PLESceneBorder::itemChange(GraphicsItemChange change, const QVariant&value)
+QVariant PLESceneBorder::itemChange(GraphicsItemChange change, const QVariant& value)
 {
     switch(change)
     {
@@ -297,7 +297,7 @@ void PLESceneBorder::sceneChanged()
         sceneRectChanged(QRectF());
 }
 
-void PLESceneBorder::sceneRectChanged(const QRectF & sceneRect)
+void PLESceneBorder::sceneRectChanged(const QRectF& sceneRect)
 {
     if (sceneRect.isValid())
     {

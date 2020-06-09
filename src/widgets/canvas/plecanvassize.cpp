@@ -229,7 +229,7 @@ PLECanvasSize::PLECanvasSize()
     m_resolution_unit = UnknownResolutionUnit;
 }
 
-PLECanvasSize::PLECanvasSize(const QSizeF & size, SizeUnits sUnit, const QSizeF & resolution, ResolutionUnits rUnit)
+PLECanvasSize::PLECanvasSize(const QSizeF& size, SizeUnits sUnit, const QSizeF& resolution, ResolutionUnits rUnit)
 {
     prepare_maps();
     m_size = size;
@@ -243,7 +243,7 @@ QSizeF PLECanvasSize::size() const
     return m_size;
 }
 
-void PLECanvasSize::setSize(const QSizeF & size)
+void PLECanvasSize::setSize(const QSizeF& size)
 {
     if (!size.isValid())
         return;
@@ -303,7 +303,7 @@ QSizeF PLECanvasSize::resolution(ResolutionUnits unit) const
     return result;
 }
 
-void PLECanvasSize::setResolution(const QSizeF & resolution)
+void PLECanvasSize::setResolution(const QSizeF& resolution)
 {
     if (!resolution.isValid())
         return;

@@ -50,7 +50,7 @@ public:
     {
     }
 
-    PLECanvasSize                    m_size;
+    PLECanvasSize                 m_size;
     bool                          m_template;
     QMap<QObject*, QProgressBar*> progressMap;
 

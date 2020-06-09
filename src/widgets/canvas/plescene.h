@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef SCENE_H
-#define SCENE_H
+#ifndef PLE_SCENE_H
+#define PLE_SCENE_H
 
 // Qt includes
 
@@ -95,12 +95,12 @@ public:
     PLESceneBorder* border();
 
     LayersModel* model() const;
-    LayersSelectionModel * selectionModel() const;
+    LayersSelectionModel* selectionModel() const;
 
     void addItem(AbstractPhoto* photo);
-    void addItems(const QList<AbstractPhoto*> & item);
+    void addItems(const QList<AbstractPhoto*>& item);
     void removeItem(AbstractPhoto* item);
-    void removeItems(const QList<AbstractPhoto*> & items);
+    void removeItems(const QList<AbstractPhoto*>& items);
     QList<AbstractPhoto*> selectedItems() const;
     void setInteractionMode(int mode);
     void setSelectionMode(SelectionMode selectionMode);
@@ -135,7 +135,7 @@ Q_SIGNALS:
 
     void finishEditing(const QPainterPath& path);
     void itemAboutToBeRemoved(AbstractPhoto* item);
-    void itemsAboutToBeRemoved(const QList<AbstractPhoto*> & items);
+    void itemsAboutToBeRemoved(const QList<AbstractPhoto*>& items);
     void mousePressedPoint(const QPointF& point);
 
 public Q_SLOTS:
@@ -155,8 +155,8 @@ protected:
 
     virtual void contextMenuEvent(QGraphicsSceneMouseEvent* event);
     virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent * event) override;
-    virtual void drawBackground(QPainter* painter, const QRectF & rect) override;
-    virtual void drawForeground(QPainter* painter, const QRectF & rect) override;
+    virtual void drawBackground(QPainter* painter, const QRectF& rect) override;
+    virtual void drawForeground(QPainter* painter, const QRectF& rect) override;
     virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event) override;
     virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event) override;
     virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;
@@ -178,7 +178,7 @@ private:
     PLEScene& operator=(const PLEScene&);
 
     bool askAboutRemoving(int count);
-    bool canDecode(const QMimeData * mimeData);
+    bool canDecode(const QMimeData* mimeData);
 
 private:
 
@@ -209,4 +209,4 @@ private:
 
 } // namespace PhotoLayoutsEditor
 
-#endif // SCENE_H
+#endif // PLE_SCENE_H

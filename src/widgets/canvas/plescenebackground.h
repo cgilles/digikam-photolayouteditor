@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef SCENEBACKGROUND_H
-#define SCENEBACKGROUND_H
+#ifndef SCENE_BACKGROUND_H
+#define SCENE_BACKGROUND_H
+
+// Qt includes
 
 #include <QBrush>
 #include <QGraphicsItem>
@@ -31,85 +33,88 @@
 
 namespace PhotoLayoutsEditor
 {
-    class PLESceneBackgroundLoader;
-    class PLESceneBackground : public QObject, public QGraphicsItem
-    {
-            Q_OBJECT
-            Q_INTERFACES(QGraphicsItem)
 
-            QRectF m_rect;
-            QBrush m_first_brush;
-            QBrush m_second_brush;
+class PLESceneBackgroundLoader;
 
-            // Image background specific data
-            QImage m_image;
-            Qt::Alignment m_image_align;
-            Qt::AspectRatioMode m_image_aspect_ratio;
-            QSize m_image_size;
-            bool m_image_repeat;
+class PLESceneBackground : public QObject, public QGraphicsItem
+{
+        Q_OBJECT
+        Q_INTERFACES(QGraphicsItem)
 
-            // For painting/rendering purpose
-            QImage m_temp_image;
+        QRectF m_rect;
+        QBrush m_first_brush;
+        QBrush m_second_brush;
 
-            class BackgroundImageChangedCommand;
-            class BackgroundFirstBrushChangeCommand;
-            class BackgroundSecondBrushChangeCommand;
+        // Image background specific data
+        QImage m_image;
+        Qt::Alignment m_image_align;
+        Qt::AspectRatioMode m_image_aspect_ratio;
+        QSize m_image_size;
+        bool m_image_repeat;
 
-        public:
+        // For painting/rendering purpose
+        QImage m_temp_image;
 
-            explicit PLESceneBackground(QGraphicsScene* scene = nullptr);
-            virtual QRectF boundingRect() const override;
+        class BackgroundImageChangedCommand;
+        class BackgroundFirstBrushChangeCommand;
+        class BackgroundSecondBrushChangeCommand;
 
-            void setSecondColor(const QColor& color);
-            void setSolidColor(const QColor& color);
-            void setPattern(const QColor& firstColor, const QColor& secondColor, Qt::BrushStyle patternStyle);
-            void setImage(const QImage& image, const QColor& backgroundColor, Qt::Alignment align, Qt::AspectRatioMode aspectRatio, bool repeat);
-            void setImage(const QImage& image, const QColor& backgroundColor, Qt::Alignment align, const QSize & fixedSize, bool repeat);
+    public:
 
-            bool isColor() const;
-            bool isGradient() const;
-            bool isImage() const;
-            bool isPattern() const;
+        explicit PLESceneBackground(QGraphicsScene* scene = nullptr);
+        virtual QRectF boundingRect() const override;
 
-            QDomElement toSvg(QDomDocument& document) const;
-            bool fromSvg(QDomElement& element);
+        void setSecondColor(const QColor& color);
+        void setSolidColor(const QColor& color);
+        void setPattern(const QColor& firstColor, const QColor& secondColor, Qt::BrushStyle patternStyle);
+        void setImage(const QImage& image, const QColor& backgroundColor, Qt::Alignment align, Qt::AspectRatioMode aspectRatio, bool repeat);
+        void setImage(const QImage& image, const QColor& backgroundColor, Qt::Alignment align, const QSize& fixedSize, bool repeat);
 
-            QColor firstColor() const;
-            QColor secondColor() const;
-            Qt::BrushStyle pattern() const;
-            QImage image() const;
-            Qt::Alignment imageAlignment() const;
-            Qt::AspectRatioMode imageAspectRatio() const;
-            QSize imageSize() const;
-            bool imageRepeated() const;
+        bool isColor() const;
+        bool isGradient() const;
+        bool isImage() const;
+        bool isPattern() const;
 
-        Q_SIGNALS:
+        QDomElement toSvg(QDomDocument& document) const;
+        bool fromSvg(QDomElement& element);
 
-            void changed();
+        QColor firstColor() const;
+        QColor secondColor() const;
+        Qt::BrushStyle pattern() const;
+        QImage image() const;
+        Qt::Alignment imageAlignment() const;
+        Qt::AspectRatioMode imageAspectRatio() const;
+        QSize imageSize() const;
+        bool imageRepeated() const;
 
-        protected:
+    Q_SIGNALS:
 
-            QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
-            void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
-            void render(QPainter* painter, const QRect& rect);
+        void changed();
 
-        protected Q_SLOTS:
+    protected:
 
-            void render();
+        QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
+        void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+        void render(QPainter* painter, const QRect& rect);
 
-        private:
+    protected Q_SLOTS:
 
-            void sceneChanged();
+        void render();
 
-        private Q_SLOTS:
+    private:
 
-            void sceneRectChanged(const QRectF & sceneRect);
+        void sceneChanged();
 
-        friend class PLESceneBackgroundLoader;
-        friend class BackgroundImageChangedCommand;
-        friend class BackgroundFirstBrushChangeCommand;
-        friend class BackgroundSecondBrushChangeCommand;
-    };
-}
+    private Q_SLOTS:
 
-#endif // SCENEBACKGROUND_H
+        void sceneRectChanged(const QRectF& sceneRect);
+
+    friend class PLESceneBackgroundLoader;
+    friend class BackgroundImageChangedCommand;
+    friend class BackgroundFirstBrushChangeCommand;
+    friend class BackgroundSecondBrushChangeCommand;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // SCENE_BACKGROUND_H

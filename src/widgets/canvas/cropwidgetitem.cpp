@@ -43,7 +43,7 @@
 
 namespace PhotoLayoutsEditor
 {
-    
+
 class CropWidgetItemPrivate
 {
     explicit CropWidgetItemPrivate (CropWidgetItem* item)
@@ -67,11 +67,11 @@ class CropWidgetItemPrivate
         Right
     };
 
-    CropWidgetItemPrivate() :
-        m_item(nullptr),
-        currentViewTransform(1, 0, 0,    0, 1, 0,   0, 0, 1),
-        pressedVHandler(-1),
-        pressedHHandler(-1)
+    CropWidgetItemPrivate()
+        : m_item(nullptr),
+          currentViewTransform(1, 0, 0,    0, 1, 0,   0, 0, 1),
+          pressedVHandler(-1),
+          pressedHHandler(-1)
     {
         m_handlers[Top][Left] = QRectF(0, 0, 20, 20);
         m_handlers[Top][HCenter] = QRectF(0, 0, 20, 20);
@@ -87,7 +87,7 @@ class CropWidgetItemPrivate
     CropWidgetItem* m_item;
 
     QTransform currentViewTransform;
-    void transformDrawings(const QTransform & viewTransform);
+    void transformDrawings(const QTransform& viewTransform);
     void calculateDrawings();
 
     QList<AbstractPhoto*> m_items;
@@ -106,7 +106,7 @@ class CropWidgetItemPrivate
     friend class CropWidgetItem;
 };
 
-void CropWidgetItemPrivate::transformDrawings(const QTransform & viewTransform)
+void CropWidgetItemPrivate::transformDrawings(const QTransform& viewTransform)
 {
     if (currentViewTransform == viewTransform)
         return;

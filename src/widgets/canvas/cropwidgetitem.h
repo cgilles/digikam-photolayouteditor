@@ -22,51 +22,55 @@
  *
  * ============================================================ */
 
-#ifndef CROPWIDGETITEM_H
-#define CROPWIDGETITEM_H
+#ifndef CROP_WIDGET_ITEM_H
+#define CROP_WIDGET_ITEM_H
+
+// Local includes
 
 #include "abstractiteminterface.h"
 
 namespace PhotoLayoutsEditor
 {
-    class AbstractPhoto;
-    class CropWidgetItemPrivate;
 
-    class CropWidgetItem : public AbstractItemInterface
-    {
-            Q_OBJECT
+class AbstractPhoto;
+class CropWidgetItemPrivate;
 
-            CropWidgetItemPrivate * d;
+class CropWidgetItem : public AbstractItemInterface
+{
+    Q_OBJECT
 
-        public:
+    CropWidgetItemPrivate* d;
 
-            explicit CropWidgetItem(QGraphicsItem* parent = nullptr, QGraphicsScene* scene = nullptr);
-            virtual ~CropWidgetItem();
+public:
 
-            virtual QRectF boundingRect() const override;
-            virtual QPainterPath opaqueArea() const override;
-            virtual QPainterPath shape() const override;
-            virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+    explicit CropWidgetItem(QGraphicsItem* parent = nullptr, QGraphicsScene* scene = nullptr);
+    virtual ~CropWidgetItem();
 
-            virtual void keyPressEvent(QKeyEvent* event) override;
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
-            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
-            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
-            virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual QRectF boundingRect() const override;
+    virtual QPainterPath opaqueArea() const override;
+    virtual QPainterPath shape() const override;
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
-            void setItems(const QList<AbstractPhoto*> & items);
+    virtual void keyPressEvent(QKeyEvent* event) override;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
 
-        Q_SIGNALS:
+    void setItems(const QList<AbstractPhoto*>& items);
 
-            void cropShapeSelected(const QPainterPath& shape);
-            void cancelCrop();
+Q_SIGNALS:
 
-        private Q_SLOTS:
+    void cropShapeSelected(const QPainterPath& shape);
+    void cancelCrop();
 
-            void updateShapes();
+private Q_SLOTS:
 
-        friend class CropWidgetItemPrivate;
-    };
-}
+    void updateShapes();
 
-#endif // CROPWIDGETITEM_H
+    friend class CropWidgetItemPrivate;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // CROP_WIDGET_ITEM_H

@@ -65,7 +65,7 @@ namespace PhotoLayoutsEditor
 
         private:
 
-            void setupUI(const QSizeF & size, const QString& sizeUnits, const QSizeF & resolution, const QString& resolutionUnits);
+            void setupUI(const QSizeF& size, const QString& sizeUnits, const QSizeF& resolution, const QString& resolutionUnits);
 
             void prepareSignalsConnections();
 

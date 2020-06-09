@@ -109,7 +109,7 @@ public:
 
 class RotationWidgetItemPrivate
 {
-    explicit RotationWidgetItemPrivate(RotationWidgetItem * item) :
+    explicit RotationWidgetItemPrivate(RotationWidgetItem* item) :
         item(item),
         rotation_angle(0.0),
         elipse_pressed(false)
@@ -133,12 +133,12 @@ class RotationWidgetItemPrivate
         return pos;
     }
 
-    QRectF itemToViewportRect(const QRectF & rect, QWidget* widget)
+    QRectF itemToViewportRect(const QRectF& rect, QWidget* widget)
     {
-        QGraphicsView *view = nullptr;
+        QGraphicsView* view = nullptr;
 
         if (widget)
-            view = qobject_cast<QGraphicsView *>(widget->parentWidget());
+            view = qobject_cast<QGraphicsView*>(widget->parentWidget());
 
         if (view)
             return item->mapRectToScene(view->transform().inverted().mapRect(rect));
@@ -146,7 +146,7 @@ class RotationWidgetItemPrivate
         return rect;
     }
 
-    void transformDrawings(const QTransform & viewTransform)
+    void transformDrawings(const QTransform& viewTransform)
     {
         if (currentViewTransform == viewTransform)
             return;
@@ -180,7 +180,7 @@ class RotationWidgetItemPrivate
     friend class RotationWidgetItem;
 };
 
-RotationWidgetItem::RotationWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem* parent):
+RotationWidgetItem::RotationWidgetItem(const QList<AbstractPhoto*>& items, QGraphicsItem* parent):
     AbstractItemInterface(parent),
     d(new RotationWidgetItemPrivate(this))
 {
@@ -384,7 +384,7 @@ void RotationWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
     event->accept();
 }
 
-void RotationWidgetItem::setItems(const QList<AbstractPhoto*> & items)
+void RotationWidgetItem::setItems(const QList<AbstractPhoto*>& items)
 {
     d->m_items = items;
 
