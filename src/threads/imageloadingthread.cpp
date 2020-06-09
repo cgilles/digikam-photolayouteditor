@@ -118,7 +118,7 @@ void ImageLoadingThread::run()
     // Calculating reading progress
     d->m_loaded_bytes = d->m_size = 0;
 
-    foreach(const QUrl& url, urls)
+    foreach (const QUrl& url, urls)
     {
         QFile f(url.path());
         f.open(QIODevice::ReadOnly);
@@ -135,7 +135,7 @@ void ImageLoadingThread::run()
         goto finish_thread;
 
     // Reading
-    foreach(const QUrl& url, urls)
+    foreach (const QUrl& url, urls)
     {
         ProgressEvent* startEvent = new ProgressEvent(this);
         startEvent->setData(ProgressEvent::Init, 0);
@@ -200,7 +200,7 @@ void ImageLoadingThread::loadRaw(const QUrl& url)
 
     if (b)
     {
-        ProgressEvent * buildImageEvent = new ProgressEvent(this);
+        ProgressEvent* buildImageEvent = new ProgressEvent(this);
         buildImageEvent->setData(ProgressEvent::ActionUpdate, QVariant( QObject::tr("Decoding image") ));
         QCoreApplication::postEvent(PLEWindow::instance(), buildImageEvent);
         QCoreApplication::processEvents();
@@ -213,7 +213,7 @@ void ImageLoadingThread::loadRaw(const QUrl& url)
 
             for (int h = 0; h < height; ++h)
             {
-                ProgressEvent * event = new ProgressEvent(this);
+                ProgressEvent* event = new ProgressEvent(this);
                 event->setData(ProgressEvent::ProgressUpdate, d->m_max_progress * (0.7 + 0.3 * (((float)h)/((float)height))) );
                 QCoreApplication::postEvent(PLEWindow::instance(), event);
                 QCoreApplication::processEvents();

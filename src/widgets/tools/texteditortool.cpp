@@ -46,12 +46,12 @@ class TextEditorToolPrivate
     }
 
     QPushButton * m_create_button;
-    QVBoxLayout * m_layout;
+    QVBoxLayout* m_layout;
 
     friend class TextEditorTool;
 };
 
-TextEditorTool::TextEditorTool(PLEScene * scene, QWidget* parent) :
+TextEditorTool::TextEditorTool(PLEScene* scene, QWidget* parent) :
     AbstractItemsTool(scene, PLECanvas::SingleSelcting, parent),
     d(new TextEditorToolPrivate),
     m_text_item(nullptr),

@@ -41,8 +41,8 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit ColorizePhotoEffect(StandardEffectsFactory * factory, QObject* parent = nullptr);
-            virtual QImage apply(const QImage & image) const override;
+            explicit ColorizePhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
+            virtual QImage apply(const QImage& image) const override;
             virtual QString name() const override;
             virtual QString toString() const override;
             virtual operator QString() const override;
@@ -83,7 +83,7 @@ namespace PhotoLayoutsEditor
 
         private:
 
-            static inline QImage colorized(const QImage & image, const QColor & color)
+            static inline QImage colorized(const QImage& image, const QColor& color)
             {
                 QImage result = image;
                 unsigned int pixels = result.width() * result.height();

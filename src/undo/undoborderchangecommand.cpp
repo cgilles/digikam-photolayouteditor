@@ -23,18 +23,24 @@
  * ============================================================ */
 
 #include "UndoBorderChangeCommand.h"
-#include "abstractphoto.h"
+
+// Qt includes
 
 #include <QDebug>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
 
-UndoBorderChangeCommand::UndoBorderChangeCommand(AbstractPhoto* photo, qreal newWidth, Qt::PenJoinStyle newCornerStyle, const QColor & newColor, QUndoCommand * parent) :
-    QUndoCommand(QObject::tr("Border changed"), parent),
-    m_photo(photo),
-    m_width(newWidth),
-    m_corner_style(newCornerStyle),
-    m_color(newColor)
+#include "abstractphoto.h"
+
+namespace PhotoLayoutsEditor
+{
+
+UndoBorderChangeCommand::UndoBorderChangeCommand(AbstractPhoto* photo, qreal newWidth, Qt::PenJoinStyle newCornerStyle, const QColor& newColor, QUndoCommand* parent)
+    : QUndoCommand(QObject::tr("Border changed"), parent),
+      m_photo(photo),
+      m_width(newWidth),
+      m_corner_style(newCornerStyle),
+      m_color(newColor)
 {
 }
 
@@ -63,3 +69,5 @@ void UndoBorderChangeCommand::undo()
     m_color = tempColor;
     m_corner_style = tempCornerStyle;
 }
+
+} // namespace PhotoLayoutsEditor

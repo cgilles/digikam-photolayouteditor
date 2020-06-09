@@ -40,7 +40,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit CropWidgetItem(QGraphicsItem * parent = nullptr, QGraphicsScene * scene = nullptr);
+            explicit CropWidgetItem(QGraphicsItem* parent = nullptr, QGraphicsScene* scene = nullptr);
             virtual ~CropWidgetItem();
 
             virtual QRectF boundingRect() const override;
@@ -48,11 +48,11 @@ namespace PhotoLayoutsEditor
             virtual QPainterPath shape() const override;
             virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
-            virtual void keyPressEvent(QKeyEvent * event) override;
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
-            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
-            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event) override;
-            virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) override;
+            virtual void keyPressEvent(QKeyEvent* event) override;
+            virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+            virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
 
             void setItems(const QList<AbstractPhoto*> & items);
 

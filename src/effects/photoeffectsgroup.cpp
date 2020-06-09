@@ -65,21 +65,21 @@ QDomElement PhotoEffectsGroup::toSvg(QDomDocument& document) const
     return effectsGroup;
 }
 
-PhotoEffectsGroup * PhotoEffectsGroup::fromSvg(const QDomElement& element, AbstractPhoto* graphicsItem)
+PhotoEffectsGroup* PhotoEffectsGroup::fromSvg(const QDomElement& element, AbstractPhoto* graphicsItem)
 {
     QDomElement temp = element;
     if (temp.tagName() != QLatin1String("effects"))
         temp = temp.firstChildElement(QLatin1String("effects"));
     if (temp.isNull())
         return nullptr;
-    PhotoEffectsGroup * group = new PhotoEffectsGroup(nullptr);
+    PhotoEffectsGroup* group = new PhotoEffectsGroup(nullptr);
     QDomNodeList effectsList = temp.childNodes();
     for (int i = effectsList.count()-1; i >= 0; --i)
     {
         QDomElement effect = effectsList.at(i).toElement();
         if (effect.isNull())
             continue;
-        AbstractPhotoEffectInterface * interface = PhotoEffectsLoader::getEffectFromSvg(effect);
+        AbstractPhotoEffectInterface* interface = PhotoEffectsLoader::getEffectFromSvg(effect);
         if (interface)
             group->push_back(interface);
     }
@@ -87,7 +87,7 @@ PhotoEffectsGroup * PhotoEffectsGroup::fromSvg(const QDomElement& element, Abstr
     return group;
 }
 
-void PhotoEffectsGroup::push_back(AbstractPhotoEffectInterface * effect)
+void PhotoEffectsGroup::push_back(AbstractPhotoEffectInterface* effect)
 {
     m_effects_list.push_back(effect);
     connect(effect, SIGNAL(changed()), this, SLOT(emitEffectsChanged()));
@@ -96,7 +96,7 @@ void PhotoEffectsGroup::push_back(AbstractPhotoEffectInterface * effect)
     emit layoutChanged();
 }
 
-void PhotoEffectsGroup::push_front(AbstractPhotoEffectInterface * effect)
+void PhotoEffectsGroup::push_front(AbstractPhotoEffectInterface* effect)
 {
     m_effects_list.push_front(effect);
     connect(effect, SIGNAL(changed()), this, SLOT(emitEffectsChanged()));
@@ -105,12 +105,12 @@ void PhotoEffectsGroup::push_front(AbstractPhotoEffectInterface * effect)
     emit layoutChanged();
 }
 
-QImage PhotoEffectsGroup::apply(const QImage & image)
+QImage PhotoEffectsGroup::apply(const QImage& image)
 {
     QImage temp = image;
     for (int i = m_effects_list.count()-1; i >= 0; --i)
     {
-        AbstractPhotoEffectInterface * effect = m_effects_list[i];
+        AbstractPhotoEffectInterface* effect = m_effects_list[i];
         if (effect)
             temp = effect->apply(temp);
     }
@@ -131,13 +131,13 @@ QObject* PhotoEffectsGroup::item(const QModelIndex& index) const
 
 void PhotoEffectsGroup::setItem(QObject* item, const QModelIndex& index)
 {
-    AbstractPhotoEffectInterface * effect = dynamic_cast<AbstractPhotoEffectInterface*>(item);
+    AbstractPhotoEffectInterface* effect = dynamic_cast<AbstractPhotoEffectInterface*>(item);
     if (!effect || !index.isValid())
         return;
     int row = index.row();
     if (row < 0 || row >= rowCount())
         return;
-    AbstractPhotoEffectInterface * temp = m_effects_list.takeAt(row);
+    AbstractPhotoEffectInterface* temp = m_effects_list.takeAt(row);
     if (temp)
         temp->disconnect(this);
     m_effects_list.removeAt(row);
@@ -148,7 +148,7 @@ void PhotoEffectsGroup::setItem(QObject* item, const QModelIndex& index)
     emitEffectsChanged(effect);
 }
 
-AbstractPhotoEffectInterface * PhotoEffectsGroup::graphicsItem(const QModelIndex& index) const
+AbstractPhotoEffectInterface* PhotoEffectsGroup::graphicsItem(const QModelIndex& index) const
 {
     return static_cast<AbstractPhotoEffectInterface*>(index.internalPointer());
 }
@@ -191,7 +191,7 @@ QVariant PhotoEffectsGroup::data(const QModelIndex& index, int role) const
         return QObject::tr("Effect name");
     else
     {
-        AbstractPhotoEffectInterface * effect = graphicsItem(index);
+        AbstractPhotoEffectInterface* effect = graphicsItem(index);
         if (effect)
             return effect->toString();
         else
@@ -256,7 +256,7 @@ bool PhotoEffectsGroup::removeRows(int row, int count, const QModelIndex& parent
     return true;
 }
 
-void PhotoEffectsGroup::emitEffectsChanged(AbstractPhotoEffectInterface * effect)
+void PhotoEffectsGroup::emitEffectsChanged(AbstractPhotoEffectInterface* effect)
 {
     if (!m_photo)
         return;

@@ -41,7 +41,7 @@ class PLECanvasSizeDialog : public QDialog
 public:
 
     explicit PLECanvasSizeDialog(QWidget* parent = nullptr);
-    explicit PLECanvasSizeDialog(const PLECanvasSize & canvasSize, QWidget* parent = nullptr);
+    explicit PLECanvasSizeDialog(const PLECanvasSize& canvasSize, QWidget* parent = nullptr);
     ~PLECanvasSizeDialog();
 
     Q_PROPERTY(PLECanvasSize canvas_size READ canvasSize)

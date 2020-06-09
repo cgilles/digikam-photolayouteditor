@@ -23,19 +23,23 @@
  * ============================================================ */
 
 #include "colorizephotoeffect.h"
+
+// Local includes
+
 #include "standardeffectsfactory.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 QColor ColorizePhotoEffect::m_last_color = QColor(255,255,255,0);
 
-ColorizePhotoEffect::ColorizePhotoEffect(StandardEffectsFactory * factory, QObject* parent) :
+ColorizePhotoEffect::ColorizePhotoEffect(StandardEffectsFactory* factory, QObject* parent) :
     AbstractPhotoEffectInterface(factory, parent),
     m_color(m_last_color)
 {
 }
 
-QImage ColorizePhotoEffect::apply(const QImage & image) const
+QImage ColorizePhotoEffect::apply(const QImage& image) const
 {
     QColor tempColor = color();
     if (!strength() || !tempColor.alpha())
@@ -61,3 +65,5 @@ ColorizePhotoEffect::operator QString() const
 {
     return toString();
 }
+
+} // namespace PhotoLayoutsEditor

@@ -39,17 +39,17 @@ class PhotoEffectChangeListener : public QObject
 {
         Q_OBJECT
 
-        AbstractPhotoEffectInterface * effect;
+        AbstractPhotoEffectInterface* effect;
         PhotoEffectChangeCommand * command;
         bool createCommands;
 
     public:
 
-        explicit PhotoEffectChangeListener(AbstractPhotoEffectInterface * effect, QObject* parent, bool createCommands);
+        explicit PhotoEffectChangeListener(AbstractPhotoEffectInterface* effect, QObject* parent, bool createCommands);
 
     public Q_SLOTS:
 
-        void propertyChanged(QtProperty * property);
+        void propertyChanged(QtProperty* property);
         void editingFinished();
 };
 

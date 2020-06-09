@@ -23,15 +23,19 @@
  * ============================================================ */
 
 #include "abstractphoto_p.h"
+
+// Local includes
+
 #include "abstractphoto.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-AbstractPhotoPrivate::AbstractPhotoPrivate(AbstractPhoto* item) :
-    m_item(item),
-    m_visible(true),
-    m_effects_group(nullptr),
-    m_borders_group(nullptr)
+AbstractPhotoPrivate::AbstractPhotoPrivate(AbstractPhoto* item)
+    : m_item(item),
+      m_visible(true),
+      m_effects_group(nullptr),
+      m_borders_group(nullptr)
 {
 }
 
@@ -57,3 +61,5 @@ QString AbstractPhotoPrivate::name()
 {
     return this->m_name;
 }
+
+} // namespace PhotoLayoutsEditor

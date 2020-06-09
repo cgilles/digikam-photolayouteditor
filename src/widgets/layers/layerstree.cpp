@@ -43,9 +43,9 @@
 namespace PhotoLayoutsEditor
 {
 
-LayersTree::LayersTree(QWidget* parent) :
-    QTreeView(parent),
-    m_menu(new LayersTreeMenu(this))
+LayersTree::LayersTree(QWidget* parent)
+    : QTreeView(parent),
+      m_menu(new LayersTreeMenu(this))
 {
     header()->setVisible(true);
     header()->setSectionsMovable(false);

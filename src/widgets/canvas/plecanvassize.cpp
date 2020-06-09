@@ -24,7 +24,8 @@
 
 #include "plecanvassize.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 QMap<PLECanvasSize::ResolutionUnits,qreal> PLECanvasSize::resolution_factors;
 QMap<PLECanvasSize::ResolutionUnits,QString> PLECanvasSize::resolution_names;
@@ -329,15 +330,17 @@ bool PLECanvasSize::isValid() const
             (m_resolution_unit != UnknownResolutionUnit);
 }
 
-bool PLECanvasSize::operator ==(const PLECanvasSize & size) const
+bool PLECanvasSize::operator ==(const PLECanvasSize& size) const
 {
     return this->m_size == size.m_size &&
-            this->m_size_unit == size.m_size_unit &&
-            this->m_resolution == size.m_resolution &&
-            this->m_resolution_unit == size.m_resolution_unit;
+           this->m_size_unit == size.m_size_unit &&
+           this->m_resolution == size.m_resolution &&
+           this->m_resolution_unit == size.m_resolution_unit;
 }
 
-bool PLECanvasSize::operator !=(const PLECanvasSize & size) const
+bool PLECanvasSize::operator !=(const PLECanvasSize& size) const
 {
     return !(*this == size);
 }
+
+} // namespace PhotoLayoutsEditor

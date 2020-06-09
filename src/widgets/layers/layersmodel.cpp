@@ -71,7 +71,7 @@ QModelIndex LayersModel::index(int row, int column, const QModelIndex& parent) c
 
 QModelIndex LayersModel::parent(const QModelIndex& index) const
 {
-    if(!index.isValid())
+    if (!index.isValid())
         return QModelIndex();
     LayersModelItem* childItem = static_cast<LayersModelItem*>(index.internalPointer());
     LayersModelItem* parentItem = childItem->parent();
@@ -207,7 +207,7 @@ bool LayersModel::appendItems(const QList<AbstractPhoto*> & items, const QModelI
 
 bool LayersModel::insertItems(const QList<AbstractPhoto*> & items, int position, const QModelIndex& parent)
 {
-    foreach(AbstractPhoto* item, items)
+    foreach (AbstractPhoto* item, items)
         if (!insertItem(item, position++, parent))
             return false;
     return true;
@@ -243,7 +243,7 @@ QModelIndexList LayersModel::itemsToIndexes(const QList<AbstractPhoto*>& items) 
 {
     QModelIndexList indexes;
     QModelIndex temp;
-    foreach(AbstractPhoto* item, items)
+    foreach (AbstractPhoto* item, items)
     {
         temp = findIndex(item);
         if (temp.isValid())
@@ -255,7 +255,7 @@ QModelIndexList LayersModel::itemsToIndexes(const QList<AbstractPhoto*>& items) 
 QList<AbstractPhoto*> LayersModel::indexesToItems(const QModelIndexList& indexes) const
 {
     QList<AbstractPhoto*> items;
-    foreach(QModelIndex index, indexes)
+    foreach (QModelIndex index, indexes)
         items.append(getItem(index)->photo());
     return items;
 }

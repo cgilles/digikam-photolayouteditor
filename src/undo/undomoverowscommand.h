@@ -44,7 +44,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            UndoMoveRowsCommand(int startingRow, int rowsCount, const QModelIndex& sourceParent, int destinationRow, const QModelIndex& destinationParent, LayersModel* model, QUndoCommand * parent = nullptr);
+            UndoMoveRowsCommand(int startingRow, int rowsCount, const QModelIndex& sourceParent, int destinationRow, const QModelIndex& destinationParent, LayersModel* model, QUndoCommand* parent = nullptr);
             virtual void redo() override;
             virtual void undo() override;
 

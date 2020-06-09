@@ -154,13 +154,13 @@ class QtVariantPropertyPrivate
 
 public:
     
-    explicit QtVariantPropertyPrivate(QtVariantPropertyManager *m)
+    explicit QtVariantPropertyPrivate(QtVariantPropertyManager* m)
         : q_ptr(nullptr),
           manager(m)
     {
     }
 
-    QtVariantPropertyManager *manager;
+    QtVariantPropertyManager* manager;
 };
 
 /*!
@@ -179,7 +179,7 @@ public:
     For example, instead of writing:
 
     \code
-        QtVariantPropertyManager *variantPropertyManager;
+        QtVariantPropertyManager* variantPropertyManager;
         QtProperty *property;
 
         variantPropertyManager->setValue(property, 10);
@@ -188,7 +188,7 @@ public:
     you can write:
 
     \code
-        QtVariantPropertyManager *variantPropertyManager;
+        QtVariantPropertyManager* variantPropertyManager;
         QtVariantProperty *property;
 
         property->setValue(10);
@@ -210,7 +210,7 @@ public:
 
     \sa QtVariantPropertyManager
 */
-QtVariantProperty::QtVariantProperty(QtVariantPropertyManager *manager)
+QtVariantProperty::QtVariantProperty(QtVariantPropertyManager* manager)
     : QtProperty(manager),  d_ptr(new QtVariantPropertyPrivate(manager))
 {
 
@@ -319,7 +319,7 @@ void QtVariantProperty::setAttribute(const QString &attribute, const QVariant&va
 
 class QtVariantPropertyManagerPrivate
 {
-    QtVariantPropertyManager *q_ptr;
+    QtVariantPropertyManager* q_ptr;
     Q_DECLARE_PUBLIC(QtVariantPropertyManager)
 public:
     QtVariantPropertyManagerPrivate();
@@ -418,13 +418,13 @@ int QtVariantPropertyManagerPrivate::internalPropertyToType(QtProperty *property
 {
     int type = 0;
     QtAbstractPropertyManager *internPropertyManager = property->propertyManager();
-    if (qobject_cast<QtIntPropertyManager *>(internPropertyManager))
+    if (qobject_cast<QtIntPropertyManager* >(internPropertyManager))
         type = QVariant::Int;
-    else if (qobject_cast<QtEnumPropertyManager *>(internPropertyManager))
+    else if (qobject_cast<QtEnumPropertyManager* >(internPropertyManager))
         type = QtVariantPropertyManager::enumTypeId();
     else if (qobject_cast<QtBoolPropertyManager *>(internPropertyManager))
         type = QVariant::Bool;
-    else if (qobject_cast<QtDoublePropertyManager *>(internPropertyManager))
+    else if (qobject_cast<QtDoublePropertyManager* >(internPropertyManager))
         type = QVariant::Double;
     return type;
 }
@@ -963,7 +963,7 @@ QtVariantPropertyManager::QtVariantPropertyManager(QObject *parent)
     d_ptr->m_propertyType = 0;
 
     // IntPropertyManager
-    QtIntPropertyManager *intPropertyManager = new QtIntPropertyManager(this);
+    QtIntPropertyManager* intPropertyManager = new QtIntPropertyManager(this);
     d_ptr->m_typeToPropertyManager[QVariant::Int] = intPropertyManager;
     d_ptr->m_typeToAttributeToAttributeType[QVariant::Int][d_ptr->m_minimumAttribute] = QVariant::Int;
     d_ptr->m_typeToAttributeToAttributeType[QVariant::Int][d_ptr->m_maximumAttribute] = QVariant::Int;
@@ -976,7 +976,7 @@ QtVariantPropertyManager::QtVariantPropertyManager(QObject *parent)
     connect(intPropertyManager, SIGNAL(singleStepChanged(QtProperty*,int)),
                 this, SLOT(slotSingleStepChanged(QtProperty*,int)));
     // DoublePropertyManager
-    QtDoublePropertyManager *doublePropertyManager = new QtDoublePropertyManager(this);
+    QtDoublePropertyManager* doublePropertyManager = new QtDoublePropertyManager(this);
     d_ptr->m_typeToPropertyManager[QVariant::Double] = doublePropertyManager;
     d_ptr->m_typeToAttributeToAttributeType[QVariant::Double][d_ptr->m_minimumAttribute] =
             QVariant::Double;
@@ -1185,7 +1185,7 @@ QtVariantPropertyManager::QtVariantPropertyManager(QObject *parent)
                 this, SLOT(slotPropertyRemoved(QtProperty*,QtProperty*)));
     // EnumPropertyManager
     int enumId = enumTypeId();
-    QtEnumPropertyManager *enumPropertyManager = new QtEnumPropertyManager(this);
+    QtEnumPropertyManager* enumPropertyManager = new QtEnumPropertyManager(this);
     d_ptr->m_typeToPropertyManager[enumId] = enumPropertyManager;
     d_ptr->m_typeToValueType[enumId] = QVariant::Int;
     d_ptr->m_typeToAttributeToAttributeType[enumId][d_ptr->m_enumNamesAttribute] =
@@ -1339,7 +1339,7 @@ QtVariantProperty *QtVariantPropertyManager::addProperty(int propertyType, const
 }
 
 namespace{
-void addPropertyRecusively(QtVariantPropertyManager * manager,
+void addPropertyRecusively(QtVariantPropertyManager*  manager,
                            QtVariantProperty * prop, QtVariantProperty * newProp = nullptr)
   {
   if (!newProp)
@@ -1348,7 +1348,7 @@ void addPropertyRecusively(QtVariantPropertyManager * manager,
     }
   // Copy values
   QStringList attributes = manager->attributes(prop->propertyType());
-  foreach(const QString& attribute, attributes)
+  foreach (const QString& attribute, attributes)
     {
     newProp->setAttribute(attribute, prop->attributeValue(attribute));
     }
@@ -1359,7 +1359,7 @@ void addPropertyRecusively(QtVariantPropertyManager * manager,
   newProp->setEnabled(prop->isEnabled());
   newProp->setValue(prop->value());
 
-  foreach(QtProperty * subProp, prop->subProperties())
+  foreach (QtProperty* subProp, prop->subProperties())
     {
     QtVariantProperty * variantSubProp = dynamic_cast<QtVariantProperty*>(subProp);
     Q_ASSERT(variantSubProp);
@@ -1379,7 +1379,7 @@ void addPropertyRecusively(QtVariantPropertyManager * manager,
 void QtVariantPropertyManager::setProperties(QSet<QtProperty *> properties)
 {
   this->clear();
-  foreach(QtProperty * prop, properties)
+  foreach (QtProperty* prop, properties)
     {
     QtVariantProperty * variantProp = dynamic_cast<QtVariantProperty*>(prop);
     if (!variantProp){ continue; }
@@ -1405,9 +1405,9 @@ QVariant QtVariantPropertyManager::value(const QtProperty *property) const
         return QVariant();
 
     QtAbstractPropertyManager *manager = internProp->propertyManager();
-    if (QtIntPropertyManager *intManager = qobject_cast<QtIntPropertyManager *>(manager)) {
+    if (QtIntPropertyManager* intManager = qobject_cast<QtIntPropertyManager* >(manager)) {
         return intManager->value(internProp);
-    } else if (QtDoublePropertyManager *doubleManager = qobject_cast<QtDoublePropertyManager *>(manager)) {
+    } else if (QtDoublePropertyManager* doubleManager = qobject_cast<QtDoublePropertyManager* >(manager)) {
         return doubleManager->value(internProp);
     } else if (QtBoolPropertyManager *boolManager = qobject_cast<QtBoolPropertyManager *>(manager)) {
         return boolManager->value(internProp);
@@ -1439,7 +1439,7 @@ QVariant QtVariantPropertyManager::value(const QtProperty *property) const
         return rectFManager->value(internProp);
     } else if (QtColorPropertyManager *colorManager = qobject_cast<QtColorPropertyManager *>(manager)) {
         return colorManager->value(internProp);
-    } else if (QtEnumPropertyManager *enumManager = qobject_cast<QtEnumPropertyManager *>(manager)) {
+    } else if (QtEnumPropertyManager* enumManager = qobject_cast<QtEnumPropertyManager* >(manager)) {
         return enumManager->value(internProp);
     } else if (QtSizePolicyPropertyManager *sizePolicyManager =
                qobject_cast<QtSizePolicyPropertyManager *>(manager)) {
@@ -1523,7 +1523,7 @@ QVariant QtVariantPropertyManager::attributeValue(const QtProperty *property, co
         return QVariant();
 
     QtAbstractPropertyManager *manager = internProp->propertyManager();
-    if (QtIntPropertyManager *intManager = qobject_cast<QtIntPropertyManager *>(manager)) {
+    if (QtIntPropertyManager* intManager = qobject_cast<QtIntPropertyManager* >(manager)) {
         if (attribute == d_ptr->m_maximumAttribute)
             return intManager->maximum(internProp);
         if (attribute == d_ptr->m_minimumAttribute)
@@ -1531,7 +1531,7 @@ QVariant QtVariantPropertyManager::attributeValue(const QtProperty *property, co
         if (attribute == d_ptr->m_singleStepAttribute)
             return intManager->singleStep(internProp);
         return QVariant();
-    } else if (QtDoublePropertyManager *doubleManager = qobject_cast<QtDoublePropertyManager *>(manager)) {
+    } else if (QtDoublePropertyManager* doubleManager = qobject_cast<QtDoublePropertyManager* >(manager)) {
         if (attribute == d_ptr->m_maximumAttribute)
             return doubleManager->maximum(internProp);
         if (attribute == d_ptr->m_minimumAttribute)
@@ -1579,7 +1579,7 @@ QVariant QtVariantPropertyManager::attributeValue(const QtProperty *property, co
         if (attribute == d_ptr->m_decimalsAttribute)
             return rectFManager->decimals(internProp);
         return QVariant();
-    } else if (QtEnumPropertyManager *enumManager = qobject_cast<QtEnumPropertyManager *>(manager)) {
+    } else if (QtEnumPropertyManager* enumManager = qobject_cast<QtEnumPropertyManager* >(manager)) {
         if (attribute == d_ptr->m_enumNamesAttribute)
             return enumManager->enumNames(internProp);
         if (attribute == d_ptr->m_enumIconsAttribute) {
@@ -1663,10 +1663,10 @@ void QtVariantPropertyManager::setValue(QtProperty *property, const QVariant&val
 
 
     QtAbstractPropertyManager *manager = internProp->propertyManager();
-    if (QtIntPropertyManager *intManager = qobject_cast<QtIntPropertyManager *>(manager)) {
+    if (QtIntPropertyManager* intManager = qobject_cast<QtIntPropertyManager* >(manager)) {
         intManager->setValue(internProp, val.value<int>());
         return;
-    } else if (QtDoublePropertyManager *doubleManager = qobject_cast<QtDoublePropertyManager *>(manager)) {
+    } else if (QtDoublePropertyManager* doubleManager = qobject_cast<QtDoublePropertyManager* >(manager)) {
         doubleManager->setValue(internProp, val.value<double>());
         return;
     } else if (QtBoolPropertyManager *boolManager = qobject_cast<QtBoolPropertyManager *>(manager)) {
@@ -1714,7 +1714,7 @@ void QtVariantPropertyManager::setValue(QtProperty *property, const QVariant&val
     } else if (QtColorPropertyManager *colorManager = qobject_cast<QtColorPropertyManager *>(manager)) {
         colorManager->setValue(internProp, val.value<QColor>());
         return;
-    } else if (QtEnumPropertyManager *enumManager = qobject_cast<QtEnumPropertyManager *>(manager)) {
+    } else if (QtEnumPropertyManager* enumManager = qobject_cast<QtEnumPropertyManager* >(manager)) {
         enumManager->setValue(internProp, val.value<int>());
         return;
     } else if (QtSizePolicyPropertyManager *sizePolicyManager =
@@ -1766,7 +1766,7 @@ void QtVariantPropertyManager::setAttribute(QtProperty *property,
         return;
 
     QtAbstractPropertyManager *manager = internProp->propertyManager();
-    if (QtIntPropertyManager *intManager = qobject_cast<QtIntPropertyManager *>(manager)) {
+    if (QtIntPropertyManager* intManager = qobject_cast<QtIntPropertyManager* >(manager)) {
         if (attribute == d_ptr->m_maximumAttribute)
             intManager->setMaximum(internProp, value.value<int>());
         else if (attribute == d_ptr->m_minimumAttribute)
@@ -1774,7 +1774,7 @@ void QtVariantPropertyManager::setAttribute(QtProperty *property,
         else if (attribute == d_ptr->m_singleStepAttribute)
             intManager->setSingleStep(internProp, value.value<int>());
         return;
-    } else if (QtDoublePropertyManager *doubleManager = qobject_cast<QtDoublePropertyManager *>(manager)) {
+    } else if (QtDoublePropertyManager* doubleManager = qobject_cast<QtDoublePropertyManager* >(manager)) {
         if (attribute == d_ptr->m_maximumAttribute)
             doubleManager->setMaximum(internProp, value.value<double>());
         if (attribute == d_ptr->m_minimumAttribute)
@@ -1822,7 +1822,7 @@ void QtVariantPropertyManager::setAttribute(QtProperty *property,
         if (attribute == d_ptr->m_decimalsAttribute)
             rectFManager->setDecimals(internProp, value.value<int>());
         return;
-    } else if (QtEnumPropertyManager *enumManager = qobject_cast<QtEnumPropertyManager *>(manager)) {
+    } else if (QtEnumPropertyManager* enumManager = qobject_cast<QtEnumPropertyManager* >(manager)) {
         if (attribute == d_ptr->m_enumNamesAttribute)
             enumManager->setEnumNames(internProp, value.value<QStringList>());
         if (attribute == d_ptr->m_enumIconsAttribute)
@@ -2111,15 +2111,15 @@ QtVariantEditorFactory::~QtVariantEditorFactory()
 
     Reimplemented from the QtAbstractEditorFactory class.
 */
-void QtVariantEditorFactory::connectPropertyManager(QtVariantPropertyManager *manager)
+void QtVariantEditorFactory::connectPropertyManager(QtVariantPropertyManager* manager)
 {
-    QList<QtIntPropertyManager *> intPropertyManagers = manager->findChildren<QtIntPropertyManager *>();
-    QListIterator<QtIntPropertyManager *> itInt(intPropertyManagers);
+    QList<QtIntPropertyManager* > intPropertyManagers = manager->findChildren<QtIntPropertyManager* >();
+    QListIterator<QtIntPropertyManager* > itInt(intPropertyManagers);
     while (itInt.hasNext())
         d_ptr->m_spinBoxFactory->addPropertyManager(itInt.next());
 
-    QList<QtDoublePropertyManager *> doublePropertyManagers = manager->findChildren<QtDoublePropertyManager *>();
-    QListIterator<QtDoublePropertyManager *> itDouble(doublePropertyManagers);
+    QList<QtDoublePropertyManager* > doublePropertyManagers = manager->findChildren<QtDoublePropertyManager* >();
+    QListIterator<QtDoublePropertyManager* > itDouble(doublePropertyManagers);
     while (itDouble.hasNext())
         d_ptr->m_doubleSpinBoxFactory->addPropertyManager(itDouble.next());
 
@@ -2201,8 +2201,8 @@ void QtVariantEditorFactory::connectPropertyManager(QtVariantPropertyManager *ma
         d_ptr->m_spinBoxFactory->addPropertyManager(manager->subIntPropertyManager());
     }
 
-    QList<QtEnumPropertyManager *> enumPropertyManagers = manager->findChildren<QtEnumPropertyManager *>();
-    QListIterator<QtEnumPropertyManager *> itEnum(enumPropertyManagers);
+    QList<QtEnumPropertyManager* > enumPropertyManagers = manager->findChildren<QtEnumPropertyManager* >();
+    QListIterator<QtEnumPropertyManager* > itEnum(enumPropertyManagers);
     while (itEnum.hasNext())
         d_ptr->m_comboBoxFactory->addPropertyManager(itEnum.next());
 
@@ -2240,7 +2240,7 @@ void QtVariantEditorFactory::connectPropertyManager(QtVariantPropertyManager *ma
 
     Reimplemented from the QtAbstractEditorFactory class.
 */
-QWidget *QtVariantEditorFactory::createEditor(QtVariantPropertyManager *manager, QtProperty *property,
+QWidget *QtVariantEditorFactory::createEditor(QtVariantPropertyManager* manager, QtProperty *property,
         QWidget *parent)
 {
     const int propType = manager->propertyType(property);
@@ -2266,15 +2266,15 @@ QWidget *QtVariantEditorFactory::createEditor(QtProperty *property, QWidget *par
 
     Reimplemented from the QtAbstractEditorFactory class.
 */
-void QtVariantEditorFactory::disconnectPropertyManager(QtVariantPropertyManager *manager)
+void QtVariantEditorFactory::disconnectPropertyManager(QtVariantPropertyManager* manager)
 {
-    QList<QtIntPropertyManager *> intPropertyManagers = manager->findChildren<QtIntPropertyManager *>();
-    QListIterator<QtIntPropertyManager *> itInt(intPropertyManagers);
+    QList<QtIntPropertyManager* > intPropertyManagers = manager->findChildren<QtIntPropertyManager* >();
+    QListIterator<QtIntPropertyManager* > itInt(intPropertyManagers);
     while (itInt.hasNext())
         d_ptr->m_spinBoxFactory->removePropertyManager(itInt.next());
 
-    QList<QtDoublePropertyManager *> doublePropertyManagers = manager->findChildren<QtDoublePropertyManager *>();
-    QListIterator<QtDoublePropertyManager *> itDouble(doublePropertyManagers);
+    QList<QtDoublePropertyManager* > doublePropertyManagers = manager->findChildren<QtDoublePropertyManager* >();
+    QListIterator<QtDoublePropertyManager* > itDouble(doublePropertyManagers);
     while (itDouble.hasNext())
         d_ptr->m_doubleSpinBoxFactory->removePropertyManager(itDouble.next());
 
@@ -2356,8 +2356,8 @@ void QtVariantEditorFactory::disconnectPropertyManager(QtVariantPropertyManager 
         d_ptr->m_spinBoxFactory->removePropertyManager(manager->subIntPropertyManager());
     }
 
-    QList<QtEnumPropertyManager *> enumPropertyManagers = manager->findChildren<QtEnumPropertyManager *>();
-    QListIterator<QtEnumPropertyManager *> itEnum(enumPropertyManagers);
+    QList<QtEnumPropertyManager* > enumPropertyManagers = manager->findChildren<QtEnumPropertyManager* >();
+    QListIterator<QtEnumPropertyManager* > itEnum(enumPropertyManagers);
     while (itEnum.hasNext())
         d_ptr->m_comboBoxFactory->removePropertyManager(itEnum.next());
 

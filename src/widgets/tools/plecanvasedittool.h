@@ -42,7 +42,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit PLECanvasEditTool(PLEScene * scene, QWidget* parent = nullptr);
+            explicit PLECanvasEditTool(PLEScene* scene, QWidget* parent = nullptr);
             virtual ~PLECanvasEditTool();
 
         Q_SIGNALS:
@@ -65,12 +65,12 @@ namespace PhotoLayoutsEditor
             void patternBackgroundSelected();
 
             // Solid background
-            void solidColorChanged(const QColor & color);
-            void imageBackgroundColorChanged(const QColor & color);
+            void solidColorChanged(const QColor& color);
+            void imageBackgroundColorChanged(const QColor& color);
 
             // Pattern background
-            void patternFirstColorChanged(const QColor & color);
-            void patternSecondColorChanged(const QColor & color);
+            void patternFirstColorChanged(const QColor& color);
+            void patternSecondColorChanged(const QColor& color);
             void patternStyleChanged(Qt::BrushStyle patternStyle);
 
             // Image background
@@ -84,7 +84,7 @@ namespace PhotoLayoutsEditor
             void imageHeightChanged();
 
             // Other (currently unused... :P)
-            void readMousePosition(const QPointF & scenePos);
+            void readMousePosition(const QPointF& scenePos);
 
         private:
 

@@ -23,17 +23,21 @@
  * ============================================================ */
 
 #include "blurphotoeffect.h"
+
+// Local includes
+
 #include "standardeffectsfactory.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-BlurPhotoEffect::BlurPhotoEffect(StandardEffectsFactory * factory, QObject* parent) :
-    AbstractPhotoEffectInterface(factory, parent),
-    m_radius(10)
+BlurPhotoEffect::BlurPhotoEffect(StandardEffectsFactory* factory, QObject* parent)
+    : AbstractPhotoEffectInterface(factory, parent),
+      m_radius(10)
 {
 }
 
-QImage BlurPhotoEffect::apply(const QImage & image) const
+QImage BlurPhotoEffect::apply(const QImage& image) const
 {
     int tempRadius = radius();
     if (!tempRadius)
@@ -59,3 +63,5 @@ BlurPhotoEffect::operator QString() const
 {
     return toString();
 }
+
+} // namespace PhotoLayoutsEditor

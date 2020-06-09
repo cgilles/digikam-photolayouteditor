@@ -68,7 +68,7 @@ namespace PhotoLayoutsEditor
 
             AbstractPhoto* m_current_item;
 
-            PLEScene * m_scene;
+            PLEScene* m_scene;
 
             static ToolsDockWidget * m_instance;
 
@@ -80,7 +80,7 @@ namespace PhotoLayoutsEditor
 
         Q_SIGNALS:
 
-            void undoCommandCreated(QUndoCommand * command);
+            void undoCommandCreated(QUndoCommand* command);
             void newItemCreated(AbstractPhoto* item);
 
             void requireSingleSelection();
@@ -115,9 +115,9 @@ namespace PhotoLayoutsEditor
 
         public Q_SLOTS:
 
-            void setScene(PLEScene * scene = nullptr);
+            void setScene(PLEScene* scene = nullptr);
             void itemSelected(AbstractPhoto* photo);
-            void mousePositionChoosen(const QPointF & position);
+            void mousePositionChoosen(const QPointF& position);
             void emitNewItemCreated(AbstractPhoto* item);
             void setPointerToolVisible(bool isSelected = true);
             void setHandToolVisible(bool isSelected = true);

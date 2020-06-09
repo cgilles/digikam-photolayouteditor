@@ -54,7 +54,7 @@ LayersModelItem::LayersModelItem(AbstractPhoto* photo, LayersModelItem* parent, 
 
 LayersModelItem::~LayersModelItem()
 {
-    foreach(LayersModelItem* const child, childItems)
+    foreach (LayersModelItem* const child, childItems)
         delete child;
 }
 
@@ -169,7 +169,7 @@ QVariant LayersModelItem::data(int column) const
 QList<QVariant> LayersModelItem::data() const
 {
     QList<QVariant> result;
-    for(int i = 0; i < COLUMN_COUNT; ++i)
+    for (int i = 0; i < COLUMN_COUNT; ++i)
         result << data(i);
     return result;
 }
@@ -217,7 +217,7 @@ bool LayersModelItem::moveChildren(int sourcePosition, int count, LayersModelIte
 void LayersModelItem::refreshZValues()
 {
     int i = childItems.count();
-    foreach(LayersModelItem* item, childItems)
+    foreach (LayersModelItem* item, childItems)
     {
         AbstractPhoto* photo = item->photo();
         if (photo)

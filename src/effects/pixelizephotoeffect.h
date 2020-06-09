@@ -29,8 +29,6 @@
 
 #include "photoeffectsloader.h"
 
-using namespace PhotoLayoutsEditor;
-
 namespace PhotoLayoutsEditor
 {
 
@@ -79,7 +77,7 @@ protected Q_SLOTS:
 
 private:
 
-    static inline QImage pixelize(const QImage & image, int pixelSize)
+    static inline QImage pixelize(const QImage& image, int pixelSize)
     {
         Q_ASSERT(pixelSize > 0);
 
@@ -113,6 +111,6 @@ private:
     }
 };
 
-}
+} // namespace PhotoLayoutsEditor
 
 #endif // PIXELIZEPHOTOEFFECT_H

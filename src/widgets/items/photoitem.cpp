@@ -61,9 +61,9 @@ class PhotoItemPixmapChangeCommand : public QUndoCommand
 
 public:
 
-    PhotoItemPixmapChangeCommand(const QImage & image,
-                                 PhotoItem * item,
-                                 QUndoCommand * parent = nullptr) :
+    PhotoItemPixmapChangeCommand(const QImage& image,
+                                 PhotoItem* item,
+                                 QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Image Change"), parent),
         m_image(image),
         m_item(item)
@@ -71,8 +71,8 @@ public:
     }
 
     PhotoItemPixmapChangeCommand(const QPixmap & pixmap,
-                                 PhotoItem * item,
-                                 QUndoCommand * parent = nullptr) :
+                                 PhotoItem* item,
+                                 QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Image Change"), parent),
         m_image(pixmap.toImage()),
         m_item(item)
@@ -102,7 +102,7 @@ class PhotoItemUrlChangeCommand : public QUndoCommand
 
 public:
 
-    PhotoItemUrlChangeCommand(const QUrl & url, PhotoItem * item, QUndoCommand * parent = nullptr) :
+    PhotoItemUrlChangeCommand(const QUrl& url, PhotoItem* item, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Image Path Change"), parent),
         m_url(url),
         m_item(item)
@@ -135,7 +135,7 @@ class PhotoItemImagePathChangeCommand : public QUndoCommand
 
 public:
 
-    PhotoItemImagePathChangeCommand(PhotoItem * item, QUndoCommand * parent = nullptr) :
+    PhotoItemImagePathChangeCommand(PhotoItem* item, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Image Shape Change"), parent),
         m_item(item),
         m_image_path(m_item->m_image_path)
@@ -164,7 +164,7 @@ class PhotoItemImageMovedCommand : public QUndoCommand
 
     static PhotoItemImageMovedCommand* m_instance;
 
-    PhotoItemImageMovedCommand(PhotoItem * item, QUndoCommand * parent = nullptr) :
+    PhotoItemImageMovedCommand(PhotoItem* item, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Image Position Change"), parent),
         m_item(item),
         done(true)
@@ -172,14 +172,14 @@ class PhotoItemImageMovedCommand : public QUndoCommand
 
 public:
 
-    static PhotoItemImageMovedCommand * instance(PhotoItem * item)
+    static PhotoItemImageMovedCommand * instance(PhotoItem* item)
     {
         if (!m_instance)
             m_instance = new PhotoItemImageMovedCommand(item);
         return m_instance;
     }
 
-    void translate(QPointF & translation)
+    void translate(QPointF& translation)
     {
         translation += translation;
     }
@@ -247,7 +247,7 @@ QString PhotoItem::PhotoItemPrivate::locateFile(const QString& filePath)
     return resultPath;
 }
 
-void PhotoItem::PhotoItemPrivate::setImage(const QImage & image)
+void PhotoItem::PhotoItemPrivate::setImage(const QImage& image)
 {
     if (image.isNull() || image == m_image)
         return;
@@ -255,22 +255,22 @@ void PhotoItem::PhotoItemPrivate::setImage(const QImage & image)
     m_item->refresh();
 }
 
-QImage & PhotoItem::PhotoItemPrivate::image()
+QImage& PhotoItem::PhotoItemPrivate::image()
 {
     return m_image;
 }
 
-void PhotoItem::PhotoItemPrivate::setFileUrl(const QUrl & url)
+void PhotoItem::PhotoItemPrivate::setFileUrl(const QUrl& url)
 {
     m_file_path = url;
 }
 
-QUrl & PhotoItem::PhotoItemPrivate::fileUrl()
+QUrl& PhotoItem::PhotoItemPrivate::fileUrl()
 {
     return m_file_path;
 }
 
-PhotoItem::PhotoItem(const QImage & photo, const QString& name, PLEScene * scene) :
+PhotoItem::PhotoItem(const QImage& photo, const QString& name, PLEScene* scene) :
     AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))
@@ -287,7 +287,7 @@ PhotoItem::PhotoItem(const QPainterPath& shape, const QString& name, PLEScene* s
     refresh();
 }
 
-PhotoItem::PhotoItem(const QString& name, PLEScene * scene) :
+PhotoItem::PhotoItem(const QString& name, PLEScene* scene) :
     AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
     m_highlight(false),
     d(new PhotoItemPrivate(this))
@@ -436,9 +436,9 @@ QDomDocument PhotoItem::toTemplateSvg() const
     return document1;
 }
 
-PhotoItem * PhotoItem::fromSvg(QDomElement& element)
+PhotoItem* PhotoItem::fromSvg(QDomElement& element)
 {
-    PhotoItem * item = new PhotoItem();
+    PhotoItem* item = new PhotoItem();
     if (item->AbstractPhoto::fromSvg(element))
     {
         // Gets data field
@@ -665,7 +665,7 @@ void PhotoItem::dropEvent(QGraphicsSceneDragDropEvent * event)
     event->setAccepted( !img.isNull() );
 }
 
-void PhotoItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
+void PhotoItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     if ((event->modifiers() & Qt::ControlModifier) && (event->buttons() & Qt::LeftButton))
         d->m_image_moving = true;
@@ -673,7 +673,7 @@ void PhotoItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
         AbstractPhoto::mousePressEvent(event);
 }
 
-void PhotoItem::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
+void PhotoItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
     event->setAccepted(false);
     if (d->m_image_moving)
@@ -697,7 +697,7 @@ void PhotoItem::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
     }
 }
 
-void PhotoItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * event)
+void PhotoItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     if (d->m_image_moving)
     {
@@ -708,17 +708,17 @@ void PhotoItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * event)
         AbstractPhoto::mouseReleaseEvent(event);
 }
 
-QImage & PhotoItem::image()
+QImage& PhotoItem::image()
 {
     return d->m_image;
 }
 
-const QImage & PhotoItem::image() const
+const QImage& PhotoItem::image() const
 {
     return d->m_image;
 }
 
-void PhotoItem::setImage(const QImage & image)
+void PhotoItem::setImage(const QImage& image)
 {
     qDebug() << "setImage();";
     if (image.isNull())
@@ -731,7 +731,7 @@ void PhotoItem::setImage(const QImage & image)
     PLEWindow::instance()->endUndoCommandGroup();
 }
 
-void PhotoItem::imageLoaded(const QUrl & url, const QImage & image)
+void PhotoItem::imageLoaded(const QUrl& url, const QImage& image)
 {
     if (image.isNull())
         return;
@@ -745,9 +745,9 @@ void PhotoItem::imageLoaded(const QUrl & url, const QImage & image)
     PLEWindow::instance()->endUndoCommandGroup();
 }
 
-void PhotoItem::setImageUrl(const QUrl & url)
+void PhotoItem::setImageUrl(const QUrl& url)
 {
-    ImageLoadingThread * ilt = new ImageLoadingThread(this);
+    ImageLoadingThread* ilt = new ImageLoadingThread(this);
     ilt->setImagesUrls(QList<QUrl>() << url);
     connect(ilt, SIGNAL(imageLoaded(QUrl,QImage)), this, SLOT(imageLoaded(QUrl,QImage)));
     ilt->start();
@@ -776,7 +776,7 @@ void PhotoItem::updateIcon()
     setIcon(QIcon(temp));
 }
 
-void PhotoItem::fitToRect(const QRect & rect)
+void PhotoItem::fitToRect(const QRect& rect)
 {
     // Scaling if to big
     QSize s = d->image().size();
@@ -828,7 +828,7 @@ void PhotoItem::refreshItem()
     update();
 }
 
-QtAbstractPropertyBrowser * PhotoItem::propertyBrowser()
+QtAbstractPropertyBrowser* PhotoItem::propertyBrowser()
 {
     return nullptr; /// TODO
 }
@@ -838,7 +838,7 @@ bool PhotoItem::isEmpty() const
     return d->m_image.isNull();
 }
 
-void PhotoItem::setupItem(const QImage & image)
+void PhotoItem::setupItem(const QImage& image)
 {
     if (image.isNull())
         return;

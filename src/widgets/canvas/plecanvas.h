@@ -72,7 +72,7 @@ public:
 
 public:
 
-    explicit PLECanvas(const PLECanvasSize & size, QWidget* parent = nullptr);
+    explicit PLECanvas(const PLECanvasSize& size, QWidget* parent = nullptr);
     ~PLECanvas();
 
     virtual void wheelEvent(QWheelEvent* event) override;
@@ -181,7 +181,7 @@ public Q_SLOTS:
     void selectionChanged();
 
     /// Select items on scene (synchronize scene with model)
-    void selectionChanged(const QItemSelection & newSelection, const QItemSelection & oldSelection);
+    void selectionChanged(const QItemSelection& newSelection, const QItemSelection& oldSelection);
 
     /// Conrtols saved-state of the canvas
     void isSavedChanged(int currentCommandIndex);
@@ -239,14 +239,14 @@ Q_SIGNALS:
 
     void hasSelectionChanged(bool hasSelection);
     void selectedItem(AbstractPhoto* photo);
-    void setInitialValues(qreal width, Qt::PenJoinStyle cornersStyle, const QColor & color);
+    void setInitialValues(qreal width, Qt::PenJoinStyle cornersStyle, const QColor& color);
     void savedStateChanged();
 
 protected Q_SLOTS:
 
     /// Used when new item has been created and needs to be added to the scene and to the model
     void addNewItem(AbstractPhoto* item);
-    void imageLoaded(const QUrl & url, const QImage & image);
+    void imageLoaded(const QUrl& url, const QImage& image);
 
 private Q_SLOTS:
 

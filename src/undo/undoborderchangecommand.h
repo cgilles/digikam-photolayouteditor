@@ -41,7 +41,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit UndoBorderChangeCommand(AbstractPhoto* photo, qreal newWidth, Qt::PenJoinStyle newCornerStyle, const QColor & newColor, QUndoCommand * parent = nullptr);
+            explicit UndoBorderChangeCommand(AbstractPhoto* photo, qreal newWidth, Qt::PenJoinStyle newCornerStyle, const QColor& newColor, QUndoCommand* parent = nullptr);
             virtual void redo();
             virtual void undo();
     };

@@ -40,8 +40,8 @@ namespace PhotoLayoutsEditor
         public:
 
             explicit PLECanvasSavingThread(QObject* parent = nullptr);
-            void save(PLECanvas * canvas, const QUrl& url);
-            void saveAsTemplate(PLECanvas * canvas, const QUrl& url);
+            void save(PLECanvas* canvas, const QUrl& url);
+            void saveAsTemplate(PLECanvas* canvas, const QUrl& url);
             virtual void progresChanged(double progress) override;
             virtual void progresName(const QString& name) override;
 

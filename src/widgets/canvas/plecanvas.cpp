@@ -56,7 +56,7 @@
 namespace PhotoLayoutsEditor
 {
 
-PLECanvas::PLECanvas(const PLECanvasSize & size, QWidget* parent) :
+PLECanvas::PLECanvas(const PLECanvasSize& size, QWidget* parent) :
     QGraphicsView(parent),
     d(new PLECanvasPrivate)
 {
@@ -65,7 +65,7 @@ PLECanvas::PLECanvas(const PLECanvasSize & size, QWidget* parent) :
     this->init();
 }
 
-PLECanvas::PLECanvas(PLEScene * scene, QWidget* parent) :
+PLECanvas::PLECanvas(PLEScene* scene, QWidget* parent) :
     QGraphicsView(parent),
     d(new PLECanvasPrivate)
 {
@@ -185,7 +185,7 @@ PLECanvasSize PLECanvas::canvasSize() const
     return d->m_size;
 }
 
-void PLECanvas::setPLECanvasSize(const PLECanvasSize & size)
+void PLECanvas::setPLECanvasSize(const PLECanvasSize& size)
 {
     if (!size.isValid())
         return;
@@ -193,7 +193,7 @@ void PLECanvas::setPLECanvasSize(const PLECanvasSize & size)
     m_scene->setSceneRect(QRectF(QPointF(0,0), size.size(PLECanvasSize::Pixels)));
 }
 
-void PLECanvas::preparePrinter(QPrinter * printer)
+void PLECanvas::preparePrinter(QPrinter* printer)
 {
     printer->setPageMargins(0, 0, 0, 0, QPrinter::Millimeter);
     PLECanvasSize::SizeUnits su = d->m_size.sizeUnit();
@@ -241,10 +241,10 @@ void PLECanvas::preparePrinter(QPrinter * printer)
     }
 }
 
-void PLECanvas::addImage(const QImage & image)
+void PLECanvas::addImage(const QImage& image)
 {
     // Create & setup item
-    PhotoItem * it = new PhotoItem(image);
+    PhotoItem* it = new PhotoItem(image);
 
     // Add item to scene & model
     m_scene->addItem(it);
@@ -253,9 +253,9 @@ void PLECanvas::addImage(const QImage & image)
     it->fitToRect(m_scene->sceneRect().toRect());
 }
 
-void PLECanvas::addImage(const QUrl & imageUrl)
+void PLECanvas::addImage(const QUrl& imageUrl)
 {
-    ImageLoadingThread * ilt = new ImageLoadingThread(this);
+    ImageLoadingThread* ilt = new ImageLoadingThread(this);
     ilt->setImageUrl(imageUrl);
     ilt->setMaximumProgress(0.9);
     connect(ilt, SIGNAL(imageLoaded(QUrl,QImage)), this, SLOT(imageLoaded(QUrl,QImage)));
@@ -264,7 +264,7 @@ void PLECanvas::addImage(const QUrl & imageUrl)
 
 void PLECanvas::addImages(const QList<QUrl> & images)
 {
-    ImageLoadingThread * ilt = new ImageLoadingThread(this);
+    ImageLoadingThread* ilt = new ImageLoadingThread(this);
     ilt->setImagesUrls(images);
     ilt->setMaximumProgress(0.9);
     connect(ilt, SIGNAL(imageLoaded(QUrl,QImage)), this, SLOT(imageLoaded(QUrl,QImage)));
@@ -274,7 +274,7 @@ void PLECanvas::addImages(const QList<QUrl> & images)
 void PLECanvas::addText(const QString& text)
 {
     // Create & setup item
-    TextItem * it = new TextItem(text);
+    TextItem* it = new TextItem(text);
 
     // Add item to scene & model
     m_scene->addItem(it);
@@ -301,12 +301,12 @@ void PLECanvas::setAntialiasing(bool antialiasing)
     this->update();
 }
 
-void PLECanvas::imageLoaded(const QUrl & url, const QImage & image)
+void PLECanvas::imageLoaded(const QUrl& url, const QImage& image)
 {
     if (!image.isNull())
     {
         // Create & setup item
-        PhotoItem * it = new PhotoItem(image, url.fileName(), m_scene);
+        PhotoItem* it = new PhotoItem(image, url.fileName(), m_scene);
         // Add item to scene & model
         m_scene->addItem(it);
     }
@@ -321,7 +321,7 @@ void PLECanvas::moveRowsCommand(const QModelIndex& startIndex, int count, const 
         destination += move;
     else
         return;
-    UndoMoveRowsCommand * undo = new UndoMoveRowsCommand(startIndex.row(), count, parentIndex, destination, destinationParent, model());
+    UndoMoveRowsCommand* undo = new UndoMoveRowsCommand(startIndex.row(), count, parentIndex, destination, destinationParent, model());
     m_undo_stack->push(undo);
 }
 
@@ -343,7 +343,7 @@ void PLECanvas::moveSelectedRowsUp()
         int minRow = startIndex.row();
         int maxRow = startIndex.row();
         int sumRows = startIndex.row();
-        for(++it; it != selectedIndexes.end(); ++it)
+        for (++it; it != selectedIndexes.end(); ++it)
         {
             if (it->column() != LayersModelItem::NameString)
                 continue;
@@ -401,7 +401,7 @@ void PLECanvas::moveSelectedRowsDown()
         int minRow = startIndex.row();
         int maxRow = startIndex.row();
         int sumRows = startIndex.row();
-        for(++it; it != selectedIndexes.end(); ++it)
+        for (++it; it != selectedIndexes.end(); ++it)
         {
             if (it->column() != LayersModelItem::NameString)
                 continue;
@@ -456,7 +456,7 @@ void PLECanvas::removeSelectedRows()
 {
     QList<AbstractPhoto*> items;
     QModelIndexList selectedIndexes = selectionModel()->selectedRows();
-    foreach(QModelIndex index, selectedIndexes)
+    foreach (QModelIndex index, selectedIndexes)
         items << static_cast<LayersModelItem*>(index.internalPointer())->photo();
     m_scene->removeItems(items);
 }
@@ -466,12 +466,12 @@ void PLECanvas::selectionChanged()
     QList<AbstractPhoto*> selectedItems = m_scene->selectedItems();
     QModelIndexList oldSelected = selectionModel()->selectedIndexes();
     QModelIndexList newSelected = model()->itemsToIndexes(selectedItems);
-    foreach(QModelIndex index, oldSelected)
+    foreach (QModelIndex index, oldSelected)
     {
         if (!newSelected.contains(index) && index.column() == LayersModelItem::NameString)
             selectionModel()->select(index, QItemSelectionModel::Rows | QItemSelectionModel::Deselect);
     }
-    foreach(QModelIndex index, newSelected)
+    foreach (QModelIndex index, newSelected)
     {
         if (!selectionModel()->isSelected(index) && index.column() == LayersModelItem::NameString)
             selectionModel()->select(index, QItemSelectionModel::Rows | QItemSelectionModel::Select);
@@ -497,13 +497,13 @@ void PLECanvas::selectionChanged()
         emit hasSelectionChanged(selectedItems.count());
 }
 
-void PLECanvas::selectionChanged(const QItemSelection & newSelection, const QItemSelection & oldSelection)
+void PLECanvas::selectionChanged(const QItemSelection& newSelection, const QItemSelection& oldSelection)
 {
     LayersModelItem* temp;
     const QModelIndexList& oldSel = oldSelection.indexes();
     const QModelIndexList& newSel = newSelection.indexes();
     QSet<QModelIndex> deselected = oldSel.toSet().subtract(newSel.toSet());
-    foreach(QModelIndex index, deselected)
+    foreach (const QModelIndex& index, deselected)
     {
         if (index.column() != LayersModelItem::NameString)
             continue;
@@ -512,7 +512,7 @@ void PLECanvas::selectionChanged(const QItemSelection & newSelection, const QIte
             temp->photo()->setSelected(false);
     }
     QSet<QModelIndex> selected = newSel.toSet().subtract(oldSel.toSet());
-    foreach(QModelIndex index, selected)
+    foreach (const QModelIndex& index, selected)
     {
         if (index.column() != LayersModelItem::NameString)
             continue;
@@ -621,14 +621,14 @@ void PLECanvas::refreshWidgetConnections(bool isVisible)
         disconnect(this,SIGNAL(hasSelectionChanged(bool)),sender(), nullptr);
 }
 
-void PLECanvas::newUndoCommand(QUndoCommand * command)
+void PLECanvas::newUndoCommand(QUndoCommand* command)
 {
     m_undo_stack->push(command);
 }
 
-void PLECanvas::progressEvent(ProgressEvent * event)
+void PLECanvas::progressEvent(ProgressEvent* event)
 {
-    QProgressBar * temp = d->progressMap[event->sender()];
+    QProgressBar* temp = d->progressMap[event->sender()];
     switch (event->type())
     {
         case ProgressEvent::Init:
@@ -638,7 +638,7 @@ void PLECanvas::progressEvent(ProgressEvent * event)
             temp->setValue(0);
             this->setEnabled(false);
             {
-                PLEStatusBar * sb = dynamic_cast<PLEStatusBar*>(PLEWindow::instance()->statusBar());
+                PLEStatusBar* sb = dynamic_cast<PLEStatusBar*>(PLEWindow::instance()->statusBar());
                 if (sb)
                     sb->runBusyIndicator();
             }
@@ -659,7 +659,7 @@ void PLECanvas::progressEvent(ProgressEvent * event)
             }
             this->setEnabled(true);
             {
-                PLEStatusBar * sb = dynamic_cast<PLEStatusBar*>(PLEWindow::instance()->statusBar());
+                PLEStatusBar* sb = dynamic_cast<PLEStatusBar*>(PLEWindow::instance()->statusBar());
                 if (sb)
                     sb->stopBusyIndicator();
             }
@@ -671,7 +671,7 @@ void PLECanvas::progressEvent(ProgressEvent * event)
     event->setAccepted(temp);
 }
 
-void PLECanvas::wheelEvent(QWheelEvent * event)
+void PLECanvas::wheelEvent(QWheelEvent* event)
 {
     int steps = event->delta() / 120;
     double scaleFactor;
@@ -726,9 +726,9 @@ QDomDocument PLECanvas::toSvg() const
     return result;
 }
 
-PLECanvas * PLECanvas::fromSvg(QDomDocument& document)
+PLECanvas* PLECanvas::fromSvg(QDomDocument& document)
 {
-    PLECanvas * result = nullptr;
+    PLECanvas* result = nullptr;
     QDomNodeList children = document.childNodes();
 
     if (children.count())
@@ -769,7 +769,7 @@ PLECanvas * PLECanvas::fromSvg(QDomDocument& document)
                     QDomElement sceneElement = element.firstChildElement(QLatin1String("g"));
                     while (!sceneElement.isNull() && sceneElement.attribute(QLatin1String("id")) != QLatin1String("PLEScene"))
                         sceneElement = sceneElement.nextSiblingElement(QLatin1String("g"));
-                    PLEScene * scene = PLEScene::fromSvg(sceneElement);
+                    PLEScene* scene = PLEScene::fromSvg(sceneElement);
                     if (scene)
                     {
                         result = new PLECanvas(scene);
@@ -789,7 +789,7 @@ PLECanvas * PLECanvas::fromSvg(QDomDocument& document)
     return result;
 }
 
-void PLECanvas::scale(qreal factor, const QPoint & center)
+void PLECanvas::scale(qreal factor, const QPoint& center)
 {
     // Scaling limitation
     if (factor <= 0 || !scene() || ((m_scale_factor*factor <= 0.1 && factor < 1) || (m_scale_factor*factor > 7)))
@@ -805,7 +805,7 @@ void PLECanvas::scale(qreal factor, const QPoint & center)
     m_scale_factor *= factor;
 }
 
-void PLECanvas::scale(const QRect & rect)
+void PLECanvas::scale(const QRect& rect)
 {
     QRectF r(this->mapToScene(rect.topLeft()),
              this->mapToScene(rect.bottomRight()));
@@ -831,13 +831,13 @@ QUrl PLECanvas::file() const
     return m_file;
 }
 
-void PLECanvas::setFile(const QUrl & file)
+void PLECanvas::setFile(const QUrl& file)
 {
     if (file.isValid() && !file.isEmpty())
         m_file = file;
 }
 
-void PLECanvas::save(const QUrl & fileUrl, bool setAsDefault)
+void PLECanvas::save(const QUrl& fileUrl, bool setAsDefault)
 {
     QUrl tempFile = fileUrl;
     if (fileUrl.isEmpty() || !fileUrl.isValid())
@@ -860,7 +860,7 @@ void PLECanvas::save(const QUrl & fileUrl, bool setAsDefault)
     thread->save(this, m_file);
 }
 
-void PLECanvas::saveTemplate(const QUrl & fileUrl)
+void PLECanvas::saveTemplate(const QUrl& fileUrl)
 {
     if (fileUrl.isEmpty() || !fileUrl.isValid())
     {
@@ -909,7 +909,7 @@ void PLECanvas::savingFinished()
     emit savedStateChanged();
 }
 
-void PLECanvas::renderPLECanvas(QPaintDevice * device)
+void PLECanvas::renderPLECanvas(QPaintDevice* device)
 {
     if (scene())
     {
@@ -934,7 +934,7 @@ void PLECanvas::renderPLECanvas(QPaintDevice * device)
     }
 }
 
-void PLECanvas::renderPLECanvas(QPrinter * device)
+void PLECanvas::renderPLECanvas(QPrinter* device)
 {
     renderPLECanvas(static_cast<QPaintDevice*>(device));
 }

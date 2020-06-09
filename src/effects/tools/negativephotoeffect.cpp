@@ -23,16 +23,20 @@
  * ============================================================ */
 
 #include "negativephotoeffect.h"
+
+// Local includes
+
 #include "standardeffectsfactory.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-NegativePhotoEffect::NegativePhotoEffect(StandardEffectsFactory * factory, QObject* parent) :
-    AbstractPhotoEffectInterface(factory, parent)
+NegativePhotoEffect::NegativePhotoEffect(StandardEffectsFactory* factory, QObject* parent)
+    : AbstractPhotoEffectInterface(factory, parent)
 {
 }
 
-QImage NegativePhotoEffect::apply(const QImage & image) const
+QImage NegativePhotoEffect::apply(const QImage& image) const
 {
     if (!this->strength())
         return image;
@@ -57,3 +61,5 @@ NegativePhotoEffect::operator QString() const
 {
     return toString();
 }
+
+} // namespace PhotoLayoutsEditor

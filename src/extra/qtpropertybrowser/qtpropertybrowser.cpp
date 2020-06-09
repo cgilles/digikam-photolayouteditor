@@ -813,9 +813,9 @@ QtProperty *QtAbstractPropertyManager::addProperty(const QString &name)
 
     \sa addProperty(), setPropertyId(const QString&), properties()
 */
-QtProperty * QtAbstractPropertyManager::qtProperty(const QString &id)const
+QtProperty* QtAbstractPropertyManager::qtProperty(const QString &id)const
 {
-  foreach(QtProperty* prop, d_ptr->m_properties)
+  foreach (QtProperty* prop, d_ptr->m_properties)
     {
     if (prop->propertyId() == id)
       {
@@ -974,7 +974,7 @@ void QtAbstractPropertyManager::uninitializeProperty(QtProperty *property)
 
     \code
         QtSpinBoxFactory *factory;
-        QSet<QtIntPropertyManager *> managers = factory->propertyManagers();
+        QSet<QtIntPropertyManager* > managers = factory->propertyManagers();
     \endcode
 
     Note that QtSpinBoxFactory by definition creates editing widgets
@@ -1151,7 +1151,7 @@ public:
     void addChild(QtBrowserItem *index, QtBrowserItem *after);
     void removeChild(QtBrowserItem *index);
 
-    QtAbstractPropertyBrowser * const m_browser;
+    QtAbstractPropertyBrowser* const m_browser;
     QtProperty *m_property;
     QtBrowserItem *m_parent;
 
@@ -1653,8 +1653,8 @@ void QtAbstractPropertyBrowserPrivate::slotPropertyDataChanged(QtProperty *prope
     For example:
 
     \code
-        QtIntPropertyManager *intManager;
-        QtDoublePropertyManager *doubleManager;
+        QtIntPropertyManager* intManager;
+        QtDoublePropertyManager* doubleManager;
 
         QtProperty *myInteger = intManager->addProperty();
         QtProperty *myDouble = doubleManager->addProperty();

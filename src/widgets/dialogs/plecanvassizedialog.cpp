@@ -107,7 +107,7 @@ class PLECanvasSizeDialogPrivate
         QComboBox * paperSize;
         QDoubleSpinBox *  xSize;
         QDoubleSpinBox *  ySize;
-        QButtonGroup *  orientationGroup;
+        QButtonGroup*  orientationGroup;
         QPushButton *   verticalButton;
         QLabel *    sizeLabel;
         QPushButton *   horizontalButton;
@@ -306,7 +306,7 @@ PLECanvasSizeDialog::PLECanvasSizeDialog(QWidget* parent) :
                 d->currentResolutionUnit);
 }
 
-PLECanvasSizeDialog::PLECanvasSizeDialog(const PLECanvasSize & canvasSize, QWidget* parent) :
+PLECanvasSizeDialog::PLECanvasSizeDialog(const PLECanvasSize& canvasSize, QWidget* parent) :
     QDialog(parent),
     d(new PLECanvasSizeDialogPrivate)
 {
@@ -338,7 +338,7 @@ void PLECanvasSizeDialog::setupDialog(const QSizeF & size,
         tempResolutionUnits = PLECanvasSize::resolutionUnitName(PLECanvasSize::PixelsPerInch);;
 
     QWidget* main        = new QWidget(this);
-    QVBoxLayout * vLayout = new QVBoxLayout(main);
+    QVBoxLayout* vLayout = new QVBoxLayout(main);
     setLayout(vLayout);
 
     /// ----------------------- TEMPLATES PART -----------------------

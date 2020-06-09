@@ -57,14 +57,14 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit PLESceneBackground(QGraphicsScene * scene = nullptr);
+            explicit PLESceneBackground(QGraphicsScene* scene = nullptr);
             virtual QRectF boundingRect() const override;
 
-            void setSecondColor(const QColor & color);
-            void setSolidColor(const QColor & color);
-            void setPattern(const QColor & firstColor, const QColor & secondColor, Qt::BrushStyle patternStyle);
-            void setImage(const QImage & image, const QColor & backgroundColor, Qt::Alignment align, Qt::AspectRatioMode aspectRatio, bool repeat);
-            void setImage(const QImage & image, const QColor & backgroundColor, Qt::Alignment align, const QSize & fixedSize, bool repeat);
+            void setSecondColor(const QColor& color);
+            void setSolidColor(const QColor& color);
+            void setPattern(const QColor& firstColor, const QColor& secondColor, Qt::BrushStyle patternStyle);
+            void setImage(const QImage& image, const QColor& backgroundColor, Qt::Alignment align, Qt::AspectRatioMode aspectRatio, bool repeat);
+            void setImage(const QImage& image, const QColor& backgroundColor, Qt::Alignment align, const QSize & fixedSize, bool repeat);
 
             bool isColor() const;
             bool isGradient() const;
@@ -91,7 +91,7 @@ namespace PhotoLayoutsEditor
 
             QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
             void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
-            void render(QPainter* painter, const QRect & rect);
+            void render(QPainter* painter, const QRect& rect);
 
         protected Q_SLOTS:
 

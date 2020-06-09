@@ -23,14 +23,20 @@
  * ============================================================ */
 
 #include "abstractphotoitemloader.h"
+
+// Qt includes
+
+#include <QDebug>
+
+// Local includes
+
 #include "abstractphoto.h"
 #include "abstractphoto_p.h"
 #include "progressobserver.h"
 #include "pleglobal.h"
 
-#include <QDebug>
-
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 AbstractPhotoItemLoader::AbstractPhotoItemLoader(AbstractPhoto* item, QDomElement& element, QObject* parent) :
     QThread(parent),
@@ -233,3 +239,5 @@ void AbstractPhotoItemLoader::run()
     else
         this->exit(1);
 }
+
+} // namespace PhotoLayoutsEditor

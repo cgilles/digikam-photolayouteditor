@@ -51,7 +51,7 @@ private:
 
 public:
 
-    AbstractItemsTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget* parent = nullptr);
+    AbstractItemsTool(PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent = nullptr);
 
     /** Current photo property
     * This property holds an information which item is currently editing.
@@ -62,7 +62,7 @@ public:
     void setCurrentItem(AbstractPhoto* photo);
 
     QPointF mousePosition();
-    void setMousePosition(const QPointF & position);
+    void setMousePosition(const QPointF& position);
 
 Q_SIGNALS:
 

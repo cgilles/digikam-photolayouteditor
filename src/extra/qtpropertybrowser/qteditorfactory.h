@@ -55,11 +55,11 @@ public:
     explicit QtSpinBoxFactory(QObject* parent = nullptr);
     ~QtSpinBoxFactory();
 protected:
-    void connectPropertyManager(QtIntPropertyManager *manager) override;
+    void connectPropertyManager(QtIntPropertyManager* manager) override;
     using QtAbstractEditorFactory::createEditor;
-    QWidget *createEditor(QtIntPropertyManager *manager, QtProperty *property,
+    QWidget *createEditor(QtIntPropertyManager* manager, QtProperty *property,
                 QWidget *parent) override;
-    void disconnectPropertyManager(QtIntPropertyManager *manager) override;
+    void disconnectPropertyManager(QtIntPropertyManager* manager) override;
 private:
     QtSpinBoxFactoryPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtSpinBoxFactory)
@@ -80,11 +80,11 @@ public:
     explicit QtSliderFactory(QObject* parent = nullptr);
     ~QtSliderFactory();
 protected:
-    void connectPropertyManager(QtIntPropertyManager *manager) override;
+    void connectPropertyManager(QtIntPropertyManager* manager) override;
     using QtAbstractEditorFactory::createEditor;
-    QWidget *createEditor(QtIntPropertyManager *manager, QtProperty *property,
+    QWidget *createEditor(QtIntPropertyManager* manager, QtProperty *property,
                 QWidget *parent) override;
-    void disconnectPropertyManager(QtIntPropertyManager *manager) override;
+    void disconnectPropertyManager(QtIntPropertyManager* manager) override;
 private:
     QtSliderFactoryPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtSliderFactory)
@@ -105,11 +105,11 @@ public:
     explicit QtScrollBarFactory(QObject* parent = nullptr);
     ~QtScrollBarFactory();
 protected:
-    void connectPropertyManager(QtIntPropertyManager *manager) override;
+    void connectPropertyManager(QtIntPropertyManager* manager) override;
     using QtAbstractEditorFactory::createEditor;
-    QWidget *createEditor(QtIntPropertyManager *manager, QtProperty *property,
+    QWidget *createEditor(QtIntPropertyManager* manager, QtProperty *property,
                 QWidget *parent) override;
-    void disconnectPropertyManager(QtIntPropertyManager *manager) override;
+    void disconnectPropertyManager(QtIntPropertyManager* manager) override;
 private:
     QtScrollBarFactoryPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtScrollBarFactory)
@@ -153,11 +153,11 @@ public:
     explicit QtDoubleSpinBoxFactory(QObject* parent = nullptr);
     ~QtDoubleSpinBoxFactory();
 protected:
-    void connectPropertyManager(QtDoublePropertyManager *manager) override;
+    void connectPropertyManager(QtDoublePropertyManager* manager) override;
     using QtAbstractEditorFactory::createEditor;
-    QWidget *createEditor(QtDoublePropertyManager *manager, QtProperty *property,
+    QWidget *createEditor(QtDoublePropertyManager* manager, QtProperty *property,
                 QWidget *parent) override;
-    void disconnectPropertyManager(QtDoublePropertyManager *manager) override;
+    void disconnectPropertyManager(QtDoublePropertyManager* manager) override;
 private:
     QtDoubleSpinBoxFactoryPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtDoubleSpinBoxFactory)
@@ -320,11 +320,11 @@ public:
     explicit QtEnumEditorFactory(QObject* parent = nullptr);
     ~QtEnumEditorFactory();
 protected:
-    void connectPropertyManager(QtEnumPropertyManager *manager) override;
+    void connectPropertyManager(QtEnumPropertyManager* manager) override;
     using QtAbstractEditorFactory::createEditor;
-    QWidget *createEditor(QtEnumPropertyManager *manager, QtProperty *property,
+    QWidget *createEditor(QtEnumPropertyManager* manager, QtProperty *property,
                 QWidget *parent) override;
-    void disconnectPropertyManager(QtEnumPropertyManager *manager) override;
+    void disconnectPropertyManager(QtEnumPropertyManager* manager) override;
 private:
     QtEnumEditorFactoryPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtEnumEditorFactory)

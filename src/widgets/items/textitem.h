@@ -49,15 +49,15 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit TextItem(const QString& text = QString(), PLEScene * scene = nullptr);
+            explicit TextItem(const QString& text = QString(), PLEScene* scene = nullptr);
             virtual void focusInEvent(QFocusEvent *event) override;
             virtual void focusOutEvent(QFocusEvent *event) override;
-            virtual void keyPressEvent(QKeyEvent * event) override;
+            virtual void keyPressEvent(QKeyEvent* event) override;
             virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
             Q_PROPERTY(QColor m_color READ color WRITE setColor)
             QColor color() const;
-            void setColor(const QColor & color);
+            void setColor(const QColor& color);
 
             Q_PROPERTY(QFont m_font READ font WRITE setFont)
             QFont font() const;
@@ -80,10 +80,10 @@ namespace PhotoLayoutsEditor
             virtual QDomDocument toTemplateSvg() const override;
             virtual QDomDocument svgVisibleArea() const override;
             virtual QDomDocument svgTemplateArea() const override;
-            static TextItem * fromSvg(QDomElement& element);
+            static TextItem* fromSvg(QDomElement& element);
 
             /// Returns item's property browser
-            virtual QtAbstractPropertyBrowser * propertyBrowser() override;
+            virtual QtAbstractPropertyBrowser* propertyBrowser() override;
 
         private:
 
@@ -95,7 +95,7 @@ namespace PhotoLayoutsEditor
 
             class TextItemPrivate
             {
-                explicit TextItemPrivate(TextItem * item) :
+                explicit TextItemPrivate(TextItem* item) :
                     m_item(item),
                     m_cursorIsVisible(false),
                     m_cursor_row(0),
@@ -118,7 +118,7 @@ namespace PhotoLayoutsEditor
                 void removeText(int row, int at, int length);
                 void closeEditor();
 
-                TextItem * m_item;
+                TextItem* m_item;
 
                 QStringList m_string_list;
 
@@ -127,7 +127,7 @@ namespace PhotoLayoutsEditor
                 int m_cursor_row;
                 int m_cursor_character;
 
-                QUndoCommand * command;
+                QUndoCommand* command;
 
                 friend class TextItem;
                 friend class TextItemLoader;

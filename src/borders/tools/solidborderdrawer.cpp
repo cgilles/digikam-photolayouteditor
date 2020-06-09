@@ -23,14 +23,20 @@
  * ============================================================ */
 
 #include "solidborderdrawer.h"
-#include "standardbordersfactory.h"
+
+// Qt includes
 
 #include <QPainter>
 #include <QPaintEngine>
 #include <QMetaProperty>
 #include <QDebug>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
+
+#include "standardbordersfactory.h"
+
+namespace PhotoLayoutsEditor
+{
 
 QMap<const char *,QString> SolidBorderDrawer::m_properties;
 QMap<Qt::PenJoinStyle, QString> SolidBorderDrawer::m_corners_style_names;
@@ -39,12 +45,12 @@ QColor SolidBorderDrawer::m_default_color = Qt::red;
 int SolidBorderDrawer::m_default_spacing = 0;
 Qt::PenJoinStyle SolidBorderDrawer::m_default_corners_style = Qt::MiterJoin;
 
-SolidBorderDrawer::SolidBorderDrawer(StandardBordersFactory* factory, QObject* parent) :
-    BorderDrawerInterface(factory, parent),
-    m_width(m_default_width),
-    m_color(m_default_color),
-    m_spacing(m_default_spacing),
-    m_corners_style(m_default_corners_style)
+SolidBorderDrawer::SolidBorderDrawer(StandardBordersFactory* factory, QObject* parent)
+    : BorderDrawerInterface(factory, parent),
+      m_width(m_default_width),
+      m_color(m_default_color),
+      m_spacing(m_default_spacing),
+      m_corners_style(m_default_corners_style)
 {
     if (m_corners_style_names.isEmpty())
     {
@@ -210,3 +216,5 @@ QVariant SolidBorderDrawer::stepValue(const QMetaProperty& property)
         return 1;
     return QVariant();
 }
+
+} // namespace PhotoLayoutsEditor

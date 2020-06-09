@@ -76,7 +76,7 @@ PLECanvasLoadingThread::~PLECanvasLoadingThread()
 
 void PLECanvasLoadingThread::progresChanged(double progress)
 {
-    ProgressEvent * progressUpdateEvent = new ProgressEvent(this);
+    ProgressEvent* progressUpdateEvent = new ProgressEvent(this);
     progressUpdateEvent->setData(ProgressEvent::ProgressUpdate, ((double)d->i+1)/((double)d->data.count()+1) + (progress / (double)d->data.count()+1) );
     QCoreApplication::postEvent(PLEWindow::instance(), progressUpdateEvent);
     QCoreApplication::processEvents();
@@ -84,7 +84,7 @@ void PLECanvasLoadingThread::progresChanged(double progress)
 
 void PLECanvasLoadingThread::progresName(const QString& name)
 {
-    ProgressEvent * actionUpdateEvent = new ProgressEvent(this);
+    ProgressEvent* actionUpdateEvent = new ProgressEvent(this);
     actionUpdateEvent->setData(ProgressEvent::ActionUpdate, name);
     QCoreApplication::postEvent(PLEWindow::instance(), actionUpdateEvent);
     QCoreApplication::processEvents();
@@ -98,7 +98,7 @@ void PLECanvasLoadingThread::addItem(AbstractPhoto* item, QDomElement& element)
     d->data.insert(item, element);
 }
 
-void PLECanvasLoadingThread::addBackground(PLESceneBackground * background, QDomElement& element)
+void PLECanvasLoadingThread::addBackground(PLESceneBackground* background, QDomElement& element)
 {
     if (element.attribute(QLatin1String("class")) != QLatin1String("background") || !background)
         return;
@@ -107,7 +107,7 @@ void PLECanvasLoadingThread::addBackground(PLESceneBackground * background, QDom
     d->background.second = element;
 }
 
-void PLECanvasLoadingThread::addBorder(PLESceneBorder * border, QDomElement& element)
+void PLECanvasLoadingThread::addBorder(PLESceneBorder* border, QDomElement& element)
 {
     if (element.attribute(QLatin1String("class")) != QLatin1String("border") || !border)
         return;
@@ -118,14 +118,14 @@ void PLECanvasLoadingThread::addBorder(PLESceneBorder * border, QDomElement& ele
 
 void PLECanvasLoadingThread::run()
 {
-    ProgressEvent * startEvent = new ProgressEvent(this);
+    ProgressEvent* startEvent = new ProgressEvent(this);
     startEvent->setData(ProgressEvent::Init, 0);
     QCoreApplication::postEvent(PLEWindow::instance(), startEvent);
     QCoreApplication::processEvents();
 
     // Background
     {
-        ProgressEvent * actionUpdateEvent = new ProgressEvent(this);
+        ProgressEvent* actionUpdateEvent = new ProgressEvent(this);
         actionUpdateEvent->setData(ProgressEvent::ActionUpdate, QObject::tr("Loading background...") );
         QCoreApplication::postEvent(PLEWindow::instance(), actionUpdateEvent);
         QCoreApplication::processEvents();
@@ -137,7 +137,7 @@ void PLECanvasLoadingThread::run()
             loader->wait();
         }
 
-        ProgressEvent * progressUpdateEvent = new ProgressEvent(this);
+        ProgressEvent* progressUpdateEvent = new ProgressEvent(this);
         progressUpdateEvent->setData(ProgressEvent::ProgressUpdate, 1/((double)d->data.count()+2) );
         QCoreApplication::postEvent(PLEWindow::instance(), progressUpdateEvent);
         QCoreApplication::processEvents();
@@ -149,7 +149,7 @@ void PLECanvasLoadingThread::run()
 
     for (QMap<AbstractPhoto*,QDomElement>::iterator it = d->data.begin(); it != d->data.end(); ++it, ++(d->i))
     {
-        ProgressEvent * actionUpdateEvent = new ProgressEvent(this);
+        ProgressEvent* actionUpdateEvent = new ProgressEvent(this);
         actionUpdateEvent->setData(ProgressEvent::ActionUpdate, QObject::tr("Loading item no. %1...").arg(QString::number(d->i)));
         QCoreApplication::postEvent(PLEWindow::instance(), actionUpdateEvent);
         QCoreApplication::processEvents();
@@ -171,7 +171,7 @@ void PLECanvasLoadingThread::run()
             loader->wait();
         }
 
-        ProgressEvent * progressUpdateEvent = new ProgressEvent(this);
+        ProgressEvent* progressUpdateEvent = new ProgressEvent(this);
         progressUpdateEvent->setData(ProgressEvent::ProgressUpdate, ((double)d->i+1)/((double)count+2) );
         QCoreApplication::postEvent(PLEWindow::instance(), progressUpdateEvent);
         QCoreApplication::processEvents();
@@ -179,7 +179,7 @@ void PLECanvasLoadingThread::run()
 
     // Border
     {
-        ProgressEvent * actionUpdateEvent = new ProgressEvent(this);
+        ProgressEvent* actionUpdateEvent = new ProgressEvent(this);
         actionUpdateEvent->setData(ProgressEvent::ActionUpdate, QObject::tr("Loading border...") );
         QCoreApplication::postEvent(PLEWindow::instance(), actionUpdateEvent);
         QCoreApplication::processEvents();
@@ -191,13 +191,13 @@ void PLECanvasLoadingThread::run()
             borderLoader->wait();
         }
 
-        ProgressEvent * progressUpdateEvent = new ProgressEvent(this);
+        ProgressEvent* progressUpdateEvent = new ProgressEvent(this);
         progressUpdateEvent->setData(ProgressEvent::ProgressUpdate, 1/((double)d->data.count()+2) );
         QCoreApplication::postEvent(PLEWindow::instance(), progressUpdateEvent);
         QCoreApplication::processEvents();
     }
 
-    ProgressEvent * finishEvent = new ProgressEvent(this);
+    ProgressEvent* finishEvent = new ProgressEvent(this);
     finishEvent->setData(ProgressEvent::Finish, 0);
     QCoreApplication::postEvent(PLEWindow::instance(), finishEvent);
     QCoreApplication::processEvents();

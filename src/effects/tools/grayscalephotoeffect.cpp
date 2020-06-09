@@ -23,16 +23,20 @@
  * ============================================================ */
 
 #include "grayscalephotoeffect.h"
+
+// Local includes
+
 #include "standardeffectsfactory.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-GrayscalePhotoEffect::GrayscalePhotoEffect(StandardEffectsFactory * factory, QObject* parent) :
-    AbstractPhotoEffectInterface(factory, parent)
+GrayscalePhotoEffect::GrayscalePhotoEffect(StandardEffectsFactory* factory, QObject* parent)
+    : AbstractPhotoEffectInterface(factory, parent)
 {
 }
 
-QImage GrayscalePhotoEffect::apply(const QImage & image) const
+QImage GrayscalePhotoEffect::apply(const QImage& image) const
 {
     if (!strength())
         return image;
@@ -57,3 +61,5 @@ GrayscalePhotoEffect::operator QString() const
 {
     return toString();
 }
+
+} // namespace PhotoLayoutsEditor

@@ -48,12 +48,12 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit RotationWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem * parent = nullptr);
+            explicit RotationWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem* parent = nullptr);
             virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
             virtual QPainterPath shape() const override;
             virtual QPainterPath opaqueArea() const override;
             virtual QRectF boundingRect() const override;
-            void initRotation(const QPainterPath& path, const QPointF & rotationPoint);
+            void initRotation(const QPainterPath& path, const QPointF& rotationPoint);
             void reset();
             qreal angle() const;
             QPointF rotationPoint() const;
@@ -63,16 +63,16 @@ namespace PhotoLayoutsEditor
 
             virtual void hoverEnterEvent(QGraphicsSceneHoverEvent * event) override;
             virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent * event) override;
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
-            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event) override;
-            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
+            virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 
             void setItems(const QList<AbstractPhoto*> & items);
 
         Q_SIGNALS:
 
-            void rotationChanged(const QPointF & point, qreal angle);
-            void rotationFinished(const QPointF & point, qreal angle);
+            void rotationChanged(const QPointF& point, qreal angle);
+            void rotationFinished(const QPointF& point, qreal angle);
 
         friend class QGraphicsEditingWidget;
         friend class RotateItemCommand;

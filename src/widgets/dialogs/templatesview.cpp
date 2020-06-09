@@ -23,11 +23,15 @@
 
 #include "templatesview.h"
 
+// Qt includes
+
 #include <QScrollBar>
 #include <QPainter>
 #include <QPen>
 #include <QApplication>
 #include <QMouseEvent>
+
+// Local includes
 
 #include "templatesmodel.h"
 
@@ -36,69 +40,70 @@ QHash<int, QRectF> rectForRow;
 #define WIDTH 120
 #define HEIGHT 120
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 class TemplateItemDelegate : public QAbstractItemDelegate
 {
-    public:
+public:
 
-        virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
+    virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
+    {
+        if (!index.internalPointer())
+            return;
+
+        QRectF rf = option.rect;
+        rf.setTop(rf.top() + 2);
+        rf.setBottom(rf.bottom() - 2);
+        rf.setLeft(rf.left() + 2);
+        rf.setRight(rf.right() - 2);
+
+        if ( option.state & QStyle::State_Selected )
+            painter->fillRect( rf, QApplication::palette().highlight() );
+        else
+            painter->fillRect( rf, QApplication::palette().base() );
+
+        TemplateItem* const item = static_cast<TemplateItem*>(index.internalPointer());
+        QImage i = item->icon();
+        QRect ir;
+        if (!i.isNull())
         {
-            if (!index.internalPointer())
-                return;
-
-            QRectF rf = option.rect;
-            rf.setTop(rf.top() + 2);
-            rf.setBottom(rf.bottom() - 2);
-            rf.setLeft(rf.left() + 2);
-            rf.setRight(rf.right() - 2);
-
-            if ( option.state & QStyle::State_Selected )
-                painter->fillRect( rf, QApplication::palette().highlight() );
-            else
-                painter->fillRect( rf, QApplication::palette().base() );
-
-            TemplateItem* const item = static_cast<TemplateItem*>(index.internalPointer());
-            QImage i = item->icon();
-            QRect ir;
-            if (!i.isNull())
-            {
-                painter->drawImage(rf.left() + (WIDTH - i.width()) / 2,
-                                   rf.top() + 5,
-                                   i);
-                ir = i.rect();
-                painter->setPen(QPen(Qt::black, 0));
-                painter->drawRect(ir.translated(rf.left() + (WIDTH - ir.width()) / 2,
-                                                      rf.top() + 5));
-            }
-
-            painter->drawText(QRectF(rf.x(),
-                                     rf.y() + HEIGHT + 5,
-                                     WIDTH,
-                                     999),
-                              Qt::AlignHCenter,
-                              item->name());
-            painter->save();
-            painter->setPen(QPen(Qt::gray, 0));
-            painter->drawRect(rf.x(), rf.y(), rf.width(), rf.height());
-            painter->restore();
+            painter->drawImage(rf.left() + (WIDTH - i.width()) / 2,
+                                rf.top() + 5,
+                                i);
+            ir = i.rect();
+            painter->setPen(QPen(Qt::black, 0));
+            painter->drawRect(ir.translated(rf.left() + (WIDTH - ir.width()) / 2,
+                                                    rf.top() + 5));
         }
 
-        virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
-        {
-            QSize result;
-            if (!index.internalPointer())
-                return result;
-            return option.rect.size();
-        }
+        painter->drawText(QRectF(rf.x(),
+                                    rf.y() + HEIGHT + 5,
+                                    WIDTH,
+                                    999),
+                            Qt::AlignHCenter,
+                            item->name());
+        painter->save();
+        painter->setPen(QPen(Qt::gray, 0));
+        painter->drawRect(rf.x(), rf.y(), rf.width(), rf.height());
+        painter->restore();
+    }
+
+    virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
+    {
+        QSize result;
+        if (!index.internalPointer())
+            return result;
+        return option.rect.size();
+    }
 };
 
-TemplatesView::TemplatesView(QWidget* parent) :
-    QAbstractItemView(parent),
-//    columns(0),
-    idealWidth(0),
-    idealHeight(0),
-    hashIsDirty(false)
+TemplatesView::TemplatesView(QWidget* parent)
+    : QAbstractItemView(parent),
+//     columns(0),
+      idealWidth(0),
+      idealHeight(0),
+      hashIsDirty(false)
 {
     this->setItemDelegate(new TemplateItemDelegate());
     this->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -196,7 +201,7 @@ QRegion TemplatesView::visualRegionForSelection(const QItemSelection &selection)
     return region;
 }
 
-void TemplatesView::setSelection(const QRect & rect, QFlags<QItemSelectionModel::SelectionFlag> flags)
+void TemplatesView::setSelection(const QRect& rect, QFlags<QItemSelectionModel::SelectionFlag> flags)
 {
     QRect rectangle = rect.translated(horizontalScrollBar()->value(), verticalScrollBar()->value()).normalized();
 
@@ -296,7 +301,7 @@ void TemplatesView::dataChanged(const QModelIndex& topLeft, const QModelIndex& b
     QAbstractItemView::dataChanged(topLeft, bottomRight);
 }
 
-QModelIndex TemplatesView::indexAt(const QPoint & point_) const
+QModelIndex TemplatesView::indexAt(const QPoint& point_) const
 {
     QPoint point(point_);
     point.rx() += horizontalScrollBar()->value();
@@ -420,3 +425,5 @@ QString TemplatesView::selectedPath() const
         return QString();
     return item->path();
 }
+
+} // namespace PhotoLayoutsEditor

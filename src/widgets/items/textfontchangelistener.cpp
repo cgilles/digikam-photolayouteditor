@@ -23,19 +23,27 @@
  * ============================================================ */
 
 #include "textfontchangelistener.h"
+
+// Local includes
+
 #include "textitem.h"
 #include "qtpropertymanager.h"
 
-using namespace PhotoLayoutsEditor;
-
-TextFontChangeListener::TextFontChangeListener(TextItem * item, QObject* parent) :
-    QObject(parent),
-    m_item(item)
-{}
-
-void TextFontChangeListener::propertyChanged(QtProperty * property)
+namespace PhotoLayoutsEditor
 {
-    QtFontPropertyManager * manager = dynamic_cast<QtFontPropertyManager*>(property->propertyManager());
+
+TextFontChangeListener::TextFontChangeListener(TextItem* item, QObject* parent)
+    : QObject(parent),
+      m_item(item)
+{
+}
+
+void TextFontChangeListener::propertyChanged(QtProperty* property)
+{
+    QtFontPropertyManager* manager = dynamic_cast<QtFontPropertyManager*>(property->propertyManager());
+
     if (manager && m_item->font() != manager->value(property))
         m_item->setFont(manager->value(property));
 }
+
+} // namespace PhotoLayoutsEditor

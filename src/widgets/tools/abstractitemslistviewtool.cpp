@@ -53,7 +53,7 @@ class ItemCreatedCommand : public QUndoCommand
     bool                  done;
 
 public:
-    ItemCreatedCommand(QObject* item, int row, AbstractMovableModel * model, QUndoCommand * parent = nullptr) :
+    ItemCreatedCommand(QObject* item, int row, AbstractMovableModel * model, QUndoCommand* parent = nullptr) :
         QUndoCommand(parent),
         item(item),
         row(row),
@@ -94,7 +94,7 @@ class ItemRemovedCommand : public QUndoCommand
 
 public:
 
-    ItemRemovedCommand(QObject* item, int row, AbstractMovableModel * model, QUndoCommand * parent = nullptr) :
+    ItemRemovedCommand(QObject* item, int row, AbstractMovableModel * model, QUndoCommand* parent = nullptr) :
         QUndoCommand(parent),
         item(item),
         row(row),
@@ -135,7 +135,7 @@ class ItemMoveRowsCommand : public QUndoCommand
 
 public:
 
-    ItemMoveRowsCommand(int sourceStart, int count, int destinationRow, AbstractMovableModel * model, QUndoCommand * parent = nullptr) :
+    ItemMoveRowsCommand(int sourceStart, int count, int destinationRow, AbstractMovableModel * model, QUndoCommand* parent = nullptr) :
         QUndoCommand(parent),
         sourceStart(sourceStart),
         count(count),
@@ -206,7 +206,7 @@ class AbstractItemsListViewToolPrivate
     friend class AbstractItemsListViewTool;
 };
 
-AbstractItemsListViewTool::AbstractItemsListViewTool(const QString& toolName, PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget* parent) :
+AbstractItemsListViewTool::AbstractItemsListViewTool(const QString& toolName, PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent) :
     AbstractItemsTool(scene, selectionMode, parent),
     d(new AbstractItemsListViewToolPrivate)
 {
@@ -364,7 +364,7 @@ void AbstractItemsListViewTool::moveSelectedDown()
     {
         if (index.internalPointer())
         {
-            QUndoCommand * command = new ItemMoveRowsCommand(index.row(),1,index.row()+2,model);
+            QUndoCommand* command = new ItemMoveRowsCommand(index.row(),1,index.row()+2,model);
             PLE_PostUndoCommand(command);
         }
         else
@@ -383,7 +383,7 @@ void AbstractItemsListViewTool::moveSelectedUp()
     {
         if (index.internalPointer())
         {
-            QUndoCommand * command = new ItemMoveRowsCommand(index.row(),1,index.row()-1,model);
+            QUndoCommand* command = new ItemMoveRowsCommand(index.row(),1,index.row()-1,model);
             PLE_PostUndoCommand(command);
         }
         else

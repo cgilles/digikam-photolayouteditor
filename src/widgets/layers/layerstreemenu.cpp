@@ -23,18 +23,29 @@
  * ============================================================ */
 
 #include "layerstreemenu.h"
+
+// Local includes
+
 #include "layerstree.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-LayersTreeMenu::LayersTreeMenu(LayersTree* parent) :
-    QMenu(parent)
+LayersTreeMenu::LayersTreeMenu(LayersTree* parent)
+    : QMenu(parent)
 {
     moveUpItems = this->addAction(QObject::tr("Move up"));
+
     connect(moveUpItems, SIGNAL(triggered()), parent, SLOT(moveSelectedRowsUp()));
+
     moveDownItems = this->addAction(QObject::tr("Move down"));
+
     connect(moveDownItems, SIGNAL(triggered()), parent, SLOT(moveSelectedRowsDown()));
+
     this->addSeparator();
     deleteItems = this->addAction(QObject::tr("Delete selected"));
+
     connect(deleteItems, SIGNAL(triggered()), parent, SLOT(removeSelectedRows()));
 }
+
+} // namespace PhotoLayoutsEditor

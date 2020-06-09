@@ -24,7 +24,7 @@
 
 #include "plesceneborder.h"
 
-// C++ std includes
+// C++ includes
 
 #include <limits>
 
@@ -38,21 +38,24 @@
 #include <QPixmap>
 #include <QBuffer>
 
+// Local includes
+
 #include "pleglobal.h"
 
-using namespace PhotoLayoutsEditor;
-
-class PhotoLayoutsEditor::PLESceneBorder::BorderImageChangedCommand : public QUndoCommand
+namespace PhotoLayoutsEditor
 {
-    QImage       m_image;
+
+class PLESceneBorder::BorderImageChangedCommand : public QUndoCommand
+{
+    QImage          m_image;
     PLESceneBorder* m_backgropund_item;
 
 public:
 
-    BorderImageChangedCommand(const QImage & image, PLESceneBorder * borderItem, QUndoCommand * parent = nullptr) :
-        QUndoCommand(QObject::tr("Border Change"), parent),
-        m_image(image),
-        m_backgropund_item(borderItem)
+    BorderImageChangedCommand(const QImage& image, PLESceneBorder* borderItem, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Border Change"), parent),
+          m_image(image),
+          m_backgropund_item(borderItem)
     {
     }
 
@@ -75,7 +78,7 @@ public:
     }
 };
 
-PLESceneBorder::PLESceneBorder(QGraphicsScene * scene) :
+PLESceneBorder::PLESceneBorder(QGraphicsScene* scene) :
     QGraphicsItem(nullptr)
 {
     scene->addItem(this);
@@ -89,15 +92,15 @@ QRectF PLESceneBorder::boundingRect() const
     return m_rect;
 }
 
-void PLESceneBorder::setImage(const QImage & image)
+void PLESceneBorder::setImage(const QImage& image)
 {
     bool imageChanged = m_image != image;
 
-    QUndoCommand * parent = nullptr;
+    QUndoCommand* parent = nullptr;
     if (imageChanged)
         parent = new QUndoCommand(QObject::tr("Border Change"));
 
-    QUndoCommand * command = new BorderImageChangedCommand(image, this, parent);
+    QUndoCommand* command = new BorderImageChangedCommand(image, this, parent);
     PLE_PostUndoCommand(command);
 }
 
@@ -264,7 +267,7 @@ void PLESceneBorder::paint(QPainter* painter, const QStyleOptionGraphicsItem* op
     painter->drawImage(QPoint(0,0), m_temp_image, option->exposedRect);
 }
 
-void PLESceneBorder::render(QPainter* painter, const QRect & rect)
+void PLESceneBorder::render(QPainter* painter, const QRect& rect)
 {
     if (rect.isValid())
     {
@@ -307,3 +310,5 @@ void PLESceneBorder::sceneRectChanged(const QRectF & sceneRect)
         m_rect = QRectF();
     }
 }
+
+} // namespace PhotoLayoutsEditor

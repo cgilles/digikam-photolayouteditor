@@ -22,111 +22,117 @@
  *
  * ============================================================ */
 
-#ifndef SOLIDBORDERDRAWER_H
-#define SOLIDBORDERDRAWER_H
+#ifndef SOLID_BORDER_DRAWER_H
+#define SOLID_BORDER_DRAWER_H
 
-#include "borderdrawerinterface.h"
+// Qt includes
 
 #include <QColor>
 
+// Local includes
+
+#include "borderdrawerinterface.h"
+
 namespace PhotoLayoutsEditor
 {
-    class StandardBordersFactory;
 
-    class SolidBorderDrawer : public BorderDrawerInterface
+class StandardBordersFactory;
+
+class SolidBorderDrawer : public BorderDrawerInterface
+{
+    Q_OBJECT
+
+    int m_width;
+    QColor m_color;
+    int m_spacing;
+    Qt::PenJoinStyle m_corners_style;
+    QPainterPath m_path;
+
+    static QMap<const char*, QString> m_properties;
+    static QMap<Qt::PenJoinStyle, QString> m_corners_style_names;
+    static int m_default_width;
+    static QColor m_default_color;
+    static int m_default_spacing;
+    static Qt::PenJoinStyle m_default_corners_style;
+
+public:
+
+    explicit SolidBorderDrawer(StandardBordersFactory* factory, QObject* parent = nullptr);
+
+    virtual QPainterPath path(const QPainterPath& path) override;
+
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option) override;
+
+    virtual QString propertyName(const QMetaProperty& property) const override;
+
+    virtual QVariant propertyValue(const QString& propertyName) const override;
+
+    virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override;
+
+    virtual QDomElement toSvg(QDomDocument& document) const override;
+
+    virtual QString name() const override;
+
+    virtual QString toString() const override;
+
+    virtual operator QString() const override;
+
+    Q_PROPERTY(int width READ width WRITE setWidth)
+    int width() const
     {
-            Q_OBJECT
+        return m_width;
+    }
+    void setWidth(int width)
+    {
+        if (width > 0)
+        {
+            m_default_width = m_width = width;
+            this->propertiesChanged();
+        }
+    }
 
-            int m_width;
-            QColor m_color;
-            int m_spacing;
-            Qt::PenJoinStyle m_corners_style;
-            QPainterPath m_path;
+    Q_PROPERTY(QString corners_style READ cornersStyle WRITE setCornersStyle)
+    QString cornersStyle() const
+    {
+        return m_corners_style_names.value(m_corners_style);
+    }
+    void setCornersStyle(const QString& cornersStyle)
+    {
+        m_default_corners_style = m_corners_style = m_corners_style_names.key(cornersStyle);
+        this->propertiesChanged();
+    }
 
-            static QMap<const char *,QString> m_properties;
-            static QMap<Qt::PenJoinStyle, QString> m_corners_style_names;
-            static int m_default_width;
-            static QColor m_default_color;
-            static int m_default_spacing;
-            static Qt::PenJoinStyle m_default_corners_style;
+    Q_PROPERTY(QColor color READ color WRITE setColor)
+    QColor color() const
+    {
+        return m_color;
+    }
+    void setColor(const QColor& color)
+    {
+        if (color.isValid())
+        {
+            m_default_color = m_color = color;
+            this->propertiesChanged();
+        }
+    }
 
-        public:
+    Q_PROPERTY(int spacing READ spacing WRITE setSpacing)
+    int spacing() const
+    {
+        return m_spacing;
+    }
+    void setSpacing(int spacing)
+    {
+        m_default_spacing = m_spacing = spacing;
+        this->propertiesChanged();
+    }
 
-            explicit SolidBorderDrawer(StandardBordersFactory* factory, QObject* parent = nullptr);
+    virtual QVariant stringNames(const QMetaProperty& property) override;
+    virtual QVariant minimumValue(const QMetaProperty& property) override;
+    virtual QVariant maximumValue(const QMetaProperty& property) override;
+    virtual QVariant stepValue(const QMetaProperty& property) override;
+};
+    
+} // namespace PhotoLayoutsEditor
 
-            virtual QPainterPath path(const QPainterPath& path) override;
-
-            virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option) override;
-
-            virtual QString propertyName(const QMetaProperty& property) const override;
-
-            virtual QVariant propertyValue(const QString& propertyName) const override;
-
-            virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override;
-
-            virtual QDomElement toSvg(QDomDocument& document) const override;
-
-            virtual QString name() const override;
-
-            virtual QString toString() const override;
-
-            virtual operator QString() const override;
-
-            Q_PROPERTY(int width READ width WRITE setWidth)
-            int width() const
-            {
-                return m_width;
-            }
-            void setWidth(int width)
-            {
-                if (width > 0)
-                {
-                    m_default_width = m_width = width;
-                    this->propertiesChanged();
-                }
-            }
-
-            Q_PROPERTY(QString corners_style READ cornersStyle WRITE setCornersStyle)
-            QString cornersStyle() const
-            {
-                return m_corners_style_names.value(m_corners_style);
-            }
-            void setCornersStyle(const QString& cornersStyle)
-            {
-                m_default_corners_style = m_corners_style = m_corners_style_names.key(cornersStyle);
-                this->propertiesChanged();
-            }
-
-            Q_PROPERTY(QColor color READ color WRITE setColor)
-            QColor color() const
-            {
-                return m_color;
-            }
-            void setColor(const QColor & color)
-            {
-                if (color.isValid())
-                {
-                    m_default_color = m_color = color;
-                    this->propertiesChanged();
-                }
-            }
-
-            Q_PROPERTY(int spacing READ spacing WRITE setSpacing)
-            int spacing() const
-            {
-                return m_spacing;
-            }
-            void setSpacing(int spacing)
-            {
-                m_default_spacing = m_spacing = spacing;
-                this->propertiesChanged();
-            }
-
-            virtual QVariant stringNames(const QMetaProperty& property) override;
-            virtual QVariant minimumValue(const QMetaProperty& property) override;
-            virtual QVariant maximumValue(const QMetaProperty& property) override;
-            virtual QVariant stepValue(const QMetaProperty& property) override;
-    };
-}
-
-#endif // SOLIDBORDERDRAWER_H
+#endif // SOLID_BORDER_DRAWER_H

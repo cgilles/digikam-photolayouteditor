@@ -143,7 +143,7 @@ void PLECanvasSizeWidget::setupUI(const QSizeF & size, const QString& sizeUnits,
             PLECanvasSize::resolutionUnit(tempResolutionUnits) == PLECanvasSize::UnknownResolutionUnit)
         tempResolutionUnits = PLECanvasSize::resolutionUnitName(PLECanvasSize::PixelsPerInch);;
 
-    QVBoxLayout * vLayout = new  QVBoxLayout();
+    QVBoxLayout* vLayout = new  QVBoxLayout();
     this->setLayout(vLayout);
 
     /// ----------------------- CANVAS SIZE PART -----------------------

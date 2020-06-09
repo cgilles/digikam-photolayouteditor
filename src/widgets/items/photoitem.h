@@ -48,8 +48,8 @@ class PhotoItem : public AbstractPhoto
 
 public:
 
-    explicit PhotoItem(const QImage & photo, const QString& name = QString(), PLEScene * scene = nullptr);
-    explicit PhotoItem(const QPainterPath& shape, const QString& name = QString(), PLEScene * scene = nullptr);
+    explicit PhotoItem(const QImage& photo, const QString& name = QString(), PLEScene* scene = nullptr);
+    explicit PhotoItem(const QPainterPath& shape, const QString& name = QString(), PLEScene* scene = nullptr);
     virtual ~PhotoItem();
 
     /// Convert photo item to SVG format
@@ -59,22 +59,22 @@ public:
     virtual QDomDocument toTemplateSvg() const override;
 
     /// Create Photo item from SVG format code
-    static PhotoItem * fromSvg(QDomElement& element);
+    static PhotoItem* fromSvg(QDomElement& element);
 
     /// Pixmap data
     Q_PROPERTY(QImage m_image READ image WRITE setImage)
-    QImage & image();
-    const QImage & image() const;
-    void setImage(const QImage & image);
+    QImage& image();
+    const QImage& image() const;
+    void setImage(const QImage& image);
 
     /// Pixmap and pixmap's url
-    void setImageUrl(const QUrl & url);
+    void setImageUrl(const QUrl& url);
 
     /// Scales image to fit scenes rect
-    void fitToRect(const QRect & rect);
+    void fitToRect(const QRect& rect);
 
     /// Reimplemented from QGraphicsItem
-    virtual bool contains(const QPointF & point) const override
+    virtual bool contains(const QPointF& point) const override
     {
         return m_image_path.contains(point);
     }
@@ -104,14 +104,14 @@ public:
     }
 
     /// Returns item's property browser
-    virtual QtAbstractPropertyBrowser * propertyBrowser() override;
+    virtual QtAbstractPropertyBrowser* propertyBrowser() override;
 
     /// Returns if item is empty (not contains image)
     bool isEmpty() const;
 
 protected:
 
-    explicit PhotoItem(const QString& name = QString(), PLEScene * scene = nullptr);
+    explicit PhotoItem(const QString& name = QString(), PLEScene* scene = nullptr);
 
     /// Converts item data to SVG format
     virtual QDomDocument svgVisibleArea() const override;
@@ -123,9 +123,9 @@ protected:
     virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event) override;
     virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;
     virtual void dropEvent(QGraphicsSceneDragDropEvent * event) override;
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event) override;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
 
     /// Updates item icon
     virtual void updateIcon();
@@ -135,7 +135,7 @@ protected:
 
 private Q_SLOTS:
 
-    void imageLoaded(const QUrl & url, const QImage & image);
+    void imageLoaded(const QUrl& url, const QImage& image);
 
 private:
 
@@ -143,7 +143,7 @@ private:
     virtual void refreshItem() override;
 
     // Setups items
-    void setupItem(const QImage & image);
+    void setupItem(const QImage& image);
 
     // Recalculates item shape
     void recalcShape();
@@ -157,23 +157,23 @@ private:
 
     class PhotoItemPrivate
     {
-        explicit PhotoItemPrivate(PhotoItem * item) :
+        explicit PhotoItemPrivate(PhotoItem* item) :
             m_item(item),
             m_image_moving(false)
         {}
 
         static QString locateFile(const QString& filePath);
 
-        PhotoItem * m_item;
+        PhotoItem* m_item;
 
         // Pixmap
-        void setImage(const QImage & image);
-        inline QImage & image();
+        void setImage(const QImage& image);
+        inline QImage& image();
         QImage m_image;
 
         // Pixmap's url
-        void setFileUrl(const QUrl & url);
-        inline QUrl & fileUrl();
+        void setFileUrl(const QUrl& url);
+        inline QUrl& fileUrl();
         QUrl m_file_path;
 
         QTransform m_brush_transform;

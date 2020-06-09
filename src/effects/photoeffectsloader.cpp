@@ -46,7 +46,7 @@
 namespace PhotoLayoutsEditor
 {
 
-PhotoEffectsLoader * PhotoEffectsLoader::m_instance = nullptr;
+PhotoEffectsLoader* PhotoEffectsLoader::m_instance = nullptr;
 QMap<QString, AbstractPhotoEffectFactory*> PhotoEffectsLoader::registeredEffects;
 
 PhotoEffectsLoader::PhotoEffectsLoader(QObject* parent) :
@@ -55,7 +55,7 @@ PhotoEffectsLoader::PhotoEffectsLoader(QObject* parent) :
 {
 }
 
-PhotoEffectsLoader * PhotoEffectsLoader::instance(QObject* parent)
+PhotoEffectsLoader* PhotoEffectsLoader::instance(QObject* parent)
 {
     if (m_instance)
     {
@@ -66,26 +66,26 @@ PhotoEffectsLoader * PhotoEffectsLoader::instance(QObject* parent)
     return (m_instance = new PhotoEffectsLoader(parent));
 }
 
-PhotoEffectsGroup * PhotoEffectsLoader::group() const
+PhotoEffectsGroup* PhotoEffectsLoader::group() const
 {
     return qobject_cast<PhotoEffectsGroup*>(this->parent());
 }
 
 AbstractPhoto* PhotoEffectsLoader::photo() const
 {
-    PhotoEffectsGroup * tempGroup = this->group();
+    PhotoEffectsGroup* tempGroup = this->group();
     if (tempGroup)
         return tempGroup->photo();
     else
         return nullptr;
 }
 
-bool PhotoEffectsLoader::registerEffect(AbstractPhotoEffectFactory * effectFactory)
+bool PhotoEffectsLoader::registerEffect(AbstractPhotoEffectFactory* effectFactory)
 {
     QString effectName = effectFactory->effectName();
     QStringList names = effectName.split(QLatin1Char(';'), QString::SkipEmptyParts);
     bool result = true;
-    foreach(QString name, names)
+    foreach (QString name, names)
         result &= (registeredEffects.insert(name, effectFactory) != registeredEffects.end());
     effectFactory->setParent(instance());
     return result;
@@ -96,38 +96,38 @@ QStringList PhotoEffectsLoader::registeredEffectsNames()
     return registeredEffects.keys();
 }
 
-AbstractPhotoEffectFactory * PhotoEffectsLoader::getFactoryByName(const QString& name)
+AbstractPhotoEffectFactory* PhotoEffectsLoader::getFactoryByName(const QString& name)
 {
     return registeredEffects.value(name, nullptr);
 }
 
-AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectByName(const QString& effectName)
+AbstractPhotoEffectInterface* PhotoEffectsLoader::getEffectByName(const QString& effectName)
 {
-    AbstractPhotoEffectFactory * factory = PhotoEffectsLoader::registeredEffects[effectName];
+    AbstractPhotoEffectFactory* factory = PhotoEffectsLoader::registeredEffects[effectName];
     if (factory)
         return factory->getEffectInstance(effectName);
     return nullptr;
 }
 
-QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEffectInterface * effect, bool createCommands)
+QtAbstractPropertyBrowser* PhotoEffectsLoader::propertyBrowser(AbstractPhotoEffectInterface* effect, bool createCommands)
 {
     if (!effect)
         return nullptr;
 
-    QtAbstractPropertyBrowser * browser = new QtTreePropertyBrowser();
+    QtAbstractPropertyBrowser* browser = new QtTreePropertyBrowser();
     PhotoEffectChangeListener * listener = new PhotoEffectChangeListener(effect, browser, createCommands);
 
     // QVariant::Int
-    QtIntPropertyManager * integerManager = new QtIntPropertyManager(browser);
+    QtIntPropertyManager*  integerManager = new QtIntPropertyManager(browser);
     PLESliderEditFactory * integerFactory = new PLESliderEditFactory(browser);
     browser->setFactoryForManager(integerManager, integerFactory);
 
     // Double type of property
-    QtDoublePropertyManager * doubleManager = nullptr;
+    QtDoublePropertyManager*  doubleManager = nullptr;
     PLEDoubleSpinBoxFactory * doubleFactory = nullptr;
 
     // QVariant others....
-    QtVariantPropertyManager * variantManager = nullptr;
+    QtVariantPropertyManager*  variantManager = nullptr;
     PLEVariantEditorFactory * variantFactory = nullptr;
 
     const QMetaObject* meta = effect->metaObject();
@@ -138,7 +138,7 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
         QString propertyName = effect->propertyName(metaProperty);
         if (propertyName.isEmpty())
             continue;
-        QtProperty * property = nullptr;
+        QtProperty* property = nullptr;
         switch(metaProperty.type())
         {
             case QVariant::Int:
@@ -181,7 +181,7 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
                     }
                     property = variantManager->addProperty(metaProperty.type(), propertyName);
                     variantManager->setValue(property, metaProperty.read(effect));
-                    foreach(QtProperty* p, property->subProperties())
+                    foreach (QtProperty* p, property->subProperties())
                         p->setEnabled(false);
                 }
         }
@@ -204,7 +204,7 @@ QtAbstractPropertyBrowser * PhotoEffectsLoader::propertyBrowser(AbstractPhotoEff
     return browser;
 }
 
-QDomElement PhotoEffectsLoader::effectToSvg(AbstractPhotoEffectInterface * effect, QDomDocument& document)
+QDomElement PhotoEffectsLoader::effectToSvg(AbstractPhotoEffectInterface* effect, QDomDocument& document)
 {
     QDomElement element = document.createElement(QLatin1String("effect"));
     element.setAttribute(QLatin1String("name"), effect->name());
@@ -218,7 +218,7 @@ QDomElement PhotoEffectsLoader::effectToSvg(AbstractPhotoEffectInterface * effec
     return element;
 }
 
-AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectFromSvg(QDomElement& element)
+AbstractPhotoEffectInterface* PhotoEffectsLoader::getEffectFromSvg(QDomElement& element)
 {
     if ( element.tagName() != QLatin1String("effect"))
         return nullptr;
@@ -234,7 +234,7 @@ AbstractPhotoEffectInterface * PhotoEffectsLoader::getEffectFromSvg(QDomElement&
     QString effectName = properties.take(QLatin1String("name"));
     if ( !instance()->registeredEffectsNames().contains( effectName ) )
         return nullptr;
-    AbstractPhotoEffectInterface * result = instance()->getEffectByName( effectName );
+    AbstractPhotoEffectInterface* result = instance()->getEffectByName( effectName );
     const QMetaObject* meta = result->metaObject();
     int count = meta->propertyCount();
     for (int i = 0; i < count; ++i)

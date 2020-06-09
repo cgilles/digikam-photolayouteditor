@@ -132,8 +132,8 @@ protected:
 public:
 
     /// Effects group property
-    Q_PROPERTY(PhotoEffectsGroup * m_effects_group READ effectsGroup)
-    PhotoEffectsGroup * effectsGroup() const;
+    Q_PROPERTY(PhotoEffectsGroup* m_effects_group READ effectsGroup)
+    PhotoEffectsGroup* effectsGroup() const;
 
     /// Borders group property
     Q_PROPERTY(BordersGroup* m_borders_group READ bordersGroup)
@@ -148,7 +148,7 @@ public:
     QPainterPath cropShape() const;
 
     /// Returns item's property browser
-    virtual QtAbstractPropertyBrowser * propertyBrowser() = 0;
+    virtual QtAbstractPropertyBrowser* propertyBrowser() = 0;
 
 public Q_SLOTS:
 
@@ -164,7 +164,7 @@ Q_SIGNALS:
 
 protected:
 
-    explicit AbstractPhoto(const QString& name, PLEScene * scene);
+    explicit AbstractPhoto(const QString& name, PLEScene* scene);
 
     // For widgets drawing
     static AbstractPhoto* getInstance() { return nullptr; }
@@ -199,9 +199,9 @@ protected:
     virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;
     virtual void dropEvent(QGraphicsSceneDragDropEvent * event) override;
     virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event) override;
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent * event) override;
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent * event) override;
 

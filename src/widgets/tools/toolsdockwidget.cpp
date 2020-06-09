@@ -107,7 +107,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     this->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 
     QWidget* widget = new QWidget(this);
-    QVBoxLayout * layout = new QVBoxLayout(widget);
+    QVBoxLayout* layout = new QVBoxLayout(widget);
     //layout->setSizeConstraint(QLayout::SetMinimumSize);
 
     // tools buttons layout
@@ -123,7 +123,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     d->toolArea->setWidget(nullptr);
     layout->addWidget(d->toolArea,1);
 
-    QButtonGroup * group = new QButtonGroup(widget);
+    QButtonGroup* group = new QButtonGroup(widget);
 
     // Selection tool
 
@@ -254,7 +254,7 @@ void ToolsDockWidget::setDefaultTool()
     this->setHandToolVisible(true);
 }
 
-void ToolsDockWidget::setScene(PLEScene * scene)
+void ToolsDockWidget::setScene(PLEScene* scene)
 {
     if (scene)
         this->connect(scene, SIGNAL(destroyed()), this, SLOT(setScene()));
@@ -280,7 +280,7 @@ void ToolsDockWidget::itemSelected(AbstractPhoto* photo)
     qDebug() << tool;
 }
 
-void ToolsDockWidget::mousePositionChoosen(const QPointF & position)
+void ToolsDockWidget::mousePositionChoosen(const QPointF& position)
 {
     QWidget* w = d->toolArea->widget();
     if (!w)
@@ -470,12 +470,12 @@ void ToolsDockWidget::resizeEvent(QResizeEvent * event)
       << m_effects_button
       << m_tool_border;
 
-    foreach(QWidget* w, l)
+    foreach (QWidget* w, l)
         d->formLayout->removeWidget(w);
 
     int width = 0;
     int col = 0, row = 0;
-    foreach(QWidget* w, l)
+    foreach (QWidget* w, l)
     {
         width += w->size().width();
         if (row < (int)(width / event->size().width()) )

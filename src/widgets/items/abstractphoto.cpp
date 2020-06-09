@@ -53,7 +53,7 @@ class CropShapeChangeCommand : public QUndoCommand
 
 public:
 
-    CropShapeChangeCommand(const QPainterPath& cropShape, AbstractPhoto* item, QUndoCommand * parent = nullptr) :
+    CropShapeChangeCommand(const QPainterPath& cropShape, AbstractPhoto* item, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Crop shape change"), parent),
         m_crop_shape(cropShape),
         m_item(item)
@@ -85,7 +85,7 @@ class ItemNameChangeCommand : public QUndoCommand
 
 public:
 
-    ItemNameChangeCommand(const QString& name, AbstractPhoto* item, QUndoCommand * parent = nullptr) :
+    ItemNameChangeCommand(const QString& name, AbstractPhoto* item, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Name Change"), parent),
         m_name(name),
         m_item(item)
@@ -110,7 +110,7 @@ public:
     }
 };
 
-AbstractPhoto::AbstractPhoto(const QString& name, PLEScene * scene) :
+AbstractPhoto::AbstractPhoto(const QString& name, PLEScene* scene) :
     AbstractItemInterface(nullptr, nullptr),
     d(new AbstractPhotoPrivate(this))
 {
@@ -158,12 +158,12 @@ QString AbstractPhoto::uniqueName(const QString& name)
         temp.append(QLatin1String("..."));
     }
     result = temp;
-    PLEScene * scene = qobject_cast<PLEScene*>(this->scene());
+    PLEScene* scene = qobject_cast<PLEScene*>(this->scene());
     if (!scene)
         return result;
     int nameNumber = 1;
     QList<QGraphicsItem*> items = scene->items();
-    foreach(QGraphicsItem* item, items)
+    foreach (QGraphicsItem* item, items)
     {
         AbstractPhoto* myItem = dynamic_cast<AbstractPhoto*>(item);
         if (!myItem || myItem == this || myItem->name().isEmpty())
@@ -558,7 +558,7 @@ bool AbstractPhoto::fromSvg(QDomElement& element)
 void AbstractPhoto::setName(const QString& name)
 {
     QString newName = this->uniqueName(name);
-    QUndoCommand * command = new ItemNameChangeCommand(newName, this);
+    QUndoCommand* command = new ItemNameChangeCommand(newName, this);
     PLE_PostUndoCommand(command);
 }
 
@@ -619,19 +619,19 @@ void AbstractPhoto::dropEvent(QGraphicsSceneDragDropEvent * event)
     event->accept();
 }
 
-void AbstractPhoto::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * /*event*/)
+void AbstractPhoto::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* /*event*/)
 {
 }
 
-void AbstractPhoto::mouseMoveEvent(QGraphicsSceneMouseEvent * /*event*/)
+void AbstractPhoto::mouseMoveEvent(QGraphicsSceneMouseEvent* /*event*/)
 {
 }
 
-void AbstractPhoto::mousePressEvent(QGraphicsSceneMouseEvent * /*event*/)
+void AbstractPhoto::mousePressEvent(QGraphicsSceneMouseEvent* /*event*/)
 {
 }
 
-void AbstractPhoto::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
+void AbstractPhoto::mouseReleaseEvent(QGraphicsSceneMouseEvent* /*event*/)
 {
 }
 
@@ -664,7 +664,7 @@ void AbstractPhoto::setIcon(const QIcon & icon)
     emit changed();
 }
 
-PhotoEffectsGroup * AbstractPhoto::effectsGroup() const
+PhotoEffectsGroup* AbstractPhoto::effectsGroup() const
 {
     return d->m_effects_group;
 }
@@ -696,7 +696,7 @@ void AbstractPhoto::setCropShape(const QPainterPath& cropShape)
 {
     if (cropShape != this->d->cropShape())
     {
-        QUndoCommand * command = new CropShapeChangeCommand(cropShape, this);
+        QUndoCommand* command = new CropShapeChangeCommand(cropShape, this);
         PLE_PostUndoCommand(command);
     }
 }

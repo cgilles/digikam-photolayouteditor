@@ -39,15 +39,15 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit NegativePhotoEffect(StandardEffectsFactory * factory, QObject* parent = nullptr);
-            virtual QImage apply(const QImage & image) const override;
+            explicit NegativePhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
+            virtual QImage apply(const QImage& image) const override;
             virtual QString name() const override;
             virtual QString toString() const override;
             virtual operator QString() const override;
 
         private:
 
-            static QImage negative(const QImage & image)
+            static QImage negative(const QImage& image)
             {
                 QImage result = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
                 unsigned int pixels = result.width() * result.height();

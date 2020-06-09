@@ -108,7 +108,7 @@ public:
     QDomDocument toSvg(ProgressObserver * observer);
     QDomDocument toTemplateSvg(ProgressObserver * observer);
     QDomDocument toSvg(ProgressObserver * observer, bool asTemplate);
-    static PLEScene * fromSvg(QDomElement& svgImage);
+    static PLEScene* fromSvg(QDomElement& svgImage);
     void addSelectingFilter(const QMetaObject & classMeta);
     void clearSelectingFilters();
     void setRotationWidgetVisible(bool isVisible);
@@ -136,7 +136,7 @@ Q_SIGNALS:
     void finishEditing(const QPainterPath& path);
     void itemAboutToBeRemoved(AbstractPhoto* item);
     void itemsAboutToBeRemoved(const QList<AbstractPhoto*> & items);
-    void mousePressedPoint(const QPointF & point);
+    void mousePressedPoint(const QPointF& point);
 
 public Q_SLOTS:
 
@@ -153,7 +153,7 @@ public Q_SLOTS:
 
 protected:
 
-    virtual void contextMenuEvent(QGraphicsSceneMouseEvent * event);
+    virtual void contextMenuEvent(QGraphicsSceneMouseEvent* event);
     virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent * event) override;
     virtual void drawBackground(QPainter* painter, const QRectF & rect) override;
     virtual void drawForeground(QPainter* painter, const QRectF & rect) override;
@@ -161,15 +161,15 @@ protected:
     virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event) override;
     virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;
     virtual void dropEvent(QGraphicsSceneDragDropEvent * event) override;
-    virtual void keyPressEvent(QKeyEvent * event) override;
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event) override;
-    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) override;
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
+    virtual void keyPressEvent(QKeyEvent* event) override;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 
 private Q_SLOTS:
 
-    void imageLoaded(const QUrl & url, const QImage & image);
+    void imageLoaded(const QUrl& url, const QImage& image);
     void calcSelectionBoundingRect();
 
 private:

@@ -58,19 +58,19 @@ namespace PhotoLayoutsEditor
 
         public Q_SLOTS:
 
-            void mousePress(const QPointF & scenePos)
+            void mousePress(const QPointF& scenePos)
             {
                 emit mousePressed((press = scenePos));
             }
-            void mouseRelease(const QPointF & scenePos)
+            void mouseRelease(const QPointF& scenePos)
             {
                 emit mouseReleased((release = scenePos));
             }
 
         Q_SIGNALS:
 
-            void mousePressed(const QPointF & scenePos);
-            void mouseReleased(const QPointF & scenePos);
+            void mousePressed(const QPointF& scenePos);
+            void mouseReleased(const QPointF& scenePos);
     };
 }
 

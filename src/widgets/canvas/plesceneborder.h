@@ -52,10 +52,10 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit PLESceneBorder(QGraphicsScene * scene = nullptr);
+            explicit PLESceneBorder(QGraphicsScene* scene = nullptr);
             virtual QRectF boundingRect() const override;
 
-            void setImage(const QImage & image);
+            void setImage(const QImage& image);
 
             QDomElement toSvg(QDomDocument& document) const;
             bool fromSvg(QDomElement& element);
@@ -71,7 +71,7 @@ namespace PhotoLayoutsEditor
 
             QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
             void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
-            void render(QPainter* painter, const QRect & rect);
+            void render(QPainter* painter, const QRect& rect);
 
         protected Q_SLOTS:
 

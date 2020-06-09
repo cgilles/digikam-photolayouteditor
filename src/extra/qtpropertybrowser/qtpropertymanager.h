@@ -331,7 +331,7 @@ public:
     explicit QtLocalePropertyManager(QObject *parent = nullptr);
     ~QtLocalePropertyManager();
 
-    QtEnumPropertyManager *subEnumPropertyManager() const;
+    QtEnumPropertyManager* subEnumPropertyManager() const;
 
     QLocale value(const QtProperty *property) const;
 
@@ -360,7 +360,7 @@ public:
     explicit QtPointPropertyManager(QObject *parent = nullptr);
     ~QtPointPropertyManager();
 
-    QtIntPropertyManager *subIntPropertyManager() const;
+    QtIntPropertyManager* subIntPropertyManager() const;
 
     QPoint value(const QtProperty *property) const;
 
@@ -389,7 +389,7 @@ public:
     explicit QtPointFPropertyManager(QObject *parent = nullptr);
     ~QtPointFPropertyManager();
 
-    QtDoublePropertyManager *subDoublePropertyManager() const;
+    QtDoublePropertyManager* subDoublePropertyManager() const;
 
     QPointF value(const QtProperty *property) const;
     int decimals(const QtProperty *property) const;
@@ -421,7 +421,7 @@ public:
     explicit QtSizePropertyManager(QObject *parent = nullptr);
     ~QtSizePropertyManager();
 
-    QtIntPropertyManager *subIntPropertyManager() const;
+    QtIntPropertyManager* subIntPropertyManager() const;
 
     QSize value(const QtProperty *property) const;
     QSize minimum(const QtProperty *property) const;
@@ -456,7 +456,7 @@ public:
     explicit QtSizeFPropertyManager(QObject *parent = nullptr);
     ~QtSizeFPropertyManager();
 
-    QtDoublePropertyManager *subDoublePropertyManager() const;
+    QtDoublePropertyManager* subDoublePropertyManager() const;
 
     QSizeF value(const QtProperty *property) const;
     QSizeF minimum(const QtProperty *property) const;
@@ -494,7 +494,7 @@ public:
     explicit QtRectPropertyManager(QObject *parent = nullptr);
     ~QtRectPropertyManager();
 
-    QtIntPropertyManager *subIntPropertyManager() const;
+    QtIntPropertyManager* subIntPropertyManager() const;
 
     QRect value(const QtProperty *property) const;
     QRect constraint(const QtProperty *property) const;
@@ -526,7 +526,7 @@ public:
     explicit QtRectFPropertyManager(QObject *parent = nullptr);
     ~QtRectFPropertyManager();
 
-    QtDoublePropertyManager *subDoublePropertyManager() const;
+    QtDoublePropertyManager* subDoublePropertyManager() const;
 
     QRectF value(const QtProperty *property) const;
     QRectF constraint(const QtProperty *property) const;
@@ -625,8 +625,8 @@ public:
     explicit QtSizePolicyPropertyManager(QObject *parent = nullptr);
     ~QtSizePolicyPropertyManager();
 
-    QtIntPropertyManager *subIntPropertyManager() const;
-    QtEnumPropertyManager *subEnumPropertyManager() const;
+    QtIntPropertyManager* subIntPropertyManager() const;
+    QtEnumPropertyManager* subEnumPropertyManager() const;
 
     QSizePolicy value(const QtProperty *property) const;
 
@@ -656,8 +656,8 @@ public:
     explicit QtFontPropertyManager(QObject *parent = nullptr);
     ~QtFontPropertyManager();
 
-    QtIntPropertyManager *subIntPropertyManager() const;
-    QtEnumPropertyManager *subEnumPropertyManager() const;
+    QtIntPropertyManager* subIntPropertyManager() const;
+    QtEnumPropertyManager* subEnumPropertyManager() const;
     QtBoolPropertyManager *subBoolPropertyManager() const;
 
     QFont value(const QtProperty *property) const;
@@ -692,7 +692,7 @@ public:
     explicit QtColorPropertyManager(QObject *parent = nullptr);
     ~QtColorPropertyManager();
 
-    QtIntPropertyManager *subIntPropertyManager() const;
+    QtIntPropertyManager* subIntPropertyManager() const;
 
     QColor value(const QtProperty *property) const;
 

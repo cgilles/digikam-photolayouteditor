@@ -40,14 +40,14 @@ namespace PhotoLayoutsEditor
 
             TextEditorToolPrivate * d;
 
-            TextItem * m_text_item;
-            TextItem * m_created_text_item;
-            QtAbstractPropertyBrowser * m_browser;
+            TextItem* m_text_item;
+            TextItem* m_created_text_item;
+            QtAbstractPropertyBrowser* m_browser;
             bool m_create_new_item;
 
         public:
 
-            explicit TextEditorTool(PLEScene * scene, QWidget* parent = nullptr);
+            explicit TextEditorTool(PLEScene* scene, QWidget* parent = nullptr);
             ~TextEditorTool();
 
         Q_SIGNALS:

@@ -49,7 +49,7 @@ class RotateItemCommand : public QUndoCommand
 
 public:
 
-    RotateItemCommand(AbstractPhoto* item, QUndoCommand * parent = nullptr) :
+    RotateItemCommand(AbstractPhoto* item, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Rotate item"), parent),
         item(item),
         angle(0),
@@ -91,7 +91,7 @@ public:
         done = false;
     }
 
-    void setRotationPoint(const QPointF & point)
+    void setRotationPoint(const QPointF& point)
     {
         rotationPoint = point;
     }
@@ -117,7 +117,7 @@ class RotationWidgetItemPrivate
         m_elipse.addEllipse(-10,-10,20,20);
     }
 
-    QPointF viewportToItemPosition(const QPoint & pos, QWidget* widget)
+    QPointF viewportToItemPosition(const QPoint& pos, QWidget* widget)
     {
         QGraphicsView *view = nullptr;
 
@@ -180,7 +180,7 @@ class RotationWidgetItemPrivate
     friend class RotationWidgetItem;
 };
 
-RotationWidgetItem::RotationWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem * parent):
+RotationWidgetItem::RotationWidgetItem(const QList<AbstractPhoto*> & items, QGraphicsItem* parent):
     AbstractItemInterface(parent),
     d(new RotationWidgetItemPrivate(this))
 {
@@ -195,7 +195,7 @@ RotationWidgetItem::RotationWidgetItem(const QList<AbstractPhoto*> & items, QGra
 void RotationWidgetItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* /*option*/, QWidget* widget)
 {
     // Get the view
-    QGraphicsView * view = qobject_cast<QGraphicsView*>(widget->parentWidget());
+    QGraphicsView* view = qobject_cast<QGraphicsView*>(widget->parentWidget());
     if (!view)
         return;
     QTransform viewTransform = view->transform();
@@ -228,7 +228,7 @@ QRectF RotationWidgetItem::boundingRect() const
     return shape().boundingRect();
 }
 
-void RotationWidgetItem::initRotation(const QPainterPath& path, const QPointF & rotationPoint)
+void RotationWidgetItem::initRotation(const QPainterPath& path, const QPointF& rotationPoint)
 {
     d->rotated_shape = path;
     QRectF boundingRect = path.boundingRect();
@@ -272,7 +272,7 @@ void RotationWidgetItem::hoverLeaveEvent(QGraphicsSceneHoverEvent * /*event*/)
     this->unsetCursor();
 }
 
-void RotationWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
+void RotationWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QPointF buttonDownPos = d->viewportToItemPosition(event->buttonDownScreenPos(Qt::LeftButton), event->widget());
     QRectF buttonDownPosRect(buttonDownPos-QPointF(1,1), QSizeF(2,2));
@@ -287,7 +287,7 @@ void RotationWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
     event->setAccepted(true);
 }
 
-void RotationWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
+void RotationWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* /*event*/)
 {
     this->setCursor(QCursor(Qt::OpenHandCursor));
 
@@ -392,7 +392,7 @@ void RotationWidgetItem::setItems(const QList<AbstractPhoto*> & items)
         return;
 
     QPainterPath itemsPath;
-    foreach(AbstractPhoto* item, items)
+    foreach (AbstractPhoto* item, items)
         itemsPath += this->mapFromItem(item, item->shape());
     initRotation(itemsPath, items.at(0)->boundingRect().center() * items.at(0)->transform());
     setPos(itemsPath.boundingRect().center());

@@ -23,14 +23,18 @@
  * ============================================================ */
 
 #include "abstractitemstool.h"
+
+// Local includes
+
 #include "abstractphoto.h"
 #include "toolsdockwidget.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-AbstractItemsTool::AbstractItemsTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget* parent) :
-    AbstractTool(scene, selectionMode, parent),
-    m_photo(nullptr)
+AbstractItemsTool::AbstractItemsTool(PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent)
+    : AbstractTool(scene, selectionMode, parent),
+      m_photo(nullptr)
 {
 }
 
@@ -54,7 +58,7 @@ QPointF AbstractItemsTool::mousePosition()
     return m_point;
 }
 
-void AbstractItemsTool::setMousePosition(const QPointF & position)
+void AbstractItemsTool::setMousePosition(const QPointF& position)
 {
     if (m_point == position)
         return;
@@ -62,3 +66,5 @@ void AbstractItemsTool::setMousePosition(const QPointF & position)
     m_point = position;
     positionChanged();
 }
+
+} // namespace PhotoLayoutsEditor

@@ -2355,7 +2355,7 @@ public:
     typedef QMap<const QtProperty *, QLocale> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtEnumPropertyManager *m_enumPropertyManager;
+    QtEnumPropertyManager* m_enumPropertyManager;
 
     QMap<const QtProperty *, QtProperty *> m_propertyToLanguage;
     QMap<const QtProperty *, QtProperty *> m_propertyToCountry;
@@ -2467,7 +2467,7 @@ QtLocalePropertyManager::~QtLocalePropertyManager()
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtEnumPropertyManager *QtLocalePropertyManager::subEnumPropertyManager() const
+QtEnumPropertyManager* QtLocalePropertyManager::subEnumPropertyManager() const
 {
     return d_ptr->m_enumPropertyManager;
 }
@@ -2608,7 +2608,7 @@ public:
     typedef QMap<const QtProperty *, QPoint> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
+    QtIntPropertyManager* m_intPropertyManager;
 
     QMap<const QtProperty *, QtProperty *> m_propertyToX;
     QMap<const QtProperty *, QtProperty *> m_propertyToY;
@@ -2711,7 +2711,7 @@ QtPointPropertyManager::~QtPointPropertyManager()
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtIntPropertyManager *QtPointPropertyManager::subIntPropertyManager() const
+QtIntPropertyManager* QtPointPropertyManager::subIntPropertyManager() const
 {
     return d_ptr->m_intPropertyManager;
 }
@@ -2841,7 +2841,7 @@ public:
     typedef QMap<const QtProperty *, Data> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtDoublePropertyManager *m_doublePropertyManager;
+    QtDoublePropertyManager* m_doublePropertyManager;
 
     QMap<const QtProperty *, QtProperty *> m_propertyToX;
     QMap<const QtProperty *, QtProperty *> m_propertyToY;
@@ -2954,7 +2954,7 @@ QtPointFPropertyManager::~QtPointFPropertyManager()
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtDoublePropertyManager *QtPointFPropertyManager::subDoublePropertyManager() const
+QtDoublePropertyManager* QtPointFPropertyManager::subDoublePropertyManager() const
 {
     return d_ptr->m_doublePropertyManager;
 }
@@ -3134,7 +3134,7 @@ public:
     typedef QMap<const QtProperty *, Data> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
+    QtIntPropertyManager* m_intPropertyManager;
 
     QMap<const QtProperty *, QtProperty *> m_propertyToW;
     QMap<const QtProperty *, QtProperty *> m_propertyToH;
@@ -3273,7 +3273,7 @@ QtSizePropertyManager::~QtSizePropertyManager()
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtIntPropertyManager *QtSizePropertyManager::subIntPropertyManager() const
+QtIntPropertyManager* QtSizePropertyManager::subIntPropertyManager() const
 {
     return d_ptr->m_intPropertyManager;
 }
@@ -3489,7 +3489,7 @@ public:
     typedef QMap<const QtProperty *, Data> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtDoublePropertyManager *m_doublePropertyManager;
+    QtDoublePropertyManager* m_doublePropertyManager;
 
     QMap<const QtProperty *, QtProperty *> m_propertyToW;
     QMap<const QtProperty *, QtProperty *> m_propertyToH;
@@ -3636,7 +3636,7 @@ QtSizeFPropertyManager::~QtSizeFPropertyManager()
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtDoublePropertyManager *QtSizeFPropertyManager::subDoublePropertyManager() const
+QtDoublePropertyManager* QtSizeFPropertyManager::subDoublePropertyManager() const
 {
     return d_ptr->m_doublePropertyManager;
 }
@@ -3890,7 +3890,7 @@ public:
     typedef QMap<const QtProperty *, Data> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
+    QtIntPropertyManager* m_intPropertyManager;
 
     QMap<const QtProperty *, QtProperty *> m_propertyToX;
     QMap<const QtProperty *, QtProperty *> m_propertyToY;
@@ -4059,7 +4059,7 @@ QtRectPropertyManager::~QtRectPropertyManager()
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtIntPropertyManager *QtRectPropertyManager::subIntPropertyManager() const
+QtIntPropertyManager* QtRectPropertyManager::subIntPropertyManager() const
 {
     return d_ptr->m_intPropertyManager;
 }
@@ -4309,7 +4309,7 @@ public:
     typedef QMap<const QtProperty *, Data> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtDoublePropertyManager *m_doublePropertyManager;
+    QtDoublePropertyManager* m_doublePropertyManager;
 
     QMap<const QtProperty *, QtProperty *> m_propertyToX;
     QMap<const QtProperty *, QtProperty *> m_propertyToY;
@@ -4487,7 +4487,7 @@ QtRectFPropertyManager::~QtRectFPropertyManager()
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtDoublePropertyManager *QtRectFPropertyManager::subDoublePropertyManager() const
+QtDoublePropertyManager* QtRectFPropertyManager::subDoublePropertyManager() const
 {
     return d_ptr->m_doublePropertyManager;
 }
@@ -5398,8 +5398,8 @@ public:
     typedef QMap<const QtProperty *, QSizePolicy> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
-    QtEnumPropertyManager *m_enumPropertyManager;
+    QtIntPropertyManager* m_intPropertyManager;
+    QtEnumPropertyManager* m_enumPropertyManager;
 
     QMap<const QtProperty *, QtProperty *> m_propertyToHPolicy;
     QMap<const QtProperty *, QtProperty *> m_propertyToVPolicy;
@@ -5536,7 +5536,7 @@ QtSizePolicyPropertyManager::~QtSizePolicyPropertyManager()
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtIntPropertyManager *QtSizePolicyPropertyManager::subIntPropertyManager() const
+QtIntPropertyManager* QtSizePolicyPropertyManager::subIntPropertyManager() const
 {
     return d_ptr->m_intPropertyManager;
 }
@@ -5551,7 +5551,7 @@ QtIntPropertyManager *QtSizePolicyPropertyManager::subIntPropertyManager() const
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtEnumPropertyManager *QtSizePolicyPropertyManager::subEnumPropertyManager() const
+QtEnumPropertyManager* QtSizePolicyPropertyManager::subEnumPropertyManager() const
 {
     return d_ptr->m_enumPropertyManager;
 }
@@ -5731,8 +5731,8 @@ public:
     typedef QMap<const QtProperty *, QFont> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
-    QtEnumPropertyManager *m_enumPropertyManager;
+    QtIntPropertyManager* m_intPropertyManager;
+    QtEnumPropertyManager* m_enumPropertyManager;
     QtBoolPropertyManager *m_boolPropertyManager;
 
     QMap<const QtProperty *, QtProperty *> m_propertyToFamily;
@@ -5957,7 +5957,7 @@ QtFontPropertyManager::~QtFontPropertyManager()
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtIntPropertyManager *QtFontPropertyManager::subIntPropertyManager() const
+QtIntPropertyManager* QtFontPropertyManager::subIntPropertyManager() const
 {
     return d_ptr->m_intPropertyManager;
 }
@@ -5971,7 +5971,7 @@ QtIntPropertyManager *QtFontPropertyManager::subIntPropertyManager() const
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtEnumPropertyManager *QtFontPropertyManager::subEnumPropertyManager() const
+QtEnumPropertyManager* QtFontPropertyManager::subEnumPropertyManager() const
 {
     return d_ptr->m_enumPropertyManager;
 }
@@ -6207,7 +6207,7 @@ public:
     typedef QMap<const QtProperty *, QColor> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
+    QtIntPropertyManager* m_intPropertyManager;
 
     QMap<const QtProperty *, QtProperty *> m_propertyToR;
     QMap<const QtProperty *, QtProperty *> m_propertyToG;
@@ -6331,7 +6331,7 @@ QtColorPropertyManager::~QtColorPropertyManager()
 
     \sa QtAbstractPropertyBrowser::setFactoryForManager()
 */
-QtIntPropertyManager *QtColorPropertyManager::subIntPropertyManager() const
+QtIntPropertyManager* QtColorPropertyManager::subIntPropertyManager() const
 {
     return d_ptr->m_intPropertyManager;
 }

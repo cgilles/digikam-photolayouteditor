@@ -23,24 +23,30 @@
  * ============================================================ */
 
 #include "photoitemloader.h"
+
+// Qt includes
+
+#include <QBuffer>
+#include <QDebug>
+
+// Local includes
+
 #include "photoitem.h"
 #include "imageloadingthread.h"
 #include "progressobserver.h"
 #include "pleglobal.h"
 
-#include <QBuffer>
-#include <QDebug>
+namespace PhotoLayoutsEditor
+{
 
-using namespace PhotoLayoutsEditor;
-
-PhotoItemLoader::PhotoItemLoader(PhotoItem * item, QDomElement& element, QObject* parent) :
+PhotoItemLoader::PhotoItemLoader(PhotoItem* item, QDomElement& element, QObject* parent) :
     AbstractPhotoItemLoader(item, element, parent)
 {
 }
 
 void PhotoItemLoader::run()
 {
-    PhotoItem * item = (PhotoItem*) this->item();
+    PhotoItem* item = (PhotoItem*) this->item();
     ProgressObserver * observer = this->observer();
     AbstractPhotoItemLoader::run();
 
@@ -113,7 +119,7 @@ void PhotoItemLoader::run()
     // Try to find file from path attribute
     else if ( !(imageAttribute = PhotoItem::PhotoItemPrivate::locateFile( imageElement.attribute(QLatin1String("xlink:href")) )).isEmpty() )
     {
-        ImageLoadingThread * loader = new ImageLoadingThread(this);
+        ImageLoadingThread* loader = new ImageLoadingThread(this);
         loader->setImageUrl(QUrl(imageAttribute));
         loader->start();
         loader->wait();
@@ -130,10 +136,12 @@ void PhotoItemLoader::run()
     this->exit(0);
 }
 
-void PhotoItemLoader::imageLoaded(const QUrl & /*url*/, const QImage & image)
+void PhotoItemLoader::imageLoaded(const QUrl& /*url*/, const QImage& image)
 {
     if (image.isNull())
         this->exit(1);
-    PhotoItem * item = (PhotoItem*) this->item();
+    PhotoItem* item = (PhotoItem*) this->item();
     item->d->m_image = image;
 }
+
+} // namespace PhotoLayoutsEditor

@@ -36,15 +36,15 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit SepiaPhotoEffect(StandardEffectsFactory * factory, QObject* parent = nullptr);
-            virtual QImage apply(const QImage & image) const override;
+            explicit SepiaPhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
+            virtual QImage apply(const QImage& image) const override;
             virtual QString name() const override;
             virtual QString toString() const override;
             virtual operator QString() const override;
 
         private:
 
-            static inline QImage sepia_converted(const QImage & image)
+            static inline QImage sepia_converted(const QImage& image)
             {
                 QImage result = image;
                 unsigned int pixels = result.width() * result.height();

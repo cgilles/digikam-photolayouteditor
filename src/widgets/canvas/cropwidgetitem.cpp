@@ -180,7 +180,7 @@ void CropWidgetItemPrivate::calculateDrawings()
     m_item_shape = m_item_shape.united(m_handlers_path);
 }
 
-CropWidgetItem::CropWidgetItem(QGraphicsItem * parent, QGraphicsScene * scene) :
+CropWidgetItem::CropWidgetItem(QGraphicsItem* parent, QGraphicsScene* scene) :
     AbstractItemInterface(parent, scene),
     d(new CropWidgetItemPrivate(this))
 {
@@ -213,7 +213,7 @@ QPainterPath CropWidgetItem::shape() const
 void CropWidgetItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* /*option*/, QWidget* widget)
 {
     // Get the view
-    QGraphicsView * view = qobject_cast<QGraphicsView*>(widget->parentWidget());
+    QGraphicsView* view = qobject_cast<QGraphicsView*>(widget->parentWidget());
     if (!view)
         return;
     QTransform viewTransform = view->transform();
@@ -244,7 +244,7 @@ void CropWidgetItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* /*
     painter->restore();
 }
 
-void CropWidgetItem::keyPressEvent(QKeyEvent * event)
+void CropWidgetItem::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Return)
     {
@@ -260,7 +260,7 @@ void CropWidgetItem::keyPressEvent(QKeyEvent * event)
                 PLEWindow::instance()->beginUndoCommandGroup(QObject::tr("Crop items"));
             }
 
-            foreach(AbstractPhoto* item, d->m_items)
+            foreach (AbstractPhoto* item, d->m_items)
                 item->setCropShape( this->mapToItem(item, p) );
 
             if (commandGroupOpened)
@@ -285,7 +285,7 @@ void CropWidgetItem::keyPressEvent(QKeyEvent * event)
     }
 }
 
-void CropWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
+void CropWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     event->setAccepted(false);
     d->pressedVHandler = -1;
@@ -323,7 +323,7 @@ void CropWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
     }
 }
 
-void CropWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
+void CropWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
     if (d->pressedHHandler == -1 || d->pressedVHandler == -1)
         return;
@@ -442,17 +442,17 @@ void CropWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
     this->update(updatePath.boundingRect());
 }
 
-void CropWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent * /*event*/)
+void CropWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* /*event*/)
 {}
 
-void CropWidgetItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * /*event*/)
+void CropWidgetItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* /*event*/)
 {}
 
-void CropWidgetItem::setItems(const QList<AbstractPhoto*> & items)
+void CropWidgetItem::setItems(const QList<AbstractPhoto*>& items)
 {
     d->m_items = items;
 
-    foreach(AbstractPhoto* item, items)
+    foreach (AbstractPhoto* item, items)
         connect(item, SIGNAL(changed()), this, SLOT(updateShapes()));
 
     this->updateShapes();
@@ -461,11 +461,11 @@ void CropWidgetItem::setItems(const QList<AbstractPhoto*> & items)
 void CropWidgetItem::updateShapes()
 {
     d->m_crop_shape = QPainterPath();
-    foreach(AbstractPhoto* item, d->m_items)
+    foreach (AbstractPhoto* item, d->m_items)
         d->m_crop_shape += this->mapFromItem(item, item->itemDrawArea());
 
     QPainterPath temp;
-    foreach(AbstractPhoto* item, d->m_items)
+    foreach (AbstractPhoto* item, d->m_items)
         temp += this->mapFromItem(item, item->itemOpaqueArea());
     d->m_rect = temp.boundingRect();
 

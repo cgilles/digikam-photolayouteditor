@@ -23,13 +23,17 @@
  * ============================================================ */
 
 #include "textitemloader.h"
+
+// Local includes
+
 #include "textitem.h"
 #include "progressobserver.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-TextItemLoader::TextItemLoader(TextItem * item, QDomElement& element, QObject* parent) :
-    AbstractPhotoItemLoader(item, element, parent)
+TextItemLoader::TextItemLoader(TextItem* item, QDomElement& element, QObject* parent)
+    : AbstractPhotoItemLoader(item, element, parent)
 {
 }
 
@@ -96,3 +100,5 @@ void TextItemLoader::run()
 
     this->exit(0);
 }
+
+} // namespace PhotoLayoutsEditor

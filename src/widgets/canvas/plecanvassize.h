@@ -98,8 +98,8 @@ namespace PhotoLayoutsEditor
             void setResolutionUnit(ResolutionUnits unit);
             bool isValid() const;
 
-            bool operator ==(const PLECanvasSize & size) const;
-            bool operator !=(const PLECanvasSize & size) const;
+            bool operator ==(const PLECanvasSize& size) const;
+            bool operator !=(const PLECanvasSize& size) const;
 
         private:
 

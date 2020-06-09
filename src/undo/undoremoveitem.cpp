@@ -34,7 +34,7 @@
 namespace PhotoLayoutsEditor
 {
 
-UndoRemoveItem::UndoRemoveItem(AbstractPhoto* item, PLEScene * scene, LayersModel* model, QUndoCommand * parent)
+UndoRemoveItem::UndoRemoveItem(AbstractPhoto* item, PLEScene* scene, LayersModel* model, QUndoCommand* parent)
     : QUndoCommand(QObject::tr("Remove item"), parent),
       m_item(item),
       m_parentItem(static_cast<AbstractPhoto*>(item->QGraphicsItem::parentItem())),
@@ -82,7 +82,7 @@ void UndoRemoveItem::undo()
     }
 }
 
-bool UndoRemoveItem::compareGraphicsItems(QGraphicsItem * i1, QGraphicsItem * i2)
+bool UndoRemoveItem::compareGraphicsItems(QGraphicsItem* i1, QGraphicsItem* i2)
 {
     if ((i1 && i2) && (i1->zValue() < i2->zValue()))
         return true;
@@ -97,7 +97,7 @@ void UndoRemoveItem::appendChild(AbstractPhoto* item, const QModelIndex& parent)
         // Sort using z-Values (z-Value == models row)
         qSort(items.begin(), items.end(), UndoRemoveItem::compareGraphicsItems);
         int i = 0;
-        foreach(QGraphicsItem* childItem, items)
+        foreach (QGraphicsItem* childItem, items)
         {
             AbstractPhoto* photo = dynamic_cast<AbstractPhoto*>(childItem);
             if (photo)

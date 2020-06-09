@@ -25,34 +25,37 @@
 #ifndef LAYERSTREEDELEGATE_H
 #define LAYERSTREEDELEGATE_H
 
+// Qt includes
+
 #include <QStyledItemDelegate>
 
 namespace PhotoLayoutsEditor
 {
-    class LayersTreeDelegate : public QStyledItemDelegate
-    {
 
-            Q_OBJECT
+class LayersTreeDelegate : public QStyledItemDelegate
+{
+    Q_OBJECT
 
-            QPixmap m_eye;
-            QPixmap m_eye_off;
-            QPixmap m_padlock;
-            QPixmap m_padlock_off;
+    QPixmap m_eye;
+    QPixmap m_eye_off;
+    QPixmap m_padlock;
+    QPixmap m_padlock_off;
 
-        public:
+public:
 
-            explicit LayersTreeDelegate(QWidget* parent = nullptr);
-            virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
-            virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+    explicit LayersTreeDelegate(QWidget* parent = nullptr);
+    virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+    virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 
-        public Q_SLOTS:
+public Q_SLOTS:
 
-            void itemClicked(const QModelIndex& index);
+    void itemClicked(const QModelIndex& index);
 
-        Q_SIGNALS:
+Q_SIGNALS:
 
-            void itemRepaintNeeded(const QModelIndex& index);
-    };
-}
+    void itemRepaintNeeded(const QModelIndex& index);
+};
+
+} // namespace PhotoLayoutsEditor
 
 #endif // LAYERSTREEDELEGATE_H

@@ -36,15 +36,15 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit GrayscalePhotoEffect(StandardEffectsFactory * factory, QObject* parent = nullptr);
-            virtual QImage apply(const QImage & image) const override;
+            explicit GrayscalePhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
+            virtual QImage apply(const QImage& image) const override;
             virtual QString name() const override;
             virtual QString toString() const override;
             virtual operator QString() const override;
 
         private:
 
-            static inline QImage greyscaled(const QImage & image)
+            static inline QImage greyscaled(const QImage& image)
             {
                 QImage result = image;
                 unsigned int pixels = result.width() * result.height();

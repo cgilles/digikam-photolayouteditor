@@ -40,7 +40,7 @@ StandardEffectsFactory::StandardEffectsFactory(QObject* parent)
 {
 }
 
-AbstractPhotoEffectInterface * StandardEffectsFactory::getEffectInstance(const QString& name)
+AbstractPhotoEffectInterface* StandardEffectsFactory::getEffectInstance(const QString& name)
 {
     if (name == QObject::tr("Blur effect"))
         return new BlurPhotoEffect(this);

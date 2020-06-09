@@ -49,11 +49,11 @@ QFont  TextItem::DEFAULT_FONT  = QFont();
 class TextChangeUndoCommand : public QUndoCommand
 {
     QStringList m_text;
-    TextItem * m_item;
+    TextItem* m_item;
 
 public:
 
-    TextChangeUndoCommand(const QStringList & text, TextItem * item, QUndoCommand * parent = nullptr) :
+    TextChangeUndoCommand(const QStringList & text, TextItem* item, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Text change"), parent),
         m_text(text),
         m_item(item)
@@ -77,12 +77,12 @@ public:
 
 class TextColorUndoCommand : public QUndoCommand
 {
-    TextItem * m_item;
+    TextItem* m_item;
     QColor m_color;
 
 public:
 
-    TextColorUndoCommand(const QColor & color, TextItem * item, QUndoCommand * parent = nullptr) :
+    TextColorUndoCommand(const QColor& color, TextItem* item, QUndoCommand* parent = nullptr) :
             QUndoCommand(QObject::tr("Text color change"), parent),
             m_item(item),
             m_color(color)
@@ -109,12 +109,12 @@ public:
 
 class TextFontUndoCommand : public QUndoCommand
 {
-    TextItem * m_item;
+    TextItem* m_item;
     QFont m_font;
 
 public:
 
-    TextFontUndoCommand(const QFont & font, TextItem * item, QUndoCommand * parent = nullptr) :
+    TextFontUndoCommand(const QFont & font, TextItem* item, QUndoCommand* parent = nullptr) :
             QUndoCommand(QObject::tr("Text font change"), parent),
             m_item(item),
             m_font(font)
@@ -148,7 +148,7 @@ class AddTextUndoCommand : public QUndoCommand
 
 public:
 
-    AddTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
+    AddTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
@@ -183,7 +183,7 @@ class RemoveTextUndoCommand : public QUndoCommand
 
 public:
 
-    RemoveTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
+    RemoveTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
@@ -226,7 +226,7 @@ class AddLineUndoCommand : public QUndoCommand
 
 public:
 
-    AddLineUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
+    AddLineUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
@@ -266,7 +266,7 @@ class MergeLineUndoCommand : public QUndoCommand
 
 public:
 
-    MergeLineUndoCommand(int row, TextItem::TextItemPrivate * item_p, QUndoCommand * parent = nullptr) :
+    MergeLineUndoCommand(int row, TextItem::TextItemPrivate * item_p, QUndoCommand* parent = nullptr) :
         QUndoCommand(QObject::tr("Text edit"), parent),
         m_item_p(item_p),
         row(row),
@@ -456,7 +456,7 @@ void TextItem::TextItemPrivate::closeEditor()
     command = nullptr;
 }
 
-TextItem::TextItem(const QString& text, PLEScene * scene) :
+TextItem::TextItem(const QString& text, PLEScene* scene) :
     AbstractPhoto((text.isEmpty() ? QObject::tr("Text item") : text), scene),
     d(new TextItemPrivate(this)),
     m_color(DEFAULT_COLOR),
@@ -492,7 +492,7 @@ void TextItem::focusOutEvent(QFocusEvent * event)
     this->refresh();
 }
 
-void TextItem::keyPressEvent(QKeyEvent * event)
+void TextItem::keyPressEvent(QKeyEvent* event)
 {
     //bool textChange = false;
     switch (event->key())
@@ -537,7 +537,7 @@ void TextItem::keyPressEvent(QKeyEvent * event)
     event->setAccepted(true);
 }
 
-void TextItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
+void TextItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QPointF p = event->pos();
 
@@ -582,10 +582,10 @@ QColor TextItem::color() const
     return m_color;
 }
 
-void TextItem::setColor(const QColor & color)
+void TextItem::setColor(const QColor& color)
 {
     DEFAULT_COLOR = color;
-    QUndoCommand * undo = new TextColorUndoCommand(color, this);
+    QUndoCommand* undo = new TextColorUndoCommand(color, this);
     PLE_PostUndoCommand(undo);
 }
 
@@ -597,7 +597,7 @@ QFont TextItem::font() const
 void TextItem::setFont(const QFont & font)
 {
     DEFAULT_FONT = font;
-    QUndoCommand * undo = new TextFontUndoCommand(font, this);
+    QUndoCommand* undo = new TextFontUndoCommand(font, this);
     PLE_PostUndoCommand(undo);
 }
 
@@ -613,7 +613,7 @@ QString TextItem::textMultiline() const
 
 void TextItem::setText(const QStringList & textList)
 {
-    QUndoCommand * undo = new TextChangeUndoCommand(textList, this);
+    QUndoCommand* undo = new TextChangeUndoCommand(textList, this);
     PLE_PostUndoCommand(undo);
 }
 
@@ -765,9 +765,9 @@ QDomDocument TextItem::svgTemplateArea() const
     return document;
 }
 
-TextItem * TextItem::fromSvg(QDomElement& element)
+TextItem* TextItem::fromSvg(QDomElement& element)
 {
-    TextItem * result = new TextItem();
+    TextItem* result = new TextItem();
     if (result->AbstractPhoto::fromSvg(element))
     {
         QDomElement defs = element.firstChildElement(QLatin1String("defs"));
@@ -813,7 +813,7 @@ void TextItem::refreshItem()
     int maxBearing = 0;
     int maxWidth = 0;
     const int lineSpacing = m_metrics.lineSpacing();
-    foreach(QString string, d->m_string_list)
+    foreach (QString string, d->m_string_list)
     {
         if (string.length())
         {
@@ -841,34 +841,34 @@ void TextItem::refreshItem()
     this->updateIcon();
 }
 
-QtAbstractPropertyBrowser * TextItem::propertyBrowser()
+QtAbstractPropertyBrowser* TextItem::propertyBrowser()
 {
     QtTreePropertyBrowser * browser = new QtTreePropertyBrowser();
 
     // Color
-    QtColorPropertyManager * colorManager = new QtColorPropertyManager(browser);
+    QtColorPropertyManager* colorManager = new QtColorPropertyManager(browser);
     PLEColorEditorFactory * colorFactory = new PLEColorEditorFactory(browser);
     browser->setFactoryForManager(colorManager, colorFactory);
-    QtProperty * colorProperty = colorManager->addProperty(QObject::tr("Text color"));
+    QtProperty* colorProperty = colorManager->addProperty(QObject::tr("Text color"));
     colorManager->setValue(colorProperty, m_color);
     browser->addProperty(colorProperty);
     TextColorChangeListener * colorListener = new TextColorChangeListener(this);
     colorListener->connect(browser, SIGNAL(destroyed()), SLOT(deleteLater()));
     colorListener->connect(colorManager, SIGNAL(propertyChanged(QtProperty*)), SLOT(propertyChanged(QtProperty*)));
-    foreach(QtProperty* p, colorProperty->subProperties())
+    foreach (QtProperty* p, colorProperty->subProperties())
         p->setEnabled(false);
 
     // Font
-    QtFontPropertyManager * fontManager = new QtFontPropertyManager(browser);
+    QtFontPropertyManager* fontManager = new QtFontPropertyManager(browser);
     PLEFontEditorFactory * fontFactory = new PLEFontEditorFactory(browser);
     browser->setFactoryForManager(fontManager, fontFactory);
-    QtProperty * fontProperty = fontManager->addProperty(QObject::tr("Font"));
+    QtProperty* fontProperty = fontManager->addProperty(QObject::tr("Font"));
     fontManager->setValue(fontProperty, m_font);
     browser->addProperty(fontProperty);
     TextFontChangeListener * fontListener = new TextFontChangeListener(this);
     fontListener->connect(browser, SIGNAL(destroyed()), SLOT(deleteLater()));
     fontListener->connect(fontManager, SIGNAL(propertyChanged(QtProperty*)), SLOT(propertyChanged(QtProperty*)));
-    foreach(QtProperty* p, fontProperty->subProperties())
+    foreach (QtProperty* p, fontProperty->subProperties())
         p->setEnabled(false);
 
     return browser;

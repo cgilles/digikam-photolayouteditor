@@ -37,11 +37,11 @@ namespace PhotoLayoutsEditor
 
 class PhotoEffectChangeCommand : public QUndoCommand
 {
-        AbstractPhotoEffectInterface * effect;
+        AbstractPhotoEffectInterface* effect;
         QString propertyName;
         QVariant value;
     public:
-        PhotoEffectChangeCommand(AbstractPhotoEffectInterface * effect, QUndoCommand * parent = nullptr) :
+        PhotoEffectChangeCommand(AbstractPhotoEffectInterface* effect, QUndoCommand* parent = nullptr) :
             QUndoCommand(parent),
             effect(effect)
         {
@@ -65,7 +65,7 @@ class PhotoEffectChangeCommand : public QUndoCommand
         }
 };
 
-PhotoEffectChangeListener::PhotoEffectChangeListener(AbstractPhotoEffectInterface * effect, QObject* parent, bool createCommands) :
+PhotoEffectChangeListener::PhotoEffectChangeListener(AbstractPhotoEffectInterface* effect, QObject* parent, bool createCommands) :
     QObject(parent),
     effect(effect),
     command(nullptr),
@@ -73,7 +73,7 @@ PhotoEffectChangeListener::PhotoEffectChangeListener(AbstractPhotoEffectInterfac
 {
 }
 
-void PhotoEffectChangeListener::propertyChanged(QtProperty * property)
+void PhotoEffectChangeListener::propertyChanged(QtProperty* property)
 {
     if (!effect)
         return;
@@ -81,25 +81,25 @@ void PhotoEffectChangeListener::propertyChanged(QtProperty * property)
     if (!command)
         command = new PhotoEffectChangeCommand(effect);
 
-    QtIntPropertyManager * integerManager = qobject_cast<QtIntPropertyManager*>(property->propertyManager());
+    QtIntPropertyManager*  integerManager = qobject_cast<QtIntPropertyManager*>(property->propertyManager());
     if (integerManager)
     {
         command->setPropertyValue(property->propertyName(), integerManager->value(property));
         return;
     }
-    QtDoublePropertyManager * doubleManager = qobject_cast<QtDoublePropertyManager*>(property->propertyManager());
+    QtDoublePropertyManager*  doubleManager = qobject_cast<QtDoublePropertyManager*>(property->propertyManager());
     if (doubleManager)
     {
         command->setPropertyValue(property->propertyName(), doubleManager->value(property));
         return;
     }
-    QtColorPropertyManager * colorManager = qobject_cast<QtColorPropertyManager*>(property->propertyManager());
+    QtColorPropertyManager* colorManager = qobject_cast<QtColorPropertyManager*>(property->propertyManager());
     if (colorManager)
     {
         command->setPropertyValue(property->propertyName(), colorManager->value(property));
         return;
     }
-    QtVariantPropertyManager * variantManager = qobject_cast<QtVariantPropertyManager*>(property->propertyManager());
+    QtVariantPropertyManager*  variantManager = qobject_cast<QtVariantPropertyManager*>(property->propertyManager());
     if (variantManager)
     {
         command->setPropertyValue(property->propertyName(), variantManager->value(property));

@@ -35,7 +35,8 @@
 #include "qtpropertymanager.h"
 #include "pleeditfactory.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 class PixelizePhotoEffect::PixelizeUndoCommand : public QUndoCommand
 {
@@ -99,7 +100,7 @@ QString PixelizePhotoEffect::effectName() const
     return QObject::tr("Pixelize effect");
 }
 
-QImage PixelizePhotoEffect::apply(const QImage & image)
+QImage PixelizePhotoEffect::apply(const QImage& image)
 {
     QImage result = image;
     QPainter p(&result);
@@ -166,3 +167,5 @@ void PixelizePhotoEffect::propertyChanged(QtProperty* property)
 
     endUndoCommandChange();
 }
+    
+} // namespace PhotoLayoutsEditor

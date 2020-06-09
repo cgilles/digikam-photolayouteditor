@@ -23,16 +23,20 @@
  * ============================================================ */
 
 #include "sepiaphotoeffect.h"
+
+// Local includes
+
 #include "standardeffectsfactory.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-SepiaPhotoEffect::SepiaPhotoEffect(StandardEffectsFactory * factory, QObject* parent) :
-    AbstractPhotoEffectInterface(factory, parent)
+SepiaPhotoEffect::SepiaPhotoEffect(StandardEffectsFactory* factory, QObject* parent)
+    : AbstractPhotoEffectInterface(factory, parent)
 {
 }
 
-QImage SepiaPhotoEffect::apply(const QImage & image) const
+QImage SepiaPhotoEffect::apply(const QImage& image) const
 {
     if (!strength())
         return image;
@@ -57,3 +61,5 @@ SepiaPhotoEffect::operator QString() const
 {
     return toString();
 }
+
+} // namespace PhotoLayoutsEditor

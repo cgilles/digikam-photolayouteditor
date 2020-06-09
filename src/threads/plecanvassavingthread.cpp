@@ -38,23 +38,24 @@
 #include "progressevent.h"
 #include "plewindow.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-PLECanvasSavingThread::PLECanvasSavingThread(QObject* parent) :
-    QThread(parent),
-    m_canvas(nullptr),
-    m_template(false)
+PLECanvasSavingThread::PLECanvasSavingThread(QObject* parent)
+    : QThread(parent),
+      m_canvas(nullptr),
+      m_template(false)
 {
 }
 
-void PLECanvasSavingThread::save(PLECanvas* canvas, const QUrl & url)
+void PLECanvasSavingThread::save(PLECanvas* canvas, const QUrl& url)
 {
     m_canvas = canvas;
     m_url    = url;
     this->start();
 }
 
-void PLECanvasSavingThread::saveAsTemplate(PLECanvas * canvas, const QUrl& url)
+void PLECanvasSavingThread::saveAsTemplate(PLECanvas* canvas, const QUrl& url)
 {
     m_canvas   = canvas;
     m_url      = url;
@@ -79,7 +80,7 @@ void PLECanvasSavingThread::run()
 
     //---------------------------------------------------------------------------
 
-    ProgressEvent * startEvent = new ProgressEvent(this);
+    ProgressEvent* startEvent = new ProgressEvent(this);
     startEvent->setData(ProgressEvent::Init, 0);
     QCoreApplication::postEvent(PLEWindow::instance(), startEvent);
     QCoreApplication::processEvents();
@@ -219,3 +220,5 @@ void PLECanvasSavingThread::sendActionUpdate(const QString& str)
     QCoreApplication::postEvent(PLEWindow::instance(), event);
     QCoreApplication::processEvents();
 }
+
+} // namespace PhotoLayoutsEditor

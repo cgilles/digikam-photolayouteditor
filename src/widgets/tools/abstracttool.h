@@ -43,26 +43,26 @@ namespace PhotoLayoutsEditor
     {
             Q_OBJECT
 
-            PLEScene * m_scene;
+            PLEScene* m_scene;
 
             PLECanvas::SelectionMode sel_mode;
 
         public:
 
-            AbstractTool(PLEScene * scene, PLECanvas::SelectionMode selectionMode, QWidget* parent = nullptr) :
+            AbstractTool(PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent = nullptr) :
                 QWidget(parent),
                 m_scene(scene),
                 sel_mode(selectionMode)
             {}
 
-            PLEScene * scene() const
+            PLEScene* scene() const
             {
                 return m_scene;
             }
 
         protected:
 
-            void setScene(PLEScene * scene)
+            void setScene(PLEScene* scene)
             {
                 if (m_scene == scene)
                     return;

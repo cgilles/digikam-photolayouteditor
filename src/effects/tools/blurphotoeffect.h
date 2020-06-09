@@ -43,8 +43,8 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit BlurPhotoEffect(StandardEffectsFactory * factory, QObject* parent = nullptr);
-            virtual QImage apply(const QImage & image) const override;
+            explicit BlurPhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
+            virtual QImage apply(const QImage& image) const override;
             virtual QString name() const override;
             virtual QString toString() const override;
             virtual operator QString() const override;
@@ -106,7 +106,7 @@ namespace PhotoLayoutsEditor
 
         private:
 
-            static QImage blurred(const QImage & image, const QRect& rect, unsigned int radius)
+            static QImage blurred(const QImage& image, const QRect& rect, unsigned int radius)
             {
                 int tab[]     = { 14, 10, 8, 6, 5, 5, 4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2 };
                 int alpha     = (radius < 1)  ? 16 : (radius > (sizeof(tab) / sizeof(int))) ? 1 : tab[radius-1];

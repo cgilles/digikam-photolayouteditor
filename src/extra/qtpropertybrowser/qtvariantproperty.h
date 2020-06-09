@@ -71,7 +71,7 @@ public:
 
 protected:
 
-    explicit QtVariantProperty(QtVariantPropertyManager *manager);
+    explicit QtVariantProperty(QtVariantPropertyManager* manager);
 
 private:
 
@@ -177,11 +177,11 @@ public:
     explicit QtVariantEditorFactory(QObject* parent = nullptr);
     ~QtVariantEditorFactory();
 protected:
-    void connectPropertyManager(QtVariantPropertyManager *manager) override;
-    QWidget *createEditor(QtVariantPropertyManager *manager, QtProperty *property,
+    void connectPropertyManager(QtVariantPropertyManager* manager) override;
+    QWidget *createEditor(QtVariantPropertyManager* manager, QtProperty *property,
                 QWidget *parent) override;
     QWidget *createEditor(QtProperty *property, QWidget *parent) override;
-    void disconnectPropertyManager(QtVariantPropertyManager *manager) override;
+    void disconnectPropertyManager(QtVariantPropertyManager* manager) override;
 private:
     QtVariantEditorFactoryPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtVariantEditorFactory)

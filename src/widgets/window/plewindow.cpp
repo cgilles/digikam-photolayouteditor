@@ -288,7 +288,7 @@ void PLEWindow::createWidgets()
     setStatusBar(d->statusBar);
 }
 
-void PLEWindow::createPLECanvas(const PLECanvasSize & size)
+void PLEWindow::createPLECanvas(const PLECanvasSize& size)
 {
     if (d->canvas)
     {
@@ -514,7 +514,7 @@ void PLEWindow::saveAsTemplate()
     }
 }
 
-void PLEWindow::saveFile(const QUrl & fileUrl, bool setFileAsDefault)
+void PLEWindow::saveFile(const QUrl& fileUrl, bool setFileAsDefault)
 {
     if (d->canvas)
     {

@@ -44,7 +44,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            explicit BorderEditTool(PLEScene * scene, QWidget* parent = nullptr);
+            explicit BorderEditTool(PLEScene* scene, QWidget* parent = nullptr);
             virtual QStringList options() const override;
             virtual AbstractMovableModel * model() override;
             virtual QObject* createItem(const QString& name) override;

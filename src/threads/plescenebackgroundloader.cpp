@@ -32,12 +32,13 @@
 
 #include "plescenebackground.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-PLESceneBackgroundLoader::PLESceneBackgroundLoader(PLESceneBackground * background, QDomElement& element, QObject* parent) :
-    QThread(parent),
-    m_background(background),
-    m_element(element)
+PLESceneBackgroundLoader::PLESceneBackgroundLoader(PLESceneBackground* background, QDomElement& element, QObject* parent)
+    : QThread(parent),
+      m_background(background),
+      m_element(element)
 {
     connect(this, SIGNAL(finished()), background, SLOT(render()));
     connect(this, SIGNAL(finished()), this, SLOT(deleteLater()));
@@ -125,3 +126,5 @@ void PLESceneBackgroundLoader::run()
 
     this->exit(0);
 }
+
+} // namespace PhotoLayoutsEditor

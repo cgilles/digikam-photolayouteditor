@@ -39,7 +39,7 @@ namespace PhotoLayoutsEditor
 
         public:
 
-            PhotoItemLoader(PhotoItem * item, QDomElement& element, QObject* parent = nullptr);
+            PhotoItemLoader(PhotoItem* item, QDomElement& element, QObject* parent = nullptr);
 
         protected:
 
@@ -47,7 +47,7 @@ namespace PhotoLayoutsEditor
 
         protected Q_SLOTS:
 
-            void imageLoaded(const QUrl & url, const QImage & image);
+            void imageLoaded(const QUrl& url, const QImage& image);
 
     };
 }

@@ -24,6 +24,8 @@
 
 #include "patternscombobox.h"
 
+// Qt includes
+
 #include <QStyledItemDelegate>
 #include <QStylePainter>
 #include <QDebug>
@@ -31,38 +33,45 @@
 #include <QPaintEngine>
 #include <QPaintEvent>
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
 class PatternDelegate : public QStyledItemDelegate
 {
-    public:
-        explicit PatternDelegate(QObject* parent = nullptr) :
-            QStyledItemDelegate(parent)
-        {}
-        virtual ~PatternDelegate()
-        {}
-        virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
+public:
+
+    explicit PatternDelegate(QObject* parent = nullptr) :
+        QStyledItemDelegate(parent)
+    {
+    }
+
+    virtual ~PatternDelegate()
+    {
+    }
+
+    virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
+    {
+        QSize result = option.rect.size();
+        if (index.isValid())
+            result.setHeight(24);
+        return result;
+    }
+    
+    virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
+    {
+        if (index.isValid())
         {
-            QSize result = option.rect.size();
-            if (index.isValid())
-                result.setHeight(24);
-            return result;
+            Qt::BrushStyle style = (Qt::BrushStyle) index.data(Qt::UserRole).toInt();
+            QBrush b(Qt::black, style);
+            QRectF r = option.rect;
+            r.setHeight(24);
+            painter->fillRect(r, b);
         }
-        virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
-        {
-            if (index.isValid())
-            {
-                Qt::BrushStyle style = (Qt::BrushStyle) index.data(Qt::UserRole).toInt();
-                QBrush b(Qt::black, style);
-                QRectF r = option.rect;
-                r.setHeight(24);
-                painter->fillRect(r, b);
-            }
-        }
+    }
 };
 
-PatternsComboBox::PatternsComboBox(QWidget* parent) :
-    QComboBox(parent)
+PatternsComboBox::PatternsComboBox(QWidget* parent)
+    : QComboBox(parent)
 {
     addItem(QLatin1String(""), QVariant((int)Qt::Dense1Pattern));
     addItem(QLatin1String(""), QVariant((int)Qt::Dense2Pattern));
@@ -122,3 +131,5 @@ void PatternsComboBox::emitPatternChanged(int index)
 {
     emit currentPatternChanged( (Qt::BrushStyle) this->itemData(index).toInt() );
 }
+
+} // namespace PhotoLayoutsEditor

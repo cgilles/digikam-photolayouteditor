@@ -37,15 +37,15 @@ namespace PhotoLayoutsEditor
     {
             Q_OBJECT
 
-            TextItem * m_item;
+            TextItem* m_item;
 
         public:
 
-            explicit TextColorChangeListener(TextItem * item, QObject* parent = nullptr);
+            explicit TextColorChangeListener(TextItem* item, QObject* parent = nullptr);
 
         public Q_SLOTS:
 
-            void propertyChanged(QtProperty * property);
+            void propertyChanged(QtProperty* property);
     };
 }
 

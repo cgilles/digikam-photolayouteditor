@@ -23,20 +23,27 @@
  * ============================================================ */
 
 #include "zoomtool.h"
-#include "mousepresslistener.h"
+
+// Qt includes
 
 #include <QButtonGroup>
 #include <QRadioButton>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
+
+#include "mousepresslistener.h"
+
+namespace PhotoLayoutsEditor
+{
 
 class ZoomTool::ZoomToolPrivate
 {
-    ZoomToolPrivate() :
-        out(nullptr),
-        in(nullptr),
-        listener(nullptr)
-    {}
+    ZoomToolPrivate()
+        : out(nullptr),
+          in(nullptr),
+          listener(nullptr)
+    {
+    }
 
     QRadioButton * out;
     QRadioButton * in;
@@ -44,14 +51,14 @@ class ZoomTool::ZoomToolPrivate
     friend class ZoomTool;
 };
 
-ZoomTool::ZoomTool(PLEScene * scene, QWidget* parent) :
-    AbstractTool(scene, PLECanvas::Viewing, parent),
-    d(new ZoomToolPrivate)
+ZoomTool::ZoomTool(PLEScene* scene, QWidget* parent)
+    : AbstractTool(scene, PLECanvas::Viewing, parent),
+      d(new ZoomToolPrivate)
 {
-    QVBoxLayout * layout = new QVBoxLayout();
+    QVBoxLayout* layout = new QVBoxLayout();
     this->setLayout(layout);
 
-    QButtonGroup * group = new QButtonGroup(this);
+    QButtonGroup* group = new QButtonGroup(this);
     d->out = new QRadioButton(QObject::tr("Zoom out"), this);
     group->addButton(d->out);
     layout->addWidget(d->out);
@@ -70,7 +77,7 @@ ZoomTool::ZoomTool(PLEScene * scene, QWidget* parent) :
 
 ZoomTool::~ZoomTool()
 {
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
     scene->readPLESceneMousePress(nullptr);
@@ -79,7 +86,7 @@ ZoomTool::~ZoomTool()
 
 void ZoomTool::sceneChange()
 {
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
     scene->readPLESceneMousePress(nullptr);
@@ -87,22 +94,22 @@ void ZoomTool::sceneChange()
 
 void ZoomTool::sceneChanged()
 {
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
     scene->readPLESceneMousePress( d->listener );
 }
 
-void ZoomTool::zoom(const QPointF & point)
+void ZoomTool::zoom(const QPointF& point)
 {
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
     QList<QGraphicsView*> views = scene->views();
     qreal factor = 1 + (d->out->isChecked() ? -0.1 : 0.1);
-    foreach(QGraphicsView* view, views)
+    foreach (QGraphicsView* view, views)
     {
-        PLECanvas * canvas = qobject_cast<PLECanvas*>(view);
+        PLECanvas* canvas = qobject_cast<PLECanvas*>(view);
         if (!canvas)
             continue;
         if (d->listener->wasDragged())
@@ -118,3 +125,5 @@ void ZoomTool::zoom(const QPointF & point)
             canvas->scale(factor, canvas->mapFromScene(point));
     }
 }
+
+} // namespace PhotoLayoutsEditor

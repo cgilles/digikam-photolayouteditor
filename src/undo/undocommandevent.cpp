@@ -24,10 +24,13 @@
 
 #include "undocommandevent.h"
 
-using namespace PhotoLayoutsEditor;
+namespace PhotoLayoutsEditor
+{
 
-UndoCommandEvent::UndoCommandEvent() :
-    QEvent(registeredEventType()),
-    m_command(nullptr)
+UndoCommandEvent::UndoCommandEvent()
+    : QEvent(registeredEventType()),
+      m_command(nullptr)
 {
 }
+
+} // namespace PhotoLayoutsEditor

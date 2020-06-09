@@ -102,7 +102,7 @@ namespace PhotoLayoutsEditor
             {
                 return m_color;
             }
-            void setColor(const QColor & color)
+            void setColor(const QColor& color)
             {
                 if (color.isValid())
                 {

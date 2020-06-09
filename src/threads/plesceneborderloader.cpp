@@ -23,16 +23,22 @@
  * ============================================================ */
 
 #include "plesceneborderloader.h"
-#include "plesceneborder.h"
+
+// Qt includes
 
 #include <QDebug>
 
-using namespace PhotoLayoutsEditor;
+// Local includes
 
-PLESceneBorderLoader::PLESceneBorderLoader(PLESceneBorder * border, QDomElement& element, QObject* parent) :
-    QThread(parent),
-    m_border(border),
-    m_element(element)
+#include "plesceneborder.h"
+
+namespace PhotoLayoutsEditor
+{
+
+PLESceneBorderLoader::PLESceneBorderLoader(PLESceneBorder* border, QDomElement& element, QObject* parent)
+    : QThread(parent),
+      m_border(border),
+      m_element(element)
 {
     connect(this, SIGNAL(finished()), border, SLOT(render()));
     connect(this, SIGNAL(finished()), this, SLOT(deleteLater()));
@@ -64,3 +70,5 @@ void PLESceneBorderLoader::run()
 
     this->exit(0);
 }
+
+} // namespace PhotoLayoutsEditor

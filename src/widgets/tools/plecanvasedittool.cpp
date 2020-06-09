@@ -191,7 +191,7 @@ class PLECanvasEditToolPrivate
     friend class PLECanvasEditTool;
 };
 
-PLECanvasEditTool::PLECanvasEditTool(PLEScene * scene, QWidget* parent)
+PLECanvasEditTool::PLECanvasEditTool(PLEScene* scene, QWidget* parent)
     : AbstractTool(scene, PLECanvas::Viewing, parent),
       d(new PLECanvasEditToolPrivate(this)),
       hold_update(false)
@@ -227,18 +227,18 @@ void PLECanvasEditTool::backgroundTypeChanged(const QString& typeName)
 
 void PLECanvasEditTool::sceneChange()
 {
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
 }
 
 void PLECanvasEditTool::sceneChanged()
 {
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
 
-    PLESceneBackground * background = scene->background();
+    PLESceneBackground* background = scene->background();
     this->connect(background, SIGNAL(changed()), this, SLOT(updateWidgets()));
 
     this->updateWidgets();
@@ -251,7 +251,7 @@ void PLECanvasEditTool::colorBackgroundSelected()
     if (this->hold_update)
         return;
 
-    PLESceneBackground * background = scene()->background();
+    PLESceneBackground* background = scene()->background();
     background->setSolidColor(d->background_color->color());
 }
 
@@ -263,7 +263,7 @@ void PLECanvasEditTool::imageBackgroundSelected()
     d->background_widgets->setCurrentWidget(d->background_image_widget);
     if (d->m_image.isNull())
         return;
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
 
@@ -283,39 +283,39 @@ void PLECanvasEditTool::patternBackgroundSelected()
     this->setPatternBackground();
 }
 
-void PLECanvasEditTool::solidColorChanged(const QColor & color)
+void PLECanvasEditTool::solidColorChanged(const QColor& color)
 {
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
     scene->background()->setSolidColor(color);
 }
 
-void PLECanvasEditTool::imageBackgroundColorChanged(const QColor & color)
+void PLECanvasEditTool::imageBackgroundColorChanged(const QColor& color)
 {
     if (this->hold_update)
         return;
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
     scene->background()->setSecondColor(color);
 }
 
-void PLECanvasEditTool::patternFirstColorChanged(const QColor & /*color*/)
+void PLECanvasEditTool::patternFirstColorChanged(const QColor& /*color*/)
 {
     if (this->hold_update)
         return;
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
     this->setPatternBackground();
 }
 
-void PLECanvasEditTool::patternSecondColorChanged(const QColor & /*color*/)
+void PLECanvasEditTool::patternSecondColorChanged(const QColor& /*color*/)
 {
     if (this->hold_update)
         return;
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
     this->setPatternBackground();
@@ -325,7 +325,7 @@ void PLECanvasEditTool::patternStyleChanged(Qt::BrushStyle /*patternStyle*/)
 {
     if (this->hold_update)
         return;
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
     this->setPatternBackground();
@@ -459,7 +459,7 @@ void PLECanvasEditTool::setImageBackground()
     if (d->m_image.isNull() || this->hold_update)
         return;
 
-    PLESceneBackground * background = scene()->background();
+    PLESceneBackground* background = scene()->background();
     bool tiled = d->background_image_tiled->isChecked();
     Qt::Alignment alignment = d->background_image_Halignment_map.key( d->background_image_HAlign->currentText() ) |
                               d->background_image_Valignment_map.key( d->background_image_VAlign->currentText() );
@@ -490,7 +490,7 @@ void PLECanvasEditTool::setPatternBackground()
     if (this->hold_update)
         return;
 
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     scene->background()->setPattern(d->background_pattern_color1->color(),
                                     d->background_pattern_color2->color(),
                                     d->background_pattern_type->pattern());
@@ -501,14 +501,14 @@ void PLECanvasEditTool::setImageBorder()
     if (d->m_border_image.isNull() || this->hold_update)
         return;
 
-    PLESceneBorder * border = scene()->border();
+    PLESceneBorder* border = scene()->border();
     if (border)
         border->setImage(d->m_border_image);
 }
 
 void PLECanvasEditTool::setupGUI()
 {
-    QVBoxLayout * layout = new QVBoxLayout();
+    QVBoxLayout* layout = new QVBoxLayout();
     this->setLayout(layout);
 
     // PLECanvas border group
@@ -640,8 +640,8 @@ void PLECanvasEditTool::setupGUI()
 
     if (scene())
     {
-        PLEScene * scene = this->scene();
-        PLESceneBackground * background = scene->background();
+        PLEScene* scene = this->scene();
+        PLESceneBackground* background = scene->background();
         if (background->isColor())
             this->colorBackgroundSelected();
         else if (background->isGradient())
@@ -651,7 +651,7 @@ void PLECanvasEditTool::setupGUI()
         else if (background->isPattern())
             this->patternBackgroundSelected();
 
-        PLESceneBorder * border = scene->border();
+        PLESceneBorder* border = scene->border();
         d->m_border_image = border->image();
         if (!d->m_border_image.isNull())
         {
@@ -662,22 +662,22 @@ void PLECanvasEditTool::setupGUI()
     }
 }
 
-void PLECanvasEditTool::readMousePosition(const QPointF & scenePos)
+void PLECanvasEditTool::readMousePosition(const QPointF& scenePos)
 {
     qDebug() << scenePos;
 }
 
 void PLECanvasEditTool::updateWidgets()
 {
-    PLEScene * scene = this->scene();
+    PLEScene* scene = this->scene();
     if (!scene)
         return;
 
-    PLESceneBackground * background = scene->background();
+    PLESceneBackground* background = scene->background();
     if (!background)
         return;
 
-    PLESceneBorder * border = scene->border();
+    PLESceneBorder* border = scene->border();
     if (!border)
         return;
 

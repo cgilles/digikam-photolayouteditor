@@ -95,7 +95,7 @@ namespace PhotoLayoutsEditor
 
         protected:
 
-            virtual void selectionChanged(const QItemSelection & selected, const QItemSelection & /*deselected*/) override
+            virtual void selectionChanged(const QItemSelection& selected, const QItemSelection& /*deselected*/) override
             {
                 QModelIndexList indexes = selected.indexes();
                 if (indexes.count())
