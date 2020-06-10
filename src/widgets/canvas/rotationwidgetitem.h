@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef ROTATIONWIDGETITEM_P_H
-#define ROTATIONWIDGETITEM_P_H
+#ifndef ROTATION_WIDGET_ITEM_P_H
+#define ROTATION_WIDGET_ITEM_P_H
+
+// Qt includes
 
 #include <qmath.h>
 #include <QPainter>
@@ -33,51 +35,54 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 
+// Local includes
+
 #include "abstractphoto.h"
 
 namespace PhotoLayoutsEditor
 {
-    class RotationWidgetItemPrivate;
-    class RotateItemCommand;
 
-    class RotationWidgetItem : public AbstractItemInterface
-    {
-            Q_OBJECT
+class RotationWidgetItemPrivate;
+class RotateItemCommand;
 
-            RotationWidgetItemPrivate * d;
+class RotationWidgetItem : public AbstractItemInterface
+{
+    Q_OBJECT
 
-        public:
+    RotationWidgetItemPrivate* d;
 
-            explicit RotationWidgetItem(const QList<AbstractPhoto*>& items, QGraphicsItem* parent = nullptr);
-            virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
-            virtual QPainterPath shape() const override;
-            virtual QPainterPath opaqueArea() const override;
-            virtual QRectF boundingRect() const override;
-            void initRotation(const QPainterPath& path, const QPointF& rotationPoint);
-            void reset();
-            qreal angle() const;
-            QPointF rotationPoint() const;
-            bool isRotated() const;
+public:
 
-        protected:
+    explicit RotationWidgetItem(const QList<AbstractPhoto*>& items, QGraphicsItem* parent = nullptr);
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
+    virtual QPainterPath shape() const override;
+    virtual QPainterPath opaqueArea() const override;
+    virtual QRectF boundingRect() const override;
+    void initRotation(const QPainterPath& path, const QPointF& rotationPoint);
+    void reset();
+    qreal angle() const;
+    QPointF rotationPoint() const;
+    bool isRotated() const;
 
-            virtual void hoverEnterEvent(QGraphicsSceneHoverEvent * event) override;
-            virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent * event) override;
-            virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
-            virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
-            virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+protected:
 
-            void setItems(const QList<AbstractPhoto*>& items);
+    virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
+    virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 
-        Q_SIGNALS:
+    void setItems(const QList<AbstractPhoto*>& items);
 
-            void rotationChanged(const QPointF& point, qreal angle);
-            void rotationFinished(const QPointF& point, qreal angle);
+Q_SIGNALS:
 
-        friend class QGraphicsEditingWidget;
-        friend class RotateItemCommand;
-    };
+    void rotationChanged(const QPointF& point, qreal angle);
+    void rotationFinished(const QPointF& point, qreal angle);
 
-}
+    friend class QGraphicsEditingWidget;
+    friend class RotateItemCommand;
+};
 
-#endif // ROTATIONWIDGETITEM_P_H
+} // namespace PhotoLayoutsEditor
+
+#endif // ROTATION_WIDGET_ITEM_P_H

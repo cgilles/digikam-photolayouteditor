@@ -635,12 +635,12 @@ void AbstractPhoto::mouseReleaseEvent(QGraphicsSceneMouseEvent* /*event*/)
 {
 }
 
-void AbstractPhoto::hoverEnterEvent(QGraphicsSceneHoverEvent * event)
+void AbstractPhoto::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
     QGraphicsItem::hoverEnterEvent(event);
 }
 
-void AbstractPhoto::hoverLeaveEvent(QGraphicsSceneHoverEvent * event)
+void AbstractPhoto::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
     QGraphicsItem::hoverLeaveEvent(event);
     this->unsetCursor();

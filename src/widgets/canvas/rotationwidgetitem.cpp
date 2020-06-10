@@ -262,12 +262,12 @@ bool RotationWidgetItem::isRotated() const
     return d->rotation_angle != 0;
 }
 
-void RotationWidgetItem::hoverEnterEvent(QGraphicsSceneHoverEvent * /*event*/)
+void RotationWidgetItem::hoverEnterEvent(QGraphicsSceneHoverEvent* /*event*/)
 {
     this->setCursor(QCursor(Qt::OpenHandCursor));
 }
 
-void RotationWidgetItem::hoverLeaveEvent(QGraphicsSceneHoverEvent * /*event*/)
+void RotationWidgetItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* /*event*/)
 {
     this->unsetCursor();
 }

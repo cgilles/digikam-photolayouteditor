@@ -32,6 +32,7 @@
 
 namespace PhotoLayoutsEditor
 {
+
 class MousePressListener : public QObject
 {
     Q_OBJECT
@@ -79,6 +80,6 @@ Q_SIGNALS:
     void mouseReleased(const QPointF& scenePos);
 };
 
-}
+} // namespace PhotoLayoutsEditor
 
 #endif // MOUSE_PRESS_LISTENER_H
