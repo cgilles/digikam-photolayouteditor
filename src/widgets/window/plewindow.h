@@ -91,11 +91,11 @@ public Q_SLOTS:
 
 protected:
 
+    void closeEvent(QCloseEvent*) override;
     void progressEvent(ProgressEvent* event);
 
-protected Q_SLOTS:
+private Q_SLOTS:
 
-    bool queryClose();
     void refreshActions();
     void slotAbout();
 

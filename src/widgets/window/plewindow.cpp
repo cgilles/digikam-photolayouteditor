@@ -340,32 +340,32 @@ void PLEWindow::prepareSignalsConnections()
     d->toolsWidget->setScene(d->canvas->scene());
 
     // undo stack signals
-    connect(d->canvas,                              SIGNAL(savedStateChanged()),                this,                   SLOT(refreshActions()));
-    connect(d->canvas->undoStack(),                 SIGNAL(canRedoChanged(bool)),               d->ui->redoAction,      SLOT(setEnabled(bool)));
-    connect(d->canvas->undoStack(),                 SIGNAL(canUndoChanged(bool)),               d->ui->undoAction,      SLOT(setEnabled(bool)));
-    connect(d->ui->undoAction,                      SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(undo()));
-    connect(d->ui->redoAction,                      SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(redo()));
+    connect(d->canvas,                                 SIGNAL(savedStateChanged()),                this,                   SLOT(refreshActions()));
+    connect(d->canvas->undoStack(),                    SIGNAL(canRedoChanged(bool)),               d->ui->redoAction,      SLOT(setEnabled(bool)));
+    connect(d->canvas->undoStack(),                    SIGNAL(canUndoChanged(bool)),               d->ui->undoAction,      SLOT(setEnabled(bool)));
+    connect(d->ui->undoAction,                         SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(undo()));
+    connect(d->ui->redoAction,                         SIGNAL(triggered()),                        d->canvas->undoStack(), SLOT(redo()));
 
     // model/tree/canvas synchronization signals
-    connect(d->tree,                                SIGNAL(selectedRowsAboutToBeRemoved()),     d->canvas,              SLOT(removeSelectedRows()));
-    connect(d->tree,                                SIGNAL(selectedRowsAboutToBeMovedUp()),     d->canvas,              SLOT(moveSelectedRowsUp()));
-    connect(d->tree,                                SIGNAL(selectedRowsAboutToBeMovedDown()),   d->canvas,              SLOT(moveSelectedRowsDown()));
-    connect(d->treeTitle->moveUpButton(),           SIGNAL(clicked()),                          d->canvas,              SLOT(moveSelectedRowsUp()));
-    connect(d->treeTitle->moveDownButton(),         SIGNAL(clicked()),                          d->canvas,              SLOT(moveSelectedRowsDown()));
+    connect(d->tree,                                   SIGNAL(selectedRowsAboutToBeRemoved()),     d->canvas,              SLOT(removeSelectedRows()));
+    connect(d->tree,                                   SIGNAL(selectedRowsAboutToBeMovedUp()),     d->canvas,              SLOT(moveSelectedRowsUp()));
+    connect(d->tree,                                   SIGNAL(selectedRowsAboutToBeMovedDown()),   d->canvas,              SLOT(moveSelectedRowsDown()));
+    connect(d->treeTitle->moveUpButton(),              SIGNAL(clicked()),                          d->canvas,              SLOT(moveSelectedRowsUp()));
+    connect(d->treeTitle->moveDownButton(),            SIGNAL(clicked()),                          d->canvas,              SLOT(moveSelectedRowsDown()));
     // interaction modes (tools)
-    connect(d->canvas,                              SIGNAL(selectedItem(AbstractPhoto*)),       d->toolsWidget,         SLOT(itemSelected(AbstractPhoto*)));
-    connect(d->toolsWidget,                         SIGNAL(undoCommandCreated(QUndoCommand*)),  d->canvas,              SLOT(newUndoCommand(QUndoCommand*)));
-    connect(d->toolsWidget,                         SIGNAL(pointerToolSelected()),              d->canvas,              SLOT(enableDefaultSelectionMode()));
-    connect(d->toolsWidget,                         SIGNAL(handToolSelected()),                 d->canvas,              SLOT(enableViewingMode()));
-    connect(d->toolsWidget,                         SIGNAL(zoomToolSelected()),                 d->canvas,              SLOT(enableZoomingMode()));
-    connect(d->toolsWidget,                         SIGNAL(canvasToolSelected()),               d->canvas,              SLOT(enablePLECanvasEditingMode()));
-    connect(d->toolsWidget,                         SIGNAL(effectsToolSelected()),              d->canvas,              SLOT(enableEffectsEditingMode()));
-    connect(d->toolsWidget,                         SIGNAL(textToolSelected()),                 d->canvas,              SLOT(enableTextEditingMode()));
-    connect(d->toolsWidget,                         SIGNAL(rotateToolSelected()),               d->canvas,              SLOT(enableRotateEditingMode()));
-    connect(d->toolsWidget,                         SIGNAL(scaleToolSelected()),                d->canvas,              SLOT(enableScaleEditingMode()));
-    connect(d->toolsWidget,                         SIGNAL(cropToolSelected()),                 d->canvas,              SLOT(enableCropEditingMode()));
-    connect(d->toolsWidget,                         SIGNAL(borderToolSelected()),               d->canvas,              SLOT(enableBordersEditingMode()));
-    connect(d->toolsWidget,                         SIGNAL(newItemCreated(AbstractPhoto*)),     d->canvas,              SLOT(addNewItem(AbstractPhoto*)));
+    connect(d->canvas,                                 SIGNAL(selectedItem(AbstractPhoto*)),       d->toolsWidget,         SLOT(itemSelected(AbstractPhoto*)));
+    connect(d->toolsWidget,                            SIGNAL(undoCommandCreated(QUndoCommand*)),  d->canvas,              SLOT(newUndoCommand(QUndoCommand*)));
+    connect(d->toolsWidget,                            SIGNAL(pointerToolSelected()),              d->canvas,              SLOT(enableDefaultSelectionMode()));
+    connect(d->toolsWidget,                            SIGNAL(handToolSelected()),                 d->canvas,              SLOT(enableViewingMode()));
+    connect(d->toolsWidget,                            SIGNAL(zoomToolSelected()),                 d->canvas,              SLOT(enableZoomingMode()));
+    connect(d->toolsWidget,                            SIGNAL(canvasToolSelected()),               d->canvas,              SLOT(enablePLECanvasEditingMode()));
+    connect(d->toolsWidget,                            SIGNAL(effectsToolSelected()),              d->canvas,              SLOT(enableEffectsEditingMode()));
+    connect(d->toolsWidget,                            SIGNAL(textToolSelected()),                 d->canvas,              SLOT(enableTextEditingMode()));
+    connect(d->toolsWidget,                            SIGNAL(rotateToolSelected()),               d->canvas,              SLOT(enableRotateEditingMode()));
+    connect(d->toolsWidget,                            SIGNAL(scaleToolSelected()),                d->canvas,              SLOT(enableScaleEditingMode()));
+    connect(d->toolsWidget,                            SIGNAL(cropToolSelected()),                 d->canvas,              SLOT(enableCropEditingMode()));
+    connect(d->toolsWidget,                            SIGNAL(borderToolSelected()),               d->canvas,              SLOT(enableBordersEditingMode()));
+    connect(d->toolsWidget,                            SIGNAL(newItemCreated(AbstractPhoto*)),     d->canvas,              SLOT(addNewItem(AbstractPhoto*)));
     connect(d->canvas->scene()->toGraphicsPLEScene(),  SIGNAL(mousePressedPoint(QPointF)),         d->toolsWidget,         SLOT(mousePositionChoosen(QPointF)));
 
     d->toolsWidget->setDefaultTool();
@@ -457,7 +457,7 @@ void PLEWindow::saveFile()
     }
     else
     {
-        saveFile();
+        saveFile(d->canvas->file());
     }
 }
 
@@ -662,15 +662,15 @@ void PLEWindow::progressEvent(ProgressEvent* event)
     }
 }
 
-bool PLEWindow::queryClose()
+void PLEWindow::closeEvent(QCloseEvent* e)
 {
     if (closeDocument())
     {
-        return true;
+        e->accept();
     }
     else
     {
-        return false;
+        e->ignore();
     }
 }
 
