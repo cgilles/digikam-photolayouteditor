@@ -22,54 +22,58 @@
  *
  * ============================================================ */
 
-#ifndef ABSTRACTPHOTO_P_H
-#define ABSTRACTPHOTO_P_H
+#ifndef ABSTRACT_PHOTO_P_H
+#define ABSTRACT_PHOTO_P_H
+
+// Qt includes
 
 #include <QIcon>
 #include <QPainterPath>
 
 namespace PhotoLayoutsEditor
 {
-    class BordersGroup;
-    class PhotoEffectsGroup;
 
-    class AbstractPhoto;
-    class AbstractPhotoPrivate
-    {
-        public:
+class BordersGroup;
+class PhotoEffectsGroup;
+class AbstractPhoto;
 
-            explicit AbstractPhotoPrivate(AbstractPhoto* item);
+class AbstractPhotoPrivate
+{
+public:
 
-            // Crop shape
-            void setCropShape(const QPainterPath& cropShape);
-            QPainterPath& cropShape();
+    explicit AbstractPhotoPrivate(AbstractPhoto* item);
 
-            void setName(const QString& name);
-            QString name();
+    // Crop shape
+    void setCropShape(const QPainterPath& cropShape);
+    QPainterPath& cropShape();
 
-        public:
+    void setName(const QString& name);
+    QString name();
 
-            QPainterPath       m_crop_shape;
-            AbstractPhoto*     m_item;
-            QString            m_name;
+public:
 
-            // For loading purpose only
-            bool               m_visible;
-            QPointF            m_pos;
-            QTransform         m_transform;
+    QPainterPath       m_crop_shape;
+    AbstractPhoto*     m_item;
+    QString            m_name;
 
-            mutable QString    m_id;
-            PhotoEffectsGroup* m_effects_group;
-            BordersGroup*      m_borders_group;
+    // For loading purpose only
+    bool               m_visible;
+    QPointF            m_pos;
+    QTransform         m_transform;
 
-            // Icon object
-            QIcon              m_icon;
+    mutable QString    m_id;
+    PhotoEffectsGroup* m_effects_group;
+    BordersGroup*      m_borders_group;
 
-            friend class AbstractPhoto;
-            friend class AbstractPhotoItemLoader;
-            friend class CropShapeChangeCommand;
-            friend class ItemNameChangeCommand;
-    };
-}
+    // Icon object
+    QIcon              m_icon;
 
-#endif // ABSTRACTPHOTO_P_H
+    friend class AbstractPhoto;
+    friend class AbstractPhotoItemLoader;
+    friend class CropShapeChangeCommand;
+    friend class ItemNameChangeCommand;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // ABSTRACT_PHOTO_P_H

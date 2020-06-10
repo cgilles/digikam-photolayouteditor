@@ -119,10 +119,10 @@ protected:
     /// Converts item data to SVG format
     virtual QDomDocument svgTemplateArea() const override;
 
-    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event) override;
-    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event) override;
-    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;
-    virtual void dropEvent(QGraphicsSceneDragDropEvent * event) override;
+    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent* event) override;
+    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent* event) override;
+    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override;
+    virtual void dropEvent(QGraphicsSceneDragDropEvent* event) override;
     virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
@@ -154,14 +154,13 @@ private:
     void setHighlightItem(bool isHighlighted);
     bool m_highlight;
 
-
     class PhotoItemPrivate
     {
-        explicit PhotoItemPrivate(PhotoItem* item) :
-            m_item(item),
-            m_image_moving(false)
+        explicit PhotoItemPrivate(PhotoItem* item)
+            : m_item(item),
+              m_image_moving(false)
         {
-    }
+        }
 
         static QString locateFile(const QString& filePath);
 
@@ -187,6 +186,7 @@ private:
         friend class PhotoItemUrlChangeCommand;
         friend class PhotoItemImageMovedCommand;
     };
+
     PhotoItemPrivate * d;
     friend class PhotoItemPrivate;
 

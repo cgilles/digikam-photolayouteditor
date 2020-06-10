@@ -116,7 +116,7 @@ namespace PhotoLayoutsEditor
             {
                 return m_font;
             }
-            void setFont(const QFont & font)
+            void setFont(const QFont& font)
             {
                 m_default_font = m_font = font;
                 this->propertiesChanged();

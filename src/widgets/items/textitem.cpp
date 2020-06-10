@@ -53,10 +53,10 @@ class TextChangeUndoCommand : public QUndoCommand
 
 public:
 
-    TextChangeUndoCommand(const QStringList & text, TextItem* item, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Text change"), parent),
-        m_text(text),
-        m_item(item)
+    TextChangeUndoCommand(const QStringList& text, TextItem* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Text change"), parent),
+          m_text(text),
+          m_item(item)
     {
     }
 
@@ -82,11 +82,11 @@ class TextColorUndoCommand : public QUndoCommand
 
 public:
 
-    TextColorUndoCommand(const QColor& color, TextItem* item, QUndoCommand* parent = nullptr) :
-            QUndoCommand(QObject::tr("Text color change"), parent),
-            m_item(item),
-            m_color(color)
-        {
+    TextColorUndoCommand(const QColor& color, TextItem* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Text color change"), parent),
+          m_item(item),
+          m_color(color)
+    {
     }
         
         virtual void redo() override
@@ -115,46 +115,46 @@ class TextFontUndoCommand : public QUndoCommand
 
 public:
 
-    TextFontUndoCommand(const QFont & font, TextItem* item, QUndoCommand* parent = nullptr) :
-            QUndoCommand(QObject::tr("Text font change"), parent),
-            m_item(item),
-            m_font(font)
-        {
+    TextFontUndoCommand(const QFont& font, TextItem* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Text font change"), parent),
+          m_item(item),
+          m_font(font)
+    {
     }
 
-        virtual void redo() override
-        {
-            run();
-        }
+    virtual void redo() override
+    {
+        run();
+    }
 
-        virtual void undo() override
-        {
-            run();
-        }
+    virtual void undo() override
+    {
+        run();
+    }
 
-        void run()
-        {
-            QFont temp = m_item->m_font;
-            m_item->m_font = m_font;
-            m_font = temp;
-            m_item->refresh();
-        }
+    void run()
+    {
+        QFont temp = m_item->m_font;
+        m_item->m_font = m_font;
+        m_font = temp;
+        m_item->refresh();
+    }
 };
 
 class AddTextUndoCommand : public QUndoCommand
 {
-    TextItem::TextItemPrivate * m_item_p;
+    TextItem::TextItemPrivate* m_item_p;
     QString text;
     int row;
     int at;
 
 public:
 
-    AddTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Text edit"), parent),
-        m_item_p(item_p),
-        row(row),
-        at(at)
+    AddTextUndoCommand(int row, int at, TextItem::TextItemPrivate* item_p, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Text edit"), parent),
+          m_item_p(item_p),
+          row(row),
+          at(at)
     {
     }
     
@@ -178,18 +178,18 @@ public:
 
 class RemoveTextUndoCommand : public QUndoCommand
 {
-    TextItem::TextItemPrivate * m_item_p;
+    TextItem::TextItemPrivate* m_item_p;
     QString text;
     int row;
     int at;
 
 public:
 
-    RemoveTextUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Text edit"), parent),
-        m_item_p(item_p),
-        row(row),
-        at(at)
+    RemoveTextUndoCommand(int row, int at, TextItem::TextItemPrivate* item_p, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Text edit"), parent),
+          m_item_p(item_p),
+          row(row),
+          at(at)
     {
     }
 
@@ -228,11 +228,11 @@ class AddLineUndoCommand : public QUndoCommand
 
 public:
 
-    AddLineUndoCommand(int row, int at, TextItem::TextItemPrivate * item_p, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Text edit"), parent),
-        m_item_p(item_p),
-        row(row),
-        at(at)
+    AddLineUndoCommand(int row, int at, TextItem::TextItemPrivate* item_p, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Text edit"), parent),
+          m_item_p(item_p),
+          row(row),
+          at(at)
     {
     }
 
@@ -262,17 +262,17 @@ public:
 
 class MergeLineUndoCommand : public QUndoCommand
 {
-    TextItem::TextItemPrivate * m_item_p;
+    TextItem::TextItemPrivate* m_item_p;
     int row;
     int at;
 
 public:
 
-    MergeLineUndoCommand(int row, TextItem::TextItemPrivate * item_p, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Text edit"), parent),
-        m_item_p(item_p),
-        row(row),
-        at(0)
+    MergeLineUndoCommand(int row, TextItem::TextItemPrivate* item_p, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Text edit"), parent),
+          m_item_p(item_p),
+          row(row),
+          at(0)
     {
     }
 
@@ -312,7 +312,9 @@ void TextItem::TextItemPrivate::moveCursorLeft()
             ++m_cursor_character;
         }
         else
+        {
             m_cursor_character = m_string_list.at(m_cursor_row).length();
+        }
     }
 
     command = nullptr;
@@ -332,7 +334,9 @@ void TextItem::TextItemPrivate::moveCursorRight()
             --m_cursor_character;
         }
         else
+        {
             m_cursor_character = 0;
+        }
     }
 
     command = nullptr;
@@ -341,20 +345,24 @@ void TextItem::TextItemPrivate::moveCursorRight()
 void TextItem::TextItemPrivate::moveCursorUp()
 {
     --(m_cursor_row);
-    if (m_cursor_row < 0)
+
+    if      (m_cursor_row < 0)
         m_cursor_row = 0;
     else if (m_cursor_character > m_string_list.at(m_cursor_row).length())
         m_cursor_character = m_string_list.at(m_cursor_row).length();
+
     command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorDown()
 {
     ++(m_cursor_row);
-    if (m_cursor_row >= m_string_list.count())
+
+    if      (m_cursor_row >= m_string_list.count())
         --m_cursor_row;
     else if (m_cursor_character > m_string_list.at(m_cursor_row).length())
         m_cursor_character = m_string_list.at(m_cursor_row).length();
+
     command = nullptr;
 }
 
@@ -373,19 +381,22 @@ void TextItem::TextItemPrivate::moveCursorHome()
 void TextItem::TextItemPrivate::removeTextAfter()
 {
     // Remove text from current line
+    
     if (m_cursor_character < m_string_list.at(m_cursor_row).length())
     {
         RemoveTextUndoCommand * command = dynamic_cast<RemoveTextUndoCommand*>(this->command);
+
         if (!command)
         {
             this->command = command = new RemoveTextUndoCommand(m_cursor_row, m_cursor_character, this);
             PLE_PostUndoCommand(command);
         }
+
         command->removeRight();
     }
-    // Remove current line
     else if (m_string_list.count()-1 > m_cursor_row)
     {
+        // Remove current line
         PLE_PostUndoCommand( new MergeLineUndoCommand(m_cursor_row+1, this) );
     }
 }
@@ -396,16 +407,18 @@ void TextItem::TextItemPrivate::removeTextBefore()
     if (m_cursor_character > 0 && m_string_list.at(m_cursor_row).length() >= m_cursor_character)
     {
         RemoveTextUndoCommand * command = dynamic_cast<RemoveTextUndoCommand*>(this->command);
+
         if (!command)
         {
             this->command = command = new RemoveTextUndoCommand(m_cursor_row, m_cursor_character, this);
             PLE_PostUndoCommand(command);
         }
+
         command->removeLeft();
     }
-    // Remove current line
     else if (m_cursor_row > 0)
     {
+        // Remove current line
         PLE_PostUndoCommand( new MergeLineUndoCommand(m_cursor_row, this) );
     }
 }
@@ -419,12 +432,15 @@ void TextItem::TextItemPrivate::addText(const QString& text)
 {
     if (!text.length())
         return;
-    AddTextUndoCommand * command = dynamic_cast<AddTextUndoCommand*>(this->command);
+
+    AddTextUndoCommand* command = dynamic_cast<AddTextUndoCommand*>(this->command);
+
     if (!command)
     {
         this->command = command = new AddTextUndoCommand(m_cursor_row, m_cursor_character, this);
         PLE_PostUndoCommand(command);
     }
+
     command->addText(text);
 }
 
@@ -458,12 +474,12 @@ void TextItem::TextItemPrivate::closeEditor()
     command = nullptr;
 }
 
-TextItem::TextItem(const QString& text, PLEScene* scene) :
-    AbstractPhoto((text.isEmpty() ? QObject::tr("Text item") : text), scene),
-    d(new TextItemPrivate(this)),
-    m_color(DEFAULT_COLOR),
-    m_font(DEFAULT_FONT),
-    m_metrics(m_font)
+TextItem::TextItem(const QString& text, PLEScene* scene)
+    : AbstractPhoto((text.isEmpty() ? QObject::tr("Text item") : text), scene),
+      d(new TextItemPrivate(this)),
+      m_color(DEFAULT_COLOR),
+      m_font(DEFAULT_FONT),
+      m_metrics(m_font)
 {
     d->m_string_list = QString(text).remove(QLatin1Char('\t')).split(QLatin1Char('\n'));
 
@@ -478,6 +494,7 @@ void TextItem::focusInEvent(QFocusEvent * event)
         this->clearFocus();
         return;
     }
+
     this->setCursorPositionVisible(true);
     AbstractPhoto::focusInEvent(event);
     this->setCursor(QCursor(Qt::IBeamCursor));
@@ -497,44 +514,56 @@ void TextItem::focusOutEvent(QFocusEvent * event)
 void TextItem::keyPressEvent(QKeyEvent* event)
 {
     //bool textChange = false;
+
     switch (event->key())
     {
         case Qt::Key_Left:
             d->moveCursorLeft();
             break;
+
         case Qt::Key_Right:
             d->moveCursorRight();
             break;
+
         case Qt::Key_Up:
             d->moveCursorUp();
             break;
+
         case Qt::Key_Down:
             d->moveCursorDown();
             break;
+
         case Qt::Key_Home:
             d->moveCursorHome();
             break;
+
         case Qt::Key_End:
             d->moveCursorEnd();
             break;
+
         case Qt::Key_Return:
             d->addNewLine();
             break;
+
         case Qt::Key_Escape:
             d->closeEditor();
             break;
+
         case Qt::Key_Delete:
             d->removeTextAfter();
             //textChange = true;
             break;
+
         case Qt::Key_Backspace:
             d->removeTextBefore();
             //textChange = true;
             break;
+
         default:
             d->addText(event->text());
             //textChange = true;
     }
+
     refreshItem();
     event->setAccepted(true);
 }
@@ -545,8 +574,10 @@ void TextItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
     // Get clicked line number
     d->m_cursor_row =  p.y() / m_metrics.lineSpacing();
+
     if (d->m_cursor_row >= d->m_string_list.count())
         d->m_cursor_row = d->m_string_list.count()-1;
+
     QString currentLine = d->m_string_list.at( d->m_cursor_row );
 
     // Get clicked char position
@@ -558,21 +589,26 @@ void TextItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         int width = 0;
         int rightSpace = 0;
         int leftSpace = 0;
+
         while (width < p.x() && d->m_cursor_character < limit)
         {
             width = m_metrics.width(currentLine, ++(d->m_cursor_character));
             rightSpace = width - p.x();
         }
+
         if (d->m_cursor_character > 0)
         {
             width = m_metrics.width(currentLine, --(d->m_cursor_character));
             leftSpace = p.x() - width;
         }
+
         if (leftSpace > rightSpace)
             ++(d->m_cursor_character);
     }
     else
+    {
         p.setX(0);
+    }
 
     d->command = nullptr;
 
@@ -596,7 +632,7 @@ QFont TextItem::font() const
     return m_font;
 }
 
-void TextItem::setFont(const QFont & font)
+void TextItem::setFont(const QFont& font)
 {
     DEFAULT_FONT = font;
     QUndoCommand* undo = new TextFontUndoCommand(font, this);
@@ -613,7 +649,7 @@ QString TextItem::textMultiline() const
     return d->m_string_list.join(QLatin1String("\n"));
 }
 
-void TextItem::setText(const QStringList & textList)
+void TextItem::setText(const QStringList& textList)
 {
     QUndoCommand* undo = new TextChangeUndoCommand(textList, this);
     PLE_PostUndoCommand(undo);
@@ -653,10 +689,12 @@ void TextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
     {
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing);
+
         if (this->cropShape().isEmpty())
             painter->fillPath(m_text_path, m_color);
         else
             painter->fillPath(m_text_path & this->cropShape(), m_color);
+
         painter->restore();
     }
 
@@ -667,15 +705,18 @@ void TextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
         painter->setPen(Qt::gray);
         int y = m_metrics.lineSpacing() * d->m_cursor_row;
         int x = 0;
+
         if ( d->m_string_list.count() > d->m_cursor_row && !d->m_string_list.at(d->m_cursor_row).isEmpty() )
         {
             x = m_metrics.width(d->m_string_list.at(d->m_cursor_row),
                                 d->m_cursor_character)
                 - m_metrics.leftBearing(d->m_string_list.at(d->m_cursor_row).at(0));
         }
+
         painter->drawLine(x, y, x, y+m_metrics.lineSpacing());
         painter->restore();
     }
+    
     AbstractPhoto::paint(painter, option, widget);
 }
 
@@ -757,6 +798,7 @@ QDomDocument TextItem::svgVisibleArea() const
 {
     QDomDocument document = PhotoLayoutsEditor::pathToSvg(m_text_path);
     document.firstChildElement(QLatin1String("path")).setAttribute(QLatin1String("fill"), m_color.name());
+
     return document;
 }
 
@@ -764,17 +806,21 @@ QDomDocument TextItem::svgTemplateArea() const
 {
     QDomDocument document = PhotoLayoutsEditor::pathToSvg(m_text_path);
     document.firstChildElement(QLatin1String("path")).setAttribute(QLatin1String("fill"), m_color.name());
+
     return document;
 }
 
 TextItem* TextItem::fromSvg(QDomElement& element)
 {
     TextItem* result = new TextItem();
+
     if (result->AbstractPhoto::fromSvg(element))
     {
         QDomElement defs = element.firstChildElement(QLatin1String("defs"));
+
         while (!defs.isNull() && defs.attribute(QLatin1String("class")) != QLatin1String("data"))
             defs = defs.nextSiblingElement(QLatin1String("defs"));
+
         IS_NULL(defs);
 
         QDomElement data = defs.firstChildElement(QLatin1String("data"));
@@ -784,9 +830,12 @@ TextItem* TextItem::fromSvg(QDomElement& element)
         QDomElement text = data.firstChildElement(QLatin1String("text"));
         IS_NULL(text);
         QDomNode textValue = text.firstChild();
+
         while (!textValue.isNull() && !textValue.isText())
             textValue = textValue.nextSibling();
+
         IS_NULL(textValue);
+
         result->d->m_string_list = textValue.toText().data().remove(QLatin1Char('\t')).split(QLatin1Char('\n'));
 
         // Color
@@ -800,9 +849,12 @@ TextItem* TextItem::fromSvg(QDomElement& element)
         result->m_font.fromString(font.attribute(QLatin1String("data")));
 
         result->refresh();
+
         return result;
     }
+
 _delete:
+
     delete result;
     return nullptr;
 }
@@ -815,6 +867,7 @@ void TextItem::refreshItem()
     int maxBearing = 0;
     int maxWidth = 0;
     const int lineSpacing = m_metrics.lineSpacing();
+
     foreach (const QString& string, d->m_string_list)
     {
         if (string.length())
@@ -825,8 +878,10 @@ void TextItem::refreshItem()
                                 lineSpacing*(i)-m_metrics.descent(),
                                 m_font,
                                 string);
+
             if (maxWidth < width)
                 maxWidth = width;
+
             if (maxBearing < leftBearing)
                 maxBearing = leftBearing;
         }
@@ -855,8 +910,13 @@ QtAbstractPropertyBrowser* TextItem::propertyBrowser()
     colorManager->setValue(colorProperty, m_color);
     browser->addProperty(colorProperty);
     TextColorChangeListener * colorListener = new TextColorChangeListener(this);
-    colorListener->connect(browser, SIGNAL(destroyed()), SLOT(deleteLater()));
-    colorListener->connect(colorManager, SIGNAL(propertyChanged(QtProperty*)), SLOT(propertyChanged(QtProperty*)));
+
+    colorListener->connect(browser, SIGNAL(destroyed()),
+                           SLOT(deleteLater()));
+
+    colorListener->connect(colorManager, SIGNAL(propertyChanged(QtProperty*)),
+                           SLOT(propertyChanged(QtProperty*)));
+
     foreach (QtProperty* p, colorProperty->subProperties())
         p->setEnabled(false);
 
@@ -868,8 +928,13 @@ QtAbstractPropertyBrowser* TextItem::propertyBrowser()
     fontManager->setValue(fontProperty, m_font);
     browser->addProperty(fontProperty);
     TextFontChangeListener * fontListener = new TextFontChangeListener(this);
-    fontListener->connect(browser, SIGNAL(destroyed()), SLOT(deleteLater()));
-    fontListener->connect(fontManager, SIGNAL(propertyChanged(QtProperty*)), SLOT(propertyChanged(QtProperty*)));
+
+    fontListener->connect(browser, SIGNAL(destroyed()),
+                          SLOT(deleteLater()));
+
+    fontListener->connect(fontManager, SIGNAL(propertyChanged(QtProperty*)),
+                          SLOT(propertyChanged(QtProperty*)));
+
     foreach (QtProperty* p, fontProperty->subProperties())
         p->setEnabled(false);
 
@@ -880,6 +945,7 @@ QPainterPath TextItem::getLinePath(const QString& string)
 {
     QPainterPath result;
     result.addText(0, 0, m_font, string);
+
     return result;
 }
 

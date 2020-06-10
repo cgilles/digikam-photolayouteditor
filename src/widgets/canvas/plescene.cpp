@@ -1081,7 +1081,7 @@ void PLEScene::drawForeground(QPainter* painter, const QRectF& rect)
 }
 
 
-void PLEScene::dragEnterEvent(QGraphicsSceneDragDropEvent * event)
+void PLEScene::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (canDecode(event->mimeData()))
     {
@@ -1096,7 +1096,7 @@ void PLEScene::dragEnterEvent(QGraphicsSceneDragDropEvent * event)
 }
 
 
-void PLEScene::dragLeaveEvent(QGraphicsSceneDragDropEvent * event)
+void PLEScene::dragLeaveEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (d->m_hovered_photo)
     {
@@ -1106,7 +1106,7 @@ void PLEScene::dragLeaveEvent(QGraphicsSceneDragDropEvent * event)
 }
 
 
-void PLEScene::dragMoveEvent(QGraphicsSceneDragDropEvent * event)
+void PLEScene::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
     PhotoItem* tempItem = dynamic_cast<PhotoItem*>(this->itemAt(event->scenePos(), QTransform()));
     // Send event to item
@@ -1144,7 +1144,7 @@ void PLEScene::dragMoveEvent(QGraphicsSceneDragDropEvent * event)
 }
 
 
-void PLEScene::dropEvent(QGraphicsSceneDragDropEvent * event)
+void PLEScene::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
     PhotoItem* item = dynamic_cast<PhotoItem*>(this->itemAt(event->scenePos(), QTransform()));
 

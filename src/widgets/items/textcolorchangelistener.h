@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef TEXTCOLORCHANGELISTENER_H
-#define TEXTCOLORCHANGELISTENER_H
+#ifndef TEXT_COLOR_CHANGE_LISTENER_H
+#define TEXT_COLOR_CHANGE_LISTENER_H
+
+// Qt includes
 
 #include <QObject>
 
@@ -31,22 +33,24 @@ class QtProperty;
 
 namespace PhotoLayoutsEditor
 {
-    class TextItem;
 
-    class TextColorChangeListener : public QObject
-    {
-            Q_OBJECT
+class TextItem;
 
-            TextItem* m_item;
+class TextColorChangeListener : public QObject
+{
+    Q_OBJECT
 
-        public:
+    TextItem* m_item;
 
-            explicit TextColorChangeListener(TextItem* item, QObject* parent = nullptr);
+public:
 
-        public Q_SLOTS:
+    explicit TextColorChangeListener(TextItem* item, QObject* parent = nullptr);
 
-            void propertyChanged(QtProperty* property);
-    };
-}
+public Q_SLOTS:
 
-#endif // TEXTCOLORCHANGELISTENER_H
+    void propertyChanged(QtProperty* property);
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // TEXT_COLOR_CHANGE_LISTENER_H

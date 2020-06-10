@@ -157,10 +157,10 @@ protected:
     virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent * event) override;
     virtual void drawBackground(QPainter* painter, const QRectF& rect) override;
     virtual void drawForeground(QPainter* painter, const QRectF& rect) override;
-    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent * event) override;
-    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent * event) override;
-    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent * event) override;
-    virtual void dropEvent(QGraphicsSceneDragDropEvent * event) override;
+    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent* event) override;
+    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent* event) override;
+    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override;
+    virtual void dropEvent(QGraphicsSceneDragDropEvent* event) override;
     virtual void keyPressEvent(QKeyEvent* event) override;
     virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;

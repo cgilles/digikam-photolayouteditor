@@ -61,21 +61,17 @@ class PhotoItemPixmapChangeCommand : public QUndoCommand
 
 public:
 
-    PhotoItemPixmapChangeCommand(const QImage& image,
-                                 PhotoItem* item,
-                                 QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Image Change"), parent),
-        m_image(image),
-        m_item(item)
+    PhotoItemPixmapChangeCommand(const QImage& image, PhotoItem* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Image Change"), parent),
+          m_image(image),
+          m_item(item)
     {
     }
 
-    PhotoItemPixmapChangeCommand(const QPixmap & pixmap,
-                                 PhotoItem* item,
-                                 QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Image Change"), parent),
-        m_image(pixmap.toImage()),
-        m_item(item)
+    PhotoItemPixmapChangeCommand(const QPixmap& pixmap, PhotoItem* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Image Change"), parent),
+          m_image(pixmap.toImage()),
+          m_item(item)
     {
     }
 
@@ -102,10 +98,10 @@ class PhotoItemUrlChangeCommand : public QUndoCommand
 
 public:
 
-    PhotoItemUrlChangeCommand(const QUrl& url, PhotoItem* item, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Image Path Change"), parent),
-        m_url(url),
-        m_item(item)
+    PhotoItemUrlChangeCommand(const QUrl& url, PhotoItem* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Image Path Change"), parent),
+          m_url(url),
+          m_item(item)
     {
     }
 
@@ -123,7 +119,7 @@ public:
     {
         QUrl temp = m_item->d->fileUrl();
         m_item->d->setFileUrl(m_url);
-        m_url = temp;
+        m_url     = temp;
     }
 };
 
@@ -135,13 +131,14 @@ class PhotoItemImagePathChangeCommand : public QUndoCommand
 
 public:
 
-    PhotoItemImagePathChangeCommand(PhotoItem* item, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Image Shape Change"), parent),
-        m_item(item),
-        m_image_path(m_item->m_image_path)
+    PhotoItemImagePathChangeCommand(PhotoItem* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Image Shape Change"), parent),
+          m_item(item),
+          m_image_path(m_item->m_image_path)
 //        , command(0)
     {
     }
+
     virtual void redo() override
     {
         m_item->m_image_path = QPainterPath();
@@ -149,6 +146,7 @@ public:
         m_item->recalcShape();
         m_item->update();
     }
+
     virtual void undo() override
     {
         m_item->m_image_path = m_image_path;
@@ -165,19 +163,20 @@ class PhotoItemImageMovedCommand : public QUndoCommand
 
     static PhotoItemImageMovedCommand* m_instance;
 
-    PhotoItemImageMovedCommand(PhotoItem* item, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Image Position Change"), parent),
-        m_item(item),
-        done(true)
+    PhotoItemImageMovedCommand(PhotoItem* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Image Position Change"), parent),
+          m_item(item),
+          done(true)
     {
     }
 
 public:
 
-    static PhotoItemImageMovedCommand * instance(PhotoItem* item)
+    static PhotoItemImageMovedCommand* instance(PhotoItem* item)
     {
         if (!m_instance)
             m_instance = new PhotoItemImageMovedCommand(item);
+
         return m_instance;
     }
 
@@ -190,6 +189,7 @@ public:
     {
         if (done)
             return;
+
         m_item->d->m_brush_transform.translate(translation.x(), translation.y());
         m_item->d->m_complete_path_transform.translate(translation.x(), translation.y());
         m_item->m_complete_path.translate(translation);
@@ -201,6 +201,7 @@ public:
     {
         if (!done)
             return;
+
         m_item->d->m_brush_transform.translate(-translation.x(), -translation.y());
         m_item->d->m_complete_path_transform.translate(-translation.x(), -translation.y());
         m_item->m_complete_path.translate(-translation);
@@ -212,19 +213,22 @@ public:
     {
         if (!m_instance)
             return;
+
         PLE_PostUndoCommand(m_instance);
         m_instance = nullptr;
     }
 };
 
-PhotoItemImageMovedCommand * PhotoItemImageMovedCommand::m_instance = nullptr;
+PhotoItemImageMovedCommand* PhotoItemImageMovedCommand::m_instance = nullptr;
 
 QString PhotoItem::PhotoItemPrivate::locateFile(const QString& filePath)
 {
     QString resultPath = filePath;
+
     if (!resultPath.isEmpty())
     {
         // Try to open existing file
+
         if (!QFile::exists(resultPath))
         {
             int result = QMessageBox::question(qApp->activeWindow(),
@@ -235,7 +239,9 @@ QString PhotoItem::PhotoItemPrivate::locateFile(const QString& filePath)
                                                     "\nWould you like to set new location of this file?"
                                                     "\nIf not this image will be removed from the composition.").arg(resultPath));
             if (result != QMessageBox::Yes)
+            {
                 resultPath.clear();
+            }
             else
             {
                 QUrl fileUrl(filePath);
@@ -246,6 +252,7 @@ QString PhotoItem::PhotoItemPrivate::locateFile(const QString& filePath)
             }
         }
     }
+
     return resultPath;
 }
 
@@ -253,6 +260,7 @@ void PhotoItem::PhotoItemPrivate::setImage(const QImage& image)
 {
     if (image.isNull() || image == m_image)
         return;
+
     m_image = image;
     m_item->refresh();
 }
@@ -272,10 +280,10 @@ QUrl& PhotoItem::PhotoItemPrivate::fileUrl()
     return m_file_path;
 }
 
-PhotoItem::PhotoItem(const QImage& photo, const QString& name, PLEScene* scene) :
-    AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
-    m_highlight(false),
-    d(new PhotoItemPrivate(this))
+PhotoItem::PhotoItem(const QImage& photo, const QString& name, PLEScene* scene)
+    : AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
+      m_highlight(false),
+      d(new PhotoItemPrivate(this))
 {
     setupItem(photo);
 }
@@ -289,10 +297,10 @@ PhotoItem::PhotoItem(const QPainterPath& shape, const QString& name, PLEScene* s
     refresh();
 }
 
-PhotoItem::PhotoItem(const QString& name, PLEScene* scene) :
-    AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
-    m_highlight(false),
-    d(new PhotoItemPrivate(this))
+PhotoItem::PhotoItem(const QString& name, PLEScene* scene)
+    : AbstractPhoto((name.isEmpty() ? QObject::tr("New image") : name), scene),
+      m_highlight(false),
+      d(new PhotoItemPrivate(this))
 {
     setupItem(QImage());
 }
@@ -304,7 +312,7 @@ PhotoItem::~PhotoItem()
 
 QDomDocument PhotoItem::toSvg() const
 {
-    QDomDocument document1 = AbstractPhoto::toSvg();
+    QDomDocument document1  = AbstractPhoto::toSvg();
     QDomElement itemElement = document1.firstChildElement();
     itemElement.setAttribute(QLatin1String("class"), QLatin1String("PhotoItem"));
 
@@ -441,23 +449,31 @@ QDomDocument PhotoItem::toTemplateSvg() const
 PhotoItem* PhotoItem::fromSvg(QDomElement& element)
 {
     PhotoItem* item = new PhotoItem();
+
     if (item->AbstractPhoto::fromSvg(element))
     {
         // Gets data field
         QDomElement defs = element.firstChildElement(QLatin1String("defs"));
+
         while (!defs.isNull() && defs.attribute(QLatin1String("class")) != QLatin1String("data"))
             defs = defs.nextSiblingElement(QLatin1String("defs"));
+
         if (defs.isNull())
             goto _delete;
+
         QDomElement data = defs.firstChildElement(QLatin1String("data"));
+
         if (data.isNull())
             goto _delete;
 
         // m_image_path
         QDomElement path = data.firstChildElement(QLatin1String("path"));
+
         if (path.isNull())
             goto _delete;
+
         item->m_image_path = PhotoLayoutsEditor::pathFromSvg(path);
+
         if (item->m_image_path.isEmpty())
             goto _delete;
 
@@ -465,21 +481,27 @@ PhotoItem* PhotoItem::fromSvg(QDomElement& element)
         QDomElement image = data.firstChildElement(QLatin1String("image"));
         QString imageAttribute;
         QImage img;
-        // Fullsize image is embedded in SVG file!
-        if (!(imageAttribute = image.text()).isEmpty())
+
+
+        if      (!(imageAttribute = image.text()).isEmpty())
         {
+            // Fullsize image is embedded in SVG file!
             img = QImage::fromData( QByteArray::fromBase64(imageAttribute.toLatin1()) );
+
             if (img.isNull())
                 goto _delete;
         }
-        // Try to find file from path attribute
         else if ( !(imageAttribute = PhotoItemPrivate::locateFile( image.attribute(QLatin1String("xlink:href")) )).isEmpty() )
         {
+            // Try to find file from path attribute
             QImageReader reader(imageAttribute);
+
             if (!reader.canRead())
                 goto _delete;
+
             reader.setAutoDetectImageFormat(true);
             img = QImage(reader.size(), QImage::Format_ARGB32_Premultiplied);
+
             if (!reader.read(&img))
                 goto _delete;
         }
@@ -487,18 +509,23 @@ PhotoItem* PhotoItem::fromSvg(QDomElement& element)
         {
             goto _delete;
         }
+
         item->d->setImage(img);
 
         return item;
     }
+
 _delete:
+
     delete item;
+
     return nullptr;
 }
 
 QDomDocument PhotoItem::svgVisibleArea() const
 {
     QDomDocument document;
+
     if (!isEmpty())
     {
         // 'defs' -> 'g'
@@ -535,6 +562,7 @@ QDomDocument PhotoItem::svgVisibleArea() const
         img.setAttribute(QLatin1String("xlink:href"), QLatin1String("data:image/png;base64,") + QString::fromUtf8(byteArray.toBase64()));
         g.appendChild(img);
     }
+
     return document;
 }
 
@@ -581,17 +609,19 @@ QDomDocument PhotoItem::svgTemplateArea() const
     return document1;
 }
 
-void PhotoItem::dragEnterEvent(QGraphicsSceneDragDropEvent * event)
+void PhotoItem::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 {
     const QMimeData* mimeData = event->mimeData();
+
     if ( PLEWindow::instance()->hasInterface() &&
-            mimeData->hasFormat(QLatin1String("digikam/item-ids")))
+         mimeData->hasFormat(QLatin1String("digikam/item-ids")))
     {
         QList<QUrl> urls;
         QByteArray ba = mimeData->data(QLatin1String("digikam/item-ids"));
         QDataStream ds(&ba, QIODevice::ReadOnly);
         ds >> urls;
         event->setAccepted( (urls.count() == 1) );
+
         if (urls.count() == 1)
             event->setDropAction( Qt::CopyAction );
         else
@@ -601,30 +631,34 @@ void PhotoItem::dragEnterEvent(QGraphicsSceneDragDropEvent * event)
     {
         QList<QUrl> urls = mimeData->urls();
         event->setAccepted( (urls.count() == 1) );
+
         if (urls.count() == 1)
             event->setDropAction( Qt::CopyAction );
         else
             event->setDropAction( Qt::IgnoreAction );
     }
+
     setHighlightItem( event->isAccepted() );
 }
 
-void PhotoItem::dragLeaveEvent(QGraphicsSceneDragDropEvent * /*event*/)
+void PhotoItem::dragLeaveEvent(QGraphicsSceneDragDropEvent* /*event*/)
 {
     setHighlightItem(false);
 }
 
-void PhotoItem::dragMoveEvent(QGraphicsSceneDragDropEvent * event)
+void PhotoItem::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
     const QMimeData* mimeData = event->mimeData();
+
     if ( PLEWindow::instance()->hasInterface() &&
-            mimeData->hasFormat(QLatin1String("digikam/item-ids")))
+         mimeData->hasFormat(QLatin1String("digikam/item-ids")))
     {
         QList<QUrl> urls;
         QByteArray ba = mimeData->data(QLatin1String("digikam/item-ids"));
         QDataStream ds(&ba, QIODevice::ReadOnly);
         ds >> urls;
         event->setAccepted( (urls.count() == 1) );
+
         if (urls.count() == 1)
             event->setDropAction( Qt::CopyAction );
         else
@@ -634,31 +668,36 @@ void PhotoItem::dragMoveEvent(QGraphicsSceneDragDropEvent * event)
     {
         QList<QUrl> urls = mimeData->urls();
         event->setAccepted( (urls.count() == 1) );
+
         if (urls.count() == 1)
             event->setDropAction( Qt::CopyAction );
         else
             event->setDropAction( Qt::IgnoreAction );
     }
+
     setHighlightItem( event->isAccepted() );
 }
 
-void PhotoItem::dropEvent(QGraphicsSceneDragDropEvent * event)
+void PhotoItem::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
     QImage img;
     const QMimeData* mimeData = event->mimeData();
+
     if ( PLEWindow::instance()->hasInterface() &&
-            mimeData->hasFormat(QLatin1String("digikam/item-ids")))
+         mimeData->hasFormat(QLatin1String("digikam/item-ids")))
     {
         QList<QUrl> urls;
         QByteArray ba = mimeData->data(QLatin1String("digikam/item-ids"));
         QDataStream ds(&ba, QIODevice::ReadOnly);
         ds >> urls;
+
         if (urls.count() == 1)
             setImageUrl(urls.at(0));
     }
     else if (mimeData->hasFormat(QLatin1String("text/uri-list")))
     {
         QList<QUrl> urls = mimeData->urls();
+
         if (urls.count() == 1)
             setImageUrl(urls.at(0));
     }
@@ -678,6 +717,7 @@ void PhotoItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 void PhotoItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
     event->setAccepted(false);
+
     if (d->m_image_moving)
     {
         if ((event->modifiers() & Qt::ControlModifier) && (event->buttons() & Qt::LeftButton))
@@ -690,7 +730,10 @@ void PhotoItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             update();
         }
         else
+        {
             PhotoItemImageMovedCommand::post();
+        }
+
         event->setAccepted(true);
     }
     else
@@ -707,7 +750,9 @@ void PhotoItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         d->m_image_moving = false;
     }
     else
+    {
         AbstractPhoto::mouseReleaseEvent(event);
+    }
 }
 
 QImage& PhotoItem::image()
@@ -723,12 +768,16 @@ const QImage& PhotoItem::image() const
 void PhotoItem::setImage(const QImage& image)
 {
     qDebug() << "setImage();";
+
     if (image.isNull())
         return;
+
     PLEWindow::instance()->beginUndoCommandGroup(QObject::tr("Image Change"));
     PLE_PostUndoCommand(new PhotoItemPixmapChangeCommand(image, this));
+
     if (cropShape().isEmpty())
         setCropShape( m_image_path );
+
     PLE_PostUndoCommand(new PhotoItemImagePathChangeCommand(this));
     PLEWindow::instance()->endUndoCommandGroup();
 }
@@ -740,8 +789,10 @@ void PhotoItem::imageLoaded(const QUrl& url, const QImage& image)
 
     PLEWindow::instance()->beginUndoCommandGroup(QObject::tr("Image Change"));
     PLE_PostUndoCommand(new PhotoItemPixmapChangeCommand(image, this));
+
     if (cropShape().isEmpty())
         setCropShape( m_image_path );
+
     PLE_PostUndoCommand(new PhotoItemImagePathChangeCommand(this));
     PLE_PostUndoCommand(new PhotoItemUrlChangeCommand(url, this));
     PLEWindow::instance()->endUndoCommandGroup();
@@ -758,11 +809,14 @@ void PhotoItem::setImageUrl(const QUrl& url)
 void PhotoItem::updateIcon()
 {
     QPixmap temp(m_temp_image.size());
+
     if (m_temp_image.isNull())
         temp = QPixmap(48,48);
+
     temp.fill(Qt::transparent);
 
     QPainter p(&temp);
+
     if (!m_temp_image.isNull())
     {
         p.fillPath(itemOpaqueArea(), QBrush(m_temp_image));
@@ -770,6 +824,7 @@ void PhotoItem::updateIcon()
         temp = temp.scaled(48,48,Qt::KeepAspectRatio);
         p.begin(&temp);
     }
+
     QPen pen(Qt::gray,1);
     pen.setCosmetic(true);
     p.setPen(pen);
@@ -783,6 +838,7 @@ void PhotoItem::fitToRect(const QRect& rect)
     // Scaling if to big
     QSize s = d->image().size();
     QRect r = d->image().rect();
+
     if (rect.isValid() && (rect.width()<s.width() || rect.height()<s.height()))
     {
         s.scale(rect.size()*0.8, Qt::KeepAspectRatio);
@@ -802,12 +858,14 @@ void PhotoItem::fitToRect(const QRect& rect)
 void PhotoItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     painter->fillPath(itemOpaqueArea(), EMPTY_FILL_COLOR);
+
     if (!m_temp_image.isNull())
     {
         QBrush b(m_temp_image);
         b.setTransform(d->m_brush_transform);
         painter->fillPath(itemOpaqueArea() & m_complete_path, b);
     }
+
     AbstractPhoto::paint(painter, option, widget);
 
     // Highlight item
@@ -821,9 +879,10 @@ void PhotoItem::refreshItem()
 {
     if (d->image().isNull())
         return;
+
     m_temp_image = effectsGroup()->apply( d->image().scaled(m_image_path.boundingRect().size().toSize(),
-                                                              Qt::KeepAspectRatioByExpanding,
-                                                              Qt::SmoothTransformation));
+                                                            Qt::KeepAspectRatioByExpanding,
+                                                            Qt::SmoothTransformation));
 
     updateIcon();
     recalcShape();
@@ -848,12 +907,14 @@ void PhotoItem::setupItem(const QImage& image)
     d->setImage(image);
 
     // Scaling if to big
+
     if (scene())
         fitToRect(scene()->sceneRect().toRect());
     else
         fitToRect(image.rect());
 
     // Create effective pixmap
+
     refresh();
 
     setFlag(QGraphicsItem::ItemIsSelectable);
@@ -874,6 +935,7 @@ void PhotoItem::setHighlightItem(bool isHighlighted)
 {
     if (m_highlight == isHighlighted)
         return;
+
     m_highlight = isHighlighted;
     update();
 }

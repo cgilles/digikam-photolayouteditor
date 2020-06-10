@@ -47,17 +47,17 @@ public:
 
 protected:
 
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event)       override;
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event)        override;
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event)     override;
-    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event)       override;
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event)        override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event)     override;
+    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
 
 private:
-   
+
     friend class PLEScene;
     friend class PLEScenePrivate;
 };
-    
+
 } // namespace PhotoLayoutsEditor
 
 #endif // ABSTRACT_ITEM_INTERFACE_H

@@ -48,7 +48,7 @@ namespace PhotoLayoutsEditor
 
 class CropShapeChangeCommand : public QUndoCommand
 {
-    QPainterPath m_crop_shape;
+    QPainterPath   m_crop_shape;
     AbstractPhoto* m_item;
 
 public:
@@ -74,13 +74,15 @@ public:
     {
         QPainterPath temp = m_item->d->cropShape();
         m_item->d->setCropShape(m_crop_shape);
-        m_crop_shape = temp;
+        m_crop_shape      = temp;
     }
 };
 
+// -----------------------------------------------------------------------------
+
 class ItemNameChangeCommand : public QUndoCommand
 {
-    QString m_name;
+    QString        m_name;
     AbstractPhoto* m_item;
 
 public:
@@ -106,13 +108,13 @@ public:
     {
         QString temp = m_item->d->name();
         m_item->d->setName(m_name);
-        m_name = temp;
+        m_name       = temp;
     }
 };
 
-AbstractPhoto::AbstractPhoto(const QString& name, PLEScene* scene) :
-    AbstractItemInterface(nullptr, nullptr),
-    d(new AbstractPhotoPrivate(this))
+AbstractPhoto::AbstractPhoto(const QString& name, PLEScene* scene)
+    : AbstractItemInterface(nullptr, nullptr),
+      d(new AbstractPhotoPrivate(this))
 {
     if (scene)
         scene->addItem(this);
@@ -149,31 +151,41 @@ QString AbstractPhoto::uniqueName(const QString& name)
 {
     QString temp;
     QString result;
+
     if (name.isEmpty())
         return name;
+
     temp = name.simplified();
+
     if (temp.length() > 20)
     {
         temp = temp.left(20);
         temp.append(QLatin1String("..."));
     }
-    result = temp;
+
+    result          = temp;
     PLEScene* scene = qobject_cast<PLEScene*>(this->scene());
+
     if (!scene)
         return result;
+
     int nameNumber = 1;
     QList<QGraphicsItem*> items = scene->items();
+
     foreach (QGraphicsItem* item, items)
     {
         AbstractPhoto* myItem = dynamic_cast<AbstractPhoto*>(item);
+
         if (!myItem || myItem == this || myItem->name().isEmpty())
             continue;
+
         while (myItem->name() == result)
         {
             nameNumber += 1;
-            result = temp + ((nameNumber > 1) ? (QString::fromLatin1(" ").append(QString::number(nameNumber))) : QLatin1String(" "));
+            result      = temp + ((nameNumber > 1) ? (QString::fromLatin1(" ").append(QString::number(nameNumber))) : QLatin1String(" "));
         }
     }
+
     return result;
 }
 
@@ -185,16 +197,20 @@ QRectF AbstractPhoto::boundingRect() const
 QPainterPath AbstractPhoto::shape() const
 {
     QPainterPath result = this->itemShape();
+
     if (d->m_borders_group)
         result = result.united(bordersGroup()->shape());
+
     return result;
 }
 
 QPainterPath AbstractPhoto::opaqueArea() const
 {
     QPainterPath result = this->itemOpaqueArea();
+
     if (d->m_borders_group)
         result = result.united(bordersGroup()->shape());
+
     return result;
 }
 
@@ -225,6 +241,7 @@ QDomDocument AbstractPhoto::toSvg() const
     itemSVG.setAttribute(QLatin1String("transform"), translate + QLatin1Char(' ') + matrix);
     itemSVG.setAttribute(QLatin1String("id"), this->id());
     itemSVG.setAttribute(QLatin1String("name"), QString::fromUtf8(this->name().toUtf8()));
+
     if (!this->isVisible())
         itemSVG.setAttribute(QLatin1String("visibility"), QLatin1String("hide"));
 
@@ -251,6 +268,7 @@ QDomDocument AbstractPhoto::toSvg() const
 
     // Convert visible area to SVG path's 'd' attribute
     QPainterPath visibleArea = this->shape();
+
     if (!visibleArea.isEmpty())
     {
         // 'defs'->'clipPath'->'path'
@@ -331,6 +349,7 @@ QDomDocument AbstractPhoto::toTemplateSvg() const
     itemSVG.setAttribute(QLatin1String("transform"), translate + QLatin1Char(' ') + matrix);
     itemSVG.setAttribute(QLatin1String("id"), this->id());
     itemSVG.setAttribute(QLatin1String("name"), QString::fromUtf8(this->name().toUtf8()));
+
     if (!this->isVisible())
         itemSVG.setAttribute(QLatin1String("visibility"), QLatin1String("hide"));
 
@@ -357,6 +376,7 @@ QDomDocument AbstractPhoto::toTemplateSvg() const
 
     // Convert visible area to SVG path's 'd' attribute
     QPainterPath visibleArea = this->shape();
+
     if (!visibleArea.isEmpty())
     {
         // 'defs'->'clipPath'->'path'
@@ -517,7 +537,7 @@ bool AbstractPhoto::fromSvg(QDomElement& element)
     }
 
     d->m_borders_group = BordersGroup::fromSvg(itemDataElement, this);
-    
+
     if (!d->m_borders_group)
         return false;
 
@@ -557,7 +577,7 @@ bool AbstractPhoto::fromSvg(QDomElement& element)
 
 void AbstractPhoto::setName(const QString& name)
 {
-    QString newName = this->uniqueName(name);
+    QString newName       = this->uniqueName(name);
     QUndoCommand* command = new ItemNameChangeCommand(newName, this);
     PLE_PostUndoCommand(command);
 }
@@ -580,40 +600,44 @@ QVariant AbstractPhoto::itemChange(GraphicsItemChange change, const QVariant& va
         case ItemVisibleHasChanged:
             d->m_visible = value.toBool();
             break;
+
         case ItemScaleHasChanged:
         case ItemRotationHasChanged:
         case ItemTransformHasChanged:
             d->m_transform = this->transform();
             emit changed();
             break;
+
         case ItemPositionHasChanged:
         case ItemScenePositionHasChanged:
             d->m_pos = this->pos();
             emit changed();
             break;
+
         default:
             break;
     }
+
     return AbstractItemInterface::itemChange(change, value);
 }
 
-void AbstractPhoto::dragEnterEvent(QGraphicsSceneDragDropEvent * event)
+void AbstractPhoto::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 {
     event->accept();
 }
 
-void AbstractPhoto::dragLeaveEvent(QGraphicsSceneDragDropEvent * event)
+void AbstractPhoto::dragLeaveEvent(QGraphicsSceneDragDropEvent* event)
 {
     event->accept();
 }
 
-void AbstractPhoto::dragMoveEvent(QGraphicsSceneDragDropEvent * event)
+void AbstractPhoto::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
     qDebug() << "dragMoveEvent";
     event->accept();
 }
 
-void AbstractPhoto::dropEvent(QGraphicsSceneDragDropEvent * event)
+void AbstractPhoto::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
     qDebug() << "dropEvent";
     event->accept();
@@ -646,20 +670,21 @@ void AbstractPhoto::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
     this->unsetCursor();
 }
 
-QIcon & AbstractPhoto::icon()
+QIcon& AbstractPhoto::icon()
 {
     return d->m_icon;
 }
 
-const QIcon & AbstractPhoto::icon() const
+const QIcon& AbstractPhoto::icon() const
 {
     return d->m_icon;
 }
 
-void AbstractPhoto::setIcon(const QIcon & icon)
+void AbstractPhoto::setIcon(const QIcon& icon)
 {
     if (icon.isNull())
         return;
+
     d->m_icon = icon;
     emit changed();
 }
@@ -678,6 +703,7 @@ QString AbstractPhoto::id() const
 {
     if (d->m_id.isEmpty())
         d->m_id = QString::number((long long)this, 16);
+
     return d->m_id;
 }
 
@@ -687,8 +713,10 @@ void AbstractPhoto::refresh()
     this->setPos(d->m_pos);
     this->setTransform(d->m_transform);
     this->refreshItem();
+
     if (d->m_borders_group)
         d->m_borders_group->refresh();
+
     emit changed();
 }
 

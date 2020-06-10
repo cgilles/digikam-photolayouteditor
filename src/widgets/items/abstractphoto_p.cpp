@@ -54,6 +54,7 @@ void AbstractPhotoPrivate::setName(const QString& name)
 {
     if (name.isEmpty())
         return;
+
     this->m_name = name;
 }
 
