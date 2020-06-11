@@ -56,25 +56,25 @@ class PhotoLayoutsEditor::PLESceneBackground::BackgroundImageChangedCommand : pu
 
 public:
 
-    BackgroundImageChangedCommand(const QImage& image, Qt::Alignment alignment, const QSize& size, bool repeat, PLESceneBackground* backgroundItem, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Background Change"), parent),
-        m_image(image),
-        m_alignment(alignment),
-        m_aspect_ratio(Qt::IgnoreAspectRatio),
-        m_size(size),
-        m_repeat(repeat),
-        m_backgropund_item(backgroundItem)
+    BackgroundImageChangedCommand(const QImage& image, Qt::Alignment alignment, const QSize& size, bool repeat, PLESceneBackground* backgroundItem, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Background Change"), parent),
+          m_image(image),
+          m_alignment(alignment),
+          m_aspect_ratio(Qt::IgnoreAspectRatio),
+          m_size(size),
+          m_repeat(repeat),
+          m_backgropund_item(backgroundItem)
     {
     }
 
-    BackgroundImageChangedCommand(const QImage& image, Qt::Alignment alignment, Qt::AspectRatioMode aspectRatio, bool repeat, PLESceneBackground* backgroundItem, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Background Change"), parent),
-        m_image(image),
-        m_alignment(alignment),
-        m_aspect_ratio(aspectRatio),
-        m_size(image.size()),
-        m_repeat(repeat),
-        m_backgropund_item(backgroundItem)
+    BackgroundImageChangedCommand(const QImage& image, Qt::Alignment alignment, Qt::AspectRatioMode aspectRatio, bool repeat, PLESceneBackground* backgroundItem, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Background Change"), parent),
+          m_image(image),
+          m_alignment(alignment),
+          m_aspect_ratio(aspectRatio),
+          m_size(image.size()),
+          m_repeat(repeat),
+          m_backgropund_item(backgroundItem)
     {
     }
 
@@ -123,10 +123,10 @@ class PLESceneBackground::BackgroundFirstBrushChangeCommand : public QUndoComman
 
 public:
 
-    BackgroundFirstBrushChangeCommand(const QBrush& brush, PLESceneBackground* background, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Background Change"), parent),
-        m_brush(brush),
-        m_background(background)
+    BackgroundFirstBrushChangeCommand(const QBrush& brush, PLESceneBackground* background, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Background Change"), parent),
+          m_brush(brush),
+          m_background(background)
     {
     }
 
@@ -158,10 +158,10 @@ class PLESceneBackground::BackgroundSecondBrushChangeCommand : public QUndoComma
 
 public:
 
-    BackgroundSecondBrushChangeCommand(const QBrush& brush, PLESceneBackground* background, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Background Change"), parent),
-        m_brush(brush),
-        m_background(background)
+    BackgroundSecondBrushChangeCommand(const QBrush& brush, PLESceneBackground* background, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Background Change"), parent),
+          m_brush(brush),
+          m_background(background)
     {
     }
 
@@ -186,10 +186,10 @@ public:
     }
 };
 
-PLESceneBackground::PLESceneBackground(QGraphicsScene* scene) :
-    QGraphicsItem(nullptr),
-    m_first_brush(Qt::transparent),
-    m_second_brush(Qt::transparent)
+PLESceneBackground::PLESceneBackground(QGraphicsScene* scene)
+    : QGraphicsItem(nullptr),
+      m_first_brush(Qt::transparent),
+      m_second_brush(Qt::transparent)
 {
     scene->addItem(this);
     setZValue(-std::numeric_limits<double>::infinity());
@@ -639,7 +639,7 @@ bool PLESceneBackground::imageRepeated() const
 
 QVariant PLESceneBackground::itemChange(GraphicsItemChange change, const QVariant& value)
 {
-    switch(change)
+    switch (change)
     {
         case QGraphicsItem::ItemParentChange:
             return QVariant(0);
@@ -704,6 +704,7 @@ void PLESceneBackground::render(QPainter* painter, const QRect& rect)
         if (!this->m_image_repeat)
             r = m_first_brush.transform().mapRect(QRect(0, 0, m_image_size.width(), m_image_size.height()));
     }
+
     painter->fillRect(r, m_first_brush);
 }
 

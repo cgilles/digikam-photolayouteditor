@@ -49,11 +49,11 @@ class RotateItemCommand : public QUndoCommand
 
 public:
 
-    RotateItemCommand(AbstractPhoto* item, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Rotate item"), parent),
-        item(item),
-        angle(0),
-        done(false)
+    RotateItemCommand(AbstractPhoto* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Rotate item"), parent),
+          item(item),
+          angle(0),
+          done(false)
     {
     }
 
@@ -61,6 +61,7 @@ public:
     {
         if (done)
             return;
+
         QTransform tr;
         tr.translate(rotationPoint.x(), rotationPoint.y());
         tr.rotate(angle);
@@ -69,8 +70,10 @@ public:
         QTransform rotated = item->transform() * tr;
         item->setTransform(rotated);
         updateRect = updateRect.united( item->mapRectToScene(item->boundingRect()) );
+
         if (item->scene())
             item->scene()->invalidate(updateRect);
+
         done = true;
     }
 
@@ -78,6 +81,7 @@ public:
     {
         if (!done)
             return;
+
         QTransform tr;
         tr.translate(rotationPoint.x(), rotationPoint.y());
         tr.rotate(angle);
@@ -86,8 +90,10 @@ public:
         QTransform rotated = item->transform() * tr.inverted();
         item->setTransform(rotated);
         updateRect = updateRect.united( item->mapRectToScene(item->boundingRect()) );
+
         if (item->scene())
             item->scene()->invalidate(updateRect);
+
         done = false;
     }
 
@@ -109,17 +115,17 @@ public:
 
 class RotationWidgetItemPrivate
 {
-    explicit RotationWidgetItemPrivate(RotationWidgetItem* item) :
-        item(item),
-        rotation_angle(0.0),
-        elipse_pressed(false)
+    explicit RotationWidgetItemPrivate(RotationWidgetItem* item)
+        : item(item),
+          rotation_angle(0.0),
+          elipse_pressed(false)
     {
         m_elipse.addEllipse(-10,-10,20,20);
     }
 
     QPointF viewportToItemPosition(const QPoint& pos, QWidget* widget)
     {
-        QGraphicsView *view = nullptr;
+        QGraphicsView* view = nullptr;
 
         if (widget)
             view = qobject_cast<QGraphicsView *>(widget->parentWidget());
@@ -180,9 +186,9 @@ class RotationWidgetItemPrivate
     friend class RotationWidgetItem;
 };
 
-RotationWidgetItem::RotationWidgetItem(const QList<AbstractPhoto*>& items, QGraphicsItem* parent):
-    AbstractItemInterface(parent),
-    d(new RotationWidgetItemPrivate(this))
+RotationWidgetItem::RotationWidgetItem(const QList<AbstractPhoto*>& items, QGraphicsItem* parent)
+    : AbstractItemInterface(parent),
+      d(new RotationWidgetItemPrivate(this))
 {
     this->setAcceptHoverEvents(true);
     this->setFlag(QGraphicsItem::ItemIsMovable);
@@ -196,8 +202,10 @@ void RotationWidgetItem::paint(QPainter* painter, const QStyleOptionGraphicsItem
 {
     // Get the view
     QGraphicsView* view = qobject_cast<QGraphicsView*>(widget->parentWidget());
+
     if (!view)
         return;
+
     QTransform viewTransform = view->transform();
     d->transformDrawings(viewTransform);
 
@@ -276,13 +284,17 @@ void RotationWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QPointF buttonDownPos = d->viewportToItemPosition(event->buttonDownScreenPos(Qt::LeftButton), event->widget());
     QRectF buttonDownPosRect(buttonDownPos-QPointF(1,1), QSizeF(2,2));
+
     if (d->m_elipse.intersects(buttonDownPosRect))
     {
         d->elipse_pressed = true;
         d->initial_position = pos();
     }
     else
+    {
         d->elipse_pressed = false;
+    }
+
     this->setCursor(QCursor(Qt::ClosedHandCursor));
     event->setAccepted(true);
 }
@@ -293,6 +305,7 @@ void RotationWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* /*event*/)
 
     if (d->rotate_commands.count() > 1)
         PLEWindow::instance()->beginUndoCommandGroup( QObject::tr("Rotate item", "Rotate items", d->rotate_commands.count()) );
+
     for (QMap<AbstractPhoto*,RotateItemCommand*>::iterator it = d->rotate_commands.begin(); it != d->rotate_commands.end(); ++it)
     {
         if (it.value())
@@ -302,8 +315,10 @@ void RotationWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* /*event*/)
             it.value() = nullptr;
         }
     }
+
     if (d->rotate_commands.count() > 1)
         PLEWindow::instance()->endUndoCommandGroup();
+
     d->rotate_commands.clear();
 
     d->rotation_angle = 0;
@@ -392,8 +407,10 @@ void RotationWidgetItem::setItems(const QList<AbstractPhoto*>& items)
         return;
 
     QPainterPath itemsPath;
+
     foreach (AbstractPhoto* item, items)
         itemsPath += this->mapFromItem(item, item->shape());
+
     initRotation(itemsPath, items.at(0)->boundingRect().center() * items.at(0)->transform());
     setPos(itemsPath.boundingRect().center());
 }

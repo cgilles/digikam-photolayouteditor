@@ -132,8 +132,10 @@ qreal PLECanvasSize::resolutionConvert(qreal value, ResolutionUnits from, Resolu
 {
     qreal fromFactor = resolutionUnitFactor(from);
     qreal toFactor = resolutionUnitFactor(to);
+
     if (!fromFactor || !toFactor)
         return value;
+
     value /= fromFactor;
     value *= toFactor;
     return value;
@@ -197,8 +199,10 @@ qreal PLECanvasSize::sizeConvert(qreal value, SizeUnits from, SizeUnits to)
 {
     qreal fromFactor = sizeUnitFactor(from);
     qreal toFactor = sizeUnitFactor(to);
+
     if (!fromFactor || !toFactor)
         return value;
+
     value /= fromFactor;
     value *= toFactor;
     return value;
@@ -208,8 +212,10 @@ int PLECanvasSize::toPixels(qreal value, qreal resolution, SizeUnits sUnit, Reso
 {
     if (sUnit == Pixels)
         return value;
+
     qreal result = (resolutionUnitFactor(rUnit) * resolution * value)
                    / sizeUnitFactor(sUnit);
+
     return qRound(result);
 }
 
@@ -247,6 +253,7 @@ void PLECanvasSize::setSize(const QSizeF& size)
 {
     if (!size.isValid())
         return;
+
     m_size = size;
 }
 
@@ -255,11 +262,13 @@ QSizeF PLECanvasSize::size(SizeUnits unit) const
     QSizeF result;
     result.setWidth( toPixels(m_size.width(), m_resolution.width(), m_size_unit, m_resolution_unit) );
     result.setHeight( toPixels(m_size.height(), m_resolution.height(), m_size_unit, m_resolution_unit) );
+
     if (unit != Pixels)
     {
         result.setWidth( fromPixels(result.width(), m_resolution.width(), unit, m_resolution_unit) );
         result.setHeight( fromPixels(result.height(), m_resolution.height(), unit, m_resolution_unit) );
     }
+
     return result;
 }
 
@@ -272,6 +281,7 @@ void PLECanvasSize::setSizeUnit(SizeUnits unit)
 {
     if (unit < Pixels || unit > Picas)
         return;
+
     m_size_unit = unit;
 }
 
@@ -286,6 +296,7 @@ QSizeF PLECanvasSize::resolution(ResolutionUnits unit) const
         return QSizeF();
 
     QSizeF result = m_resolution;
+
     if (m_resolution_unit != PLECanvasSize::PixelsPerInch)
     {
         qreal factor = PLECanvasSize::resolutionUnitFactor(m_resolution_unit);
@@ -294,12 +305,13 @@ QSizeF PLECanvasSize::resolution(ResolutionUnits unit) const
     }
 
     if (unit != m_resolution_unit &&
-            unit != PLECanvasSize::UnknownResolutionUnit)
+        unit != PLECanvasSize::UnknownResolutionUnit)
     {
         qreal factor = PLECanvasSize::resolutionUnitFactor(unit);
         result.setWidth(result.width() / factor);
         result.setHeight(result.height() / factor);
     }
+
     return result;
 }
 
@@ -307,6 +319,7 @@ void PLECanvasSize::setResolution(const QSizeF& resolution)
 {
     if (!resolution.isValid())
         return;
+
     m_resolution = resolution;
 }
 
@@ -319,15 +332,16 @@ void PLECanvasSize::setResolutionUnit(ResolutionUnits unit)
 {
     if (unit < PixelsPerMilimeter || unit > PixelsPerPicas)
         return;
+
     m_resolution_unit = unit;
 }
 
 bool PLECanvasSize::isValid() const
 {
     return m_size.isValid() &&
-            m_resolution.isValid() &&
-            (m_size_unit != UnknownSizeUnit) &&
-            (m_resolution_unit != UnknownResolutionUnit);
+           m_resolution.isValid() &&
+           (m_size_unit != UnknownSizeUnit) &&
+           (m_resolution_unit != UnknownResolutionUnit);
 }
 
 bool PLECanvasSize::operator ==(const PLECanvasSize& size) const

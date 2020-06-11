@@ -105,9 +105,9 @@ public:
     void setInteractionMode(int mode);
     void setSelectionMode(SelectionMode selectionMode);
     bool isSelectionVisible();
-    QDomDocument toSvg(ProgressObserver * observer);
-    QDomDocument toTemplateSvg(ProgressObserver * observer);
-    QDomDocument toSvg(ProgressObserver * observer, bool asTemplate);
+    QDomDocument toSvg(ProgressObserver* observer);
+    QDomDocument toTemplateSvg(ProgressObserver* observer);
+    QDomDocument toSvg(ProgressObserver* observer, bool asTemplate);
     static PLEScene* fromSvg(QDomElement& svgImage);
     void addSelectingFilter(const QMetaObject & classMeta);
     void clearSelectingFilters();

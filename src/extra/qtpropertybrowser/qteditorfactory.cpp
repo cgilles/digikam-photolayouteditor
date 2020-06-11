@@ -1732,7 +1732,7 @@ void QtCharEdit::paintEvent(QPaintEvent *)
 
 bool QtCharEdit::event(QEvent *e)
 {
-    switch(e->type()) {
+    switch (e->type()) {
     case QEvent::Shortcut:
     case QEvent::ShortcutOverride:
     case QEvent::KeyRelease:

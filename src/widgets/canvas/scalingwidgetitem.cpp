@@ -52,37 +52,46 @@ class MoveItemCommand : public QUndoCommand
     AbstractPhoto* m_item;
     QPointF m_translation;
     bool done;
+
 public:
-    MoveItemCommand(AbstractPhoto* item, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Move item"), parent),
-        m_item(item),
-        done(false)
+
+    MoveItemCommand(AbstractPhoto* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Move item"), parent),
+          m_item(item),
+          done(false)
     {
     }
+
     virtual void redo() override
     {
         if (done)
             return;
+
         qDebug() << done << "redo MoveItemCommand";
         m_item->moveBy(m_translation.x(), m_translation.y());
         done = true;
     }
+
     virtual void undo() override
     {
         if (!done)
             return;
+
         qDebug() << done << "undo MoveItemCommand";
         m_item->moveBy(-m_translation.x(), -m_translation.y());
         done = false;
     }
+
     void addTranslation(const QPointF& point)
     {
         m_translation += point;
     }
+
     QPointF translation()
     {
         return m_translation;
     }
+
     void setDone(bool done)
     {
         this->done = done;
@@ -94,35 +103,42 @@ class ScaleItemCommand : public MoveItemCommand
     AbstractPhoto* m_item;
     QTransform scale;
     bool done;
+
 public:
-    ScaleItemCommand(AbstractPhoto* item, QUndoCommand* parent = nullptr) :
-        MoveItemCommand(item, parent),
-        m_item(item),
-        done(false)
+    ScaleItemCommand(AbstractPhoto* item, QUndoCommand* parent = nullptr)
+        : MoveItemCommand(item, parent),
+          m_item(item),
+          done(false)
     {
         this->setText(QObject::tr("Scale item"));
     }
+
     virtual void redo() override
     {
         if (done)
             return;
+
         m_item->setTransform( m_item->transform() * scale );
         MoveItemCommand::redo();
         done = true;
     }
+
     virtual void undo() override
     {
         if (!done)
             return;
+
         QTransform inverted = scale.inverted();
         m_item->setTransform( m_item->transform() * inverted );
         MoveItemCommand::undo();
         done = false;
     }
+
     void addScale(const QTransform& scale)
     {
         this->scale *= scale;
     }
+
     void setDone(bool done)
     {
         this->done = done;
@@ -146,11 +162,11 @@ class ScalingWidgetItemPrivate
         Right
     };
 
-    ScalingWidgetItemPrivate() :
-        currentViewTransform(1, 0, 0,    0, 1, 0,   0, 0, 1),
+    ScalingWidgetItemPrivate()
+        : currentViewTransform(1, 0, 0,    0, 1, 0,   0, 0, 1),
 //        recalculate(true),
-        pressedVHandler(-1),
-        pressedHHandler(-1)
+          pressedVHandler(-1),
+          pressedHHandler(-1)
     {
         m_handlers[Top][Left] = QRectF(0, 0, 20, 20);
         m_handlers[Top][HCenter] = QRectF(0, 0, 20, 20);
@@ -251,9 +267,11 @@ void ScalingWidgetItemPrivate::calculateHandlers()
     m_shape.addRect(m_rect);
 
     m_handlers_path = QPainterPath();
+
     for (int i = Top; i <= Bottom; ++i)
         for (int j = Left; j <= Right; ++j)
             m_handlers_path.addRect(m_handlers[i][j]);
+
     m_handlers_path += m_elipse;
 }
 
@@ -276,9 +294,9 @@ void ScalingWidgetItemPrivate::correctRect(QRectF& r)
     }
 }
 
-ScalingWidgetItem::ScalingWidgetItem(const QList<AbstractPhoto*>& items, QGraphicsItem* parent, QGraphicsScene* scene) :
-    AbstractItemInterface(parent, scene),
-    d(new ScalingWidgetItemPrivate)
+ScalingWidgetItem::ScalingWidgetItem(const QList<AbstractPhoto*>& items, QGraphicsItem* parent, QGraphicsScene* scene)
+    : AbstractItemInterface(parent, scene),
+      d(new ScalingWidgetItemPrivate)
 {
     this->setAcceptHoverEvents(true);
     this->setFlag(QGraphicsItem::ItemIsSelectable, false);
@@ -310,8 +328,10 @@ void ScalingWidgetItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
 {
     // Get the view
     QGraphicsView* view = qobject_cast<QGraphicsView*>(widget->parentWidget());
+
     if (!view)
         return;
+
     QTransform viewTransform = view->transform();
     d->transformDrawings(viewTransform);
 
@@ -335,9 +355,11 @@ void ScalingWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     d->handlerOffset = QPointF(0,0);
     this->setFocus( Qt::MouseFocusReason );
     d->m_begin_rect = d->m_rect;
+
     if (event->button() == Qt::LeftButton)
     {
         QPointF handledPoint = this->mapFromScene(event->buttonDownScenePos(Qt::LeftButton));
+
         for (int i = ScalingWidgetItemPrivate::Top; i <= ScalingWidgetItemPrivate::Bottom; ++i)
         {
             for (int j = ScalingWidgetItemPrivate::Left; j <= ScalingWidgetItemPrivate::Right; ++j)
@@ -350,14 +372,18 @@ void ScalingWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 }
             }
         }
+
         if (d->m_elipse.contains(handledPoint))
         {
             d->pressedVHandler = ScalingWidgetItemPrivate::VCenter;
             d->pressedHHandler = ScalingWidgetItemPrivate::HCenter;
             event->setAccepted(true);
         }
+
         return;
+
         found:
+
             d->handlerOffset = d->m_handlers[d->pressedVHandler][d->pressedHHandler].center() - handledPoint;
             event->setAccepted(true);
     }
@@ -381,11 +407,14 @@ void ScalingWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
         temp.translate(dif);
         d->m_handlers_path.translate(dif);
         dif = (event->scenePos()) - (event->lastScenePos());
+
         foreach (AbstractPhoto* item, d->m_items)
         {
             MoveItemCommand * moveCom = d->move_commands[item];
+
             if (!moveCom)
                 moveCom = d->move_commands[item] = new MoveItemCommand(item);
+
             moveCom->addTranslation(dif);
 
             item->QGraphicsItem::moveBy(dif.x(), dif.y());
@@ -413,6 +442,7 @@ void ScalingWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
         {
             qreal xFactor = temp.width()  / d->m_begin_rect.width();
             qreal yFactor = temp.height() / d->m_begin_rect.height();
+
             if (d->pressedHHandler == ScalingWidgetItemPrivate::HCenter)
             {
                 qreal dif = d->m_begin_rect.width() - d->m_begin_rect.width() * yFactor;
@@ -428,6 +458,7 @@ void ScalingWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             else if (xFactor > yFactor)
             {
                 qreal dif = d->m_begin_rect.width() - d->m_begin_rect.width() * yFactor;
+
                 if (d->pressedHHandler == ScalingWidgetItemPrivate::Right)
                     temp.setRight( d->m_begin_rect.right() - dif );
                 else if (d->pressedHHandler == ScalingWidgetItemPrivate::Left)
@@ -436,6 +467,7 @@ void ScalingWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             else if (xFactor < yFactor)
             {
                 qreal dif = d->m_begin_rect.height() - d->m_begin_rect.height() * xFactor;
+
                 if (d->pressedVHandler == ScalingWidgetItemPrivate::Top)
                     temp.setTop( d->m_begin_rect.top() + dif );
                 else if (d->pressedVHandler == ScalingWidgetItemPrivate::Bottom)
@@ -455,6 +487,7 @@ void ScalingWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             item->setTransform( item->transform() * sc );
             QRectF afterPLEScene = item->mapRectToScene(item->boundingRect());
             QPointF p(0,0);
+
             if (d->pressedVHandler == ScalingWidgetItemPrivate::Top)
                 p.setY(beforePLEScene.bottom() - afterPLEScene.bottom());
             else if (d->pressedVHandler == ScalingWidgetItemPrivate::Bottom)
@@ -470,8 +503,10 @@ void ScalingWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
                 p.setX((beforePLEScene.center() - afterPLEScene.center()).x());
 
             ScaleItemCommand * scaleCom = d->scale_commands[item];
+
             if (!scaleCom)
                 scaleCom = d->scale_commands[item] = new ScaleItemCommand(item);
+
             scaleCom->addScale(sc);
             scaleCom->addTranslation(p);
 
@@ -487,6 +522,7 @@ void ScalingWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* /*event*/)
 {
     if (d->scale_commands.count() > 1)
         PLEWindow::instance()->beginUndoCommandGroup( QObject::tr("Scale item", "Scale items", d->scale_commands.count()) );
+
     for (QMap<AbstractPhoto*,ScaleItemCommand*>::iterator it = d->scale_commands.begin(); it != d->scale_commands.end(); ++it)
     {
         if (it.value())
@@ -496,12 +532,15 @@ void ScalingWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* /*event*/)
             it.value() = nullptr;
         }
     }
+
     if (d->scale_commands.count() > 1)
         PLEWindow::instance()->endUndoCommandGroup();
+
     d->scale_commands.clear();
 
     if (d->move_commands.count() > 1)
         PLEWindow::instance()->beginUndoCommandGroup( QObject::tr("Move item", "Move items", d->move_commands.count()) );
+
     for (QMap<AbstractPhoto*,MoveItemCommand*>::iterator it = d->move_commands.begin(); it != d->move_commands.end(); ++it)
     {
         if (it.value())
@@ -511,14 +550,16 @@ void ScalingWidgetItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* /*event*/)
             it.value() = nullptr;
         }
     }
+
     if (d->move_commands.count() > 1)
         PLEWindow::instance()->endUndoCommandGroup();
+
     d->move_commands.clear();
 }
 
 void ScalingWidgetItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* /*event*/)
 {
-    }
+}
 
 void ScalingWidgetItem::setScaleItems(const QList<AbstractPhoto*>& items)
 {
@@ -533,6 +574,7 @@ void ScalingWidgetItem::setScaleItems(const QList<AbstractPhoto*>& items)
 void ScalingWidgetItem::updateShapes()
 {
     d->m_crop_shape = QPainterPath();
+
     foreach (AbstractPhoto* item, d->m_items)
         d->m_crop_shape += this->mapFromItem(item, item->opaqueArea());
 

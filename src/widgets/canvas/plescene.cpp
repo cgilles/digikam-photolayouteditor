@@ -108,6 +108,7 @@ class PLEScenePrivate
     QList<QGraphicsItem*> itemsAtPosition(const QPointF& scenePos, QWidget* widget)
     {
         QGraphicsView* view = widget ? qobject_cast<QGraphicsView*>(widget->parentWidget()) : nullptr;
+
         if (!view)
             return m_scene->items(scenePos, Qt::IntersectsItemShape, Qt::DescendingOrder, QTransform());
 
@@ -218,7 +219,7 @@ class PLEScenePrivate
         if (m_pressed_item)
         {
             // Select if not selested
-            
+
             if (!m_pressed_item->isSelected())
             {
                 m_selected_items.insert(m_pressed_item, m_pressed_item->pos());
@@ -388,13 +389,13 @@ public:
 class MoveItemsCommand
     : public QUndoCommand
 {
-    QMap<AbstractPhoto*,QPointF> m_items;
+    QMap<AbstractPhoto*, QPointF> m_items;
     PLEScene* m_scene;
     bool done;
 
 public:
 
-    MoveItemsCommand(QMap<AbstractPhoto*,QPointF> items, PLEScene* scene, QUndoCommand* parent = nullptr)
+    MoveItemsCommand(QMap<AbstractPhoto*, QPointF> items, PLEScene* scene, QUndoCommand* parent = nullptr)
         : QUndoCommand(QObject::tr("Move item", "Move items", items.count()), parent),
           m_items(items),
           m_scene(scene),
@@ -406,7 +407,7 @@ public:
     {
         if (!done)
         {
-            QMap<AbstractPhoto*,QPointF>::iterator it = m_items.begin();
+            QMap<AbstractPhoto*, QPointF>::iterator it = m_items.begin();
 
             while(it != m_items.end())
             {
@@ -415,7 +416,7 @@ public:
                 it.value() = temp;
                 ++it;
             }
-            
+
             done = !done;
             m_scene->calcSelectionBoundingRect();
         }
@@ -425,7 +426,7 @@ public:
     {
         if (done)
         {
-            QMap<AbstractPhoto*,QPointF>::iterator it = m_items.begin();
+            QMap<AbstractPhoto*, QPointF>::iterator it = m_items.begin();
 
             while(it != m_items.end())
             {
@@ -447,7 +448,7 @@ class RemoveItemsCommand
         AbstractPhoto* item;
         int            item_row;
         AbstractPhoto* item_parent;
-        PLEScene*         m_scene;
+        PLEScene*      m_scene;
         bool           done;
 
     public:
@@ -507,7 +508,7 @@ class RemoveItemsCommand
             QPersistentModelIndex parentIndex = QPersistentModelIndex( m_scene->model()->findIndex( item_parent ) );
 
             if (!m_scene->model()->hasIndex(item_row, 0, parentIndex) ||
-                    static_cast<LayersModelItem*>(m_scene->model()->index(item_row, 0, parentIndex).internalPointer())->photo() != item)
+                static_cast<LayersModelItem*>(m_scene->model()->index(item_row, 0, parentIndex).internalPointer())->photo() != item)
             {
                 if (m_scene->model()->insertRow(item_row, parentIndex))
                 {
@@ -565,8 +566,8 @@ class CropItemsCommand
 
 public:
 
-    CropItemsCommand(const QPainterPath& path, const QList<AbstractPhoto*>& items, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Crop item", "Crop items", items.count()), parent)
+    CropItemsCommand(const QPainterPath& path, const QList<AbstractPhoto*>& items, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Crop item", "Crop items", items.count()), parent)
     {
         qDebug() << "scene crop shape" << path.boundingRect();
 
@@ -633,45 +634,41 @@ PLEScene::PLEScene(const QRectF& dimension, QObject* const parent)
     connect(this, SIGNAL(selectionChanged()), this, SLOT(updateSelection()));
 }
 
-
 PLEScene::~PLEScene()
 {
     delete d;
 }
-
 
 PLESceneBackground* PLEScene::background()
 {
     return d->m_background;
 }
 
-
 PLESceneBorder* PLEScene::border()
 {
     return d->m_border;
 }
-
 
 LayersModel* PLEScene::model() const
 {
     return d->model;
 }
 
-
 LayersSelectionModel* PLEScene::selectionModel() const
 {
     return d->selection_model;
 }
 
-
 void PLEScene::addItem(AbstractPhoto* item)
 {
     // Prevent multiple addition of the item
+
     if (item->scene() == this)
         return;
 
     QModelIndexList selectedIndexes = d->selection_model->selectedIndexes();
     unsigned insertionRow = -1;
+
     foreach (const QModelIndex& index, selectedIndexes)
     {
         if (index.column() != LayersModelItem::NameString)
@@ -691,21 +688,26 @@ void PLEScene::addItems(const QList<AbstractPhoto*>& items)
 {
     // Prevent multiple addition of the item
     QList<AbstractPhoto*> tempItems;
+
     foreach (AbstractPhoto* item, items)
     {
         if (item->scene() == this && this->model()->findIndex(item).isValid())
             continue;
+
         tempItems.prepend(item);
     }
+
     if (tempItems.count() < 1)
         return;
 
     QModelIndexList selectedIndexes = d->selection_model->selectedIndexes();
     unsigned insertionRow = -1;
+
     foreach (const QModelIndex& index, selectedIndexes)
     {
         if (index.column() != LayersModelItem::NameString)
             continue;
+
         if (insertionRow > (unsigned)index.row())
             insertionRow = index.row();
     }
@@ -715,6 +717,7 @@ void PLEScene::addItems(const QList<AbstractPhoto*>& items)
 
     QUndoCommand* parent = nullptr;
     QUndoCommand* command = nullptr;
+
     if (items.count() > 1)
         parent = new QUndoCommand( QObject::tr("Add item", "Add items", items.count()) );
 
@@ -731,6 +734,7 @@ void PLEScene::removeItem(AbstractPhoto* item)
 {
     if (!askAboutRemoving(1))
         return;
+
     QUndoCommand* command = new RemoveItemsCommand(item, this);
     PLE_PostUndoCommand(command);
 }
@@ -766,13 +770,17 @@ void PLEScene::removeSelectedItems()
 void PLEScene::changeSelectedImage()
 {
     QList<AbstractPhoto*> items = selectedItems();
+
     if (items.count() != 1)
         return;
+
     PhotoItem* item = dynamic_cast<PhotoItem*>(items.first());
+
     if (!item)
         return;
 
     QUrl url = ImageDialog::getImageURL(PLEWindow::instance(), QUrl());
+
     if (url.isEmpty())
         return;
 
@@ -783,18 +791,19 @@ void PLEScene::changeSelectedImage()
     ilt->start();
 }
 
-
 void PLEScene::contextMenuEvent(QGraphicsSceneMouseEvent* event)
 {
     QMenu menu;
 
     // Remove items
     QList<AbstractPhoto*> items = this->selectedItems();
+
     if (items.count())
     {
         if (items.count() == 1)
         {
             PhotoItem* item = dynamic_cast<PhotoItem*>(items.first());
+
             if (item)
             {
                 QAction* removeAction = menu.addAction( QObject::tr("Change item's image") );
@@ -820,7 +829,6 @@ void PLEScene::contextMenuEvent(QGraphicsSceneContextMenuEvent * event)
     this->contextMenuEvent( (QGraphicsSceneMouseEvent*) event );
 }
 
-
 void PLEScene::keyPressEvent(QKeyEvent* event)
 {
     if (this->focusItem())
@@ -829,7 +837,8 @@ void PLEScene::keyPressEvent(QKeyEvent* event)
         event->setAccepted(true);
         return;
     }
-    switch(event->key())
+
+    switch (event->key())
     {
         case Qt::Key_Delete:
             this->removeItems(selectedItems());
@@ -839,11 +848,12 @@ void PLEScene::keyPressEvent(QKeyEvent* event)
             //disableitemsDrawing();
             break;
     }
+
     if (event->isAccepted())
         return;
+
     QGraphicsScene::keyPressEvent(event);
 }
-
 
 void PLEScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
@@ -884,6 +894,7 @@ void PLEScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 if ((m_interaction_mode & Rotating) && d->m_pressed_object == d->m_rot_item)
                 {
                     d->sendPressEventToItem(d->m_pressed_object, event);
+
                     if (event->isAccepted())
                         return;
                 }
@@ -891,6 +902,7 @@ void PLEScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 else if ((m_interaction_mode & Scaling) && d->m_pressed_object == d->m_scale_item)
                 {
                     d->sendPressEventToItem(d->m_pressed_object, event);
+
                     if (event->isAccepted())
                         return;
                 }
@@ -898,6 +910,7 @@ void PLEScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 else if ((m_interaction_mode & Cropping) && d->m_pressed_object == d->m_crop_item)
                 {
                     d->sendPressEventToItem(d->m_pressed_object, event);
+
                     if (event->isAccepted())
                         return;
                 }
@@ -908,26 +921,33 @@ void PLEScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
 
             // If event pos is not in current selection shape...
+
             if (!d->m_selected_items_path.contains(event->scenePos()) || !d->m_selected_items.contains(dynamic_cast<AbstractPhoto*>(d->m_pressed_item)))
             {
                 // Clear focus from focused items
                 if (this->focusItem())
                     this->focusItem()->clearFocus();
+
                 // Clear this selection
                 if (!(event->modifiers() & Qt::ControlModifier))
                     d->deselectSelected();
             }
 
             // Filtering selection
+
             if (d->m_pressed_item &&
-                    d->m_selection_filters.count() &&
-                    !d->m_selection_filters.contains( d->m_pressed_item->metaObject()->className() ))
+                d->m_selection_filters.count() &&
+                !d->m_selection_filters.contains( d->m_pressed_item->metaObject()->className() ))
+            {
                 d->m_pressed_item = nullptr;
+            }
 
             // If there is VALID item to select...
+
             if (d->m_pressed_item)
             {
                 // If not selectable -> deselect item
+
                 if (!(d->m_pressed_item->flags() & QGraphicsItem::ItemIsSelectable))
                     d->m_pressed_item = nullptr;
                 else
@@ -935,18 +955,22 @@ void PLEScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
             // If listeners should know scene press position
             else if (m_interaction_mode & MouseTracking)
+            {
                 emit mousePressedPoint(event->buttonDownScenePos(event->button()));
+            }
 
             setRotationWidgetVisible(m_interaction_mode & Rotating);
             setScalingWidgetVisible(m_interaction_mode & Scaling);
             setCropWidgetVisible(m_interaction_mode & Cropping);
         }
+
         event->setAccepted(m_interaction_mode & Selecting);
     }
     else if (event->button() == Qt::RightButton)
+    {
         this->contextMenuEvent(event);
+    }
 }
-
 
 void PLEScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
@@ -968,16 +992,19 @@ void PLEScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             {
                 // Calculate movement
                 QPointF distance = event->scenePos() - event->buttonDownScenePos(Qt::LeftButton) + d->m_selected_items_path_initial_pos;
+
                 if (event->modifiers() & Qt::ShiftModifier && this->isGridVisible())
                 {
                     distance.setX(x_grid*round(distance.rx()/x_grid));
                     distance.setY(y_grid*round(distance.ry()/y_grid));
                 }
+
                 QPointF difference = d->m_selected_items_path.boundingRect().topLeft();
-                          d->m_selected_items_path.translate(distance);
+                d->m_selected_items_path.translate(distance);
                 d->m_selected_items_path.translate(-difference);
                 difference = distance - difference;
                 d->m_selected_items_path.translate(difference);
+
                 foreach (AbstractItemInterface* item, d->m_selected_items.keys())
                     item->moveBy(difference.x(), difference.y());
             }
@@ -1020,7 +1047,6 @@ void PLEScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     }
 }
 
-
 void PLEScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 {
     if (event->buttons() & Qt::LeftButton)
@@ -1035,7 +1061,6 @@ void PLEScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
             d->focusPressed();
     }
 }
-
 
 void PLEScene::drawBackground(QPainter* painter, const QRectF& rect)
 {
@@ -1063,7 +1088,6 @@ void PLEScene::drawBackground(QPainter* painter, const QRectF& rect)
     }
 }
 
-
 void PLEScene::drawForeground(QPainter* painter, const QRectF& rect)
 {
     QGraphicsScene::drawForeground(painter, rect.intersected(this->sceneRect()));
@@ -1080,7 +1104,6 @@ void PLEScene::drawForeground(QPainter* painter, const QRectF& rect)
     }
 }
 
-
 void PLEScene::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (canDecode(event->mimeData()))
@@ -1095,7 +1118,6 @@ void PLEScene::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
     }
 }
 
-
 void PLEScene::dragLeaveEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (d->m_hovered_photo)
@@ -1105,10 +1127,10 @@ void PLEScene::dragLeaveEvent(QGraphicsSceneDragDropEvent* event)
     }
 }
 
-
 void PLEScene::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
     PhotoItem* tempItem = dynamic_cast<PhotoItem*>(this->itemAt(event->scenePos(), QTransform()));
+
     // Send event to item
     if (tempItem)
     {
@@ -1120,13 +1142,16 @@ void PLEScene::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
                 d->m_hovered_photo->dragLeaveEvent(event);
         }
         else
+        {
             tempItem->dragMoveEvent(event);
+        }
     }
     // Proces event on scene
     else
     {
         if (d->m_hovered_photo)
             d->m_hovered_photo->dragLeaveEvent(event);
+
         if (canDecode(event->mimeData()))
         {
             event->setDropAction(Qt::CopyAction);
@@ -1323,15 +1348,17 @@ void PLEScene::setInteractionMode(int mode)
 
 void PLEScene::setSelectionMode(SelectionMode selectionMode)
 {
-    switch(selectionMode)
+    switch (selectionMode)
     {
         case NoSelection:
             this->setSelectionArea(QPainterPath());
             this->selectionMode = selectionMode;
             break;
+
         case MultiSelection:
             this->selectionMode = selectionMode;
             break;
+
         case SingleSelection:
             this->setSelectionArea(QPainterPath());
             this->selectionMode = selectionMode;
@@ -1355,6 +1382,7 @@ void PLEScene::setRotationWidgetVisible(bool isVisible)
     {
         if (d->m_pressed_object == d->m_rot_item)
             d->m_pressed_object = nullptr;
+
         this->QGraphicsScene::removeItem(d->m_rot_item);
         d->m_rot_item->deleteLater();
         d->m_rot_item = nullptr;
@@ -1364,6 +1392,7 @@ void PLEScene::setRotationWidgetVisible(bool isVisible)
     {
         if (!d->m_rot_item)
             d->m_rot_item = new RotationWidgetItem(d->m_selected_items.keys());
+
         d->m_rot_item->setZValue(std::numeric_limits<double>::infinity());
         this->QGraphicsScene::addItem(d->m_rot_item);
     }
@@ -1375,6 +1404,7 @@ void PLEScene::setScalingWidgetVisible(bool isVisible)
     {
         if (d->m_pressed_object == d->m_scale_item)
             d->m_pressed_object = nullptr;
+
         this->QGraphicsScene::removeItem(d->m_scale_item);
         d->m_scale_item->deleteLater();
         d->m_scale_item = nullptr;
@@ -1384,12 +1414,12 @@ void PLEScene::setScalingWidgetVisible(bool isVisible)
     {
         if (!d->m_scale_item)
             d->m_scale_item = new ScalingWidgetItem(d->m_selected_items.keys());
+
         d->m_scale_item->setZValue(std::numeric_limits<double>::infinity());
         this->QGraphicsScene::addItem(d->m_scale_item);
         this->update(d->m_scale_item->boundingRect());
     }
 }
-
 
 void PLEScene::setCropWidgetVisible(bool isVisible)
 {
@@ -1397,6 +1427,7 @@ void PLEScene::setCropWidgetVisible(bool isVisible)
     {
         if (d->m_pressed_object == d->m_crop_item)
             d->m_pressed_object = nullptr;
+
         this->QGraphicsScene::removeItem(d->m_crop_item);
         d->m_crop_item->deleteLater();
         d->m_crop_item = nullptr;
@@ -1409,51 +1440,51 @@ void PLEScene::setCropWidgetVisible(bool isVisible)
             d->m_crop_item = new CropWidgetItem();
             connect(d->m_crop_item, SIGNAL(cancelCrop()), this, SLOT(closeCropWidget()));
         }
+
         d->m_crop_item->setZValue(std::numeric_limits<double>::infinity());
         this->QGraphicsScene::addItem(d->m_crop_item);
+
         if (d->m_selected_items.count() == 1)
         {
             d->m_crop_item->setItems(d->m_selected_items.keys());
         }
         else
+        {
             d->m_crop_item->hide();
+        }
     }
     else if (m_interaction_mode & Cropping)
+    {
         this->clearSelection();
+    }
 }
-
 
 void PLEScene::closeCropWidget()
 {
     this->setCropWidgetVisible(false);
 }
 
-
 qreal PLEScene::gridHorizontalDistance() const
 {
     return this->x_grid;
 }
-
 
 qreal PLEScene::gridVerticalDistance() const
 {
     return this->y_grid;
 }
 
-
-QDomDocument PLEScene::toSvg(ProgressObserver * observer)
+QDomDocument PLEScene::toSvg(ProgressObserver* observer)
 {
     return toSvg(observer, false);
 }
 
-
-QDomDocument PLEScene::toTemplateSvg(ProgressObserver * observer)
+QDomDocument PLEScene::toTemplateSvg(ProgressObserver* observer)
 {
     return toSvg(observer, true);
 }
 
-
-QDomDocument PLEScene::toSvg(ProgressObserver * observer, bool asTemplate)
+QDomDocument PLEScene::toSvg(ProgressObserver* observer, bool asTemplate)
 {
     QDomDocument document;
 
@@ -1471,6 +1502,7 @@ QDomDocument PLEScene::toSvg(ProgressObserver * observer, bool asTemplate)
 
         QSizeF sceneSize = this->sceneRect().size();
         double imgw = 200, imgh = 200;
+
         if ((imgw / sceneSize.width()) < (imgh / sceneSize.height()))
             imgh = qRound(sceneSize.height() * imgw / sceneSize.width());
         else
@@ -1553,7 +1585,6 @@ QDomDocument PLEScene::toSvg(ProgressObserver * observer, bool asTemplate)
     return document;
 }
 
-
 PLEScene* PLEScene::fromSvg(QDomElement& sceneElement)
 {
     if (sceneElement.isNull() || sceneElement.tagName() != QLatin1String("g") || sceneElement.attribute(QLatin1String("id")) != QLatin1String("PLEScene"))
@@ -1573,13 +1604,17 @@ PLEScene* PLEScene::fromSvg(QDomElement& sceneElement)
     // Create elements
     int errorsCount = 0;
     QDomNodeList children = sceneElement.childNodes();
+
     for (int i = 0; i < children.count(); ++i)
     {
         QDomElement element = children.at(i).toElement();
+
         if (element.isNull() || element.tagName() != QLatin1String("g"))
             continue;
+
         QString itemClass = element.attribute(QLatin1String("class"));
         AbstractPhoto* item;
+
         if (itemClass == QLatin1String("PhotoItem"))
         {
             item = new PhotoItem();
@@ -1604,6 +1639,7 @@ PLEScene* PLEScene::fromSvg(QDomElement& sceneElement)
             continue;
 
         // If created add item to scene
+
         if (item)
         {
             result->QGraphicsScene::addItem(item);
@@ -1611,7 +1647,9 @@ PLEScene* PLEScene::fromSvg(QDomElement& sceneElement)
             item->setZValue(i+1);
         }
         else
+        {
             ++errorsCount;
+        }
     }
 
     thread->start();
@@ -1630,39 +1668,43 @@ void PLEScene::render(QPainter* painter, const QRectF& target, const QRectF& sou
 {
     if (d->m_rot_item)
         d->m_rot_item->hide();
+
     if (d->m_scale_item)
         d->m_scale_item->hide();
+
     d->m_selection_visible = false;
 
     QGraphicsScene::render(painter, target, source, aspectRatioMode);
 
     d->m_selection_visible = true;
+
     if (d->m_rot_item)
         d->m_rot_item->show();
+
     if (d->m_scale_item)
         d->m_scale_item->show();
 }
 
-
 void PLEScene::readPLESceneMousePress(MousePressListener * mouseListsner)
 {
     d->m_readPLESceneMousePress_listener = mouseListsner;
+
     if (mouseListsner)
         d->m_readPLESceneMousePress_enabled = true;
     else
         d->m_readPLESceneMousePress_enabled = false;
 }
 
-
 QList<AbstractPhoto*> PLEScene::selectedItems() const
 {
     QList<AbstractPhoto*> result;
     const QList<QGraphicsItem*> & list = QGraphicsScene::selectedItems();
+
     foreach (QGraphicsItem* item, list)
         result << static_cast<AbstractPhoto*>(item);
+
     return result;
 }
-
 
 void PLEScene::updateSelection()
 {
@@ -1672,6 +1714,7 @@ void PLEScene::updateSelection()
 
     d->m_selected_items_path = QPainterPath();
     QList<AbstractPhoto*> itemsList = this->selectedItems();
+
     foreach (AbstractPhoto* item, itemsList)
     {
         if (d->m_selection_filters.count() && !d->m_selection_filters.contains( item->metaObject()->className() ))
@@ -1680,8 +1723,10 @@ void PLEScene::updateSelection()
             d->m_selected_items.remove(item);
             continue;
         }
+
         if (!d->m_selected_items.contains(item))
             d->m_selected_items.insert(item, item->pos());
+
         d->m_selected_items_path = d->m_selected_items_path.united(item->mapToScene(item->shape()));
     }
 
@@ -1693,7 +1738,6 @@ void PLEScene::updateSelection()
     this->setCropWidgetVisible(m_interaction_mode & Cropping);
 }
 
-
 void PLEScene::imageLoaded(const QUrl& url, const QImage& image)
 {
     if (!image.isNull())
@@ -1702,6 +1746,7 @@ void PLEScene::imageLoaded(const QUrl& url, const QImage& image)
         photo->setPos(d->paste_scene_pos);
 
         d->paste_scene_pos += QPointF (20, 20);
+
         if (d->paste_scene_pos.x() >= this->sceneRect().bottomRight().x() ||
             d->paste_scene_pos.y() >= this->sceneRect().bottomRight().y() )
         {
@@ -1712,14 +1757,13 @@ void PLEScene::imageLoaded(const QUrl& url, const QImage& image)
     }
 }
 
-
 void PLEScene::calcSelectionBoundingRect()
 {
     d->m_selected_items_path = QPainterPath();
+
     foreach (AbstractItemInterface* item, d->m_selected_items.keys())
         d->m_selected_items_path = d->m_selected_items_path.united(item->mapToScene(item->shape()));
 }
-
 
 bool PLEScene::askAboutRemoving(int count)
 {
@@ -1731,6 +1775,7 @@ bool PLEScene::askAboutRemoving(int count)
         if (result == QMessageBox::Yes)
             return true;
     }
+
     return false;
 }
 
@@ -1738,25 +1783,26 @@ bool PLEScene::askAboutRemoving(int count)
 bool PLEScene::canDecode(const QMimeData* mimeData)
 {
     if (PLEWindow::instance()->hasInterface() &&
-            mimeData->hasFormat(QLatin1String("digikam/item-ids")))
+        mimeData->hasFormat(QLatin1String("digikam/item-ids")))
         return true;
 
     QList<QUrl> urls = mimeData->urls();
+
     foreach (const QUrl& url, urls)
     {
         QImageReader ir(url.toLocalFile());
+
         if (!ir.canRead())
             return false;
     }
+
     return true;
 }
-
 
 bool PLEScene::isSelectionVisible()
 {
     return d->m_selection_visible;
 }
-
 
 void PLEScene::setSelectionVisible(bool isVisible)
 {

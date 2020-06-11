@@ -42,10 +42,10 @@ class MousePressListener : public QObject
 
 public:
 
-    explicit MousePressListener(QObject* parent = nullptr) :
-        QObject(parent)
+    explicit MousePressListener(QObject* parent = nullptr)
+        : QObject(parent)
     {
-}
+    }
 
     bool wasDragged()
     {

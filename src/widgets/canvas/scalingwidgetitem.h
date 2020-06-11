@@ -23,7 +23,7 @@
  * ============================================================ */
 
 #ifndef SCALING_WIDGET_ITEM_H
-#define SCALINGWIDGETITEM_H
+#define SCALING_WIDGET_ITEM_H
 
 // Local includes
 

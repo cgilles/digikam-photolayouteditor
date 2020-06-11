@@ -180,6 +180,7 @@ void PLECanvas::setSelectionMode(SelectionMode mode)
     return;
 
     save:
+
         m_selection_mode = mode;
 }
 
@@ -528,7 +529,9 @@ void PLECanvas::selectionChanged()
         }
     }
     else if (m_selection_mode & MultiSelecting)
+    {
         emit hasSelectionChanged(selectedItems.count());
+    }
 }
 
 void PLECanvas::selectionChanged(const QItemSelection& newSelection, const QItemSelection& oldSelection)
@@ -661,8 +664,10 @@ void PLECanvas::refreshWidgetConnections(bool isVisible)
         emit hasSelectionChanged(m_scene->selectedItems().count());
     }
     else
+    {
         disconnect(this, SIGNAL(hasSelectionChanged(bool)),
                    sender(), nullptr);
+    }
 }
 
 void PLECanvas::newUndoCommand(QUndoCommand* command)
@@ -684,38 +689,51 @@ void PLECanvas::progressEvent(ProgressEvent* event)
             temp->setMaximum(1000);
             temp->setValue(0);
             this->setEnabled(false);
+
             {
                 PLEStatusBar* sb = dynamic_cast<PLEStatusBar*>(PLEWindow::instance()->statusBar());
+
                 if (sb)
                     sb->runBusyIndicator();
             }
+
             break;
 
         case ProgressEvent::ProgressUpdate:
+
             if (temp)
                 temp->setValue(event->data().toDouble() * 1000);
+
             break;
 
         case ProgressEvent::ActionUpdate:
+
             if (temp)
                 temp->setFormat(event->data().toString() + QLatin1String(" [%p%]"));
+
             break;
 
         case ProgressEvent::Finish:
+
             if (temp)
             {
                 temp->setValue( temp->maximum() );
                 d->progressMap.take(event->sender())->deleteLater();
             }
+
             this->setEnabled(true);
+
             {
                 PLEStatusBar* sb = dynamic_cast<PLEStatusBar*>(PLEWindow::instance()->statusBar());
+
                 if (sb)
                     sb->stopBusyIndicator();
             }
+
             break;
 
         default:
+
             temp = nullptr;
             break;
     }
@@ -997,7 +1015,7 @@ void PLECanvas::renderPLECanvas(QPaintDevice* device)
         QPainter p(device);
 
         if (d->m_size.sizeUnit() != PLECanvasSize::Pixels &&
-                d->m_size.sizeUnit() != PLECanvasSize::UnknownSizeUnit)
+            d->m_size.sizeUnit() != PLECanvasSize::UnknownSizeUnit)
         {
             QSizeF resolution = d->m_size.resolution(PLECanvasSize::PixelsPerInch);
             p.setTransform( QTransform::fromScale( device->logicalDpiX() / resolution.width(),

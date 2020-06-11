@@ -47,7 +47,7 @@ PhotoItemLoader::PhotoItemLoader(PhotoItem* item, QDomElement& element, QObject*
 void PhotoItemLoader::run()
 {
     PhotoItem* item = (PhotoItem*) this->item();
-    ProgressObserver * observer = this->observer();
+    ProgressObserver* observer = this->observer();
     AbstractPhotoItemLoader::run();
 
     QDomElement e = this->element();

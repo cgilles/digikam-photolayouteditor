@@ -58,12 +58,12 @@ QDomElement AbstractPhotoItemLoader::element() const
     return m_element;
 }
 
-void AbstractPhotoItemLoader::setObserver(ProgressObserver * observer)
+void AbstractPhotoItemLoader::setObserver(ProgressObserver* observer)
 {
     m_observer = observer;
 }
 
-ProgressObserver * AbstractPhotoItemLoader::observer() const
+ProgressObserver* AbstractPhotoItemLoader::observer() const
 {
     return m_observer;
 }

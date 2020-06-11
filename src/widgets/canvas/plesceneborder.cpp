@@ -78,8 +78,8 @@ public:
     }
 };
 
-PLESceneBorder::PLESceneBorder(QGraphicsScene* scene) :
-    QGraphicsItem(nullptr)
+PLESceneBorder::PLESceneBorder(QGraphicsScene* scene)
+    : QGraphicsItem(nullptr)
 {
     scene->addItem(this);
     setZValue(std::numeric_limits<double>::infinity());
@@ -97,6 +97,7 @@ void PLESceneBorder::setImage(const QImage& image)
     bool imageChanged = m_image != image;
 
     QUndoCommand* parent = nullptr;
+
     if (imageChanged)
         parent = new QUndoCommand(QObject::tr("Border Change"));
 
@@ -145,56 +146,76 @@ QDomElement PLESceneBorder::toSvg(QDomDocument& document) const
 
 bool PLESceneBorder::fromSvg(QDomElement& /*element*/)
 {
-/*    QDomNodeList list = element.childNodes();
+/*
+    QDomNodeList list = element.childNodes();
     QDomElement border;
+
     for (int i = list.count()-1; i >= 0; --i)
     {
         if (!list.at(i).isElement())
             continue;
+
         border = list.at(i).toElement();
+
         if (border.attribute("id") != "border")
         {
             border = QDomElement();
             continue;
         }
     }
+
     if (border.isNull())
         return false;
 
     QDomElement defs = border.firstChildElement("defs");
+
     if (defs.isNull())
         return false;
+
     QString type = defs.firstChildElement("type").text();
+
     if (type == "color")
     {
         QDomElement rect = border.firstChildElement("rect");
+
         if (rect.isNull())
             return false;
+
         QColor color(rect.attribute("fill"));
         color.setAlphaF(rect.attribute("opacity").toDouble());
+
         if (!color.isValid())
             return false;
+
         m_first_brush.setColor(color);
     }
     else if (type == "pattern")
     {
         bool ok = true;
         QDomElement bse = defs.firstChildElement("brush_style");
-        if (bse.isNull()) return false;
+
+        if (bse.isNull())
+            return false;
+
         Qt::BrushStyle bs = (Qt::BrushStyle) bse.text().toInt(&ok);
 
         QDomElement c1e = defs.firstChildElement("color1");
+
         if (c1e.isNull()) return false;
+
         QColor color1(c1e.text());
         color1.setAlphaF(c1e.attribute("opacity").toInt());
 
         QDomElement c2e = defs.firstChildElement("color2");
+
         if (c2e.isNull()) return false;
+
         QColor color2(c2e.text());
         color2.setAlphaF(c2e.attribute("opacity").toInt());
 
         if (!color1.isValid() || !color2.isValid() || !ok || bs <= Qt::SolidPattern || bs >= Qt::LinearGradientPattern)
             return false;
+
         m_first_brush.setStyle(bs);
         m_first_brush.setColor(color1);
         m_second_brush.setStyle(Qt::SolidPattern);
@@ -207,11 +228,15 @@ bool PLESceneBorder::fromSvg(QDomElement& /*element*/)
         m_image_repeat = (bool) defs.firstChildElement("repeat").text().toInt();
 
         QDomElement pattern = defs.firstChildElement("pattern");
+
         if (pattern.isNull())
             return false;
+
         QDomElement image = pattern.firstChildElement("image");
+
         if (image.isNull())
             return false;
+
         m_image_size.setWidth(image.attribute("width").remove("px").toInt());
         m_image_size.setHeight(image.attribute("height").remove("px").toInt());
         m_image = QImage::fromData( QByteArray::fromBase64(image.attributeNS("http://www.w3.org/1999/xlink", "href").remove("data:image/png;base64,").toAscii()) );
@@ -245,18 +270,23 @@ QSize PLESceneBorder::imageSize() const
 
 QVariant PLESceneBorder::itemChange(GraphicsItemChange change, const QVariant& value)
 {
-    switch(change)
+    switch (change)
     {
-    case QGraphicsItem::ItemParentChange:
-        return QVariant(0);
-    case QGraphicsItem::ItemSceneChange:
-        this->disconnect(scene(), nullptr, this, nullptr);
-        break;
-    case QGraphicsItem::ItemSceneHasChanged:
-        sceneChanged();
-        break;
-    default: break;
+        case QGraphicsItem::ItemParentChange:
+            return QVariant(0);
+
+        case QGraphicsItem::ItemSceneChange:
+            this->disconnect(scene(), nullptr, this, nullptr);
+            break;
+
+        case QGraphicsItem::ItemSceneHasChanged:
+            sceneChanged();
+            break;
+
+        default:
+            break;
     }
+
     return QGraphicsItem::itemChange(change, value);
 }
 
@@ -264,6 +294,7 @@ void PLESceneBorder::paint(QPainter* painter, const QStyleOptionGraphicsItem* op
 {
     if (m_temp_image.isNull() || !m_rect.isValid())
         return;
+
     painter->setRenderHint(QPainter::SmoothPixmapTransform);
     painter->drawImage(QPoint(0,0), m_temp_image, option->exposedRect);
 }
@@ -282,6 +313,7 @@ void PLESceneBorder::render()
     {
         if (m_image.isNull())
             return;
+
         m_temp_image = m_image.scaled(m_rect.size().toSize(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     }
 }
@@ -294,7 +326,9 @@ void PLESceneBorder::sceneChanged()
         this->connect(scene(), SIGNAL(sceneRectChanged(QRectF)), this, SLOT(sceneRectChanged(QRectF)));
     }
     else
+    {
         sceneRectChanged(QRectF());
+    }
 }
 
 void PLESceneBorder::sceneRectChanged(const QRectF& sceneRect)
@@ -302,8 +336,10 @@ void PLESceneBorder::sceneRectChanged(const QRectF& sceneRect)
     if (sceneRect.isValid())
     {
         m_rect = sceneRect;
+
         if (m_image.isNull())
             return;
+
         render();
     }
     else

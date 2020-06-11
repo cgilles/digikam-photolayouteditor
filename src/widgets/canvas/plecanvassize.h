@@ -121,7 +121,7 @@ private:
 
     friend class PLECanvasSizeDialog;
 };
-    
+
 } // namespace PhotoLayoutsEditor
 
 #endif // CANVAS_SIZE_H

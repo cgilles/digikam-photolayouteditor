@@ -139,7 +139,7 @@ QtAbstractPropertyBrowser* PhotoEffectsLoader::propertyBrowser(AbstractPhotoEffe
         if (propertyName.isEmpty())
             continue;
         QtProperty* property = nullptr;
-        switch(metaProperty.type())
+        switch (metaProperty.type())
         {
             case QVariant::Int:
                 {

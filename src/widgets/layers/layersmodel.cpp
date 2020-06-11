@@ -104,7 +104,7 @@ QVariant LayersModel::data(const QModelIndex& index, int role) const
     if (!index.isValid())
         return QVariant();
     LayersModelItem* item = static_cast<LayersModelItem*>(index.internalPointer());
-    switch(role)
+    switch (role)
     {
         case Qt::DecorationRole:
             if (index.column() == LayersModelItem::NameString)
