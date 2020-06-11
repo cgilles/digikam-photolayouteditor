@@ -47,7 +47,7 @@ public:
 
     bool hasTemplateSelected() const;
     QString templateSelected() const;
-    PLECanvasSize canvasSize()    const;
+    PLECanvasSize canvasSize() const;
 
 private Q_SLOTS:
 

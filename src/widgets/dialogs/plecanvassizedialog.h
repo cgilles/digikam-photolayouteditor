@@ -25,7 +25,11 @@
 #ifndef CANVAS_SIZE_DIALOG_H
 #define CANVAS_SIZE_DIALOG_H
 
+// Local includes
+
 #include "plecanvassize.h"
+
+// Qt includes
 
 #include <QDialog>
 #include <QSize>

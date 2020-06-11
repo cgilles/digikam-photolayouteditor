@@ -46,85 +46,86 @@ namespace PhotoLayoutsEditor
 
 class PLECanvasSizeDialogPrivate
 {
-    public:
-        PLECanvasSizeDialogPrivate() :
-            sizeWidget(nullptr),
-            advancedWidget(nullptr),
-            paperSize(nullptr),
-            xSize(nullptr),
-            ySize(nullptr),
-            orientationGroup(nullptr),
-            verticalButton(nullptr),
-            sizeLabel(nullptr),
-            horizontalButton(nullptr),
-            sizeUnitsWidget(nullptr),
-            xResolution(nullptr),
-            yResolution(nullptr),
-            resolutionUnitsWidget(nullptr)
-        {
-            paperSizes.insert(QLatin1String("A0 (841 x 1189 mm)"),QPrinter::A0);
-            paperSizes.insert(QLatin1String("A1 (594 x 841 mm)"),QPrinter::A1);
-            paperSizes.insert(QLatin1String("A2 (420 x 594 mm)"),QPrinter::A2);
-            paperSizes.insert(QLatin1String("A3 (297 x 420 mm)"),QPrinter::A3);
-            paperSizes.insert(QLatin1String("A4 (210 x 297 mm, 8.26 x 11.69 inches)"),QPrinter::A4);
-            paperSizes.insert(QLatin1String("A5 (148 x 210 mm)"),QPrinter::A5);
-            paperSizes.insert(QLatin1String("A6 (105 x 148 mm)"),QPrinter::A6);
-            paperSizes.insert(QLatin1String("A7 (74 x 105 mm)"),QPrinter::A7);
-            paperSizes.insert(QLatin1String("A8 (52 x 74 mm)"),QPrinter::A8);
-            paperSizes.insert(QLatin1String("A9 (37 x 52 mm)"),QPrinter::A9);
-            paperSizes.insert(QLatin1String("B0 (1000 x 1414 mm)"),QPrinter::B0);
-            paperSizes.insert(QLatin1String("B1 (707 x 1000 mm)"),QPrinter::B1);
-            paperSizes.insert(QLatin1String("B2 (500 x 707 mm)"),QPrinter::B2);
-            paperSizes.insert(QLatin1String("B3 (353 x 500 mm)"),QPrinter::B3);
-            paperSizes.insert(QLatin1String("B4 (250 x 353 mm)"),QPrinter::B4);
-            paperSizes.insert(QLatin1String("B5 (176 x 250 mm, 6.93 x 9.84 inches)"),QPrinter::B5);
-            paperSizes.insert(QLatin1String("B6 (125 x 176 mm)"),QPrinter::B6);
-            paperSizes.insert(QLatin1String("B7 (88 x 125 mm)"),QPrinter::B7);
-            paperSizes.insert(QLatin1String("B8 (62 x 88 mm)"),QPrinter::B8);
-            paperSizes.insert(QLatin1String("B9 (33 x 62 mm)"),QPrinter::B9);
-            paperSizes.insert(QLatin1String("B10 (31 x 44 mm)"),QPrinter::B10);
-            paperSizes.insert(QLatin1String("C5E (163 x 229 mm)"),QPrinter::C5E);
-            paperSizes.insert(QLatin1String("U.S. Common 10 Envelope (105 x 241 mm)"),QPrinter::Comm10E);
-            paperSizes.insert(QLatin1String("DLE (110 x 220 mm)"),QPrinter::DLE);
-            paperSizes.insert(QLatin1String("Executive (7.5 x 10 inches, 190.5 x 254 mm)"),QPrinter::Executive);
-            paperSizes.insert(QLatin1String("Folio (210 x 330 mm)"),QPrinter::Folio);
-            paperSizes.insert(QLatin1String("Ledger (431.8 x 279.4 mm)"),QPrinter::Ledger);
-            paperSizes.insert(QLatin1String("Legal (8.5 x 14 inches, 215.9 x 355.6 mm)"),QPrinter::Legal);
-            paperSizes.insert(QLatin1String("Letter (8.5 x 11 inches, 215.9 x 279.4 mm)"),QPrinter::Letter);
-            paperSizes.insert(QLatin1String("Tabloid (279.4 x 431.8 mm)"),QPrinter::Tabloid);
-        }
+public:
 
-        ~PLECanvasSizeDialogPrivate()
-        {
-        }
+    PLECanvasSizeDialogPrivate()
+        :  sizeWidget(nullptr),
+        advancedWidget(nullptr),
+        paperSize(nullptr),
+        xSize(nullptr),
+        ySize(nullptr),
+        orientationGroup(nullptr),
+        verticalButton(nullptr),
+        sizeLabel(nullptr),
+        horizontalButton(nullptr),
+        sizeUnitsWidget(nullptr),
+        xResolution(nullptr),
+        yResolution(nullptr),
+        resolutionUnitsWidget(nullptr)
+    {
+        paperSizes.insert(QLatin1String("A0 (841 x 1189 mm)"),QPrinter::A0);
+        paperSizes.insert(QLatin1String("A1 (594 x 841 mm)"),QPrinter::A1);
+        paperSizes.insert(QLatin1String("A2 (420 x 594 mm)"),QPrinter::A2);
+        paperSizes.insert(QLatin1String("A3 (297 x 420 mm)"),QPrinter::A3);
+        paperSizes.insert(QLatin1String("A4 (210 x 297 mm, 8.26 x 11.69 inches)"),QPrinter::A4);
+        paperSizes.insert(QLatin1String("A5 (148 x 210 mm)"),QPrinter::A5);
+        paperSizes.insert(QLatin1String("A6 (105 x 148 mm)"),QPrinter::A6);
+        paperSizes.insert(QLatin1String("A7 (74 x 105 mm)"),QPrinter::A7);
+        paperSizes.insert(QLatin1String("A8 (52 x 74 mm)"),QPrinter::A8);
+        paperSizes.insert(QLatin1String("A9 (37 x 52 mm)"),QPrinter::A9);
+        paperSizes.insert(QLatin1String("B0 (1000 x 1414 mm)"),QPrinter::B0);
+        paperSizes.insert(QLatin1String("B1 (707 x 1000 mm)"),QPrinter::B1);
+        paperSizes.insert(QLatin1String("B2 (500 x 707 mm)"),QPrinter::B2);
+        paperSizes.insert(QLatin1String("B3 (353 x 500 mm)"),QPrinter::B3);
+        paperSizes.insert(QLatin1String("B4 (250 x 353 mm)"),QPrinter::B4);
+        paperSizes.insert(QLatin1String("B5 (176 x 250 mm, 6.93 x 9.84 inches)"),QPrinter::B5);
+        paperSizes.insert(QLatin1String("B6 (125 x 176 mm)"),QPrinter::B6);
+        paperSizes.insert(QLatin1String("B7 (88 x 125 mm)"),QPrinter::B7);
+        paperSizes.insert(QLatin1String("B8 (62 x 88 mm)"),QPrinter::B8);
+        paperSizes.insert(QLatin1String("B9 (33 x 62 mm)"),QPrinter::B9);
+        paperSizes.insert(QLatin1String("B10 (31 x 44 mm)"),QPrinter::B10);
+        paperSizes.insert(QLatin1String("C5E (163 x 229 mm)"),QPrinter::C5E);
+        paperSizes.insert(QLatin1String("U.S. Common 10 Envelope (105 x 241 mm)"),QPrinter::Comm10E);
+        paperSizes.insert(QLatin1String("DLE (110 x 220 mm)"),QPrinter::DLE);
+        paperSizes.insert(QLatin1String("Executive (7.5 x 10 inches, 190.5 x 254 mm)"),QPrinter::Executive);
+        paperSizes.insert(QLatin1String("Folio (210 x 330 mm)"),QPrinter::Folio);
+        paperSizes.insert(QLatin1String("Ledger (431.8 x 279.4 mm)"),QPrinter::Ledger);
+        paperSizes.insert(QLatin1String("Legal (8.5 x 14 inches, 215.9 x 355.6 mm)"),QPrinter::Legal);
+        paperSizes.insert(QLatin1String("Letter (8.5 x 11 inches, 215.9 x 279.4 mm)"),QPrinter::Letter);
+        paperSizes.insert(QLatin1String("Tabloid (279.4 x 431.8 mm)"),QPrinter::Tabloid);
+    }
 
-        void swapSizes();
-        void updateSizeLabel();
-        void setPaper(QPrinter::PageSize pageSize);
+    ~PLECanvasSizeDialogPrivate()
+    {
+    }
 
-        QWidget*   sizeWidget;
-        QWidget*   advancedWidget;
-        QComboBox* paperSize;
-        QDoubleSpinBox *  xSize;
-        QDoubleSpinBox *  ySize;
-        QButtonGroup*  orientationGroup;
-        QPushButton*   verticalButton;
-        QLabel*    sizeLabel;
-        QPushButton*   horizontalButton;
-        QComboBox* sizeUnitsWidget;
-        QDoubleSpinBox *  xResolution;
-        QDoubleSpinBox *  yResolution;
-        QComboBox* resolutionUnitsWidget;
+    void swapSizes();
+    void updateSizeLabel();
+    void setPaper(QPrinter::PageSize pageSize);
 
-        static int WIDTH;
-        static int HEIGHT;
-        static QString currentSizeUnit;
+    QWidget*   sizeWidget;
+    QWidget*   advancedWidget;
+    QComboBox* paperSize;
+    QDoubleSpinBox *  xSize;
+    QDoubleSpinBox *  ySize;
+    QButtonGroup*  orientationGroup;
+    QPushButton*   verticalButton;
+    QLabel*    sizeLabel;
+    QPushButton*   horizontalButton;
+    QComboBox* sizeUnitsWidget;
+    QDoubleSpinBox *  xResolution;
+    QDoubleSpinBox *  yResolution;
+    QComboBox* resolutionUnitsWidget;
 
-        static qreal WIDTH_RES;
-        static qreal HEIGHT_RES;
-        static QString currentResolutionUnit;
+    static int WIDTH;
+    static int HEIGHT;
+    static QString currentSizeUnit;
 
-        QMap<QString,QPrinter::PaperSize> paperSizes;
+    static qreal WIDTH_RES;
+    static qreal HEIGHT_RES;
+    static QString currentResolutionUnit;
+
+    QMap<QString,QPrinter::PaperSize> paperSizes;
 };
 
 int     PLECanvasSizeDialogPrivate::WIDTH                 = 800;
@@ -168,122 +169,152 @@ void PLECanvasSizeDialogPrivate::setPaper(QPrinter::PageSize pageSize)
             result = QSizeF(841,1189);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::A1:
             result = QSizeF(594,841);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::A2:
             result = QSizeF(420,594);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::A3:
             result = QSizeF(297,420);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::A4:
             result = QSizeF(210,297);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::A5:
             result = QSizeF(148,210);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::A6:
             result = QSizeF(105,148);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::A7:
             result = QSizeF(74,105);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::A8:
             result = QSizeF(52,74);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::A9:
             result = QSizeF(37,52);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::B0:
             result = QSizeF(1030,1456);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::B1:
             result = QSizeF(728,1030);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::B10:
             result = QSizeF(32,45);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::B2:
             result = QSizeF(515,728);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::B3:
             result = QSizeF(364,515);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::B4:
             result = QSizeF(257,364);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::B5:
             result = QSizeF(182,257);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::B6:
             result = QSizeF(128,182);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::B7:
             result = QSizeF(91,128);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::B8:
             result = QSizeF(64,91);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::B9:
             result = QSizeF(45,64);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::C5E:
             result = QSizeF(163,229);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::Comm10E:
             result = QSizeF(105,241);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::DLE:
             result = QSizeF(110,220);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::Executive:
             result = QSizeF(7.5,10);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Inches) );
             break;
+
         case QPrinter::Folio:
             result = QSizeF(210,330);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::Ledger:
             result = QSizeF(432,279);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::Legal:
             result = QSizeF(8.5,14);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Inches) );
             break;
+
         case QPrinter::Letter:
             result = QSizeF(8.5,11);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Inches) );
             break;
+
         case QPrinter::Tabloid:
             result = QSizeF(279,432);
             sizeUnitsWidget->setCurrentText( PLECanvasSize::sizeUnitName(PLECanvasSize::Milimeters) );
             break;
+
         case QPrinter::Custom:
             return;
 
@@ -296,9 +327,9 @@ void PLECanvasSizeDialogPrivate::setPaper(QPrinter::PageSize pageSize)
     ySize->setValue(result.height());
 }
 
-PLECanvasSizeDialog::PLECanvasSizeDialog(QWidget* parent) :
-    QDialog(parent),
-    d(new PLECanvasSizeDialogPrivate)
+PLECanvasSizeDialog::PLECanvasSizeDialog(QWidget* parent)
+    : QDialog(parent),
+      d(new PLECanvasSizeDialogPrivate)
 {
     setupDialog(QSize(d->WIDTH, d->HEIGHT),
                 d->currentSizeUnit,
@@ -306,9 +337,9 @@ PLECanvasSizeDialog::PLECanvasSizeDialog(QWidget* parent) :
                 d->currentResolutionUnit);
 }
 
-PLECanvasSizeDialog::PLECanvasSizeDialog(const PLECanvasSize& canvasSize, QWidget* parent) :
-    QDialog(parent),
-    d(new PLECanvasSizeDialogPrivate)
+PLECanvasSizeDialog::PLECanvasSizeDialog(const PLECanvasSize& canvasSize, QWidget* parent)
+    : QDialog(parent),
+      d(new PLECanvasSizeDialogPrivate)
 {
     setupDialog(canvasSize.size(),
                 PLECanvasSize::sizeUnitName(canvasSize.sizeUnit()),
@@ -330,9 +361,11 @@ void PLECanvasSizeDialog::setupDialog(const QSizeF& size,
 
     QString tempSizeUnits = sizeUnits;
     QString tempResolutionUnits = resolutionUnits;
+
     if (tempSizeUnits.isEmpty() ||
             PLECanvasSize::sizeUnit(tempSizeUnits) == PLECanvasSize::UnknownSizeUnit)
         tempSizeUnits = PLECanvasSize::sizeUnitName(PLECanvasSize::Pixels);;
+
     if (tempResolutionUnits.isEmpty() ||
             PLECanvasSize::resolutionUnit(tempResolutionUnits) == PLECanvasSize::UnknownResolutionUnit)
         tempResolutionUnits = PLECanvasSize::resolutionUnitName(PLECanvasSize::PixelsPerInch);;
@@ -457,15 +490,32 @@ void PLECanvasSizeDialog::setupDialog(const QSizeF& size,
 
 void PLECanvasSizeDialog::prepareSignalsConnections()
 {
-    connect(d->paperSize, SIGNAL(activated(QString)), this, SLOT(recalculatePaperSize(QString)));
-    connect(d->xSize,SIGNAL(valueChanged(double)),this,SLOT(widthChanged(double)));
-    connect(d->ySize,SIGNAL(valueChanged(double)),this,SLOT(heightChanged(double)));
-    connect(d->sizeUnitsWidget, SIGNAL(activated(QString)), this, SLOT(sizeUnitsChanged(QString)));
-    connect(d->horizontalButton, SIGNAL(toggled(bool)), this, SLOT(setHorizontal(bool)));
-    connect(d->verticalButton, SIGNAL(toggled(bool)), this, SLOT(setVertical(bool)));
-    connect(d->xResolution, SIGNAL(valueChanged(double)), this, SLOT(xResolutionChanged(double)));
-    connect(d->yResolution, SIGNAL(valueChanged(double)), this, SLOT(yResolutionChanged(double)));
-    connect(d->resolutionUnitsWidget, SIGNAL(currentIndexChanged(QString)), this, SLOT(resolutionUnitsChanged(QString)));
+    connect(d->paperSize, SIGNAL(activated(QString)),
+            this, SLOT(recalculatePaperSize(QString)));
+
+    connect(d->xSize,SIGNAL(valueChanged(double)),
+            this,SLOT(widthChanged(double)));
+
+    connect(d->ySize,SIGNAL(valueChanged(double)),
+            this,SLOT(heightChanged(double)));
+
+    connect(d->sizeUnitsWidget, SIGNAL(activated(QString)),
+            this, SLOT(sizeUnitsChanged(QString)));
+
+    connect(d->horizontalButton, SIGNAL(toggled(bool)),
+            this, SLOT(setHorizontal(bool)));
+
+    connect(d->verticalButton, SIGNAL(toggled(bool)),
+            this, SLOT(setVertical(bool)));
+
+    connect(d->xResolution, SIGNAL(valueChanged(double)),
+            this, SLOT(xResolutionChanged(double)));
+
+    connect(d->yResolution, SIGNAL(valueChanged(double)),
+            this, SLOT(yResolutionChanged(double)));
+
+    connect(d->resolutionUnitsWidget, SIGNAL(currentIndexChanged(QString)),
+            this, SLOT(resolutionUnitsChanged(QString)));
 }
 
 PLECanvasSize PLECanvasSizeDialog::canvasSize() const
@@ -488,6 +538,7 @@ void PLECanvasSizeDialog::sizeUnitsChanged(const QString& unitName)
 {
     d->currentSizeUnit = unitName;
     PLECanvasSize::SizeUnits sizeUnit = PLECanvasSize::sizeUnit(unitName);
+
     if (sizeUnit == PLECanvasSize::Pixels)
     {
         d->xSize->setValue(d->WIDTH);
@@ -496,6 +547,7 @@ void PLECanvasSizeDialog::sizeUnitsChanged(const QString& unitName)
         d->ySize->setDecimals(0);
         return;
     }
+
     d->xSize->setDecimals(5);
     d->ySize->setDecimals(5);
     PLECanvasSize::ResolutionUnits resolutionUnit = PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
@@ -515,12 +567,14 @@ void PLECanvasSizeDialog::resolutionUnitsChanged(const QString& unitName)
 {
     d->currentResolutionUnit = unitName;
     PLECanvasSize::ResolutionUnits unit = PLECanvasSize::resolutionUnit(unitName);
+
     if (unit == PLECanvasSize::PixelsPerInch)
     {
         d->xResolution->setValue(d->WIDTH_RES);
         d->yResolution->setValue(d->HEIGHT_RES);
         return;
     }
+
     qreal factor = PLECanvasSize::resolutionUnitFactor(unit);
     d->xResolution->setValue(d->WIDTH_RES / factor);
     d->yResolution->setValue(d->HEIGHT_RES / factor);
@@ -550,6 +604,7 @@ void PLECanvasSizeDialog::setVertical(bool isVertical)
             d->updateSizeLabel();
         }
     }
+    
     d->horizontalButton->setChecked(d->WIDTH > d->HEIGHT);
     d->verticalButton->setChecked(d->WIDTH < d->HEIGHT);
 }
@@ -581,8 +636,10 @@ void PLECanvasSizeDialog::heightChanged(double height)
 void PLECanvasSizeDialog::xResolutionChanged(double xResolution)
 {
     PLECanvasSize::SizeUnits sizeUnit = PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText());
+
     if (sizeUnit == PLECanvasSize::Pixels)
         return;
+
     PLECanvasSize::ResolutionUnits resolutionUnit = PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
     qreal resolutionFactor = PLECanvasSize::resolutionUnitFactor(resolutionUnit);
     int width = PLECanvasSize::toPixels(d->xSize->value(),
@@ -597,8 +654,10 @@ void PLECanvasSizeDialog::xResolutionChanged(double xResolution)
 void PLECanvasSizeDialog::yResolutionChanged(double yResolution)
 {
     PLECanvasSize::SizeUnits sizeUnit = PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText());
+
     if (sizeUnit == PLECanvasSize::Pixels)
         return;
+
     PLECanvasSize::ResolutionUnits resolutionUnit = PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
     qreal resolutionFactor = PLECanvasSize::resolutionUnitFactor(resolutionUnit);
     int height = PLECanvasSize::toPixels(d->ySize->value(),
