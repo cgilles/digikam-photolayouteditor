@@ -21,55 +21,55 @@
  *
  * ============================================================ */
 
-#ifndef TEMPLATESVIEW_H
-#define TEMPLATESVIEW_H
+#ifndef TEMPLATES_VIEW_H
+#define TEMPLATES_VIEW_H
+
+// Qt includes
 
 #include <QTableView>
 
 namespace PhotoLayoutsEditor
 {
-    class TemplatesView : public QAbstractItemView
-    {
-            Q_OBJECT
+
+class TemplatesView : public QAbstractItemView
+{
+    Q_OBJECT
 
 //            int columns;
-            mutable int idealWidth;
-            mutable int idealHeight;
-            mutable bool hashIsDirty;
+    mutable int idealWidth;
+    mutable int idealHeight;
+    mutable bool hashIsDirty;
 
-        public:
+public:
 
-            explicit TemplatesView(QWidget* parent = nullptr);
+    explicit TemplatesView(QWidget* parent = nullptr);
 
-            void mousePressEvent(QMouseEvent * event) override;
-            void updateGeometries() override;
-            void resizeEvent(QResizeEvent*) override;
-            void paintOutline(QPainter* painter, const QRectF &rectangle);
-            void paintEvent(QPaintEvent*) override;
-            QRegion visualRegionForSelection(const QItemSelection &selection) const override;
-            void setSelection(const QRect &rect, QFlags<QItemSelectionModel::SelectionFlag> flags) override;
-            void scrollContentsBy(int dx, int dy) override;
-            int horizontalOffset() const override;
-            int verticalOffset() const override;
-            QModelIndex moveCursor( QAbstractItemView::CursorAction cursorAction, Qt::KeyboardModifiers) override;
-            void rowsInserted(const QModelIndex& parent, int start, int end) override;
-            void rowsAboutToBeRemoved(const QModelIndex& parent, int start, int end) override;
-            using QAbstractItemView::dataChanged;
-            void dataChanged(const QModelIndex&topLeft, const QModelIndex&bottomRight);
-            QModelIndex indexAt(const QPoint &point_) const override;
-            void scrollTo(const QModelIndex&index, QAbstractItemView::ScrollHint) override;
-            bool isIndexHidden(const QModelIndex&) const override;
-            QRectF viewportRectForRow(int row) const;
-            QRect visualRect(const QModelIndex&index) const override;
-            void calculateRectsIfNecessary() const;
-            void setModel(QAbstractItemModel * model) override;
+    void mousePressEvent(QMouseEvent* event) override;
+    void updateGeometries() override;
+    void resizeEvent(QResizeEvent*) override;
+    void paintOutline(QPainter* painter, const QRectF &rectangle);
+    void paintEvent(QPaintEvent*) override;
+    QRegion visualRegionForSelection(const QItemSelection &selection) const override;
+    void setSelection(const QRect& rect, QFlags<QItemSelectionModel::SelectionFlag> flags) override;
+    void scrollContentsBy(int dx, int dy) override;
+    int horizontalOffset() const override;
+    int verticalOffset() const override;
+    QModelIndex moveCursor( QAbstractItemView::CursorAction cursorAction, Qt::KeyboardModifiers) override;
+    void rowsInserted(const QModelIndex& parent, int start, int end) override;
+    void rowsAboutToBeRemoved(const QModelIndex& parent, int start, int end) override;
+    using QAbstractItemView::dataChanged;
+    void dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
+    QModelIndex indexAt(const QPoint& point_) const override;
+    void scrollTo(const QModelIndex& index, QAbstractItemView::ScrollHint) override;
+    bool isIndexHidden(const QModelIndex&) const override;
+    QRectF viewportRectForRow(int row) const;
+    QRect visualRect(const QModelIndex& index) const override;
+    void calculateRectsIfNecessary() const;
+    void setModel(QAbstractItemModel* model) override;
 
-            QString selectedPath() const;
+    QString selectedPath() const;
+};
 
-        Q_SIGNALS:
+} // namespace PhotoLayoutsEditor
 
-        public Q_SLOTS:
-
-    };
-}
-#endif // TEMPLATESVIEW_H
+#endif // TEMPLATES_VIEW_H

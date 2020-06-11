@@ -58,8 +58,8 @@ public:
 };
 
 PLEConfigDialog::PLEConfigDialog(QWidget* const parent)
-  : QDialog(parent),
-    d(new Private)
+    : QDialog(parent),
+      d(new Private)
 {
     QVBoxLayout* const vlay          = new QVBoxLayout();
     setLayout(vlay);

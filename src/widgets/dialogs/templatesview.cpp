@@ -66,6 +66,7 @@ public:
         TemplateItem* const item = static_cast<TemplateItem*>(index.internalPointer());
         QImage i = item->icon();
         QRect ir;
+
         if (!i.isNull())
         {
             painter->drawImage(rf.left() + (WIDTH - i.width()) / 2,
@@ -74,7 +75,7 @@ public:
             ir = i.rect();
             painter->setPen(QPen(Qt::black, 0));
             painter->drawRect(ir.translated(rf.left() + (WIDTH - ir.width()) / 2,
-                                                    rf.top() + 5));
+                                            rf.top() + 5));
         }
 
         painter->drawText(QRectF(rf.x(),
@@ -92,8 +93,10 @@ public:
     virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
     {
         QSize result;
+ 
         if (!index.internalPointer())
             return result;
+ 
         return option.rect.size();
     }
 };
@@ -113,13 +116,13 @@ TemplatesView::TemplatesView(QWidget* parent)
     verticalScrollBar()->setRange(0, 0);
 }
 
-void TemplatesView::mousePressEvent(QMouseEvent * event)
+void TemplatesView::mousePressEvent(QMouseEvent* event)
 {
     QAbstractItemView::mousePressEvent(event);
     setCurrentIndex( indexAt(event->pos()) );
 }
 
-void TemplatesView::updateGeometries() //
+void TemplatesView::updateGeometries()
 {
     QFontMetrics fm(font());
 
@@ -132,14 +135,14 @@ void TemplatesView::updateGeometries() //
     verticalScrollBar()->setRange(0, qMax(0, idealHeight - viewport()->height()));
 }
 
-void TemplatesView::resizeEvent(QResizeEvent *) //
+void TemplatesView::resizeEvent(QResizeEvent *)
 {
     hashIsDirty = true;
     calculateRectsIfNecessary();
     updateGeometries();
 }
 
-void TemplatesView::paintOutline(QPainter* painter, const QRectF &rectangle)
+void TemplatesView::paintOutline(QPainter* painter, const QRectF& rectangle)
 {
     const QRectF rect = rectangle.adjusted(0, 0, -1, -1);
     painter->save();
@@ -151,7 +154,7 @@ void TemplatesView::paintOutline(QPainter* painter, const QRectF &rectangle)
     painter->restore();
 }
 
-void TemplatesView::paintEvent(QPaintEvent *)
+void TemplatesView::paintEvent(QPaintEvent*)
 {
     if (!model())
         return;
@@ -187,7 +190,8 @@ void TemplatesView::paintEvent(QPaintEvent *)
 QRegion TemplatesView::visualRegionForSelection(const QItemSelection &selection) const
 {
     QRegion region;
-    foreach (const QItemSelectionRange & range, selection)
+
+    foreach (const QItemSelectionRange& range, selection)
     {
         for (int row = range.top(); row <= range.bottom(); ++row)
         {
@@ -214,6 +218,7 @@ void TemplatesView::setSelection(const QRect& rect, QFlags<QItemSelectionModel::
     while (i.hasNext())
     {
         i.next();
+
         if (i.value().intersects(rectangle))
         {
             firstRow = firstRow < i.key() ? firstRow : i.key();
@@ -254,6 +259,7 @@ int TemplatesView::verticalOffset() const
 QModelIndex TemplatesView::moveCursor( QAbstractItemView::CursorAction cursorAction, Qt::KeyboardModifiers)
 {
     QModelIndex index = currentIndex();
+
     if (index.isValid())
     {
         if ((cursorAction == MoveLeft && index.row() > 0) ||
@@ -271,15 +277,19 @@ QModelIndex TemplatesView::moveCursor( QAbstractItemView::CursorAction cursorAct
             const int RowHeight = (fm.height() + HEIGHT) * (cursorAction == MoveUp ? -1 : 1);
             QRect rect = viewportRectForRow(index.row()).toRect();
             QPoint point(rect.center().x(), rect.center().y() + RowHeight);
+
             while (point.x() >= 0)
             {
                 index = indexAt(point);
+
                 if (index.isValid())
                     break;
+
                 point.rx() -= fm.width(QLatin1String("n"));
             }
         }
     }
+
     return index;
 }
 
@@ -308,12 +318,15 @@ QModelIndex TemplatesView::indexAt(const QPoint& point_) const
     point.ry() += verticalScrollBar()->value();
     calculateRectsIfNecessary();
     QHashIterator<int, QRectF> i(rectForRow);
+
     while (i.hasNext())
     {
         i.next();
+
         if (i.value().contains(point))
             return model()->index(i.key(), 0, rootIndex());
     }
+
     return QModelIndex();
 }
 
@@ -358,8 +371,10 @@ QRectF TemplatesView::viewportRectForRow(int row) const //
 QRect TemplatesView::visualRect(const QModelIndex& index) const //
 {
     QRect rect;
+
     if (index.isValid())
         rect = viewportRectForRow(index.row()).toRect();
+
     return rect;
 }
 
@@ -410,7 +425,7 @@ void TemplatesView::calculateRectsIfNecessary() const //1
     viewport()->update();
 }
 
-void TemplatesView::setModel(QAbstractItemModel * model) //
+void TemplatesView::setModel(QAbstractItemModel* model) //
 {
     QAbstractItemView::setModel(model);
     hashIsDirty = true;
@@ -420,9 +435,12 @@ QString TemplatesView::selectedPath() const
 {
     if (!model())
         return QString();
-    TemplateItem * item = static_cast<TemplateItem*>(this->currentIndex().internalPointer());
+
+    TemplateItem* item = static_cast<TemplateItem*>(this->currentIndex().internalPointer());
+
     if (!item)
         return QString();
+
     return item->path();
 }
 

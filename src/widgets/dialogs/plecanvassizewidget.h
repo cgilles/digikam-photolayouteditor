@@ -30,49 +30,52 @@
 
 namespace PhotoLayoutsEditor
 {
-    class PLECanvasSize;
-    class PLECanvasSizeWidget : public QWidget
+
+class PLECanvasSize;
+
+class PLECanvasSizeWidget : public QWidget
+{
+    Q_OBJECT
+
+public:
+
+    enum Orientation
     {
-            Q_OBJECT
-
-        public:
-
-            enum Orientation
-            {
-                Horizontal,
-                Vertical
-            };
-
-            explicit PLECanvasSizeWidget(QWidget* parent = nullptr);
-            ~PLECanvasSizeWidget();
-            Orientation orientation() const;
-            PLECanvasSize canvasSize() const;
-
-        Q_SIGNALS:
-
-            void orientationChanged();
-
-        public Q_SLOTS:
-
-            void sizeUnitsChanged(const QString& unitName);
-            void resolutionUnitsChanged(const QString& unitName);
-            void setHorizontal(bool isHorizontal);
-            void setVertical(bool isVertical);
-            void widthChanged(double width);
-            void heightChanged(double height);
-            void xResolutionChanged(double xResolution);
-            void yResolutionChanged(double yResolution);
-
-        private:
-
-            void setupUI(const QSizeF& size, const QString& sizeUnits, const QSizeF& resolution, const QString& resolutionUnits);
-
-            void prepareSignalsConnections();
-
-            class Private;
-            Private* d;
-            friend class Private;
+        Horizontal,
+        Vertical
     };
+
+    explicit PLECanvasSizeWidget(QWidget* parent = nullptr);
+    ~PLECanvasSizeWidget();
+    Orientation orientation() const;
+    PLECanvasSize canvasSize() const;
+
+Q_SIGNALS:
+
+    void orientationChanged();
+
+public Q_SLOTS:
+
+    void sizeUnitsChanged(const QString& unitName);
+    void resolutionUnitsChanged(const QString& unitName);
+    void setHorizontal(bool isHorizontal);
+    void setVertical(bool isVertical);
+    void widthChanged(double width);
+    void heightChanged(double height);
+    void xResolutionChanged(double xResolution);
+    void yResolutionChanged(double yResolution);
+
+private:
+
+    void setupUI(const QSizeF& size, const QString& sizeUnits, const QSizeF& resolution, const QString& resolutionUnits);
+
+    void prepareSignalsConnections();
+
+    class Private;
+    Private* d;
+
+    friend class Private;
+};
 
 } // namespace PhotoLayoutsEditor
 

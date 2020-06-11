@@ -30,8 +30,8 @@
 namespace PhotoLayoutsEditor
 {
 
-TemplatesModel::TemplatesModel(QObject *parent) :
-    QAbstractItemModel(parent)
+TemplatesModel::TemplatesModel(QObject* parent)
+    : QAbstractItemModel(parent)
 {
 }
 
@@ -47,6 +47,7 @@ int TemplatesModel::columnCount(const QModelIndex& parent) const
 {
     if (parent.isValid())
         return 0;
+
     return 1;
 }
 
@@ -54,6 +55,7 @@ int TemplatesModel::rowCount(const QModelIndex& parent) const
 {
     if (parent.isValid())
         return 0;
+
     return templates.count();
 }
 
@@ -63,9 +65,12 @@ bool TemplatesModel::insertRows(int row, int count, const QModelIndex& parent)
         return false;
 
     beginInsertRows(parent, row, row + count - 1);
+
     while (count--)
         templates.insert(row, nullptr);
+
     endInsertRows();
+
     return true;
 }
 
@@ -73,6 +78,7 @@ bool TemplatesModel::removeRows(int row, int count, const QModelIndex& /*parent*
 {
     while (count--)
         templates[row]->deleteLater();
+
     return true;
 }
 
@@ -91,9 +97,11 @@ QVariant TemplatesModel::data(const QModelIndex& index, int role) const
         case Qt::DisplayRole:
             return item->name();
             break;
+
         case Qt::DecorationRole:
             return item->icon();
             break;
+
         default:
             break;
     }

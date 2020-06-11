@@ -106,15 +106,15 @@ public:
     QWidget*   sizeWidget;
     QWidget*   advancedWidget;
     QComboBox* paperSize;
-    QDoubleSpinBox *  xSize;
-    QDoubleSpinBox *  ySize;
+    QDoubleSpinBox*  xSize;
+    QDoubleSpinBox*  ySize;
     QButtonGroup*  orientationGroup;
     QPushButton*   verticalButton;
     QLabel*    sizeLabel;
     QPushButton*   horizontalButton;
     QComboBox* sizeUnitsWidget;
-    QDoubleSpinBox *  xResolution;
-    QDoubleSpinBox *  yResolution;
+    QDoubleSpinBox*  xResolution;
+    QDoubleSpinBox*  yResolution;
     QComboBox* resolutionUnitsWidget;
 
     static int WIDTH;

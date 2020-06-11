@@ -119,7 +119,7 @@ Q_SIGNALS:
     void toggled(bool);
 
 protected:
-    void mousePressEvent(QMouseEvent * event) override;
+    void mousePressEvent(QMouseEvent* event) override;
     void paintEvent(QPaintEvent *) override;
 
 private:

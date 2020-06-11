@@ -7,6 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011-2012 by Lukasz Spas <lukasz dot spas at gmail dot com>
+ * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -61,12 +62,12 @@ class PLECanvasSizeWidget::Private
 
     QWidget*        sizeWidget;
     QWidget*        advancedWidget;
-    QDoubleSpinBox * xSize;
-    QDoubleSpinBox * ySize;
+    QDoubleSpinBox* xSize;
+    QDoubleSpinBox* ySize;
     QLabel*         sizeLabel;
     QComboBox*      sizeUnitsWidget;
-    QDoubleSpinBox * xResolution;
-    QDoubleSpinBox * yResolution;
+    QDoubleSpinBox* xResolution;
+    QDoubleSpinBox* yResolution;
     QComboBox*      resolutionUnitsWidget;
 
     static int WIDTH;
@@ -114,9 +115,9 @@ void PLECanvasSizeWidget::Private::updateSizeLabel()
                         .append(QLatin1String(" px"))));
 }
 
-PLECanvasSizeWidget::PLECanvasSizeWidget(QWidget *parent) :
-    QWidget(parent),
-    d(new Private)
+PLECanvasSizeWidget::PLECanvasSizeWidget(QWidget* parent)
+    : QWidget(parent),
+      d(new Private)
 {
     setupUI(QSize(d->WIDTH, d->HEIGHT),
             d->currentSizeUnit,
@@ -132,13 +133,18 @@ PLECanvasSizeWidget::Orientation PLECanvasSizeWidget::orientation() const
         return PLECanvasSizeWidget::Horizontal;
 }
 
-void PLECanvasSizeWidget::setupUI(const QSizeF& size, const QString& sizeUnits, const QSizeF& resolution, const QString& resolutionUnits)
+void PLECanvasSizeWidget::setupUI(const QSizeF& size, 
+                                  const QString& sizeUnits,
+                                  const QSizeF& resolution,
+                                  const QString& resolutionUnits)
 {
     QString tempSizeUnits = sizeUnits;
     QString tempResolutionUnits = resolutionUnits;
+
     if (tempSizeUnits.isEmpty() ||
             PLECanvasSize::sizeUnit(tempSizeUnits) == PLECanvasSize::UnknownSizeUnit)
         tempSizeUnits = PLECanvasSize::sizeUnitName(PLECanvasSize::Pixels);;
+
     if (tempResolutionUnits.isEmpty() ||
             PLECanvasSize::resolutionUnit(tempResolutionUnits) == PLECanvasSize::UnknownResolutionUnit)
         tempResolutionUnits = PLECanvasSize::resolutionUnitName(PLECanvasSize::PixelsPerInch);;
@@ -233,20 +239,31 @@ PLECanvasSizeWidget::~PLECanvasSizeWidget()
 
 void PLECanvasSizeWidget::prepareSignalsConnections()
 {
-    connect(d->xSize, SIGNAL(valueChanged(double)), this, SLOT(widthChanged(double)));
-    connect(d->ySize, SIGNAL(valueChanged(double)), this, SLOT(heightChanged(double)));
-    connect(d->sizeUnitsWidget, SIGNAL(activated(QString)), this, SLOT(sizeUnitsChanged(QString)));
-    connect(d->xResolution, SIGNAL(valueChanged(double)), this, SLOT(xResolutionChanged(double)));
-    connect(d->yResolution, SIGNAL(valueChanged(double)), this, SLOT(yResolutionChanged(double)));
-    connect(d->resolutionUnitsWidget, SIGNAL(currentIndexChanged(QString)), this, SLOT(resolutionUnitsChanged(QString)));
+    connect(d->xSize, SIGNAL(valueChanged(double)),
+            this, SLOT(widthChanged(double)));
+
+    connect(d->ySize, SIGNAL(valueChanged(double)),
+            this, SLOT(heightChanged(double)));
+
+    connect(d->sizeUnitsWidget, SIGNAL(activated(QString)),
+            this, SLOT(sizeUnitsChanged(QString)));
+
+    connect(d->xResolution, SIGNAL(valueChanged(double)),
+            this, SLOT(xResolutionChanged(double)));
+
+    connect(d->yResolution, SIGNAL(valueChanged(double)),
+            this, SLOT(yResolutionChanged(double)));
+
+    connect(d->resolutionUnitsWidget, SIGNAL(currentIndexChanged(QString)),
+            this, SLOT(resolutionUnitsChanged(QString)));
 }
 
 PLECanvasSize PLECanvasSizeWidget::canvasSize() const
 {
     PLECanvasSize result(QSizeF(d->xSize->value(), d->ySize->value()),
-                      PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
-                      QSizeF(d->xResolution->value(), d->yResolution->value()),
-                      PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
+                         PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
+                         QSizeF(d->xResolution->value(), d->yResolution->value()),
+                         PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
     return result;
 }
 
@@ -254,6 +271,7 @@ void PLECanvasSizeWidget::sizeUnitsChanged(const QString& unitName)
 {
     d->currentSizeUnit = unitName;
     PLECanvasSize::SizeUnits sizeUnit = PLECanvasSize::sizeUnit(unitName);
+    
     if (sizeUnit == PLECanvasSize::Pixels)
     {
         d->xSize->setValue(d->WIDTH);
@@ -262,17 +280,18 @@ void PLECanvasSizeWidget::sizeUnitsChanged(const QString& unitName)
         d->ySize->setDecimals(0);
         return;
     }
+
     d->xSize->setDecimals(5);
     d->ySize->setDecimals(5);
     PLECanvasSize::ResolutionUnits resolutionUnit = PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
     qreal WIDTH = PLECanvasSize::fromPixels(d->WIDTH,
-                                         d->xResolution->value(),
-                                         sizeUnit,
-                                         resolutionUnit);
+                                            d->xResolution->value(),
+                                            sizeUnit,
+                                            resolutionUnit);
     qreal HEIGHT = PLECanvasSize::fromPixels(d->HEIGHT,
-                                          d->yResolution->value(),
-                                          sizeUnit,
-                                          resolutionUnit);
+                                             d->yResolution->value(),
+                                             sizeUnit,
+                                             resolutionUnit);
     d->xSize->setValue(WIDTH);
     d->ySize->setValue(HEIGHT);
 }
@@ -281,12 +300,14 @@ void PLECanvasSizeWidget::resolutionUnitsChanged(const QString& unitName)
 {
     d->currentResolutionUnit = unitName;
     PLECanvasSize::ResolutionUnits unit = PLECanvasSize::resolutionUnit(unitName);
+
     if (unit == PLECanvasSize::PixelsPerInch)
     {
         d->xResolution->setValue(d->WIDTH_RES);
         d->yResolution->setValue(d->HEIGHT_RES);
         return;
     }
+
     qreal factor = PLECanvasSize::resolutionUnitFactor(unit);
     d->xResolution->setValue(d->WIDTH_RES / factor);
     d->yResolution->setValue(d->HEIGHT_RES / factor);
@@ -301,6 +322,7 @@ void PLECanvasSizeWidget::setHorizontal(bool isHorizontal)
             d->swapSizes();
             d->updateSizeLabel();
         }
+
         emit orientationChanged();
     }
 }
@@ -314,6 +336,7 @@ void PLECanvasSizeWidget::setVertical(bool isVertical)
             d->swapSizes();
             d->updateSizeLabel();
         }
+
         emit orientationChanged();
     }
 }
@@ -321,9 +344,9 @@ void PLECanvasSizeWidget::setVertical(bool isVertical)
 void PLECanvasSizeWidget::widthChanged(double width)
 {
     width = PLECanvasSize::toPixels(width,
-                                 d->xResolution->value(),
-                                 PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
-                                 PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
+                                    d->xResolution->value(),
+                                    PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
+                                    PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
     d->WIDTH = width;
     this->setHorizontal(d->WIDTH > d->HEIGHT);
     this->setVertical(d->WIDTH < d->HEIGHT);
@@ -333,9 +356,9 @@ void PLECanvasSizeWidget::widthChanged(double width)
 void PLECanvasSizeWidget::heightChanged(double height)
 {
     height = PLECanvasSize::toPixels(height,
-                                  d->yResolution->value(),
-                                  PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
-                                  PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
+                                     d->yResolution->value(),
+                                     PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
+                                     PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
     d->HEIGHT = height;
     this->setHorizontal(d->WIDTH > d->HEIGHT);
     this->setVertical(d->WIDTH < d->HEIGHT);
@@ -345,14 +368,16 @@ void PLECanvasSizeWidget::heightChanged(double height)
 void PLECanvasSizeWidget::xResolutionChanged(double xResolution)
 {
     PLECanvasSize::SizeUnits sizeUnit = PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText());
+
     if (sizeUnit == PLECanvasSize::Pixels)
         return;
+
     PLECanvasSize::ResolutionUnits resolutionUnit = PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
     qreal resolutionFactor = PLECanvasSize::resolutionUnitFactor(resolutionUnit);
     int width = PLECanvasSize::toPixels(d->xSize->value(),
-                                     xResolution,
-                                     PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
-                                     PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
+                                        xResolution,
+                                        PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
+                                        PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
     d->WIDTH = width;
     d->WIDTH_RES = xResolution * resolutionFactor;
     d->updateSizeLabel();
@@ -361,14 +386,16 @@ void PLECanvasSizeWidget::xResolutionChanged(double xResolution)
 void PLECanvasSizeWidget::yResolutionChanged(double yResolution)
 {
     PLECanvasSize::SizeUnits sizeUnit = PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText());
+
     if (sizeUnit == PLECanvasSize::Pixels)
         return;
+
     PLECanvasSize::ResolutionUnits resolutionUnit = PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
     qreal resolutionFactor = PLECanvasSize::resolutionUnitFactor(resolutionUnit);
     int height = PLECanvasSize::toPixels(d->ySize->value(),
-                                      yResolution,
-                                      PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
-                                      PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
+                                         yResolution,
+                                         PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
+                                         PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
     d->HEIGHT = height;
     d->HEIGHT_RES = yResolution * resolutionFactor;
     d->updateSizeLabel();

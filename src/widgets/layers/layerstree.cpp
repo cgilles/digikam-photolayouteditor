@@ -63,7 +63,7 @@ LayersTree::LayersTree(QWidget* parent)
     setIconSize(QSize(48,48));
 }
 
-void LayersTree::setModel(QAbstractItemModel * model)
+void LayersTree::setModel(QAbstractItemModel* model)
 {
     QTreeView::setModel(model);
 

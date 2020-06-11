@@ -21,8 +21,10 @@
  *
  * ============================================================ */
 
-#ifndef TEMPLATESMODEL_H
-#define TEMPLATESMODEL_H
+#ifndef TEMPLATES_MODEL_H
+#define TEMPLATES_MODEL_H
+
+// Qt includes
 
 #include <QAbstractItemModel>
 #include <QMap>
@@ -36,104 +38,111 @@
 
 namespace PhotoLayoutsEditor
 {
-    class TemplateItem : public QObject
+
+class TemplateItem : public QObject
+{
+    QString fpath, fname;
+    QImage image;
+
+public:
+
+    TemplateItem(const QString& path, const QString& name) :
+        fpath(path),
+        fname(name)
     {
-            QString fpath, fname;
-            QImage image;
+        fname.remove(QLatin1String(".ple"));
 
-        public:
+        if (fpath.isEmpty())
+            return;
 
-            TemplateItem(const QString& path, const QString& name) :
-                fpath(path),
-                fname(name)
+        // Try to read preview image
+        bool render = false;
+        QFile f(path);
+        QDomDocument document;
+        QString imageAttribute;
+        document.setContent(&f, true);
+
+        QDomElement svg = document.firstChildElement(QLatin1String("svg"));
+
+        if  (svg.isNull())
+            return;
+
+        QDomElement g = svg.firstChildElement(QLatin1String("g"));
+
+        if  (svg.isNull())
+            return;
+
+        QDomElement defs = g.firstChildElement(QLatin1String("defs"));
+
+        while(!defs.isNull() && (defs.attribute(QLatin1String("id")) != QLatin1String("Preview")))
+            defs = defs.nextSiblingElement(QLatin1String("defs"));
+
+        QDomElement img = defs.firstChildElement(QLatin1String("image"));
+
+        if (!img.isNull() && !(imageAttribute = img.text()).isEmpty())
+        {
+            image = QImage::fromData( QByteArray::fromBase64(imageAttribute.toLatin1()) );
+
+            if (image.isNull())
+                render = true;
+        }
+        else
+                render = true;
+
+        if (render)
+        {
+            // Try to render preview image
+            QSvgRenderer renderer(fpath);
+
+            if (renderer.isValid())
             {
-                fname.remove(QLatin1String(".ple"));
-                if (fpath.isEmpty())
-                    return;
-
-                // Try to read preview image
-                bool render = false;
-                QFile f(path);
-                QDomDocument document;
-                QString imageAttribute;
-                document.setContent(&f, true);
-
-                QDomElement svg = document.firstChildElement(QLatin1String("svg"));
-                if  (svg.isNull())
-                    return;
-
-                QDomElement g = svg.firstChildElement(QLatin1String("g"));
-                if  (svg.isNull())
-                    return;
-
-                QDomElement defs = g.firstChildElement(QLatin1String("defs"));
-
-                while(!defs.isNull() && (defs.attribute(QLatin1String("id")) != QLatin1String("Preview")))
-                    defs = defs.nextSiblingElement(QLatin1String("defs"));
-
-                QDomElement img = defs.firstChildElement(QLatin1String("image"));
-
-                if (!img.isNull() && !(imageAttribute = img.text()).isEmpty())
-                {
-                    image = QImage::fromData( QByteArray::fromBase64(imageAttribute.toLatin1()) );
-                    if (image.isNull())
-                        render = true;
-                }
-                else
-                     render = true;
-
-                if (render)
-                {
-                    // Try to render preview image
-                    QSvgRenderer renderer(fpath);
-                    if (renderer.isValid())
-                    {
-                        image = QImage( renderer.viewBoxF().size().toSize(), QImage::Format_ARGB32 );
-                        image.fill(Qt::white);
-                        QPainter p(&image);
-                        renderer.render(&p);
-                        p.end();
-                    }
-                }
-                image = image.scaled(QSize(100, 100), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+                image = QImage( renderer.viewBoxF().size().toSize(), QImage::Format_ARGB32 );
+                image.fill(Qt::white);
+                QPainter p(&image);
+                renderer.render(&p);
+                p.end();
             }
+        }
+        image = image.scaled(QSize(100, 100), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    }
 
-            QString name() const
-            {
-                return fname;
-            }
-
-            QString path() const
-            {
-                return fpath;
-            }
-
-            QImage icon() const
-            {
-                return image;
-            }
-    };
-
-    class TemplatesModel : public QAbstractItemModel
+    QString name() const
     {
-            Q_OBJECT
+        return fname;
+    }
 
-            QList<TemplateItem*> templates;
+    QString path() const
+    {
+        return fpath;
+    }
 
-        public:
+    QImage icon() const
+    {
+        return image;
+    }
+};
 
-            explicit TemplatesModel(QObject* parent = nullptr);
+class TemplatesModel : public QAbstractItemModel
+{
+    Q_OBJECT
 
-            virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
-            virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-            virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-            virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
-            virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
-            virtual QVariant data(const QModelIndex& index, int role) const override;
-            virtual QModelIndex parent(const QModelIndex& child) const override;
+    QList<TemplateItem*> templates;
 
-            void addTemplate(const QString& path, const QString& name);
-    };
-}
+public:
 
-#endif // TEMPLATESMODEL_H
+    explicit TemplatesModel(QObject* parent = nullptr);
+
+    virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
+    virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+    virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+    virtual QVariant data(const QModelIndex& index, int role) const override;
+    virtual QModelIndex parent(const QModelIndex& child) const override;
+
+    void addTemplate(const QString& path, const QString& name);
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // TEMPLATES_MODEL_H

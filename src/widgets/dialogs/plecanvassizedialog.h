@@ -68,7 +68,7 @@ private:
     void setupDialog(const QSizeF& size, const QString& sizeUnits, const QSizeF& resolution, const QString& resolutionUnits);
     void prepareSignalsConnections();
 
-    PLECanvasSizeDialogPrivate * d;
+    PLECanvasSizeDialogPrivate* d;
 };
 
 } // namespace PhotoLayoutsEditor
