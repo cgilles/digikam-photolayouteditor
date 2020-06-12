@@ -7,7 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2011-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -70,6 +70,7 @@ void LayersTreeDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
         {
             QPoint point = option.rect.topLeft();
             point += QPoint(option.rect.width()-m_eye.width(), option.rect.height()-m_eye.height())*0.5;
+
             if (photo->isVisible())
                 painter->drawPixmap(point,m_eye);
             else
@@ -81,18 +82,22 @@ void LayersTreeDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
     {
         painter->fillRect(option.rect,Qt::white);
         AbstractPhoto* photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
+
         if (photo)
         {
             QPoint point = option.rect.topLeft();
             point += QPoint(option.rect.width()-m_padlock.width(), option.rect.height()-m_padlock.height())*0.5;
+
             if (photo->flags() & QGraphicsItem::ItemIsSelectable)
-                painter->drawPixmap(point,m_padlock_off);
+                painter->drawPixmap(point, m_padlock_off);
             else
-                painter->drawPixmap(point,m_padlock);
+                painter->drawPixmap(point, m_padlock);
         }
     }
     else
-        QStyledItemDelegate::paint(painter,option,index);
+    {
+        QStyledItemDelegate::paint(painter, option, index);
+    }
 }
 
 QSize LayersTreeDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
@@ -110,6 +115,7 @@ void LayersTreeDelegate::itemClicked(const QModelIndex& index)
     if (index.column() == LayersModelItem::EyeIcon)
     {
         AbstractPhoto* photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
+
         if (photo)
         {
             photo->setVisible(!photo->isVisible());
@@ -119,6 +125,7 @@ void LayersTreeDelegate::itemClicked(const QModelIndex& index)
     else if (index.column() == LayersModelItem::PadLockIcon)
     {
         AbstractPhoto* photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
+
         if (photo)
         {
             photo->setFlags(photo->flags() ^ QGraphicsItem::ItemIsSelectable);

@@ -7,7 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2011-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -39,14 +39,17 @@ class LayersTreeMenu : public QMenu
 public:
 
     explicit LayersTreeMenu(LayersTree* parent);
+
     void setMoveUpEnabled(bool enabled)
     {
         moveUpItems->setEnabled(enabled);
     }
+
     void setMoveDownEnabled(bool enabled)
     {
         moveDownItems->setEnabled(enabled);
     }
+
     void setDeleteEnabled(bool enabled)
     {
         deleteItems->setEnabled(enabled);

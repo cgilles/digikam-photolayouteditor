@@ -7,7 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2011-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -72,8 +72,10 @@ public:
     virtual void redo() override
     {
         done = true;
+
         if (model->item(model->index(row, 0)) == item)
             return;
+
         model->insertRow(row);
         model->setItem(item, model->index(row, 0));
     }
@@ -81,8 +83,10 @@ public:
     virtual void undo() override
     {
         done = false;
+
         if (model->item(model->index(row, 0)) != item)
             return;
+
         model->removeRow(row);
     }
 };
@@ -96,12 +100,12 @@ class ItemRemovedCommand : public QUndoCommand
 
 public:
 
-    ItemRemovedCommand(QObject* item, int row, AbstractMovableModel* model, QUndoCommand* parent = nullptr) :
-        QUndoCommand(parent),
-        item(item),
-        row(row),
-        model(model),
-        done(true)
+    ItemRemovedCommand(QObject* item, int row, AbstractMovableModel* model, QUndoCommand* parent = nullptr)
+        : QUndoCommand(parent),
+          item(item),
+          row(row),
+          model(model),
+         done(true)
     {
     }
 
@@ -114,16 +118,20 @@ public:
     virtual void redo() override
     {
         done = true;
+
         if (model->item(model->index(row, 0)) != item)
             return;
+
         model->removeRow(row);
     }
 
     virtual void undo() override
     {
         done = false;
+
         if (model->item(model->index(row, 0)) == item)
             return;
+
         model->insertRow(row);
         model->setItem(item, model->index(row, 0));
     }
@@ -174,13 +182,13 @@ public:
 
 class AbstractItemsListViewToolPrivate
 {
-    AbstractItemsListViewToolPrivate() :
-        m_list_widget(nullptr),
-        m_add_button(nullptr),
-        m_remove_button(nullptr),
-        m_down_button(nullptr),
-        m_up_button(nullptr),
-        m_delegate(nullptr)
+    AbstractItemsListViewToolPrivate()
+        : m_list_widget(nullptr),
+          m_add_button(nullptr),
+          m_remove_button(nullptr),
+          m_down_button(nullptr),
+          m_up_button(nullptr),
+          m_delegate(nullptr)
 //        , m_editors_object(nullptr)
     {
     }
@@ -197,6 +205,7 @@ class AbstractItemsListViewToolPrivate
     {
         if (m_delegate)
             m_delegate->deleteLater();
+
         m_delegate = nullptr;
     }
 
@@ -212,9 +221,9 @@ class AbstractItemsListViewToolPrivate
     friend class AbstractItemsListViewTool;
 };
 
-AbstractItemsListViewTool::AbstractItemsListViewTool(const QString& toolName, PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent) :
-    AbstractItemsTool(scene, selectionMode, parent),
-    d(new AbstractItemsListViewToolPrivate)
+AbstractItemsListViewTool::AbstractItemsListViewTool(const QString& toolName, PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent)
+    : AbstractItemsTool(scene, selectionMode, parent),
+      d(new AbstractItemsListViewToolPrivate)
 {
     QGridLayout* layout = new QGridLayout(this);
 
@@ -237,8 +246,12 @@ AbstractItemsListViewTool::AbstractItemsListViewTool(const QString& toolName, PL
     addLayout->addWidget(d->m_remove_button);
     addLayout->setSpacing(0);
     layout->addLayout(addLayout,0,1);
-    connect(d->m_add_button,SIGNAL(clicked()),this,SLOT(createChooser()));
-    connect(d->m_remove_button,SIGNAL(clicked()),this,SLOT(removeSelected()));
+
+    connect(d->m_add_button, SIGNAL(clicked()),
+            this, SLOT(createChooser()));
+
+    connect(d->m_remove_button, SIGNAL(clicked()),
+            this, SLOT(removeSelected()));
 
     // Move up/down buttons
     QHBoxLayout* moveLayout = new QHBoxLayout();
@@ -253,13 +266,19 @@ AbstractItemsListViewTool::AbstractItemsListViewTool(const QString& toolName, PL
     moveLayout->addWidget(d->m_up_button);
     moveLayout->setSpacing(0);
     layout->addLayout(moveLayout,0,2);
-    connect(d->m_down_button,SIGNAL(clicked()),this,SLOT(moveSelectedDown()));
-    connect(d->m_up_button,SIGNAL(clicked()),this,SLOT(moveSelectedUp()));
+
+    connect(d->m_down_button, SIGNAL(clicked()),
+            this, SLOT(moveSelectedDown()));
+
+    connect(d->m_up_button, SIGNAL(clicked()),
+            this, SLOT(moveSelectedUp()));
 
     // Effects list
     d->m_list_widget = new AbstractListToolView(this);
     layout->addWidget(d->m_list_widget,1,0,1,-1);
-    connect(d->m_list_widget,SIGNAL(selectedIndex(QModelIndex)),this,SLOT(viewCurrentEditor(QModelIndex)));
+
+    connect(d->m_list_widget, SIGNAL(selectedIndex(QModelIndex)),
+            this, SLOT(viewCurrentEditor(QModelIndex)));
 
     this->setLayout(layout);
     this->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::MinimumExpanding);
@@ -271,6 +290,7 @@ AbstractItemsListViewTool::~AbstractItemsListViewTool()
 {
     if (d->m_delegate)
         d->m_delegate->editorAccepted();
+
     delete d;
 }
 
@@ -291,6 +311,7 @@ void AbstractItemsListViewTool::viewCurrentEditor(const QModelIndex& index)
     closeEditor();
     d->setButtonsEnabled(true);
     QWidget* editor = createEditor(static_cast<QObject*>(index.internalPointer()), true);
+
     if (editor)
     {
         static_cast<QGridLayout*>(layout())->addWidget(editor,2,0,1,-1);
@@ -303,6 +324,7 @@ void AbstractItemsListViewTool::viewCurrentEditor(QObject* object)
     closeEditor();
     d->setButtonsEnabled(true);
     QWidget* editor = createEditor(object, false);
+
     if (editor)
     {
         static_cast<QGridLayout*>(layout())->addWidget(editor,2,0,1,-1);
@@ -313,13 +335,16 @@ void AbstractItemsListViewTool::viewCurrentEditor(QObject* object)
 void AbstractItemsListViewTool::createChooser()
 {
     AbstractMovableModel* model = this->model();
+
     if (model)
     {
         // Calculate chooser position
         int row = 0;
         QModelIndex selectedIndex = d->m_list_widget->selectedIndex();
+
         if (selectedIndex.isValid())
             row = selectedIndex.row();
+
         model->insertRow(row);
 
         // Create chooser
@@ -346,8 +371,10 @@ void AbstractItemsListViewTool::removeSelected()
 {
     if (!d->m_list_widget)
         return;
+
     QModelIndex index = d->m_list_widget->selectedIndex();
     AbstractMovableModel* model = this->model();
+
     if (model && index.isValid())
     {
         if (index.internalPointer())
@@ -356,7 +383,9 @@ void AbstractItemsListViewTool::removeSelected()
             PLE_PostUndoCommand(command);
         }
         else
+        {
             model->removeRow(index.row());
+        }
     }
 }
 
@@ -364,8 +393,10 @@ void AbstractItemsListViewTool::moveSelectedDown()
 {
     if (!d->m_list_widget)
         return;
+
     QModelIndex index = d->m_list_widget->selectedIndex();
     AbstractMovableModel* model = this->model();
+
     if (model && index.row() < model->rowCount()-1)
     {
         if (index.internalPointer())
@@ -374,8 +405,11 @@ void AbstractItemsListViewTool::moveSelectedDown()
             PLE_PostUndoCommand(command);
         }
         else
+        {
             model->moveRowsData(index.row(),1,index.row()+2);
+        }
     }
+
     d->setButtonsEnabled(true);
 }
 
@@ -383,8 +417,10 @@ void AbstractItemsListViewTool::moveSelectedUp()
 {
     if (!d->m_list_widget)
         return;
+
     QModelIndex index = d->m_list_widget->selectedIndex();
     AbstractMovableModel* model = this->model();
+
     if (model && index.row() > 0)
     {
         if (index.internalPointer())
@@ -393,19 +429,26 @@ void AbstractItemsListViewTool::moveSelectedUp()
             PLE_PostUndoCommand(command);
         }
         else
+        {
             model->moveRowsData(index.row(),1,index.row()-1);
+        }
     }
+
     d->setButtonsEnabled(true);
 }
 
 void AbstractItemsListViewTool::closeEditor()
 {
     QLayoutItem* itemBrowser = static_cast<QGridLayout*>(layout())->itemAtPosition(2,0);
+
     if (!itemBrowser)
         return;
+
     QWidget* browser = itemBrowser->widget();
+
     if (!browser)
         return;
+
     static_cast<QGridLayout*>(layout())->removeWidget(browser);
     browser->deleteLater();
 }
@@ -426,16 +469,22 @@ AbstractListToolViewDelegate::AbstractListToolViewDelegate(AbstractMovableModel*
     QComboBox* comboBox = new QComboBox(this);
     comboBox->addItems(registeredDrawers);
     comboBox->setCurrentIndex(-1);
+
     connect(comboBox,SIGNAL(currentIndexChanged(QString)),this,SLOT(itemSelected(QString)));
+
     layout->addWidget(comboBox,1);
     m_acceptButton = new QPushButton(QIcon::fromTheme(QLatin1String(":/action_check.png")), QString(), this);
     m_acceptButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
     m_acceptButton->setEnabled(false);
+
     connect(m_acceptButton,SIGNAL(clicked()),this,SLOT(editorAccepted()));
+
     layout->addWidget(m_acceptButton);
     QPushButton* cancelButton = new QPushButton(QIcon::fromTheme(QLatin1String(":/action_delete.png")), QString(), this);
     cancelButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
+
     connect(cancelButton,SIGNAL(clicked()),this,SLOT(editorCancelled()));
+
     layout->addWidget(cancelButton);
 }
 
@@ -443,8 +492,10 @@ void AbstractListToolViewDelegate::editorCancelled()
 {
     if (m_index.isValid() && !m_index.internalPointer())
         m_model->removeRow(m_index.row());
+
     if (m_object)
         m_object->deleteLater();
+
     m_object = nullptr;
     emit editorClosed();
 }
@@ -452,8 +503,10 @@ void AbstractListToolViewDelegate::editorCancelled()
 void AbstractListToolViewDelegate::editorAccepted()
 {
     qDebug() << "isAccepted sent" << m_object << m_model;
+
     if (!m_object || !m_model)
         return;
+
     qDebug() << "isAccepted sent";
     ItemCreatedCommand * command = new ItemCreatedCommand(m_object, m_index.row(), m_model);
     PLE_PostUndoCommand(command);

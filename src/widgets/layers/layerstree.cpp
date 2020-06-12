@@ -7,7 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2011-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -73,6 +73,7 @@ void LayersTree::setModel(QAbstractItemModel* model)
     QAbstractItemDelegate * delegate1 = itemDelegateForColumn(1);
     QAbstractItemDelegate * delegate2 = itemDelegateForColumn(2);
     LayersTreeDelegate * layersDelegate1 = dynamic_cast<LayersTreeDelegate*>(delegate1);
+
     if (!layersDelegate1)
     {
         layersDelegate1 = new LayersTreeDelegate(this);
@@ -80,7 +81,9 @@ void LayersTree::setModel(QAbstractItemModel* model)
         connect(this, SIGNAL(clicked(QModelIndex)), layersDelegate1, SLOT(itemClicked(QModelIndex)));
         connect(layersDelegate1, SIGNAL(itemRepaintNeeded(QModelIndex)), this, SLOT(update(QModelIndex)));
     }
+
     LayersTreeDelegate * layersDelegate2 = dynamic_cast<LayersTreeDelegate*>(delegate2);
+
     if (!layersDelegate2)
         setItemDelegateForColumn(2,layersDelegate1);
 
@@ -97,6 +100,7 @@ void LayersTree::setSingleSelection()
 {
     if (selectedIndexes().count() > 1)
         setSelection(rect(), QItemSelectionModel::Clear);
+
     setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
@@ -108,6 +112,7 @@ void LayersTree::setMultiSelection()
 void LayersTree::contextMenuEvent(QContextMenuEvent * event)
 {
     QModelIndexList indexList = selectedIndexes();
+
     if (indexList.count())
     {
         m_menu->setDeleteEnabled(true);
@@ -120,11 +125,14 @@ void LayersTree::contextMenuEvent(QContextMenuEvent * event)
         int minRow;
         int maxRow;
         unsigned int sumRows;
+
         if (!startIndex.isValid())
             goto end_moving_menus;      // It's not so bad as many people think ;) Here 'goto' simplyfies code!
+
         minRow = it->row();
         maxRow = it->row();
         sumRows = it->row();
+
         for (++it; it != indexList.end(); ++it)
         {
             if (!it->isValid())
@@ -134,10 +142,13 @@ void LayersTree::contextMenuEvent(QContextMenuEvent * event)
             }
             else if (startIndex.parent() != it->parent())
                 goto end_moving_menus;  // It's not so bad as many people think ;) Here 'goto' simplyfies code!
+
             if (it->row() < minRow)
                 minRow = it->row();
+
             if (it->row() > maxRow)
                 maxRow = it->row();
+
             sumRows += it->row();
         }
 
@@ -145,6 +156,7 @@ void LayersTree::contextMenuEvent(QContextMenuEvent * event)
         {
             if (minRow > 0)
                 m_menu->setMoveUpEnabled(true);
+
             if (maxRow+1 < model()->rowCount(indexList.first().parent()))
                 m_menu->setMoveDownEnabled(true);
         }

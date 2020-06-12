@@ -7,7 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2011-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef ABSTRACTITEMSLISTVIEWTOOL_H
-#define ABSTRACTITEMSLISTVIEWTOOL_H
+#ifndef ABSTRACT_ITEMS_LIST_VIEW_TOOL_H
+#define ABSTRACT_ITEMS_LIST_VIEW_TOOL_H
 
 // Local includes
 
@@ -42,15 +42,20 @@ class AbstractItemsListViewTool : public AbstractItemsTool
     Q_OBJECT
 
 public:
+
     explicit AbstractItemsListViewTool(const QString& toolsName, PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent=nullptr);
     virtual ~AbstractItemsListViewTool();
 
     virtual void currentItemAboutToBeChanged() override;
     virtual void currentItemChanged() override;
-    virtual void positionAboutToBeChanged() override {
+    virtual void positionAboutToBeChanged() override
+    {
     } // Unused
-    virtual void positionChanged() override {
+
+    virtual void positionChanged() override
+    {
     }          // Unused
+
     virtual QStringList options() const = 0;
     virtual QObject* createItem(const QString& name) = 0;
 
@@ -78,4 +83,4 @@ private:
 
 } // namespace PhotoLayoutsEditor
 
-#endif // ABSTRACTITEMSLISTVIEWTOOL_H
+#endif // ABSTRACT_ITEMS_LIST_VIEW_TOOL_H

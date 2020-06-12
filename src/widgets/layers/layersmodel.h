@@ -7,7 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2011-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -38,70 +38,70 @@ class AbstractPhoto;
 
 class LayersModel : public QAbstractItemModel
 {
-        Q_OBJECT
+    Q_OBJECT
 
-    public:
+public:
 
-        enum ModelRoles
-        {
-            VisibilityIcon = Qt::UserRole,
-            LockIcon,
-            GraphicItem
-        };
+    enum ModelRoles
+    {
+        VisibilityIcon = Qt::UserRole,
+        LockIcon,
+        GraphicItem
+    };
 
-    public:
+public:
 
-        explicit LayersModel(QObject* parent = nullptr);
-        virtual ~LayersModel();
+    explicit LayersModel(QObject* parent = nullptr);
+    virtual ~LayersModel();
 
-        QModelIndex index( int row, int column, const QModelIndex& parent ) const override;
-        QModelIndex parent( const QModelIndex& index ) const override;
-        int rowCount( const QModelIndex& parent = QModelIndex()) const override;
-        int columnCount( const QModelIndex& parent = QModelIndex()) const override;
-        QVariant data( const QModelIndex&, int role ) const override;
-        bool setData(const QModelIndex& index, const QVariant& value, int role) override;
-        Qt::ItemFlags flags(const QModelIndex& index = QModelIndex()) const override;
-        QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
-        bool appendItem(AbstractPhoto* item, const QModelIndex& parent = QModelIndex());
-        bool insertItem(AbstractPhoto* item, int position, const QModelIndex& parent = QModelIndex());
-        bool prependItem(AbstractPhoto* item, const QModelIndex& parent = QModelIndex());
-        bool appendItems(const QList<AbstractPhoto*>& items, const QModelIndex& parent);
-        bool insertItems(const QList<AbstractPhoto*>& items, int position, const QModelIndex& parent = QModelIndex());
-        bool prependItems(const QList<AbstractPhoto*>& items, const QModelIndex& parent);
-        QModelIndexList itemsToIndexes(const QList<AbstractPhoto*>& items) const;
-        QList<AbstractPhoto*> indexesToItems(const QModelIndexList& indexes) const;
-        QModelIndex findIndex(AbstractPhoto* item, const QModelIndex& parent = QModelIndex()) const;
-        QModelIndex findIndex(LayersModelItem* item, const QModelIndex& parent = QModelIndex()) const;
-        bool insertRows(int row, int count, const QModelIndex& parent) override;
-        LayersModelItem* getItem(const QModelIndex& index) const;
-        bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+    QModelIndex index( int row, int column, const QModelIndex& parent ) const override;
+    QModelIndex parent( const QModelIndex& index ) const override;
+    int rowCount( const QModelIndex& parent = QModelIndex()) const override;
+    int columnCount( const QModelIndex& parent = QModelIndex()) const override;
+    QVariant data( const QModelIndex&, int role ) const override;
+    bool setData(const QModelIndex& index, const QVariant& value, int role) override;
+    Qt::ItemFlags flags(const QModelIndex& index = QModelIndex()) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+    bool appendItem(AbstractPhoto* item, const QModelIndex& parent = QModelIndex());
+    bool insertItem(AbstractPhoto* item, int position, const QModelIndex& parent = QModelIndex());
+    bool prependItem(AbstractPhoto* item, const QModelIndex& parent = QModelIndex());
+    bool appendItems(const QList<AbstractPhoto*>& items, const QModelIndex& parent);
+    bool insertItems(const QList<AbstractPhoto*>& items, int position, const QModelIndex& parent = QModelIndex());
+    bool prependItems(const QList<AbstractPhoto*>& items, const QModelIndex& parent);
+    QModelIndexList itemsToIndexes(const QList<AbstractPhoto*>& items) const;
+    QList<AbstractPhoto*> indexesToItems(const QModelIndexList& indexes) const;
+    QModelIndex findIndex(AbstractPhoto* item, const QModelIndex& parent = QModelIndex()) const;
+    QModelIndex findIndex(LayersModelItem* item, const QModelIndex& parent = QModelIndex()) const;
+    bool insertRows(int row, int count, const QModelIndex& parent) override;
+    LayersModelItem* getItem(const QModelIndex& index) const;
+    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
-        bool moveRows(int sourcePosition, const QModelIndex& sourceParent,
-                      int destPosition, const QModelIndex& destinationParent);
+    bool moveRows(int sourcePosition, const QModelIndex& sourceParent,
+                    int destPosition, const QModelIndex& destinationParent);
 
-        bool moveRows(const QModelIndex& sourceIndex, const QModelIndex& sourdeParent,
-                      const QModelIndex& destinationIndex, const QModelIndex& destinationParent);
+    bool moveRows(const QModelIndex& sourceIndex, const QModelIndex& sourdeParent,
+                    const QModelIndex& destinationIndex, const QModelIndex& destinationParent);
 
-        bool moveRows(int sourcePosition, int sourceCount,
-                      const QModelIndex& sourceParent, int destPosition,
-                      const QModelIndex& destinationParent);
+    bool moveRows(int sourcePosition, int sourceCount,
+                    const QModelIndex& sourceParent, int destPosition,
+                    const QModelIndex& destinationParent);
 
-        using QAbstractItemModel::moveRows;
-        bool moveRows(const QModelIndex& start1, const QModelIndex& end1,
-                      const QModelIndex& parent1, const QModelIndex& start2,
-                      const QModelIndex& parent2);
+    using QAbstractItemModel::moveRows;
+    bool moveRows(const QModelIndex& start1, const QModelIndex& end1,
+                    const QModelIndex& parent1, const QModelIndex& start2,
+                    const QModelIndex& parent2);
 
-        void updateModel(const QModelIndex& topLeft, const QModelIndex& bottomRight);
+    void updateModel(const QModelIndex& topLeft, const QModelIndex& bottomRight);
 
-        Qt::DropActions supportedDragActions() const override;
+    Qt::DropActions supportedDragActions() const override;
 
-    Q_SIGNALS:
+Q_SIGNALS:
 
-        void rowsInserted(const QModelIndex& parent, int first, int last);
+    void rowsInserted(const QModelIndex& parent, int first, int last);
 
-    private:
+private:
 
-        LayersModelItem* root;
+    LayersModelItem* root;
 };
 
 } // namespace PhotoLayoutsEditor

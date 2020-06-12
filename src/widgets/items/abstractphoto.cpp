@@ -7,7 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2011-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -53,10 +53,10 @@ class CropShapeChangeCommand : public QUndoCommand
 
 public:
 
-    CropShapeChangeCommand(const QPainterPath& cropShape, AbstractPhoto* item, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Crop shape change"), parent),
-        m_crop_shape(cropShape),
-        m_item(item)
+    CropShapeChangeCommand(const QPainterPath& cropShape, AbstractPhoto* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Crop shape change"), parent),
+          m_crop_shape(cropShape),
+          m_item(item)
     {
     }
 
@@ -87,10 +87,10 @@ class ItemNameChangeCommand : public QUndoCommand
 
 public:
 
-    ItemNameChangeCommand(const QString& name, AbstractPhoto* item, QUndoCommand* parent = nullptr) :
-        QUndoCommand(QObject::tr("Name Change"), parent),
-        m_name(name),
-        m_item(item)
+    ItemNameChangeCommand(const QString& name, AbstractPhoto* item, QUndoCommand* parent = nullptr)
+        : QUndoCommand(QObject::tr("Name Change"), parent),
+          m_name(name),
+          m_item(item)
     {
     }
 

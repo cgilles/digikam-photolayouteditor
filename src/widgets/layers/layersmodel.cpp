@@ -7,7 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2011-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -61,8 +61,10 @@ QModelIndex LayersModel::index(int row, int column, const QModelIndex& parent) c
 {
     if (!hasIndex( row, column, parent ))
         return QModelIndex();
+
     LayersModelItem* parentItem = getItem(parent);
     LayersModelItem* childItem = parentItem->child(row);
+
     if (childItem)
         return createIndex(row,column,childItem);
     else
@@ -73,11 +75,15 @@ QModelIndex LayersModel::parent(const QModelIndex& index) const
 {
     if (!index.isValid())
         return QModelIndex();
+
     LayersModelItem* childItem = static_cast<LayersModelItem*>(index.internalPointer());
     LayersModelItem* parentItem = childItem->parent();
+
     if (parentItem == root)
         return QModelIndex();
+
     qDebug () << "LayersModelItem[parent]" << (long) parentItem;
+
     return createIndex(parentItem->row(), 0, parentItem);
 }
 
@@ -85,6 +91,7 @@ int LayersModel::rowCount(const QModelIndex& parent) const
 {
     if (parent.column() > 0)
         return 0;
+
     if (!parent.isValid())
         return root->childCount();
     else
@@ -103,25 +110,31 @@ QVariant LayersModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid())
         return QVariant();
+
     LayersModelItem* item = static_cast<LayersModelItem*>(index.internalPointer());
+
     switch (role)
     {
         case Qt::DecorationRole:
             if (index.column() == LayersModelItem::NameString)
                 return item->data(LayersModelItem::Thumbnail);
             break;
+
         case Qt::DisplayRole:
             if (index.column() == LayersModelItem::NameString)
                 return item->data(index.column());
             break;
+
         case Qt::EditRole:
             if (index.column() == LayersModelItem::NameString)
                 return item->data(LayersModelItem::NameString);
             break;
+
         case Qt::SizeHintRole:
             return QSize(-1,50);
             break;
     }
+
     return QVariant();
 }
 
@@ -129,7 +142,9 @@ bool LayersModel::setData(const QModelIndex& index, const QVariant& value, int /
 {
     if (!index.isValid() || index.column() != LayersModelItem::NameString)
         return false;
+
     LayersModelItem* item = static_cast<LayersModelItem*>(index.internalPointer());
+
     return item->setData(value, LayersModelItem::NameString);
 }
 
@@ -163,14 +178,17 @@ QVariant LayersModel::headerData(int section, Qt::Orientation orientation, int r
         {
             case Qt::DisplayRole:
                 return root->data(section);
+
             case Qt::DecorationRole:
                 if (section == 1 || section == 2)
                 {
                     return root->data(section);
                 }
+
                 break;
         }
     }
+
     return QVariant();
 }
 
@@ -178,8 +196,10 @@ bool LayersModel::appendItem(AbstractPhoto* item, const QModelIndex& parent)
 {
     LayersModelItem* parentItem = getItem(parent);
     bool result = this->insertRow(parentItem->childCount(),parent);
+
     if (result)
         static_cast<LayersModelItem*>(index(parentItem->childCount()-1,0,parent).internalPointer())->setPhoto(item);
+
     return result;
 }
 
@@ -187,11 +207,15 @@ bool LayersModel::insertItem(AbstractPhoto* item, int position, const QModelInde
 {
     QList<AbstractPhoto*> items;
     items << item;
+
     if (this->itemsToIndexes(items).count())
         return false;
+
     bool result = this->insertRow(position, parent);
+
     if (result)
         static_cast<LayersModelItem*>(index(position,0,parent).internalPointer())->setPhoto(item);
+
     return result;
 }
 
@@ -210,6 +234,7 @@ bool LayersModel::insertItems(const QList<AbstractPhoto*>& items, int position, 
     foreach (AbstractPhoto* item, items)
         if (!insertItem(item, position++, parent))
             return false;
+
     return true;
 }
 
@@ -221,14 +246,19 @@ bool LayersModel::prependItems(const QList<AbstractPhoto*>& items, const QModelI
 bool LayersModel::insertRows(int position, int count, const QModelIndex  & parent)
 {
     LayersModelItem* parentItem = getItem(parent);
+
     if (position > parentItem->childCount())
         return false;
+
     beginInsertRows(parent,position,position+count-1);
     bool result = true;
-    for (;count;--count)
+
+    for ( ; count;--count)
         result &= parentItem->insertChildren(position, new LayersModelItem(nullptr, nullptr, this));
+
     endInsertRows();
     emit layoutChanged();
+
     return result;
 }
 
@@ -236,6 +266,7 @@ LayersModelItem* LayersModel::getItem(const QModelIndex& index) const
 {
     if (index.isValid())
         return static_cast<LayersModelItem*>(index.internalPointer());
+
     return root;
 }
 
@@ -243,20 +274,25 @@ QModelIndexList LayersModel::itemsToIndexes(const QList<AbstractPhoto*>& items) 
 {
     QModelIndexList indexes;
     QModelIndex temp;
+
     foreach (AbstractPhoto* item, items)
     {
         temp = findIndex(item);
+
         if (temp.isValid())
             indexes.append(temp);
     }
+
     return indexes;
 }
 
 QList<AbstractPhoto*> LayersModel::indexesToItems(const QModelIndexList& indexes) const
 {
     QList<AbstractPhoto*> items;
+
     foreach (const QModelIndex& index, indexes)
         items.append(getItem(index)->photo());
+
     return items;
 }
 
@@ -267,18 +303,24 @@ QModelIndex LayersModel::findIndex(AbstractPhoto* item, const QModelIndex& paren
         QModelIndex temp;
         LayersModelItem* parentItem = getItem(parent);
         int rows = parentItem->childCount();
+
         for (int i = 0; i < rows; ++i)
         {
             temp = index(i,LayersModelItem::NameString,parent);
+
             if (!temp.isValid())
                 continue;
+
             if (static_cast<LayersModelItem*>(temp.internalPointer())->photo() == item)
                 return temp;
+
             temp = findIndex(item, temp);
+
             if (temp.isValid())
                 return temp;
         }
     }
+
     return QModelIndex();
 }
 
@@ -287,29 +329,38 @@ QModelIndex LayersModel::findIndex(LayersModelItem* item, const QModelIndex& par
     QModelIndex temp;
     LayersModelItem* parentItem = getItem(parent);
     int rows = parentItem->childCount();
+
     for (int i = 0; i < rows; ++i)
     {
         temp = index(i,0,parent);
+
         if (!temp.isValid())
             continue;
+
         if (static_cast<LayersModelItem*>(temp.internalPointer()) == item)
             return temp;
+
         temp = findIndex(item, temp);
+
         if (temp.isValid())
             return temp;
     }
+
     return QModelIndex();
 }
 
 bool LayersModel::removeRows(int row, int count, const QModelIndex& parent)
 {
     LayersModelItem* parentItem = getItem(parent);
+
     if (row >= parentItem->childCount() || row+count > parentItem->childCount())
         return false;
+
     beginRemoveRows(parent, row, row+count-1);
     bool result = parentItem->removeChildren(row, count);
     endRemoveRows();
     emit layoutChanged();
+
     return result;
 }
 
@@ -337,6 +388,7 @@ bool LayersModel::moveRows(int sourcePosition,
 {
     LayersModelItem* srcItem = getItem(sourceParent);
     LayersModelItem* destItem = getItem(destinationParent);
+
     if (    sourceCount                                          &&
             sourcePosition < srcItem->childCount()               &&
             sourcePosition+sourceCount <= srcItem->childCount()  &&
@@ -349,8 +401,10 @@ bool LayersModel::moveRows(int sourcePosition,
         bool result = srcItem->moveChildren(sourcePosition, sourceCount, destItem, destPosition);
         endMoveRows();
         emit layoutChanged();
+
         return result;
     }
+
     return false;
 }
 

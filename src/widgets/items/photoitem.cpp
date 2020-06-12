@@ -7,7 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2011-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -362,10 +362,10 @@ QDomDocument PhotoItem::toSvg() const
 
         bool embed = false;
         int result = QMessageBox::question(qApp->activeWindow(),
-                                            QObject::tr("Saving: %1").arg(name()),
-                                            QObject::tr("Do you want to embed images data?\n"
-                                                "Remember that when you move or rename image files on your disk or the storage device become unavailable, those images become unavailable for %1 "
-                                                "and this layout might become broken.").arg(QApplication::applicationName()));
+                                           QObject::tr("Saving: %1").arg(name()),
+                                           QObject::tr("Do you want to embed images data?\n"
+                                                       "Remember that when you move or rename image files on your disk or the storage device become unavailable, those images become unavailable for %1 "
+                                                       "and this layout might become broken.").arg(QApplication::applicationName()));
         if (result == QMessageBox::Yes)
         {
             embed = true;
@@ -382,6 +382,7 @@ QDomDocument PhotoItem::toSvg() const
         }
 
         // Saving image path
+
         if (d->fileUrl().isValid())
         {
             image.setAttribute(QLatin1String("src"), d->fileUrl().url());
@@ -416,6 +417,7 @@ QDomDocument PhotoItem::toTemplateSvg() const
     if (!m_image_path.isEmpty())
     {
         // 'defs'-> ple:'data' ->'path'
+
         QDomDocument document2 = PhotoLayoutsEditor::pathToSvg(m_image_path);
         QDomElement path = document2.firstChildElement(QLatin1String("path"));
         path.setAttribute(QLatin1String("class"), QLatin1String("m_image_path"));
@@ -453,6 +455,7 @@ PhotoItem* PhotoItem::fromSvg(QDomElement& element)
     if (item->AbstractPhoto::fromSvg(element))
     {
         // Gets data field
+
         QDomElement defs = element.firstChildElement(QLatin1String("defs"));
 
         while (!defs.isNull() && defs.attribute(QLatin1String("class")) != QLatin1String("data"))
@@ -467,6 +470,7 @@ PhotoItem* PhotoItem::fromSvg(QDomElement& element)
             goto _delete;
 
         // m_image_path
+
         QDomElement path = data.firstChildElement(QLatin1String("path"));
 
         if (path.isNull())
@@ -478,6 +482,7 @@ PhotoItem* PhotoItem::fromSvg(QDomElement& element)
             goto _delete;
 
         // m_pixmap_original
+
         QDomElement image = data.firstChildElement(QLatin1String("image"));
         QString imageAttribute;
         QImage img;
@@ -486,6 +491,7 @@ PhotoItem* PhotoItem::fromSvg(QDomElement& element)
         if      (!(imageAttribute = image.text()).isEmpty())
         {
             // Fullsize image is embedded in SVG file!
+
             img = QImage::fromData( QByteArray::fromBase64(imageAttribute.toLatin1()) );
 
             if (img.isNull())
@@ -494,6 +500,7 @@ PhotoItem* PhotoItem::fromSvg(QDomElement& element)
         else if ( !(imageAttribute = PhotoItemPrivate::locateFile( image.attribute(QLatin1String("xlink:href")) )).isEmpty() )
         {
             // Try to find file from path attribute
+
             QImageReader reader(imageAttribute);
 
             if (!reader.canRead())
@@ -529,6 +536,7 @@ QDomDocument PhotoItem::svgVisibleArea() const
     if (!isEmpty())
     {
         // 'defs' -> 'g'
+
         QDomElement g = document.createElement(QLatin1String("g"));
         document.appendChild(g);
         QTransform transform = d->m_brush_transform;
@@ -553,6 +561,7 @@ QDomDocument PhotoItem::svgVisibleArea() const
         g.setAttribute(QLatin1String("transform"), translate + QLatin1Char(' ') + matrix);
 
         // 'defs' -> 'g' -> 'image'
+
         QByteArray byteArray;
         QBuffer buffer(&byteArray);
         m_temp_image.save(&buffer, "PNG");
@@ -613,8 +622,8 @@ void PhotoItem::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 {
     const QMimeData* mimeData = event->mimeData();
 
-    if ( PLEWindow::instance()->hasInterface() &&
-         mimeData->hasFormat(QLatin1String("digikam/item-ids")))
+    if (PLEWindow::instance()->hasInterface() &&
+        mimeData->hasFormat(QLatin1String("digikam/item-ids")))
     {
         QList<QUrl> urls;
         QByteArray ba = mimeData->data(QLatin1String("digikam/item-ids"));
@@ -650,8 +659,8 @@ void PhotoItem::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
     const QMimeData* mimeData = event->mimeData();
 
-    if ( PLEWindow::instance()->hasInterface() &&
-         mimeData->hasFormat(QLatin1String("digikam/item-ids")))
+    if (PLEWindow::instance()->hasInterface() &&
+        mimeData->hasFormat(QLatin1String("digikam/item-ids")))
     {
         QList<QUrl> urls;
         QByteArray ba = mimeData->data(QLatin1String("digikam/item-ids"));
@@ -852,6 +861,7 @@ void PhotoItem::fitToRect(const QRect& rect)
     recalcShape();
 
     // Create effective pixmap
+
     refresh();
 }
 
@@ -869,6 +879,7 @@ void PhotoItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
     AbstractPhoto::paint(painter, option, widget);
 
     // Highlight item
+
     if (m_highlight)
     {
         painter->fillPath(shape(), QColor(255,0,0,100));

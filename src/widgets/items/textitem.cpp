@@ -7,7 +7,7 @@
  * Description : a plugin to create photo layouts by fusion of several images.
  *
  * Copyright (C) 2011      by Lukasz Spas <lukasz dot spas at gmail dot com>
- * Copyright (C) 2009-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
+ * Copyright (C) 2011-2020 by Gilles Caulier <caulier dot gilles at gmail dot com>
  *
  * This program is free software; you can redistribute it
  * and/or modify it under the terms of the GNU General
@@ -88,7 +88,7 @@ public:
           m_color(color)
     {
     }
-        
+
         virtual void redo() override
         {
             run();
@@ -98,7 +98,7 @@ public:
         {
             run();
         }
-        
+
         void run()
         {
             QColor temp = m_item->m_color;
@@ -157,7 +157,7 @@ public:
           at(at)
     {
     }
-    
+
     virtual void redo() override
     {
         m_item_p->addText(row, at, text);
@@ -197,13 +197,13 @@ public:
     {
         m_item_p->removeText(row, at, text.length());
     }
-    
+
     virtual void undo() override
     {
         m_item_p->addText(row, at, text);
         m_item_p->command = nullptr;
     }
-    
+
     virtual void removeLeft()
     {
         text.prepend(m_item_p->m_string_list[row][--at]);
@@ -211,7 +211,7 @@ public:
         --(m_item_p->m_cursor_character);
         m_item_p->m_item->refreshItem();
     }
-    
+
     virtual void removeRight()
     {
         text.append(m_item_p->m_string_list[row][at]);
@@ -381,7 +381,7 @@ void TextItem::TextItemPrivate::moveCursorHome()
 void TextItem::TextItemPrivate::removeTextAfter()
 {
     // Remove text from current line
-    
+
     if (m_cursor_character < m_string_list.at(m_cursor_row).length())
     {
         RemoveTextUndoCommand * command = dynamic_cast<RemoveTextUndoCommand*>(this->command);
@@ -716,7 +716,7 @@ void TextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
         painter->drawLine(x, y, x, y+m_metrics.lineSpacing());
         painter->restore();
     }
-    
+
     AbstractPhoto::paint(painter, option, widget);
 }
 
@@ -727,28 +727,33 @@ QDomDocument TextItem::toSvg() const
     result.setAttribute(QLatin1String("class"), QLatin1String("TextItem"));
 
     // 'defs' tag
+
     QDomElement defs = document.createElement(QLatin1String("defs"));
     defs.setAttribute(QLatin1String("class"), QLatin1String("data"));
     result.appendChild(defs);
 
     // 'defs'-> ple:'data'
+
     QDomElement appNS = document.createElementNS(PhotoLayoutsEditor::uri(), QLatin1String("data"));
     appNS.setPrefix(PhotoLayoutsEditor::name());
     defs.appendChild(appNS);
 
     // 'defs'-> ple:'data' -> 'text'
+
     QDomElement text = document.createElement(QLatin1String("text"));
     text.appendChild(document.createTextNode(d->m_string_list.join(QLatin1Char('\n'))));
     text.setPrefix(PhotoLayoutsEditor::name());
     appNS.appendChild(text);
 
     // 'defs'-> ple:'data' -> 'color'
+
     QDomElement color = document.createElement(QLatin1String("color"));
     color.setPrefix(PhotoLayoutsEditor::name());
     color.setAttribute(QLatin1String("name"), m_color.name());
     appNS.appendChild(color);
 
     // 'defs'-> ple:'data' -> 'font'
+
     QDomElement font = document.createElement(QLatin1String("font"));
     font.setPrefix(PhotoLayoutsEditor::name());
     font.setAttribute(QLatin1String("data"), m_font.toString());
@@ -764,28 +769,33 @@ QDomDocument TextItem::toTemplateSvg() const
     result.setAttribute(QLatin1String("class"), QLatin1String("TextItem"));
 
     // 'defs' tag
+
     QDomElement defs = document.createElement(QLatin1String("defs"));
     defs.setAttribute(QLatin1String("class"), QLatin1String("data"));
     result.appendChild(defs);
 
     // 'defs'-> ple:'data'
+
     QDomElement appNS = document.createElementNS(PhotoLayoutsEditor::uri(), QLatin1String("data"));
     appNS.setPrefix(PhotoLayoutsEditor::name());
     defs.appendChild(appNS);
 
     // 'defs'-> ple:'data' -> 'text'
+
     QDomElement text = document.createElement(QLatin1String("text"));
     text.appendChild(document.createTextNode(d->m_string_list.join(QLatin1String("\n"))));
     text.setPrefix(PhotoLayoutsEditor::name());
     appNS.appendChild(text);
 
     // 'defs'-> ple:'data' -> 'color'
+
     QDomElement color = document.createElement(QLatin1String("color"));
     color.setPrefix(PhotoLayoutsEditor::name());
     color.setAttribute(QLatin1String("name"), m_color.name());
     appNS.appendChild(color);
 
     // 'defs'-> ple:'data' -> 'font'
+
     QDomElement font = document.createElement(QLatin1String("font"));
     font.setPrefix(PhotoLayoutsEditor::name());
     font.setAttribute(QLatin1String("data"), m_font.toString());
@@ -827,6 +837,7 @@ TextItem* TextItem::fromSvg(QDomElement& element)
         IS_NULL(data);
 
         // text
+
         QDomElement text = data.firstChildElement(QLatin1String("text"));
         IS_NULL(text);
         QDomNode textValue = text.firstChild();
@@ -839,11 +850,13 @@ TextItem* TextItem::fromSvg(QDomElement& element)
         result->d->m_string_list = textValue.toText().data().remove(QLatin1Char('\t')).split(QLatin1Char('\n'));
 
         // Color
+
         QDomElement color = data.firstChildElement(QLatin1String("color"));
         IS_NULL(color);
         result->m_color = QColor(color.attribute(QLatin1String("name")));
 
         // Font
+
         QDomElement font = data.firstChildElement(QLatin1String("font"));
         IS_NULL(font);
         result->m_font.fromString(font.attribute(QLatin1String("data")));
@@ -885,10 +898,13 @@ void TextItem::refreshItem()
             if (maxBearing < leftBearing)
                 maxBearing = leftBearing;
         }
+
         ++i;
     }
+
     if (maxWidth == 0)
         maxWidth = 1;
+
     m_complete_path = QPainterPath();
     m_complete_path.addRect(0,
                             0,
@@ -903,6 +919,7 @@ QtAbstractPropertyBrowser* TextItem::propertyBrowser()
     QtTreePropertyBrowser * browser = new QtTreePropertyBrowser();
 
     // Color
+
     QtColorPropertyManager* colorManager = new QtColorPropertyManager(browser);
     PLEColorEditorFactory * colorFactory = new PLEColorEditorFactory(browser);
     browser->setFactoryForManager(colorManager, colorFactory);
@@ -921,6 +938,7 @@ QtAbstractPropertyBrowser* TextItem::propertyBrowser()
         p->setEnabled(false);
 
     // Font
+
     QtFontPropertyManager* fontManager = new QtFontPropertyManager(browser);
     PLEFontEditorFactory * fontFactory = new PLEFontEditorFactory(browser);
     browser->setFactoryForManager(fontManager, fontFactory);
