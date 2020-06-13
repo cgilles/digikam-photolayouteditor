@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef TEXTEDITORTOOL_H
-#define TEXTEDITORTOOL_H
+#ifndef TEXT_EDITOR_TOOL_H
+#define TEXT_EDITOR_TOOL_H
 
 #include "abstractitemstool.h"
 
@@ -31,40 +31,42 @@ class QtAbstractPropertyBrowser;
 
 namespace PhotoLayoutsEditor
 {
-    class TextItem;
-    class TextEditorToolPrivate;
 
-    class TextEditorTool : public AbstractItemsTool
-    {
-            Q_OBJECT
+class TextItem;
+class TextEditorToolPrivate;
 
-            TextEditorToolPrivate * d;
+class TextEditorTool : public AbstractItemsTool
+{
+    Q_OBJECT
 
-            TextItem* m_text_item;
-            TextItem* m_created_text_item;
-            QtAbstractPropertyBrowser* m_browser;
-            bool m_create_new_item;
+    TextEditorToolPrivate* d;
 
-        public:
+    TextItem* m_text_item;
+    TextItem* m_created_text_item;
+    QtAbstractPropertyBrowser* m_browser;
+    bool m_create_new_item;
 
-            explicit TextEditorTool(PLEScene* scene, QWidget* parent = nullptr);
-            ~TextEditorTool();
+public:
 
-        Q_SIGNALS:
+    explicit TextEditorTool(PLEScene* scene, QWidget* parent = nullptr);
+    ~TextEditorTool();
 
-        public Q_SLOTS:
+Q_SIGNALS:
 
-            virtual void currentItemAboutToBeChanged() override;
-            virtual void currentItemChanged() override;
-            virtual void positionAboutToBeChanged() override;
-            virtual void positionChanged() override;
+public Q_SLOTS:
 
-        protected Q_SLOTS:
+    virtual void currentItemAboutToBeChanged() override;
+    virtual void currentItemChanged()          override;
+    virtual void positionAboutToBeChanged()    override;
+    virtual void positionChanged()             override;
 
-            void createNewItem();
+protected Q_SLOTS:
 
-        friend class TextEditorToolPrivate;
-    };
-}
+    void createNewItem();
 
-#endif // TEXTEDITORTOOL_H
+    friend class TextEditorToolPrivate;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // TEXT_EDITOR_TOOL_H

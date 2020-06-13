@@ -42,9 +42,9 @@ public:
 
     explicit EffectsEditorTool(PLEScene* scene, QWidget* parent = nullptr);
 
-    virtual QStringList options() const override;
-    virtual AbstractMovableModel* model() override;
-    virtual QObject* createItem(const QString& name) override;
+    virtual QStringList options() const                                      override;
+    virtual AbstractMovableModel* model()                                    override;
+    virtual QObject* createItem(const QString& name)                         override;
     virtual QWidget* createEditor(QObject* item, bool createCommands = true) override;
 };
 

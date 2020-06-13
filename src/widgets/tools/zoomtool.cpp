@@ -70,7 +70,9 @@ ZoomTool::ZoomTool(PLEScene* scene, QWidget* parent)
     layout->setStretch(2,1);
 
     d->listener = new MousePressListener(this);
-    connect(d->listener, SIGNAL(mouseReleased(QPointF)), this, SLOT(zoom(QPointF)));
+
+    connect(d->listener, SIGNAL(mouseReleased(QPointF)),
+            this, SLOT(zoom(QPointF)));
 
     d->in->setChecked(true);
 }
@@ -78,8 +80,10 @@ ZoomTool::ZoomTool(PLEScene* scene, QWidget* parent)
 ZoomTool::~ZoomTool()
 {
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
+
     scene->readPLESceneMousePress(nullptr);
     delete d;
 }
@@ -87,31 +91,40 @@ ZoomTool::~ZoomTool()
 void ZoomTool::sceneChange()
 {
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
+
     scene->readPLESceneMousePress(nullptr);
 }
 
 void ZoomTool::sceneChanged()
 {
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
+
     scene->readPLESceneMousePress( d->listener );
 }
 
 void ZoomTool::zoom(const QPointF& point)
 {
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
+
     QList<QGraphicsView*> views = scene->views();
     qreal factor = 1 + (d->out->isChecked() ? -0.1 : 0.1);
-    foreach (QGraphicsView* view, views)
+
+    foreach (QGraphicsView* const view, views)
     {
         PLECanvas* canvas = qobject_cast<PLECanvas*>(view);
+
         if (!canvas)
             continue;
+
         if (d->listener->wasDragged())
         {
             QRect r(canvas->mapFromScene(d->listener->mousePressPosition()),
@@ -122,7 +135,9 @@ void ZoomTool::zoom(const QPointF& point)
                 canvas->scale(factor, canvas->mapFromScene(point));
         }
         else
+        {
             canvas->scale(factor, canvas->mapFromScene(point));
+        }
     }
 }
 

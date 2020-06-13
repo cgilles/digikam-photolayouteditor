@@ -86,15 +86,18 @@ void TextEditorTool::currentItemAboutToBeChanged()
 void TextEditorTool::currentItemChanged()
 {
     m_text_item = dynamic_cast<TextItem*>(currentItem());
+
     if (m_text_item)
     {
         m_browser = m_text_item->propertyBrowser();
+
         if (m_browser)
         {
             d->m_layout->removeItem( d->m_layout->itemAt(1) );
             d->m_layout->insertWidget(1, m_browser, 2);
         }
     }
+
     setEnabled(true);
 }
 
@@ -108,9 +111,12 @@ void TextEditorTool::positionChanged()
     {
         if (!m_created_text_item || !m_created_text_item->text().join(QLatin1String("\n")).isEmpty())
             m_created_text_item = new TextItem();
+
         setCurrentItem( m_created_text_item );
         currentItem()->setPos( this->mousePosition() );
+
         Q_EMIT itemCreated( currentItem() );
+
         m_create_new_item = false;
         d->m_create_button->setEnabled(true);
     }

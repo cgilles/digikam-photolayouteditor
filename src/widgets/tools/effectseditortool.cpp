@@ -44,8 +44,8 @@
 namespace PhotoLayoutsEditor
 {
 
-EffectsEditorTool::EffectsEditorTool(PLEScene* scene, QWidget* parent) :
-    AbstractItemsListViewTool(QObject::tr("Effects"), scene, PLECanvas::SingleSelcting, parent)
+EffectsEditorTool::EffectsEditorTool(PLEScene* scene, QWidget* parent)
+    : AbstractItemsListViewTool(QObject::tr("Effects"), scene, PLECanvas::SingleSelcting, parent)
 {
 }
 

@@ -79,11 +79,12 @@ class PLECanvasEditToolPrivate
     enum ScallingType
     {
         Expanded = 1,
-        Scaled = 2,
-        Manual = 4
+        Scaled   = 2,
+        Manual   = 4
     };
 
-    explicit PLECanvasEditToolPrivate(PLECanvasEditTool * /*parent*/) :
+    explicit PLECanvasEditToolPrivate(PLECanvasEditTool * /*parent*/)
+        :
 //        m_parent(parent),
 //        background_gradient_widget(nullptr),
         background_type_widget(nullptr),
@@ -208,17 +209,21 @@ void PLECanvasEditTool::backgroundTypeChanged(const QString& typeName)
 {
     qDebug() << typeName;
     PLECanvasEditToolPrivate::BackgroundType bt = d->background_types.value(typeName);
+
     switch (bt)
     {
         case PLECanvasEditToolPrivate::ColorFill:
             colorBackgroundSelected();
             break;
+
         case PLECanvasEditToolPrivate::GradientFill:
             gradientBackgroundSelected();
             break;
+
         case PLECanvasEditToolPrivate::ImageFill:
             imageBackgroundSelected();
             break;
+
         case PLECanvasEditToolPrivate::PatternFill:
             patternBackgroundSelected();
             break;
@@ -228,6 +233,7 @@ void PLECanvasEditTool::backgroundTypeChanged(const QString& typeName)
 void PLECanvasEditTool::sceneChange()
 {
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
 }
@@ -235,6 +241,7 @@ void PLECanvasEditTool::sceneChange()
 void PLECanvasEditTool::sceneChanged()
 {
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
 
@@ -262,9 +269,12 @@ void PLECanvasEditTool::gradientBackgroundSelected()
 void PLECanvasEditTool::imageBackgroundSelected()
 {
     d->background_widgets->setCurrentWidget(d->background_image_widget);
+
     if (d->m_image.isNull())
         return;
+
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
 
@@ -287,8 +297,10 @@ void PLECanvasEditTool::patternBackgroundSelected()
 void PLECanvasEditTool::solidColorChanged(const QColor& color)
 {
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
+
     scene->background()->setSolidColor(color);
 }
 
@@ -296,9 +308,12 @@ void PLECanvasEditTool::imageBackgroundColorChanged(const QColor& color)
 {
     if (this->hold_update)
         return;
+
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
+
     scene->background()->setSecondColor(color);
 }
 
@@ -306,9 +321,12 @@ void PLECanvasEditTool::patternFirstColorChanged(const QColor& /*color*/)
 {
     if (this->hold_update)
         return;
+
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
+
     this->setPatternBackground();
 }
 
@@ -316,9 +334,12 @@ void PLECanvasEditTool::patternSecondColorChanged(const QColor& /*color*/)
 {
     if (this->hold_update)
         return;
+
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
+
     this->setPatternBackground();
 }
 
@@ -326,9 +347,12 @@ void PLECanvasEditTool::patternStyleChanged(Qt::BrushStyle /*patternStyle*/)
 {
     if (this->hold_update)
         return;
+
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
+
     this->setPatternBackground();
 }
 
@@ -336,6 +360,7 @@ void PLECanvasEditTool::imageUrlRequest()
 {
     static QString startUrl(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
     QUrl url = ImageDialog::getImageURL(this, QUrl::fromLocalFile(startUrl), QString());
+
     if (url.isEmpty())
         return;
 
@@ -358,7 +383,8 @@ void PLECanvasEditTool::imageUrlRequest()
             bool heightSmaller = sceneSize.height()> imageSize.height();
             d->background_image_width->setValue(imageSize.width());
             d->background_image_height->setValue(imageSize.height());
-            if (widthSmaller && heightSmaller)
+
+            if      (widthSmaller && heightSmaller)
                 d->background_image_scalling->setCurrentText( d->background_image_scalling_map.value(PLECanvasEditToolPrivate::Manual) );
             else if (widthSmaller || heightSmaller)
                 d->background_image_scalling->setCurrentText( d->background_image_scalling_map.value(PLECanvasEditToolPrivate::Expanded) );
@@ -379,6 +405,7 @@ void PLECanvasEditTool::imageUrlRequest()
         d->background_image_label->setIcon(QIcon(d->background_image_empty_pixmap));
         d->background_image_label->setIconSize(d->background_image_empty_pixmap.size());
     }
+
     d->setImageWidgetsEnabled(valid);
 
     startUrl = QFileInfo(url.toLocalFile()).path();
@@ -388,6 +415,7 @@ void PLECanvasEditTool::borderImageUrlRequest()
 {
     static QString startUrl(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
     QUrl url = ImageDialog::getImageURL(this, QUrl::fromLocalFile(startUrl), QString());
+
     if (url.isEmpty())
         return;
 
@@ -442,16 +470,20 @@ void PLECanvasEditTool::imageVerticalAlignmentChanged(int /*index*/)
 void PLECanvasEditTool::imageWidthChanged()
 {
     static int width = -1;
+
     if (width != d->background_image_width->value())
         this->setImageBackground();
+
     width = d->background_image_width->value();
 }
 
 void PLECanvasEditTool::imageHeightChanged()
 {
     static int height = -1;
+
     if (height != d->background_image_height->value())
         this->setImageBackground();
+
     height = d->background_image_height->value();
 }
 
@@ -465,6 +497,7 @@ void PLECanvasEditTool::setImageBackground()
     Qt::Alignment alignment = d->background_image_Halignment_map.key( d->background_image_HAlign->currentText() ) |
                               d->background_image_Valignment_map.key( d->background_image_VAlign->currentText() );
     PLECanvasEditToolPrivate::ScallingType scalingMode = d->background_image_scalling_map.key(d->background_image_scalling->currentText());
+
     if (scalingMode == PLECanvasEditToolPrivate::Manual)
     {
         QSize size(d->background_image_width->value(),
@@ -474,14 +507,17 @@ void PLECanvasEditTool::setImageBackground()
     else
     {
         Qt::AspectRatioMode aspectRatio;
+
         switch (scalingMode)
         {
             case PLECanvasEditToolPrivate::Expanded:
                 aspectRatio = Qt::KeepAspectRatioByExpanding;
                 break;
+
             default:
                 aspectRatio = Qt::KeepAspectRatio;
         }
+
         background->setImage(d->m_image, d->background_image_color->color(), alignment, aspectRatio, tiled);
     }
 }
@@ -503,6 +539,7 @@ void PLECanvasEditTool::setImageBorder()
         return;
 
     PLESceneBorder* border = scene()->border();
+
     if (border)
         border->setImage(d->m_border_image);
 }
@@ -516,6 +553,7 @@ void PLECanvasEditTool::setupGUI()
     QGroupBox * borderGroup = new QGroupBox(QObject::tr("Border"), this);
     layout->addWidget(borderGroup);
     QFormLayout * borderLayout = new QFormLayout();
+
     borderGroup->setLayout(borderLayout);
     {
         d->border_image_label = new QPushButton(borderGroup);
@@ -530,6 +568,7 @@ void PLECanvasEditTool::setupGUI()
     QGroupBox * backgroundGroup = new QGroupBox(QObject::tr("Background"), this);
     layout->addWidget(backgroundGroup);
     QFormLayout * backgroundLayout = new QFormLayout();
+
     backgroundGroup->setLayout(backgroundLayout);
     {
         // Background type widget
@@ -623,27 +662,57 @@ void PLECanvasEditTool::setupGUI()
         patternFormLayout->addRow(QObject::tr("Pattern"), d->background_pattern_type);
     }
 
-    connect(d->background_type_widget, SIGNAL(currentIndexChanged(QString)), this, SLOT(backgroundTypeChanged(QString)));
-    connect(d->background_color, SIGNAL(signalColorSelected(QColor)), this, SLOT(solidColorChanged(QColor)));
-    connect(d->background_image_label, SIGNAL(clicked()), this, SLOT(imageUrlRequest()));
-    connect(d->background_image_scalling, SIGNAL(currentIndexChanged(QString)), this, SLOT(imageScallingChanged(QString)));
-    connect(d->background_image_tiled, SIGNAL(stateChanged(int)), this, SLOT(imageTiledChanged(int)));
-    connect(d->background_image_HAlign, SIGNAL(currentIndexChanged(int)), this, SLOT(imageHorizontalAlignmentChanged(int)));
-    connect(d->background_image_VAlign, SIGNAL(currentIndexChanged(int)), this, SLOT(imageVerticalAlignmentChanged(int)));
-    connect(d->background_image_width, SIGNAL(editingFinished()), this, SLOT(imageWidthChanged()));
-    connect(d->background_image_height, SIGNAL(editingFinished()), this, SLOT(imageHeightChanged()));
-    connect(d->background_image_color, SIGNAL(signalColorSelected(QColor)), this, SLOT(imageBackgroundColorChanged(QColor)));
-    connect(d->background_pattern_color1, SIGNAL(signalColorSelected(QColor)), this, SLOT(patternFirstColorChanged(QColor)));
-    connect(d->background_pattern_color2, SIGNAL(signalColorSelected(QColor)), this, SLOT(patternSecondColorChanged(QColor)));
-    connect(d->background_pattern_type, SIGNAL(currentPatternChanged(Qt::BrushStyle)), this, SLOT(patternStyleChanged(Qt::BrushStyle)));
-    connect(&(d->mouse_listener), SIGNAL(mousePressed(QPointF)), this, SLOT(readMousePosition(QPointF)));
-    connect(d->border_image_label, SIGNAL(clicked()), this, SLOT(borderImageUrlRequest()));
+    connect(d->background_type_widget, SIGNAL(currentIndexChanged(QString)),
+            this, SLOT(backgroundTypeChanged(QString)));
+
+    connect(d->background_color, SIGNAL(signalColorSelected(QColor)),
+            this, SLOT(solidColorChanged(QColor)));
+
+    connect(d->background_image_label, SIGNAL(clicked()),
+            this, SLOT(imageUrlRequest()));
+
+    connect(d->background_image_scalling, SIGNAL(currentIndexChanged(QString)),
+            this, SLOT(imageScallingChanged(QString)));
+
+    connect(d->background_image_tiled, SIGNAL(stateChanged(int)),
+            this, SLOT(imageTiledChanged(int)));
+
+    connect(d->background_image_HAlign, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(imageHorizontalAlignmentChanged(int)));
+
+    connect(d->background_image_VAlign, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(imageVerticalAlignmentChanged(int)));
+
+    connect(d->background_image_width, SIGNAL(editingFinished()),
+            this, SLOT(imageWidthChanged()));
+
+    connect(d->background_image_height, SIGNAL(editingFinished()),
+            this, SLOT(imageHeightChanged()));
+
+    connect(d->background_image_color, SIGNAL(signalColorSelected(QColor)),
+            this, SLOT(imageBackgroundColorChanged(QColor)));
+
+    connect(d->background_pattern_color1, SIGNAL(signalColorSelected(QColor)),
+            this, SLOT(patternFirstColorChanged(QColor)));
+
+    connect(d->background_pattern_color2, SIGNAL(signalColorSelected(QColor)),
+            this, SLOT(patternSecondColorChanged(QColor)));
+
+    connect(d->background_pattern_type, SIGNAL(currentPatternChanged(Qt::BrushStyle)),
+            this, SLOT(patternStyleChanged(Qt::BrushStyle)));
+
+    connect(&(d->mouse_listener), SIGNAL(mousePressed(QPointF)),
+            this, SLOT(readMousePosition(QPointF)));
+
+    connect(d->border_image_label, SIGNAL(clicked()),
+            this, SLOT(borderImageUrlRequest()));
 
     if (scene())
     {
         PLEScene* scene = this->scene();
         PLESceneBackground* background = scene->background();
-        if (background->isColor())
+
+        if      (background->isColor())
             this->colorBackgroundSelected();
         else if (background->isGradient())
             this->gradientBackgroundSelected();
@@ -654,6 +723,7 @@ void PLECanvasEditTool::setupGUI()
 
         PLESceneBorder* border = scene->border();
         d->m_border_image = border->image();
+
         if (!d->m_border_image.isNull())
         {
             QPixmap tempPX = QPixmap::fromImage(d->m_border_image.scaled(QSize(150,150), Qt::KeepAspectRatio, Qt::SmoothTransformation));
@@ -671,18 +741,22 @@ void PLECanvasEditTool::readMousePosition(const QPointF& scenePos)
 void PLECanvasEditTool::updateWidgets()
 {
     PLEScene* scene = this->scene();
+
     if (!scene)
         return;
 
     PLESceneBackground* background = scene->background();
+
     if (!background)
         return;
 
     PLESceneBorder* border = scene->border();
+
     if (!border)
         return;
 
     d->m_border_image = border->image();
+
     if (!d->m_border_image.isNull())
     {
         QPixmap tempPX = QPixmap::fromImage(d->m_border_image.scaled(QSize(150,150), Qt::KeepAspectRatio, Qt::SmoothTransformation));
@@ -693,7 +767,7 @@ void PLECanvasEditTool::updateWidgets()
     Q_UNUSED(this->hold_update);
     this->hold_update = true;
 
-    if (background->isPattern())
+    if      (background->isPattern())
     {
         d->background_widgets->setCurrentWidget(d->background_pattern_widget);
         d->background_pattern_type->setPattern(background->pattern());
@@ -713,17 +787,21 @@ void PLECanvasEditTool::updateWidgets()
         d->background_image_width->setValue( background->imageSize().width() );
         d->background_image_height->setValue( background->imageSize().height() );
         PLECanvasEditToolPrivate::ScallingType scallingType;
+
         switch (background->imageAspectRatio())
         {
             case Qt::KeepAspectRatioByExpanding:
                 scallingType = PLECanvasEditToolPrivate::Expanded;
                 break;
+
             case Qt::KeepAspectRatio:
                 scallingType = PLECanvasEditToolPrivate::Scaled;
                 break;
+
             default:
                 scallingType = PLECanvasEditToolPrivate::Manual;
         }
+
         d->background_image_scalling->setCurrentText( d->background_image_scalling_map.value(scallingType) );
         d->background_image_tiled->setChecked( background->imageRepeated() );
         d->background_image_color->setColor( background->secondColor() );

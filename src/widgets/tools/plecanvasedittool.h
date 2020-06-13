@@ -25,78 +25,85 @@
 #ifndef CANVAS_EDIT_TOOL_H
 #define CANVAS_EDIT_TOOL_H
 
+// Qt includes
+
 #include <QWidget>
 #include <QComboBox>
+
+// Local includes
 
 #include "abstracttool.h"
 
 namespace PhotoLayoutsEditor
 {
-    class PLECanvasEditToolPrivate;
-    class PLECanvasEditTool : public AbstractTool
-    {
-            Q_OBJECT
 
-            PLECanvasEditToolPrivate * d;
-            bool hold_update;
+class PLECanvasEditToolPrivate;
 
-        public:
+class PLECanvasEditTool : public AbstractTool
+{
+    Q_OBJECT
 
-            explicit PLECanvasEditTool(PLEScene* scene, QWidget* parent = nullptr);
-            virtual ~PLECanvasEditTool();
+    PLECanvasEditToolPrivate * d;
+    bool hold_update;
 
-        Q_SIGNALS:
+public:
 
-        public Q_SLOTS:
+    explicit PLECanvasEditTool(PLEScene* scene, QWidget* parent = nullptr);
+    virtual ~PLECanvasEditTool();
 
-            void backgroundTypeChanged(const QString& typeName);
+Q_SIGNALS:
 
-        protected:
+public Q_SLOTS:
 
-            virtual void sceneChange() override;
-            virtual void sceneChanged() override;
+    void backgroundTypeChanged(const QString& typeName);
 
-        protected Q_SLOTS:
+protected:
 
-            // Type of background selection
-            void colorBackgroundSelected();
-            void gradientBackgroundSelected();
-            void imageBackgroundSelected();
-            void patternBackgroundSelected();
+    virtual void sceneChange() override;
+    virtual void sceneChanged() override;
 
-            // Solid background
-            void solidColorChanged(const QColor& color);
-            void imageBackgroundColorChanged(const QColor& color);
+protected Q_SLOTS:
 
-            // Pattern background
-            void patternFirstColorChanged(const QColor& color);
-            void patternSecondColorChanged(const QColor& color);
-            void patternStyleChanged(Qt::BrushStyle patternStyle);
+    // Type of background selection
+    void colorBackgroundSelected();
+    void gradientBackgroundSelected();
+    void imageBackgroundSelected();
+    void patternBackgroundSelected();
 
-            // Image background
-            void imageUrlRequest();
-            void borderImageUrlRequest();
-            void imageScallingChanged(const QString& scallingName);
-            void imageTiledChanged(int state);
-            void imageHorizontalAlignmentChanged(int index);
-            void imageVerticalAlignmentChanged(int index);
-            void imageWidthChanged();
-            void imageHeightChanged();
+    // Solid background
+    void solidColorChanged(const QColor& color);
+    void imageBackgroundColorChanged(const QColor& color);
 
-            // Other (currently unused... :P)
-            void readMousePosition(const QPointF& scenePos);
+    // Pattern background
+    void patternFirstColorChanged(const QColor& color);
+    void patternSecondColorChanged(const QColor& color);
+    void patternStyleChanged(Qt::BrushStyle patternStyle);
 
-        private:
+    // Image background
+    void imageUrlRequest();
+    void borderImageUrlRequest();
+    void imageScallingChanged(const QString& scallingName);
+    void imageTiledChanged(int state);
+    void imageHorizontalAlignmentChanged(int index);
+    void imageVerticalAlignmentChanged(int index);
+    void imageWidthChanged();
+    void imageHeightChanged();
 
-            void setImageBackground();
-            void setPatternBackground();
-            void setImageBorder();
-            void setupGUI();
+    // Other (currently unused... :P)
+    void readMousePosition(const QPointF& scenePos);
 
-        private Q_SLOTS:
+private:
 
-            void updateWidgets();
-    };
-}
+    void setImageBackground();
+    void setPatternBackground();
+    void setImageBorder();
+    void setupGUI();
+
+private Q_SLOTS:
+
+    void updateWidgets();
+};
+
+} // namespace PhotoLayoutsEditor
 
 #endif // CANVAS_EDIT_TOOL_H

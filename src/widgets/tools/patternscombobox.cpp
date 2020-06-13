@@ -40,8 +40,8 @@ class PatternDelegate : public QStyledItemDelegate
 {
 public:
 
-    explicit PatternDelegate(QObject* parent = nullptr) :
-        QStyledItemDelegate(parent)
+    explicit PatternDelegate(QObject* parent = nullptr)
+        : QStyledItemDelegate(parent)
     {
     }
 
@@ -52,11 +52,13 @@ public:
     virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
     {
         QSize result = option.rect.size();
+
         if (index.isValid())
             result.setHeight(24);
+
         return result;
     }
-    
+
     virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
     {
         if (index.isValid())
@@ -106,8 +108,8 @@ void PatternsComboBox::setPattern(Qt::BrushStyle pattern)
             return;
         }
     }
+
     this->setCurrentIndex(-1);
-    return;
 }
 
 void PatternsComboBox::paintEvent(QPaintEvent * e)

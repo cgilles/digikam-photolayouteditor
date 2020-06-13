@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef ABSTRACTTOOL_H
-#define ABSTRACTTOOL_H
+#ifndef ABSTRACT_TOOL_H
+#define ABSTRACT_TOOL_H
 
 // Qt includes
 
@@ -44,7 +44,7 @@ class AbstractTool : public QWidget
 {
     Q_OBJECT
 
-    PLEScene* m_scene;
+    PLEScene*                m_scene;
 
     PLECanvas::SelectionMode sel_mode;
 
@@ -68,15 +68,21 @@ protected:
     {
         if (m_scene == scene)
             return;
+
         this->sceneChange();
         this->m_scene = scene;
+
         if (scene)
         {
-            connect(m_scene, SIGNAL(destroyed()), this, SLOT(sceneDestroyed()));
+            connect(m_scene, SIGNAL(destroyed()),
+                    this, SLOT(sceneDestroyed()));
+
             this->setEnabled(true);
         }
         else
+        {
             this->setEnabled(false);
+        }
 
         this->sceneChanged();
     }
@@ -102,4 +108,4 @@ protected Q_SLOTS:
 
 } // namespace PhotoLayoutsEditor
 
-#endif // ABSTRACTTOOL_H
+#endif // ABSTRACT_TOOL_H

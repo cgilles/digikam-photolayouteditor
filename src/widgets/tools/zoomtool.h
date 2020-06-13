@@ -22,37 +22,41 @@
  *
  * ============================================================ */
 
-#ifndef ZOOMTOOL_H
-#define ZOOMTOOL_H
+#ifndef ZOOM_TOOL_H
+#define ZOOM_TOOL_H
+
+// Local inludes
 
 #include "abstracttool.h"
 
 namespace PhotoLayoutsEditor
 {
-    class ZoomTool : public AbstractTool
-    {
-            Q_OBJECT
 
-        public:
+class ZoomTool : public AbstractTool
+{
+    Q_OBJECT
 
-            explicit ZoomTool(PLEScene* scene, QWidget* parent = nullptr);
-            ~ZoomTool();
+public:
 
-        public Q_SLOTS:
+    explicit ZoomTool(PLEScene* scene, QWidget* parent = nullptr);
+    ~ZoomTool();
 
-            void zoom(const QPointF& point);
+public Q_SLOTS:
 
-        protected:
+    void zoom(const QPointF& point);
 
-            virtual void sceneChange() override;
-            virtual void sceneChanged() override;
+protected:
 
-        private:
+    virtual void sceneChange()  override;
+    virtual void sceneChanged() override;
 
-            class ZoomToolPrivate;
-            ZoomToolPrivate * d;
-            friend class ZoomToolPrivate;
-    };
-}
+private:
 
-#endif // ZOOMTOOL_H
+    class ZoomToolPrivate;
+    ZoomToolPrivate* d;
+    friend class ZoomToolPrivate;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // ZOOM_TOOL_H

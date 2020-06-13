@@ -22,36 +22,40 @@
  *
  * ============================================================ */
 
-#ifndef PATTERNSCOMBOBOX_H
-#define PATTERNSCOMBOBOX_H
+#ifndef PATTERNS_COMBOBOX_H
+#define PATTERNS_COMBOBOX_H
+
+// Qt includes
 
 #include <QComboBox>
 
 namespace PhotoLayoutsEditor
 {
-    class PatternsComboBox : public QComboBox
-    {
-            Q_OBJECT
 
-        public:
+class PatternsComboBox : public QComboBox
+{
+    Q_OBJECT
 
-            explicit PatternsComboBox(QWidget* parent = nullptr);
-            Qt::BrushStyle pattern() const;
-            void setPattern(Qt::BrushStyle pattern);
+public:
 
-        Q_SIGNALS:
+    explicit PatternsComboBox(QWidget* parent = nullptr);
+    Qt::BrushStyle pattern() const;
+    void setPattern(Qt::BrushStyle pattern);
 
-            void currentPatternChanged(Qt::BrushStyle pattern);
+Q_SIGNALS:
 
-        protected:
+    void currentPatternChanged(Qt::BrushStyle pattern);
 
-            virtual void paintEvent(QPaintEvent *e) override;
+protected:
 
-        protected Q_SLOTS:
+    virtual void paintEvent(QPaintEvent *e) override;
 
-            void emitPatternChanged(int index);
+protected Q_SLOTS:
 
-    };
-}
+    void emitPatternChanged(int index);
 
-#endif // PATTERNSCOMBOBOX_H
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // PATTERNS_COMBOBOX_H

@@ -46,8 +46,8 @@ namespace PhotoLayoutsEditor
 
 class ToolsDockWidget::ToolsDockWidgetPrivate
 {
-    ToolsDockWidgetPrivate() :
-        zoom_tool(nullptr),
+    ToolsDockWidgetPrivate()
+      : zoom_tool(nullptr),
         canvas_tool(nullptr),
         effects_tool(nullptr),
         text_tool(nullptr),
@@ -58,7 +58,7 @@ class ToolsDockWidget::ToolsDockWidgetPrivate
     }
 
     ZoomTool*          zoom_tool;
-    PLECanvasEditTool*    canvas_tool;
+    PLECanvasEditTool* canvas_tool;
     EffectsEditorTool* effects_tool;
     TextEditorTool*    text_tool;
     BorderEditTool*    border_tool;
@@ -74,8 +74,9 @@ class MyStackedLayout : public QStackedLayout
 {
     public:
 
-        explicit MyStackedLayout(QWidget* parent = nullptr) : QStackedLayout(parent) {
-    }
+        explicit MyStackedLayout(QWidget* parent = nullptr) : QStackedLayout(parent)
+        {
+        }
 
         virtual QSize sizeHint() const override
         {
@@ -94,15 +95,16 @@ ToolsDockWidget* ToolsDockWidget::instance(QWidget* parent)
 {
     if (!m_instance)
         m_instance = new ToolsDockWidget(parent);
+
     return m_instance;
 }
 
-ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
-    QDockWidget(QObject::tr("Tools"),parent),
-//    m_has_selection(false),
-    m_current_item(nullptr),
-    m_scene(nullptr),
-    d(new ToolsDockWidgetPrivate)
+ToolsDockWidget::ToolsDockWidget(QWidget* parent)
+    : QDockWidget(QObject::tr("Tools"),parent),
+//      m_has_selection(false),
+      m_current_item(nullptr),
+      m_scene(nullptr),
+      d(new ToolsDockWidgetPrivate)
 {
     this->setFeatures(QDockWidget::DockWidgetMovable);
     this->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
@@ -135,7 +137,9 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_tool_pointer->setCheckable(true);
     m_tool_pointer->setFlat(true);
     group->addButton(m_tool_pointer);
-    connect(m_tool_pointer, SIGNAL(toggled(bool)),this, SLOT(setPointerToolVisible(bool)));
+
+    connect(m_tool_pointer, SIGNAL(toggled(bool)),
+            this, SLOT(setPointerToolVisible(bool)));
 
     // View tool
     m_tool_hand = new QPushButton(QIcon(QLatin1String(":/hand.png")), QString(), widget);
@@ -145,7 +149,9 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_tool_hand->setCheckable(true);
     m_tool_hand->setFlat(true);
     group->addButton(m_tool_hand);
-    connect(m_tool_hand, SIGNAL(toggled(bool)),this, SLOT(setHandToolVisible(bool)));
+
+    connect(m_tool_hand, SIGNAL(toggled(bool)),
+            this, SLOT(setHandToolVisible(bool)));
 
     // Zoom tool
     m_tool_zoom = new QPushButton(QIcon(QLatin1String(":/zoom.png")), QString(), widget);
@@ -155,7 +161,9 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_tool_zoom->setCheckable(true);
     m_tool_zoom->setFlat(true);
     group->addButton(m_tool_zoom);
-    connect(m_tool_zoom, SIGNAL(toggled(bool)),this, SLOT(setZoomWidgetVisible(bool)));
+
+    connect(m_tool_zoom, SIGNAL(toggled(bool)),
+            this, SLOT(setZoomWidgetVisible(bool)));
 
     // PLECanvas edit tool
     m_canvas_button = new QPushButton(QIcon(QLatin1String(":/tool_canvas.png")), QString(), widget);
@@ -165,7 +173,9 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_canvas_button->setCheckable(true);
     m_canvas_button->setFlat(true);
     group->addButton(m_canvas_button);
-    connect(m_canvas_button, SIGNAL(toggled(bool)),this, SLOT(setPLECanvasWidgetVisible(bool)));
+
+    connect(m_canvas_button, SIGNAL(toggled(bool)),
+            this, SLOT(setPLECanvasWidgetVisible(bool)));
 
     // Text tool
     m_text_button = new QPushButton(QIcon(QLatin1String(":/tool_text.png")), QString(), 
@@ -177,7 +187,9 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_text_button->setCheckable(true);
     m_text_button->setFlat(true);
     group->addButton(m_text_button);
-    connect(m_text_button, SIGNAL(toggled(bool)),this, SLOT(setTextWidgetVisible(bool)));
+
+    connect(m_text_button, SIGNAL(toggled(bool)),
+            this, SLOT(setTextWidgetVisible(bool)));
 
     // Rotate tool
     m_rotate_button = new QPushButton(QIcon(QLatin1String(":/tool_rotate.png")), QString(), widget);
@@ -187,7 +199,9 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_rotate_button->setCheckable(true);
     m_rotate_button->setFlat(true);
     group->addButton(m_rotate_button);
-    connect(m_rotate_button, SIGNAL(toggled(bool)),this, SLOT(setRotateWidgetVisible(bool)));
+
+    connect(m_rotate_button, SIGNAL(toggled(bool)),
+            this, SLOT(setRotateWidgetVisible(bool)));
 
     // Scale tool
     m_scale_button = new QPushButton(QIcon(QLatin1String(":/tool_scale4.png")), QString(), widget);
@@ -197,7 +211,9 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_scale_button->setCheckable(true);
     m_scale_button->setFlat(true);
     group->addButton(m_scale_button);
-    connect(m_scale_button, SIGNAL(toggled(bool)),this, SLOT(setScaleWidgetVisible(bool)));
+
+    connect(m_scale_button, SIGNAL(toggled(bool)),
+            this, SLOT(setScaleWidgetVisible(bool)));
 
     // Crop tool
     m_crop_button = new QPushButton(QIcon(QLatin1String(":/tool_cropt.png")), QString(), widget);
@@ -207,7 +223,9 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_crop_button->setCheckable(true);
     m_crop_button->setFlat(true);
     group->addButton(m_crop_button);
-    connect(m_crop_button, SIGNAL(toggled(bool)),this, SLOT(setCropWidgetVisible(bool)));
+
+    connect(m_crop_button, SIGNAL(toggled(bool)),
+            this, SLOT(setCropWidgetVisible(bool)));
 
     // Photo effects tool
     m_effects_button = new QPushButton(QIcon(QLatin1String(":/tool_effects.png")), QString(), widget);
@@ -217,7 +235,9 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_effects_button->setCheckable(true);
     m_effects_button->setFlat(true);
     group->addButton(m_effects_button);
-    connect(m_effects_button, SIGNAL(toggled(bool)),this, SLOT(setEffectsWidgetVisible(bool)));
+
+    connect(m_effects_button, SIGNAL(toggled(bool)),
+            this, SLOT(setEffectsWidgetVisible(bool)));
 
     // Border edit tool
     m_tool_border = new QPushButton(QIcon(QLatin1String(":/tool_border.png")), QString(), widget);
@@ -226,7 +246,9 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_tool_border->setCheckable(true);
     m_tool_border->setFlat(true);
     group->addButton(m_tool_border);
-    connect(m_tool_border, SIGNAL(toggled(bool)),this, SLOT(setBordersWidgetVisible(bool)));
+
+    connect(m_tool_border, SIGNAL(toggled(bool)),
+            this, SLOT(setBordersWidgetVisible(bool)));
 
     // Spacer
     d->formLayout->setContentsMargins(QMargins());
@@ -259,11 +281,14 @@ void ToolsDockWidget::setScene(PLEScene* scene)
 {
     if (scene)
         this->connect(scene, SIGNAL(destroyed()), this, SLOT(setScene()));
+
     if (sender() && !scene && this->m_scene)
         return;
+
     m_scene = scene;
     QWidget* w = d->toolArea->widget();
     AbstractTool * tool = dynamic_cast<AbstractTool*>(w);
+
     if (tool)
         tool->setScene(m_scene);
 }
@@ -273,20 +298,27 @@ void ToolsDockWidget::itemSelected(AbstractPhoto* photo)
     qDebug() << "itemSelected" << (QGraphicsItem*)photo;
     m_current_item = photo;
     QWidget* w = d->toolArea->widget();
+
     if (!w)
         return;
+
     AbstractItemsTool * tool =qobject_cast<AbstractItemsTool*>(w);
+
     if (tool)
         tool->setCurrentItem(photo);
+
     qDebug() << tool;
 }
 
 void ToolsDockWidget::mousePositionChoosen(const QPointF& position)
 {
     QWidget* w = d->toolArea->widget();
+
     if (!w)
         return;
+
     AbstractItemsTool * tool =qobject_cast<AbstractItemsTool*>(w);
+
     if (tool)
         tool->setMousePosition(position);
 }
@@ -295,12 +327,14 @@ void ToolsDockWidget::emitNewItemCreated(AbstractPhoto* item)
 {
     if (!item)
         return;
+
     Q_EMIT newItemCreated(item);
 }
 
 void ToolsDockWidget::setPointerToolVisible(bool isSelected)
 {
     m_tool_pointer->setChecked(isSelected);
+
     if (isSelected)
     {
         d->toolArea->setWidget(nullptr);
@@ -313,6 +347,7 @@ void ToolsDockWidget::setPointerToolVisible(bool isSelected)
 void ToolsDockWidget::setHandToolVisible(bool isSelected)
 {
     m_tool_hand->setChecked(isSelected);
+
     if (isSelected)
     {
         d->toolArea->setWidget(nullptr);
@@ -329,8 +364,11 @@ void ToolsDockWidget::setZoomWidgetVisible(bool isVisible)
         d->zoom_tool->deleteLater();
         d->zoom_tool = nullptr;
     }
+
     m_tool_zoom->setChecked(isVisible);
+
     Q_EMIT zoomToolSelectionChanged(isVisible);
+
     if (isVisible)
     {
         d->zoom_tool = new ZoomTool(nullptr, d->toolArea);
@@ -348,8 +386,11 @@ void ToolsDockWidget::setPLECanvasWidgetVisible(bool isVisible)
         d->canvas_tool->deleteLater();
         d->canvas_tool = nullptr;
     }
+
     m_canvas_button->setChecked(isVisible);
+
     Q_EMIT canvasToolSelectionChanged(isVisible);
+
     if (isVisible)
     {
         d->canvas_tool = new PLECanvasEditTool(nullptr, d->toolArea);
@@ -367,8 +408,11 @@ void ToolsDockWidget::setEffectsWidgetVisible(bool isVisible)
         d->effects_tool->deleteLater();
         d->effects_tool = nullptr;
     }
+
     m_effects_button->setChecked(isVisible);
+
     Q_EMIT effectsToolSelectionChanged(isVisible);
+
     if (isVisible)
     {
         d->effects_tool = new EffectsEditorTool(nullptr, d->toolArea);
@@ -387,12 +431,18 @@ void ToolsDockWidget::setTextWidgetVisible(bool isVisible)
         d->text_tool->deleteLater();
         d->text_tool = nullptr;
     }
+
     m_text_button->setChecked(isVisible);
+
     Q_EMIT textToolSelectionChanged(isVisible);
+
     if (isVisible)
     {
         d->text_tool = new TextEditorTool(nullptr, d->toolArea);
-        connect(d->text_tool, SIGNAL(itemCreated(AbstractPhoto*)), this, SLOT(emitNewItemCreated(AbstractPhoto*)));
+
+        connect(d->text_tool, SIGNAL(itemCreated(AbstractPhoto*)),
+                this, SLOT(emitNewItemCreated(AbstractPhoto*)));
+
         d->text_tool->setScene(m_scene);
         d->text_tool->setCurrentItem(m_current_item);
         d->toolArea->setWidget(d->text_tool);
@@ -405,6 +455,7 @@ void ToolsDockWidget::setRotateWidgetVisible(bool isVisible)
 {
     Q_EMIT rotateToolSelectionChanged(isVisible);
     m_rotate_button->setChecked(isVisible);
+
     if (isVisible)
     {
         d->toolArea->setWidget(nullptr);
@@ -417,6 +468,7 @@ void ToolsDockWidget::setScaleWidgetVisible(bool isVisible)
 {
     Q_EMIT scaleToolSelectionChanged(isVisible);
     m_scale_button->setChecked(isVisible);
+
     if (isVisible)
     {
         d->toolArea->setWidget(nullptr);
@@ -429,6 +481,7 @@ void ToolsDockWidget::setCropWidgetVisible(bool isVisible)
 {
     Q_EMIT cropToolSelectionChanged(isVisible);
     m_crop_button->setChecked(isVisible);
+
     if (isVisible)
     {
         d->toolArea->setWidget(nullptr);
@@ -444,8 +497,11 @@ void ToolsDockWidget::setBordersWidgetVisible(bool isVisible)
         d->border_tool->deleteLater();
         d->border_tool = nullptr;
     }
+
     m_tool_border->setChecked(isVisible);
+
     Q_EMIT borderToolSelectionChanged(isVisible);
+
     if (isVisible)
     {
         d->border_tool = new BorderEditTool(nullptr, d->toolArea);
@@ -471,14 +527,16 @@ void ToolsDockWidget::resizeEvent(QResizeEvent* event)
       << m_effects_button
       << m_tool_border;
 
-    foreach (QWidget* w, l)
+    foreach (QWidget* const w, l)
         d->formLayout->removeWidget(w);
 
     int width = 0;
     int col = 0, row = 0;
-    foreach (QWidget* w, l)
+
+    foreach (QWidget* const w, l)
     {
         width += w->size().width();
+
         if (row < (int)(width / event->size().width()) )
         {
             d->formLayout->setColumnStretch(col, 1);
@@ -486,10 +544,12 @@ void ToolsDockWidget::resizeEvent(QResizeEvent* event)
             col = 0;
             width = row * event->size().width() + w->size().width();
         }
+
         d->formLayout->setColumnStretch(col, 0);
         d->formLayout->addWidget(w, row, col++, Qt::AlignCenter);
         d->formLayout->setRowStretch(row, 0);
     }
+
     if (!row)
         d->formLayout->setColumnStretch(col, 1);
 }
