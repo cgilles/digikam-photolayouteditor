@@ -22,30 +22,35 @@
  *
  * ============================================================ */
 
-#ifndef SCENEBORDERLOADER_H
-#define SCENEBORDERLOADER_H
+#ifndef SCENE_BORDER_LOADER_H
+#define SCENE_BORDER_LOADER_H
+
+// Qt includes
 
 #include <QThread>
 #include <QDomDocument>
 
 namespace PhotoLayoutsEditor
 {
-    class PLESceneBorder;
-    class PLESceneBorderLoader : public QThread
-    {
-        public:
 
-            explicit PLESceneBorderLoader(PLESceneBorder* border, QDomElement& element, QObject* parent = nullptr);
+class PLESceneBorder;
 
-        protected:
+class PLESceneBorderLoader : public QThread
+{
+public:
 
-            virtual void run() override;
+    explicit PLESceneBorderLoader(PLESceneBorder* border, QDomElement& element, QObject* parent = nullptr);
 
-        private:
+protected:
 
-            PLESceneBorder* m_border;
-            QDomElement& m_element;
-    };
-}
+    virtual void run() override;
 
-#endif // SCENEBORDERLOADER_H
+private:
+
+    PLESceneBorder* m_border;
+    QDomElement&    m_element;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // SCENE_BORDER_LOADER_H

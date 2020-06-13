@@ -22,52 +22,61 @@
  *
  * ============================================================ */
 
-#ifndef CANVASSAVINGTHREAD_H
-#define CANVASSAVINGTHREAD_H
+#ifndef CANVAS_SAVING_THREAD_H
+#define CANVAS_SAVING_THREAD_H
+
+// Qt includes
 
 #include <QThread>
 #include <QUrl>
+
+// Local includes
 
 #include "progressobserver.h"
 
 namespace PhotoLayoutsEditor
 {
+
     class PLECanvas;
-    class PLECanvasSavingThread : public QThread, public ProgressObserver
-    {
-            Q_OBJECT
 
-        public:
+class PLECanvasSavingThread : public QThread, public ProgressObserver
+{
+    Q_OBJECT
 
-            explicit PLECanvasSavingThread(QObject* parent = nullptr);
-            void save(PLECanvas* canvas, const QUrl& url);
-            void saveAsTemplate(PLECanvas* canvas, const QUrl& url);
-            virtual void progresChanged(double progress) override;
-            virtual void progresName(const QString& name) override;
+public:
 
-        Q_SIGNALS:
+    explicit PLECanvasSavingThread(QObject* parent = nullptr);
 
-            void saved();
+    void save(PLECanvas* canvas, const QUrl& url);
+    void saveAsTemplate(PLECanvas* canvas, const QUrl& url);
 
-        protected:
+    virtual void progresChanged(double progress) override;
+    virtual void progresName(const QString& name) override;
 
-            virtual void run() override;
+Q_SIGNALS:
 
-        private Q_SLOTS:
+    void saved();
 
-            void bytesWritten(qint64);
+protected:
 
-        private:
+    virtual void run() override;
 
-            void sendProgressUpdate(double v);
-            void sendActionUpdate(const QString& str);
+private Q_SLOTS:
 
-        private:
+    void bytesWritten(qint64);
 
-            PLECanvas* m_canvas;
-            QUrl    m_url;
-            bool    m_template;
-    };
-}
+private:
 
-#endif // CANVASSAVINGTHREAD_H
+    void sendProgressUpdate(double v);
+    void sendActionUpdate(const QString& str);
+
+private:
+
+    PLECanvas* m_canvas;
+    QUrl       m_url;
+    bool       m_template;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // CANVAS_SAVING_THREAD_H

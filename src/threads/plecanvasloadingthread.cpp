@@ -54,9 +54,9 @@ class PLECanvasLoadingThread::PLECanvasLoadingThreadPrivate
         count = 0;
     }
 
-    int                                  i;
-    int                                  count;
-    QMap<AbstractPhoto*, QDomElement>    data;
+    int                                     i;
+    int                                     count;
+    QMap<AbstractPhoto*, QDomElement>       data;
     QPair<PLESceneBackground*, QDomElement> background;
     QPair<PLESceneBorder*, QDomElement>     border;
 
@@ -144,8 +144,9 @@ void PLECanvasLoadingThread::run()
     }
 
     // Items
+
     int count = d->data.count();
-    d->i = 0;
+    d->i      = 0;
 
     for (QMap<AbstractPhoto*,QDomElement>::iterator it = d->data.begin(); it != d->data.end(); ++it, ++(d->i))
     {
@@ -178,6 +179,7 @@ void PLECanvasLoadingThread::run()
     }
 
     // Border
+
     {
         ProgressEvent* actionUpdateEvent = new ProgressEvent(this);
         actionUpdateEvent->setData(ProgressEvent::ActionUpdate, QObject::tr("Loading border...") );

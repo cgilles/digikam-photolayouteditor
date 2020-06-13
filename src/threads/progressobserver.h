@@ -41,7 +41,7 @@ public:
         : parent(parent)
     {
     }
-    
+
     virtual ~ProgressObserver()
     {
     }
@@ -51,7 +51,7 @@ public:
         if (parent)
             parent->progresChanged(progress);
     }
-    
+
     virtual void progresName(const QString& name)
     {
         if (parent)

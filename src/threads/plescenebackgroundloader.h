@@ -22,30 +22,35 @@
  *
  * ============================================================ */
 
-#ifndef SCENEBACKGROUNDLOADER_H
-#define SCENEBACKGROUNDLOADER_H
+#ifndef SCENE_BACKGROUND_LOADER_H
+#define SCENE_BACKGROUND_LOADER_H
+
+// Qt includes
 
 #include <QThread>
 #include <QDomDocument>
 
 namespace PhotoLayoutsEditor
 {
-    class PLESceneBackground;
-    class PLESceneBackgroundLoader : public QThread
-    {
-        public:
 
-            explicit PLESceneBackgroundLoader(PLESceneBackground* background, QDomElement& element, QObject* parent = nullptr);
+class PLESceneBackground;
 
-        protected:
+class PLESceneBackgroundLoader : public QThread
+{
+public:
 
-            virtual void run() override;
+    explicit PLESceneBackgroundLoader(PLESceneBackground* background, QDomElement& element, QObject* parent = nullptr);
 
-        private:
+protected:
 
-            PLESceneBackground* m_background;
-            QDomElement& m_element;
-    };
-}
+    virtual void run() override;
 
-#endif // SCENEBACKGROUNDLOADER_H
+private:
+
+    PLESceneBackground* m_background;
+    QDomElement&        m_element;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // SCENE_BACKGROUND_LOADER_H

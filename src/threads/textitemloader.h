@@ -22,25 +22,29 @@
  *
  * ============================================================ */
 
-#ifndef TEXTITEMLOADER_H
-#define TEXTITEMLOADER_H
+#ifndef TEXT_ITEM_LOADER_H
+#define TEXT_ITEM_LOADER_H
+
+// Local includes
 
 #include "abstractphotoitemloader.h"
 
 namespace PhotoLayoutsEditor
 {
-    class TextItem;
-    class TextItemLoader : public AbstractPhotoItemLoader
-    {
-        public:
 
-            TextItemLoader(TextItem* item, QDomElement& element, QObject* parent = nullptr);
+class TextItem;
 
-        protected:
+class TextItemLoader : public AbstractPhotoItemLoader
+{
+public:
 
-            virtual void run() override;
+    TextItemLoader(TextItem* item, QDomElement& element, QObject* parent = nullptr);
 
-    };
-}
+protected:
 
-#endif // TEXTITEMLOADER_H
+    virtual void run() override;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // TEXT_ITEM_LOADER_H

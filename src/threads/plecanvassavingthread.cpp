@@ -101,7 +101,7 @@ void PLECanvasSavingThread::run()
     svg.setAttribute(QLatin1String("version"), QLatin1String("1.2"));
     svg.setAttribute(QLatin1String("baseProfile"), QLatin1String("tiny"));
     QString j1;
-    
+
     switch (m_canvas->d->m_size.sizeUnit())
     {
         case PLECanvasSize::Centimeters:
