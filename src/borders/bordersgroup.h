@@ -94,7 +94,7 @@ protected Q_SLOTS:
 
     void emitBordersChanged()
     {
-        emit drawersChanged();
+        Q_EMIT drawersChanged();
     }
 
 private:

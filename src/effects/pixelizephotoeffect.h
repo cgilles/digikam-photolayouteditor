@@ -53,7 +53,7 @@ public:
     void setPixelSize(int pixelSize)
     {
         m_pixelSize = pixelSize;
-        emit effectChanged(this);
+        Q_EMIT effectChanged(this);
     }
 
     int pixelSize() const

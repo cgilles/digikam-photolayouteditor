@@ -100,7 +100,7 @@ protected:
 
     void propertiesChanged()
     {
-        emit changed();
+        Q_EMIT changed();
     }
 };
 

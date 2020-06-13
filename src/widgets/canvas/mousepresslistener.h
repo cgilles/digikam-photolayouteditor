@@ -66,12 +66,12 @@ public Q_SLOTS:
 
     void mousePress(const QPointF& scenePos)
     {
-        emit mousePressed((press = scenePos));
+        Q_EMIT mousePressed((press = scenePos));
     }
 
     void mouseRelease(const QPointF& scenePos)
     {
-        emit mouseReleased((release = scenePos));
+        Q_EMIT mouseReleased((release = scenePos));
     }
 
 Q_SIGNALS:

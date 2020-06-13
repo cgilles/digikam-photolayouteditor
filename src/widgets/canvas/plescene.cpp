@@ -957,7 +957,7 @@ void PLEScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
             // If listeners should know scene press position
             else if (m_interaction_mode & MouseTracking)
             {
-                emit mousePressedPoint(event->buttonDownScenePos(event->button()));
+                Q_EMIT mousePressedPoint(event->buttonDownScenePos(event->button()));
             }
 
             setRotationWidgetVisible(m_interaction_mode & Rotating);

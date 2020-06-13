@@ -510,7 +510,7 @@ void AbstractListToolViewDelegate::editorCancelled()
         m_object->deleteLater();
 
     m_object = nullptr;
-    emit editorClosed();
+    Q_EMIT editorClosed();
 }
 
 void AbstractListToolViewDelegate::editorAccepted()
@@ -523,7 +523,7 @@ void AbstractListToolViewDelegate::editorAccepted()
     qDebug() << "isAccepted sent";
     ItemCreatedCommand * command = new ItemCreatedCommand(m_object, m_index.row(), m_model);
     PLE_PostUndoCommand(command);
-    emit editorClosed();
+    Q_EMIT editorClosed();
 }
 
 void AbstractListToolViewDelegate::itemSelected(const QString& selectedItem)
@@ -533,7 +533,7 @@ void AbstractListToolViewDelegate::itemSelected(const QString& selectedItem)
         if ((m_object =  m_parent->createItem(selectedItem)))
         {
             m_model->setItem(m_object, m_index);
-            emit showEditor(m_object);
+            Q_EMIT showEditor(m_object);
         }
     }
 

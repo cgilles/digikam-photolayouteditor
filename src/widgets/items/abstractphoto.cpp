@@ -605,13 +605,13 @@ QVariant AbstractPhoto::itemChange(GraphicsItemChange change, const QVariant& va
         case ItemRotationHasChanged:
         case ItemTransformHasChanged:
             d->m_transform = this->transform();
-            emit changed();
+            Q_EMIT changed();
             break;
 
         case ItemPositionHasChanged:
         case ItemScenePositionHasChanged:
             d->m_pos = this->pos();
-            emit changed();
+            Q_EMIT changed();
             break;
 
         default:
@@ -686,7 +686,7 @@ void AbstractPhoto::setIcon(const QIcon& icon)
         return;
 
     d->m_icon = icon;
-    emit changed();
+    Q_EMIT changed();
 }
 
 PhotoEffectsGroup* AbstractPhoto::effectsGroup() const
@@ -717,7 +717,7 @@ void AbstractPhoto::refresh()
     if (d->m_borders_group)
         d->m_borders_group->refresh();
 
-    emit changed();
+    Q_EMIT changed();
 }
 
 void AbstractPhoto::setCropShape(const QPainterPath& cropShape)

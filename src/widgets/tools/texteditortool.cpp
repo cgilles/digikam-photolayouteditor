@@ -110,7 +110,7 @@ void TextEditorTool::positionChanged()
             m_created_text_item = new TextItem();
         setCurrentItem( m_created_text_item );
         currentItem()->setPos( this->mousePosition() );
-        emit itemCreated( currentItem() );
+        Q_EMIT itemCreated( currentItem() );
         m_create_new_item = false;
         d->m_create_button->setEnabled(true);
     }

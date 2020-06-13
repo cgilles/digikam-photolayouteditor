@@ -187,7 +187,7 @@ void PLECanvasSavingThread::run()
         }
 
         file.close();
-        emit saved();
+        Q_EMIT saved();
     }
 
     //---------------------------------------------------------------------------

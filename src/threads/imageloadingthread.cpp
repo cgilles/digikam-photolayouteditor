@@ -259,7 +259,7 @@ void ImageLoadingThread::loadRaw(const QUrl& url)
         delete [] image;
     }
 
-    emit imageLoaded(url, img);
+    Q_EMIT imageLoaded(url, img);
     delete loader;
 }
 
@@ -307,7 +307,7 @@ void ImageLoadingThread::loadImage(const QUrl& url)
     QCoreApplication::postEvent(PLEWindow::instance(), emitEvent);
     QCoreApplication::processEvents();
 
-    emit imageLoaded(url, img);
+    Q_EMIT imageLoaded(url, img);
 }
 
 } // namespace PhotoLayoutsEditor

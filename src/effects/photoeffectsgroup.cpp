@@ -93,7 +93,7 @@ void PhotoEffectsGroup::push_back(AbstractPhotoEffectInterface* effect)
     connect(effect, SIGNAL(changed()), this, SLOT(emitEffectsChanged()));
     effect->setParent(this);
     effect->setGroup(this);
-    emit layoutChanged();
+    Q_EMIT layoutChanged();
 }
 
 void PhotoEffectsGroup::push_front(AbstractPhotoEffectInterface* effect)
@@ -102,7 +102,7 @@ void PhotoEffectsGroup::push_front(AbstractPhotoEffectInterface* effect)
     connect(effect, SIGNAL(changed()), this, SLOT(emitEffectsChanged()));
     effect->setParent(this);
     effect->setGroup(this);
-    emit layoutChanged();
+    Q_EMIT layoutChanged();
 }
 
 QImage PhotoEffectsGroup::apply(const QImage& image)
@@ -173,7 +173,7 @@ bool PhotoEffectsGroup::moveRowsData(int sourcePosition, int sourceCount, int de
         m_effects_list.insert(destPosition, movingItems.last());
     endMoveRows();
     this->emitEffectsChanged();
-    emit layoutChanged();
+    Q_EMIT layoutChanged();
     return true;
 }
 
@@ -226,7 +226,7 @@ bool PhotoEffectsGroup::insertRows(int row, int count, const QModelIndex& parent
     while(count--)
         m_effects_list.insert(row, nullptr);
     endInsertRows();
-    emit layoutChanged();
+    Q_EMIT layoutChanged();
     return true;
 }
 
@@ -252,7 +252,7 @@ bool PhotoEffectsGroup::removeRows(int row, int count, const QModelIndex& parent
         m_effects_list.removeAt(row);
     endRemoveRows();
     this->emitEffectsChanged();
-    emit layoutChanged();
+    Q_EMIT layoutChanged();
     return true;
 }
 
@@ -265,11 +265,11 @@ void PhotoEffectsGroup::emitEffectsChanged(AbstractPhotoEffectInterface* effect)
     {
         int row = m_effects_list.indexOf(effect);
         QModelIndex indexChanged = index(row,0);
-        emit dataChanged(indexChanged,indexChanged);
+        Q_EMIT dataChanged(indexChanged,indexChanged);
     }
     else if (rowCount())
-        emit dataChanged(index(0,0),index(rowCount()-1,0));
-    emit effectsChanged();
+        Q_EMIT dataChanged(index(0,0),index(rowCount()-1,0));
+    Q_EMIT effectsChanged();
 }
 
 } // namespace PhotoLayoutsEditor

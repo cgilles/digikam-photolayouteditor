@@ -188,7 +188,7 @@ protected:
 
     void propertiesChanged()
     {
-        emit changed();
+        Q_EMIT changed();
     }
 
     friend class AbstractPhotoEffectFactory;

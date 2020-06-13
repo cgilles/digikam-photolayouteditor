@@ -519,18 +519,18 @@ void PLECanvas::selectionChanged()
         if (selectedItems.count() == 1)
         {
             AbstractPhoto* item = selectedItems.at(0);
-            emit hasSelectionChanged(true);
-            emit selectedItem(item);
+            Q_EMIT hasSelectionChanged(true);
+            Q_EMIT selectedItem(item);
         }
         else
         {
-            emit hasSelectionChanged(false);
-            emit selectedItem(nullptr);
+            Q_EMIT hasSelectionChanged(false);
+            Q_EMIT selectedItem(nullptr);
         }
     }
     else if (m_selection_mode & MultiSelecting)
     {
-        emit hasSelectionChanged(selectedItems.count());
+        Q_EMIT hasSelectionChanged(selectedItems.count());
     }
 }
 
@@ -661,7 +661,7 @@ void PLECanvas::refreshWidgetConnections(bool isVisible)
         connect(this, SIGNAL(hasSelectionChanged(bool)),
                 sender(), SLOT(setEnabled(bool)));
 
-        emit hasSelectionChanged(m_scene->selectedItems().count());
+        Q_EMIT hasSelectionChanged(m_scene->selectedItems().count());
     }
     else
     {
@@ -977,7 +977,7 @@ void PLECanvas::isSavedChanged(int /*currentCommandIndex*/)
 {
     m_is_saved = (m_saved_on_index == m_undo_stack->index());
 
-    emit savedStateChanged();
+    Q_EMIT savedStateChanged();
 }
 
 void PLECanvas::isSavedChanged(bool /*isStackClean*/)
@@ -987,7 +987,7 @@ void PLECanvas::isSavedChanged(bool /*isStackClean*/)
     else
         m_is_saved = (m_saved_on_index == m_undo_stack->index());
 
-    emit savedStateChanged();
+    Q_EMIT savedStateChanged();
 }
 
 bool PLECanvas::isTemplate() const
@@ -1000,7 +1000,7 @@ void PLECanvas::savingFinished()
     m_is_saved       = true;
     m_saved_on_index = m_undo_stack->index();
 
-    emit savedStateChanged();
+    Q_EMIT savedStateChanged();
 }
 
 void PLECanvas::renderPLECanvas(QPaintDevice* device)

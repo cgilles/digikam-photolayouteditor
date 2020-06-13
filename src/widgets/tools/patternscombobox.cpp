@@ -129,7 +129,7 @@ void PatternsComboBox::paintEvent(QPaintEvent * e)
 
 void PatternsComboBox::emitPatternChanged(int index)
 {
-    emit currentPatternChanged( (Qt::BrushStyle) this->itemData(index).toInt() );
+    Q_EMIT currentPatternChanged( (Qt::BrushStyle) this->itemData(index).toInt() );
 }
 
 } // namespace PhotoLayoutsEditor

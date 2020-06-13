@@ -119,7 +119,7 @@ void LayersTreeDelegate::itemClicked(const QModelIndex& index)
         if (photo)
         {
             photo->setVisible(!photo->isVisible());
-            emit itemRepaintNeeded(index);
+            Q_EMIT itemRepaintNeeded(index);
         }
     }
     else if (index.column() == LayersModelItem::PadLockIcon)
@@ -129,7 +129,7 @@ void LayersTreeDelegate::itemClicked(const QModelIndex& index)
         if (photo)
         {
             photo->setFlags(photo->flags() ^ QGraphicsItem::ItemIsSelectable);
-            emit itemRepaintNeeded(index);
+            Q_EMIT itemRepaintNeeded(index);
         }
     }
 }

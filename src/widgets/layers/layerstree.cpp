@@ -170,17 +170,17 @@ void LayersTree::contextMenuEvent(QContextMenuEvent * event)
 
 void LayersTree::removeSelectedRows()
 {
-    emit selectedRowsAboutToBeRemoved();
+    Q_EMIT selectedRowsAboutToBeRemoved();
 }
 
 void LayersTree::moveSelectedRowsUp()
 {
-    emit selectedRowsAboutToBeMovedUp();
+    Q_EMIT selectedRowsAboutToBeMovedUp();
 }
 
 void LayersTree::moveSelectedRowsDown()
 {
-    emit selectedRowsAboutToBeMovedDown();
+    Q_EMIT selectedRowsAboutToBeMovedDown();
 }
 
 } // namespace PhotoLayoutsEditor

@@ -323,7 +323,7 @@ void PLECanvasSizeWidget::setHorizontal(bool isHorizontal)
             d->updateSizeLabel();
         }
 
-        emit orientationChanged();
+        Q_EMIT orientationChanged();
     }
 }
 
@@ -337,7 +337,7 @@ void PLECanvasSizeWidget::setVertical(bool isVertical)
             d->updateSizeLabel();
         }
 
-        emit orientationChanged();
+        Q_EMIT orientationChanged();
     }
 }
 

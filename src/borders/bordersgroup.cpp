@@ -331,7 +331,7 @@ bool BordersGroup::insertRows(int row, int count, const QModelIndex& parent)
 
     endInsertRows();
 
-    emit layoutChanged();
+    Q_EMIT layoutChanged();
 
     return true;
 }
@@ -355,7 +355,7 @@ bool BordersGroup::removeRows(int row, int count, const QModelIndex& parent)
 
     this->refresh();
 
-    emit layoutChanged();
+    Q_EMIT layoutChanged();
 
     return true;
 }
@@ -395,7 +395,7 @@ bool BordersGroup::moveRowsData(int sourcePosition, int sourceCount, int destPos
 
     this->refresh();
 
-    emit layoutChanged();
+    Q_EMIT layoutChanged();
 
     return true;
 }

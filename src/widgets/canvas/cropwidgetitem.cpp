@@ -288,7 +288,7 @@ void CropWidgetItem::keyPressEvent(QKeyEvent* event)
     }
     else if (event->key() == Qt::Key_Escape)
     {
-        emit cancelCrop();
+        Q_EMIT cancelCrop();
         event->setAccepted(true);
     }
 }

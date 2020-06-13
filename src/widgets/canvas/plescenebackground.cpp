@@ -715,7 +715,7 @@ void PLESceneBackground::render()
     this->render(&p, this->m_temp_image.rect());
     p.end();
 
-    emit changed();
+    Q_EMIT changed();
 }
 
 void PLESceneBackground::sceneChanged()

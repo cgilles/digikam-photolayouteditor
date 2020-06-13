@@ -111,12 +111,12 @@ protected:
 
             if (index.isValid())
             {
-                emit selectedIndex(index);
+                Q_EMIT selectedIndex(index);
                 return;
             }
         }
 
-        emit selectedIndex(QModelIndex());
+        Q_EMIT selectedIndex(QModelIndex());
     }
 
     friend class AbstractItemsListViewTool;

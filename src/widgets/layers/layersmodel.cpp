@@ -257,7 +257,7 @@ bool LayersModel::insertRows(int position, int count, const QModelIndex  & paren
         result &= parentItem->insertChildren(position, new LayersModelItem(nullptr, nullptr, this));
 
     endInsertRows();
-    emit layoutChanged();
+    Q_EMIT layoutChanged();
 
     return result;
 }
@@ -359,7 +359,7 @@ bool LayersModel::removeRows(int row, int count, const QModelIndex& parent)
     beginRemoveRows(parent, row, row+count-1);
     bool result = parentItem->removeChildren(row, count);
     endRemoveRows();
-    emit layoutChanged();
+    Q_EMIT layoutChanged();
 
     return result;
 }
@@ -400,7 +400,7 @@ bool LayersModel::moveRows(int sourcePosition,
         beginMoveRows(sourceParent, sourcePosition, sourcePosition+sourceCount-1, destinationParent, destPosition);
         bool result = srcItem->moveChildren(sourcePosition, sourceCount, destItem, destPosition);
         endMoveRows();
-        emit layoutChanged();
+        Q_EMIT layoutChanged();
 
         return result;
     }
@@ -419,7 +419,7 @@ bool LayersModel::moveRows(const QModelIndex& start1,
 
 void LayersModel::updateModel(const QModelIndex& topLeft, const QModelIndex& bottomRight)
 {
-    emit dataChanged(topLeft, bottomRight);
+    Q_EMIT dataChanged(topLeft, bottomRight);
 }
 
 } // namespace PhotoLayoutsEditor
