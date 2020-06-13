@@ -43,7 +43,10 @@ class AbstractItemsListViewTool : public AbstractItemsTool
 
 public:
 
-    explicit AbstractItemsListViewTool(const QString& toolsName, PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent=nullptr);
+    explicit AbstractItemsListViewTool(const QString& toolsName,
+                                       PLEScene* scene,
+                                       PLECanvas::SelectionMode selectionMode,
+                                       QWidget* parent=nullptr);
     virtual ~AbstractItemsListViewTool();
 
     virtual void currentItemAboutToBeChanged() override;

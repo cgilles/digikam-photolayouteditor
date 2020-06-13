@@ -493,11 +493,11 @@ void PLECanvasSizeDialog::prepareSignalsConnections()
     connect(d->paperSize, SIGNAL(activated(QString)),
             this, SLOT(recalculatePaperSize(QString)));
 
-    connect(d->xSize,SIGNAL(valueChanged(double)),
-            this,SLOT(widthChanged(double)));
+    connect(d->xSize, SIGNAL(valueChanged(double)),
+            this, SLOT(widthChanged(double)));
 
-    connect(d->ySize,SIGNAL(valueChanged(double)),
-            this,SLOT(heightChanged(double)));
+    connect(d->ySize, SIGNAL(valueChanged(double)),
+            this, SLOT(heightChanged(double)));
 
     connect(d->sizeUnitsWidget, SIGNAL(activated(QString)),
             this, SLOT(sizeUnitsChanged(QString)));

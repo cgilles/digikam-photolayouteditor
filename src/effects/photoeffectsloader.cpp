@@ -188,17 +188,17 @@ QtAbstractPropertyBrowser* PhotoEffectsLoader::propertyBrowser(AbstractPhotoEffe
         if (property)
             browser->addProperty(property);
     }
-    connect(integerManager,SIGNAL(propertyChanged(QtProperty*)),listener,SLOT(propertyChanged(QtProperty*)));
-    connect(integerFactory,SIGNAL(editingFinished()),listener,SLOT(editingFinished()));
+    connect(integerManager, SIGNAL(propertyChanged(QtProperty*)),listener, SLOT(propertyChanged(QtProperty*)));
+    connect(integerFactory, SIGNAL(editingFinished()),listener, SLOT(editingFinished()));
     if (doubleManager && doubleFactory)
     {
-        connect(doubleManager,SIGNAL(propertyChanged(QtProperty*)),listener,SLOT(propertyChanged(QtProperty*)));
-        connect(doubleFactory,SIGNAL(editingFinished()),listener,SLOT(editingFinished()));
+        connect(doubleManager, SIGNAL(propertyChanged(QtProperty*)),listener, SLOT(propertyChanged(QtProperty*)));
+        connect(doubleFactory, SIGNAL(editingFinished()),listener, SLOT(editingFinished()));
     }
     if (variantManager && variantFactory)
     {
-        connect(variantManager,SIGNAL(propertyChanged(QtProperty*)),listener,SLOT(propertyChanged(QtProperty*)));
-        connect(variantFactory,SIGNAL(editingFinished()),listener,SLOT(editingFinished()));
+        connect(variantManager, SIGNAL(propertyChanged(QtProperty*)),listener, SLOT(propertyChanged(QtProperty*)));
+        connect(variantFactory, SIGNAL(editingFinished()),listener, SLOT(editingFinished()));
     }
 
     return browser;

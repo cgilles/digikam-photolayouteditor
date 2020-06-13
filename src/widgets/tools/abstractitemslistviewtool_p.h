@@ -22,10 +22,12 @@
  *
  * ============================================================ */
 
-#ifndef ABSTRACTITEMSLISTVIEWTOOL_P_H
-#define ABSTRACTITEMSLISTVIEWTOOL_P_H
+#ifndef ABSTRACT_ITEMS_LIST_VIEW_TOOL_P_H
+#define ABSTRACT_ITEMS_LIST_VIEW_TOOL_P_H
 
 #include "abstractitemslistviewtool.h"
+
+// Qt includes
 
 #include <QWidget>
 #include <QListView>
@@ -33,86 +35,93 @@
 
 namespace PhotoLayoutsEditor
 {
-    class AbstractItemsListViewTool;
-    class AbstractMovableModel;
 
-    class AbstractListToolViewDelegate : public QWidget
+class AbstractItemsListViewTool;
+class AbstractMovableModel;
+
+class AbstractListToolViewDelegate : public QWidget
+{
+    Q_OBJECT
+
+public:
+
+    QPushButton*               m_acceptButton;
+    AbstractItemsListViewTool* m_parent;
+    AbstractMovableModel*      m_model;
+    QModelIndex                m_index;
+    QObject*                   m_object;
+
+public:
+
+    AbstractListToolViewDelegate(AbstractMovableModel* model,
+                                 QModelIndex index,
+                                 AbstractItemsListViewTool* parent);
+
+Q_SIGNALS:
+
+    void editorClosed();
+    void showEditor(QObject* object);
+
+protected Q_SLOTS:
+
+    void editorAccepted();
+    void editorCancelled();
+    void itemSelected(const QString& selectedItem);
+
+friend class AbstractItemsListViewTool;
+};
+
+class AbstractListToolView : public QListView
+{
+    Q_OBJECT
+
+public:
+
+    explicit AbstractListToolView(QWidget* parent = nullptr)
+        : QListView(parent)
     {
-            Q_OBJECT
+        this->setSelectionMode(QAbstractItemView::SingleSelection);
+        this->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
+    }
 
-        public:
-
-            QPushButton*               m_acceptButton;
-            AbstractItemsListViewTool* m_parent;
-            AbstractMovableModel*      m_model;
-            QModelIndex                m_index;
-            QObject*                   m_object;
-
-        public:
-
-            AbstractListToolViewDelegate(AbstractMovableModel* model, QModelIndex index, AbstractItemsListViewTool* parent);
-
-        Q_SIGNALS:
-
-            void editorClosed();
-            void showEditor(QObject* object);
-
-        protected Q_SLOTS:
-
-            void editorAccepted();
-            void editorCancelled();
-            void itemSelected(const QString& selectedItem);
-
-        friend class AbstractItemsListViewTool;
-    };
-
-    class AbstractListToolView : public QListView
+    QModelIndex selectedIndex() const
     {
-            Q_OBJECT
+        QModelIndexList indexes = selectedIndexes();
 
-        public:
+        if (indexes.count() == 1)
+            return indexes.at(0);
 
-            explicit AbstractListToolView(QWidget* parent = nullptr) :
-                QListView(parent)
+        return QModelIndex();
+    }
+
+Q_SIGNALS:
+
+    void selectedIndex(const QModelIndex& index);
+
+protected:
+
+    virtual void selectionChanged(const QItemSelection& selected,
+                                  const QItemSelection& /*deselected*/) override
+    {
+        QModelIndexList indexes = selected.indexes();
+
+        if (indexes.count())
+        {
+            QModelIndex index = indexes.at(0);
+
+            if (index.isValid())
             {
-                this->setSelectionMode(QAbstractItemView::SingleSelection);
-                this->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
+                emit selectedIndex(index);
+                return;
             }
+        }
 
-            QModelIndex selectedIndex() const
-            {
-                QModelIndexList indexes = selectedIndexes();
+        emit selectedIndex(QModelIndex());
+    }
 
-                if (indexes.count() == 1)
-                    return indexes.at(0);
+    friend class AbstractItemsListViewTool;
+};
 
-                return QModelIndex();
-            }
+} // namespace PhotoLayoutsEditor
 
-        Q_SIGNALS:
-
-            void selectedIndex(const QModelIndex& index);
-
-        protected:
-
-            virtual void selectionChanged(const QItemSelection& selected, const QItemSelection& /*deselected*/) override
-            {
-                QModelIndexList indexes = selected.indexes();
-                if (indexes.count())
-                {
-                    QModelIndex index = indexes.at(0);
-                    if (index.isValid())
-                    {
-                        emit selectedIndex(index);
-                        return;
-                    }
-                }
-
-                emit selectedIndex(QModelIndex());
-            }
-
-        friend class AbstractItemsListViewTool;
-    };
-}
-
-#endif // ABSTRACTITEMSLISTVIEWTOOL_P_H
+#endif // ABSTRACT_ITEMS_LIST_VIEW_TOOL_P_H

@@ -135,7 +135,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_tool_pointer->setCheckable(true);
     m_tool_pointer->setFlat(true);
     group->addButton(m_tool_pointer);
-    connect(m_tool_pointer,SIGNAL(toggled(bool)),this,SLOT(setPointerToolVisible(bool)));
+    connect(m_tool_pointer, SIGNAL(toggled(bool)),this, SLOT(setPointerToolVisible(bool)));
 
     // View tool
     m_tool_hand = new QPushButton(QIcon(QLatin1String(":/hand.png")), QString(), widget);
@@ -145,7 +145,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_tool_hand->setCheckable(true);
     m_tool_hand->setFlat(true);
     group->addButton(m_tool_hand);
-    connect(m_tool_hand,SIGNAL(toggled(bool)),this,SLOT(setHandToolVisible(bool)));
+    connect(m_tool_hand, SIGNAL(toggled(bool)),this, SLOT(setHandToolVisible(bool)));
 
     // Zoom tool
     m_tool_zoom = new QPushButton(QIcon(QLatin1String(":/zoom.png")), QString(), widget);
@@ -155,7 +155,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_tool_zoom->setCheckable(true);
     m_tool_zoom->setFlat(true);
     group->addButton(m_tool_zoom);
-    connect(m_tool_zoom,SIGNAL(toggled(bool)),this,SLOT(setZoomWidgetVisible(bool)));
+    connect(m_tool_zoom, SIGNAL(toggled(bool)),this, SLOT(setZoomWidgetVisible(bool)));
 
     // PLECanvas edit tool
     m_canvas_button = new QPushButton(QIcon(QLatin1String(":/tool_canvas.png")), QString(), widget);
@@ -165,7 +165,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_canvas_button->setCheckable(true);
     m_canvas_button->setFlat(true);
     group->addButton(m_canvas_button);
-    connect(m_canvas_button,SIGNAL(toggled(bool)),this,SLOT(setPLECanvasWidgetVisible(bool)));
+    connect(m_canvas_button, SIGNAL(toggled(bool)),this, SLOT(setPLECanvasWidgetVisible(bool)));
 
     // Text tool
     m_text_button = new QPushButton(QIcon(QLatin1String(":/tool_text.png")), QString(), 
@@ -177,7 +177,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_text_button->setCheckable(true);
     m_text_button->setFlat(true);
     group->addButton(m_text_button);
-    connect(m_text_button,SIGNAL(toggled(bool)),this,SLOT(setTextWidgetVisible(bool)));
+    connect(m_text_button, SIGNAL(toggled(bool)),this, SLOT(setTextWidgetVisible(bool)));
 
     // Rotate tool
     m_rotate_button = new QPushButton(QIcon(QLatin1String(":/tool_rotate.png")), QString(), widget);
@@ -187,7 +187,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_rotate_button->setCheckable(true);
     m_rotate_button->setFlat(true);
     group->addButton(m_rotate_button);
-    connect(m_rotate_button,SIGNAL(toggled(bool)),this,SLOT(setRotateWidgetVisible(bool)));
+    connect(m_rotate_button, SIGNAL(toggled(bool)),this, SLOT(setRotateWidgetVisible(bool)));
 
     // Scale tool
     m_scale_button = new QPushButton(QIcon(QLatin1String(":/tool_scale4.png")), QString(), widget);
@@ -197,7 +197,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_scale_button->setCheckable(true);
     m_scale_button->setFlat(true);
     group->addButton(m_scale_button);
-    connect(m_scale_button,SIGNAL(toggled(bool)),this,SLOT(setScaleWidgetVisible(bool)));
+    connect(m_scale_button, SIGNAL(toggled(bool)),this, SLOT(setScaleWidgetVisible(bool)));
 
     // Crop tool
     m_crop_button = new QPushButton(QIcon(QLatin1String(":/tool_cropt.png")), QString(), widget);
@@ -207,7 +207,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_crop_button->setCheckable(true);
     m_crop_button->setFlat(true);
     group->addButton(m_crop_button);
-    connect(m_crop_button,SIGNAL(toggled(bool)),this,SLOT(setCropWidgetVisible(bool)));
+    connect(m_crop_button, SIGNAL(toggled(bool)),this, SLOT(setCropWidgetVisible(bool)));
 
     // Photo effects tool
     m_effects_button = new QPushButton(QIcon(QLatin1String(":/tool_effects.png")), QString(), widget);
@@ -217,7 +217,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_effects_button->setCheckable(true);
     m_effects_button->setFlat(true);
     group->addButton(m_effects_button);
-    connect(m_effects_button,SIGNAL(toggled(bool)),this,SLOT(setEffectsWidgetVisible(bool)));
+    connect(m_effects_button, SIGNAL(toggled(bool)),this, SLOT(setEffectsWidgetVisible(bool)));
 
     // Border edit tool
     m_tool_border = new QPushButton(QIcon(QLatin1String(":/tool_border.png")), QString(), widget);
@@ -226,7 +226,7 @@ ToolsDockWidget::ToolsDockWidget(QWidget* parent) :
     m_tool_border->setCheckable(true);
     m_tool_border->setFlat(true);
     group->addButton(m_tool_border);
-    connect(m_tool_border,SIGNAL(toggled(bool)),this,SLOT(setBordersWidgetVisible(bool)));
+    connect(m_tool_border, SIGNAL(toggled(bool)),this, SLOT(setBordersWidgetVisible(bool)));
 
     // Spacer
     d->formLayout->setContentsMargins(QMargins());

@@ -274,8 +274,8 @@ void PLEWindow::createWidgets()
     d->treeWidget->setTitleBarWidget(d->treeTitle);
     this->addDockWidget(Qt::LeftDockWidgetArea, d->treeWidget);
     d->treeWidget->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    connect(d->toolsWidget,SIGNAL(requireMultiSelection()),d->tree,SLOT(setMultiSelection()));
-    connect(d->toolsWidget,SIGNAL(requireSingleSelection()),d->tree,SLOT(setSingleSelection()));
+    connect(d->toolsWidget, SIGNAL(requireMultiSelection()),d->tree, SLOT(setMultiSelection()));
+    connect(d->toolsWidget, SIGNAL(requireSingleSelection()),d->tree, SLOT(setSingleSelection()));
 
     // Central widget (widget with canvas)
     d->centralWidget = new QWidget(this);

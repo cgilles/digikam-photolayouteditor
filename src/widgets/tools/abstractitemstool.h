@@ -53,9 +53,10 @@ public:
 
     AbstractItemsTool(PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent = nullptr);
 
-    /** Current photo property
-    * This property holds an information which item is currently editing.
-    */
+    /**
+     * Current photo property
+     * This property holds an information which item is currently editing.
+     */
     Q_PROPERTY(AbstractPhoto* m_photo READ currentItem WRITE setCurrentItem)
 
     AbstractPhoto* currentItem();
@@ -71,24 +72,24 @@ Q_SIGNALS:
 public Q_SLOTS:
 
     /** This slot is called before current item change
-    * It gives a chanse to save changes of currently edited item.
-    */
+     *  It gives a chanse to save changes of currently edited item.
+     */
     virtual void currentItemAboutToBeChanged() = 0;
 
     /** This slot is called after current item changed.
-    * This is a notification to open editors/tools and configure it for new item.
-    */
+     *  This is a notification to open editors/tools and configure it for new item.
+     */
     virtual void currentItemChanged() = 0;
 
     /** This slot is called before current mouse position change.
-    * This is a notification for the editor/tool to clear it's drawing on the current
-    * position.
-    */
+     *  This is a notification for the editor/tool to clear it's drawing on the current
+     *  position.
+     */
     virtual void positionAboutToBeChanged() = 0;
 
     /** This slot is called after current mouse position changed.
-    * This is a notification for the editor/tool to draw it's data on the new position.
-    */
+     *  This is a notification for the editor/tool to draw it's data on the new position.
+     */
     virtual void positionChanged() = 0;
 };
 

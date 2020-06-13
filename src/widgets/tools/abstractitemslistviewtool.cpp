@@ -105,7 +105,7 @@ public:
           item(item),
           row(row),
           model(model),
-         done(true)
+          done(true)
     {
     }
 
@@ -221,7 +221,10 @@ class AbstractItemsListViewToolPrivate
     friend class AbstractItemsListViewTool;
 };
 
-AbstractItemsListViewTool::AbstractItemsListViewTool(const QString& toolName, PLEScene* scene, PLECanvas::SelectionMode selectionMode, QWidget* parent)
+AbstractItemsListViewTool::AbstractItemsListViewTool(const QString& toolName,
+                                                     PLEScene* scene,
+                                                     PLECanvas::SelectionMode selectionMode,
+                                                     QWidget* parent)
     : AbstractItemsTool(scene, selectionMode, parent),
       d(new AbstractItemsListViewToolPrivate)
 {
@@ -352,8 +355,13 @@ void AbstractItemsListViewTool::createChooser()
         d->m_list_widget->setIndexWidget(model->index(row,0),d->m_delegate);
 
         d->m_list_widget->setSelectionMode(QAbstractItemView::NoSelection);
-        connect(d->m_delegate,SIGNAL(editorClosed()),this,SLOT(closeChooser()));
-        connect(d->m_delegate,SIGNAL(showEditor(QObject*)),this,SLOT(viewCurrentEditor(QObject*)));
+
+        connect(d->m_delegate, SIGNAL(editorClosed()),
+                this, SLOT(closeChooser()));
+
+        connect(d->m_delegate, SIGNAL(showEditor(QObject*)),
+                this, SLOT(viewCurrentEditor(QObject*)));
+
         d->setButtonsEnabled(false);
         d->m_list_widget->setSelection(QRect(),QItemSelectionModel::Clear);
     }
@@ -453,12 +461,14 @@ void AbstractItemsListViewTool::closeEditor()
     browser->deleteLater();
 }
 
-AbstractListToolViewDelegate::AbstractListToolViewDelegate(AbstractMovableModel* model, QModelIndex index, AbstractItemsListViewTool* parent) :
-    QWidget(parent),
-    m_parent(parent),
-    m_model(model),
-    m_index(index),
-    m_object(nullptr)
+AbstractListToolViewDelegate::AbstractListToolViewDelegate(AbstractMovableModel* model,
+                                                           QModelIndex index,
+                                                           AbstractItemsListViewTool* parent)
+    : QWidget(parent),
+      m_parent(parent),
+      m_model(model),
+      m_index(index),
+      m_object(nullptr)
 {
     // GUI setup
     QHBoxLayout* layout = new QHBoxLayout();
@@ -470,20 +480,23 @@ AbstractListToolViewDelegate::AbstractListToolViewDelegate(AbstractMovableModel*
     comboBox->addItems(registeredDrawers);
     comboBox->setCurrentIndex(-1);
 
-    connect(comboBox,SIGNAL(currentIndexChanged(QString)),this,SLOT(itemSelected(QString)));
+    connect(comboBox, SIGNAL(currentIndexChanged(QString)),
+            this, SLOT(itemSelected(QString)));
 
     layout->addWidget(comboBox,1);
     m_acceptButton = new QPushButton(QIcon::fromTheme(QLatin1String(":/action_check.png")), QString(), this);
     m_acceptButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
     m_acceptButton->setEnabled(false);
 
-    connect(m_acceptButton,SIGNAL(clicked()),this,SLOT(editorAccepted()));
+    connect(m_acceptButton, SIGNAL(clicked()),
+            this, SLOT(editorAccepted()));
 
     layout->addWidget(m_acceptButton);
     QPushButton* cancelButton = new QPushButton(QIcon::fromTheme(QLatin1String(":/action_delete.png")), QString(), this);
     cancelButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
 
-    connect(cancelButton,SIGNAL(clicked()),this,SLOT(editorCancelled()));
+    connect(cancelButton, SIGNAL(clicked()),
+            this, SLOT(editorCancelled()));
 
     layout->addWidget(cancelButton);
 }
