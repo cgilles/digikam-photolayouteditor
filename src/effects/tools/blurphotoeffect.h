@@ -135,7 +135,7 @@ private:
 
         int bpl       = result.bytesPerLine();
         int rgba[4];
-        unsigned char * p;
+        unsigned char* p;
 
         for (int col = c1; col <= c2; col++)
         {

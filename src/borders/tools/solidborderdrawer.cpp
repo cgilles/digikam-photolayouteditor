@@ -38,7 +38,7 @@
 namespace PhotoLayoutsEditor
 {
 
-QMap<const char *,QString> SolidBorderDrawer::m_properties;
+QMap<const char*, QString> SolidBorderDrawer::m_properties;
 QMap<Qt::PenJoinStyle, QString> SolidBorderDrawer::m_corners_style_names;
 int SolidBorderDrawer::m_default_width = 1;
 QColor SolidBorderDrawer::m_default_color = Qt::red;
@@ -200,7 +200,7 @@ SolidBorderDrawer::operator QString() const
 
 QVariant SolidBorderDrawer::stringNames(const QMetaProperty& property)
 {
-    const char * name = property.name();
+    const char* name = property.name();
 
     if (!QString::fromLatin1("corners_style").compare(QLatin1String(name)))
         return QVariant(m_corners_style_names.values());
@@ -210,7 +210,7 @@ QVariant SolidBorderDrawer::stringNames(const QMetaProperty& property)
 
 QVariant SolidBorderDrawer::minimumValue(const QMetaProperty& property)
 {
-    const char * name = property.name();
+    const char* name = property.name();
 
     if (!QString::fromLatin1("width").compare(QLatin1String(name)))
         return 0;
@@ -223,7 +223,7 @@ QVariant SolidBorderDrawer::minimumValue(const QMetaProperty& property)
 
 QVariant SolidBorderDrawer::maximumValue(const QMetaProperty& property)
 {
-    const char * name = property.name();
+    const char* name = property.name();
 
     if (!QString::fromLatin1("width").compare(QLatin1String(name)))
         return 100;
@@ -236,7 +236,7 @@ QVariant SolidBorderDrawer::maximumValue(const QMetaProperty& property)
 
 QVariant SolidBorderDrawer::stepValue(const QMetaProperty& property)
 {
-    const char * name = property.name();
+    const char* name = property.name();
 
     if (!QString::fromLatin1("width").compare(QLatin1String(name)))
         return 1;

@@ -42,40 +42,40 @@ class PolaroidBorderDrawer : public BorderDrawerInterface
 {
     Q_OBJECT
 
-    int m_width;
-    QString m_text;
-    QColor m_color;
-    QFont m_font;
-    QPainterPath m_path;
-    QRectF m_text_rect;
+    int                               m_width;
+    QString                           m_text;
+    QColor                            m_color;
+    QFont                             m_font;
+    QPainterPath                      m_path;
+    QRectF                            m_text_rect;
 
-    static QMap<const char *,QString> m_properties;
-    static int m_default_width;
-    static QString m_default_text;
-    static QColor m_default_color;
-    static QFont m_default_font;
+    static QMap<const char*, QString> m_properties;
+    static int                        m_default_width;
+    static QString                    m_default_text;
+    static QColor                     m_default_color;
+    static QFont                      m_default_font;
 
 public:
 
     explicit PolaroidBorderDrawer(StandardBordersFactory* factory, QObject* parent = nullptr);
 
-    virtual QPainterPath path(const QPainterPath& path) override;
+    virtual QPainterPath path(const QPainterPath& path)                               override;
 
-    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option) override;
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option)     override;
 
-    virtual QString propertyName(const QMetaProperty& property) const override;
+    virtual QString propertyName(const QMetaProperty& property) const                 override;
 
-    virtual QVariant propertyValue(const QString& propertyName) const override;
+    virtual QVariant propertyValue(const QString& propertyName) const                 override;
 
     virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override;
 
-    virtual QDomElement toSvg(QDomDocument& document) const override;
+    virtual QDomElement toSvg(QDomDocument& document) const                          override;
 
-    virtual QString name() const override;
+    virtual QString name() const                                                     override;
 
-    virtual QString toString() const override;
+    virtual QString toString() const                                                 override;
 
-    virtual operator QString() const override;
+    virtual operator QString() const                                                 override;
 
     Q_PROPERTY(int width READ width WRITE setWidth)
 

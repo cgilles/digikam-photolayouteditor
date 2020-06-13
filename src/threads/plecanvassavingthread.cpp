@@ -173,7 +173,7 @@ void PLECanvasSavingThread::run()
     if (file.open(QFile::WriteOnly | QFile::Text))
     {
         QByteArray result = document.toByteArray();
-        const char * data = result.data();
+        const char* data = result.data();
         int i = 0;
         const int limit = result.size();
         int j2 = 1000;
