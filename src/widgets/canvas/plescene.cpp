@@ -538,7 +538,7 @@ class RemoveItemsCommand
             if (items.count())
             {
                 // Sort using z-Values (z-Value == models row)
-                qSort(items.begin(), items.end(), PhotoLayoutsEditor::RemoveItemsCommand::compareGraphicsItems);
+                std::sort(items.begin(), items.end(), PhotoLayoutsEditor::RemoveItemsCommand::compareGraphicsItems);
                 int i = 0;
 
                 foreach (QGraphicsItem* childItem, items)
@@ -571,7 +571,7 @@ public:
     {
         qDebug() << "scene crop shape" << path.boundingRect();
 
-        foreach (AbstractPhoto* item, items)
+        foreach (AbstractPhoto* const item, items)
             data.insert(item, item->mapFromScene(path));
     }
 
@@ -631,7 +631,8 @@ PLEScene::PLEScene(const QRectF& dimension, QObject* const parent)
     this->setItemIndexMethod(QGraphicsScene::NoIndex);
 
     // Signal connections
-    connect(this, SIGNAL(selectionChanged()), this, SLOT(updateSelection()));
+    connect(this, SIGNAL(selectionChanged()),
+            this, SLOT(updateSelection()));
 }
 
 PLEScene::~PLEScene()

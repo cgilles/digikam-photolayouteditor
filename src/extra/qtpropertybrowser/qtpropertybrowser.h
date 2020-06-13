@@ -72,7 +72,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtProperty
 public:
     virtual ~QtProperty();
 
-    QList<QtProperty *> subProperties() const;
+    QList<QtProperty*> subProperties() const;
 
     QtAbstractPropertyManager *propertyManager() const;
 
@@ -127,7 +127,7 @@ public:
     explicit QtAbstractPropertyManager(QObject *parent = nullptr);
     ~QtAbstractPropertyManager();
 
-    QSet<QtProperty *> properties() const;
+    QSet<QtProperty*> properties() const;
     void clear() const;
 
     QtProperty *addProperty(const QString &name = QString());
@@ -180,7 +180,7 @@ public:
     
     QWidget *createEditor(QtProperty *property, QWidget *parent) override
     {
-        QSetIterator<PropertyManager *> it(m_managers);
+        QSetIterator<PropertyManager*> it(m_managers);
         while (it.hasNext()) {
             PropertyManager *manager = it.next();
             if (manager == property->propertyManager()) {
@@ -207,14 +207,14 @@ public:
         disconnectPropertyManager(manager);
         m_managers.remove(manager);
     }
-    QSet<PropertyManager *> propertyManagers() const
+    QSet<PropertyManager*> propertyManagers() const
     {
         return m_managers;
     }
     PropertyManager *propertyManager(QtProperty *property) const
     {
         QtAbstractPropertyManager *manager = property->propertyManager();
-        QSetIterator<PropertyManager *> itManager(m_managers);
+        QSetIterator<PropertyManager*> itManager(m_managers);
         while (itManager.hasNext()) {
             PropertyManager *m = itManager.next();
             if (m == manager) {
@@ -230,7 +230,7 @@ protected:
     virtual void disconnectPropertyManager(PropertyManager *manager) = 0;
     void managerDestroyed(QObject *manager) override
     {
-        QSetIterator<PropertyManager *> it(m_managers);
+        QSetIterator<PropertyManager*> it(m_managers);
         while (it.hasNext()) {
             PropertyManager *m = it.next();
             if (m == manager) {
@@ -242,7 +242,7 @@ protected:
 private:
     void breakConnection(QtAbstractPropertyManager *manager) override
     {
-        QSetIterator<PropertyManager *> it(m_managers);
+        QSetIterator<PropertyManager*> it(m_managers);
         while (it.hasNext()) {
             PropertyManager *m = it.next();
             if (m == manager) {
@@ -252,7 +252,7 @@ private:
         }
     }
 private:
-    QSet<PropertyManager *> m_managers;
+    QSet<PropertyManager*> m_managers;
     friend class QtAbstractPropertyEditor;
 };
 
@@ -265,7 +265,7 @@ public:
 
     QtProperty *property() const;
     QtBrowserItem *parent() const;
-    QList<QtBrowserItem *> children() const;
+    QList<QtBrowserItem*> children() const;
     QtAbstractPropertyBrowser *browser() const;
 
 private:
@@ -290,10 +290,10 @@ public:
     explicit QtAbstractPropertyBrowser(QWidget *parent = nullptr);
     ~QtAbstractPropertyBrowser();
 
-    QList<QtProperty *> properties() const;
-    QList<QtBrowserItem *> items(QtProperty *property) const;
+    QList<QtProperty*> properties() const;
+    QList<QtBrowserItem*> items(QtProperty *property) const;
     QtBrowserItem *topLevelItem(QtProperty *property) const;
-    QList<QtBrowserItem *> topLevelItems() const;
+    QList<QtBrowserItem*> topLevelItems() const;
     void clear();
 
     template <class PropertyManager>
@@ -336,9 +336,9 @@ private:
     QtAbstractPropertyBrowserPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtAbstractPropertyBrowser)
     Q_DISABLE_COPY(QtAbstractPropertyBrowser)
-    Q_PRIVATE_SLOT(d_func(), void slotPropertyInserted(QtProperty *,
-                            QtProperty *, QtProperty *))
-    Q_PRIVATE_SLOT(d_func(), void slotPropertyRemoved(QtProperty *,
+    Q_PRIVATE_SLOT(d_func(), void slotPropertyInserted(QtProperty*,
+                            QtProperty*, QtProperty *))
+    Q_PRIVATE_SLOT(d_func(), void slotPropertyRemoved(QtProperty*,
                             QtProperty *))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDataChanged(QtProperty *))

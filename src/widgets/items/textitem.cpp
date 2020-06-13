@@ -592,13 +592,13 @@ void TextItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
         while (width < p.x() && d->m_cursor_character < limit)
         {
-            width = m_metrics.width(currentLine, ++(d->m_cursor_character));
+            width = m_metrics.horizontalAdvance(currentLine, ++(d->m_cursor_character));
             rightSpace = width - p.x();
         }
 
         if (d->m_cursor_character > 0)
         {
-            width = m_metrics.width(currentLine, --(d->m_cursor_character));
+            width = m_metrics.horizontalAdvance(currentLine, --(d->m_cursor_character));
             leftSpace = p.x() - width;
         }
 
@@ -708,8 +708,8 @@ void TextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
 
         if ( d->m_string_list.count() > d->m_cursor_row && !d->m_string_list.at(d->m_cursor_row).isEmpty() )
         {
-            x = m_metrics.width(d->m_string_list.at(d->m_cursor_row),
-                                d->m_cursor_character)
+            x = m_metrics.horizontalAdvance(d->m_string_list.at(d->m_cursor_row),
+                                            d->m_cursor_character)
                 - m_metrics.leftBearing(d->m_string_list.at(d->m_cursor_row).at(0));
         }
 
@@ -885,7 +885,7 @@ void TextItem::refreshItem()
     {
         if (string.length())
         {
-            int width = m_metrics.width(string);
+            int width = m_metrics.horizontalAdvance(string);
             int leftBearing = -m_metrics.leftBearing(string.at(0));
             m_text_path.addText(leftBearing,
                                 lineSpacing*(i)-m_metrics.descent(),

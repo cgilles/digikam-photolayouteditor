@@ -93,7 +93,7 @@ class EditorFactoryPrivate
 public:
 
     typedef QList<Editor *> EditorList;
-    typedef QMap<QtProperty *, EditorList> PropertyToEditorListMap;
+    typedef QMap<QtProperty*, EditorList> PropertyToEditorListMap;
     typedef QMap<Editor *, QtProperty *> EditorToPropertyMap;
 
     Editor *createEditor(QtProperty *property, QWidget *parent);
@@ -211,8 +211,8 @@ void QtSpinBoxFactoryPrivate::slotSingleStepChanged(QtProperty *property, int st
 void QtSpinBoxFactoryPrivate::slotSetValue(int value)
 {
     QObject *object = q_ptr->sender();
-    const QMap<QSpinBox *, QtProperty *>::ConstIterator  ecend = m_editorToProperty.constEnd();
-    for (QMap<QSpinBox *, QtProperty *>::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor !=  ecend; ++itEditor) {
+    const QMap<QSpinBox *, QtProperty *>::const_iterator  ecend = m_editorToProperty.constEnd();
+    for (QMap<QSpinBox *, QtProperty *>::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor !=  ecend; ++itEditor) {
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtIntPropertyManager* manager = q_ptr->propertyManager(property);
@@ -369,8 +369,8 @@ void QtSliderFactoryPrivate::slotSingleStepChanged(QtProperty *property, int ste
 void QtSliderFactoryPrivate::slotSetValue(int value)
 {
     QObject *object = q_ptr->sender();
-    const QMap<QSlider *, QtProperty *>::ConstIterator ecend = m_editorToProperty.constEnd();
-    for (QMap<QSlider *, QtProperty *>::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor ) {
+    const QMap<QSlider *, QtProperty *>::const_iterator ecend = m_editorToProperty.constEnd();
+    for (QMap<QSlider *, QtProperty *>::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor ) {
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtIntPropertyManager* manager = q_ptr->propertyManager(property);
@@ -529,8 +529,8 @@ void QtScrollBarFactoryPrivate::slotSingleStepChanged(QtProperty *property, int 
 void QtScrollBarFactoryPrivate::slotSetValue(int value)
 {
     QObject *object = q_ptr->sender();
-    const QMap<QScrollBar *, QtProperty *>::ConstIterator ecend = m_editorToProperty.constEnd();
-    for (QMap<QScrollBar *, QtProperty *>::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
+    const QMap<QScrollBar *, QtProperty *>::const_iterator ecend = m_editorToProperty.constEnd();
+    for (QMap<QScrollBar *, QtProperty *>::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtIntPropertyManager* manager = q_ptr->propertyManager(property);
@@ -654,8 +654,8 @@ void QtCheckBoxFactoryPrivate::slotSetValue(bool value)
 {
     QObject *object = q_ptr->sender();
 
-    const QMap<QtBoolEdit *, QtProperty *>::ConstIterator ecend = m_editorToProperty.constEnd();
-    for (QMap<QtBoolEdit *, QtProperty *>::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend;  ++itEditor)
+    const QMap<QtBoolEdit *, QtProperty *>::const_iterator ecend = m_editorToProperty.constEnd();
+    for (QMap<QtBoolEdit *, QtProperty *>::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend;  ++itEditor)
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtBoolPropertyManager *manager = q_ptr->propertyManager(property);
@@ -831,8 +831,8 @@ void QtDoubleSpinBoxFactoryPrivate::slotDecimalsChanged(QtProperty *property, in
 void QtDoubleSpinBoxFactoryPrivate::slotSetValue(double value)
 {
     QObject *object = q_ptr->sender();
-    const QMap<QDoubleSpinBox *, QtProperty *>::ConstIterator itcend = m_editorToProperty.constEnd();
-    for (QMap<QDoubleSpinBox *, QtProperty *>::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != itcend; ++itEditor) {
+    const QMap<QDoubleSpinBox *, QtProperty *>::const_iterator itcend = m_editorToProperty.constEnd();
+    for (QMap<QDoubleSpinBox *, QtProperty *>::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != itcend; ++itEditor) {
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtDoublePropertyManager* manager = q_ptr->propertyManager(property);
@@ -988,8 +988,8 @@ void QtLineEditFactoryPrivate::slotRegExpChanged(QtProperty *property,
 void QtLineEditFactoryPrivate::slotSetValue(const QString &value)
 {
     QObject *object = q_ptr->sender();
-    const QMap<QLineEdit *, QtProperty *>::ConstIterator ecend = m_editorToProperty.constEnd();
-    for (QMap<QLineEdit *, QtProperty *>::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
+    const QMap<QLineEdit *, QtProperty *>::const_iterator ecend = m_editorToProperty.constEnd();
+    for (QMap<QLineEdit *, QtProperty *>::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtStringPropertyManager *manager = q_ptr->propertyManager(property);
@@ -1133,8 +1133,8 @@ void QtDateEditFactoryPrivate::slotRangeChanged(QtProperty *property,
 void QtDateEditFactoryPrivate::slotSetValue(const QDate &value)
 {
     QObject *object = q_ptr->sender();
-    const QMap<QDateEdit *, QtProperty *>::ConstIterator  ecend = m_editorToProperty.constEnd();
-    for (QMap<QDateEdit *, QtProperty *>::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
+    const QMap<QDateEdit *, QtProperty *>::const_iterator  ecend = m_editorToProperty.constEnd();
+    for (QMap<QDateEdit *, QtProperty *>::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtDatePropertyManager *manager = q_ptr->propertyManager(property);
@@ -1253,8 +1253,8 @@ void QtTimeEditFactoryPrivate::slotPropertyChanged(QtProperty *property, const Q
 void QtTimeEditFactoryPrivate::slotSetValue(const QTime &value)
 {
     QObject *object = q_ptr->sender();
-    const  QMap<QTimeEdit *, QtProperty *>::ConstIterator ecend = m_editorToProperty.constEnd();
-    for (QMap<QTimeEdit *, QtProperty *>::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
+    const  QMap<QTimeEdit *, QtProperty *>::const_iterator ecend = m_editorToProperty.constEnd();
+    for (QMap<QTimeEdit *, QtProperty *>::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtTimePropertyManager *manager = q_ptr->propertyManager(property);
@@ -1369,8 +1369,8 @@ void QtDateTimeEditFactoryPrivate::slotPropertyChanged(QtProperty *property,
 void QtDateTimeEditFactoryPrivate::slotSetValue(const QDateTime &value)
 {
     QObject *object = q_ptr->sender();
-    const  QMap<QDateTimeEdit *, QtProperty *>::ConstIterator ecend = m_editorToProperty.constEnd();
-    for (QMap<QDateTimeEdit *, QtProperty *>::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend;  ++itEditor)
+    const  QMap<QDateTimeEdit *, QtProperty *>::const_iterator ecend = m_editorToProperty.constEnd();
+    for (QMap<QDateTimeEdit *, QtProperty *>::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend;  ++itEditor)
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtDateTimePropertyManager *manager = q_ptr->propertyManager(property);
@@ -1485,8 +1485,8 @@ void QtKeySequenceEditorFactoryPrivate::slotPropertyChanged(QtProperty *property
 void QtKeySequenceEditorFactoryPrivate::slotSetValue(const QKeySequence &value)
 {
     QObject *object = q_ptr->sender();
-    const  QMap<QtKeySequenceEdit *, QtProperty *>::ConstIterator ecend = m_editorToProperty.constEnd();
-    for (QMap<QtKeySequenceEdit *, QtProperty *>::ConstIterator itEditor =  m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
+    const  QMap<QtKeySequenceEdit *, QtProperty *>::const_iterator ecend = m_editorToProperty.constEnd();
+    for (QMap<QtKeySequenceEdit *, QtProperty *>::const_iterator itEditor =  m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtKeySequencePropertyManager *manager = q_ptr->propertyManager(property);
@@ -1782,8 +1782,8 @@ void QtCharEditorFactoryPrivate::slotPropertyChanged(QtProperty *property,
 void QtCharEditorFactoryPrivate::slotSetValue(const QChar &value)
 {
     QObject *object = q_ptr->sender();
-    const QMap<QtCharEdit *, QtProperty *>::ConstIterator ecend = m_editorToProperty.constEnd();
-    for (QMap<QtCharEdit *, QtProperty *>::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend;  ++itEditor)
+    const QMap<QtCharEdit *, QtProperty *>::const_iterator ecend = m_editorToProperty.constEnd();
+    for (QMap<QtCharEdit *, QtProperty *>::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend;  ++itEditor)
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtCharPropertyManager *manager = q_ptr->propertyManager(property);
@@ -1951,8 +1951,8 @@ void QtEnumEditorFactoryPrivate::slotEnumIconsChanged(QtProperty *property,
 void QtEnumEditorFactoryPrivate::slotSetValue(int value)
 {
     QObject *object = q_ptr->sender();
-    const  QMap<QComboBox *, QtProperty *>::ConstIterator ecend = m_editorToProperty.constEnd();
-    for (QMap<QComboBox *, QtProperty *>::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
+    const  QMap<QComboBox *, QtProperty *>::const_iterator ecend = m_editorToProperty.constEnd();
+    for (QMap<QComboBox *, QtProperty *>::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtEnumPropertyManager* manager = q_ptr->propertyManager(property);
@@ -2062,9 +2062,9 @@ public:
     QtEnumEditorFactory *m_enumEditorFactory;
     QtEnumPropertyManager* m_enumPropertyManager;
 
-    QMap<QtProperty *, QtProperty *> m_propertyToEnum;
-    QMap<QtProperty *, QtProperty *> m_enumToProperty;
-    QMap<QtProperty *, QList<QWidget *> > m_enumToEditors;
+    QMap<QtProperty*, QtProperty *> m_propertyToEnum;
+    QMap<QtProperty*, QtProperty *> m_enumToProperty;
+    QMap<QtProperty*, QList<QWidget *> > m_enumToEditors;
     QMap<QWidget *, QtProperty *> m_editorToEnum;
     bool m_updatingEnum;
 };
@@ -2110,8 +2110,8 @@ void QtCursorEditorFactoryPrivate::slotEditorDestroyed(QObject *object)
     // remove from m_editorToEnum map;
     // remove from m_enumToEditors map;
     // if m_enumToEditors doesn't contains more editors delete enum property;
-    const  QMap<QWidget *, QtProperty *>::ConstIterator ecend = m_editorToEnum.constEnd();
-    for (QMap<QWidget *, QtProperty *>::ConstIterator itEditor = m_editorToEnum.constBegin(); itEditor != ecend; ++itEditor)
+    const  QMap<QWidget *, QtProperty *>::const_iterator ecend = m_editorToEnum.constEnd();
+    for (QMap<QWidget *, QtProperty *>::const_iterator itEditor = m_editorToEnum.constBegin(); itEditor != ecend; ++itEditor)
         if (itEditor.key() == object) {
             QWidget *editor = itEditor.key();
             QtProperty *enumProp = itEditor.value();
@@ -2278,11 +2278,12 @@ void QtColorEditWidget::setValue(const QColor &c)
 
 void QtColorEditWidget::buttonClicked()
 {
-    bool ok = false;
     QRgb oldRgba = m_color.rgba();
-    QRgb newRgba = QColorDialog::getRgba(oldRgba, &ok, this);
-    if (ok && newRgba != oldRgba) {
-        setValue(QColor::fromRgba(newRgba));
+    QColor newRgba = QColorDialog::getColor(oldRgba, this);
+
+    if (newRgba.isValid() && newRgba.rgba() != oldRgba)
+    {
+        setValue(QColor::fromRgba(newRgba.rgba()));
         emit valueChanged(m_color);
     }
 }
@@ -2354,8 +2355,8 @@ void QtColorEditorFactoryPrivate::slotPropertyChanged(QtProperty *property,
 void QtColorEditorFactoryPrivate::slotSetValue(const QColor &value)
 {
     QObject *object = q_ptr->sender();
-    const EditorToPropertyMap::ConstIterator ecend = m_editorToProperty.constEnd();
-    for (EditorToPropertyMap::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
+    const EditorToPropertyMap::const_iterator ecend = m_editorToProperty.constEnd();
+    for (EditorToPropertyMap::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtColorPropertyManager *manager = q_ptr->propertyManager(property);
@@ -2584,8 +2585,8 @@ void QtFontEditorFactoryPrivate::slotPropertyChanged(QtProperty *property,
 void QtFontEditorFactoryPrivate::slotSetValue(const QFont &value)
 {
     QObject *object = q_ptr->sender();
-    const EditorToPropertyMap::ConstIterator ecend = m_editorToProperty.constEnd();
-    for (EditorToPropertyMap::ConstIterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
+    const EditorToPropertyMap::const_iterator ecend = m_editorToProperty.constEnd();
+    for (EditorToPropertyMap::const_iterator itEditor = m_editorToProperty.constBegin(); itEditor != ecend; ++itEditor)
         if (itEditor.key() == object) {
             QtProperty *property = itEditor.value();
             QtFontPropertyManager *manager = q_ptr->propertyManager(property);

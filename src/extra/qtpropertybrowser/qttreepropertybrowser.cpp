@@ -99,10 +99,10 @@ public:
 private:
     void updateItem(QTreeWidgetItem *item);
 
-    QMap<QtBrowserItem *, QTreeWidgetItem *> m_indexToItem;
+    QMap<QtBrowserItem*, QTreeWidgetItem *> m_indexToItem;
     QMap<QTreeWidgetItem *, QtBrowserItem *> m_itemToIndex;
 
-    QMap<QtBrowserItem *, QColor> m_indexToBackgroundColor;
+    QMap<QtBrowserItem*, QColor> m_indexToBackgroundColor;
 
     QtPropertyEditorView *m_treeWidget;
 
@@ -275,7 +275,7 @@ private:
     typedef QMap<QWidget *, QtProperty *> EditorToPropertyMap;
     mutable EditorToPropertyMap m_editorToProperty;
 
-    typedef QMap<QtProperty *, QWidget *> PropertyToEditorMap;
+    typedef QMap<QtProperty*, QWidget *> PropertyToEditorMap;
     mutable PropertyToEditorMap m_propertyToEditor;
     QtTreePropertyBrowserPrivate *m_editorPrivate;
     mutable QTreeWidgetItem *m_editedItem;
@@ -690,9 +690,9 @@ void QtTreePropertyBrowserPrivate::updateItem(QTreeWidgetItem *item)
 QColor QtTreePropertyBrowserPrivate::calculatedBackgroundColor(QtBrowserItem *item) const
 {
     QtBrowserItem *i = item;
-    const QMap<QtBrowserItem *, QColor>::const_iterator itEnd = m_indexToBackgroundColor.constEnd();
+    const QMap<QtBrowserItem*, QColor>::const_iterator itEnd = m_indexToBackgroundColor.constEnd();
     while (i) {
-        QMap<QtBrowserItem *, QColor>::const_iterator it = m_indexToBackgroundColor.constFind(i);
+        QMap<QtBrowserItem*, QColor>::const_iterator it = m_indexToBackgroundColor.constFind(i);
         if (it != itEnd)
             return it.value();
         i = i->parent();

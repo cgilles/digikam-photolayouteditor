@@ -95,7 +95,7 @@ void UndoRemoveItem::appendChild(AbstractPhoto* item, const QModelIndex& parent)
     if (items.count())
     {
         // Sort using z-Values (z-Value == models row)
-        qSort(items.begin(), items.end(), UndoRemoveItem::compareGraphicsItems);
+        std::sort(items.begin(), items.end(), UndoRemoveItem::compareGraphicsItems);
         int i = 0;
         foreach (QGraphicsItem* childItem, items)
         {

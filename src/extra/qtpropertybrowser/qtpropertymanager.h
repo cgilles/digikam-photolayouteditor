@@ -347,7 +347,7 @@ private:
     QtLocalePropertyManagerPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtLocalePropertyManager)
     Q_DISABLE_COPY(QtLocalePropertyManager)
-    Q_PRIVATE_SLOT(d_func(), void slotEnumChanged(QtProperty *, int))
+    Q_PRIVATE_SLOT(d_func(), void slotEnumChanged(QtProperty*, int))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
 };
 
@@ -376,7 +376,7 @@ private:
     QtPointPropertyManagerPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtPointPropertyManager)
     Q_DISABLE_COPY(QtPointPropertyManager)
-    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty *, int))
+    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty*, int))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
 };
 
@@ -408,7 +408,7 @@ private:
     QtPointFPropertyManagerPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtPointFPropertyManager)
     Q_DISABLE_COPY(QtPointFPropertyManager)
-    Q_PRIVATE_SLOT(d_func(), void slotDoubleChanged(QtProperty *, double))
+    Q_PRIVATE_SLOT(d_func(), void slotDoubleChanged(QtProperty*, double))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
 };
 
@@ -443,7 +443,7 @@ private:
     QtSizePropertyManagerPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtSizePropertyManager)
     Q_DISABLE_COPY(QtSizePropertyManager)
-    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty *, int))
+    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty*, int))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
 };
 
@@ -481,7 +481,7 @@ private:
     QtSizeFPropertyManagerPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtSizeFPropertyManager)
     Q_DISABLE_COPY(QtSizeFPropertyManager)
-    Q_PRIVATE_SLOT(d_func(), void slotDoubleChanged(QtProperty *, double))
+    Q_PRIVATE_SLOT(d_func(), void slotDoubleChanged(QtProperty*, double))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
 };
 
@@ -513,7 +513,7 @@ private:
     QtRectPropertyManagerPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtRectPropertyManager)
     Q_DISABLE_COPY(QtRectPropertyManager)
-    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty *, int))
+    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty*, int))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
 };
 
@@ -548,7 +548,7 @@ private:
     QtRectFPropertyManagerPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtRectFPropertyManager)
     Q_DISABLE_COPY(QtRectFPropertyManager)
-    Q_PRIVATE_SLOT(d_func(), void slotDoubleChanged(QtProperty *, double))
+    Q_PRIVATE_SLOT(d_func(), void slotDoubleChanged(QtProperty*, double))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
 };
 
@@ -612,7 +612,7 @@ private:
     QtFlagPropertyManagerPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtFlagPropertyManager)
     Q_DISABLE_COPY(QtFlagPropertyManager)
-    Q_PRIVATE_SLOT(d_func(), void slotBoolChanged(QtProperty *, bool))
+    Q_PRIVATE_SLOT(d_func(), void slotBoolChanged(QtProperty*, bool))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
 };
 
@@ -642,8 +642,8 @@ private:
     QtSizePolicyPropertyManagerPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtSizePolicyPropertyManager)
     Q_DISABLE_COPY(QtSizePolicyPropertyManager)
-    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty *, int))
-    Q_PRIVATE_SLOT(d_func(), void slotEnumChanged(QtProperty *, int))
+    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty*, int))
+    Q_PRIVATE_SLOT(d_func(), void slotEnumChanged(QtProperty*, int))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
 };
 
@@ -675,9 +675,9 @@ private:
     QtFontPropertyManagerPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtFontPropertyManager)
     Q_DISABLE_COPY(QtFontPropertyManager)
-    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty *, int))
-    Q_PRIVATE_SLOT(d_func(), void slotEnumChanged(QtProperty *, int))
-    Q_PRIVATE_SLOT(d_func(), void slotBoolChanged(QtProperty *, bool))
+    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty*, int))
+    Q_PRIVATE_SLOT(d_func(), void slotEnumChanged(QtProperty*, int))
+    Q_PRIVATE_SLOT(d_func(), void slotBoolChanged(QtProperty*, bool))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
     Q_PRIVATE_SLOT(d_func(), void slotFontDatabaseChanged())
     Q_PRIVATE_SLOT(d_func(), void slotFontDatabaseDelayedChange())
@@ -709,7 +709,7 @@ private:
     QtColorPropertyManagerPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtColorPropertyManager)
     Q_DISABLE_COPY(QtColorPropertyManager)
-    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty *, int))
+    Q_PRIVATE_SLOT(d_func(), void slotIntChanged(QtProperty*, int))
     Q_PRIVATE_SLOT(d_func(), void slotPropertyDestroyed(QtProperty *))
 };
 

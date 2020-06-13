@@ -339,7 +339,7 @@ void PLESliderEditFactory::disconnectPropertyManager(QtIntPropertyManager* manag
 void PLESliderEditFactory::slotEditorDestroyed(QObject* object)
 {
     emit editingFinished();
-    QMap<QWidget*, QtProperty*>::ConstIterator itEditor = editorToProperty.constBegin();
+    QMap<QWidget*, QtProperty*>::const_iterator itEditor = editorToProperty.constBegin();
 
     while (itEditor != editorToProperty.constEnd())
     {
