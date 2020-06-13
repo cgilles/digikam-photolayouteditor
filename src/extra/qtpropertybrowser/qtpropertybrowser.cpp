@@ -815,7 +815,7 @@ QtProperty *QtAbstractPropertyManager::addProperty(const QString &name)
 */
 QtProperty* QtAbstractPropertyManager::qtProperty(const QString &id)const
 {
-  foreach (QtProperty* prop, d_ptr->m_properties)
+  foreach (QtProperty* const prop, d_ptr->m_properties)
     {
     if (prop->propertyId() == id)
       {

@@ -65,7 +65,7 @@ void LayersTreeDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
     if (index.column() == LayersModelItem::EyeIcon)
     {
         painter->fillRect(option.rect,Qt::white);
-        AbstractPhoto* photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
+        AbstractPhoto* const photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
         if (photo)
         {
             QPoint point = option.rect.topLeft();
@@ -81,7 +81,7 @@ void LayersTreeDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
     else if (index.column() == LayersModelItem::PadLockIcon)
     {
         painter->fillRect(option.rect,Qt::white);
-        AbstractPhoto* photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
+        AbstractPhoto* const photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
 
         if (photo)
         {
@@ -114,7 +114,7 @@ void LayersTreeDelegate::itemClicked(const QModelIndex& index)
 {
     if (index.column() == LayersModelItem::EyeIcon)
     {
-        AbstractPhoto* photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
+        AbstractPhoto* const photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
 
         if (photo)
         {
@@ -124,7 +124,7 @@ void LayersTreeDelegate::itemClicked(const QModelIndex& index)
     }
     else if (index.column() == LayersModelItem::PadLockIcon)
     {
-        AbstractPhoto* photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
+        AbstractPhoto* const photo = static_cast<LayersModelItem*>(index.internalPointer())->photo();
 
         if (photo)
         {

@@ -26,6 +26,7 @@
 
 // Qt includes
 
+#include <QPointer>
 #include <QMap>
 #include <QStringList>
 #include <QMetaProperty>
@@ -194,7 +195,7 @@ QWidget* BorderDrawersLoader::createEditor(BorderDrawerInterface* drawer, bool c
     }
 
     QtTreePropertyBrowser* browser           = new QtTreePropertyBrowser();
-    BorderChangeListener* listener           = new BorderChangeListener(drawer, browser, createCommands);
+    QPointer<BorderChangeListener> listener  = new BorderChangeListener(drawer, browser, createCommands);
 
     // QVariant type of property
     QtVariantPropertyManager* variantManager = nullptr;

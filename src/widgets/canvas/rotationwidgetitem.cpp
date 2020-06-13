@@ -408,7 +408,7 @@ void RotationWidgetItem::setItems(const QList<AbstractPhoto*>& items)
 
     QPainterPath itemsPath;
 
-    foreach (AbstractPhoto* item, items)
+    foreach (AbstractPhoto* const item, items)
         itemsPath += this->mapFromItem(item, item->shape());
 
     initRotation(itemsPath, items.at(0)->boundingRect().center() * items.at(0)->transform());

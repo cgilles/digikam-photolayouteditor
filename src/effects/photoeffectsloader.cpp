@@ -198,7 +198,7 @@ QtAbstractPropertyBrowser* PhotoEffectsLoader::propertyBrowser(AbstractPhotoEffe
                     property = variantManager->addProperty(metaProperty.type(), propertyName);
                     variantManager->setValue(property, metaProperty.read(effect));
 
-                    foreach (QtProperty* p, property->subProperties())
+                    foreach (QtProperty* const p, property->subProperties())
                         p->setEnabled(false);
                 }
         }

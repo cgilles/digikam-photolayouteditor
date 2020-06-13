@@ -1359,7 +1359,7 @@ void addPropertyRecusively(QtVariantPropertyManager* manager,
   newProp->setEnabled(prop->isEnabled());
   newProp->setValue(prop->value());
 
-  foreach (QtProperty* subProp, prop->subProperties())
+  foreach (QtProperty* const subProp, prop->subProperties())
     {
     QtVariantProperty * variantSubProp = dynamic_cast<QtVariantProperty*>(subProp);
     Q_ASSERT(variantSubProp);
@@ -1379,7 +1379,7 @@ void addPropertyRecusively(QtVariantPropertyManager* manager,
 void QtVariantPropertyManager::setProperties(QSet<QtProperty*> properties)
 {
   this->clear();
-  foreach (QtProperty* prop, properties)
+  foreach (QtProperty* const prop, properties)
     {
     QtVariantProperty * variantProp = dynamic_cast<QtVariantProperty*>(prop);
     if (!variantProp){ continue; }

@@ -53,12 +53,16 @@ UndoRemoveItem::~UndoRemoveItem()
 void UndoRemoveItem::redo()
 {
     // Remove from model
+
     m_parentIndex = m_model->findIndex(m_parentItem);
     m_itemIndex = m_model->findIndex(m_item, m_parentIndex);
     m_row = m_itemIndex.row();
+
     if (m_itemIndex.isValid())
         m_model->removeRow(m_row,m_parentIndex);
+
     // Remove from scene
+
     if (m_item->scene() == m_scene)
         m_scene->removeItem(m_item);
 }
@@ -66,11 +70,16 @@ void UndoRemoveItem::redo()
 void UndoRemoveItem::undo()
 {
     // Add to scene
+
     if (m_item->scene() != m_scene)
         m_scene->addItem(m_item);
+
     m_item->setParentItem(m_parentItem);
+
     // Add to model
+
     m_parentIndex = m_model->findIndex(m_parentItem);
+
     if (!m_model->hasIndex(m_row,0,m_parentIndex) || static_cast<LayersModelItem*>(m_model->index(m_row,0,m_parentIndex).internalPointer())->photo() != m_item)
     {
         if (m_model->insertRow(m_row,m_parentIndex))
@@ -86,20 +95,24 @@ bool UndoRemoveItem::compareGraphicsItems(QGraphicsItem* i1, QGraphicsItem* i2)
 {
     if ((i1 && i2) && (i1->zValue() < i2->zValue()))
         return true;
+
     return false;
 }
 
 void UndoRemoveItem::appendChild(AbstractPhoto* item, const QModelIndex& parent)
 {
     QList<QGraphicsItem*> items = item->childItems();
+
     if (items.count())
     {
         // Sort using z-Values (z-Value == models row)
         std::sort(items.begin(), items.end(), UndoRemoveItem::compareGraphicsItems);
         int i = 0;
-        foreach (QGraphicsItem* childItem, items)
+
+        foreach (QGraphicsItem* const childItem, items)
         {
-            AbstractPhoto* photo = dynamic_cast<AbstractPhoto*>(childItem);
+            AbstractPhoto* const photo = dynamic_cast<AbstractPhoto*>(childItem);
+
             if (photo)
             {
                 if (m_model->insertRow(i,parent))

@@ -245,9 +245,9 @@ void LayersModelItem::refreshZValues()
 {
     int i = childItems.count();
 
-    foreach (LayersModelItem* item, childItems)
+    foreach (LayersModelItem* const item, childItems)
     {
-        AbstractPhoto* photo = item->photo();
+        AbstractPhoto* const photo = item->photo();
 
         if (photo)
             photo->setZValue(i);

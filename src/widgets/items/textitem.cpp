@@ -934,7 +934,7 @@ QtAbstractPropertyBrowser* TextItem::propertyBrowser()
     colorListener->connect(colorManager, SIGNAL(propertyChanged(QtProperty*)),
                            SLOT(propertyChanged(QtProperty*)));
 
-    foreach (QtProperty* p, colorProperty->subProperties())
+    foreach (QtProperty* const p, colorProperty->subProperties())
         p->setEnabled(false);
 
     // Font
@@ -953,7 +953,7 @@ QtAbstractPropertyBrowser* TextItem::propertyBrowser()
     fontListener->connect(fontManager, SIGNAL(propertyChanged(QtProperty*)),
                           SLOT(propertyChanged(QtProperty*)));
 
-    foreach (QtProperty* p, fontProperty->subProperties())
+    foreach (QtProperty* const p, fontProperty->subProperties())
         p->setEnabled(false);
 
     return browser;

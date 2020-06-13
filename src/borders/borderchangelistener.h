@@ -45,8 +45,8 @@ class BorderChangeListener : public QObject
     Q_OBJECT
 
     BorderDrawerInterface* drawer;
-    BorderChangeCommand* command;
-    bool createCommands;
+    BorderChangeCommand*   command;
+    bool                   createCommands;
 
 public:
 
