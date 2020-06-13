@@ -22,8 +22,10 @@
  *
  * ============================================================ */
 
-#ifndef COLORIZEPHOTOEFFECT_H
-#define COLORIZEPHOTOEFFECT_H
+#ifndef COLORIZE_PHOTO_EFFECT_H
+#define COLORIZE_PHOTO_EFFECT_H
+
+// Local includes
 
 #include "abstractphotoeffectinterface.h"
 
@@ -31,77 +33,90 @@
 
 namespace PhotoLayoutsEditor
 {
-    class StandardEffectsFactory;
-    class ColorizePhotoEffect : public AbstractPhotoEffectInterface
+
+class StandardEffectsFactory;
+
+class ColorizePhotoEffect : public AbstractPhotoEffectInterface
+{
+    Q_OBJECT
+
+    static QColor m_last_color;
+    QColor        m_color;
+
+public:
+
+    explicit ColorizePhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
+    virtual QImage apply(const QImage& image) const override;
+    virtual QString name() const override;
+    virtual QString toString() const override;
+    virtual operator QString() const override;
+
+    virtual QString propertyName(const QMetaProperty& property) const override
     {
-            Q_OBJECT
+        if (!QString::fromLatin1("color").compare(QLatin1String(property.name())))
+            return COLOR_PROPERTY;
 
-            static QColor m_last_color;
-            QColor m_color;
+        return AbstractPhotoEffectInterface::propertyName(property);
+    }
 
-        public:
+    virtual QVariant propertyValue(const QString& propertyName) const override
+    {
+        if (propertyName == COLOR_PROPERTY)
+            return m_color;
 
-            explicit ColorizePhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
-            virtual QImage apply(const QImage& image) const override;
-            virtual QString name() const override;
-            virtual QString toString() const override;
-            virtual operator QString() const override;
+        return AbstractPhotoEffectInterface::propertyValue(propertyName);
+    }
 
-            virtual QString propertyName(const QMetaProperty& property) const override
-            {
-                if (!QString::fromLatin1("color").compare(QLatin1String(property.name())))
-                    return COLOR_PROPERTY;
-                return AbstractPhotoEffectInterface::propertyName(property);
-            }
-            virtual QVariant propertyValue(const QString& propertyName) const override
-            {
-                if (propertyName == COLOR_PROPERTY)
-                    return m_color;
-                return AbstractPhotoEffectInterface::propertyValue(propertyName);
-            }
-            virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override
-            {
-                if (COLOR_PROPERTY == propertyName)
-                    this->setColor(value.value<QColor>());
-                else
-                    AbstractPhotoEffectInterface::setPropertyValue(propertyName, value);
-            }
+    virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override
+    {
+        if (COLOR_PROPERTY == propertyName)
+            this->setColor(value.value<QColor>());
+        else
+            AbstractPhotoEffectInterface::setPropertyValue(propertyName, value);
+    }
 
-            Q_PROPERTY(QColor color READ color WRITE setColor)
-            QColor color() const
-            {
-                return m_color;
-            }
-            void setColor(QColor color)
-            {
-                if (!color.isValid())
-                    return;
-                m_color = color;
-                m_last_color = color;
-                this->propertiesChanged();
-            }
+    Q_PROPERTY(QColor color READ color WRITE setColor)
 
-        private:
+    QColor color() const
+    {
+        return m_color;
+    }
 
-            static inline QImage colorized(const QImage& image, const QColor& color)
-            {
-                QImage result = image;
-                unsigned int pixels = result.width() * result.height();
-                unsigned int * data = reinterpret_cast<unsigned int*>(result.bits());
-                for (unsigned int i = 0; i < pixels; ++i)
-                {
-                    int val = qGray(data[i]);
-                    data[i] = qRgb(val,val,val);
-                }
-                QPainter p(&result);
-                p.setCompositionMode(QPainter::CompositionMode_Overlay);
-                p.fillRect(result.rect(),color);
-                p.end();
-                return result;
-            }
+    void setColor(QColor color)
+    {
+        if (!color.isValid())
+            return;
 
-        friend class StandardEffectsFactory;
-    };
-}
+        m_color = color;
+        m_last_color = color;
+        this->propertiesChanged();
+    }
 
-#endif // COLORIZEPHOTOEFFECT_H
+private:
+
+    static inline QImage colorized(const QImage& image, const QColor& color)
+    {
+        QImage result = image;
+        unsigned int pixels = result.width() * result.height();
+        unsigned int* data = reinterpret_cast<unsigned int*>(result.bits());
+
+        for (unsigned int i = 0; i < pixels; ++i)
+        {
+            int val = qGray(data[i]);
+            data[i] = qRgb(val,val,val);
+        }
+
+        QPainter p(&result);
+        p.setCompositionMode(QPainter::CompositionMode_Overlay);
+        p.fillRect(result.rect(),color);
+        p.end();
+
+        return result;
+    }
+
+    friend class StandardEffectsFactory;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // COLORIZE_PHOTO_EFFECT_H

@@ -22,26 +22,30 @@
  *
  * ============================================================ */
 
-#ifndef STANDARDEFFECTSFACTORY_H
-#define STANDARDEFFECTSFACTORY_H
+#ifndef STANDARD_EFFECTS_FACTORY_H
+#define STANDARD_EFFECTS_FACTORY_H
+
+// Local includes
 
 #include "abstractphotoeffectfactory.h"
 
 namespace PhotoLayoutsEditor
 {
-    class StandardEffectsFactory : public AbstractPhotoEffectFactory
+
+class StandardEffectsFactory : public AbstractPhotoEffectFactory
+{
+public:
+
+    explicit StandardEffectsFactory(QObject* parent = nullptr);
+  
+    virtual ~StandardEffectsFactory()
     {
-        public:
+    }
 
-            explicit StandardEffectsFactory(QObject* parent = nullptr);
-            virtual ~StandardEffectsFactory()
-            {
-            }
+    virtual AbstractPhotoEffectInterface* getEffectInstance(const QString& name = QString()) override;
+    virtual QString effectName() const                                                       override;
+};
 
-            virtual AbstractPhotoEffectInterface* getEffectInstance(const QString& name = QString()) override;
+} // namespace PhotoLayoutsEditor
 
-            virtual QString effectName() const override;
-    };
-}
-
-#endif // STANDARDEFFECTSFACTORY_H
+#endif // STANDARD_EFFECTS_FACTORY_H

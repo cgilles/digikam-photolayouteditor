@@ -44,14 +44,19 @@ AbstractPhotoEffectInterface* StandardEffectsFactory::getEffectInstance(const QS
 {
     if (name == QObject::tr("Blur effect"))
         return new BlurPhotoEffect(this);
+
     if (name == QObject::tr("Colorize effect"))
         return new ColorizePhotoEffect(this);
+
     if (name == QObject::tr("Grayscale effect"))
         return new GrayscalePhotoEffect(this);
+
     if (name == QObject::tr("Sepia effect"))
         return new SepiaPhotoEffect(this);
+
     if (name == QObject::tr("Negative effect"))
         return new NegativePhotoEffect(this);
+
     return nullptr;
 }
 

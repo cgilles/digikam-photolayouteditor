@@ -1339,7 +1339,7 @@ QtVariantProperty *QtVariantPropertyManager::addProperty(int propertyType, const
 }
 
 namespace{
-void addPropertyRecusively(QtVariantPropertyManager*  manager,
+void addPropertyRecusively(QtVariantPropertyManager* manager,
                            QtVariantProperty * prop, QtVariantProperty * newProp = nullptr)
   {
   if (!newProp)

@@ -22,114 +22,128 @@
  *
  * ============================================================ */
 
-#ifndef POLAROIDBORDERDRAWER_H
-#define POLAROIDBORDERDRAWER_H
+#ifndef POLAROID_BORDER_DRAWER_H
+#define POLAROID_BORDER_DRAWER_H
 
-#include "borderdrawerinterface.h"
+// Qt includes
 
 #include <QColor>
 
+// Local includes
+
+#include "borderdrawerinterface.h"
+
 namespace PhotoLayoutsEditor
 {
-    class StandardBordersFactory;
 
-    class PolaroidBorderDrawer : public BorderDrawerInterface
+class StandardBordersFactory;
+
+class PolaroidBorderDrawer : public BorderDrawerInterface
+{
+    Q_OBJECT
+
+    int m_width;
+    QString m_text;
+    QColor m_color;
+    QFont m_font;
+    QPainterPath m_path;
+    QRectF m_text_rect;
+
+    static QMap<const char *,QString> m_properties;
+    static int m_default_width;
+    static QString m_default_text;
+    static QColor m_default_color;
+    static QFont m_default_font;
+
+public:
+
+    explicit PolaroidBorderDrawer(StandardBordersFactory* factory, QObject* parent = nullptr);
+
+    virtual QPainterPath path(const QPainterPath& path) override;
+
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option) override;
+
+    virtual QString propertyName(const QMetaProperty& property) const override;
+
+    virtual QVariant propertyValue(const QString& propertyName) const override;
+
+    virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override;
+
+    virtual QDomElement toSvg(QDomDocument& document) const override;
+
+    virtual QString name() const override;
+
+    virtual QString toString() const override;
+
+    virtual operator QString() const override;
+
+    Q_PROPERTY(int width READ width WRITE setWidth)
+
+    int width() const
     {
-            Q_OBJECT
+        return m_width;
+    }
 
-            int m_width;
-            QString m_text;
-            QColor m_color;
-            QFont m_font;
-            QPainterPath m_path;
-            QRectF m_text_rect;
+    void setWidth(int width)
+    {
+        if (width > 0)
+        {
+            m_default_width = m_width = width;
+            this->propertiesChanged();
+        }
+    }
 
-            static QMap<const char *,QString> m_properties;
-            static int m_default_width;
-            static QString m_default_text;
-            static QColor m_default_color;
-            static QFont m_default_font;
+    Q_PROPERTY(QString text READ text WRITE setText)
 
-        public:
+    QString text() const
+    {
+        return m_text;
+    }
 
-            explicit PolaroidBorderDrawer(StandardBordersFactory* factory, QObject* parent = nullptr);
+    void setText(const QString& text)
+    {
+        m_text = text;
+        this->propertiesChanged();
+    }
 
-            virtual QPainterPath path(const QPainterPath& path) override;
+    Q_PROPERTY(QColor color READ color WRITE setColor)
 
-            virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option) override;
+    QColor color() const
+    {
+        return m_color;
+    }
 
-            virtual QString propertyName(const QMetaProperty& property) const override;
+    void setColor(const QColor& color)
+    {
+        if (color.isValid())
+        {
+            m_default_color = m_color = color;
+            this->propertiesChanged();
+        }
+    }
 
-            virtual QVariant propertyValue(const QString& propertyName) const override;
+    Q_PROPERTY(QFont font READ font WRITE setFont)
 
-            virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override;
+    QFont font() const
+    {
+        return m_font;
+    }
 
-            virtual QDomElement toSvg(QDomDocument& document) const override;
+    void setFont(const QFont& font)
+    {
+        m_default_font = m_font = font;
+        this->propertiesChanged();
+    }
 
-            virtual QString name() const override;
+    virtual QVariant minimumValue(const QMetaProperty& property) override;
+    virtual QVariant maximumValue(const QMetaProperty& property) override;
+    virtual QVariant stepValue(const QMetaProperty& property)    override;
 
-            virtual QString toString() const override;
+private:
 
-            virtual operator QString() const override;
+    QString pathToSvg(const QPainterPath& path) const;
+};
 
-            Q_PROPERTY(int width READ width WRITE setWidth)
-            int width() const
-            {
-                return m_width;
-            }
-            void setWidth(int width)
-            {
-                if (width > 0)
-                {
-                    m_default_width = m_width = width;
-                    this->propertiesChanged();
-                }
-            }
+} // namespace PhotoLayoutsEditor
 
-            Q_PROPERTY(QString text READ text WRITE setText)
-            QString text() const
-            {
-                return m_text;
-            }
-            void setText(const QString& text)
-            {
-                m_text = text;
-                this->propertiesChanged();
-            }
-
-            Q_PROPERTY(QColor color READ color WRITE setColor)
-            QColor color() const
-            {
-                return m_color;
-            }
-            void setColor(const QColor& color)
-            {
-                if (color.isValid())
-                {
-                    m_default_color = m_color = color;
-                    this->propertiesChanged();
-                }
-            }
-
-            Q_PROPERTY(QFont font READ font WRITE setFont)
-            QFont font() const
-            {
-                return m_font;
-            }
-            void setFont(const QFont& font)
-            {
-                m_default_font = m_font = font;
-                this->propertiesChanged();
-            }
-
-            virtual QVariant minimumValue(const QMetaProperty& property) override;
-            virtual QVariant maximumValue(const QMetaProperty& property) override;
-            virtual QVariant stepValue(const QMetaProperty& property) override;
-
-        private:
-
-            QString pathToSvg(const QPainterPath& path) const;
-    };
-}
-
-#endif // POLAROIDBORDERDRAWER_H
+#endif // POLAROID_BORDER_DRAWER_H

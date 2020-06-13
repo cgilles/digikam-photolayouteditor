@@ -42,7 +42,7 @@ class BorderChangeCommand;
 
 class BorderChangeListener : public QObject
 {
-        Q_OBJECT
+    Q_OBJECT
 
     BorderDrawerInterface* drawer;
     BorderChangeCommand* command;

@@ -60,7 +60,7 @@ PolaroidBorderDrawer::PolaroidBorderDrawer(StandardBordersFactory* factory, QObj
         {
             QMetaProperty property = meta->property(count);
 
-            if (!QString::fromLatin1("width").compare(QLatin1String(property.name())))
+            if      (!QString::fromLatin1("width").compare(QLatin1String(property.name())))
                 m_properties.insert(property.name(), QObject::tr("Width"));
             else if (!QString::fromLatin1("text").compare(QLatin1String(property.name())))
                 m_properties.insert(property.name(), QObject::tr("Text"));
@@ -100,6 +100,7 @@ void PolaroidBorderDrawer::paint(QPainter* painter, const QStyleOptionGraphicsIt
 {
     if (m_path.isEmpty())
         return;
+
     painter->save();
     painter->setCompositionMode(QPainter::CompositionMode_SourceOver);
     painter->setRenderHint(QPainter::Antialiasing);
@@ -223,12 +224,15 @@ QString PolaroidBorderDrawer::pathToSvg(const QPainterPath& path) const
             case QPainterPath::LineToElement:
                 str_path_d.append(QLatin1String("L ") + QString::number(e.x) + QLatin1Char(' ') + QString::number(e.y) + QLatin1Char(' '));
                 break;
+
             case QPainterPath::MoveToElement:
                 str_path_d.append(QLatin1String("M ") + QString::number(e.x) + QLatin1Char(' ') + QString::number(e.y) + QLatin1Char(' '));
                 break;
+
             case QPainterPath::CurveToElement:
                 str_path_d.append(QLatin1String("C ") + QString::number(e.x) + QLatin1Char(' ') + QString::number(e.y) + QLatin1Char(' '));
                 break;
+
             case QPainterPath::CurveToDataElement:
                 str_path_d.append(QString::number(e.x) + QLatin1Char(' ') + QString::number(e.y) + QLatin1Char(' '));
                 break;

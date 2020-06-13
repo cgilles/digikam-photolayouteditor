@@ -22,42 +22,51 @@
  *
  * ============================================================ */
 
-#ifndef NEGATIVEPHOTOEFFECT_H
-#define NEGATIVEPHOTOEFFECT_H
+#ifndef NEGATIVE_PHOTO_EFFECT_H
+#define NEGATIVE_PHOTO_EFFECT_H
 
-#include "abstractphotoeffectinterface.h"
+// Qt includes
 
 #include <QImage>
 #include <QRect>
 
+// Local includes
+
+#include "abstractphotoeffectinterface.h"
+
 namespace PhotoLayoutsEditor
 {
-    class StandardEffectsFactory;
-    class NegativePhotoEffect : public AbstractPhotoEffectInterface
+
+class StandardEffectsFactory;
+
+class NegativePhotoEffect : public AbstractPhotoEffectInterface
+{
+    Q_OBJECT
+
+public:
+
+    explicit NegativePhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
+
+    virtual QImage apply(const QImage& image) const override;
+    virtual QString name() const override;
+    virtual QString toString() const override;
+    virtual operator QString() const override;
+
+private:
+
+    static QImage negative(const QImage& image)
     {
-            Q_OBJECT
+        QImage result       = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+        unsigned int pixels = result.width() * result.height();
+        unsigned int* data = reinterpret_cast<unsigned int*>(result.bits());
 
-        public:
+        for (unsigned int i = 0; i < pixels; ++i)
+            data[i] = qRgb(255-qRed(data[i]),255-qGreen(data[i]),255-qBlue(data[i]));
 
-            explicit NegativePhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
-            virtual QImage apply(const QImage& image) const override;
-            virtual QString name() const override;
-            virtual QString toString() const override;
-            virtual operator QString() const override;
-
-        private:
-
-            static QImage negative(const QImage& image)
-            {
-                QImage result = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
-                unsigned int pixels = result.width() * result.height();
-                unsigned int * data = reinterpret_cast<unsigned int *>(result.bits());
-                for (unsigned int i = 0; i < pixels; ++i)
-                    data[i] = qRgb(255-qRed(data[i]),255-qGreen(data[i]),255-qBlue(data[i]));
-
-                return result;
-            }
-    };
-}
+        return result;
+    }
+};
+    
+} // namespace PhotoLayoutsEditor
 
 #endif // NEGATIVEPHOTOEFFECT_H

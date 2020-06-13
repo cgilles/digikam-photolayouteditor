@@ -40,29 +40,29 @@ namespace PhotoLayoutsEditor
 
 class PixelizePhotoEffect::PixelizeUndoCommand : public QUndoCommand
 {
-        PixelizePhotoEffect* m_effect;
-        int                  m_pixelSize;
+    PixelizePhotoEffect* m_effect;
+    int                  m_pixelSize;
 
-    public:
+public:
 
-        PixelizeUndoCommand(PixelizePhotoEffect* effect, int pixelSize);
-        void setPixelSize(int pixelSize);
+    PixelizeUndoCommand(PixelizePhotoEffect* effect, int pixelSize);
+    void setPixelSize(int pixelSize);
 
-        virtual void redo();
-        virtual void undo();
+    virtual void redo();
+    virtual void undo();
 
-    private:
+private:
 
-        void runCommand()
+    void runCommand()
+    {
+        int temp = m_effect->pixelSize();
+
+        if (temp != m_pixelSize)
         {
-            int temp = m_effect->pixelSize();
-
-            if (temp != m_pixelSize)
-            {
-                m_effect->setPixelSize(m_pixelSize);
-                m_pixelSize = temp;
-            }
+            m_effect->setPixelSize(m_pixelSize);
+            m_pixelSize = temp;
         }
+    }
 };
 
 // --------------------------------------------------------------------------------------------------------------

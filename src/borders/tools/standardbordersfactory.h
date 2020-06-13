@@ -38,8 +38,7 @@ public:
 
     explicit StandardBordersFactory(QObject* const parent = nullptr);
 
-    virtual QString drawersNames() const override;
-
+    virtual QString drawersNames() const                                  override;
     virtual BorderDrawerInterface* getDrawerInstance(const QString& name) override;
 };
 

@@ -25,64 +25,70 @@
 #ifndef PHOTOEFFECTSGROUP_H
 #define PHOTOEFFECTSGROUP_H
 
+// Qt includes
+
 #include <QPixmap>
 #include <QDomDocument>
+
+// Local includes
 
 #include "abstractmovablemodel.h"
 
 namespace PhotoLayoutsEditor
 {
-    class AbstractPhoto;
-    class PhotoEffectsLoader;
-    class AbstractPhotoEffectInterface;
 
-    class PhotoEffectsGroup : public AbstractMovableModel
-    {
-            Q_OBJECT
+class AbstractPhoto;
+class PhotoEffectsLoader;
+class AbstractPhotoEffectInterface;
 
-        public:
+class PhotoEffectsGroup : public AbstractMovableModel
+{
+    Q_OBJECT
 
-            explicit PhotoEffectsGroup(AbstractPhoto* photo, QObject* parent = nullptr);
-            ~PhotoEffectsGroup();
+public:
 
-            QDomElement toSvg(QDomDocument& document) const;
-            static PhotoEffectsGroup* fromSvg(const QDomElement& element, AbstractPhoto* graphicsItem);
-            AbstractPhoto* photo() const;
-            virtual QObject* item(const QModelIndex& index) const override;
-            virtual void setItem(QObject* graphicsItem, const QModelIndex& index) override;
-            AbstractPhotoEffectInterface* graphicsItem(const QModelIndex& index = QModelIndex()) const;
-            bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) override;
-            bool insertRow(int row, AbstractPhotoEffectInterface* effect);
-            bool insertRow(int row, const QModelIndex& index = QModelIndex());
+    explicit PhotoEffectsGroup(AbstractPhoto* photo, QObject* parent = nullptr);
+    ~PhotoEffectsGroup();
 
-            // Reimplemented QAbstractItemModel methods
-            virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-            virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-            virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
-            virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
-            virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
-            virtual QModelIndex parent(const QModelIndex& index) const override;
-            virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-            virtual bool removeRows(int row, int count, const QModelIndex& parent) override;
+    QDomElement toSvg(QDomDocument& document) const;
+    static PhotoEffectsGroup* fromSvg(const QDomElement& element, AbstractPhoto* graphicsItem);
+    AbstractPhoto* photo() const;
+    virtual QObject* item(const QModelIndex& index) const override;
+    virtual void setItem(QObject* graphicsItem, const QModelIndex& index) override;
+    AbstractPhotoEffectInterface* graphicsItem(const QModelIndex& index = QModelIndex()) const;
+    bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) override;
+    bool insertRow(int row, AbstractPhotoEffectInterface* effect);
+    bool insertRow(int row, const QModelIndex& index = QModelIndex());
 
-        Q_SIGNALS:
+    // Reimplemented QAbstractItemModel methods
+    virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+    virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
+    virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
+    virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+    virtual QModelIndex parent(const QModelIndex& index) const override;
+    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    virtual bool removeRows(int row, int count, const QModelIndex& parent) override;
 
-            void effectsChanged();
+Q_SIGNALS:
 
-        public Q_SLOTS:
+    void effectsChanged();
 
-            void push_back(AbstractPhotoEffectInterface* effect);
-            void push_front(AbstractPhotoEffectInterface* effect);
-            void emitEffectsChanged(AbstractPhotoEffectInterface* effect = nullptr);
-            QImage apply(const QImage& image);
+public Q_SLOTS:
 
-        public:
+    void push_back(AbstractPhotoEffectInterface* effect);
+    void push_front(AbstractPhotoEffectInterface* effect);
+    void emitEffectsChanged(AbstractPhotoEffectInterface* effect = nullptr);
+    QImage apply(const QImage& image);
 
-            AbstractPhoto*                       m_photo;
-            QList<AbstractPhotoEffectInterface*> m_effects_list;
+public:
 
-        friend class AbstractPhoto;
-    };
-}
+    AbstractPhoto*                       m_photo;
+    QList<AbstractPhotoEffectInterface*> m_effects_list;
+
+    friend class AbstractPhoto;
+};
+
+} // namespace PhotoLayoutsEditor
 
 #endif // PHOTOEFFECTSGROUP_H

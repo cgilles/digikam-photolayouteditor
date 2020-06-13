@@ -22,43 +22,51 @@
  *
  * ============================================================ */
 
-#ifndef GRAYSCALEPHOTOEFFECT_P_H
-#define GRAYSCALEPHOTOEFFECT_P_H
+#ifndef GRAYSCALE_PHOTO_EFFECT_H
+#define GRAYSCALE_PHOTO_EFFECT_H
+
+// Local includes
 
 #include "abstractphotoeffectinterface.h"
 
 namespace PhotoLayoutsEditor
 {
-    class StandardEffectsFactory;
-    class GrayscalePhotoEffect : public AbstractPhotoEffectInterface
+
+class StandardEffectsFactory;
+
+class GrayscalePhotoEffect : public AbstractPhotoEffectInterface
+{
+    Q_OBJECT
+
+public:
+
+    explicit GrayscalePhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
+
+    virtual QImage apply(const QImage& image) const override;
+    virtual QString name() const override;
+    virtual QString toString() const override;
+    virtual operator QString() const override;
+
+private:
+
+    static inline QImage greyscaled(const QImage& image)
     {
-            Q_OBJECT
+        QImage result = image;
+        unsigned int pixels = result.width() * result.height();
+        unsigned int* data = reinterpret_cast<unsigned int*>(result.bits());
 
-        public:
+        for (unsigned int i = 0; i < pixels; ++i)
+        {
+            int val = qGray(data[i]);
+            data[i] = qRgb(val,val,val);
+        }
 
-            explicit GrayscalePhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
-            virtual QImage apply(const QImage& image) const override;
-            virtual QString name() const override;
-            virtual QString toString() const override;
-            virtual operator QString() const override;
+        return result;
+    }
 
-        private:
+    friend class StandardEffectsFactory;
+};
 
-            static inline QImage greyscaled(const QImage& image)
-            {
-                QImage result = image;
-                unsigned int pixels = result.width() * result.height();
-                unsigned int * data = reinterpret_cast<unsigned int *>(result.bits());
-                for (unsigned int i = 0; i < pixels; ++i)
-                {
-                    int val = qGray(data[i]);
-                    data[i] = qRgb(val,val,val);
-                }
-                return result;
-            }
+} // namespace PhotoLayoutsEditor
 
-        friend class StandardEffectsFactory;
-    };
-}
-
-#endif // GRAYSCALEPHOTOEFFECT_P_H
+#endif // GRAYSCALE_PHOTO_EFFECT_H

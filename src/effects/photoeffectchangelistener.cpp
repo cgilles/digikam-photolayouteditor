@@ -37,39 +37,44 @@ namespace PhotoLayoutsEditor
 
 class PhotoEffectChangeCommand : public QUndoCommand
 {
-        AbstractPhotoEffectInterface* effect;
-        QString propertyName;
-        QVariant value;
-    public:
-        PhotoEffectChangeCommand(AbstractPhotoEffectInterface* effect, QUndoCommand* parent = nullptr) :
-            QUndoCommand(parent),
-            effect(effect)
-        {
-        }
-        virtual void redo() override
-        {
-            QVariant temp = effect->propertyValue(propertyName);
-            effect->setPropertyValue(propertyName, value);
-            value = temp;
-        }
-        virtual void undo() override
-        {
-            QVariant temp = effect->propertyValue(propertyName);
-            effect->setPropertyValue(propertyName, value);
-            value = temp;
-        }
-        void setPropertyValue(const QString& propertyName, const QVariant& value)
-        {
-            this->propertyName = propertyName;
-            this->value = value;
-        }
+    AbstractPhotoEffectInterface* effect;
+    QString propertyName;
+    QVariant value;
+
+public:
+
+    PhotoEffectChangeCommand(AbstractPhotoEffectInterface* effect, QUndoCommand* parent = nullptr)
+      : QUndoCommand(parent),
+        effect(effect)
+    {
+    }
+
+    virtual void redo() override
+    {
+        QVariant temp = effect->propertyValue(propertyName);
+        effect->setPropertyValue(propertyName, value);
+        value = temp;
+    }
+
+    virtual void undo() override
+    {
+        QVariant temp = effect->propertyValue(propertyName);
+        effect->setPropertyValue(propertyName, value);
+        value = temp;
+    }
+
+    void setPropertyValue(const QString& propertyName, const QVariant& value)
+    {
+        this->propertyName = propertyName;
+        this->value = value;
+    }
 };
 
-PhotoEffectChangeListener::PhotoEffectChangeListener(AbstractPhotoEffectInterface* effect, QObject* parent, bool createCommands) :
-    QObject(parent),
-    effect(effect),
-    command(nullptr),
-    createCommands(createCommands)
+PhotoEffectChangeListener::PhotoEffectChangeListener(AbstractPhotoEffectInterface* effect, QObject* parent, bool createCommands)
+    : QObject(parent),
+      effect(effect),
+      command(nullptr),
+      createCommands(createCommands)
 {
 }
 
@@ -81,25 +86,32 @@ void PhotoEffectChangeListener::propertyChanged(QtProperty* property)
     if (!command)
         command = new PhotoEffectChangeCommand(effect);
 
-    QtIntPropertyManager*  integerManager = qobject_cast<QtIntPropertyManager*>(property->propertyManager());
+    QtIntPropertyManager* integerManager = qobject_cast<QtIntPropertyManager*>(property->propertyManager());
+
     if (integerManager)
     {
         command->setPropertyValue(property->propertyName(), integerManager->value(property));
         return;
     }
-    QtDoublePropertyManager*  doubleManager = qobject_cast<QtDoublePropertyManager*>(property->propertyManager());
+
+    QtDoublePropertyManager* doubleManager = qobject_cast<QtDoublePropertyManager*>(property->propertyManager());
+    
     if (doubleManager)
     {
         command->setPropertyValue(property->propertyName(), doubleManager->value(property));
         return;
     }
+
     QtColorPropertyManager* colorManager = qobject_cast<QtColorPropertyManager*>(property->propertyManager());
+    
     if (colorManager)
     {
         command->setPropertyValue(property->propertyName(), colorManager->value(property));
         return;
     }
-    QtVariantPropertyManager*  variantManager = qobject_cast<QtVariantPropertyManager*>(property->propertyManager());
+
+    QtVariantPropertyManager* variantManager = qobject_cast<QtVariantPropertyManager*>(property->propertyManager());
+    
     if (variantManager)
     {
         command->setPropertyValue(property->propertyName(), variantManager->value(property));
@@ -112,13 +124,16 @@ void PhotoEffectChangeListener::editingFinished()
     if (command)
     {
         if (createCommands)
+        {
             PLE_PostUndoCommand(command);
+        }
         else
         {
             command->redo();
             delete command;
         }
     }
+
     command = nullptr;
 }
 

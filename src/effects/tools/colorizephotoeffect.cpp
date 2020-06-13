@@ -33,17 +33,19 @@ namespace PhotoLayoutsEditor
 
 QColor ColorizePhotoEffect::m_last_color = QColor(255,255,255,0);
 
-ColorizePhotoEffect::ColorizePhotoEffect(StandardEffectsFactory* factory, QObject* parent) :
-    AbstractPhotoEffectInterface(factory, parent),
-    m_color(m_last_color)
+ColorizePhotoEffect::ColorizePhotoEffect(StandardEffectsFactory* factory, QObject* parent)
+    : AbstractPhotoEffectInterface(factory, parent),
+      m_color(m_last_color)
 {
 }
 
 QImage ColorizePhotoEffect::apply(const QImage& image) const
 {
     QColor tempColor = color();
+
     if (!strength() || !tempColor.alpha())
         return image;
+
     QImage result = image;
     QPainter p(&result);
     p.setCompositionMode(QPainter::CompositionMode_SourceOver);

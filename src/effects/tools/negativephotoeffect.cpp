@@ -40,6 +40,7 @@ QImage NegativePhotoEffect::apply(const QImage& image) const
 {
     if (!this->strength())
         return image;
+
     QImage result = image;
     QPainter p(&result);
     p.setCompositionMode(QPainter::CompositionMode_SourceOver);

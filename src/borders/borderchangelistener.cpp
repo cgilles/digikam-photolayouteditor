@@ -94,25 +94,32 @@ void BorderChangeListener::propertyChanged(QtProperty* property)
     if (!command)
         command = new BorderChangeCommand(drawer);
 
-    QtIntPropertyManager*  integerManager = qobject_cast<QtIntPropertyManager*>(property->propertyManager());
+    QtIntPropertyManager* integerManager = qobject_cast<QtIntPropertyManager*>(property->propertyManager());
+
     if (integerManager)
     {
         command->setPropertyValue(property->propertyName(), integerManager->value(property));
         return;
     }
-    QtDoublePropertyManager*  doubleManager = qobject_cast<QtDoublePropertyManager*>(property->propertyManager());
+
+    QtDoublePropertyManager* doubleManager = qobject_cast<QtDoublePropertyManager*>(property->propertyManager());
+
     if (doubleManager)
     {
         command->setPropertyValue(property->propertyName(), doubleManager->value(property));
         return;
     }
-    QtEnumPropertyManager*  enumManager = qobject_cast<QtEnumPropertyManager*>(property->propertyManager());
+
+    QtEnumPropertyManager* enumManager = qobject_cast<QtEnumPropertyManager*>(property->propertyManager());
+
     if (enumManager)
     {
         command->setPropertyValue(property->propertyName(), enumManager->enumNames(property).at(enumManager->value(property)));
         return;
     }
-    QtVariantPropertyManager*  variantManager = qobject_cast<QtVariantPropertyManager*>(property->propertyManager());
+
+    QtVariantPropertyManager* variantManager = qobject_cast<QtVariantPropertyManager*>(property->propertyManager());
+
     if (variantManager)
     {
         command->setPropertyValue(property->propertyName(), variantManager->value(property));
@@ -125,13 +132,16 @@ void BorderChangeListener::editingFinished()
     if (command)
     {
         if (createCommands)
+        {
             PLE_PostUndoCommand(command);
+        }
         else
         {
             command->redo();
             delete command;
         }
     }
+
     command = nullptr;
 }
 

@@ -48,8 +48,8 @@ class BorderDrawersLoader : public QObject
 {
     Q_OBJECT
 
-    BorderDrawersLoaderPrivate * d;
-    static BorderDrawersLoader * m_instance;
+    BorderDrawersLoaderPrivate* d;
+    static BorderDrawersLoader* m_instance;
 
 public:
 

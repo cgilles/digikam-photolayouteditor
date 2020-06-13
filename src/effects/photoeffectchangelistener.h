@@ -25,7 +25,11 @@
 #ifndef PHOTOEFFECTCHANGELISTENER_H
 #define PHOTOEFFECTCHANGELISTENER_H
 
+// Qt includes
+
 #include <QObject>
+
+// Local includes
 
 #include "qtpropertybrowser.h"
 #include "abstractphotoeffectinterface.h"
@@ -37,20 +41,20 @@ class PhotoEffectChangeCommand;
 
 class PhotoEffectChangeListener : public QObject
 {
-        Q_OBJECT
+    Q_OBJECT
 
-        AbstractPhotoEffectInterface* effect;
-        PhotoEffectChangeCommand * command;
-        bool createCommands;
+    AbstractPhotoEffectInterface* effect;
+    PhotoEffectChangeCommand*     command;
+    bool createCommands;
 
-    public:
+public:
 
-        explicit PhotoEffectChangeListener(AbstractPhotoEffectInterface* effect, QObject* parent, bool createCommands);
+    explicit PhotoEffectChangeListener(AbstractPhotoEffectInterface* effect, QObject* parent, bool createCommands);
 
-    public Q_SLOTS:
+public Q_SLOTS:
 
-        void propertyChanged(QtProperty* property);
-        void editingFinished();
+    void propertyChanged(QtProperty* property);
+    void editingFinished();
 };
 
 } // namespace PhotoLayoutsEditor

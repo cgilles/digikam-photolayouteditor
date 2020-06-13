@@ -50,8 +50,8 @@ class AbstractPhotoEffectInterface : public QObject
 
 public:
 
-    explicit AbstractPhotoEffectInterface(AbstractPhotoEffectFactory* factory, QObject* parent = nullptr) :
-        QObject(parent),
+    explicit AbstractPhotoEffectInterface(AbstractPhotoEffectFactory* factory, QObject* parent = nullptr)
+      : QObject(parent),
         m_factory(factory),
         m_group(nullptr),
         m_strength(100)
@@ -167,7 +167,7 @@ public:
     {
         qDebug() << strength;
 
-        if (strength < 0 || strength > 100)
+        if ((strength < 0) || (strength > 100))
             return;
 
         m_strength = strength;

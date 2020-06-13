@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef PIXELIZEPHOTOEFFECT_H
-#define PIXELIZEPHOTOEFFECT_H
+#ifndef PIXELIZE_PHOTO_EFFECT_H
+#define PIXELIZE_PHOTO_EFFECT_H
 
 // Local includes
 
@@ -107,10 +107,11 @@ private:
                 }
             }
         }
+
         return result;
     }
 };
 
 } // namespace PhotoLayoutsEditor
 
-#endif // PIXELIZEPHOTOEFFECT_H
+#endif // PIXELIZE_PHOTO_EFFECT_H

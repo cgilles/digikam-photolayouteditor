@@ -78,10 +78,12 @@ public:
     virtual operator QString() const override;
 
     Q_PROPERTY(int width READ width WRITE setWidth)
+
     int width() const
     {
         return m_width;
     }
+
     void setWidth(int width)
     {
         if (width > 0)
@@ -92,10 +94,12 @@ public:
     }
 
     Q_PROPERTY(QString corners_style READ cornersStyle WRITE setCornersStyle)
+
     QString cornersStyle() const
     {
         return m_corners_style_names.value(m_corners_style);
     }
+
     void setCornersStyle(const QString& cornersStyle)
     {
         m_default_corners_style = m_corners_style = m_corners_style_names.key(cornersStyle);
@@ -103,10 +107,12 @@ public:
     }
 
     Q_PROPERTY(QColor color READ color WRITE setColor)
+
     QColor color() const
     {
         return m_color;
     }
+
     void setColor(const QColor& color)
     {
         if (color.isValid())
@@ -117,20 +123,22 @@ public:
     }
 
     Q_PROPERTY(int spacing READ spacing WRITE setSpacing)
+
     int spacing() const
     {
         return m_spacing;
     }
+
     void setSpacing(int spacing)
     {
         m_default_spacing = m_spacing = spacing;
         this->propertiesChanged();
     }
 
-    virtual QVariant stringNames(const QMetaProperty& property) override;
+    virtual QVariant stringNames(const QMetaProperty& property)  override;
     virtual QVariant minimumValue(const QMetaProperty& property) override;
     virtual QVariant maximumValue(const QMetaProperty& property) override;
-    virtual QVariant stepValue(const QMetaProperty& property) override;
+    virtual QVariant stepValue(const QMetaProperty& property)    override;
 };
     
 } // namespace PhotoLayoutsEditor

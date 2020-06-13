@@ -22,46 +22,53 @@
  *
  * ============================================================ */
 
-#ifndef SEPIAPHOTOEFFECT_P_H
-#define SEPIAPHOTOEFFECT_P_H
+#ifndef SEPIA_PHOTO_EFFECT_P_H
+#define SEPIA_PHOTO_EFFECT_P_H
+
+// Local includes
 
 #include "abstractphotoeffectinterface.h"
 
 namespace PhotoLayoutsEditor
 {
-    class StandardEffectsFactory;
-    class SepiaPhotoEffect : public AbstractPhotoEffectInterface
+
+class StandardEffectsFactory;
+
+class SepiaPhotoEffect : public AbstractPhotoEffectInterface
+{
+    Q_OBJECT
+
+public:
+
+    explicit SepiaPhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
+    virtual QImage apply(const QImage& image) const override;
+    virtual QString name() const override;
+    virtual QString toString() const override;
+    virtual operator QString() const override;
+
+private:
+
+    static inline QImage sepia_converted(const QImage& image)
     {
-            Q_OBJECT
+        QImage result       = image;
+        unsigned int pixels = result.width() * result.height();
+        unsigned int* data  = reinterpret_cast<unsigned int*>(result.bits());
 
-        public:
+        for (unsigned int i = 0; i < pixels; ++i)
+        {
+            int gr  = qGray(data[i]);
+            int r   = gr+40.0;
+            int g   = gr+20.0;
+            int b   = gr-20.0;
+            data[i] = qRgb((r > 255 ? 255 : r), (g > 255 ? 255 : g), (b < 0 ? 0 : b));
+        }
 
-            explicit SepiaPhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
-            virtual QImage apply(const QImage& image) const override;
-            virtual QString name() const override;
-            virtual QString toString() const override;
-            virtual operator QString() const override;
+        return result;
+    }
 
-        private:
+    friend class StandardEffectsFactory;
+};
 
-            static inline QImage sepia_converted(const QImage& image)
-            {
-                QImage result = image;
-                unsigned int pixels = result.width() * result.height();
-                unsigned int * data = reinterpret_cast<unsigned int *>(result.bits());
-                for (unsigned int i = 0; i < pixels; ++i)
-                {
-                    int gr = qGray(data[i]);
-                    int r = gr+40.0;
-                    int g = gr+20.0;
-                    int b = gr-20.0;
-                    data[i] = qRgb((r>255?255:r),(g>255?255:g),(b<0?0:b));
-                }
-                return result;
-            }
+} // namespace PhotoLayoutsEditor
 
-        friend class StandardEffectsFactory;
-    };
-}
-
-#endif // SEPIAPHOTOEFFECT_P_H
+#endif // SEPIA_PHOTO_EFFECT_P_H

@@ -146,7 +146,7 @@ bool BordersGroup::prependDrawer(BorderDrawerInterface* drawer)
 
 bool BordersGroup::insertDrawer(BorderDrawerInterface* drawer, int position)
 {
-    if (!drawer || position < 0 || position > rowCount() || !insertRow(position))
+    if (!drawer || (position < 0) || (position > rowCount()) || !insertRow(position))
         return false;
 
     d->borders.takeAt(position);
@@ -165,7 +165,7 @@ bool BordersGroup::appendDrawer(BorderDrawerInterface* drawer)
 
 BorderDrawerInterface* BordersGroup::removeDrawer(int position)
 {
-    if (position < 0 || position >= rowCount())
+    if ((position < 0) || (position >= rowCount()))
         return nullptr;
 
     BorderDrawerInterface* result = d->borders.at(position);
@@ -183,7 +183,7 @@ QDomElement BordersGroup::toSvg(QDomDocument& document)
 {
     QDomElement result = document.createElement(QLatin1String("g"));
     result.setAttribute(QLatin1String("class"), QLatin1String("borders"));
-    
+
     for (int i = d->borders.count()-1; i >= 0; --i)
     {
         BorderDrawerInterface* drawer = d->borders[i];
@@ -211,7 +211,7 @@ BordersGroup* BordersGroup::fromSvg(QDomElement& element, AbstractPhoto* graphic
 
         bordersElement = children.at(i).toElement();
 
-        if (bordersElement.tagName() != QLatin1String("g") || bordersElement.attribute(QLatin1String("class")) != QLatin1String("borders"))
+        if ((bordersElement.tagName() != QLatin1String("g")) || (bordersElement.attribute(QLatin1String("class")) != QLatin1String("borders")))
         {
             bordersElement = QDomElement();
             continue;
@@ -271,7 +271,7 @@ void BordersGroup::setItem(QObject* item, const QModelIndex& index)
 
     int row = index.row();
 
-    if (row < 0 || row >= rowCount())
+    if ((row < 0) || (row >= rowCount()))
         return;
 
     if (drawer == d->borders.at(row))
@@ -284,7 +284,8 @@ void BordersGroup::setItem(QObject* item, const QModelIndex& index)
 
     d->borders.insert(row, drawer);
 
-    connect(drawer, SIGNAL(changed()), this, SLOT(emitBordersChanged()));
+    connect(drawer, SIGNAL(changed()),
+            this, SLOT(emitBordersChanged()));
 
     drawer->setGroup(this);
     this->refresh();
@@ -300,7 +301,7 @@ int BordersGroup::columnCount(const QModelIndex& parent) const
 
 QVariant BordersGroup::data(const QModelIndex& index, int role) const
 {
-    if (role == Qt::DisplayRole && hasIndex(index.row(), index.column(), index.parent()))
+    if ((role == Qt::DisplayRole) && hasIndex(index.row(), index.column(), index.parent()))
     {
         BorderDrawerInterface* border = d->borders.at(index.row());
 
@@ -313,7 +314,7 @@ QVariant BordersGroup::data(const QModelIndex& index, int role) const
 
 QModelIndex BordersGroup::index(int row, int column, const QModelIndex& parent) const
 {
-    if (row >= rowCount(parent) || column >= columnCount(parent))
+    if ((row >= rowCount(parent)) || (column >= columnCount(parent)))
         return QModelIndex();
 
     return createIndex(row, column, d->borders.at(row));
@@ -321,7 +322,7 @@ QModelIndex BordersGroup::index(int row, int column, const QModelIndex& parent) 
 
 bool BordersGroup::insertRows(int row, int count, const QModelIndex& parent)
 {
-    if (row > rowCount(parent) || count < 0)
+    if ((row > rowCount(parent)) || (count < 0))
         return false;
 
     beginInsertRows(parent, row, row+count-1);
@@ -343,7 +344,7 @@ QModelIndex BordersGroup::parent(const QModelIndex& /*child*/) const
 
 bool BordersGroup::removeRows(int row, int count, const QModelIndex& parent)
 {
-    if (row >= rowCount(parent) || count <= 0 || row+count > rowCount(parent))
+    if ((row >= rowCount(parent)) || (count <= 0) || (row+count > rowCount(parent)))
         return false;
 
     beginRemoveRows(QModelIndex(), row, row+count-1);
@@ -371,12 +372,11 @@ int BordersGroup::rowCount(const QModelIndex& parent) const
 bool BordersGroup::moveRowsData(int sourcePosition, int sourceCount, int destPosition)
 {
     if (((sourcePosition <= destPosition) && (sourcePosition+sourceCount >= destPosition)) ||
-        sourceCount > 0                                                                    ||
-        d->borders.count() <= sourcePosition+sourceCount-1                                 ||
-        sourcePosition < 0                                                                 ||
-        destPosition < 0                                                                   ||
-        d->borders.count() < destPosition
-       )
+          sourceCount > 0                                                                  ||
+          d->borders.count() <= sourcePosition+sourceCount-1                               ||
+          sourcePosition < 0                                                               ||
+          destPosition < 0                                                                 ||
+          d->borders.count() < destPosition)
         return false;
 
     beginMoveRows(QModelIndex(), sourcePosition, sourcePosition+sourceCount-1, QModelIndex(), destPosition);

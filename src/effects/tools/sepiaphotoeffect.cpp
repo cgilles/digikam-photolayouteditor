@@ -40,6 +40,7 @@ QImage SepiaPhotoEffect::apply(const QImage& image) const
 {
     if (!strength())
         return image;
+
     QImage result = image;
     QPainter p(&result);
     p.setCompositionMode(QPainter::CompositionMode_SourceOver);

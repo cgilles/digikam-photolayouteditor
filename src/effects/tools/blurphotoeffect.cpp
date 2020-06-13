@@ -40,8 +40,10 @@ BlurPhotoEffect::BlurPhotoEffect(StandardEffectsFactory* factory, QObject* paren
 QImage BlurPhotoEffect::apply(const QImage& image) const
 {
     int tempRadius = radius();
+
     if (!tempRadius)
         return image;
+
     QImage result = image;
     QPainter p(&result);
     p.setCompositionMode(QPainter::CompositionMode_SourceOver);

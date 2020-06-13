@@ -68,50 +68,52 @@ public:
     AbstractPhoto* photo() const;
 
     /**
-    * Name propetry
-    */
+     * Name propetry
+     */
     Q_PROPERTY(QString m_name READ name WRITE setName)
+
     virtual QString name() const
     {
         return m_name;
     }
+    
     virtual void setName(const QString& name)
     {
         m_name = name;
     }
 
     /** Registers new effect using it's factory object.
-    * \arg effectFactory - this object should be allocated on heap usong \fn operator new(),
-    * this class takes over the parenthood of this factory and it will delete it if it'll no longer needed.
-    */
+     * \arg effectFactory - this object should be allocated on heap usong \fn operator new(),
+     * this class takes over the parenthood of this factory and it will delete it if it'll no longer needed.
+     */
     static bool registerEffect(AbstractPhotoEffectFactory* effectFactory);
 
     /** Returns registered effects names
-    * This implementation returns \class QStringList object with effects names obtained by calling \fn effectName()
-    * method of its factory object.
-    */
+     * This implementation returns \class QStringList object with effects names obtained by calling \fn effectName()
+     * method of its factory object.
+     */
     static QStringList registeredEffectsNames();
 
     /** Returns factory object for the given name
-    */
+     */
     static AbstractPhotoEffectFactory* getFactoryByName(const QString& name);
 
     /** Return an instance of effect using its name.
-    */
+     */
     static AbstractPhotoEffectInterface* getEffectByName(const QString& name);
 
     /** Returns property browser for effect.
-    * \arg effect is the object of \class AbstractPhotoEffectInterface base type which represents effect with set of properties to configure.
-    * \arg does browser should create undo commands or just set properties values.
-    */
+     * \arg effect is the object of \class AbstractPhotoEffectInterface base type which represents effect with set of properties to configure.
+     * \arg does browser should create undo commands or just set properties values.
+     */
     static QtAbstractPropertyBrowser* propertyBrowser(AbstractPhotoEffectInterface* effect, bool createCommands);
 
     /** Returns DOM node which contains effects attributes
-    */
+     */
     static QDomElement effectToSvg(AbstractPhotoEffectInterface* effect, QDomDocument& document);
 
     /** Reads node attributes from DOM node and returns ready effect object.
-    */
+     */
     static AbstractPhotoEffectInterface* getEffectFromSvg(QDomElement& element);
 
 protected:
