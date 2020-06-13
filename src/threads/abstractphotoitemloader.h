@@ -22,39 +22,44 @@
  *
  * ============================================================ */
 
-#ifndef ABSTRACTPHOTOITEMLOADER_H
-#define ABSTRACTPHOTOITEMLOADER_H
+#ifndef ABSTRACT_PHOTO_ITEM_LOADER_H
+#define ABSTRACT_PHOTO_ITEM_LOADER_H
+
+// Qt includes
 
 #include <QThread>
 #include <QDomDocument>
 
 namespace PhotoLayoutsEditor
 {
-    class AbstractPhoto;
-    class PLECanvasLoadingThread;
-    class ProgressObserver;
-    class AbstractPhotoItemLoader : public QThread
-    {
-            Q_OBJECT
 
-            AbstractPhoto* m_item;
-            QDomElement m_element;
-            ProgressObserver* m_observer;
+class AbstractPhoto;
+class PLECanvasLoadingThread;
+class ProgressObserver;
 
-        public:
+class AbstractPhotoItemLoader : public QThread
+{
+    Q_OBJECT
 
-            explicit AbstractPhotoItemLoader(AbstractPhoto* item, QDomElement& element, QObject* parent = nullptr);
-            AbstractPhoto* item() const;
-            QDomElement element() const;
-            void setObserver(ProgressObserver* observer);
-            ProgressObserver* observer() const;
+    AbstractPhoto* m_item;
+    QDomElement m_element;
+    ProgressObserver* m_observer;
 
-        protected:
+public:
 
-            virtual void run() override;
+    explicit AbstractPhotoItemLoader(AbstractPhoto* item, QDomElement& element, QObject* parent = nullptr);
+    AbstractPhoto* item() const;
+    QDomElement element() const;
+    void setObserver(ProgressObserver* observer);
+    ProgressObserver* observer() const;
 
-        friend class PLECanvasLoadingThread;
-    };
-}
+protected:
 
-#endif // ABSTRACTPHOTOITEMLOADER_H
+    virtual void run() override;
+
+    friend class PLECanvasLoadingThread;
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // ABSTRACT_PHOTO_ITEM_LOADER_H

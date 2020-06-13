@@ -38,14 +38,17 @@
 namespace PhotoLayoutsEditor
 {
 
-AbstractPhotoItemLoader::AbstractPhotoItemLoader(AbstractPhoto* item, QDomElement& element, QObject* parent) :
-    QThread(parent),
-    m_item(item),
-    m_element(element),
-    m_observer(nullptr)
+AbstractPhotoItemLoader::AbstractPhotoItemLoader(AbstractPhoto* item, QDomElement& element, QObject* parent)
+    : QThread(parent),
+      m_item(item),
+      m_element(element),
+      m_observer(nullptr)
 {
-    connect(this, SIGNAL(finished()), item, SLOT(refresh()));
-    connect(this, SIGNAL(finished()), this, SLOT(deleteLater()));
+    connect(this, SIGNAL(finished()),
+            item, SLOT(refresh()));
+
+    connect(this, SIGNAL(finished()),
+            this, SLOT(deleteLater()));
 }
 
 AbstractPhoto* AbstractPhotoItemLoader::item() const

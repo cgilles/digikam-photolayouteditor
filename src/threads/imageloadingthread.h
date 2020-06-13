@@ -22,8 +22,8 @@
  *
  * ============================================================ */
 
-#ifndef IMAGELOADINGTHREAD_H
-#define IMAGELOADINGTHREAD_H
+#ifndef IMAGE_LOADING_THREAD_H
+#define IMAGE_LOADING_THREAD_H
 
 // Qt includes
 
@@ -70,4 +70,4 @@ private:
 
 } // namespace PhotoLayoutsEditor
 
-#endif // IMAGELOADINGTHREAD_H
+#endif // IMAGE_LOADING_THREAD_H

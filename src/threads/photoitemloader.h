@@ -22,34 +22,41 @@
  *
  * ============================================================ */
 
-#ifndef PHOTOITEMLOADER_H
-#define PHOTOITEMLOADER_H
+#ifndef PHOTO_ITEM_LOADER_H
+#define PHOTO_ITEM_LOADER_H
+
+// Qt includes
 
 #include <QImage>
 #include <QUrl>
+
+// Local includes
 
 #include "abstractphotoitemloader.h"
 
 namespace PhotoLayoutsEditor
 {
-    class PhotoItem;
-    class PhotoItemLoader : public AbstractPhotoItemLoader
-    {
-            Q_OBJECT
 
-        public:
+class PhotoItem;
 
-            PhotoItemLoader(PhotoItem* item, QDomElement& element, QObject* parent = nullptr);
+class PhotoItemLoader : public AbstractPhotoItemLoader
+{
+    Q_OBJECT
 
-        protected:
+public:
 
-            virtual void run() override;
+    PhotoItemLoader(PhotoItem* item, QDomElement& element, QObject* parent = nullptr);
 
-        protected Q_SLOTS:
+protected:
 
-            void imageLoaded(const QUrl& url, const QImage& image);
+    virtual void run() override;
 
-    };
-}
+protected Q_SLOTS:
 
-#endif // PHOTOITEMLOADER_H
+    void imageLoaded(const QUrl& url, const QImage& image);
+
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // PHOTO_ITEM_LOADER_H

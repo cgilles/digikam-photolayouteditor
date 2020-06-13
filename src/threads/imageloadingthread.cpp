@@ -122,12 +122,14 @@ void ImageLoadingThread::run()
     {
         QFile f(url.path());
         f.open(QIODevice::ReadOnly);
+
         if (f.isReadable())
         {
             d->m_sem.acquire();
             d->m_size += f.size();
             d->m_sem.release();
         }
+
         f.close();
     }
 
@@ -154,6 +156,7 @@ void ImageLoadingThread::run()
     }
 
 finish_thread:
+
     this->exit(0);
     this->deleteLater();
 }
@@ -162,6 +165,7 @@ void ImageLoadingThread::setMaximumProgress(double limit)
 {
     if (limit > 1)
         limit = 1;
+
     d->m_max_progress = limit;
 }
 
@@ -206,6 +210,7 @@ void ImageLoadingThread::loadRaw(const QUrl& url)
         QCoreApplication::processEvents();
 
         uchar* image = new uchar[width*height*4];
+
         if (image)
         {
             uchar* dst   = image;
