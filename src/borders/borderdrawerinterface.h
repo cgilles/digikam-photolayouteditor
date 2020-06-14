@@ -70,11 +70,11 @@ public:
 
 public:
 
-    virtual QPainterPath path(const QPainterPath& path) = 0;
-    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option) = 0;
+    virtual QPainterPath path(const QPainterPath& path)                               = 0;
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option)     = 0;
 
-    virtual QString propertyName(const QMetaProperty& property) const = 0;
-    virtual QVariant propertyValue(const QString& propertyName) const = 0;
+    virtual QString propertyName(const QMetaProperty& property)                 const = 0;
+    virtual QVariant propertyValue(const QString& propertyName)                 const = 0;
     virtual void setPropertyValue(const QString& propertyName, const QVariant& value) = 0;
 
     virtual QVariant stringNames(const QMetaProperty& /*property*/) { return QVariant(); }
@@ -83,13 +83,13 @@ public:
     virtual QVariant stepValue(const QMetaProperty& /*property*/)   { return QVariant(); }
 
     virtual QDomElement toSvg(QDomDocument& document) const = 0;
-    virtual QString name() const = 0;
-    virtual QString toString() const = 0;
-    virtual operator QString() const = 0;
+    virtual QString name()                            const = 0;
+    virtual QString toString()                        const = 0;
+    virtual operator QString()                        const = 0;
 
 public:
 
-    BordersGroup* m_group;
+    BordersGroup*                 m_group;
     BorderDrawerFactoryInterface* m_factory;
 
 Q_SIGNALS:
@@ -104,6 +104,6 @@ protected:
     }
 };
 
-}
+} // namespace PhotoLayoutsEditor
 
 #endif // BORDER_DRAWER_INTERFACE_H

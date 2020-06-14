@@ -40,9 +40,9 @@ namespace PhotoLayoutsEditor
 
 QMap<const char*, QString> SolidBorderDrawer::m_properties;
 QMap<Qt::PenJoinStyle, QString> SolidBorderDrawer::m_corners_style_names;
-int SolidBorderDrawer::m_default_width = 1;
-QColor SolidBorderDrawer::m_default_color = Qt::red;
-int SolidBorderDrawer::m_default_spacing = 0;
+int SolidBorderDrawer::m_default_width                      = 1;
+QColor SolidBorderDrawer::m_default_color                   = Qt::red;
+int SolidBorderDrawer::m_default_spacing                    = 0;
 Qt::PenJoinStyle SolidBorderDrawer::m_default_corners_style = Qt::MiterJoin;
 
 SolidBorderDrawer::SolidBorderDrawer(StandardBordersFactory* factory, QObject* parent)
@@ -62,7 +62,7 @@ SolidBorderDrawer::SolidBorderDrawer(StandardBordersFactory* factory, QObject* p
     if (m_properties.isEmpty())
     {
         const QMetaObject* meta = this->metaObject();
-        int count                = meta->propertyCount();
+        int count               = meta->propertyCount();
 
         while (count--)
         {
@@ -104,7 +104,7 @@ QPainterPath SolidBorderDrawer::path(const QPainterPath& path)
     QPainterPathStroker stroker;
     stroker.setJoinStyle(this->m_corners_style);
     stroker.setWidth(m_width);
-    m_path = stroker.createStroke( temp );
+    m_path = stroker.createStroke(temp);
 
     return m_path;
 }
@@ -129,7 +129,7 @@ QString SolidBorderDrawer::propertyName(const QMetaProperty& property) const
 QVariant SolidBorderDrawer::propertyValue(const QString& propertyName) const
 {
     const QMetaObject* meta = this->metaObject();
-    int index = meta->indexOfProperty( m_properties.key(propertyName) );
+    int index               = meta->indexOfProperty( m_properties.key(propertyName) );
 
     if (index >= meta->propertyCount())
         return QVariant();
@@ -140,7 +140,7 @@ QVariant SolidBorderDrawer::propertyValue(const QString& propertyName) const
 void SolidBorderDrawer::setPropertyValue(const QString& propertyName, const QVariant& value)
 {
     const QMetaObject* meta = this->metaObject();
-    int index = meta->indexOfProperty( m_properties.key(propertyName) );
+    int index               = meta->indexOfProperty( m_properties.key(propertyName) );
 
     if (index >= meta->propertyCount())
         return;
@@ -151,35 +151,51 @@ void SolidBorderDrawer::setPropertyValue(const QString& propertyName, const QVar
 QDomElement SolidBorderDrawer::toSvg(QDomDocument& document) const
 {
     QDomElement result = document.createElement(QLatin1String("path"));
-    int count = m_path.elementCount();
+    int count          = m_path.elementCount();
     QString str_path_d;
 
-    for (int i = 0; i < count; ++i)
+    for (int i = 0 ; i < count ; ++i)
     {
         QPainterPath::Element e = m_path.elementAt(i);
 
         switch (e.type)
         {
             case QPainterPath::LineToElement:
-                str_path_d.append(QLatin1String("L ") + QString::number(e.x) + QLatin1Char(' ') + QString::number(e.y) + QLatin1Char(' '));
+                str_path_d.append(QLatin1String("L ")  +
+                                  QString::number(e.x) +
+                                  QLatin1Char(' ')     +
+                                  QString::number(e.y) +
+                                  QLatin1Char(' '));
                 break;
 
             case QPainterPath::MoveToElement:
-                str_path_d.append(QLatin1String("M ") + QString::number(e.x) + QLatin1Char(' ') + QString::number(e.y) + QLatin1Char(' '));
+                str_path_d.append(QLatin1String("M ")  +
+                                  QString::number(e.x) +
+                                  QLatin1Char(' ')     +
+                                  QString::number(e.y) +
+                                  QLatin1Char(' '));
                 break;
 
             case QPainterPath::CurveToElement:
-                str_path_d.append(QLatin1String("C ") + QString::number(e.x) + QLatin1Char(' ') + QString::number(e.y) + QLatin1Char(' '));
+                str_path_d.append(QLatin1String("C ")  +
+                                  QString::number(e.x) +
+                                  QLatin1Char(' ')     +
+                                  QString::number(e.y) +
+                                  QLatin1Char(' '));
                 break;
 
             case QPainterPath::CurveToDataElement:
-                str_path_d.append(QString::number(e.x) + QLatin1Char(' ') + QString::number(e.y) + QLatin1Char(' '));
+                str_path_d.append(QString::number(e.x) +
+                                  QLatin1Char(' ')     +
+                                  QString::number(e.y) +
+                                  QLatin1Char(' '));
                 break;
         }
     }
 
-    result.setAttribute(QLatin1String("d"), str_path_d);
+    result.setAttribute(QLatin1String("d"),    str_path_d);
     result.setAttribute(QLatin1String("fill"), m_color.name());
+
     return result;
 }
 
@@ -190,7 +206,9 @@ QString SolidBorderDrawer::name() const
 
 QString SolidBorderDrawer::toString() const
 {
-    return name().append(QLatin1String(" [")) + QString::number(m_width).append(QLatin1String(" ")) + m_color.name().append(QLatin1String("]"));
+    return name().append(QLatin1String(" ["))                  +
+           QString::number(m_width).append(QLatin1String(" ")) +
+           m_color.name().append(QLatin1String("]"));
 }
 
 SolidBorderDrawer::operator QString() const

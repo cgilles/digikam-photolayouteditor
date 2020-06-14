@@ -26,6 +26,7 @@ This tool allows you to create collage layout of images using effect.
 - Show Grid lines do nothing.
 - Colorize effect rendering is not processed all time while editing properties.
 - Polaroid border: how to change text of legend?
+- Text tool iq not redered on the canvas.
 - Effects in Qt Property Editor cannot be cumulated (Borders work as espected).
 - Enforce more modern Qt API.                                                               (done).
 - Fix coding style (constify, brackets, indent, spaces, new lines, const ref, etc.).        (done).

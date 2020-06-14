@@ -42,6 +42,8 @@ class PolaroidBorderDrawer : public BorderDrawerInterface
 {
     Q_OBJECT
 
+private:
+
     int                               m_width;
     QString                           m_text;
     QColor                            m_color;
@@ -69,13 +71,15 @@ public:
 
     virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override;
 
-    virtual QDomElement toSvg(QDomDocument& document) const                          override;
+    virtual QDomElement toSvg(QDomDocument& document) const                           override;
 
-    virtual QString name() const                                                     override;
+    virtual QString name() const                                                      override;
 
-    virtual QString toString() const                                                 override;
+    virtual QString toString() const                                                  override;
 
-    virtual operator QString() const                                                 override;
+    virtual operator QString() const                                                  override;
+
+    // ---
 
     Q_PROPERTY(int width READ width WRITE setWidth)
 
@@ -93,6 +97,8 @@ public:
         }
     }
 
+    // ---
+
     Q_PROPERTY(QString text READ text WRITE setText)
 
     QString text() const
@@ -105,6 +111,8 @@ public:
         m_text = text;
         this->propertiesChanged();
     }
+
+    // ---
 
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
@@ -121,6 +129,8 @@ public:
             this->propertiesChanged();
         }
     }
+
+    // ---
 
     Q_PROPERTY(QFont font READ font WRITE setFont)
 
