@@ -409,7 +409,7 @@ public:
         {
             QMap<AbstractPhoto*, QPointF>::iterator it = m_items.begin();
 
-            while(it != m_items.end())
+            while (it != m_items.end())
             {
                 QPointF temp = it.key()->pos();
                 it.key()->setPos( it.value() );
@@ -428,7 +428,7 @@ public:
         {
             QMap<AbstractPhoto*, QPointF>::iterator it = m_items.begin();
 
-            while(it != m_items.end())
+            while (it != m_items.end())
             {
                 QPointF temp = it.key()->pos();
                 it.key()->setPos( it.value() );

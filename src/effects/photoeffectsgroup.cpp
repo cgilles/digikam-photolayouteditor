@@ -201,7 +201,7 @@ bool PhotoEffectsGroup::moveRowsData(int sourcePosition, int sourceCount, int de
     if (destPosition > sourcePosition)
         destPosition -= sourceCount;
 
-    while(sourceCount--)
+    while (sourceCount--)
         movingItems.push_back(m_effects_list.takeAt(sourcePosition));
 
     for ( ; movingItems.count() ; movingItems.pop_back())
@@ -270,7 +270,7 @@ bool PhotoEffectsGroup::insertRows(int row, int count, const QModelIndex& parent
 
     beginInsertRows(parent, row, row+count-1);
 
-    while(count--)
+    while (count--)
         m_effects_list.insert(row, nullptr);
 
     endInsertRows();

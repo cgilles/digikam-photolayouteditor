@@ -48,15 +48,15 @@ class BordersGroupPrivate
     {
     }
 
-    BordersGroup* group;
-    AbstractPhoto* photo;
+    BordersGroup*                 group;
+    AbstractPhoto*                photo;
     QList<BorderDrawerInterface*> borders;
-    QPainterPath shape;
+    QPainterPath                  shape;
 
     friend class BordersGroup;
 };
 
-BordersGroup::BordersGroup(AbstractPhoto* photo)
+BordersGroup::BordersGroup(AbstractPhoto* const photo)
     : AbstractMovableModel(photo),
       d(new BordersGroupPrivate(this))
 {
@@ -110,7 +110,7 @@ void BordersGroup::paint(QPainter* painter, const QStyleOptionGraphicsItem* opti
     if (!graphicsItem())
         return;
 
-    for (int i = d->borders.count()-1; i >= 0; --i)
+    for (int i = d->borders.count()-1 ; i >= 0 ; --i)
     {
         BorderDrawerInterface* border = d->borders.at(i);
 
@@ -129,7 +129,7 @@ void BordersGroup::refresh()
     QRectF updateRect = graphicsItem()->boundingRect();
 
     this->calculateShape();
-    updateRect = updateRect.united(graphicsItem()->boundingRect());
+    updateRect        = updateRect.united(graphicsItem()->boundingRect());
 
     if (graphicsItem()->scene())
         graphicsItem()->scene()->update(graphicsItem()->mapRectToScene(updateRect));
@@ -184,10 +184,10 @@ QDomElement BordersGroup::toSvg(QDomDocument& document)
     QDomElement result = document.createElement(QLatin1String("g"));
     result.setAttribute(QLatin1String("class"), QLatin1String("borders"));
 
-    for (int i = d->borders.count()-1; i >= 0; --i)
+    for (int i = d->borders.count()-1 ; i >= 0 ; --i)
     {
-        BorderDrawerInterface* drawer = d->borders[i];
-        QDomElement temp = BorderDrawersLoader::drawerToSvg(drawer, document);
+        BorderDrawerInterface* const drawer = d->borders[i];
+        QDomElement temp                    = BorderDrawersLoader::drawerToSvg(drawer, document);
 
         if (temp.isNull())
             continue;
@@ -204,14 +204,15 @@ BordersGroup* BordersGroup::fromSvg(QDomElement& element, AbstractPhoto* graphic
     QDomElement bordersElement;
     QDomNodeList children = element.childNodes();
 
-    for (int i = children.count()-1; i >= 0; --i)
+    for (int i = children.count()-1 ; i >= 0 ; --i)
     {
         if (!children.at(i).isElement())
             continue;
 
         bordersElement = children.at(i).toElement();
 
-        if ((bordersElement.tagName() != QLatin1String("g")) || (bordersElement.attribute(QLatin1String("class")) != QLatin1String("borders")))
+        if ((bordersElement.tagName() != QLatin1String("g")) ||
+            (bordersElement.attribute(QLatin1String("class")) != QLatin1String("borders")))
         {
             bordersElement = QDomElement();
             continue;
@@ -227,9 +228,9 @@ BordersGroup* BordersGroup::fromSvg(QDomElement& element, AbstractPhoto* graphic
 
     // Load drawers in loop
     BordersGroup* result = new BordersGroup(nullptr);
-    children = bordersElement.childNodes();
+    children             = bordersElement.childNodes();
 
-    for (int i = children.count()-1; i >= 0; --i)
+    for (int i = children.count()-1 ; i >= 0 ; --i)
     {
         QDomNode child = children.at(i);
         QDomElement childElement;
@@ -238,12 +239,14 @@ BordersGroup* BordersGroup::fromSvg(QDomElement& element, AbstractPhoto* graphic
             continue;
 
         // Create drawer from DOM element
-        BorderDrawerInterface* drawer = BorderDrawersLoader::getDrawerFromSvg(childElement);
+
+        BorderDrawerInterface* const drawer = BorderDrawersLoader::getDrawerFromSvg(childElement);
 
         if (!drawer)
             continue;
 
         // Insert it into model
+
         result->d->borders.push_back(drawer);
         drawer->setGroup(result);
         drawer->setParent(result);
@@ -256,7 +259,7 @@ BordersGroup* BordersGroup::fromSvg(QDomElement& element, AbstractPhoto* graphic
 
 QObject* BordersGroup::item(const QModelIndex& index) const
 {
-    if (index.isValid() && index.row() < d->borders.count())
+    if (index.isValid() && (index.row() < d->borders.count()))
         return d->borders.at(index.row());
 
     return nullptr;
@@ -264,7 +267,7 @@ QObject* BordersGroup::item(const QModelIndex& index) const
 
 void BordersGroup::setItem(QObject* item, const QModelIndex& index)
 {
-    BorderDrawerInterface* drawer = dynamic_cast<BorderDrawerInterface*>(item);
+    BorderDrawerInterface* const drawer = dynamic_cast<BorderDrawerInterface*>(item);
 
     if (!drawer || !index.isValid())
         return;
@@ -277,7 +280,7 @@ void BordersGroup::setItem(QObject* item, const QModelIndex& index)
     if (drawer == d->borders.at(row))
         return;
 
-    BorderDrawerInterface* temp = d->borders.takeAt(row);
+    BorderDrawerInterface* const temp = d->borders.takeAt(row);
 
     if (temp)
         temp->disconnect(this);
@@ -303,7 +306,7 @@ QVariant BordersGroup::data(const QModelIndex& index, int role) const
 {
     if ((role == Qt::DisplayRole) && hasIndex(index.row(), index.column(), index.parent()))
     {
-        BorderDrawerInterface* border = d->borders.at(index.row());
+        BorderDrawerInterface* const border = d->borders.at(index.row());
 
         if (border)
             return border->toString();
@@ -385,7 +388,7 @@ bool BordersGroup::moveRowsData(int sourcePosition, int sourceCount, int destPos
     if (destPosition > sourcePosition)
         destPosition -= sourceCount;
 
-    while(sourceCount--)
+    while (sourceCount--)
         movingItems.push_back(d->borders.takeAt(sourcePosition));
 
     for ( ; movingItems.count() ; movingItems.pop_back())

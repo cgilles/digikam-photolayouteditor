@@ -74,7 +74,7 @@ public:
 
         QDomElement defs = g.firstChildElement(QLatin1String("defs"));
 
-        while(!defs.isNull() && (defs.attribute(QLatin1String("id")) != QLatin1String("Preview")))
+        while (!defs.isNull() && (defs.attribute(QLatin1String("id")) != QLatin1String("Preview")))
             defs = defs.nextSiblingElement(QLatin1String("defs"));
 
         QDomElement img = defs.firstChildElement(QLatin1String("image"));
