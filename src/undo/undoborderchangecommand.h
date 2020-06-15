@@ -22,29 +22,41 @@
  *
  * ============================================================ */
 
-#ifndef UNDOBORDERCHANGECOMMAND_H
-#define UNDOBORDERCHANGECOMMAND_H
+#ifndef UNDO_BORDER_CHANGE_COMMAND_H
+#define UNDO_BORDER_CHANGE_COMMAND_H
+
+// Qt includes
 
 #include <QUndoCommand>
 #include <QColor>
 
 namespace PhotoLayoutsEditor
 {
-    class AbstractPhoto;
 
-    class UndoBorderChangeCommand : public QUndoCommand
-    {
-            AbstractPhoto* m_photo;
-            qreal m_width;
-            Qt::PenJoinStyle m_corner_style;
-            QColor m_color;
+class AbstractPhoto;
 
-        public:
+class UndoBorderChangeCommand : public QUndoCommand
+{
 
-            explicit UndoBorderChangeCommand(AbstractPhoto* photo, qreal newWidth, Qt::PenJoinStyle newCornerStyle, const QColor& newColor, QUndoCommand* parent = nullptr);
-            virtual void redo();
-            virtual void undo();
-    };
-}
+private:
 
-#endif // UNDOBORDERCHANGECOMMAND_H
+    AbstractPhoto*   m_photo;
+    qreal            m_width;
+    Qt::PenJoinStyle m_corner_style;
+    QColor           m_color;
+
+public:
+
+    explicit UndoBorderChangeCommand(AbstractPhoto* const photo,
+                                     qreal newWidth,
+                                     Qt::PenJoinStyle newCornerStyle,
+                                     const QColor& newColor,
+                                     QUndoCommand* const parent = nullptr);
+
+    virtual void redo();
+    virtual void undo();
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // UNDO_BORDER_CHANGE_COMMAND_H

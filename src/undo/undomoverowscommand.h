@@ -22,36 +22,49 @@
  *
  * ============================================================ */
 
-#ifndef UNDOMOVEROWSCOMMAND_H
-#define UNDOMOVEROWSCOMMAND_H
+#ifndef UNDO_MOVE_ROWS_COMMAND_H
+#define UNDO_MOVE_ROWS_COMMAND_H
+
+// Qt includes
 
 #include <QModelIndex>
 #include <QUndoCommand>
 
 namespace PhotoLayoutsEditor
 {
-    class LayersModel;
-    class LayersModelItem;
 
-    class UndoMoveRowsCommand : public QUndoCommand
-    {
-            LayersModel* m_model;
-            LayersModelItem* m_src_parent_row;
-            LayersModelItem* m_dest_parent_row;
-            int m_starting_row;
-            int m_rows_count;
-            int m_destination_row;
+class LayersModel;
+class LayersModelItem;
 
-        public:
+class UndoMoveRowsCommand : public QUndoCommand
+{
+private:
 
-            UndoMoveRowsCommand(int startingRow, int rowsCount, const QModelIndex& sourceParent, int destinationRow, const QModelIndex& destinationParent, LayersModel* model, QUndoCommand* parent = nullptr);
-            virtual void redo() override;
-            virtual void undo() override;
+    LayersModel*     m_model;
+    LayersModelItem* m_src_parent_row;
+    LayersModelItem* m_dest_parent_row;
+    int              m_starting_row;
+    int              m_rows_count;
+    int              m_destination_row;
 
-        private:
+public:
 
-            void reverse();
-    };
-}
+    UndoMoveRowsCommand(int startingRow,
+                        int rowsCount,
+                        const QModelIndex& sourceParent,
+                        int destinationRow,
+                        const QModelIndex& destinationParent,
+                        LayersModel* model,
+                        QUndoCommand* parent = nullptr);
 
-#endif // UNDOMOVEROWSCOMMAND_H
+    virtual void redo() override;
+    virtual void undo() override;
+
+private:
+
+    void reverse();
+};
+
+} // namespace PhotoLayoutsEditor
+
+#endif // UNDO_MOVE_ROWS_COMMAND_H

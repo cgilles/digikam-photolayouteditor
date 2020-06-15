@@ -55,8 +55,8 @@ void UndoRemoveItem::redo()
     // Remove from model
 
     m_parentIndex = m_model->findIndex(m_parentItem);
-    m_itemIndex = m_model->findIndex(m_item, m_parentIndex);
-    m_row = m_itemIndex.row();
+    m_itemIndex   = m_model->findIndex(m_item, m_parentIndex);
+    m_row         = m_itemIndex.row();
 
     if (m_itemIndex.isValid())
         m_model->removeRow(m_row,m_parentIndex);
@@ -80,12 +80,15 @@ void UndoRemoveItem::undo()
 
     m_parentIndex = m_model->findIndex(m_parentItem);
 
-    if (!m_model->hasIndex(m_row,0,m_parentIndex) || static_cast<LayersModelItem*>(m_model->index(m_row,0,m_parentIndex).internalPointer())->photo() != m_item)
+    if (!m_model->hasIndex(m_row,0,m_parentIndex) ||
+        static_cast<LayersModelItem*>(m_model->index(m_row,0,m_parentIndex).internalPointer())->photo() != m_item)
     {
         if (m_model->insertRow(m_row,m_parentIndex))
         {
             static_cast<LayersModelItem*>(m_model->index(m_row,0,m_parentIndex).internalPointer())->setPhoto(m_item);
+
             // Add items children to model
+
             appendChild(m_item,m_model->index(m_row,0,m_parentIndex));
         }
     }
@@ -106,6 +109,7 @@ void UndoRemoveItem::appendChild(AbstractPhoto* item, const QModelIndex& parent)
     if (items.count())
     {
         // Sort using z-Values (z-Value == models row)
+
         std::sort(items.begin(), items.end(), UndoRemoveItem::compareGraphicsItems);
         int i = 0;
 

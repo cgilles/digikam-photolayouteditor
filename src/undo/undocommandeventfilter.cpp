@@ -61,7 +61,7 @@ bool UndoCommandEventFilter::eventFilter(QObject* watched, QEvent* event)
             return false;
 
         editor->progressEvent(dynamic_cast<ProgressEvent*>(event));
-        
+
         return true;
     }
 

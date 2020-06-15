@@ -22,44 +22,44 @@
  *
  * ============================================================ */
 
-#ifndef UNDOCOMMANDEVENT_H
-#define UNDOCOMMANDEVENT_H
+#ifndef UNDO_COMMAND_EVENT_H
+#define UNDO_COMMAND_EVENT_H
+
+// Qt includes
 
 #include <QEvent>
 #include <QUndoCommand>
 
 namespace PhotoLayoutsEditor
 {
-    class UndoCommandEvent : public QEvent
+
+class UndoCommandEvent : public QEvent
+{
+public:
+
+    static Type registeredEventType()
     {
-        public:
+        static Type myType = static_cast<QEvent::Type>(QEvent::registerEventType());
+        return myType;
+    }
 
-            static Type registeredEventType()
-            {
-                static Type myType = static_cast<QEvent::Type>(QEvent::registerEventType());
-                return myType;
-            }
+    explicit UndoCommandEvent();
 
-            explicit UndoCommandEvent();
+    void setUndoCommand(QUndoCommand* command)
+    {
+        m_command = command;
+    }
 
-            void setUndoCommand(QUndoCommand* command)
-            {
-                m_command = command;
-            }
+    QUndoCommand* undoCommand()
+    {
+        return m_command;
+    }
 
-            QUndoCommand* undoCommand()
-            {
-                return m_command;
-            }
+public:
 
-        public:
+    QUndoCommand* m_command;
+};
 
-            QUndoCommand* m_command;
+} // namespace PhotoLayoutsEditor
 
-        Q_SIGNALS:
-
-        public Q_SLOTS:
-    };
-}
-
-#endif // UNDOCOMMANDEVENT_H
+#endif // UNDO_COMMAND_EVENT_H

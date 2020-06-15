@@ -22,31 +22,29 @@
  *
  * ============================================================ */
 
-#ifndef UNDOCOMMANDEVENTFILTER_H
-#define UNDOCOMMANDEVENTFILTER_H
+#ifndef UNDO_COMMAND_EVENT_FILTER_H
+#define UNDO_COMMAND_EVENT_FILTER_H
+
+// Qt includes
 
 #include <QObject>
 
 namespace PhotoLayoutsEditor
 {
-    class UndoCommandEventFilter : public QObject
+class UndoCommandEventFilter : public QObject
+{
+    Q_OBJECT
+
+public:
+
+    explicit UndoCommandEventFilter(QObject* parent = nullptr)
+        : QObject(parent)
     {
-            Q_OBJECT
+    }
 
-        public:
+    virtual bool eventFilter(QObject* watched, QEvent* event) override;
+};
 
-            explicit UndoCommandEventFilter(QObject* parent = nullptr) :
-                QObject(parent)
-            {
-            }
+} // namespace PhotoLayoutsEditor
 
-            virtual bool eventFilter(QObject* watched, QEvent* event) override;
-
-        Q_SIGNALS:
-
-        public Q_SLOTS:
-
-    };
-}
-
-#endif // UNDOCOMMANDEVENTFILTER_H
+#endif // UNDO_COMMAND_EVENT_FILTER_H

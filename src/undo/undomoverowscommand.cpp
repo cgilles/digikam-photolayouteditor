@@ -36,9 +36,15 @@
 namespace PhotoLayoutsEditor
 {
 
-UndoMoveRowsCommand::UndoMoveRowsCommand(int startingRow, int rowsCount, const QModelIndex& sourceParent, int destinationRow, const QModelIndex& destinationParent, LayersModel* model, QUndoCommand* parent) :
-    QUndoCommand(parent),
-    m_model(model)
+UndoMoveRowsCommand::UndoMoveRowsCommand(int startingRow,
+                                         int rowsCount,
+                                         const QModelIndex& sourceParent,
+                                         int destinationRow,
+                                         const QModelIndex& destinationParent,
+                                         LayersModel* model,
+                                         QUndoCommand* parent)
+    : QUndoCommand(parent),
+      m_model(model)
 {
     if (m_model)
     {
@@ -50,7 +56,10 @@ UndoMoveRowsCommand::UndoMoveRowsCommand(int startingRow, int rowsCount, const Q
                 this->setText(QObject::tr("Move layers down"));
         }
         else
+        {
             this->setText(QObject::tr("Change parent layer"));
+        }
+
         m_src_parent_row = model->getItem(sourceParent);
         m_dest_parent_row = model->getItem(destinationParent);
         m_starting_row = startingRow;
@@ -81,20 +90,25 @@ void UndoMoveRowsCommand::redo()
     {
         reverse();
     }
-#ifdef QT_DEBUG
     else
     {
+
+#ifdef QT_DEBUG
+
         qDebug() << "Can't redo from UndoMoveRowsCommand:";
         qDebug() << "\tStarting Row =" << m_starting_row;
         qDebug() << "\tRows count =" << m_rows_count;
         qDebug() << "\tDestination Row =" << m_destination_row;
+
         if (m_model)
         {
             qDebug() << "\tSource Parent =" << m_model->findIndex(m_src_parent_row);
             qDebug() << "\tDestination Parent =" << m_model->findIndex(m_dest_parent_row);
         }
-    }
+
 #endif
+
+    }
 }
 
 void UndoMoveRowsCommand::undo()
@@ -104,20 +118,25 @@ void UndoMoveRowsCommand::undo()
     {
         reverse();
     }
-#ifdef QT_DEBUG
     else
     {
+
+#ifdef QT_DEBUG
+
         qDebug() << "Can't undo from UndoMoveRowsCommand:";
         qDebug() << "\tStarting Row =" << m_starting_row;
         qDebug() << "\tRows count =" << m_rows_count;
         qDebug() << "\tDestination Row =" << m_destination_row;
+
         if (m_model)
         {
             qDebug() << "\tSource Parent =" << m_model->findIndex(m_src_parent_row);
             qDebug() << "\tDestination Parent =" << m_model->findIndex(m_dest_parent_row);
         }
-    }
+
 #endif
+
+    }
 }
 
 void UndoMoveRowsCommand::reverse()
@@ -125,6 +144,7 @@ void UndoMoveRowsCommand::reverse()
     int temp = m_destination_row;
     m_destination_row = m_starting_row;
     m_starting_row = temp;
+
     if (m_dest_parent_row == m_src_parent_row)
     {
         if (m_destination_row > m_starting_row)
