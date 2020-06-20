@@ -1,0 +1,105 @@
+
+(c) Mikolaj Machowski 2005
+
+List of filters with small comments:
+Black25-spot: 
+Transparency 75% with circle in the center. 
+Very nice effect to dim background in portraits.
+
+Dimensions 2048x2048 pixels, spot is 800 pixels wide.
+
+The rest of filters have 2048x2500 pixels, transition belt is 500 pixels.
+These proportions allow for safe placing of transition to any part of
+image. Users can change size of filters, even rotate them to get
+non-horizontal gradients.
+
+Black25-grad: 
+Upper part transparency 75%, lower part 100%
+Black50-grad
+Upper part transparency 50%, lower part 100%
+Black75-grad
+Upper part transparency 75%, lower part 100%
+
+These three are to reduce brightness of part of image. You can balance
+brightness of two parts of image or create false 'bad weather' effect to
+create dramatic effect.
+
+LightBlue82A-grad
+Upper part transparency 25%, lower part 100%
+Blue80A-grad
+Upper part transparency 50%, lower part 100%
+BlueFull-grad
+Upper part transparency 50%, lower part 100%
+
+Cooling of image, enhancing color of sky.
+
+DarkOrange-grad
+Upper part transparency 75%, lower part 100%
+LightOrange-grad
+Upper part transparency 25%, lower part 100%
+MidOrange-grad
+Upper part transparency 50%, lower part 100%
+Orange21-grad
+Upper part transparency 50%, lower part 100%
+DarkSunset-grad
+Upper part transparency 75%, lower part 50%
+LightSunset-grad
+Upper part transparency 50%, lower part 75%
+
+Enhance 'reds', create (or enhance) fall or sunset effect.
+
+DarkSea-grad
+Upper part transparency 50%, lower part 100%
+LightSea-grad
+Upper part transparency 25%, lower part 100%
+
+Turquoise color, enhance sea colors.
+
+FLW-grad
+Upper part transparency 50%, lower part 100%
+
+White balance for part of image.
+
+TobaccoFull-grad
+Upper part transparency 75%, lower part 100%
+TobaccoT1-grad
+Upper part transparency 25%, lower part 100%
+TobaccoT2-grad
+Upper part transparency 50%, lower part 100%
+
+Often used in films to create 'bloody' atmosphere.
+
+YellowGreen11-grad
+Upper part transparency 75%, lower part 100%
+
+Reduce sunset effect.
+
+White25-grad
+Upper part transparency 75%, lower part 100%
+White50-grad
+Upper part transparency 50%, lower part 100%
+
+Fog effect.
+
+Various:
+
+DarkBrown-grad
+Upper part transparency 50%, lower part 100%
+DarkPink-grad
+Upper part transparency 50%, lower part 100%
+LightBrown-grad
+Upper part transparency 50%, lower part 100%
+LightGreen56-grad
+Upper part transparency 50%, lower part 100%
+LightPink-grad
+Upper part transparency 50%, lower part 100%
+LightRed23A-grad
+Upper part transparency 50%, lower part 100%
+LightRed-grad
+Upper part transparency 50%, lower part 100%
+LightYellow8-grad
+Upper part transparency 50%, lower part 100%
+MauveM1-grad
+Upper part transparency 50%, lower part 100%
+Yellow12-grad
+Upper part transparency 50%, lower part 100%
