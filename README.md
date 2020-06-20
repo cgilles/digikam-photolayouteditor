@@ -21,23 +21,25 @@ This tool allows you to create collage layout of images using effect.
 
 # TODO
 
-- Integrate auto-layout algorithm (https://github.com/cgilles/cute-collage).
-- Export as template do not work as expected. Result do not refect of the canvas content.
-- Show Grid lines do nothing.
-- Colorize effect rendering is not processed all time while editing properties.
-- Polaroid border: how to change text of legend?
-- Text tool iq not redered on the canvas.
-- Effects in Qt Property Editor cannot be cumulated (Borders work as espected).
-- Enforce more modern Qt API.                                                               (done).
-- Fix coding style (constify, brackets, indent, spaces, new lines, const ref, etc.).        (done).
-- Leaving PLE with canvas data not previously saved do not ask to save data on new file.    (done).
-- Fix captitalized class file names.                                                        (done).
-- Fix crashes in qt properties pannel.                                                      (done).
-- Fix broken signal/slots in Qt Property Editor.                                            (done).
-- Fix all static analyzers reports.                                                         (done).
-- Fix all C++11 warnings (nullptr, override, fallthrough, overloaded virtual, etc.).        (done).
-- Remove KDE dependencies                                                                   (done).
-- Port to QMainWindow                                                                       (done).
-- Rewrite configuration dialog                                                              (done).
-- Port to DPlugin API                                                                       (done).
-- Port as stand alone plugin                                                                (done).
+| Topic                                                                                     | Status |
+|-------------------------------------------------------------------------------------------|--------|
+| Integrate auto-layout algorithm (https://github.com/cgilles/cute-collage)                 |        |
+| Export as template do not work as expected. Result do not refect of the canvas content    |        |
+| Show Grid lines do nothing                                                                |        |
+| Colorize effect rendering is not processed all time while editing properties              |        |
+| Polaroid border: how to change text of legend?                                            |        |
+| Text tool is not rendered on the canvas                                                   |        |
+| Effects in Qt Property Editor cannot be cumulated (Borders work as espected)              |        |
+| Enforce more modern Qt API.                                                               |  done  |
+| Fix coding style (constify, brackets, indent, spaces, new lines, const ref, etc.).        |  done  |
+| Leaving PLE with canvas data not previously saved do not ask to save data on new file.    |  done  |
+| Fix captitalized class file names.                                                        |  done  |
+| Fix crashes in qt properties pannel.                                                      |  done  |
+| Fix broken signal/slots in Qt Property Editor.                                            |  done  |
+| Fix all static analyzers reports.                                                         |  done  |
+| Fix all C++11 warnings (nullptr, override, fallthrough, overloaded virtual, etc.).        |  done  |
+| Remove KDE dependencies                                                                   |  done  |
+| Port to QMainWindow                                                                       |  done  |
+| Rewrite configuration dialog                                                              |  done  |
+| Port to DPlugin API                                                                       |  done  |
+| Port as stand alone plugin                                                                |  done  |
