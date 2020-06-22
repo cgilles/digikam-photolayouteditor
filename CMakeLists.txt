@@ -222,6 +222,8 @@ target_link_libraries(photolayoutseditor
                       Qt5::Xml
                       Qt5::Svg
                       Qt5::PrintSupport
+
+                      ${CMAKE_THREAD_LIBS_INIT}
 )
 
 install(TARGETS photolayoutseditor RUNTIME DESTINATION bin)
