@@ -67,6 +67,14 @@ class CropWidgetItemPrivate
         Right
     };
 
+    enum
+    {
+        TopLeft,
+        TopRight,
+        BottomRight,
+        BottomLeft
+    };
+
     CropWidgetItemPrivate()
         : m_item(nullptr),
           currentViewTransform(1, 0, 0,    0, 1, 0,   0, 0, 1),
@@ -133,34 +141,25 @@ void CropWidgetItemPrivate::calculateDrawings()
     h = (h < tempy ? tempy : h);
     qreal th = h - 4 * tempy;
 
-    for ( uint vertical = 0; vertical < 3; ++vertical)
-    {
-        for ( uint horizontal = 0; horizontal < 3; ++horizontal)
-        {
-            if ( vertical != VCenter || horizontal != HCenter)
+    for (int i = Top; i <= Bottom; ++i)
+        for (int j = Left; j <= Right; ++j)
+            if ( i != VCenter || j != HCenter)
             {
-                m_handlers[horizontal][vertical].setWidth(tw);
-                m_handlers[horizontal][vertical].setHeight(th);
+                m_handlers[i][j].setWidth(tw);
+                m_handlers[i][j].setHeight(th);
             }
-
-        }
-    }
 
     m_elipse = QPainterPath();
     m_elipse.addEllipse(rect.center(), tw / 2, th / 2);
 
-    w = qAbs(rect.width()) + 7 * tempx;
-    w = (w < 0 ? w / 2.0 : 0);
-    h = qAbs(rect.height()) + 7 * tempy;
-    h = (h < 0 ? h / 2.0 : 0);
-    m_handlers[Top][Left].moveCenter(rect.topLeft() + QPointF(w,h));
-    m_handlers[Top][HCenter].moveCenter( QPointF( rect.center().x(), rect.top() + h ) );
-    m_handlers[Top][Right].moveCenter(rect.topRight() + QPointF(-w,h));
-    m_handlers[VCenter][Left].moveCenter( QPointF( rect.left() + w, rect.center().y() ) );
-    m_handlers[VCenter][Right].moveCenter( QPointF( rect.right() - w, rect.center().y() ) );
-    m_handlers[Bottom][Left].moveCenter(rect.bottomLeft() + QPointF(w,-h));
-    m_handlers[Bottom][HCenter].moveCenter( QPointF( rect.center().x(), rect.bottom() - h ) );
-    m_handlers[Bottom][Right].moveCenter(rect.bottomRight() + QPointF(-w,-h));
+    m_handlers[Top][Left].moveCenter(m_polygon[TopLeft]);
+    m_handlers[Top][HCenter].moveCenter(QLineF(m_polygon[TopLeft], m_polygon[TopRight]).center());
+    m_handlers[Top][Right].moveCenter(m_polygon[TopRight]);
+    m_handlers[VCenter][Left].moveCenter(QLineF(m_polygon[TopLeft], m_polygon[BottomLeft]).center());
+    m_handlers[VCenter][Right].moveCenter(QLineF(m_polygon[TopRight], m_polygon[BottomRight]).center());
+    m_handlers[Bottom][Left].moveCenter(m_polygon[BottomLeft]);
+    m_handlers[Bottom][HCenter].moveCenter(QLineF(m_polygon[BottomRight], m_polygon[BottomLeft]).center());
+    m_handlers[Bottom][Right].moveCenter( m_polygon[BottomRight] );
 
     m_shape = QPainterPath();
     m_shape.addRect(rect);
