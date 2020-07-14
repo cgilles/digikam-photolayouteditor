@@ -118,37 +118,33 @@ void CropWidgetItemPrivate::transformDrawings(const QTransform& viewTransform)
 
 void CropWidgetItemPrivate::calculateDrawings()
 {
+    // Scale handlers
     qreal tempx = -10 / currentViewTransform.m11();
     qreal tempy = -10 / currentViewTransform.m22();
 
-    // Scale width of handlers
     QRectF rect = m_polygon.boundingRect();
     qreal w = qAbs(rect.width()) + 12 * tempx;
     w = (w < 0 ? w / 3.0 : 0);
     w = (w < tempx ? tempx : w);
     qreal tw = w - 4 * tempx;
-    m_handlers[Top][Left].setWidth(tw);
-    m_handlers[Top][HCenter].setWidth(tw);
-    m_handlers[Top][Right].setWidth(tw);
-    m_handlers[VCenter][Left].setWidth(tw);
-    m_handlers[VCenter][Right].setWidth(tw);
-    m_handlers[Bottom][Left].setWidth(tw);
-    m_handlers[Bottom][HCenter].setWidth(tw);
-    m_handlers[Bottom][Right].setWidth(tw);
 
-    // Scale height of handlers
     qreal h = qAbs(rect.height()) + 12 * tempy;
     h = (h < 0 ? h / 3.0 : 0);
     h = (h < tempy ? tempy : h);
     qreal th = h - 4 * tempy;
-    m_handlers[Top][Left].setHeight(th);
-    m_handlers[Top][HCenter].setHeight(th);
-    m_handlers[Top][Right].setHeight(th);
-    m_handlers[VCenter][Left].setHeight(th);
-    m_handlers[VCenter][Right].setHeight(th);
-    m_handlers[Bottom][Left].setHeight(th);
-    m_handlers[Bottom][HCenter].setHeight(th);
-    m_handlers[Bottom][Right].setHeight(th);
+
+    for ( uint vertical = 0; vertical < 3; ++vertical)
+    {
+        for ( uint horizontal = 0; horizontal < 3; ++horizontal)
+        {
+            if ( vertical != VCenter || horizontal != HCenter)
+            {
+                m_handlers[horizontal][vertical].setWidth(tw);
+                m_handlers[horizontal][vertical].setHeight(th);
+            }
+
+        }
+    }
 
     m_elipse = QPainterPath();
     m_elipse.addEllipse(rect.center(), tw / 2, th / 2);
