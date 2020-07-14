@@ -95,7 +95,7 @@ class CropWidgetItemPrivate
     QPainterPath m_shape;
     QPainterPath m_handlers_path;
     QPainterPath m_item_shape;
-    QRectF m_rect;
+    QPolygonF m_polygon;
     QRectF m_begin_rect;
     QRectF m_handlers[Bottom+1][Right+1];
     QPainterPath m_elipse;
@@ -122,7 +122,8 @@ void CropWidgetItemPrivate::calculateDrawings()
     qreal tempy = -10 / currentViewTransform.m22();
 
     // Scale width of handlers
-    qreal w = qAbs(m_rect.width()) + 12 * tempx;
+    QRectF rect = m_polygon.boundingRect();
+    qreal w = qAbs(rect.width()) + 12 * tempx;
     w = (w < 0 ? w / 3.0 : 0);
     w = (w < tempx ? tempx : w);
     qreal tw = w - 4 * tempx;
@@ -136,7 +137,7 @@ void CropWidgetItemPrivate::calculateDrawings()
     m_handlers[Bottom][Right].setWidth(tw);
 
     // Scale height of handlers
-    qreal h = qAbs(m_rect.height()) + 12 * tempy;
+    qreal h = qAbs(rect.height()) + 12 * tempy;
     h = (h < 0 ? h / 3.0 : 0);
     h = (h < tempy ? tempy : h);
     qreal th = h - 4 * tempy;
@@ -150,23 +151,23 @@ void CropWidgetItemPrivate::calculateDrawings()
     m_handlers[Bottom][Right].setHeight(th);
 
     m_elipse = QPainterPath();
-    m_elipse.addEllipse(m_rect.center(), tw / 2, th / 2);
+    m_elipse.addEllipse(rect.center(), tw / 2, th / 2);
 
-    w = qAbs(m_rect.width()) + 7 * tempx;
+    w = qAbs(rect.width()) + 7 * tempx;
     w = (w < 0 ? w / 2.0 : 0);
-    h = qAbs(m_rect.height()) + 7 * tempy;
+    h = qAbs(rect.height()) + 7 * tempy;
     h = (h < 0 ? h / 2.0 : 0);
-    m_handlers[Top][Left].moveCenter(m_rect.topLeft() + QPointF(w,h));
-    m_handlers[Top][HCenter].moveCenter( QPointF( m_rect.center().x(), m_rect.top() + h ) );
-    m_handlers[Top][Right].moveCenter(m_rect.topRight() + QPointF(-w,h));
-    m_handlers[VCenter][Left].moveCenter( QPointF( m_rect.left() + w, m_rect.center().y() ) );
-    m_handlers[VCenter][Right].moveCenter( QPointF( m_rect.right() - w, m_rect.center().y() ) );
-    m_handlers[Bottom][Left].moveCenter(m_rect.bottomLeft() + QPointF(w,-h));
-    m_handlers[Bottom][HCenter].moveCenter( QPointF( m_rect.center().x(), m_rect.bottom() - h ) );
-    m_handlers[Bottom][Right].moveCenter(m_rect.bottomRight() + QPointF(-w,-h));
+    m_handlers[Top][Left].moveCenter(rect.topLeft() + QPointF(w,h));
+    m_handlers[Top][HCenter].moveCenter( QPointF( rect.center().x(), rect.top() + h ) );
+    m_handlers[Top][Right].moveCenter(rect.topRight() + QPointF(-w,h));
+    m_handlers[VCenter][Left].moveCenter( QPointF( rect.left() + w, rect.center().y() ) );
+    m_handlers[VCenter][Right].moveCenter( QPointF( rect.right() - w, rect.center().y() ) );
+    m_handlers[Bottom][Left].moveCenter(rect.bottomLeft() + QPointF(w,-h));
+    m_handlers[Bottom][HCenter].moveCenter( QPointF( rect.center().x(), rect.bottom() - h ) );
+    m_handlers[Bottom][Right].moveCenter(rect.bottomRight() + QPointF(-w,-h));
 
     m_shape = QPainterPath();
-    m_shape.addRect(m_rect);
+    m_shape.addRect(rect);
 
     m_handlers_path = QPainterPath();
 
@@ -233,7 +234,7 @@ void CropWidgetItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* /*
     p.addPolygon(this->mapFromScene(this->scene()->sceneRect()));
     p.addPath(d->m_crop_shape);
     QPainterPath p1;
-    p1.addRect(d->m_rect);
+    p1.addRect(d->m_polygon.boundingRect());
     p -= p1;
     painter->fillPath(p, QColor(0, 0, 0, 150));
 
@@ -255,10 +256,11 @@ void CropWidgetItem::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Return)
     {
-        if (d->m_rect.height() > 1 && d->m_rect.width() > 1)
+        QRectF rect = d->m_polygon.boundingRect();
+        if (rect.height() > 1 && rect.width() > 1)
         {
             QPainterPath p;
-            p.addRect( d->m_rect );
+            p.addRect( rect );
 
             bool commandGroupOpened = false;
 
@@ -280,8 +282,8 @@ void CropWidgetItem::keyPressEvent(QKeyEvent* event)
                                   QObject::tr("Error"),
                                   QObject::tr("Bounding rectangle of the crop shape has size [%1px x %2px] "
                                               "and it's less than 1px x 1px")
-                                              .arg(QString::number(qRound(d->m_rect.width())))
-                                              .arg(QString::number(qRound(d->m_rect.height()))));
+                                              .arg(QString::number(qRound(rect.width())))
+                                              .arg(QString::number(qRound(rect.height()))));
         }
 
         event->setAccepted(true);
@@ -299,7 +301,7 @@ void CropWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     d->pressedVHandler = -1;
     d->pressedHHandler = -1;
     d->handlerOffset = QPointF(0,0);
-    d->m_begin_rect = d->m_rect;
+    d->m_begin_rect = d->m_polygon.boundingRect();
     this->setFocus( Qt::MouseFocusReason );
 
     if (event->button() == Qt::LeftButton)
@@ -360,7 +362,7 @@ void CropWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
     else if (point.ry() > maxRect.bottom())
         point.setY( maxRect.bottom() );
 
-    QRectF temp = d->m_rect;
+    QRectF temp = d->m_polygon.boundingRect();
 
     // Position change
 
@@ -455,12 +457,12 @@ void CropWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
     QPainterPath updatePath;
     updatePath.setFillRule(Qt::WindingFill);
-    updatePath.addRect(d->m_rect);
+    updatePath.addPolygon(d->m_polygon);
     updatePath = updatePath.united(d->m_handlers_path);
 
-    d->m_rect = temp;
+    d->m_polygon = temp;
 
-    updatePath.addRect(d->m_rect);
+    updatePath.addPolygon(d->m_polygon);
 
     event->setAccepted(true);
     d->calculateDrawings();
@@ -499,7 +501,7 @@ void CropWidgetItem::updateShapes()
     foreach (AbstractPhoto* const item, d->m_items)
         temp += this->mapFromItem(item, item->itemOpaqueArea());
 
-    d->m_rect = temp.boundingRect();
+    d->m_polygon = temp.toFillPolygon();
     d->calculateDrawings();
 
     this->update();
