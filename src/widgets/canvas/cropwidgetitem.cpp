@@ -48,47 +48,28 @@ class CropWidgetItemPrivate
 {
     explicit CropWidgetItemPrivate (CropWidgetItem* item)
         : m_item(item),
-          pressedVHandler(-1),
-          pressedHHandler(-1)
+          pressedHandler(-1)
     {
     }
-
-    enum
-    {
-        Top,
-        VCenter,
-        Bottom
-    };
-
-    enum
-    {
-        Left,
-        HCenter,
-        Right
-    };
 
     enum
     {
         TopLeft,
         TopRight,
         BottomRight,
-        BottomLeft
+        BottomLeft,
+        Center
     };
 
     CropWidgetItemPrivate()
         : m_item(nullptr),
           currentViewTransform(1, 0, 0,    0, 1, 0,   0, 0, 1),
-          pressedVHandler(-1),
-          pressedHHandler(-1)
+          pressedHandler(-1)
     {
-        m_handlers[Top][Left] = QRectF(0, 0, 20, 20);
-        m_handlers[Top][HCenter] = QRectF(0, 0, 20, 20);
-        m_handlers[Top][Right] = QRectF(0, 0, 20, 20);
-        m_handlers[VCenter][Left] = QRectF(0, 0, 20, 20);
-        m_handlers[VCenter][Right] = QRectF(0, 0, 20, 20);
-        m_handlers[Bottom][Left] = QRectF(0, 0, 20, 20);
-        m_handlers[Bottom][HCenter] = QRectF(0, 0, 20, 20);
-        m_handlers[Bottom][Right] = QRectF(0, 0, 20, 20);
+        m_handlers[TopLeft]     = QRectF(0, 0, 20, 20);
+        m_handlers[TopRight]    = QRectF(0, 0, 20, 20);
+        m_handlers[BottomRight] = QRectF(0, 0, 20, 20);
+        m_handlers[BottomLeft]  = QRectF(0, 0, 20, 20);
         m_elipse.addEllipse(QPointF(0,0), 10, 10);
     }
 
@@ -104,11 +85,9 @@ class CropWidgetItemPrivate
     QPainterPath m_handlers_path;
     QPainterPath m_item_shape;
     QPolygonF m_polygon;
-    QRectF m_begin_rect;
-    QRectF m_handlers[Bottom+1][Right+1];
+    QRectF m_handlers[BottomLeft+1];
     QPainterPath m_elipse;
-    int pressedVHandler;
-    int pressedHHandler;
+    int pressedHandler;
     QPointF handlerOffset;
 
     friend class CropWidgetItem;
@@ -141,34 +120,27 @@ void CropWidgetItemPrivate::calculateDrawings()
     h = (h < tempy ? tempy : h);
     qreal th = h - 4 * tempy;
 
-    for (int i = Top; i <= Bottom; ++i)
-        for (int j = Left; j <= Right; ++j)
-            if ( i != VCenter || j != HCenter)
-            {
-                m_handlers[i][j].setWidth(tw);
-                m_handlers[i][j].setHeight(th);
-            }
+    for (int i = TopLeft; i <= BottomLeft; ++i)
+    {
+        m_handlers[i].setWidth(tw);
+        m_handlers[i].setHeight(th);
+    }
 
     m_elipse = QPainterPath();
     m_elipse.addEllipse(rect.center(), tw / 2, th / 2);
 
-    m_handlers[Top][Left].moveCenter(m_polygon[TopLeft]);
-    m_handlers[Top][HCenter].moveCenter(QLineF(m_polygon[TopLeft], m_polygon[TopRight]).center());
-    m_handlers[Top][Right].moveCenter(m_polygon[TopRight]);
-    m_handlers[VCenter][Left].moveCenter(QLineF(m_polygon[TopLeft], m_polygon[BottomLeft]).center());
-    m_handlers[VCenter][Right].moveCenter(QLineF(m_polygon[TopRight], m_polygon[BottomRight]).center());
-    m_handlers[Bottom][Left].moveCenter(m_polygon[BottomLeft]);
-    m_handlers[Bottom][HCenter].moveCenter(QLineF(m_polygon[BottomRight], m_polygon[BottomLeft]).center());
-    m_handlers[Bottom][Right].moveCenter( m_polygon[BottomRight] );
+    m_handlers[TopLeft].moveCenter(m_polygon[TopLeft]);
+    m_handlers[TopRight].moveCenter(m_polygon[TopRight]);
+    m_handlers[BottomLeft].moveCenter(m_polygon[BottomLeft]);
+    m_handlers[BottomRight].moveCenter(m_polygon[BottomRight]);
 
     m_shape = QPainterPath();
     m_shape.addRect(rect);
 
     m_handlers_path = QPainterPath();
 
-    for (int i = Top; i <= Bottom; ++i)
-        for (int j = Left; j <= Right; ++j)
-            m_handlers_path.addRect(m_handlers[i][j]);
+    for (int i = TopLeft; i <= BottomLeft; ++i)
+        m_handlers_path.addRect(m_handlers[i]);
 
     m_handlers_path += m_elipse;
 
@@ -176,7 +148,7 @@ void CropWidgetItemPrivate::calculateDrawings()
     m_item_shape.setFillRule(Qt::WindingFill);
 
     if (m_item->scene())
-        m_item_shape.addRect( m_item->mapRectFromScene(m_item->scene()->sceneRect()) );
+        m_item_shape.addRect(m_item->mapRectFromScene(m_item->scene()->sceneRect()));
 
     m_item_shape = m_item_shape.united(m_handlers_path);
 }
@@ -229,7 +201,7 @@ void CropWidgetItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* /*
     p.addPolygon(this->mapFromScene(this->scene()->sceneRect()));
     p.addPath(d->m_crop_shape);
     QPainterPath p1;
-    p1.addRect(d->m_polygon.boundingRect());
+    p1.addPolygon(d->m_polygon);
     p -= p1;
     painter->fillPath(p, QColor(0, 0, 0, 150));
 
@@ -251,11 +223,10 @@ void CropWidgetItem::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Return)
     {
-        QRectF rect = d->m_polygon.boundingRect();
-        if (rect.height() > 1 && rect.width() > 1)
+        if (not d->m_polygon.isEmpty())
         {
             QPainterPath p;
-            p.addRect( rect );
+            p.addPolygon(d->m_polygon);
 
             bool commandGroupOpened = false;
 
@@ -266,7 +237,7 @@ void CropWidgetItem::keyPressEvent(QKeyEvent* event)
             }
 
             foreach (AbstractPhoto* const item, d->m_items)
-                item->setCropShape( this->mapToItem(item, p) );
+                item->setCropShape(this->mapToItem(item, p));
 
             if (commandGroupOpened)
                 PLEWindow::instance()->endUndoCommandGroup();
@@ -275,10 +246,7 @@ void CropWidgetItem::keyPressEvent(QKeyEvent* event)
         {
             QMessageBox::critical(nullptr,
                                   QObject::tr("Error"),
-                                  QObject::tr("Bounding rectangle of the crop shape has size [%1px x %2px] "
-                                              "and it's less than 1px x 1px")
-                                              .arg(QString::number(qRound(rect.width())))
-                                              .arg(QString::number(qRound(rect.height()))));
+                                  QObject::tr("Bounding polygon is empty"));
         }
 
         event->setAccepted(true);
@@ -293,33 +261,26 @@ void CropWidgetItem::keyPressEvent(QKeyEvent* event)
 void CropWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     event->setAccepted(false);
-    d->pressedVHandler = -1;
-    d->pressedHHandler = -1;
+    d->pressedHandler = -1;
     d->handlerOffset = QPointF(0,0);
-    d->m_begin_rect = d->m_polygon.boundingRect();
     this->setFocus( Qt::MouseFocusReason );
 
     if (event->button() == Qt::LeftButton)
     {
         QPointF handledPoint = this->mapFromScene(event->buttonDownScenePos(Qt::LeftButton));
 
-        for (int i = CropWidgetItemPrivate::Top; i <= CropWidgetItemPrivate::Bottom; ++i)
+        for (int i = CropWidgetItemPrivate::TopLeft; i <= CropWidgetItemPrivate::BottomLeft; ++i)
         {
-            for (int j = CropWidgetItemPrivate::Left; j <= CropWidgetItemPrivate::Right; ++j)
+            if (d->m_handlers[i].contains(handledPoint))
             {
-                if (d->m_handlers[i][j].contains(handledPoint))
-                {
-                    d->pressedVHandler = i;
-                    d->pressedHHandler = j;
-                    goto found;
-                }
+                d->pressedHandler = i;
+                goto found;
             }
         }
 
         if (d->m_elipse.contains(handledPoint))
         {
-            d->pressedVHandler = CropWidgetItemPrivate::VCenter;
-            d->pressedHHandler = CropWidgetItemPrivate::HCenter;
+            d->pressedHandler = CropWidgetItemPrivate::Center;
             event->setAccepted(true);
         }
         else if (d->m_shape.contains(handledPoint))
@@ -331,123 +292,113 @@ void CropWidgetItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
         found:
 
-            d->handlerOffset = d->m_handlers[d->pressedVHandler][d->pressedHHandler].center() - handledPoint;
+            d->handlerOffset = d->m_handlers[d->pressedHandler].center() - handledPoint;
             event->setAccepted(true);
     }
 }
 
 void CropWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-    if (d->pressedHHandler == -1 || d->pressedVHandler == -1)
+    if (d->pressedHandler == -1)
         return;
 
-    QRectF maxRect = d->m_crop_shape.boundingRect();
+    QPolygonF maxPolygon = d->m_crop_shape.toFillPolygon();
 
     // New handler position calc
 
     QPointF point = event->pos() + d->handlerOffset;
 
-    if      (point.rx() < maxRect.left())
-        point.setX( maxRect.left() );
-    else if (point.rx() > maxRect.right())
-        point.setX( maxRect.right() );
+    QPolygonF temp = d->m_polygon;
 
-    if      (point.ry() < maxRect.top())
-        point.setY( maxRect.top() );
-    else if (point.ry() > maxRect.bottom())
-        point.setY( maxRect.bottom() );
+    // Size change
 
-    QRectF temp = d->m_polygon.boundingRect();
+    uint corner = 0;
+    if      (d->pressedHandler == CropWidgetItemPrivate::TopLeft)
+                corner = CropWidgetItemPrivate::TopLeft;
+    else if (d->pressedHandler == CropWidgetItemPrivate::TopRight)
+                 corner = CropWidgetItemPrivate::TopRight;
+    else if (d->pressedHandler == CropWidgetItemPrivate::BottomLeft)
+                corner = CropWidgetItemPrivate::BottomLeft;
+    else if (d->pressedHandler == CropWidgetItemPrivate::BottomRight)
+                 corner = CropWidgetItemPrivate::BottomRight;
+    else
+        QMessageBox::critical(nullptr,
+                              QObject::tr("Error"),
+                              QObject::tr("Unsupportet event"));
 
-    // Position change
+    // Define corners
 
-    if (d->pressedVHandler == CropWidgetItemPrivate::VCenter &&
-        d->pressedHHandler == CropWidgetItemPrivate::HCenter)
-    {
-        QPointF dif = event->scenePos() - event->lastScenePos();
-        temp.translate(dif);
+    uint afterCorner = (corner + 1) % 4;
+    uint beforeCorner = (corner + 3) % 4;
+    uint oppositCorner = (corner + 2) % 4;
 
-        temp.translate( qMin<float>(maxRect.right()-temp.right(),0.0), qMin<float>(maxRect.bottom()-temp.bottom(),0.0) );
-        temp.translate( qMax<float>(maxRect.left()-temp.left(),0.0), qMax<float>(maxRect.top()-temp.top(),0.0) );
-    }
+    // Set points
+
+    if (maxPolygon.containsPoint(point, Qt::WindingFill))
+        writeOnPolygon(point, temp, corner);
     else
     {
-        // Size change
+        // Before
+        QLineF beforeLine = QLineF(temp[corner], temp[beforeCorner]);
+        QLineF beforeNormalLine = normalLine(beforeLine, point);
 
-        // Vertical size change
+        QPointF beforeIntersectionPoint;
+        beforeLine.intersect(beforeNormalLine, &beforeIntersectionPoint);
 
-        if      (d->pressedVHandler == CropWidgetItemPrivate::Top)
-            temp.setTop( point.y() );
-        else if (d->pressedVHandler == CropWidgetItemPrivate::Bottom)
-            temp.setBottom( point.y() );
+        QLineF beforeMaxLine = QLineF(maxPolygon[corner], maxPolygon[beforeCorner]);
+        QPointF beforeMaxIntersectionPoint;
+        auto beforeMaxIntersection = beforeMaxLine.intersect(beforeNormalLine, &beforeIntersectionPoint);
 
-        // Horizontal size change
+        // After
+        QLineF afterLine = QLineF(temp[afterCorner], temp[corner]);
+        QLineF afterNormalLine = normalLine(afterLine, point);
 
-        if      (d->pressedHHandler == CropWidgetItemPrivate::Right)
-            temp.setRight( point.x() );
-        else if (d->pressedHHandler == CropWidgetItemPrivate::Left)
-            temp.setLeft( point.x() );
+        QPointF afterIntersectionPoint;
+        afterLine.intersect(afterNormalLine, &afterIntersectionPoint);
 
-        // Keeps aspect ratio
+        QLineF afterMaxLine = QLineF(maxPolygon[corner], maxPolygon[afterCorner]);
+        QPointF afterMaxIntersectionPoint;
+        auto afterMaxIntersection = afterMaxLine.intersect(afterNormalLine, &afterIntersectionPoint);
 
-        if (event->modifiers() & Qt::ShiftModifier)
-        {
-            qreal xFactor = temp.width()  / d->m_begin_rect.width();
-            qreal yFactor = temp.height() / d->m_begin_rect.height();
+        if (beforeMaxIntersection == QLineF::BoundedIntersection)
+            writeOnPolygon(beforeIntersectionPoint, temp, corner);
+        else if (afterMaxIntersection == QLineF::BoundedIntersection)
+            writeOnPolygon(afterIntersectionPoint, temp, corner);
+        else
+            writeOnPolygon(maxPolygon[corner], temp, corner);
+    }
 
-            if      (d->pressedHHandler == CropWidgetItemPrivate::HCenter)
-            {
-                qreal dif = d->m_begin_rect.width() - d->m_begin_rect.width() * yFactor;
-                temp.setRight( d->m_begin_rect.right() - dif / 2.0 );
-                temp.setLeft( d->m_begin_rect.left() + dif / 2.0 );
-            }
-            else if (d->pressedVHandler == CropWidgetItemPrivate::VCenter)
-            {
-                qreal dif = d->m_begin_rect.height() - d->m_begin_rect.height() * xFactor;
-                temp.setTop( d->m_begin_rect.top() + dif / 2.0 );
-                temp.setBottom( d->m_begin_rect.bottom() - dif / 2.0 );
-            }
-            else if (xFactor > yFactor)
-            {
-                qreal dif = d->m_begin_rect.width() - d->m_begin_rect.width() * yFactor;
-                if (d->pressedHHandler == CropWidgetItemPrivate::Right)
-                    temp.setRight( d->m_begin_rect.right() - dif );
-                else if (d->pressedHHandler == CropWidgetItemPrivate::Left)
-                    temp.setLeft( d->m_begin_rect.left() + dif );
-            }
-            else if (xFactor < yFactor)
-            {
-                qreal dif = d->m_begin_rect.height() - d->m_begin_rect.height() * xFactor;
-                if (d->pressedVHandler == CropWidgetItemPrivate::Top)
-                    temp.setTop( d->m_begin_rect.top() + dif );
-                else if (d->pressedVHandler == CropWidgetItemPrivate::Bottom)
-                    temp.setBottom( d->m_begin_rect.bottom() - dif );
-            }
-        }
+    // Keeps normal angle ratio
 
-        temp.setBottom( qMin(temp.bottom() , maxRect.bottom()) );
-        temp.setTop( qMax(temp.top() , maxRect.top()) );
-        temp.setLeft( qMax(temp.left() , maxRect.left()) );
-        temp.setRight( qMin(temp.right() , maxRect.right()) );
+    if (event->modifiers() & Qt::ShiftModifier)
+    {
+        // Before
+        QLineF beforeLine = QLineF(temp[oppositCorner], temp[beforeCorner]);
+        QLineF beforeNormalLine = normalLine(beforeLine, point);
 
-        // Rect inverse
+        QPointF beforeIntersectionPoint;
+        beforeLine.intersect(beforeNormalLine, &beforeIntersectionPoint);
 
-        if (temp.height() < 0)
-        {
-            qreal t = temp.bottom();
-            temp.setBottom(temp.top());
-            temp.setTop(t);
-            d->pressedVHandler = (d->pressedVHandler == CropWidgetItemPrivate::Top ? CropWidgetItemPrivate::Bottom :CropWidgetItemPrivate::Top);
-        }
+        QLineF beforeMaxLine = QLineF(maxPolygon[beforeCorner], maxPolygon[oppositCorner]);
+        QPointF beforeIntersectionMaxPoint;
+        auto beforeIntersectionMax = beforeMaxLine.intersect(beforeNormalLine, &beforeIntersectionMaxPoint);
 
-        if (temp.width() < 0)
-        {
-            qreal t = temp.right();
-            temp.setRight(temp.left());
-            temp.setLeft(t);
-            d->pressedHHandler = (d->pressedHHandler == CropWidgetItemPrivate::Left ? CropWidgetItemPrivate::Right :CropWidgetItemPrivate::Left);
-        }
+        if(beforeIntersectionMax == QLineF::BoundedIntersection)
+            writeOnPolygon(beforeIntersectionPoint, temp, beforeCorner);
 
+        // After
+        QLineF afterLine = QLineF(temp[afterCorner], temp[oppositCorner]);
+        QLineF afterNormalLine = normalLine(afterLine, point);
+
+        QPointF afterIntersectionPoint;
+        afterLine.intersect(afterNormalLine, &afterIntersectionPoint);
+
+        QLineF afterMaxLine = QLineF(maxPolygon[afterCorner], maxPolygon[oppositCorner]);
+        QPointF afterIntersectionMaxPoint;
+        auto afterIntersectionMax = afterMaxLine.intersect(afterNormalLine, &afterIntersectionMaxPoint);
+
+        if(afterIntersectionMax == QLineF::BoundedIntersection)
+            writeOnPolygon(afterIntersectionPoint, temp, afterCorner);
     }
 
     QPainterPath updatePath;
@@ -500,6 +451,25 @@ void CropWidgetItem::updateShapes()
     d->calculateDrawings();
 
     this->update();
+}
+
+QLineF CropWidgetItem::normalLine(const QLineF& line, const QPointF& point) const
+{
+    QLineF normalLine = line.normalVector();
+    normalLine.translate(point - line.p1());
+    qreal inf = 99999999.0; // Do not use qInf() as it may result in NaN on one axis
+    normalLine.setLength(inf);
+
+    return normalLine;
+}
+
+void CropWidgetItem::writeOnPolygon(const QPointF& value, QPolygonF& polygon, uint corner)
+{
+    corner = corner % 4;
+    polygon[corner] = value;
+
+    if (corner == CropWidgetItemPrivate::TopLeft)
+        polygon[CropWidgetItemPrivate::BottomLeft + 1] = value; // the first and last item are the same on a closed object
 }
 
 } // namespace PhotoLayoutsEditor

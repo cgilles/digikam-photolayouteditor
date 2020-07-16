@@ -68,6 +68,22 @@ private Q_SLOTS:
 
     void updateShapes();
 
+    /**
+     * @brief calculates the normal line starting from the point point through the line line
+     * @param line line for intersection (the normal line should show in direction point)
+     * @param point starting point of the normal line
+     * @return normal line
+     */
+    QLineF normalLine(const QLineF& line, const QPointF& point) const;
+
+    /**
+     * @brief A closed polygon has the same end point as the start point. Use this function to ensure to write both
+     * @param value QPointF to write on the corner postion
+     * @param polygon polygon to write on
+     * @param corner corner to write
+     */
+    void writeOnPolygon(const QPointF& value, QPolygonF& polygon, uint corner);
+
     friend class CropWidgetItemPrivate;
 };
 
