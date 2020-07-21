@@ -168,6 +168,14 @@ void LayersTree::contextMenuEvent(QContextMenuEvent * event)
     }
 }
 
+void LayersTree::keyPressEvent(QKeyEvent* event)
+{
+    if (event->key() == Qt::Key_Delete)
+    {
+        removeSelectedRows();
+    }
+}
+
 void LayersTree::removeSelectedRows()
 {
     Q_EMIT selectedRowsAboutToBeRemoved();
