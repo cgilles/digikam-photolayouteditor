@@ -542,11 +542,25 @@ void PLEWindow::exportFile()
     imageFileSaveDialog->setAcceptMode(QFileDialog::AcceptSave);
     imageFileSaveDialog->setFileMode(QFileDialog::AnyFile);
     imageFileSaveDialog->setNameFilters(list);
+#ifndef Q_OS_MACOS
+    imageFileSaveDialog->setOptions(QFileDialog::DontUseNativeDialog);
+#endif
+
+
+    // Set default to png format
+
+    QString ext(QLatin1String("png"));
+    foreach (const QString& s, list)
+    {
+        if (s.contains(QString::fromLatin1("*.%1").arg(ext)))
+        {
+            imageFileSaveDialog->selectNameFilter(s);
+            break;
+        }
+    }
 
     int result       = imageFileSaveDialog->exec();
     QList<QUrl> urls = imageFileSaveDialog->selectedUrls();
-    QString ext      = imageFileSaveDialog->selectedNameFilter().section(QLatin1String("*."), 1, 1);
-    ext              = ext.left(ext.length() - 1);
 
     if ((result == QFileDialog::Accepted) && !urls.isEmpty() && !ext.isEmpty())
     {
