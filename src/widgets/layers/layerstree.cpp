@@ -31,7 +31,6 @@
 #include <QHeaderView>
 #include <QIcon>
 #include <QMouseEvent>
-#include <QGraphicsItem>
 #include <QContextMenuEvent>
 
 // Local includes
