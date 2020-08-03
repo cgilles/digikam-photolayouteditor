@@ -472,6 +472,7 @@ void PLEWindow::saveAsFile()
     }
 
     d->fileDialog->setFileMode(QFileDialog::AnyFile);
+    d->fileDialog->setAcceptMode(QFileDialog::AcceptSave);
 
     int result = d->fileDialog->exec();
 
