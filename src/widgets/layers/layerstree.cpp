@@ -112,7 +112,7 @@ void LayersTree::contextMenuEvent(QContextMenuEvent * event)
 {
     QModelIndexList indexList = selectedIndexes();
 
-    if (indexList.count())
+    if (not indexList.empty())
     {
         m_menu->setDeleteEnabled(true);
         m_menu->setMoveDownEnabled(false);
