@@ -409,12 +409,13 @@ void PLEWindow::openFileDialog()
     if (!d->fileDialog)
     {
         d->fileDialog = new QFileDialog(this,
+                                        QObject::tr("Open Layout"),
                                         QString(),
-                                        QString(),
-                                        QObject::tr("*.ple|Photo Layouts Editor files"));
+                                        QObject::tr("All files (*.*);;Photo Layouts Editor files (*.ple)"));
     }
 
     d->fileDialog->setFileMode(QFileDialog::AnyFile);
+    d->fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
 
     int result = d->fileDialog->exec();
 
