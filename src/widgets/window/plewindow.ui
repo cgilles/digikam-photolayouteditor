@@ -82,7 +82,7 @@
   </action>
   <action name="openFileAction">
    <property name="text">
-    <string>Open Template...</string>
+    <string>Open Layout</string>
    </property>
   </action>
   <action name="saveAction">
@@ -202,8 +202,6 @@
    </property>
   </action>
  </widget>
- <resources>
-  <include location="../../../res/icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

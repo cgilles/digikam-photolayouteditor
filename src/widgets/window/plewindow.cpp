@@ -467,9 +467,9 @@ void PLEWindow::saveAsFile()
     if (!d->fileDialog)
     {
         d->fileDialog = new QFileDialog(this,
+                                        QObject::tr("Save layout"),
                                         QString(),
-                                        QString(),
-                                        QObject::tr("*.ple|Photo Layouts Editor files"));
+                                        QObject::tr("Photo Layouts Editor files (*.ple)"));
     }
 
     d->fileDialog->setFileMode(QFileDialog::AnyFile);
@@ -489,12 +489,13 @@ void PLEWindow::saveAsTemplate()
     if (!d->fileDialog)
     {
         d->fileDialog = new QFileDialog(this,
+                                        QObject::tr("Save layout as Template"),
                                         QString(),
-                                        QString(),
-                                        QObject::tr("*.ple|Photo Layouts Editor files"));
+                                        QObject::tr("Photo Layouts Editor files (*.ple)"));
     }
 
     d->fileDialog->setFileMode(QFileDialog::AnyFile);
+    d->fileDialog->setAcceptMode(QFileDialog::AcceptSave);
 
     int result = d->fileDialog->exec();
 
