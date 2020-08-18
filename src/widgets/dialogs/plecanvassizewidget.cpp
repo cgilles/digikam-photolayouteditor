@@ -70,8 +70,8 @@ class PLECanvasSizeWidget::Private
     QDoubleSpinBox* yResolution;
     QComboBox*      resolutionUnitsWidget;
 
-    static int WIDTH;
-    static int HEIGHT;
+    static int WIDTH_PIXEL;
+    static int HEIGHT_PIXEL;
     static QString currentSizeUnit;
 
     static qreal WIDTH_RES;
@@ -81,8 +81,8 @@ class PLECanvasSizeWidget::Private
     friend class PLECanvasSizeWidget;
 };
 
-int PLECanvasSizeWidget::Private::WIDTH = 800;
-int PLECanvasSizeWidget::Private::HEIGHT = 800;
+int PLECanvasSizeWidget::Private::WIDTH_PIXEL = 800;
+int PLECanvasSizeWidget::Private::HEIGHT_PIXEL = 800;
 QString PLECanvasSizeWidget::Private::currentSizeUnit;
 qreal PLECanvasSizeWidget::Private::WIDTH_RES = 72;
 qreal PLECanvasSizeWidget::Private::HEIGHT_RES = 72;
@@ -91,10 +91,10 @@ QString PLECanvasSizeWidget::Private::currentResolutionUnit;
 void PLECanvasSizeWidget::Private::swapSizes()
 {
     // swap dimensions
-    qreal temp = WIDTH;
-    WIDTH = HEIGHT;
-    HEIGHT = temp;
-    temp = xSize->value();
+    int tempPixel = WIDTH_PIXEL;
+    WIDTH_PIXEL = HEIGHT_PIXEL;
+    HEIGHT_PIXEL = tempPixel;
+    qreal temp = xSize->value();
     xSize->setValue( ySize->value() );
     ySize->setValue( temp );
 
@@ -109,9 +109,9 @@ void PLECanvasSizeWidget::Private::swapSizes()
 
 void PLECanvasSizeWidget::Private::updateSizeLabel()
 {
-    sizeLabel->setText(QString::number(WIDTH)
+    sizeLabel->setText(QString::number(WIDTH_PIXEL)
                         .append(QLatin1String(" x "))
-                        .append(QString::number(HEIGHT)
+                        .append(QString::number(HEIGHT_PIXEL)
                         .append(QLatin1String(" px"))));
 }
 
@@ -119,15 +119,15 @@ PLECanvasSizeWidget::PLECanvasSizeWidget(QWidget* parent)
     : QWidget(parent),
       d(new Private)
 {
-    setupUI(QSize(d->WIDTH, d->HEIGHT),
+    setupUI(QSize(d->WIDTH_PIXEL, d->HEIGHT_PIXEL),
             d->currentSizeUnit,
-            QSize(d->WIDTH_RES, d->HEIGHT_RES),
+            QSizeF(d->WIDTH_RES, d->HEIGHT_RES),
             d->currentResolutionUnit);
 }
 
 PLECanvasSizeWidget::Orientation PLECanvasSizeWidget::orientation() const
 {
-    if (d->WIDTH < d->HEIGHT)
+    if (d->WIDTH_PIXEL < d->HEIGHT_PIXEL)
         return PLECanvasSizeWidget::Vertical;
     else
         return PLECanvasSizeWidget::Horizontal;
@@ -164,7 +164,7 @@ void PLECanvasSizeWidget::setupUI(const QSizeF& size,
     d->xSize->setMinimum(0.00001);
     d->xSize->setMaximum(999999);
     d->xSize->setValue(size.width());
-    d->WIDTH = PLECanvasSize::toPixels(size.width(),
+    d->WIDTH_PIXEL = PLECanvasSize::toPixels(size.width(),
                                     resolution.width(),
                                     PLECanvasSize::sizeUnit(tempSizeUnits),
                                     PLECanvasSize::resolutionUnit(tempResolutionUnits));
@@ -176,7 +176,7 @@ void PLECanvasSizeWidget::setupUI(const QSizeF& size,
     d->ySize->setMinimum(0.00001);
     d->ySize->setMaximum(999999);
     d->ySize->setValue(size.height());
-    d->HEIGHT = PLECanvasSize::toPixels(size.height(),
+    d->HEIGHT_PIXEL = PLECanvasSize::toPixels(size.height(),
                                      resolution.height(),
                                      PLECanvasSize::sizeUnit(tempSizeUnits),
                                      PLECanvasSize::resolutionUnit(tempResolutionUnits));
@@ -274,8 +274,8 @@ void PLECanvasSizeWidget::sizeUnitsChanged(const QString& unitName)
     
     if (sizeUnit == PLECanvasSize::Pixels)
     {
-        d->xSize->setValue(d->WIDTH);
-        d->ySize->setValue(d->HEIGHT);
+        d->xSize->setValue(d->WIDTH_PIXEL);
+        d->ySize->setValue(d->HEIGHT_PIXEL);
         d->xSize->setDecimals(0);
         d->ySize->setDecimals(0);
         return;
@@ -284,11 +284,11 @@ void PLECanvasSizeWidget::sizeUnitsChanged(const QString& unitName)
     d->xSize->setDecimals(5);
     d->ySize->setDecimals(5);
     PLECanvasSize::ResolutionUnits resolutionUnit = PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText());
-    qreal WIDTH = PLECanvasSize::fromPixels(d->WIDTH,
+    qreal WIDTH = PLECanvasSize::fromPixels(d->WIDTH_PIXEL,
                                             d->xResolution->value(),
                                             sizeUnit,
                                             resolutionUnit);
-    qreal HEIGHT = PLECanvasSize::fromPixels(d->HEIGHT,
+    qreal HEIGHT = PLECanvasSize::fromPixels(d->HEIGHT_PIXEL,
                                              d->yResolution->value(),
                                              sizeUnit,
                                              resolutionUnit);
@@ -317,7 +317,7 @@ void PLECanvasSizeWidget::setHorizontal(bool isHorizontal)
 {
     if (isHorizontal)
     {
-        if (d->WIDTH < d->HEIGHT)
+        if (d->WIDTH_PIXEL < d->HEIGHT_PIXEL)
         {
             d->swapSizes();
             d->updateSizeLabel();
@@ -331,7 +331,7 @@ void PLECanvasSizeWidget::setVertical(bool isVertical)
 {
     if (isVertical)
     {
-        if (d->HEIGHT < d->WIDTH)
+        if (d->HEIGHT_PIXEL < d->WIDTH_PIXEL)
         {
             d->swapSizes();
             d->updateSizeLabel();
@@ -343,25 +343,25 @@ void PLECanvasSizeWidget::setVertical(bool isVertical)
 
 void PLECanvasSizeWidget::widthChanged(double width)
 {
-    width = PLECanvasSize::toPixels(width,
+    int widthPixel = PLECanvasSize::toPixels(width,
                                     d->xResolution->value(),
                                     PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
                                     PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
-    d->WIDTH = width;
-    this->setHorizontal(d->WIDTH > d->HEIGHT);
-    this->setVertical(d->WIDTH < d->HEIGHT);
+    d->WIDTH_PIXEL = widthPixel;
+    this->setHorizontal(d->WIDTH_PIXEL > d->HEIGHT_PIXEL);
+    this->setVertical(d->WIDTH_PIXEL < d->HEIGHT_PIXEL);
     d->updateSizeLabel();
 }
 
 void PLECanvasSizeWidget::heightChanged(double height)
 {
-    height = PLECanvasSize::toPixels(height,
+    int heightPixel = PLECanvasSize::toPixels(height,
                                      d->yResolution->value(),
                                      PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
                                      PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
-    d->HEIGHT = height;
-    this->setHorizontal(d->WIDTH > d->HEIGHT);
-    this->setVertical(d->WIDTH < d->HEIGHT);
+    d->HEIGHT_PIXEL = heightPixel;
+    this->setHorizontal(d->WIDTH_PIXEL > d->HEIGHT_PIXEL);
+    this->setVertical(d->WIDTH_PIXEL < d->HEIGHT_PIXEL);
     d->updateSizeLabel();
 }
 
@@ -378,7 +378,7 @@ void PLECanvasSizeWidget::xResolutionChanged(double xResolution)
                                         xResolution,
                                         PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
                                         PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
-    d->WIDTH = width;
+    d->WIDTH_PIXEL = width;
     d->WIDTH_RES = xResolution * resolutionFactor;
     d->updateSizeLabel();
 }
@@ -396,7 +396,7 @@ void PLECanvasSizeWidget::yResolutionChanged(double yResolution)
                                          yResolution,
                                          PLECanvasSize::sizeUnit(d->sizeUnitsWidget->currentText()),
                                          PLECanvasSize::resolutionUnit(d->resolutionUnitsWidget->currentText()));
-    d->HEIGHT = height;
+    d->HEIGHT_PIXEL = height;
     d->HEIGHT_RES = yResolution * resolutionFactor;
     d->updateSizeLabel();
 }
