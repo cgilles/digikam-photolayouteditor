@@ -57,9 +57,9 @@ private:
         for (unsigned int i = 0; i < pixels; ++i)
         {
             int gr  = qGray(data[i]);
-            int r   = gr+40.0;
-            int g   = gr+20.0;
-            int b   = gr-20.0;
+            int r   = gr+40;
+            int g   = gr+20;
+            int b   = gr-20;
             data[i] = qRgb((r > 255 ? 255 : r), (g > 255 ? 255 : g), (b < 0 ? 0 : b));
         }
 

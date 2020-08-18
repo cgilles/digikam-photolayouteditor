@@ -182,7 +182,7 @@ QtAbstractPropertyBrowser* PhotoEffectsLoader::propertyBrowser(AbstractPhotoEffe
                     doubleManager->setValue(property, metaProperty.read(effect).toDouble());
                     doubleManager->setMinimum(property, effect->minimumValue(metaProperty).toDouble());
                     doubleManager->setMaximum(property, effect->maximumValue(metaProperty).toDouble());
-                    integerManager->setSingleStep(property, effect->maximumValue(metaProperty).toDouble());
+                    doubleManager->setSingleStep(property, effect->maximumValue(metaProperty).toDouble());
                 }
                 break;
 
