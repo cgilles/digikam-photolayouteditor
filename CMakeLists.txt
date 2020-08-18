@@ -194,11 +194,21 @@ add_definitions(-DQT_DEPRECATED_WARNINGS
 add_library(photolayoutseditorcore STATIC ${photolayoutseditorcore_SRCS})
 
 target_compile_options(photolayoutseditorcore PRIVATE
+                       -Waddress
                        -Wall
+                       -Werror
                        -Wextra
+                       -Winit-self
+                       -Wfloat-conversion
+                       -Wnull-dereference
                        -Wsuggest-override
+                       -Wpedantic
                        -Woverloaded-virtual
+                       -Wunused-value
                        -Wzero-as-null-pointer-constant
+                       -Wno-conversion
+                       -Wno-deprecated-copy
+                       -Wno-int-in-bool-context
 )
 
 if(NOT MSVC)
