@@ -573,7 +573,7 @@ void TextItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     QPointF p = event->pos();
 
     // Get clicked line number
-    d->m_cursor_row =  p.y() / m_metrics.lineSpacing();
+    d->m_cursor_row =  (int)(p.y() / m_metrics.lineSpacing());
 
     if (d->m_cursor_row >= d->m_string_list.count())
         d->m_cursor_row = d->m_string_list.count()-1;
@@ -593,13 +593,13 @@ void TextItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         while (width < p.x() && d->m_cursor_character < limit)
         {
             width = m_metrics.horizontalAdvance(currentLine, ++(d->m_cursor_character));
-            rightSpace = width - p.x();
+            rightSpace = width - (int)p.x();
         }
 
         if (d->m_cursor_character > 0)
         {
             width = m_metrics.horizontalAdvance(currentLine, --(d->m_cursor_character));
-            leftSpace = p.x() - width;
+            leftSpace = (int)p.x() - width;
         }
 
         if (leftSpace > rightSpace)

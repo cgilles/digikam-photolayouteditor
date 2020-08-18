@@ -37,8 +37,8 @@
 
 QHash<int, QRectF> rectForRow;
 
-#define WIDTH 120
-#define HEIGHT 120
+static constexpr int WIDTH = 120;
+static constexpr int HEIGHT = 120;
 
 namespace PhotoLayoutsEditor
 {
@@ -52,7 +52,7 @@ public:
         if (!index.internalPointer())
             return;
 
-        QRectF rf = option.rect;
+        QRect rf = option.rect;
         rf.setTop(rf.top() + 2);
         rf.setBottom(rf.bottom() - 2);
         rf.setLeft(rf.left() + 2);
@@ -419,7 +419,7 @@ void TemplatesView::calculateRectsIfNecessary() const //1
     }
 
     idealWidth = minimumWidth;
-    idealHeight = y + HEIGHT * 1.5;
+    idealHeight = y + (int)((qreal) HEIGHT * 1.5);
     hashIsDirty = false;
 
     viewport()->update();

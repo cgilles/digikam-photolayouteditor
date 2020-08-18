@@ -211,7 +211,7 @@ qreal PLECanvasSize::sizeConvert(qreal value, SizeUnits from, SizeUnits to)
 int PLECanvasSize::toPixels(qreal value, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit)
 {
     if (sUnit == Pixels)
-        return value;
+        return (int)value;
 
     qreal result = (resolutionUnitFactor(rUnit) * resolution * value)
                    / sizeUnitFactor(sUnit);
@@ -259,14 +259,19 @@ void PLECanvasSize::setSize(const QSizeF& size)
 
 QSizeF PLECanvasSize::size(SizeUnits unit) const
 {
-    QSizeF result;
-    result.setWidth( toPixels(m_size.width(), m_resolution.width(), m_size_unit, m_resolution_unit) );
-    result.setHeight( toPixels(m_size.height(), m_resolution.height(), m_size_unit, m_resolution_unit) );
+    int widthPixel = toPixels(m_size.width(), m_resolution.width(), m_size_unit, m_resolution_unit);
+    int heightPixel = toPixels(m_size.height(), m_resolution.height(), m_size_unit, m_resolution_unit);
 
-    if (unit != Pixels)
+    QSizeF result;
+    if (unit == Pixels)
     {
-        result.setWidth( fromPixels(result.width(), m_resolution.width(), unit, m_resolution_unit) );
-        result.setHeight( fromPixels(result.height(), m_resolution.height(), unit, m_resolution_unit) );
+        result.setWidth( widthPixel );
+        result.setHeight( heightPixel );
+    }
+    else
+    {
+        result.setWidth( fromPixels(widthPixel, m_resolution.width(), unit, m_resolution_unit) );
+        result.setHeight( fromPixels(heightPixel, m_resolution.height(), unit, m_resolution_unit) );
     }
 
     return result;

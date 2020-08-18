@@ -702,7 +702,7 @@ void PLECanvas::progressEvent(ProgressEvent* event)
         case ProgressEvent::ProgressUpdate:
 
             if (temp)
-                temp->setValue(event->data().toDouble() * 1000);
+                temp->setValue((int)(event->data().toDouble() * 1000.));
 
             break;
 

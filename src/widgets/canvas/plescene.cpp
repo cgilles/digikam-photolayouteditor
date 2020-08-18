@@ -1518,7 +1518,7 @@ QDomDocument PLEScene::toSvg(ProgressObserver* observer, bool asTemplate)
         QDomElement image = document.createElement(QLatin1String("image"));
 
         QSizeF sceneSize = this->sceneRect().size();
-        double imgw = 200, imgh = 200;
+        qreal imgw = 200, imgh = 200;
 
         if ((imgw / sceneSize.width()) < (imgh / sceneSize.height()))
             imgh = qRound(sceneSize.height() * imgw / sceneSize.width());
@@ -1527,7 +1527,7 @@ QDomDocument PLEScene::toSvg(ProgressObserver* observer, bool asTemplate)
 
         QByteArray byteArray;
         QBuffer buffer(&byteArray);
-        QImage img(QSize(imgw, imgh), QImage::Format_ARGB32_Premultiplied);
+        QImage img(QSize((int)imgw, (int)imgh), QImage::Format_ARGB32_Premultiplied);
         img.fill(Qt::white);
         QPainter p(&img);
         this->render(&p, QRectF(0, 0, imgw, imgh), this->sceneRect(), Qt::KeepAspectRatio);
