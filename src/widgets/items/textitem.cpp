@@ -481,6 +481,13 @@ TextItem::TextItem(const QString& text, PLEScene* scene)
       m_font(DEFAULT_FONT),
       m_metrics(m_font)
 {
+    // On the first use of a TextItem, the font is invalid. Therefor check for that case and change it to a valid one.
+    if(m_font.pointSize() <= 0)
+    {
+        m_font.setFamily(m_font.defaultFamily());
+        m_font.setPointSize(12);
+    }
+
     d->m_string_list = QString(text).remove(QLatin1Char('\t')).split(QLatin1Char('\n'));
 
     this->setFlag(QGraphicsItem::ItemIsFocusable);
