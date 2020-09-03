@@ -363,10 +363,13 @@ QDomDocument PhotoItem::toSvg() const
         bool embed = false;
         int result = QMessageBox::question(qApp->activeWindow(),
                                            QObject::tr("Saving: %1").arg(name()),
-                                           QObject::tr("Do you want to embed images data?\n"
-                                                       "Remember that when you move or rename image files on your disk or the storage device become unavailable, those images become unavailable for %1 "
-                                                       "and this layout might become broken.").arg(QApplication::applicationName()));
-        if (result == QMessageBox::Yes)
+                                           QObject::tr("Do you want to embed images data?"
+                                                "\n"
+                                                "\nRemember that when you move or rename image files on your "
+                                                "\ndisk or the storage device become unavailable, those "
+                                                "\nimages become unavailable for %1 "
+                                                "\nand this layout might become broken.").arg(QApplication::applicationName()));
+        if (result != QMessageBox::Yes)
         {
             embed = true;
         }
