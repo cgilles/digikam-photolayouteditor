@@ -1461,7 +1461,12 @@ void PLEScene::setCropWidgetVisible(bool isVisible)
         d->m_crop_item->setZValue(std::numeric_limits<double>::infinity());
         this->QGraphicsScene::addItem(d->m_crop_item);
 
-        if (d->m_selected_items.count() == 1)
+        if (dynamic_cast<PhotoLayoutsEditor::TextItem*>(d->m_pressed_item))
+        {
+            // It makes no sense to crop a text item
+            d->m_crop_item->hide();
+        }
+        else if (d->m_selected_items.count() == 1)
         {
             d->m_crop_item->setItems(d->m_selected_items.keys());
         }
