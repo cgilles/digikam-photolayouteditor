@@ -571,6 +571,7 @@ void TextItem::keyPressEvent(QKeyEvent* event)
             //textChange = true;
     }
 
+    setName(d->m_string_list[0]); // Set the name of the layer. With index 0 it just takes the first line.
     refreshItem();
     event->setAccepted(true);
 }
