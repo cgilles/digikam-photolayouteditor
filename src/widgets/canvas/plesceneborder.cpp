@@ -129,7 +129,7 @@ QDomElement PLESceneBorder::toSvg(QDomDocument& document) const
     m_image.save(&buffer, "PNG");
     image.setAttribute(QLatin1String("width"), QString::number(s.width())+QLatin1String("px"));
     image.setAttribute(QLatin1String("height"),QString::number(s.height())+QLatin1String("px"));
-    image.setAttribute(QLatin1String("xlink:href"), QLatin1String("data:image/png;base64,")+QString::fromUtf8(byteArray.toBase64()));
+    image.setAttribute(QLatin1String("xlink:href"), QLatin1String("data:image/png;base64,") + QString::fromUtf8(byteArray.toBase64()));
     pattern.setAttribute(QLatin1String("id"), QString::number(qChecksum(byteArray.constData(), byteArray.length())).append(QLatin1String("bkg")));
     pattern.appendChild(image);
 

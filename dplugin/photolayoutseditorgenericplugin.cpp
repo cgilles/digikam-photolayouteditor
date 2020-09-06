@@ -53,7 +53,7 @@ PhotoLayoutsEditorPlugin::~PhotoLayoutsEditorPlugin()
 
 QString PhotoLayoutsEditorPlugin::name() const
 {
-    return QString::fromUtf8("Photo Layouts Editor");
+    return QObject::tr("Photo Layouts Editor");
 }
 
 QString PhotoLayoutsEditorPlugin::iid() const
@@ -68,12 +68,12 @@ QIcon PhotoLayoutsEditorPlugin::icon() const
 
 QString PhotoLayoutsEditorPlugin::description() const
 {
-    return QString::fromUtf8("A tool to create collage layout of images using effect.");
+    return QObject::tr("A tool to create collage layout of images using effect.");
 }
 
 QString PhotoLayoutsEditorPlugin::details() const
 {
-    return QString::fromUtf8("<p>This tool allows you to create layouts of photo based on a fusion of several images.</p>");
+    return QObject::tr("<p>This tool allows you to create layouts of photo based on a fusion of several images.</p>");
 }
 
 QList<DPluginAuthor> PhotoLayoutsEditorPlugin::authors() const
@@ -92,7 +92,7 @@ void PhotoLayoutsEditorPlugin::setup(QObject* const parent)
 {
     DPluginAction* const ac = new DPluginAction(parent);
     ac->setIcon(icon());
-    ac->setText(QString::fromUtf8("Photo Layouts Editor..."));
+    ac->setText(QObject::tr("Photo Layouts Editor..."));
     ac->setObjectName(QLatin1String("photolayoutseditor"));
     ac->setActionCategory(DPluginAction::GenericTool);
 
