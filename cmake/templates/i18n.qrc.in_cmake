@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/i18n">
+    @PLUGIN_QM_XML@
+    </qresource>
+</RCC>
