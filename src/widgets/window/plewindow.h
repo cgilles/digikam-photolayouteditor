@@ -109,6 +109,16 @@ private:
     void loadBorders();
     void prepareSignalsConnections();
 
+    /**
+     * Load translators system based i1!n
+     */
+    void loadTranslations();
+
+    /**
+     * Load one translation file from normal i18n packaging installation
+     */
+    bool loadTranslation(const QString& lang) const;
+
 private:
 
     class Private;

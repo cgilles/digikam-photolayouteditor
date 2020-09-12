@@ -50,6 +50,7 @@ PLEWindow::PLEWindow(DPluginGeneric* const plugin)
     d->plugin  = plugin;
 
     s_initResource();
+    loadTranslations();
 
     d->ui = new Ui::PLEWindow;
     d->ui->setupUi(this);
@@ -835,6 +836,45 @@ void PLEWindow::slotAbout()
         QMessageBox::about(this,
                            QObject::tr("About Photo Layouts Editor"),
                            QObject::tr("A tool to create collage layout of images using effect."));
+    }
+}
+
+bool PLEWindow::loadTranslation(const QString& lang) const
+{
+    qDebug() << "Loading i18n" << lang << "for plugin" << name();
+
+    QTranslator* const i18n = new QTranslator(qApp);
+
+    if (!i18n->load(QString::fromLatin1(":/i18n/%1.qm").arg(lang)))
+    {
+        delete i18n;
+        return false;
+    }
+
+    qApp->installTranslator(i18n);
+
+    return true;
+}
+
+void PLEWindow::loadTranslations()
+{
+    // Quote from ecm_create_qm_loader created code:
+    // The way Qt translation system handles plural forms makes it necessary to
+    // have a translation file which contains only plural forms for `en`.
+    // That's why we load the `en` translation unconditionally, then load the
+    // translation for the current locale to overload it.
+    const QString en(QStringLiteral("en"));
+
+    loadTranslation(en);
+
+    QLocale locale = QLocale::system();
+
+    if (locale.name() != en)
+    {
+        if (!loadTranslation(locale.name()))
+        {
+            loadTranslation(locale.bcp47Name());
+        }
     }
 }
 

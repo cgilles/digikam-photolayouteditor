@@ -55,6 +55,8 @@
 #include <QDebug>
 #include <QPointer>
 #include <QSettings>
+#include <QTranslator>
+#include <QLocale>
 
 // digiKam includes
 
