@@ -174,6 +174,7 @@ set(photolayoutseditorcore_SRCS
 qt5_add_resources(photolayoutseditorcore_SRCS
                   ${CMAKE_CURRENT_SOURCE_DIR}/res/icons.qrc
                   ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtpropertybrowser.qrc
+                  ${CMAKE_BINARY_DIR}/i18n.qrc
 )
 
 qt5_wrap_ui(photolayoutseditorcore_SRCS

@@ -92,11 +92,6 @@
 
 using namespace Digikam;
 
-// NOTE: Q_*_RESOURCE cannot be used in a namespace
-
-inline void initIconsResource()    { Q_INIT_RESOURCE(icons);    }
-inline void cleanupIconsResource() { Q_CLEANUP_RESOURCE(icons); }
-
 namespace PhotoLayoutsEditor
 {
 

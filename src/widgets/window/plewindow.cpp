@@ -24,6 +24,21 @@
 
 #include "plewindow_p.h"
 
+// NOTE: need to be done outside plugin namespace.
+void s_initResource()
+{
+    Q_INIT_RESOURCE(icons);
+    Q_INIT_RESOURCE(qtpropertybrowser);
+    Q_INIT_RESOURCE(i18n);
+}
+
+void s_cleanupResource()
+{
+    Q_CLEANUP_RESOURCE(icons);
+    Q_CLEANUP_RESOURCE(qtpropertybrowser);
+    Q_CLEANUP_RESOURCE(i18n);
+}
+
 namespace PhotoLayoutsEditor
 {
 
@@ -33,7 +48,8 @@ PLEWindow::PLEWindow(DPluginGeneric* const plugin)
 {
     m_instance = this;
     d->plugin  = plugin;
-    initIconsResource();
+
+    s_initResource();
 
     d->ui = new Ui::PLEWindow;
     d->ui->setupUi(this);
@@ -76,7 +92,7 @@ PLEWindow::~PLEWindow()
 
     m_instance = nullptr;
 
-    cleanupIconsResource();
+    s_cleanupResource();
 }
 
 PLEWindow* PLEWindow::instance(DPluginGeneric* const plugin)
