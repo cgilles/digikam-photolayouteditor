@@ -31,6 +31,7 @@ This tool allows you to create collage layout of images using effect.
 | Polaroid border: how to change text of legend?                                            |        |
 | Text tool is not rendered on the canvas                                                   |        |
 | Effects in Qt Property Editor cannot be cumulated (Borders work as espected)              |        |
+| Add i18n support with QtLinguist.                                                         |  done  |
 | Enforce more modern Qt API.                                                               |  done  |
 | Fix coding style (constify, brackets, indent, spaces, new lines, const ref, etc.).        |  done  |
 | Leaving PLE with canvas data not previously saved do not ask to save data on new file.    |  done  |
