@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
     QCommandLineParser parser;
     parser.addVersionOption();
     parser.addHelpOption();
-    parser.addPositionalArgument(QLatin1String("file"), QLatin1String("Template file to open"), QLatin1String("+[file]"));
+    parser.addPositionalArgument(QLatin1String("file"), QObject::tr("Template file to open"), QLatin1String("+[file]"));
     parser.process(app);
 
     MetaEngine::initializeExiv2();

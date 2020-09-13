@@ -26,7 +26,6 @@ find_package(Qt5 "5.6.0" REQUIRED
              Svg
              Xml
              PrintSupport
-             LinguistTools              # for i18n
 )
 
 find_package(Threads)
@@ -39,7 +38,11 @@ set_package_properties(DigikamCore PROPERTIES
                        DESCRIPTION "digiKam core library"
 )
 
-include(PluginI18n)
+include(i18nUtils)
+
+qt5_add_resources(i18n_QRC_SRCS
+                  ${CMAKE_CURRENT_BINARY_DIR}/i18n.qrc
+)
 
 include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIRECTORIES>/digikam
                     $<TARGET_PROPERTY:Qt5::Xml,INTERFACE_INCLUDE_DIRECTORIES>
@@ -53,6 +56,7 @@ include_directories($<TARGET_PROPERTY:Digikam::digikamcore,INTERFACE_INCLUDE_DIR
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/threads
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/undo
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src/common
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/dialogs
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/items
@@ -168,13 +172,13 @@ set(photolayoutseditorcore_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/mousepresslistener.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/rotationwidgetitem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widgets/canvas/scalingwidgetitem.cpp
-    ${plugin_i18n_QM}
+    ${i18n_QRC_SRCS}
+    ${i18n_QM}
 )
 
 qt5_add_resources(photolayoutseditorcore_SRCS
                   ${CMAKE_CURRENT_SOURCE_DIR}/res/icons.qrc
                   ${CMAKE_CURRENT_SOURCE_DIR}/src/extra/qtpropertybrowser/qtpropertybrowser.qrc
-                  ${CMAKE_BINARY_DIR}/i18n.qrc
 )
 
 qt5_wrap_ui(photolayoutseditorcore_SRCS

@@ -90,6 +90,7 @@
 #include "borderdrawerinterface.h"
 #include "borderdrawersloader.h"
 #include "plecanvasnewdialog.h"
+#include "i18nutils.h"
 #include "ui_plewindow.h"
 
 using namespace Digikam;
