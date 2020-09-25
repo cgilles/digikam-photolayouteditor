@@ -1259,7 +1259,8 @@ void PLEScene::setGrid(double x, double y)
 
     if (!grid_item)
     {
-        grid_item = new QGraphicsItemGroup();
+        QList<QGraphicsItem*> items;
+        grid_item = createItemGroup(items);
         grid_item->setZValue(0);
         grid_item->setVisible(true);
         QGraphicsOpacityEffect* effect = new QGraphicsOpacityEffect(this);

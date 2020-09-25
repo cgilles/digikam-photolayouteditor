@@ -26,7 +26,7 @@ This tool allows you to create collage layout of images using effect.
 | Integrate auto-layout algorithm (https://github.com/cgilles/cute-collage)                 |        |
 | Create new templates from PNG files hosted in data/TODO/                                  |        |
 | Export as template do not work as expected. Result do not reflect of the canvas content   |        |
-| Show Grid lines do nothing                                                                |        |
+| Show Grid lines do nothing                                                                |  done  |
 | Colorize effect rendering is not processed all time while editing properties              |        |
 | Polaroid border: how to change text of legend?                                            |        |
 | Text tool is not rendered on the canvas                                                   |        |
