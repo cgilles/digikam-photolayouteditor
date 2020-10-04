@@ -206,7 +206,6 @@ target_compile_options(photolayoutseditorcore PRIVATE
                        -Winit-self
                        -Wfloat-conversion
                        -Wnull-dereference
-                       -Wsuggest-override
                        -Wpedantic
                        -Woverloaded-virtual
                        -Wunused-value

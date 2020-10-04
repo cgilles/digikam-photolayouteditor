@@ -347,7 +347,6 @@ void CropWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
         beforeLine.intersect(beforeNormalLine, &beforeIntersectionPoint);
 
         QLineF beforeMaxLine = QLineF(maxPolygon[corner], maxPolygon[beforeCorner]);
-        QPointF beforeMaxIntersectionPoint;
         auto beforeMaxIntersection = beforeMaxLine.intersect(beforeNormalLine, &beforeIntersectionPoint);
 
         // After
@@ -358,7 +357,6 @@ void CropWidgetItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
         afterLine.intersect(afterNormalLine, &afterIntersectionPoint);
 
         QLineF afterMaxLine = QLineF(maxPolygon[corner], maxPolygon[afterCorner]);
-        QPointF afterMaxIntersectionPoint;
         auto afterMaxIntersection = afterMaxLine.intersect(afterNormalLine, &afterIntersectionPoint);
 
         if (beforeMaxIntersection == QLineF::BoundedIntersection)

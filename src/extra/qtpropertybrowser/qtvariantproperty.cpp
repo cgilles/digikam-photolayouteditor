@@ -150,13 +150,10 @@ static QtProperty *wrappedProperty(QtProperty *property)
 
 class QtVariantPropertyPrivate
 {
-    QtVariantProperty *q_ptr;
-
 public:
     
     explicit QtVariantPropertyPrivate(QtVariantPropertyManager* m)
-        : q_ptr(nullptr),
-          manager(m)
+        : manager(m)
     {
     }
 
