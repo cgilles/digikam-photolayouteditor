@@ -42,9 +42,7 @@ public:
     {
     }
 
-    virtual ~ProgressObserver()
-    {
-    }
+    virtual ~ProgressObserver() = default;
 
     virtual void progresChanged(double progress)
     {

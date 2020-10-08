@@ -38,9 +38,7 @@ public:
 
     explicit StandardEffectsFactory(QObject* parent = nullptr);
   
-    ~StandardEffectsFactory() override
-    {
-    }
+    ~StandardEffectsFactory() override = default;
 
     AbstractPhotoEffectInterface* getEffectInstance(const QString& name = QString()) override;
     QString effectName() const                                                       override;

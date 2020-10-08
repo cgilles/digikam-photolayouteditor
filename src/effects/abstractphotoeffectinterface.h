@@ -60,9 +60,7 @@ public:
             qDebug() << "No factory object for effect" << this << "from:" << __FILE__ << __LINE__;
     }
 
-    ~AbstractPhotoEffectInterface() override
-    {
-    }
+    ~AbstractPhotoEffectInterface() override = default;
 
     virtual QImage apply(const QImage& image) const
     {

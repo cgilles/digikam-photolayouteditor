@@ -47,9 +47,7 @@ PhotoLayoutsEditorPlugin::PhotoLayoutsEditorPlugin(QObject* const parent)
 {
 }
 
-PhotoLayoutsEditorPlugin::~PhotoLayoutsEditorPlugin()
-{
-}
+PhotoLayoutsEditorPlugin::~PhotoLayoutsEditorPlugin() = default;
 
 QString PhotoLayoutsEditorPlugin::name() const
 {

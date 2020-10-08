@@ -33,8 +33,6 @@ BorderDrawerFactoryInterface::BorderDrawerFactoryInterface(QObject* const parent
 {
 }
 
-BorderDrawerFactoryInterface::~BorderDrawerFactoryInterface()
-{
-}
+BorderDrawerFactoryInterface::~BorderDrawerFactoryInterface() = default;
 
 } // namespace PhotoLayoutsEditor

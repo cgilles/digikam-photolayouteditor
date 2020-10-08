@@ -48,9 +48,7 @@ PhotoEffectsGroup::PhotoEffectsGroup(AbstractPhoto* photo, QObject* parent)
     connect(this, SIGNAL(effectsChanged()), photo, SLOT(refresh()));
 }
 
-PhotoEffectsGroup::~PhotoEffectsGroup()
-{
-}
+PhotoEffectsGroup::~PhotoEffectsGroup() = default;
 
 QDomElement PhotoEffectsGroup::toSvg(QDomDocument& document) const
 {

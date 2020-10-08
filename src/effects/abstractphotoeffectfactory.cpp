@@ -32,8 +32,6 @@ AbstractPhotoEffectFactory::AbstractPhotoEffectFactory(QObject* const parent)
 {
 }
 
-AbstractPhotoEffectFactory::~AbstractPhotoEffectFactory()
-{
-}
+AbstractPhotoEffectFactory::~AbstractPhotoEffectFactory() = default;
 
 } // namespace PhotoLayoutsEditor

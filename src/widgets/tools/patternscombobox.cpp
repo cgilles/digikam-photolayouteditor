@@ -45,9 +45,7 @@ public:
     {
     }
 
-    ~PatternDelegate() override
-    {
-    }
+    ~PatternDelegate() override = default;
 
     QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
     {

@@ -95,9 +95,7 @@ public:
         paperSizes.insert(QLatin1String("Tabloid (279.4 x 431.8 mm)"),QPrinter::Tabloid);
     }
 
-    ~PLECanvasSizeDialogPrivate()
-    {
-    }
+    ~PLECanvasSizeDialogPrivate() = default;
 
     void swapSizes();
     void updateSizeLabel();
