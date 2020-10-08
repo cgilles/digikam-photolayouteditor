@@ -59,8 +59,8 @@
 #include <QCheckBox>
 #include <QApplication>
 
-#include <limits.h>
-#include <float.h>
+#include <cfloat>
+#include <climits>
 
 #if defined(Q_CC_MSVC)
 #    pragma warning(disable: 4786) /* MS VS 6: truncating debug info after 255 characters */
