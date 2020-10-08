@@ -53,7 +53,7 @@ class BordersGroup : public AbstractMovableModel
 public:
 
     explicit BordersGroup(AbstractPhoto* const graphicsItem);
-    ~BordersGroup();
+    ~BordersGroup() override;
 
     QPainterPath shape();
     AbstractPhoto* graphicsItem() const;
@@ -80,16 +80,16 @@ public Q_SLOTS:
 
 protected:
 
-    virtual QObject* item(const QModelIndex& index)                                           const override;
-    virtual void setItem(QObject* graphicsItem, const QModelIndex& index)                           override;
-    virtual int columnCount(const QModelIndex& parent = QModelIndex())                        const override;
-    virtual QVariant data(const QModelIndex& index, int role)                                 const override;
-    virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
-    virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex())          override;
-    virtual QModelIndex parent(const QModelIndex& child)                                      const override;
-    virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex())          override;
-    virtual int rowCount(const QModelIndex& parent = QModelIndex())                           const override;
-    virtual bool moveRowsData(int sourcePosition, int sourceCount, int destPosition)                override;
+    QObject* item(const QModelIndex& index)                                           const override;
+    void setItem(QObject* graphicsItem, const QModelIndex& index)                           override;
+    int columnCount(const QModelIndex& parent = QModelIndex())                        const override;
+    QVariant data(const QModelIndex& index, int role)                                 const override;
+    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
+    bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex())          override;
+    QModelIndex parent(const QModelIndex& child)                                      const override;
+    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex())          override;
+    int rowCount(const QModelIndex& parent = QModelIndex())                           const override;
+    bool moveRowsData(int sourcePosition, int sourceCount, int destPosition)                override;
 
 protected Q_SLOTS:
 

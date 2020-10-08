@@ -346,7 +346,7 @@ public:
     {
     }
 
-    ~AddItemsCommand()
+    ~AddItemsCommand() override
     {
         if (done)
             return;
@@ -357,7 +357,7 @@ public:
         items.clear();
     }
 
-    virtual void redo() override
+    void redo() override
     {
         foreach (AbstractPhoto* const item, items)
             scene->QGraphicsScene::addItem(item);
@@ -366,7 +366,7 @@ public:
         done = true;
     }
 
-    virtual void undo() override
+    void undo() override
     {
         QRectF region;
 
@@ -403,7 +403,7 @@ public:
     {
     }
 
-    virtual void redo() override
+    void redo() override
     {
         if (!done)
         {
@@ -422,7 +422,7 @@ public:
         }
     }
 
-    virtual void undo() override
+    void undo() override
     {
         if (done)
         {
@@ -463,7 +463,7 @@ public:
         item_parent = dynamic_cast<AbstractPhoto*>(item->parentItem());
     }
 
-    ~RemoveItemsCommand()
+    ~RemoveItemsCommand() override
     {
         if (done)
         {
@@ -472,7 +472,7 @@ public:
         }
     }
 
-    virtual void redo() override
+    void redo() override
     {
         QPersistentModelIndex parentIndex = QPersistentModelIndex(m_scene->model()->findIndex( item_parent ));
 
@@ -493,7 +493,7 @@ public:
         done = true;
     }
 
-    virtual void undo() override
+    void undo() override
     {
         if (!done)
             return;
@@ -575,12 +575,12 @@ public:
             data.insert(item, item->mapFromScene(path));
     }
 
-    virtual void redo() override
+    void redo() override
     {
         this->run();
     }
 
-    virtual void undo() override
+    void undo() override
     {
         this->run();
     }

@@ -76,7 +76,7 @@ class ToolsDockWidget : public QDockWidget
 public:
 
     static ToolsDockWidget* instance(QWidget* parent = nullptr);
-    ~ToolsDockWidget();
+    ~ToolsDockWidget() override;
     void setDefaultTool();
 
 Q_SIGNALS:
@@ -133,7 +133,7 @@ public Q_SLOTS:
 
 protected:
 
-    virtual void resizeEvent(QResizeEvent* event) override;
+    void resizeEvent(QResizeEvent* event) override;
 
 private:
 

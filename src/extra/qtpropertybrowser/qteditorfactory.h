@@ -53,7 +53,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtSpinBoxFactory : public QtAbstractEditorFact
     Q_OBJECT
 public:
     explicit QtSpinBoxFactory(QObject* parent = nullptr);
-    ~QtSpinBoxFactory();
+    ~QtSpinBoxFactory() override;
 protected:
     void connectPropertyManager(QtIntPropertyManager* manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -78,7 +78,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtSliderFactory : public QtAbstractEditorFacto
     Q_OBJECT
 public:
     explicit QtSliderFactory(QObject* parent = nullptr);
-    ~QtSliderFactory();
+    ~QtSliderFactory() override;
 protected:
     void connectPropertyManager(QtIntPropertyManager* manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -103,7 +103,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtScrollBarFactory : public QtAbstractEditorFa
     Q_OBJECT
 public:
     explicit QtScrollBarFactory(QObject* parent = nullptr);
-    ~QtScrollBarFactory();
+    ~QtScrollBarFactory() override;
 protected:
     void connectPropertyManager(QtIntPropertyManager* manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -128,7 +128,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtCheckBoxFactory : public QtAbstractEditorFac
     Q_OBJECT
 public:
     explicit QtCheckBoxFactory(QObject* parent = nullptr);
-    ~QtCheckBoxFactory();
+    ~QtCheckBoxFactory() override;
 protected:
     void connectPropertyManager(QtBoolPropertyManager *manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -151,7 +151,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtDoubleSpinBoxFactory : public QtAbstractEdit
     Q_OBJECT
 public:
     explicit QtDoubleSpinBoxFactory(QObject* parent = nullptr);
-    ~QtDoubleSpinBoxFactory();
+    ~QtDoubleSpinBoxFactory() override;
 protected:
     void connectPropertyManager(QtDoublePropertyManager* manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -177,7 +177,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtLineEditFactory : public QtAbstractEditorFac
     Q_OBJECT
 public:
     explicit QtLineEditFactory(QObject* parent = nullptr);
-    ~QtLineEditFactory();
+    ~QtLineEditFactory() override;
 protected:
     void connectPropertyManager(QtStringPropertyManager *manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -201,7 +201,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtDateEditFactory : public QtAbstractEditorFac
     Q_OBJECT
 public:
     explicit QtDateEditFactory(QObject* parent = nullptr);
-    ~QtDateEditFactory();
+    ~QtDateEditFactory() override;
 protected:
     void connectPropertyManager(QtDatePropertyManager *manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -226,7 +226,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtTimeEditFactory : public QtAbstractEditorFac
     Q_OBJECT
 public:
     explicit QtTimeEditFactory(QObject* parent = nullptr);
-    ~QtTimeEditFactory();
+    ~QtTimeEditFactory() override;
 protected:
     void connectPropertyManager(QtTimePropertyManager *manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -249,7 +249,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtDateTimeEditFactory : public QtAbstractEdito
     Q_OBJECT
 public:
     explicit QtDateTimeEditFactory(QObject* parent = nullptr);
-    ~QtDateTimeEditFactory();
+    ~QtDateTimeEditFactory() override;
 protected:
     void connectPropertyManager(QtDateTimePropertyManager *manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -272,7 +272,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtKeySequenceEditorFactory : public QtAbstract
     Q_OBJECT
 public:
     explicit QtKeySequenceEditorFactory(QObject* parent = nullptr);
-    ~QtKeySequenceEditorFactory();
+    ~QtKeySequenceEditorFactory() override;
 protected:
     void connectPropertyManager(QtKeySequencePropertyManager *manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -295,7 +295,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtCharEditorFactory : public QtAbstractEditorF
     Q_OBJECT
 public:
     explicit QtCharEditorFactory(QObject* parent = nullptr);
-    ~QtCharEditorFactory();
+    ~QtCharEditorFactory() override;
 protected:
     void connectPropertyManager(QtCharPropertyManager *manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -318,7 +318,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtEnumEditorFactory : public QtAbstractEditorF
     Q_OBJECT
 public:
     explicit QtEnumEditorFactory(QObject* parent = nullptr);
-    ~QtEnumEditorFactory();
+    ~QtEnumEditorFactory() override;
 protected:
     void connectPropertyManager(QtEnumPropertyManager* manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -345,7 +345,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtCursorEditorFactory : public QtAbstractEdito
     Q_OBJECT
 public:
     explicit QtCursorEditorFactory(QObject* parent = nullptr);
-    ~QtCursorEditorFactory();
+    ~QtCursorEditorFactory() override;
 protected:
     void connectPropertyManager(QtCursorPropertyManager *manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -368,7 +368,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtColorEditorFactory : public QtAbstractEditor
     Q_OBJECT
 public:
     explicit QtColorEditorFactory(QObject* parent = nullptr);
-    ~QtColorEditorFactory();
+    ~QtColorEditorFactory() override;
 protected:
     void connectPropertyManager(QtColorPropertyManager *manager) override;
     using QtAbstractEditorFactory::createEditor;
@@ -391,7 +391,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtFontEditorFactory : public QtAbstractEditorF
     Q_OBJECT
 public:
     explicit QtFontEditorFactory(QObject* parent = nullptr);
-    ~QtFontEditorFactory();
+    ~QtFontEditorFactory() override;
 protected:
     void connectPropertyManager(QtFontPropertyManager *manager) override;
     using QtAbstractEditorFactory::createEditor;

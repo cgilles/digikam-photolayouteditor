@@ -50,8 +50,8 @@ public:
     void save(PLECanvas* canvas, const QUrl& url);
     void saveAsTemplate(PLECanvas* canvas, const QUrl& url);
 
-    virtual void progresChanged(double progress) override;
-    virtual void progresName(const QString& name) override;
+    void progresChanged(double progress) override;
+    void progresName(const QString& name) override;
 
 Q_SIGNALS:
 
@@ -59,7 +59,7 @@ Q_SIGNALS:
 
 protected:
 
-    virtual void run() override;
+    void run() override;
 
 private Q_SLOTS:
 

@@ -47,17 +47,17 @@ class ScalingWidgetItem : public AbstractItemInterface
 public:
 
     explicit ScalingWidgetItem(const QList<AbstractPhoto*>& items, QGraphicsItem* parent = nullptr, QGraphicsScene* scene = nullptr);
-    virtual ~ScalingWidgetItem();
+    ~ScalingWidgetItem() override;
 
-    virtual QRectF boundingRect() const override;
-    virtual QPainterPath opaqueArea() const override;
-    virtual QPainterPath shape() const override;
-    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+    QRectF boundingRect() const override;
+    QPainterPath opaqueArea() const override;
+    QPainterPath shape() const override;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
-    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
 
 private:
 

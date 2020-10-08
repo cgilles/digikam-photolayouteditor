@@ -49,16 +49,16 @@ class TextEditorTool : public AbstractItemsTool
 public:
 
     explicit TextEditorTool(PLEScene* scene, QWidget* parent = nullptr);
-    ~TextEditorTool();
+    ~TextEditorTool() override;
 
 Q_SIGNALS:
 
 public Q_SLOTS:
 
-    virtual void currentItemAboutToBeChanged() override;
-    virtual void currentItemChanged()          override;
-    virtual void positionAboutToBeChanged()    override;
-    virtual void positionChanged()             override;
+    void currentItemAboutToBeChanged() override;
+    void currentItemChanged()          override;
+    void positionAboutToBeChanged()    override;
+    void positionChanged()             override;
 
 protected Q_SLOTS:
 

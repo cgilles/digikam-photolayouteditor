@@ -50,7 +50,7 @@ public:
     };
 
     LayersModelItem(AbstractPhoto* item, LayersModelItem* parent, LayersModel* model);
-    virtual ~LayersModelItem();
+    ~LayersModelItem() override;
 
     void removeChild(LayersModelItem* child);
     LayersModelItem* parent() const;

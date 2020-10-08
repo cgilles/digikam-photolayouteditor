@@ -89,7 +89,7 @@ class PLEScene : public QGraphicsScene
 public:
 
     explicit PLEScene(const QRectF& dimension, QObject* const parent = nullptr);
-    ~PLEScene();
+    ~PLEScene() override;
 
     PLESceneBackground* background();
     PLESceneBorder* border();
@@ -154,18 +154,18 @@ public Q_SLOTS:
 protected:
 
     virtual void contextMenuEvent(QGraphicsSceneMouseEvent* event);
-    virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent * event) override;
-    virtual void drawBackground(QPainter* painter, const QRectF& rect) override;
-    virtual void drawForeground(QPainter* painter, const QRectF& rect) override;
-    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent* event) override;
-    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent* event) override;
-    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override;
-    virtual void dropEvent(QGraphicsSceneDragDropEvent* event) override;
-    virtual void keyPressEvent(QKeyEvent* event) override;
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
-    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent * event) override;
+    void drawBackground(QPainter* painter, const QRectF& rect) override;
+    void drawForeground(QPainter* painter, const QRectF& rect) override;
+    void dragEnterEvent(QGraphicsSceneDragDropEvent* event) override;
+    void dragLeaveEvent(QGraphicsSceneDragDropEvent* event) override;
+    void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override;
+    void dropEvent(QGraphicsSceneDragDropEvent* event) override;
+    void keyPressEvent(QKeyEvent* event) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 
 private Q_SLOTS:
 

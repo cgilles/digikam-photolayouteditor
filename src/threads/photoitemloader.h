@@ -49,7 +49,7 @@ public:
 
 protected:
 
-    virtual void run() override;
+    void run() override;
 
 protected Q_SLOTS:
 

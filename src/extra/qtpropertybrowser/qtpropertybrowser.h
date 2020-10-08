@@ -125,7 +125,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtAbstractPropertyManager : public QObject
 public:
 
     explicit QtAbstractPropertyManager(QObject *parent = nullptr);
-    ~QtAbstractPropertyManager();
+    ~QtAbstractPropertyManager() override;
 
     QSet<QtProperty*> properties() const;
     void clear() const;
@@ -288,7 +288,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtAbstractPropertyBrowser : public QWidget
 public:
 
     explicit QtAbstractPropertyBrowser(QWidget *parent = nullptr);
-    ~QtAbstractPropertyBrowser();
+    ~QtAbstractPropertyBrowser() override;
 
     QList<QtProperty*> properties() const;
     QList<QtBrowserItem*> items(QtProperty *property) const;

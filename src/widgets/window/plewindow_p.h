@@ -165,12 +165,12 @@ public:
     {
     }
 
-    virtual void redo() override
+    void redo() override
     {
         this->run();
     }
 
-    virtual void undo() override
+    void undo() override
     {
         this->run();
     }

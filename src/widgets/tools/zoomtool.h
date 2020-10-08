@@ -39,7 +39,7 @@ class ZoomTool : public AbstractTool
 public:
 
     explicit ZoomTool(PLEScene* scene, QWidget* parent = nullptr);
-    ~ZoomTool();
+    ~ZoomTool() override;
 
 public Q_SLOTS:
 
@@ -47,8 +47,8 @@ public Q_SLOTS:
 
 protected:
 
-    virtual void sceneChange()  override;
-    virtual void sceneChanged() override;
+    void sceneChange()  override;
+    void sceneChanged() override;
 
 private:
 

@@ -48,27 +48,27 @@ class PhotoEffectsGroup : public AbstractMovableModel
 public:
 
     explicit PhotoEffectsGroup(AbstractPhoto* photo, QObject* parent = nullptr);
-    ~PhotoEffectsGroup();
+    ~PhotoEffectsGroup() override;
 
     QDomElement toSvg(QDomDocument& document) const;
     static PhotoEffectsGroup* fromSvg(const QDomElement& element, AbstractPhoto* graphicsItem);
     AbstractPhoto* photo() const;
-    virtual QObject* item(const QModelIndex& index) const override;
-    virtual void setItem(QObject* graphicsItem, const QModelIndex& index) override;
+    QObject* item(const QModelIndex& index) const override;
+    void setItem(QObject* graphicsItem, const QModelIndex& index) override;
     AbstractPhotoEffectInterface* graphicsItem(const QModelIndex& index = QModelIndex()) const;
     bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) override;
     bool insertRow(int row, AbstractPhotoEffectInterface* effect);
     bool insertRow(int row, const QModelIndex& index = QModelIndex());
 
     // Reimplemented QAbstractItemModel methods
-    virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-    virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
-    virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
-    virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
-    virtual QModelIndex parent(const QModelIndex& index) const override;
-    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    virtual bool removeRows(int row, int count, const QModelIndex& parent) override;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+    Qt::ItemFlags flags(const QModelIndex& index) const override;
+    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
+    bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+    QModelIndex parent(const QModelIndex& index) const override;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    bool removeRows(int row, int count, const QModelIndex& parent) override;
 
 Q_SIGNALS:
 

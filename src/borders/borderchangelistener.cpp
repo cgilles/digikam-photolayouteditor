@@ -55,7 +55,7 @@ public:
     {
     }
 
-    virtual void redo() override
+    void redo() override
     {
         qDebug() << "BorderChangeCommand redo";
         QVariant temp = drawer->propertyValue(propertyName);
@@ -63,7 +63,7 @@ public:
         value = temp;
     }
 
-    virtual void undo() override
+    void undo() override
     {
         qDebug() << "BorderChangeCommand undo";
         QVariant temp = drawer->propertyValue(propertyName);

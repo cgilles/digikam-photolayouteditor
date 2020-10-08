@@ -63,13 +63,13 @@ public:
     {
     }
 
-    ~ItemCreatedCommand()
+    ~ItemCreatedCommand() override
     {
         if (!done)
             delete item;
     }
 
-    virtual void redo() override
+    void redo() override
     {
         done = true;
 
@@ -80,7 +80,7 @@ public:
         model->setItem(item, model->index(row, 0));
     }
 
-    virtual void undo() override
+    void undo() override
     {
         done = false;
 
@@ -109,13 +109,13 @@ public:
     {
     }
 
-    ~ItemRemovedCommand()
+    ~ItemRemovedCommand() override
     {
         if (done)
             delete item;
     }
 
-    virtual void redo() override
+    void redo() override
     {
         done = true;
 
@@ -125,7 +125,7 @@ public:
         model->removeRow(row);
     }
 
-    virtual void undo() override
+    void undo() override
     {
         done = false;
 
@@ -155,13 +155,13 @@ public:
     {
     }
 
-    virtual void redo() override
+    void redo() override
     {
         model->moveRowsData(sourceStart, count, destinationRow);
         this->swap();
     }
 
-    virtual void undo() override
+    void undo() override
     {
         model->moveRowsData(sourceStart, count, destinationRow);
         this->swap();

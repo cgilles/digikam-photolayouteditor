@@ -45,11 +45,11 @@ public:
     {
     }
 
-    virtual ~PatternDelegate()
+    ~PatternDelegate() override
     {
     }
 
-    virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
     {
         QSize result = option.rect.size();
 
@@ -59,7 +59,7 @@ public:
         return result;
     }
 
-    virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
+    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
     {
         if (index.isValid())
         {

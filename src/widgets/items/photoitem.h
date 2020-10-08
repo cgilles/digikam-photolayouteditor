@@ -50,13 +50,13 @@ public:
 
     explicit PhotoItem(const QImage& photo, const QString& name = QString(), PLEScene* scene = nullptr);
     explicit PhotoItem(const QPainterPath& shape, const QString& name = QString(), PLEScene* scene = nullptr);
-    virtual ~PhotoItem();
+    ~PhotoItem() override;
 
     /// Convert photo item to SVG format
-    virtual QDomDocument toSvg() const override;
+    QDomDocument toSvg() const override;
 
     /// Convert photo item to SVG template format
-    virtual QDomDocument toTemplateSvg() const override;
+    QDomDocument toTemplateSvg() const override;
 
     /// Create Photo item from SVG format code
     static PhotoItem* fromSvg(QDomElement& element);
@@ -74,13 +74,13 @@ public:
     void fitToRect(const QRect& rect);
 
     /// Reimplemented from QGraphicsItem
-    virtual bool contains(const QPointF& point) const override
+    bool contains(const QPointF& point) const override
     {
         return m_image_path.contains(point);
     }
 
     /// Reimplemented from AbstractPhoto
-    virtual QPainterPath itemShape() const override
+    QPainterPath itemShape() const override
     {
         if (this->cropShape().isEmpty())
             return m_image_path;
@@ -89,7 +89,7 @@ public:
     }
 
     /// Reimplemented from AbstractPhoto
-    virtual QPainterPath itemOpaqueArea() const override
+    QPainterPath itemOpaqueArea() const override
     {
         if (this->cropShape().isEmpty())
             return m_image_path;
@@ -98,13 +98,13 @@ public:
     }
 
     /// Reimplemented from AbstractPhoto
-    virtual QPainterPath itemDrawArea() const override
+    QPainterPath itemDrawArea() const override
     {
         return m_image_path;
     }
 
     /// Returns item's property browser
-    virtual QtAbstractPropertyBrowser* propertyBrowser() override;
+    QtAbstractPropertyBrowser* propertyBrowser() override;
 
     /// Returns if item is empty (not contains image)
     bool isEmpty() const;
@@ -114,18 +114,18 @@ protected:
     explicit PhotoItem(const QString& name = QString(), PLEScene* scene = nullptr);
 
     /// Converts item data to SVG format
-    virtual QDomDocument svgVisibleArea() const override;
+    QDomDocument svgVisibleArea() const override;
 
     /// Converts item data to SVG format
-    virtual QDomDocument svgTemplateArea() const override;
+    QDomDocument svgTemplateArea() const override;
 
-    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent* event) override;
-    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent* event) override;
-    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override;
-    virtual void dropEvent(QGraphicsSceneDragDropEvent* event) override;
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+    void dragEnterEvent(QGraphicsSceneDragDropEvent* event) override;
+    void dragLeaveEvent(QGraphicsSceneDragDropEvent* event) override;
+    void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override;
+    void dropEvent(QGraphicsSceneDragDropEvent* event) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
 
     /// Updates item icon
     virtual void updateIcon();
@@ -140,7 +140,7 @@ private Q_SLOTS:
 private:
 
     // Refreshes items data
-    virtual void refreshItem() override;
+    void refreshItem() override;
 
     // Setups items
     void setupItem(const QImage& image);

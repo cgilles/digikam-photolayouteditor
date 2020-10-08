@@ -47,10 +47,10 @@ public:
 
     explicit NegativePhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
 
-    virtual QImage apply(const QImage& image) const override;
-    virtual QString name() const override;
-    virtual QString toString() const override;
-    virtual operator QString() const override;
+    QImage apply(const QImage& image) const override;
+    QString name() const override;
+    QString toString() const override;
+    operator QString() const override;
 
 private:
 

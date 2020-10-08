@@ -46,7 +46,7 @@ public:
     };
 
     explicit PLECanvasSizeWidget(QWidget* parent = nullptr);
-    ~PLECanvasSizeWidget();
+    ~PLECanvasSizeWidget() override;
     Orientation orientation() const;
     PLECanvasSize canvasSize() const;
 

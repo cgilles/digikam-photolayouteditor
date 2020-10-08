@@ -54,10 +54,10 @@ class TextItem : public AbstractPhoto
 public:
 
     explicit TextItem(const QString& text = QString(), PLEScene* scene = nullptr);
-    virtual void focusInEvent(QFocusEvent* event) override;
-    virtual void focusOutEvent(QFocusEvent* event) override;
-    virtual void keyPressEvent(QKeyEvent* event) override;
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    void focusInEvent(QFocusEvent* event) override;
+    void focusOutEvent(QFocusEvent* event) override;
+    void keyPressEvent(QKeyEvent* event) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 
     Q_PROPERTY(QColor m_color READ color WRITE setColor)
     QColor color() const;
@@ -74,24 +74,24 @@ public:
     QString textMultiline() const;
     void setText(const QString& text);
 
-    virtual QPainterPath itemShape() const override;
-    virtual QPainterPath itemOpaqueArea() const override;
-    virtual QPainterPath itemDrawArea() const override;
+    QPainterPath itemShape() const override;
+    QPainterPath itemOpaqueArea() const override;
+    QPainterPath itemDrawArea() const override;
 
-    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
-    virtual QDomDocument toSvg() const override;
-    virtual QDomDocument toTemplateSvg() const override;
-    virtual QDomDocument svgVisibleArea() const override;
-    virtual QDomDocument svgTemplateArea() const override;
+    QDomDocument toSvg() const override;
+    QDomDocument toTemplateSvg() const override;
+    QDomDocument svgVisibleArea() const override;
+    QDomDocument svgTemplateArea() const override;
     static TextItem* fromSvg(QDomElement& element);
 
     /// Returns item's property browser
-    virtual QtAbstractPropertyBrowser* propertyBrowser() override;
+    QtAbstractPropertyBrowser* propertyBrowser() override;
 
 private:
 
-    virtual void refreshItem() override;
+    void refreshItem() override;
     QPainterPath getLinePath(const QString& string);
     void setCursorPositionVisible(bool isVisible);
     void updateIcon();

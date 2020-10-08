@@ -48,17 +48,17 @@ class PLECanvasLoadingThread : public QThread, public ProgressObserver
 public:
 
     explicit PLECanvasLoadingThread(QObject* const parent = nullptr);
-    ~PLECanvasLoadingThread();
+    ~PLECanvasLoadingThread() override;
 
-    virtual void progresChanged(double progress) override;
-    virtual void progresName(const QString& name) override;
+    void progresChanged(double progress) override;
+    void progresName(const QString& name) override;
     void addItem(AbstractPhoto* item, QDomElement& element);
     void addBackground(PLESceneBackground* background, QDomElement& element);
     void addBorder(PLESceneBorder* border, QDomElement& element);
 
 protected:
 
-    virtual void run() override;
+    void run() override;
 
 private:
 

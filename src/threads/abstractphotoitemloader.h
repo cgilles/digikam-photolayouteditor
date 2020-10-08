@@ -55,7 +55,7 @@ public:
 
 protected:
 
-    virtual void run() override;
+    void run() override;
 
     friend class PLECanvasLoadingThread;
 };

@@ -41,9 +41,9 @@ class ImageLoadingThread : public QThread
 public:
 
     explicit ImageLoadingThread(QObject* const parent = nullptr);
-    ~ImageLoadingThread();
+    ~ImageLoadingThread() override;
 
-    virtual void run() override;
+    void run() override;
 
 Q_SIGNALS:
 

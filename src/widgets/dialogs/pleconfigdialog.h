@@ -40,7 +40,7 @@ class PLEConfigDialog : public QDialog
 public:
 
     explicit PLEConfigDialog(QWidget* const parent = nullptr);
-    ~PLEConfigDialog();
+    ~PLEConfigDialog() override;
 
 private:
 

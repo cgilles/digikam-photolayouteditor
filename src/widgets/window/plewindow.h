@@ -54,7 +54,7 @@ class PLEWindow : public QMainWindow
 
 public:
 
-    ~PLEWindow();
+    ~PLEWindow() override;
     static PLEWindow* instance(DPluginGeneric* const plugin = nullptr);
 
     void addUndoCommand(QUndoCommand* const command);

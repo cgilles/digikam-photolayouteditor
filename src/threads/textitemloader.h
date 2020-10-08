@@ -42,7 +42,7 @@ public:
 
 protected:
 
-    virtual void run() override;
+    void run() override;
 };
 
 } // namespace PhotoLayoutsEditor

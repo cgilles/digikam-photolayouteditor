@@ -100,7 +100,7 @@ Q_SIGNALS:
 
 protected:
 
-    virtual void selectionChanged(const QItemSelection& selected,
+    void selectionChanged(const QItemSelection& selected,
                                   const QItemSelection& /*deselected*/) override
     {
         QModelIndexList indexes = selected.indexes();

@@ -63,7 +63,7 @@ class PLESceneBackground : public QObject,
 public:
 
     explicit PLESceneBackground(QGraphicsScene* scene = nullptr);
-    virtual QRectF boundingRect() const override;
+    QRectF boundingRect() const override;
 
     void setSecondColor(const QColor& color);
     void setSolidColor(const QColor& color);

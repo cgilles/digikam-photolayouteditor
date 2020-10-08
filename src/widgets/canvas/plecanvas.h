@@ -73,9 +73,9 @@ public:
 public:
 
     explicit PLECanvas(const PLECanvasSize& size, QWidget* parent = nullptr);
-    ~PLECanvas();
+    ~PLECanvas() override;
 
-    virtual void wheelEvent(QWheelEvent* event) override;
+    void wheelEvent(QWheelEvent* event) override;
 
     QDomDocument toSvg() const;
     static PLECanvas* fromSvg(QDomDocument& document);

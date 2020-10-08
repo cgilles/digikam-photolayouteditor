@@ -43,7 +43,7 @@ public:
 
 protected:
 
-    virtual void run() override;
+    void run() override;
 
 private:
 

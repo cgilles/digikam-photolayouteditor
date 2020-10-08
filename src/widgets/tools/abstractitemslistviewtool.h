@@ -47,15 +47,15 @@ public:
                                        PLEScene* scene,
                                        PLECanvas::SelectionMode selectionMode,
                                        QWidget* parent=nullptr);
-    virtual ~AbstractItemsListViewTool();
+    ~AbstractItemsListViewTool() override;
 
-    virtual void currentItemAboutToBeChanged() override;
-    virtual void currentItemChanged() override;
-    virtual void positionAboutToBeChanged() override
+    void currentItemAboutToBeChanged() override;
+    void currentItemChanged() override;
+    void positionAboutToBeChanged() override
     {
     } // Unused
 
-    virtual void positionChanged() override
+    void positionChanged() override
     {
     }          // Unused
 

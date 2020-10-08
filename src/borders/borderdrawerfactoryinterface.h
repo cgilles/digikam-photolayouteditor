@@ -42,7 +42,7 @@ class BorderDrawerFactoryInterface : public QObject
 public:
 
     explicit BorderDrawerFactoryInterface(QObject* const parent = nullptr);
-    virtual ~BorderDrawerFactoryInterface();
+    ~BorderDrawerFactoryInterface() override;
 
     virtual QString drawersNames() const                                  = 0;
     virtual BorderDrawerInterface* getDrawerInstance(const QString& name) = 0;

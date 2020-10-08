@@ -52,7 +52,7 @@ public:
 public:
 
     explicit LayersModel(QObject* parent = nullptr);
-    virtual ~LayersModel();
+    ~LayersModel() override;
 
     QModelIndex index( int row, int column, const QModelIndex& parent ) const override;
     QModelIndex parent( const QModelIndex& index ) const override;

@@ -47,7 +47,7 @@ class TemplateItemDelegate : public QAbstractItemDelegate
 {
 public:
 
-    virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
+    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
     {
         if (!index.internalPointer())
             return;
@@ -90,7 +90,7 @@ public:
         painter->restore();
     }
 
-    virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override
     {
         QSize result;
  

@@ -38,12 +38,12 @@ public:
 
     explicit StandardEffectsFactory(QObject* parent = nullptr);
   
-    virtual ~StandardEffectsFactory()
+    ~StandardEffectsFactory() override
     {
     }
 
-    virtual AbstractPhotoEffectInterface* getEffectInstance(const QString& name = QString()) override;
-    virtual QString effectName() const                                                       override;
+    AbstractPhotoEffectInterface* getEffectInstance(const QString& name = QString()) override;
+    QString effectName() const                                                       override;
 };
 
 } // namespace PhotoLayoutsEditor

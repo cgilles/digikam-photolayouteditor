@@ -54,7 +54,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtButtonPropertyBrowser : public QtAbstractPro
 public:
 
     explicit QtButtonPropertyBrowser(QWidget *parent = nullptr);
-    ~QtButtonPropertyBrowser();
+    ~QtButtonPropertyBrowser() override;
 
     void setExpanded(QtBrowserItem *item, bool expanded);
     bool isExpanded(QtBrowserItem *item) const;
@@ -65,9 +65,9 @@ Q_SIGNALS:
     void expanded(QtBrowserItem *item);
 
 protected:
-    virtual void itemInserted(QtBrowserItem *item, QtBrowserItem *afterItem) override;
-    virtual void itemRemoved(QtBrowserItem *item) override;
-    virtual void itemChanged(QtBrowserItem *item) override;
+    void itemInserted(QtBrowserItem *item, QtBrowserItem *afterItem) override;
+    void itemRemoved(QtBrowserItem *item) override;
+    void itemChanged(QtBrowserItem *item) override;
 
 private:
 

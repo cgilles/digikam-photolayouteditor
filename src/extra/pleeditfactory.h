@@ -369,10 +369,10 @@ public:
 
 protected:
 
-    virtual void connectPropertyManager(QtIntPropertyManager* manager) override;
+    void connectPropertyManager(QtIntPropertyManager* manager) override;
     using QtAbstractEditorFactory<QtIntPropertyManager>::createEditor;
-    virtual QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent) override;
-    virtual void disconnectPropertyManager(QtIntPropertyManager* manager) override;
+    QWidget* createEditor(QtIntPropertyManager* manager, QtProperty* property, QWidget* parent) override;
+    void disconnectPropertyManager(QtIntPropertyManager* manager) override;
 
 Q_SIGNALS:
 

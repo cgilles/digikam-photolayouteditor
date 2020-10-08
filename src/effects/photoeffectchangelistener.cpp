@@ -49,14 +49,14 @@ public:
     {
     }
 
-    virtual void redo() override
+    void redo() override
     {
         QVariant temp = effect->propertyValue(propertyName);
         effect->setPropertyValue(propertyName, value);
         value = temp;
     }
 
-    virtual void undo() override
+    void undo() override
     {
         QVariant temp = effect->propertyValue(propertyName);
         effect->setPropertyValue(propertyName, value);

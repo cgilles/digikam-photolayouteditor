@@ -59,11 +59,11 @@ public:
     {
     }
 
-    virtual void redo() override
+    void redo() override
     {
         run();
     }
-    virtual void undo() override
+    void undo() override
     {
         run();
     }

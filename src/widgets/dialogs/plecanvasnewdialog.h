@@ -43,7 +43,7 @@ class PLECanvasNewDialog : public QDialog
 public:
 
     explicit PLECanvasNewDialog(QWidget* parent = nullptr);
-    ~PLECanvasNewDialog();
+    ~PLECanvasNewDialog() override;
 
     bool hasTemplateSelected() const;
     QString templateSelected() const;

@@ -38,8 +38,8 @@ public:
 
     explicit StandardBordersFactory(QObject* const parent = nullptr);
 
-    virtual QString drawersNames() const                                  override;
-    virtual BorderDrawerInterface* getDrawerInstance(const QString& name) override;
+    QString drawersNames() const                                  override;
+    BorderDrawerInterface* getDrawerInstance(const QString& name) override;
 };
 
 } // namespace PhotoLayoutsEditor

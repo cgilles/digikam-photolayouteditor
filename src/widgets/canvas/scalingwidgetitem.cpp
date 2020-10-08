@@ -62,7 +62,7 @@ public:
     {
     }
 
-    virtual void redo() override
+    void redo() override
     {
         if (done)
             return;
@@ -72,7 +72,7 @@ public:
         done = true;
     }
 
-    virtual void undo() override
+    void undo() override
     {
         if (!done)
             return;
@@ -113,7 +113,7 @@ public:
         this->setText(QObject::tr("Scale item"));
     }
 
-    virtual void redo() override
+    void redo() override
     {
         if (done)
             return;
@@ -123,7 +123,7 @@ public:
         done = true;
     }
 
-    virtual void undo() override
+    void undo() override
     {
         if (!done)
             return;

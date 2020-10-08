@@ -42,7 +42,7 @@ public:
     {
     }
 
-    virtual bool eventFilter(QObject* watched, QEvent* event) override;
+    bool eventFilter(QObject* watched, QEvent* event) override;
 };
 
 } // namespace PhotoLayoutsEditor

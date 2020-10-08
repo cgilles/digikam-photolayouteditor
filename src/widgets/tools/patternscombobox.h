@@ -48,7 +48,7 @@ Q_SIGNALS:
 
 protected:
 
-    virtual void paintEvent(QPaintEvent *e) override;
+    void paintEvent(QPaintEvent *e) override;
 
 protected Q_SLOTS:
 

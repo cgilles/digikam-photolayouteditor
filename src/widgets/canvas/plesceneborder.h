@@ -56,7 +56,7 @@ class PLESceneBorder : public QObject, public QGraphicsItem
 public:
 
     explicit PLESceneBorder(QGraphicsScene* scene = nullptr);
-    virtual QRectF boundingRect() const override;
+    QRectF boundingRect() const override;
 
     void setImage(const QImage& image);
 

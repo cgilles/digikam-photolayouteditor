@@ -53,10 +53,10 @@ private:
 public:
 
     UndoRemoveItem(AbstractPhoto* item, PLEScene* scene, LayersModel* model, QUndoCommand* parent = nullptr);
-    ~UndoRemoveItem();
+    ~UndoRemoveItem() override;
 
-    virtual void redo() override;
-    virtual void undo() override;
+    void redo() override;
+    void undo() override;
 
 private:
 

@@ -58,13 +58,13 @@ class QT_QTPROPERTYBROWSER_EXPORT QtVariantProperty : public QtProperty
 {
 public:
 
-    ~QtVariantProperty();
+    ~QtVariantProperty() override;
     QVariant value() const;
     QVariant attributeValue(const QString &attribute) const;
     int valueType() const;
     int propertyType() const;
 
-    virtual bool compare(QtProperty* otherProperty)const override;
+    bool compare(QtProperty* otherProperty)const override;
 
     void setValue(const QVariant&value);
     void setAttribute(const QString &attribute, const QVariant&value);
@@ -88,7 +88,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtVariantPropertyManager : public QtAbstractPr
     Q_OBJECT
 public:
     explicit QtVariantPropertyManager(QObject* parent = nullptr);
-    ~QtVariantPropertyManager();
+    ~QtVariantPropertyManager() override;
 
     virtual QtVariantProperty *addProperty(int propertyType, const QString &name = QString());
 
@@ -119,12 +119,12 @@ Q_SIGNALS:
     void attributeChanged(QtProperty *property,
                 const QString &attribute, const QVariant&val);
 protected:
-    virtual bool hasValue(const QtProperty *property) const override;
+    bool hasValue(const QtProperty *property) const override;
     QString valueText(const QtProperty *property) const override;
     QIcon valueIcon(const QtProperty *property) const override;
-    virtual void initializeProperty(QtProperty *property) override;
-    virtual void uninitializeProperty(QtProperty *property) override;
-    virtual QtProperty *createProperty() override;
+    void initializeProperty(QtProperty *property) override;
+    void uninitializeProperty(QtProperty *property) override;
+    QtProperty *createProperty() override;
 private:
     QtVariantPropertyManagerPrivate *d_ptr;
     Q_PRIVATE_SLOT(d_func(), void slotValueChanged(QtProperty*, int))
@@ -175,7 +175,7 @@ class QT_QTPROPERTYBROWSER_EXPORT QtVariantEditorFactory : public QtAbstractEdit
     Q_OBJECT
 public:
     explicit QtVariantEditorFactory(QObject* parent = nullptr);
-    ~QtVariantEditorFactory();
+    ~QtVariantEditorFactory() override;
 protected:
     void connectPropertyManager(QtVariantPropertyManager* manager) override;
     QWidget *createEditor(QtVariantPropertyManager* manager, QtProperty *property,

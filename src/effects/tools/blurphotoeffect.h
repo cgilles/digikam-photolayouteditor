@@ -46,12 +46,12 @@ class BlurPhotoEffect : public AbstractPhotoEffectInterface
 public:
 
     explicit BlurPhotoEffect(StandardEffectsFactory* factory, QObject* parent = nullptr);
-    virtual QImage apply(const QImage& image) const override;
-    virtual QString name() const override;
-    virtual QString toString() const override;
-    virtual operator QString() const override;
+    QImage apply(const QImage& image) const override;
+    QString name() const override;
+    QString toString() const override;
+    operator QString() const override;
 
-    virtual QString propertyName(const QMetaProperty& property) const override
+    QString propertyName(const QMetaProperty& property) const override
     {
         if (!QString::fromLatin1("radius").compare(QLatin1String(property.name())))
             return RADIUS_PROPERTY;
@@ -59,7 +59,7 @@ public:
         return AbstractPhotoEffectInterface::propertyName(property);
     }
 
-    virtual QVariant propertyValue(const QString& propertyName) const override
+    QVariant propertyValue(const QString& propertyName) const override
     {
         if (propertyName == RADIUS_PROPERTY)
             return m_radius;
@@ -67,7 +67,7 @@ public:
         return AbstractPhotoEffectInterface::propertyValue(propertyName);
     }
 
-    virtual void setPropertyValue(const QString& propertyName, const QVariant& value) override
+    void setPropertyValue(const QString& propertyName, const QVariant& value) override
     {
         if (RADIUS_PROPERTY == propertyName)
             this->setRadius(value.toInt());
@@ -75,12 +75,12 @@ public:
             AbstractPhotoEffectInterface::setPropertyValue(propertyName, value);
     }
 
-    virtual QVariant stringNames(const QMetaProperty& property) override
+    QVariant stringNames(const QMetaProperty& property) override
     {
         return AbstractPhotoEffectInterface::stringNames(property);
     }
 
-    virtual QVariant minimumValue(const QMetaProperty& property) override
+    QVariant minimumValue(const QMetaProperty& property) override
     {
         if (!QString::fromLatin1("radius").compare(QLatin1String(property.name())))
             return 0;
@@ -88,7 +88,7 @@ public:
         return AbstractPhotoEffectInterface::minimumValue(property);
     }
 
-    virtual QVariant maximumValue(const QMetaProperty& property) override
+    QVariant maximumValue(const QMetaProperty& property) override
     {
         if (!QString::fromLatin1("radius").compare(QLatin1String(property.name())))
             return 100;
@@ -96,7 +96,7 @@ public:
         return AbstractPhotoEffectInterface::maximumValue(property);
     }
 
-    virtual QVariant stepValue(const QMetaProperty& property) override
+    QVariant stepValue(const QMetaProperty& property) override
     {
         if (!QString::fromLatin1("radius").compare(QLatin1String(property.name())))
             return 1;

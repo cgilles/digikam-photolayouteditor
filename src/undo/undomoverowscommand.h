@@ -57,8 +57,8 @@ public:
                         LayersModel* model,
                         QUndoCommand* parent = nullptr);
 
-    virtual void redo() override;
-    virtual void undo() override;
+    void redo() override;
+    void undo() override;
 
 private:
 

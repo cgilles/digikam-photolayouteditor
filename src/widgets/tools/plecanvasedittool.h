@@ -49,7 +49,7 @@ class PLECanvasEditTool : public AbstractTool
 public:
 
     explicit PLECanvasEditTool(PLEScene* scene, QWidget* parent = nullptr);
-    virtual ~PLECanvasEditTool();
+    ~PLECanvasEditTool() override;
 
 Q_SIGNALS:
 
@@ -59,8 +59,8 @@ public Q_SLOTS:
 
 protected:
 
-    virtual void sceneChange() override;
-    virtual void sceneChanged() override;
+    void sceneChange() override;
+    void sceneChanged() override;
 
 protected Q_SLOTS:
 

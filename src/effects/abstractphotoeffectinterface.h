@@ -60,7 +60,7 @@ public:
             qDebug() << "No factory object for effect" << this << "from:" << __FILE__ << __LINE__;
     }
 
-    virtual ~AbstractPhotoEffectInterface()
+    ~AbstractPhotoEffectInterface() override
     {
     }
 

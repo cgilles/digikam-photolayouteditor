@@ -54,7 +54,7 @@ public:
 
     explicit LayersTree(QWidget* parent = nullptr);
 
-    virtual void setModel(QAbstractItemModel* model) override;
+    void setModel(QAbstractItemModel* model) override;
 
 public Q_SLOTS:
 

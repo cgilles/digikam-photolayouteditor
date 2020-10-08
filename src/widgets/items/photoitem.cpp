@@ -75,14 +75,14 @@ public:
     {
     }
 
-    virtual void redo() override
+    void redo() override
     {
         QImage temp = m_item->image();
         m_item->d->setImage(m_image);
         m_image = temp;
     }
 
-    virtual void undo() override
+    void undo() override
     {
         QImage temp = m_item->image();
         m_item->d->setImage(m_image);
@@ -105,12 +105,12 @@ public:
     {
     }
 
-    virtual void redo() override
+    void redo() override
     {
         run();
     }
 
-    virtual void undo() override
+    void undo() override
     {
         run();
     }
@@ -139,7 +139,7 @@ public:
     {
     }
 
-    virtual void redo() override
+    void redo() override
     {
         m_item->m_image_path = QPainterPath();
         m_item->m_image_path.addRect(m_item->m_temp_image.rect());
@@ -147,7 +147,7 @@ public:
         m_item->update();
     }
 
-    virtual void undo() override
+    void undo() override
     {
         m_item->m_image_path = m_image_path;
         m_item->recalcShape();
@@ -185,7 +185,7 @@ public:
         translation += translation;
     }
 
-    virtual void redo() override
+    void redo() override
     {
         if (done)
             return;
@@ -197,7 +197,7 @@ public:
         done = !done;
     }
 
-    virtual void undo() override
+    void undo() override
     {
         if (!done)
             return;

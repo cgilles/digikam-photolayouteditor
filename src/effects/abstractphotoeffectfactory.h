@@ -45,7 +45,7 @@ class AbstractPhotoEffectFactory : public QObject
 public:
 
     explicit AbstractPhotoEffectFactory(QObject* const parent = nullptr);
-    virtual ~AbstractPhotoEffectFactory();
+    ~AbstractPhotoEffectFactory() override;
 
     /** Returns effects instance.
      * \arg browser - as this argument you can set \class QtAbstractPropertyBrowser received from virtual

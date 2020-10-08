@@ -53,7 +53,7 @@ class BorderDrawersLoader : public QObject
 
 public:
 
-    ~BorderDrawersLoader();
+    ~BorderDrawersLoader() override;
     static BorderDrawersLoader* instance(QObject* parent = nullptr);
     static void registerDrawer(BorderDrawerFactoryInterface* factory);
     static QStringList registeredDrawers();
