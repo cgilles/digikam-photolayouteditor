@@ -116,6 +116,11 @@ TemplatesView::TemplatesView(QWidget* parent)
     verticalScrollBar()->setRange(0, 0);
 }
 
+TemplatesView::~TemplatesView()
+{
+    delete this->itemDelegate();
+}
+
 void TemplatesView::mousePressEvent(QMouseEvent* event)
 {
     QAbstractItemView::mousePressEvent(event);

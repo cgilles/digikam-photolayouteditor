@@ -43,6 +43,7 @@ class TemplatesView : public QAbstractItemView
 public:
 
     explicit TemplatesView(QWidget* parent = nullptr);
+    ~TemplatesView();
 
     void mousePressEvent(QMouseEvent* event) override;
     void updateGeometries() override;
