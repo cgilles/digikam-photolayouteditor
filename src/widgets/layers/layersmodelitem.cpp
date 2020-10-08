@@ -113,9 +113,9 @@ void LayersModelItem::setData(const QList<QVariant>& data)
 {
     int i = 0;
 
-    for (QList<QVariant>::const_iterator it = data.begin(); it != data.end(); ++it)
+    for (const auto & it : data)
     {
-        setData(*it, i);
+        setData(it, i);
         i++;
     }
 }
