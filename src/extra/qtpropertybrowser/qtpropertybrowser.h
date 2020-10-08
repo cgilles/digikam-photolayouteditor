@@ -110,8 +110,8 @@ protected:
 
 private:
 
-    QtProperty(const QtProperty&);
-    QtProperty& operator=(const QtProperty&);
+    QtProperty(const QtProperty&) = delete;
+    QtProperty& operator=(const QtProperty&) = delete;
     
     friend class QtAbstractPropertyManager;
     QtPropertyPrivate *d_ptr;
@@ -273,8 +273,8 @@ private:
     explicit QtBrowserItem(QtAbstractPropertyBrowser *browser, QtProperty *property, QtBrowserItem *parent);
     ~QtBrowserItem();
 
-    QtBrowserItem(const QtBrowserItem&);
-    QtBrowserItem& operator=(const QtBrowserItem&);
+    QtBrowserItem(const QtBrowserItem&) = delete;
+    QtBrowserItem& operator=(const QtBrowserItem&) = delete;
 
     QtBrowserItemPrivate *d_ptr;
     friend class QtAbstractPropertyBrowserPrivate;

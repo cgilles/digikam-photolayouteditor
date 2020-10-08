@@ -75,7 +75,7 @@ protected:
 
 private:
 
-    QtVariantProperty(const QtVariantProperty&);
+    QtVariantProperty(const QtVariantProperty&) = delete;
 
     friend class QtVariantPropertyManager;
     QtVariantPropertyPrivate *d_ptr;

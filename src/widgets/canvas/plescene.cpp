@@ -312,8 +312,8 @@ class PLEScenePrivate
 
 private:
 
-    PLEScenePrivate(const PLEScenePrivate&);
-    PLEScenePrivate& operator=(const PLEScenePrivate&);
+    PLEScenePrivate(const PLEScenePrivate&) = delete;
+    PLEScenePrivate& operator=(const PLEScenePrivate&) = delete;
 
     friend class PLEScene;
 };
