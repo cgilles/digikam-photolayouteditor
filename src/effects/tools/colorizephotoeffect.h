@@ -82,7 +82,7 @@ public:
         return m_color;
     }
 
-    void setColor(QColor color)
+    void setColor(const QColor& color)
     {
         if (!color.isValid())
             return;

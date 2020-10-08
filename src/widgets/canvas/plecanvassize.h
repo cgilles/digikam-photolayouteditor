@@ -65,22 +65,22 @@ public:
     static QList<QString> resolutionUnitsNames();
     static QList<ResolutionUnits> resolutionUnits();
     static qreal resolutionUnitFactor(ResolutionUnits unit);
-    static qreal resolutionUnitFactor(QString unitName);
+    static qreal resolutionUnitFactor(const QString& unitName);
     static QString resolutionUnitName(ResolutionUnits unit);
     static QString resolutionUnitName(qreal factor);
     static ResolutionUnits resolutionUnit(qreal factor);
-    static ResolutionUnits resolutionUnit(QString name);
+    static ResolutionUnits resolutionUnit(const QString& name);
     static qreal resolutionConvert(qreal value, ResolutionUnits from, ResolutionUnits to);
 
     static QList<qreal> sizeUnitsFactors();
     static QList<QString> sizeUnitsNames();
     static QList<SizeUnits> sizeUnits();
     static qreal sizeUnitFactor(SizeUnits unit);
-    static qreal sizeUnitFactor(QString unitName);
+    static qreal sizeUnitFactor(const QString& unitName);
     static QString sizeUnitName(SizeUnits unit);
     static QString sizeUnitName(qreal factor);
     static SizeUnits sizeUnit(qreal factor);
-    static SizeUnits sizeUnit(QString name);
+    static SizeUnits sizeUnit(const QString& name);
     static qreal sizeConvert(qreal value, SizeUnits from, SizeUnits to);
 
     static int toPixels(qreal value, qreal resolution, SizeUnits sUnit, ResolutionUnits rUnit);

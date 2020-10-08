@@ -92,7 +92,7 @@ public:
 
     virtual QtVariantProperty *addProperty(int propertyType, const QString &name = QString());
 
-    void setProperties(QSet<QtProperty*> properties);
+    void setProperties(const QSet<QtProperty*>& properties);
 
     int propertyType(const QtProperty *property) const;
     int valueType(const QtProperty *property) const;

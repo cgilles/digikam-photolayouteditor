@@ -1373,7 +1373,7 @@ void addPropertyRecusively(QtVariantPropertyManager* manager,
 
     \sa properties(), addProperty()
 */
-void QtVariantPropertyManager::setProperties(QSet<QtProperty*> properties)
+void QtVariantPropertyManager::setProperties(const QSet<QtProperty*>& properties)
 {
   this->clear();
   foreach (QtProperty* const prop, properties)

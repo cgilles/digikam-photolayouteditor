@@ -395,7 +395,7 @@ class MoveItemsCommand
 
 public:
 
-    MoveItemsCommand(QMap<AbstractPhoto*, QPointF> items, PLEScene* scene, QUndoCommand* parent = nullptr)
+    MoveItemsCommand(const QMap<AbstractPhoto*, QPointF>& items, PLEScene* scene, QUndoCommand* parent = nullptr)
         : QUndoCommand(QObject::tr("Move item", "Move items", items.count()), parent),
           m_items(items),
           m_scene(scene),

@@ -98,7 +98,7 @@ qreal PLECanvasSize::resolutionUnitFactor(PLECanvasSize::ResolutionUnits unit)
     return resolution_factors.value(unit, 0);
 }
 
-qreal PLECanvasSize::resolutionUnitFactor(QString unitName)
+qreal PLECanvasSize::resolutionUnitFactor(const QString& unitName)
 {
     prepare_maps();
     return resolution_factors.value( resolution_names.key(unitName, UnknownResolutionUnit) );
@@ -122,7 +122,7 @@ PLECanvasSize::ResolutionUnits PLECanvasSize::resolutionUnit(qreal factor)
     return resolution_factors.key(factor, UnknownResolutionUnit);
 }
 
-PLECanvasSize::ResolutionUnits PLECanvasSize::resolutionUnit(QString name)
+PLECanvasSize::ResolutionUnits PLECanvasSize::resolutionUnit(const QString& name)
 {
     prepare_maps();
     return resolution_names.key(name, UnknownResolutionUnit);
@@ -165,7 +165,7 @@ qreal PLECanvasSize::sizeUnitFactor(PLECanvasSize::SizeUnits unit)
     return size_factors.value(unit);
 }
 
-qreal PLECanvasSize::sizeUnitFactor(QString unitName)
+qreal PLECanvasSize::sizeUnitFactor(const QString& unitName)
 {
     prepare_maps();
     return size_factors.value(size_names.key(unitName, UnknownSizeUnit));
@@ -189,7 +189,7 @@ PLECanvasSize::SizeUnits PLECanvasSize::sizeUnit(qreal factor)
     return size_factors.key(factor, UnknownSizeUnit);
 }
 
-PLECanvasSize::SizeUnits PLECanvasSize::sizeUnit(QString name)
+PLECanvasSize::SizeUnits PLECanvasSize::sizeUnit(const QString& name)
 {
     prepare_maps();
     return size_names.key(name, UnknownSizeUnit);

@@ -29,6 +29,8 @@
 
 #include <QEvent>
 #include <QVariant>
+#include <utility>
+
 
 namespace PhotoLayoutsEditor
 {
@@ -57,7 +59,7 @@ public:
     void setData(ProgressEvent::Type type, QVariant data)
     {
         this->m_type = type;
-        this->m_data = data;
+        this->m_data = std::move(data);
     }
 
     ProgressEvent::Type type() const
