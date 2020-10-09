@@ -1,0 +1,10 @@
+Checks: '-*,
+        modernize-use-override,
+        modernize-loop-convert,
+        modernize-use-equals-default,
+        modernize-use-equals-delete,
+        modernize-deprecated-headers,
+        performance-unnecessary-value-param
+        '
+        
+CheckOptions:

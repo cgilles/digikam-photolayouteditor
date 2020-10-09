@@ -12,6 +12,10 @@
 # We will work on command line using MinGW compiler
 export MAKEFILES_TYPE='Unix Makefiles'
 
+# Uncomment and adjust lines below to use Clang compiler instead GCC
+# export CC=/usr/bin/clang
+# export CXX=/usr/bin/clang++
+
 if [ ! -d "build" ]; then
     mkdir build
 fi
@@ -23,5 +27,6 @@ cmake -G "$MAKEFILES_TYPE" . \
       -DCMAKE_BUILD_TYPE=debug \
       -Wno-dev \
       -DENABLE_DPLUGIN=ON \
+      -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
       ..
 
