@@ -22,6 +22,7 @@ fi
 
 cd build
 
+# set build type (options are: None Debug Release RelWithDebInfo MinSizeRel tsan asan lsan msan ubsan) 
 cmake -G "$MAKEFILES_TYPE" . \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=debug \
