@@ -28,9 +28,6 @@
 // Qt includes
 
 #include <QAbstractItemModel>
-#include <QDebug>
-#include <QModelIndex>
-#include <QtGlobal>
 
 namespace PhotoLayoutsEditor
 {

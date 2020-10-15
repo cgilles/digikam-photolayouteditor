@@ -24,14 +24,6 @@
 
 #include "abstractmovablemodel.h"
 
-// Qt includes
-
-#include <QUndoCommand>
-
-// Local includes
-
-#include "pleglobal.h"
-
 namespace PhotoLayoutsEditor
 {
 

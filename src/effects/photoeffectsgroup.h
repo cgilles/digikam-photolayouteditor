@@ -25,14 +25,12 @@
 #ifndef PHOTOEFFECTSGROUP_H
 #define PHOTOEFFECTSGROUP_H
 
-// Qt includes
-
-#include <QPixmap>
-#include <QDomDocument>
-
 // Local includes
 
 #include "abstractmovablemodel.h"
+
+class QDomDocument;
+class QDomElement;
 
 namespace PhotoLayoutsEditor
 {
@@ -53,12 +51,14 @@ public:
     QDomElement toSvg(QDomDocument& document) const;
     static PhotoEffectsGroup* fromSvg(const QDomElement& element, AbstractPhoto* graphicsItem);
     AbstractPhoto* photo() const;
-    QObject* item(const QModelIndex& index) const override;
-    void setItem(QObject* graphicsItem, const QModelIndex& index) override;
     AbstractPhotoEffectInterface* graphicsItem(const QModelIndex& index = QModelIndex()) const;
-    bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) override;
     bool insertRow(int row, AbstractPhotoEffectInterface* effect);
     bool insertRow(int row, const QModelIndex& index = QModelIndex());
+
+    // Implement AbstractMovableModel methods
+    bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) override;
+    void setItem(QObject* graphicsItem, const QModelIndex& index) override;
+    QObject* item(const QModelIndex& index) const override;
 
     // Reimplemented QAbstractItemModel methods
     int columnCount(const QModelIndex& parent = QModelIndex()) const override;
