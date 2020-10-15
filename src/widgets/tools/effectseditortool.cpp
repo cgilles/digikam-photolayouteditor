@@ -37,7 +37,6 @@
 #include "qtpropertybrowser.h"
 #include "abstractphoto.h"
 #include "photoeffectsloader.h"
-#include "photoeffectsgroup.h"
 #include "abstractphotoeffectinterface.h"
 #include "toolsdockwidget.h"
 

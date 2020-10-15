@@ -30,7 +30,6 @@
 
 // Local includes
 
-#include "photoeffectsgroup.h"
 #include "abstractphoto.h"
 #include "undocommandevent.h"
 #include "pleeditfactory.h"

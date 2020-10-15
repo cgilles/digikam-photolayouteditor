@@ -38,7 +38,6 @@
 
 // Local includes
 
-#include "photoeffectsgroup.h"
 #include "photoeffectsloader.h"
 #include "imagedialog.h"
 #include "bordersgroup.h"
