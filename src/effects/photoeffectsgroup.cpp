@@ -24,19 +24,11 @@
 
 #include "photoeffectsgroup.h"
 
-// Qt includes
-
-#include <QPainter>
-#include <QApplication>
-
 // Local includes
 
 #include "photoeffectsloader.h"
 #include "abstractphoto.h"
 #include "abstractphotoeffectfactory.h"
-#include "abstractphotoeffectinterface.h"
-#include "undocommandevent.h"
-#include "pleglobal.h"
 
 namespace PhotoLayoutsEditor
 {

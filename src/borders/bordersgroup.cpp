@@ -27,8 +27,6 @@
 // Qt includes
 
 #include <QGraphicsScene>
-#include <QUndoCommand>
-#include <QDebug>
 
 // Local includes
 
