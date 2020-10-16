@@ -38,10 +38,13 @@ namespace PhotoLayoutsEditor
 class AbstractPhoto;
 class PhotoEffectsLoader;
 class AbstractPhotoEffectInterface;
+class PhotoEffectsGroupPrivate;
 
 class PhotoEffectsGroup : public AbstractMovableModel
 {
     Q_OBJECT
+
+    PhotoEffectsGroupPrivate* d;
 
 public:
 
@@ -80,13 +83,6 @@ public Q_SLOTS:
     void push_front(AbstractPhotoEffectInterface* effect);
     void emitEffectsChanged(AbstractPhotoEffectInterface* effect = nullptr);
     QImage apply(const QImage& image);
-
-public:
-
-    AbstractPhoto*                       m_photo;
-    QList<AbstractPhotoEffectInterface*> m_effects_list;
-
-    friend class AbstractPhoto;
 };
 
 } // namespace PhotoLayoutsEditor

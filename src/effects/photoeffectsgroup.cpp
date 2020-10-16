@@ -33,22 +33,43 @@
 namespace PhotoLayoutsEditor
 {
 
+class PhotoEffectsGroupPrivate
+{
+    explicit PhotoEffectsGroupPrivate(PhotoEffectsGroup* group)
+        : group(group),
+          photo(nullptr)
+    {
+    }
+
+    PhotoEffectsGroup*                   group;
+    AbstractPhoto*                       photo;
+    QList<AbstractPhotoEffectInterface*> effects;
+
+    friend class PhotoEffectsGroup;
+};
+
 PhotoEffectsGroup::PhotoEffectsGroup(AbstractPhoto* const photo)
     : AbstractMovableModel(photo),
-      m_photo(photo)
+      d(new PhotoEffectsGroupPrivate(this))
 {
+    d->photo = photo;
+
     connect(this, SIGNAL(effectsChanged()), photo, SLOT(refresh()));
 }
 
-PhotoEffectsGroup::~PhotoEffectsGroup() = default;
+PhotoEffectsGroup::~PhotoEffectsGroup()
+{
+    qDebug() << "PhotoEffectsGroup delete";
+    delete d;
+}
 
 QDomElement PhotoEffectsGroup::toSvg(QDomDocument& document) const
 {
     QDomElement effectsGroup = document.createElement(QLatin1String("effects"));
 
-    for (int i = m_effects_list.count()-1; i >= 0; --i)
+    for (int i = d->effects.count()-1; i >= 0; --i)
     {
-        QDomElement e = PhotoEffectsLoader::effectToSvg(m_effects_list[i], document);
+        QDomElement e = PhotoEffectsLoader::effectToSvg(d->effects[i], document);
 
         if (e.isNull())
             continue;
@@ -69,7 +90,7 @@ PhotoEffectsGroup* PhotoEffectsGroup::fromSvg(const QDomElement& element, Abstra
     if (temp.isNull())
         return nullptr;
 
-    PhotoEffectsGroup* group = new PhotoEffectsGroup(nullptr);
+    PhotoEffectsGroup* group = new PhotoEffectsGroup(graphicsItem);
     QDomNodeList effectsList = temp.childNodes();
 
     for (int i = effectsList.count()-1; i >= 0; --i)
@@ -85,14 +106,12 @@ PhotoEffectsGroup* PhotoEffectsGroup::fromSvg(const QDomElement& element, Abstra
             group->push_back(interface);
     }
 
-    group->m_photo = graphicsItem;
-
     return group;
 }
 
 void PhotoEffectsGroup::push_back(AbstractPhotoEffectInterface* effect)
 {
-    m_effects_list.push_back(effect);
+    d->effects.push_back(effect);
 
     connect(effect, SIGNAL(changed()),
             this, SLOT(emitEffectsChanged()));
@@ -104,7 +123,7 @@ void PhotoEffectsGroup::push_back(AbstractPhotoEffectInterface* effect)
 
 void PhotoEffectsGroup::push_front(AbstractPhotoEffectInterface* effect)
 {
-    m_effects_list.push_front(effect);
+    d->effects.push_front(effect);
 
     connect(effect, SIGNAL(changed()),
             this, SLOT(emitEffectsChanged()));
@@ -118,9 +137,9 @@ QImage PhotoEffectsGroup::apply(const QImage& image)
 {
     QImage temp = image;
 
-    for (int i = m_effects_list.count()-1; i >= 0; --i)
+    for (int i = d->effects.count()-1; i >= 0; --i)
     {
-        AbstractPhotoEffectInterface* effect = m_effects_list[i];
+        AbstractPhotoEffectInterface* effect = d->effects[i];
 
         if (effect)
             temp = effect->apply(temp);
@@ -131,13 +150,13 @@ QImage PhotoEffectsGroup::apply(const QImage& image)
 
 AbstractPhoto* PhotoEffectsGroup::photo() const
 {
-    return m_photo;
+    return d->photo;
 }
 
 QObject* PhotoEffectsGroup::item(const QModelIndex& index) const
 {
     if (index.isValid() && index.row() < rowCount())
-        return m_effects_list.at(index.row());
+        return d->effects.at(index.row());
 
     return nullptr;
 }
@@ -154,15 +173,15 @@ void PhotoEffectsGroup::setItem(QObject* item, const QModelIndex& index)
     if (row < 0 || row >= rowCount())
         return;
 
-    if (effect == m_effects_list.at(row))
+    if (effect == d->effects.at(row))
         return;
 
-    AbstractPhotoEffectInterface* temp = m_effects_list.takeAt(row);
+    AbstractPhotoEffectInterface* temp = d->effects.takeAt(row);
 
     if (temp)
         temp->disconnect(this);
 
-    m_effects_list.insert(row, effect);
+    d->effects.insert(row, effect);
 
     connect(effect, SIGNAL(changed()),
             this, SLOT(emitEffectsChanged()));
@@ -179,10 +198,10 @@ bool PhotoEffectsGroup::moveRowsData(int sourcePosition, int sourceCount, int de
 {
     if ((sourcePosition <= destPosition && sourcePosition+sourceCount >= destPosition) ||
          sourceCount <= 0                                                              ||
-         m_effects_list.count() <= sourcePosition+sourceCount-1                        ||
+         d->effects.count() <= sourcePosition+sourceCount-1                            ||
          sourcePosition < 0                                                            ||
          destPosition < 0                                                              ||
-         m_effects_list.count() < destPosition)
+         d->effects.count() < destPosition)
         return false;
 
     beginMoveRows(QModelIndex(), sourcePosition, sourcePosition+sourceCount-1, QModelIndex(), destPosition);
@@ -192,10 +211,10 @@ bool PhotoEffectsGroup::moveRowsData(int sourcePosition, int sourceCount, int de
         destPosition -= sourceCount;
 
     while (sourceCount--)
-        movingItems.push_back(m_effects_list.takeAt(sourcePosition));
+        movingItems.push_back(d->effects.takeAt(sourcePosition));
 
     for ( ; movingItems.count() ; movingItems.pop_back())
-        m_effects_list.insert(destPosition, movingItems.last());
+        d->effects.insert(destPosition, movingItems.last());
 
     endMoveRows();
     this->emitEffectsChanged();
@@ -244,13 +263,13 @@ QModelIndex PhotoEffectsGroup::index(int row, int column, const QModelIndex& par
     if (column != 0)
         return QModelIndex();
 
-    if (row >= m_effects_list.count())
+    if (row >= d->effects.count())
         return QModelIndex();
 
     if (parent.isValid())
         return QModelIndex();
 
-    return createIndex(row,column,m_effects_list.at(row));
+    return createIndex(row,column,d->effects.at(row));
 }
 
 bool PhotoEffectsGroup::insertRows(int row, int count, const QModelIndex& parent)
@@ -261,7 +280,7 @@ bool PhotoEffectsGroup::insertRows(int row, int count, const QModelIndex& parent
     beginInsertRows(parent, row, row+count-1);
 
     while (count--)
-        m_effects_list.insert(row, nullptr);
+        d->effects.insert(row, nullptr);
 
     endInsertRows();
     Q_EMIT layoutChanged();
@@ -276,7 +295,7 @@ QModelIndex PhotoEffectsGroup::parent(const QModelIndex& /*index*/) const
 int PhotoEffectsGroup::rowCount(const QModelIndex& parent) const
 {
     if (!parent.isValid())
-        return this->m_effects_list.count();
+        return this->d->effects.count();
     else
         return 0;
 }
@@ -289,7 +308,7 @@ bool PhotoEffectsGroup::removeRows(int row, int count, const QModelIndex& parent
     beginRemoveRows(QModelIndex(), row, row+count-1);
 
     while (count--)
-        m_effects_list.removeAt(row);
+        d->effects.removeAt(row);
 
     endRemoveRows();
     this->emitEffectsChanged();
@@ -299,14 +318,14 @@ bool PhotoEffectsGroup::removeRows(int row, int count, const QModelIndex& parent
 
 void PhotoEffectsGroup::emitEffectsChanged(AbstractPhotoEffectInterface* effect)
 {
-    if (!m_photo)
+    if (!d->photo)
         return;
 
-    m_photo->refresh();
+    d->photo->refresh();
 
     if      (effect)
     {
-        int row = m_effects_list.indexOf(effect);
+        int row = d->effects.indexOf(effect);
         QModelIndex indexChanged = index(row,0);
         Q_EMIT dataChanged(indexChanged,indexChanged);
     }
