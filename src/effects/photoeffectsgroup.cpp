@@ -162,15 +162,15 @@ void PhotoEffectsGroup::setItem(QObject* item, const QModelIndex& index)
     if (row < 0 || row >= rowCount())
         return;
 
+    if (effect == m_effects_list.at(row))
+        return;
+
     AbstractPhotoEffectInterface* temp = m_effects_list.takeAt(row);
 
     if (temp)
         temp->disconnect(this);
 
-    m_effects_list.removeAt(row);
     m_effects_list.insert(row, effect);
-    effect->setParent(this);
-    effect->setGroup(this);
 
     connect(effect, SIGNAL(changed()),
             this, SLOT(emitEffectsChanged()));
