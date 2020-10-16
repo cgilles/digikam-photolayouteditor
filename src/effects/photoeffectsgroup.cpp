@@ -41,8 +41,8 @@
 namespace PhotoLayoutsEditor
 {
 
-PhotoEffectsGroup::PhotoEffectsGroup(AbstractPhoto* photo, QObject* parent)
-    : AbstractMovableModel(parent),
+PhotoEffectsGroup::PhotoEffectsGroup(AbstractPhoto* const photo)
+    : AbstractMovableModel(photo),
       m_photo(photo)
 {
     connect(this, SIGNAL(effectsChanged()), photo, SLOT(refresh()));
