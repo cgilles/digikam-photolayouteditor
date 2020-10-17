@@ -189,11 +189,6 @@ void PhotoEffectsGroup::setItem(QObject* item, const QModelIndex& index)
     emitEffectsChanged(effect);
 }
 
-AbstractPhotoEffectInterface* PhotoEffectsGroup::graphicsItem(const QModelIndex& index) const
-{
-    return static_cast<AbstractPhotoEffectInterface*>(index.internalPointer());
-}
-
 bool PhotoEffectsGroup::moveRowsData(int sourcePosition, int sourceCount, int destPosition)
 {
     if ((sourcePosition <= destPosition && sourcePosition+sourceCount >= destPosition) ||
@@ -239,7 +234,7 @@ QVariant PhotoEffectsGroup::data(const QModelIndex& index, int role) const
     }
     else
     {
-        AbstractPhotoEffectInterface* effect = graphicsItem(index);
+        AbstractPhotoEffectInterface* const effect = d->effects.at(index.row());
 
         if (effect)
             return effect->toString();

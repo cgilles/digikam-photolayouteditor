@@ -54,10 +54,8 @@ public:
     QDomElement toSvg(QDomDocument& document) const;
     static PhotoEffectsGroup* fromSvg(const QDomElement& element, AbstractPhoto* graphicsItem);
     AbstractPhoto* photo() const;
-    AbstractPhotoEffectInterface* graphicsItem(const QModelIndex& index = QModelIndex()) const;
-    bool insertRow(int row, AbstractPhotoEffectInterface* effect);
-    bool insertRow(int row, const QModelIndex& index = QModelIndex());
 
+protected:
     // Implement AbstractMovableModel methods
     bool moveRowsData(int sourcePosition, int sourceCount, int destPosition) override;
     void setItem(QObject* graphicsItem, const QModelIndex& index) override;
