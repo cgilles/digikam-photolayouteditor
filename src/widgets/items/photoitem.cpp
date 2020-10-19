@@ -181,7 +181,7 @@ public:
 
     void translate(QPointF& translation)
     {
-        translation += translation;
+        this->translation += translation;
     }
 
     void redo() override
