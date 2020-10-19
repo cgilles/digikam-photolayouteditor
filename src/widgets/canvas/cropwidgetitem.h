@@ -69,6 +69,7 @@ private Q_SLOTS:
 
     void updateShapes();
 
+private:
     /**
      * @brief calculates the normal line starting from the point point through the line line
      * @param line line for intersection (the normal line should show in direction point)
