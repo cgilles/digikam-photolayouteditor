@@ -54,7 +54,7 @@ public:
 public:
 
     AbstractListToolViewDelegate(AbstractMovableModel* model,
-                                 QModelIndex index,
+                                 const QModelIndex& index,
                                  AbstractItemsListViewTool* parent);
 
 Q_SIGNALS:

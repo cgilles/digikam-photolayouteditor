@@ -462,7 +462,7 @@ void AbstractItemsListViewTool::closeEditor()
 }
 
 AbstractListToolViewDelegate::AbstractListToolViewDelegate(AbstractMovableModel* model,
-                                                           QModelIndex index,
+                                                           const QModelIndex& index,
                                                            AbstractItemsListViewTool* parent)
     : QWidget(parent),
       m_parent(parent),
