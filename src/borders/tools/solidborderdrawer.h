@@ -50,7 +50,7 @@ private:
     Qt::PenJoinStyle                       m_corners_style;
     QPainterPath                           m_path;
 
-    static QMap<const char*, QString>      m_properties;
+    static QHash<const char*, QString>     m_properties;
     static QMap<Qt::PenJoinStyle, QString> m_corners_style_names;
     static int                             m_default_width;
     static QColor                          m_default_color;

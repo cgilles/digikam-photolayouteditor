@@ -44,18 +44,18 @@ class PolaroidBorderDrawer : public BorderDrawerInterface
 
 private:
 
-    int                               m_width;
-    QString                           m_text;
-    QColor                            m_color;
-    QFont                             m_font;
-    QPainterPath                      m_path;
-    QRectF                            m_text_rect;
+    int                                m_width;
+    QString                            m_text;
+    QColor                             m_color;
+    QFont                              m_font;
+    QPainterPath                       m_path;
+    QRectF                             m_text_rect;
 
-    static QMap<const char*, QString> m_properties;
-    static int                        m_default_width;
-    static QString                    m_default_text;
-    static QColor                     m_default_color;
-    static QFont                      m_default_font;
+    static QHash<const char*, QString> m_properties;
+    static int                         m_default_width;
+    static QString                     m_default_text;
+    static QColor                      m_default_color;
+    static QFont                       m_default_font;
 
 public:
 

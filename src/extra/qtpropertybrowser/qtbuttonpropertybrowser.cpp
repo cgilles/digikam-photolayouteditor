@@ -423,7 +423,7 @@ void QtButtonPropertyBrowserPrivate::propertyRemoved(QtBrowserItem *index)
 
 void QtButtonPropertyBrowserPrivate::insertRow(QGridLayout *layout, int row) const
 {
-    QMap<QLayoutItem *, QRect> itemToPos;
+    QHash<QLayoutItem *, QRect> itemToPos;
     int idx = 0;
     while (idx < layout->count()) {
         int r, c, rs, cs;
@@ -435,8 +435,8 @@ void QtButtonPropertyBrowserPrivate::insertRow(QGridLayout *layout, int row) con
         }
     }
 
-    const QMap<QLayoutItem *, QRect>::const_iterator icend =  itemToPos.constEnd();
-    for (QMap<QLayoutItem *, QRect>::const_iterator it = itemToPos.constBegin(); it != icend; ++it) {
+    const QHash<QLayoutItem *, QRect>::const_iterator icend =  itemToPos.constEnd();
+    for (QHash<QLayoutItem *, QRect>::const_iterator it = itemToPos.constBegin(); it != icend; ++it) {
         const QRect r = it.value();
         layout->addItem(it.key(), r.x(), r.y(), r.width(), r.height());
     }

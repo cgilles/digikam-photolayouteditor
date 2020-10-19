@@ -38,7 +38,7 @@
 namespace PhotoLayoutsEditor
 {
 
-QMap<const char*, QString> PolaroidBorderDrawer::m_properties;
+QHash<const char*, QString> PolaroidBorderDrawer::m_properties;
 int PolaroidBorderDrawer::m_default_width    = 20;
 QString PolaroidBorderDrawer::m_default_text = QObject::tr("Write here some text");
 QColor PolaroidBorderDrawer::m_default_color = Qt::black;

@@ -493,7 +493,7 @@ void QtProperty::insertSubProperty(QtProperty *property,
 
     // traverse all children of item. if this item is a child of item then cannot add.
     QList<QtProperty*> pendingList = property->subProperties();
-    QMap<QtProperty*, bool> visited;
+    QHash<QtProperty*, bool> visited;
     while (!pendingList.isEmpty()) {
         QtProperty *i = pendingList.first();
         if (i == this)
@@ -1388,7 +1388,7 @@ void QtAbstractPropertyBrowserPrivate::removeSubTree(QtProperty *property,
 
 void QtAbstractPropertyBrowserPrivate::createBrowserIndexes(QtProperty *property, QtProperty *parentProperty, QtProperty *afterProperty)
 {
-    QMap<QtBrowserItem*, QtBrowserItem *> parentToAfter;
+    QHash<QtBrowserItem*, QtBrowserItem *> parentToAfter;
     if (afterProperty) {
         QMap<QtProperty*, QList<QtBrowserItem*> >::iterator it =
             m_propertyToIndexes.find(afterProperty);
@@ -1419,8 +1419,8 @@ void QtAbstractPropertyBrowserPrivate::createBrowserIndexes(QtProperty *property
         parentToAfter[nullptr] = nullptr;
     }
 
-    const QMap<QtBrowserItem*, QtBrowserItem *>::const_iterator pcend = parentToAfter.constEnd();
-    for (QMap<QtBrowserItem*, QtBrowserItem *>::const_iterator it = parentToAfter.constBegin(); it != pcend; ++it)
+    const QHash<QtBrowserItem*, QtBrowserItem *>::const_iterator pcend = parentToAfter.constEnd();
+    for (QHash<QtBrowserItem*, QtBrowserItem *>::const_iterator it = parentToAfter.constBegin(); it != pcend; ++it)
         createBrowserIndex(property, it.key(), it.value());
 }
 

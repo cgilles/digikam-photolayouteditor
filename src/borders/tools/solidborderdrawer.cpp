@@ -38,7 +38,7 @@
 namespace PhotoLayoutsEditor
 {
 
-QMap<const char*, QString> SolidBorderDrawer::m_properties;
+QHash<const char*, QString> SolidBorderDrawer::m_properties;
 QMap<Qt::PenJoinStyle, QString> SolidBorderDrawer::m_corners_style_names;
 int SolidBorderDrawer::m_default_width                      = 1;
 QColor SolidBorderDrawer::m_default_color                   = Qt::red;
