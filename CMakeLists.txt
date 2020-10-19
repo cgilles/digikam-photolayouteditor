@@ -248,7 +248,7 @@ add_definitions(-DQT_DEPRECATED_WARNINGS
 
 add_library(photolayoutseditorcore STATIC ${photolayoutseditorcore_SRCS})
 
-if(NOT MSVC)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(photolayoutseditorcore PRIVATE
                         -Waddress
                         -Wall
