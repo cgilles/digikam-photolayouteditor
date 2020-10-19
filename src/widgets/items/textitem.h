@@ -103,7 +103,7 @@ private:
               m_cursorIsVisible(false),
               m_cursor_row(0),
               m_cursor_character(0),
-              command(nullptr)
+              m_command(nullptr)
         {
         }
 
@@ -130,7 +130,7 @@ private:
         int m_cursor_row;
         int m_cursor_character;
 
-        QUndoCommand* command;
+        QUndoCommand* m_command;
 
         friend class TextItem;
         friend class TextItemLoader;

@@ -43,29 +43,29 @@ namespace PhotoLayoutsEditor
 class RotateItemCommand : public QUndoCommand
 {
     AbstractPhoto* item;
-    QPointF        rotationPoint;
-    qreal          angle;
-    bool           done;
+    QPointF        m_rotationPoint;
+    qreal          m_angle;
+    bool           m_done;
 
 public:
 
     RotateItemCommand(AbstractPhoto* item, QUndoCommand* parent = nullptr)
         : QUndoCommand(QObject::tr("Rotate item"), parent),
           item(item),
-          angle(0),
-          done(false)
+          m_angle(0),
+          m_done(false)
     {
     }
 
     void redo() override
     {
-        if (done)
+        if (m_done)
             return;
 
         QTransform tr;
-        tr.translate(rotationPoint.x(), rotationPoint.y());
-        tr.rotate(angle);
-        tr.translate(-rotationPoint.x(), -rotationPoint.y());
+        tr.translate(m_rotationPoint.x(), m_rotationPoint.y());
+        tr.rotate(m_angle);
+        tr.translate(-m_rotationPoint.x(), -m_rotationPoint.y());
         QRectF updateRect = item->mapRectToScene(item->boundingRect());
         QTransform rotated = item->transform() * tr;
         item->setTransform(rotated);
@@ -74,18 +74,18 @@ public:
         if (item->scene())
             item->scene()->invalidate(updateRect);
 
-        done = true;
+        m_done = true;
     }
 
     void undo() override
     {
-        if (!done)
+        if (!m_done)
             return;
 
         QTransform tr;
-        tr.translate(rotationPoint.x(), rotationPoint.y());
-        tr.rotate(angle);
-        tr.translate(-rotationPoint.x(), -rotationPoint.y());
+        tr.translate(m_rotationPoint.x(), m_rotationPoint.y());
+        tr.rotate(m_angle);
+        tr.translate(-m_rotationPoint.x(), -m_rotationPoint.y());
         QRectF updateRect = item->mapRectToScene(item->boundingRect());
         QTransform rotated = item->transform() * tr.inverted();
         item->setTransform(rotated);
@@ -94,22 +94,22 @@ public:
         if (item->scene())
             item->scene()->invalidate(updateRect);
 
-        done = false;
+        m_done = false;
     }
 
-    void setRotationPoint(const QPointF& point)
+    void setRotationPoint(const QPointF& rotationPoint)
     {
-        rotationPoint = point;
+        m_rotationPoint = rotationPoint;
     }
 
     void setAngle(qreal angle)
     {
-        this->angle = angle;
+        m_angle = angle;
     }
 
     void setDone(bool done)
     {
-        this->done = done;
+        m_done = done;
     }
 };
 

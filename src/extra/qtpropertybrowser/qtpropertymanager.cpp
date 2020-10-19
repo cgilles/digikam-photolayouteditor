@@ -2374,14 +2374,14 @@ QtLocalePropertyManagerPrivate::QtLocalePropertyManagerPrivate()
 
 void QtLocalePropertyManagerPrivate::slotEnumChanged(QtProperty *property, int value)
 {
-    if (QtProperty *prop = m_languageToProperty.value(property, nullptr)) {
+    if (QtProperty* prop = m_languageToProperty.value(property, nullptr)) {
         const QLocale loc = m_values[prop];
         QLocale::Language newLanguage = loc.language();
         QLocale::Country newCountry = loc.country();
         metaEnumProvider()->indexToLocale(value, 0, &newLanguage, nullptr);
         QLocale newLoc(newLanguage, newCountry);
         q_ptr->setValue(prop, newLoc);
-    } else if (QtProperty *prop = m_countryToProperty.value(property, nullptr)) {
+    } else if ((prop = m_countryToProperty.value(property, nullptr))) {
         const QLocale loc = m_values[prop];
         QLocale::Language newLanguage = loc.language();
         QLocale::Country newCountry = loc.country();
@@ -2393,10 +2393,10 @@ void QtLocalePropertyManagerPrivate::slotEnumChanged(QtProperty *property, int v
 
 void QtLocalePropertyManagerPrivate::slotPropertyDestroyed(QtProperty *property)
 {
-    if (QtProperty *subProp = m_languageToProperty.value(property, nullptr)) {
+    if (QtProperty* subProp = m_languageToProperty.value(property, nullptr)) {
         m_propertyToLanguage[subProp] = nullptr;
         m_languageToProperty.remove(property);
-    } else if (QtProperty *subProp = m_countryToProperty.value(property, nullptr)) {
+    } else if ((subProp = m_countryToProperty.value(property, nullptr))) {
         m_propertyToCountry[subProp] = nullptr;
         m_countryToProperty.remove(property);
     }
@@ -2642,7 +2642,7 @@ void QtPointPropertyManagerPrivate::slotPropertyDestroyed(QtProperty *property)
     if (QtProperty *pointProp = m_xToProperty.value(property, nullptr)) {
         m_propertyToX[pointProp] = nullptr;
         m_xToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_yToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_yToProperty.value(property, nullptr))) {
         m_propertyToY[pointProp] = nullptr;
         m_yToProperty.remove(property);
     }
@@ -2859,11 +2859,11 @@ private:
 
 void QtPointFPropertyManagerPrivate::slotDoubleChanged(QtProperty *property, double value)
 {
-    if (QtProperty *prop = m_xToProperty.value(property, nullptr)) {
+    if (QtProperty* prop = m_xToProperty.value(property, nullptr)) {
         QPointF p = m_values[prop].val;
         p.setX(value);
         q_ptr->setValue(prop, p);
-    } else if (QtProperty *prop = m_yToProperty.value(property, nullptr)) {
+    } else if ((prop = m_yToProperty.value(property, nullptr))) {
         QPointF p = m_values[prop].val;
         p.setY(value);
         q_ptr->setValue(prop, p);
@@ -2872,10 +2872,10 @@ void QtPointFPropertyManagerPrivate::slotDoubleChanged(QtProperty *property, dou
 
 void QtPointFPropertyManagerPrivate::slotPropertyDestroyed(QtProperty *property)
 {
-    if (QtProperty *pointProp  = m_xToProperty.value(property, nullptr)) {
+    if (QtProperty* pointProp  = m_xToProperty.value(property, nullptr)) {
         m_propertyToX[pointProp] = nullptr;
         m_xToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_yToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_yToProperty.value(property, nullptr))) {
         m_propertyToY[pointProp] = nullptr;
         m_yToProperty.remove(property);
     }
@@ -3157,7 +3157,7 @@ void QtSizePropertyManagerPrivate::slotIntChanged(QtProperty *property, int valu
         QSize s = m_values[prop].val;
         s.setWidth(value);
         q_ptr->setValue(prop, s);
-    } else if (QtProperty *prop = m_hToProperty.value(property, nullptr)) {
+    } else if ((prop = m_hToProperty.value(property, nullptr))) {
         QSize s = m_values[prop].val;
         s.setHeight(value);
         q_ptr->setValue(prop, s);
@@ -3169,7 +3169,7 @@ void QtSizePropertyManagerPrivate::slotPropertyDestroyed(QtProperty *property)
     if (QtProperty *pointProp = m_wToProperty.value(property, nullptr)) {
         m_propertyToW[pointProp] = nullptr;
         m_wToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_hToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_hToProperty.value(property, nullptr))) {
         m_propertyToH[pointProp] = nullptr;
         m_hToProperty.remove(property);
     }
@@ -3513,7 +3513,7 @@ void QtSizeFPropertyManagerPrivate::slotDoubleChanged(QtProperty *property, doub
         QSizeF s = m_values[prop].val;
         s.setWidth(value);
         q_ptr->setValue(prop, s);
-    } else if (QtProperty *prop = m_hToProperty.value(property, nullptr)) {
+    } else if ((prop = m_hToProperty.value(property, nullptr))) {
         QSizeF s = m_values[prop].val;
         s.setHeight(value);
         q_ptr->setValue(prop, s);
@@ -3525,7 +3525,7 @@ void QtSizeFPropertyManagerPrivate::slotPropertyDestroyed(QtProperty *property)
     if (QtProperty *pointProp = m_wToProperty.value(property, nullptr)) {
         m_propertyToW[pointProp] = nullptr;
         m_wToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_hToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_hToProperty.value(property, nullptr))) {
         m_propertyToH[pointProp] = nullptr;
         m_hToProperty.remove(property);
     }
@@ -3920,11 +3920,11 @@ void QtRectPropertyManagerPrivate::slotIntChanged(QtProperty *property, int valu
         QRect r = m_values[prop].val;
         r.moveLeft(value);
         q_ptr->setValue(prop, r);
-    } else if (QtProperty *prop = m_yToProperty.value(property)) {
+    } else if ((prop = m_yToProperty.value(property))) {
         QRect r = m_values[prop].val;
         r.moveTop(value);
         q_ptr->setValue(prop, r);
-    } else if (QtProperty *prop = m_wToProperty.value(property, nullptr)) {
+    } else if ((prop = m_wToProperty.value(property, nullptr))) {
         Data data = m_values[prop];
         QRect r = data.val;
         r.setWidth(value);
@@ -3932,7 +3932,7 @@ void QtRectPropertyManagerPrivate::slotIntChanged(QtProperty *property, int valu
             r.moveLeft(data.constraint.left() + data.constraint.width() - r.width());
         }
         q_ptr->setValue(prop, r);
-    } else if (QtProperty *prop = m_hToProperty.value(property, nullptr)) {
+    } else if ((prop = m_hToProperty.value(property, nullptr))) {
         Data data = m_values[prop];
         QRect r = data.val;
         r.setHeight(value);
@@ -3948,13 +3948,13 @@ void QtRectPropertyManagerPrivate::slotPropertyDestroyed(QtProperty *property)
     if (QtProperty *pointProp = m_xToProperty.value(property, nullptr)) {
         m_propertyToX[pointProp] = nullptr;
         m_xToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_yToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_yToProperty.value(property, nullptr))) {
         m_propertyToY[pointProp] = nullptr;
         m_yToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_wToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_wToProperty.value(property, nullptr))) {
         m_propertyToW[pointProp] = nullptr;
         m_wToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_hToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_hToProperty.value(property, nullptr))) {
         m_propertyToH[pointProp] = nullptr;
         m_hToProperty.remove(property);
     }
@@ -4339,11 +4339,11 @@ void QtRectFPropertyManagerPrivate::slotDoubleChanged(QtProperty *property, doub
         QRectF r = m_values[prop].val;
         r.moveLeft(value);
         q_ptr->setValue(prop, r);
-    } else if (QtProperty *prop = m_yToProperty.value(property, nullptr)) {
+    } else if ((prop = m_yToProperty.value(property, nullptr))) {
         QRectF r = m_values[prop].val;
         r.moveTop(value);
         q_ptr->setValue(prop, r);
-    } else if (QtProperty *prop = m_wToProperty.value(property, nullptr)) {
+    } else if ((prop = m_wToProperty.value(property, nullptr))) {
         Data data = m_values[prop];
         QRectF r = data.val;
         r.setWidth(value);
@@ -4351,7 +4351,7 @@ void QtRectFPropertyManagerPrivate::slotDoubleChanged(QtProperty *property, doub
             r.moveLeft(data.constraint.left() + data.constraint.width() - r.width());
         }
         q_ptr->setValue(prop, r);
-    } else if (QtProperty *prop = m_hToProperty.value(property, nullptr)) {
+    } else if ((prop = m_hToProperty.value(property, nullptr))) {
         Data data = m_values[prop];
         QRectF r = data.val;
         r.setHeight(value);
@@ -4364,16 +4364,16 @@ void QtRectFPropertyManagerPrivate::slotDoubleChanged(QtProperty *property, doub
 
 void QtRectFPropertyManagerPrivate::slotPropertyDestroyed(QtProperty *property)
 {
-    if (QtProperty *pointProp = m_xToProperty.value(property, nullptr)) {
+    if (QtProperty* pointProp = m_xToProperty.value(property, nullptr)) {
         m_propertyToX[pointProp] = nullptr;
         m_xToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_yToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_yToProperty.value(property, nullptr))) {
         m_propertyToY[pointProp] = nullptr;
         m_yToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_wToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_wToProperty.value(property, nullptr))) {
         m_propertyToW[pointProp] = nullptr;
         m_wToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_hToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_hToProperty.value(property, nullptr))) {
         m_propertyToH[pointProp] = nullptr;
         m_hToProperty.remove(property);
     }
@@ -5433,7 +5433,7 @@ void QtSizePolicyPropertyManagerPrivate::slotIntChanged(QtProperty *property, in
         QSizePolicy sp = m_values[prop];
         sp.setHorizontalStretch(value);
         q_ptr->setValue(prop, sp);
-    } else if (QtProperty *prop = m_vStretchToProperty.value(property, nullptr)) {
+    } else if ((prop = m_vStretchToProperty.value(property, nullptr))) {
         QSizePolicy sp = m_values[prop];
         sp.setVerticalStretch(value);
         q_ptr->setValue(prop, sp);
@@ -5446,7 +5446,7 @@ void QtSizePolicyPropertyManagerPrivate::slotEnumChanged(QtProperty *property, i
         QSizePolicy sp = m_values[prop];
         sp.setHorizontalPolicy(metaEnumProvider()->indexToSizePolicy(value));
         q_ptr->setValue(prop, sp);
-    } else if (QtProperty *prop = m_vPolicyToProperty.value(property, nullptr)) {
+    } else if ((prop = m_vPolicyToProperty.value(property, nullptr))) {
         QSizePolicy sp = m_values[prop];
         sp.setVerticalPolicy(metaEnumProvider()->indexToSizePolicy(value));
         q_ptr->setValue(prop, sp);
@@ -5458,13 +5458,13 @@ void QtSizePolicyPropertyManagerPrivate::slotPropertyDestroyed(QtProperty *prope
     if (QtProperty *pointProp = m_hStretchToProperty.value(property, nullptr)) {
         m_propertyToHStretch[pointProp] = nullptr;
         m_hStretchToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_vStretchToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_vStretchToProperty.value(property, nullptr))) {
         m_propertyToVStretch[pointProp] = nullptr;
         m_vStretchToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_hPolicyToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_hPolicyToProperty.value(property, nullptr))) {
         m_propertyToHPolicy[pointProp] = nullptr;
         m_hPolicyToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_vPolicyToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_vPolicyToProperty.value(property, nullptr))) {
         m_propertyToVPolicy[pointProp] = nullptr;
         m_vPolicyToProperty.remove(property);
     }
@@ -5804,19 +5804,19 @@ void QtFontPropertyManagerPrivate::slotBoolChanged(QtProperty *property, bool va
         QFont f = m_values[prop];
         f.setBold(value);
         q_ptr->setValue(prop, f);
-    } else if (QtProperty *prop = m_italicToProperty.value(property, nullptr)) {
+    } else if ((prop = m_italicToProperty.value(property, nullptr))) {
         QFont f = m_values[prop];
         f.setItalic(value);
         q_ptr->setValue(prop, f);
-    } else if (QtProperty *prop = m_underlineToProperty.value(property, nullptr)) {
+    } else if ((prop = m_underlineToProperty.value(property, nullptr))) {
         QFont f = m_values[prop];
         f.setUnderline(value);
         q_ptr->setValue(prop, f);
-    } else if (QtProperty *prop = m_strikeOutToProperty.value(property, nullptr)) {
+    } else if ((prop = m_strikeOutToProperty.value(property, nullptr))) {
         QFont f = m_values[prop];
         f.setStrikeOut(value);
         q_ptr->setValue(prop, f);
-    } else if (QtProperty *prop = m_kerningToProperty.value(property, nullptr)) {
+    } else if ((prop = m_kerningToProperty.value(property, nullptr))) {
         QFont f = m_values[prop];
         f.setKerning(value);
         q_ptr->setValue(prop, f);
@@ -5828,22 +5828,22 @@ void QtFontPropertyManagerPrivate::slotPropertyDestroyed(QtProperty *property)
     if (QtProperty *pointProp = m_pointSizeToProperty.value(property, nullptr)) {
         m_propertyToPointSize[pointProp] = nullptr;
         m_pointSizeToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_familyToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_familyToProperty.value(property, nullptr))) {
         m_propertyToFamily[pointProp] = nullptr;
         m_familyToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_boldToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_boldToProperty.value(property, nullptr))) {
         m_propertyToBold[pointProp] = nullptr;
         m_boldToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_italicToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_italicToProperty.value(property, nullptr))) {
         m_propertyToItalic[pointProp] = nullptr;
         m_italicToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_underlineToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_underlineToProperty.value(property, nullptr))) {
         m_propertyToUnderline[pointProp] = nullptr;
         m_underlineToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_strikeOutToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_strikeOutToProperty.value(property, nullptr))) {
         m_propertyToStrikeOut[pointProp] = nullptr;
         m_strikeOutToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_kerningToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_kerningToProperty.value(property, nullptr))) {
         m_propertyToKerning[pointProp] = nullptr;
         m_kerningToProperty.remove(property);
     }
@@ -6239,15 +6239,15 @@ void QtColorPropertyManagerPrivate::slotIntChanged(QtProperty *property, int val
         QColor c = m_values[prop];
         c.setRed(value);
         q_ptr->setValue(prop, c);
-    } else if (QtProperty *prop = m_gToProperty.value(property, nullptr)) {
+    } else if ((prop = m_gToProperty.value(property, nullptr))) {
         QColor c = m_values[prop];
         c.setGreen(value);
         q_ptr->setValue(prop, c);
-    } else if (QtProperty *prop = m_bToProperty.value(property, nullptr)) {
+    } else if ((prop = m_bToProperty.value(property, nullptr))) {
         QColor c = m_values[prop];
         c.setBlue(value);
         q_ptr->setValue(prop, c);
-    } else if (QtProperty *prop = m_aToProperty.value(property, nullptr)) {
+    } else if ((prop = m_aToProperty.value(property, nullptr))) {
         QColor c = m_values[prop];
         c.setAlpha(value);
         q_ptr->setValue(prop, c);
@@ -6259,13 +6259,13 @@ void QtColorPropertyManagerPrivate::slotPropertyDestroyed(QtProperty *property)
     if (QtProperty *pointProp = m_rToProperty.value(property, nullptr)) {
         m_propertyToR[pointProp] = nullptr;
         m_rToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_gToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_gToProperty.value(property, nullptr))) {
         m_propertyToG[pointProp] = nullptr;
         m_gToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_bToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_bToProperty.value(property, nullptr))) {
         m_propertyToB[pointProp] = nullptr;
         m_bToProperty.remove(property);
-    } else if (QtProperty *pointProp = m_aToProperty.value(property, nullptr)) {
+    } else if ((pointProp = m_aToProperty.value(property, nullptr))) {
         m_propertyToA[pointProp] = nullptr;
         m_aToProperty.remove(property);
     }

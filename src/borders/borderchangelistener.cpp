@@ -43,38 +43,38 @@ namespace PhotoLayoutsEditor
 
 class BorderChangeCommand : public QUndoCommand
 {
-    BorderDrawerInterface* drawer;
-    QString propertyName;
-    QVariant value;
+    BorderDrawerInterface* m_drawer;
+    QString m_propertyName;
+    QVariant m_value;
 
 public:
 
     BorderChangeCommand(BorderDrawerInterface* drawer, QUndoCommand* parent = nullptr)
         : QUndoCommand(QObject::tr("Border Change"), parent),
-          drawer(drawer)
+          m_drawer(drawer)
     {
     }
 
     void redo() override
     {
         qDebug() << "BorderChangeCommand redo";
-        QVariant temp = drawer->propertyValue(propertyName);
-        drawer->setPropertyValue(propertyName, value);
-        value = temp;
+        QVariant temp = m_drawer->propertyValue(m_propertyName);
+        m_drawer->setPropertyValue(m_propertyName, m_value);
+        m_value = temp;
     }
 
     void undo() override
     {
         qDebug() << "BorderChangeCommand undo";
-        QVariant temp = drawer->propertyValue(propertyName);
-        drawer->setPropertyValue(propertyName, value);
-        value = temp;
+        QVariant temp = m_drawer->propertyValue(m_propertyName);
+        m_drawer->setPropertyValue(m_propertyName, m_value);
+        m_value = temp;
     }
 
     void setPropertyValue(const QString& propertyName, const QVariant& value)
     {
-        this->propertyName = propertyName;
-        this->value = value;
+        m_propertyName = propertyName;
+        m_value = value;
     }
 };
 

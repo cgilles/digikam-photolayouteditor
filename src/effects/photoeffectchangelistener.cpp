@@ -37,36 +37,36 @@ namespace PhotoLayoutsEditor
 
 class PhotoEffectChangeCommand : public QUndoCommand
 {
-    AbstractPhotoEffectInterface* effect;
-    QString propertyName;
-    QVariant value;
+    AbstractPhotoEffectInterface* m_effect;
+    QString m_propertyName;
+    QVariant m_value;
 
 public:
 
     PhotoEffectChangeCommand(AbstractPhotoEffectInterface* effect, QUndoCommand* parent = nullptr)
       : QUndoCommand(parent),
-        effect(effect)
+        m_effect(effect)
     {
     }
 
     void redo() override
     {
-        QVariant temp = effect->propertyValue(propertyName);
-        effect->setPropertyValue(propertyName, value);
-        value = temp;
+        QVariant temp = m_effect->propertyValue(m_propertyName);
+        m_effect->setPropertyValue(m_propertyName, m_value);
+        m_value = temp;
     }
 
     void undo() override
     {
-        QVariant temp = effect->propertyValue(propertyName);
-        effect->setPropertyValue(propertyName, value);
-        value = temp;
+        QVariant temp = m_effect->propertyValue(m_propertyName);
+        m_effect->setPropertyValue(m_propertyName, m_value);
+        m_value = temp;
     }
 
     void setPropertyValue(const QString& propertyName, const QVariant& value)
     {
-        this->propertyName = propertyName;
-        this->value = value;
+        m_propertyName = propertyName;
+        m_value = value;
     }
 };
 

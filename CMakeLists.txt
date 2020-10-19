@@ -254,6 +254,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
                         -Wall
                         -Werror
                         -Wextra
+                        -Wshadow
                         -Winit-self
                         -Wfloat-conversion
                         -Wnull-dereference

@@ -157,7 +157,7 @@ public:
 class PhotoItemImageMovedCommand : public QUndoCommand
 {
     PhotoItem* m_item;
-    QPointF    translation;
+    QPointF    m_translation;
     bool       done;
 
     static PhotoItemImageMovedCommand* m_instance;
@@ -181,7 +181,7 @@ public:
 
     void translate(QPointF& translation)
     {
-        this->translation += translation;
+        m_translation += translation;
     }
 
     void redo() override
@@ -189,9 +189,9 @@ public:
         if (done)
             return;
 
-        m_item->d->m_brush_transform.translate(translation.x(), translation.y());
-        m_item->d->m_complete_path_transform.translate(translation.x(), translation.y());
-        m_item->m_complete_path.translate(translation);
+        m_item->d->m_brush_transform.translate(m_translation.x(), m_translation.y());
+        m_item->d->m_complete_path_transform.translate(m_translation.x(), m_translation.y());
+        m_item->m_complete_path.translate(m_translation);
         m_item->update();
         done = !done;
     }
@@ -201,9 +201,9 @@ public:
         if (!done)
             return;
 
-        m_item->d->m_brush_transform.translate(-translation.x(), -translation.y());
-        m_item->d->m_complete_path_transform.translate(-translation.x(), -translation.y());
-        m_item->m_complete_path.translate(-translation);
+        m_item->d->m_brush_transform.translate(-m_translation.x(), -m_translation.y());
+        m_item->d->m_complete_path_transform.translate(-m_translation.x(), -m_translation.y());
+        m_item->m_complete_path.translate(-m_translation);
         m_item->update();
         done = !done;
     }

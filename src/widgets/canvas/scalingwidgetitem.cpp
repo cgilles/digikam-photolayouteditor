@@ -51,35 +51,35 @@ class MoveItemCommand : public QUndoCommand
 {
     AbstractPhoto* m_item;
     QPointF m_translation;
-    bool done;
+    bool m_done;
 
 public:
 
     MoveItemCommand(AbstractPhoto* item, QUndoCommand* parent = nullptr)
         : QUndoCommand(QObject::tr("Move item"), parent),
           m_item(item),
-          done(false)
+          m_done(false)
     {
     }
 
     void redo() override
     {
-        if (done)
+        if (m_done)
             return;
 
-        qDebug() << done << "redo MoveItemCommand";
+        qDebug() << m_done << "redo MoveItemCommand";
         m_item->moveBy(m_translation.x(), m_translation.y());
-        done = true;
+        m_done = true;
     }
 
     void undo() override
     {
-        if (!done)
+        if (!m_done)
             return;
 
-        qDebug() << done << "undo MoveItemCommand";
+        qDebug() << m_done << "undo MoveItemCommand";
         m_item->moveBy(-m_translation.x(), -m_translation.y());
-        done = false;
+        m_done = false;
     }
 
     void addTranslation(const QPointF& point)
@@ -94,54 +94,54 @@ public:
 
     void setDone(bool done)
     {
-        this->done = done;
+        m_done = done;
     }
 };
 
 class ScaleItemCommand : public MoveItemCommand
 {
     AbstractPhoto* m_item;
-    QTransform scale;
-    bool done;
+    QTransform m_scale;
+    bool m_done;
 
 public:
     ScaleItemCommand(AbstractPhoto* item, QUndoCommand* parent = nullptr)
         : MoveItemCommand(item, parent),
           m_item(item),
-          done(false)
+          m_done(false)
     {
         this->setText(QObject::tr("Scale item"));
     }
 
     void redo() override
     {
-        if (done)
+        if (m_done)
             return;
 
-        m_item->setTransform( m_item->transform() * scale );
+        m_item->setTransform( m_item->transform() * m_scale );
         MoveItemCommand::redo();
-        done = true;
+        m_done = true;
     }
 
     void undo() override
     {
-        if (!done)
+        if (!m_done)
             return;
 
-        QTransform inverted = scale.inverted();
+        QTransform inverted = m_scale.inverted();
         m_item->setTransform( m_item->transform() * inverted );
         MoveItemCommand::undo();
-        done = false;
+        m_done = false;
     }
 
     void addScale(const QTransform& scale)
     {
-        this->scale *= scale;
+        m_scale *= scale;
     }
 
     void setDone(bool done)
     {
-        this->done = done;
+        m_done = done;
         MoveItemCommand::setDone(done);
     }
 };

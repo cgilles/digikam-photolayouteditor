@@ -144,7 +144,7 @@ public:
 class AddTextUndoCommand : public QUndoCommand
 {
     TextItem::TextItemPrivate* m_item_p;
-    QString text;
+    QString m_text;
     int row;
     int at;
 
@@ -160,19 +160,19 @@ public:
 
     void redo() override
     {
-        m_item_p->addText(row, at, text);
+        m_item_p->addText(row, at, m_text);
     }
 
     void undo() override
     {
-        m_item_p->removeText(row, at, this->text.length());
-        m_item_p->command = nullptr;
+        m_item_p->removeText(row, at, m_text.length());
+        m_item_p->m_command = nullptr;
     }
 
     void addText(const QString& text)
     {
-        m_item_p->addText(row, at+this->text.length(), text);
-        this->text.append(text);
+        m_item_p->addText(row, at+m_text.length(), text);
+        m_text.append(text);
     }
 };
 
@@ -201,7 +201,7 @@ public:
     void undo() override
     {
         m_item_p->addText(row, at, text);
-        m_item_p->command = nullptr;
+        m_item_p->m_command = nullptr;
     }
 
     virtual void removeLeft()
@@ -246,7 +246,7 @@ public:
         m_item_p->m_cursor_row = ++row;
         m_item_p->m_string_list.insert(row, temp);
         m_item_p->m_item->refreshItem();
-        m_item_p->command = nullptr;
+        m_item_p->m_command = nullptr;
     }
 
     void undo() override
@@ -256,7 +256,7 @@ public:
         m_item_p->m_string_list.removeAt(row);
         m_item_p->m_cursor_row = --row;
         m_item_p->m_item->refreshItem();
-        m_item_p->command = nullptr;
+        m_item_p->m_command = nullptr;
     }
 };
 
@@ -282,7 +282,7 @@ public:
         m_item_p->m_cursor_character = at = m_item_p->m_string_list[row].length();
         m_item_p->m_string_list[row].append( m_item_p->m_string_list[row+1] );
         m_item_p->m_string_list.removeAt(row+1);
-        m_item_p->command = nullptr;
+        m_item_p->m_command = nullptr;
         m_item_p->m_item->refreshItem();
     }
 
@@ -293,7 +293,7 @@ public:
         m_item_p->m_cursor_row = ++row;
         m_item_p->m_string_list.insert(row, temp);
         m_item_p->m_cursor_character = at = 0;
-        m_item_p->command = nullptr;
+        m_item_p->m_command = nullptr;
         m_item_p->m_item->refreshItem();
     }
 };
@@ -317,7 +317,7 @@ void TextItem::TextItemPrivate::moveCursorLeft()
         }
     }
 
-    command = nullptr;
+    m_command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorRight()
@@ -339,7 +339,7 @@ void TextItem::TextItemPrivate::moveCursorRight()
         }
     }
 
-    command = nullptr;
+    m_command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorUp()
@@ -351,7 +351,7 @@ void TextItem::TextItemPrivate::moveCursorUp()
     else if (m_cursor_character > m_string_list.at(m_cursor_row).length())
         m_cursor_character = m_string_list.at(m_cursor_row).length();
 
-    command = nullptr;
+    m_command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorDown()
@@ -363,19 +363,19 @@ void TextItem::TextItemPrivate::moveCursorDown()
     else if (m_cursor_character > m_string_list.at(m_cursor_row).length())
         m_cursor_character = m_string_list.at(m_cursor_row).length();
 
-    command = nullptr;
+    m_command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorEnd()
 {
     m_cursor_character = m_string_list.at(m_cursor_row).length();
-    command = nullptr;
+    m_command = nullptr;
 }
 
 void TextItem::TextItemPrivate::moveCursorHome()
 {
     m_cursor_character = 0;
-    command = nullptr;
+    m_command = nullptr;
 }
 
 void TextItem::TextItemPrivate::removeTextAfter()
@@ -384,11 +384,11 @@ void TextItem::TextItemPrivate::removeTextAfter()
 
     if (m_cursor_character < m_string_list.at(m_cursor_row).length())
     {
-        RemoveTextUndoCommand * command = dynamic_cast<RemoveTextUndoCommand*>(this->command);
+        RemoveTextUndoCommand * command = dynamic_cast<RemoveTextUndoCommand*>(m_command);
 
         if (!command)
         {
-            this->command = command = new RemoveTextUndoCommand(m_cursor_row, m_cursor_character, this);
+            m_command = command = new RemoveTextUndoCommand(m_cursor_row, m_cursor_character, this);
             PLE_PostUndoCommand(command);
         }
 
@@ -406,11 +406,11 @@ void TextItem::TextItemPrivate::removeTextBefore()
     // Remove text from current line
     if (m_cursor_character > 0 && m_string_list.at(m_cursor_row).length() >= m_cursor_character)
     {
-        RemoveTextUndoCommand * command = dynamic_cast<RemoveTextUndoCommand*>(this->command);
+        RemoveTextUndoCommand * command = dynamic_cast<RemoveTextUndoCommand*>(m_command);
 
         if (!command)
         {
-            this->command = command = new RemoveTextUndoCommand(m_cursor_row, m_cursor_character, this);
+            m_command = command = new RemoveTextUndoCommand(m_cursor_row, m_cursor_character, this);
             PLE_PostUndoCommand(command);
         }
 
@@ -433,11 +433,11 @@ void TextItem::TextItemPrivate::addText(const QString& text)
     if (!text.length())
         return;
 
-    AddTextUndoCommand* command = dynamic_cast<AddTextUndoCommand*>(this->command);
+    AddTextUndoCommand* command = dynamic_cast<AddTextUndoCommand*>(m_command);
 
     if (!command)
     {
-        this->command = command = new AddTextUndoCommand(m_cursor_row, m_cursor_character, this);
+        m_command = command = new AddTextUndoCommand(m_cursor_row, m_cursor_character, this);
         PLE_PostUndoCommand(command);
     }
 
@@ -471,7 +471,7 @@ void TextItem::TextItemPrivate::removeText(int row, int at, int length)
 void TextItem::TextItemPrivate::closeEditor()
 {
     m_item->clearFocus();
-    command = nullptr;
+    m_command = nullptr;
 }
 
 TextItem::TextItem(const QString& text, PLEScene* scene)
@@ -510,7 +510,7 @@ void TextItem::focusInEvent(QFocusEvent * event)
 
 void TextItem::focusOutEvent(QFocusEvent * event)
 {
-    d->command = nullptr;
+    d->m_command = nullptr;
     this->setCursorPositionVisible(false);
     AbstractPhoto::focusOutEvent(event);
     this->unsetCursor();
@@ -618,7 +618,7 @@ void TextItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         p.setX(0);
     }
 
-    d->command = nullptr;
+    d->m_command = nullptr;
 
     this->update();
 }

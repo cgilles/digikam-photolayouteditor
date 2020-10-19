@@ -184,7 +184,7 @@ private:
 
     int                        m_interaction_mode;
 
-    SelectionMode              selectionMode;
+    SelectionMode              m_selectionMode;
 
     QGraphicsPathItem*         temp_widget;
     QPainterPath               temp_path;

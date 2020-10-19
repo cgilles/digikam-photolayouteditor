@@ -445,7 +445,7 @@ public:
 class RemoveItemsCommand
     : public QUndoCommand
 {
-    AbstractPhoto* item;
+    AbstractPhoto* m_item;
     int            item_row;
     AbstractPhoto* item_parent;
     PLEScene*      m_scene;
@@ -455,7 +455,7 @@ public:
 
     RemoveItemsCommand(AbstractPhoto* item, PLEScene* scene, QUndoCommand* parent = nullptr)
         : QUndoCommand(QLatin1String("Remove item"), parent),
-            item(item),
+            m_item(item),
             item_row(0),
             m_scene(scene),
             done(false)
@@ -467,8 +467,8 @@ public:
     {
         if (done)
         {
-            if (item && !item->scene() && !item->parentItem())
-                delete item;
+            if (m_item && !m_item->scene() && !m_item->parentItem())
+                delete m_item;
         }
     }
 
@@ -480,15 +480,15 @@ public:
             return;
 
         // Remove from model
-        QModelIndex itemIndex = m_scene->model()->findIndex(item, parentIndex);
+        QModelIndex itemIndex = m_scene->model()->findIndex(m_item, parentIndex);
         item_row = itemIndex.row();
 
         if (itemIndex.isValid())
             m_scene->model()->removeRow(item_row, parentIndex);
 
         // Remove from scene
-        if (item->scene() == m_scene)
-            m_scene->QGraphicsScene::removeItem(item);
+        if (m_item->scene() == m_scene)
+            m_scene->QGraphicsScene::removeItem(m_item);
 
         done = true;
     }
@@ -499,22 +499,22 @@ public:
             return;
 
         // Add to scene
-        if (item->scene() != m_scene)
-            m_scene->QGraphicsScene::addItem( item );
+        if (m_item->scene() != m_scene)
+            m_scene->QGraphicsScene::addItem( m_item );
 
-        item->setParentItem( item_parent );
+        m_item->setParentItem( item_parent );
 
         // Add to model
         QPersistentModelIndex parentIndex = QPersistentModelIndex( m_scene->model()->findIndex( item_parent ) );
 
         if (!m_scene->model()->hasIndex(item_row, 0, parentIndex) ||
-            static_cast<LayersModelItem*>(m_scene->model()->index(item_row, 0, parentIndex).internalPointer())->photo() != item)
+            static_cast<LayersModelItem*>(m_scene->model()->index(item_row, 0, parentIndex).internalPointer())->photo() != m_item)
         {
             if (m_scene->model()->insertRow(item_row, parentIndex))
             {
-                static_cast<LayersModelItem*>(m_scene->model()->index(item_row, 0, parentIndex).internalPointer())->setPhoto(item);
+                static_cast<LayersModelItem*>(m_scene->model()->index(item_row, 0, parentIndex).internalPointer())->setPhoto(m_item);
                 // Add items children to model
-                appendChild(item, m_scene->model()->index(item_row, 0, parentIndex));
+                appendChild(m_item, m_scene->model()->index(item_row, 0, parentIndex));
             }
         }
 
@@ -880,7 +880,7 @@ void PLEScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
             d->setSelectionInitialPosition();
 
             // If single selection mode, clear CTRL modifier
-            if (selectionMode & SingleSelection)
+            if (m_selectionMode & SingleSelection)
                 event->setModifiers(QFlags<Qt::KeyboardModifier>(((int)event->modifiers()) & ~Qt::ControlModifier));
 
             // Get items under mouse
@@ -1370,16 +1370,16 @@ void PLEScene::setSelectionMode(SelectionMode selectionMode)
     {
         case NoSelection:
             this->setSelectionArea(QPainterPath());
-            this->selectionMode = selectionMode;
+            m_selectionMode = selectionMode;
             break;
 
         case MultiSelection:
-            this->selectionMode = selectionMode;
+            m_selectionMode = selectionMode;
             break;
 
         case SingleSelection:
             this->setSelectionArea(QPainterPath());
-            this->selectionMode = selectionMode;
+            m_selectionMode = selectionMode;
             break;
     }
 }
