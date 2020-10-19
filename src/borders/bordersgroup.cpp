@@ -134,7 +134,7 @@ void BordersGroup::refresh()
     else
         graphicsItem()->update(updateRect);
 
-    dataChanged(QModelIndex(), QModelIndex());
+    Q_EMIT dataChanged(QModelIndex(), QModelIndex());
 }
 
 bool BordersGroup::prependDrawer(BorderDrawerInterface* drawer)
