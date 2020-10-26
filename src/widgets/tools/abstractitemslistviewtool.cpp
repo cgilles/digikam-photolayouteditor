@@ -203,9 +203,6 @@ class AbstractItemsListViewToolPrivate
 
     void closeChooser()
     {
-        if (m_delegate)
-            m_delegate->deleteLater();
-
         m_delegate = nullptr;
     }
 
