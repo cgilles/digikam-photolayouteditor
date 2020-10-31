@@ -248,7 +248,7 @@ QtSpinBoxFactory::QtSpinBoxFactory(QObject *parent)
 */
 QtSpinBoxFactory::~QtSpinBoxFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -407,7 +407,7 @@ QtSliderFactory::QtSliderFactory(QObject *parent)
 */
 QtSliderFactory::~QtSliderFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -566,7 +566,7 @@ QtScrollBarFactory::QtScrollBarFactory(QObject *parent)
 */
 QtScrollBarFactory::~QtScrollBarFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -691,7 +691,7 @@ QtCheckBoxFactory::QtCheckBoxFactory(QObject *parent)
 */
 QtCheckBoxFactory::~QtCheckBoxFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -868,7 +868,7 @@ QtDoubleSpinBoxFactory::QtDoubleSpinBoxFactory(QObject *parent)
 */
 QtDoubleSpinBoxFactory::~QtDoubleSpinBoxFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -1025,7 +1025,7 @@ QtLineEditFactory::QtLineEditFactory(QObject *parent)
 */
 QtLineEditFactory::~QtLineEditFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -1170,7 +1170,7 @@ QtDateEditFactory::QtDateEditFactory(QObject *parent)
 */
 QtDateEditFactory::~QtDateEditFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -1290,7 +1290,7 @@ QtTimeEditFactory::QtTimeEditFactory(QObject *parent)
 */
 QtTimeEditFactory::~QtTimeEditFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -1406,7 +1406,7 @@ QtDateTimeEditFactory::QtDateTimeEditFactory(QObject *parent)
 */
 QtDateTimeEditFactory::~QtDateTimeEditFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -1522,7 +1522,7 @@ QtKeySequenceEditorFactory::QtKeySequenceEditorFactory(QObject *parent)
 */
 QtKeySequenceEditorFactory::~QtKeySequenceEditorFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -1819,7 +1819,7 @@ QtCharEditorFactory::QtCharEditorFactory(QObject *parent)
 */
 QtCharEditorFactory::~QtCharEditorFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -1988,7 +1988,7 @@ QtEnumEditorFactory::QtEnumEditorFactory(QObject *parent)
 */
 QtEnumEditorFactory::~QtEnumEditorFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -2391,7 +2391,7 @@ QtColorEditorFactory::QtColorEditorFactory(QObject *parent) :
 */
 QtColorEditorFactory::~QtColorEditorFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
@@ -2621,7 +2621,7 @@ QtFontEditorFactory::QtFontEditorFactory(QObject *parent) :
 */
 QtFontEditorFactory::~QtFontEditorFactory()
 {
-    qDeleteAll(d_ptr->m_editorToProperty.keys());
+    qDeleteAll(d_ptr->m_editorToProperty);
     delete d_ptr;
 }
 
