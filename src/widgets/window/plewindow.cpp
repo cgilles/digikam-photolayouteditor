@@ -439,7 +439,7 @@ void PLEWindow::openFileDialog()
     if (result == QFileDialog::Accepted &&
         !d->fileDialog->selectedUrls().isEmpty())
     {
-        QUrl url = d->fileDialog->selectedUrls().first();
+        QUrl url = d->fileDialog->selectedUrls().constFirst();
         qDebug() << url;
         openFile(url);
     }
@@ -497,7 +497,7 @@ void PLEWindow::saveAsFile()
     if ((result == QFileDialog::Accepted) &&
         !d->fileDialog->selectedUrls().isEmpty())
     {
-        saveFile(d->fileDialog->selectedUrls().first());
+        saveFile(d->fileDialog->selectedUrls().constFirst());
     }
 }
 
@@ -519,7 +519,7 @@ void PLEWindow::saveAsTemplate()
     if ((result == QFileDialog::Accepted) &&
         !d->fileDialog->selectedUrls().isEmpty())
     {
-        QUrl url = d->fileDialog->selectedUrls().first();
+        QUrl url = d->fileDialog->selectedUrls().constFirst();
 
         if (d->canvas)
         {
