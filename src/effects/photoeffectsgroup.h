@@ -49,6 +49,8 @@ class PhotoEffectsGroup : public AbstractMovableModel
 public:
 
     explicit PhotoEffectsGroup(AbstractPhoto* const photo);
+    PhotoEffectsGroup(const PhotoEffectsGroup&) = delete;
+    PhotoEffectsGroup& operator=(const PhotoEffectsGroup& other) = delete;
     ~PhotoEffectsGroup() override;
 
     QDomElement toSvg(QDomDocument& document) const;

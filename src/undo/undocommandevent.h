@@ -44,6 +44,8 @@ public:
     }
 
     explicit UndoCommandEvent();
+    UndoCommandEvent(const UndoCommandEvent&) = delete;
+    UndoCommandEvent& operator=(const UndoCommandEvent& other) = delete;
 
     void setUndoCommand(QUndoCommand* command)
     {

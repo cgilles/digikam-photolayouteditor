@@ -42,6 +42,8 @@ public:
     {
     }
 
+    ProgressObserver(const ProgressObserver&) = delete;
+    ProgressObserver& operator=(const ProgressObserver& other) = delete;
     virtual ~ProgressObserver() = default;
 
     virtual void progresChanged(double progress)
