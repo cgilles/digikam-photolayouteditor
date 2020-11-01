@@ -314,7 +314,7 @@ void AbstractItemsListViewTool::viewCurrentEditor(const QModelIndex& index)
 
     if (editor)
     {
-        static_cast<QGridLayout*>(layout())->addWidget(editor,2,0,1,-1);
+        dynamic_cast<QGridLayout*>(layout())->addWidget(editor,2,0,1,-1);
         editor->show();
     }
 }
@@ -327,7 +327,7 @@ void AbstractItemsListViewTool::viewCurrentEditor(QObject* object)
 
     if (editor)
     {
-        static_cast<QGridLayout*>(layout())->addWidget(editor,2,0,1,-1);
+        dynamic_cast<QGridLayout*>(layout())->addWidget(editor,2,0,1,-1);
         editor->show();
     }
 }
@@ -444,7 +444,7 @@ void AbstractItemsListViewTool::moveSelectedUp()
 
 void AbstractItemsListViewTool::closeEditor()
 {
-    QLayoutItem* itemBrowser = static_cast<QGridLayout*>(layout())->itemAtPosition(2,0);
+    QLayoutItem* itemBrowser = dynamic_cast<QGridLayout*>(layout())->itemAtPosition(2,0);
 
     if (!itemBrowser)
         return;
@@ -454,7 +454,7 @@ void AbstractItemsListViewTool::closeEditor()
     if (!browser)
         return;
 
-    static_cast<QGridLayout*>(layout())->removeWidget(browser);
+    dynamic_cast<QGridLayout*>(layout())->removeWidget(browser);
     browser->deleteLater();
 }
 

@@ -444,7 +444,7 @@ QSize QtPropertyEditorDelegate::sizeHint(const QStyleOptionViewItem &option,
 bool QtPropertyEditorDelegate::eventFilter(QObject *object, QEvent *event)
 {
     if (event->type() == QEvent::FocusOut) {
-        QFocusEvent *fe = static_cast<QFocusEvent *>(event);
+        QFocusEvent *fe = dynamic_cast<QFocusEvent *>(event);
         if (fe->reason() == Qt::ActiveWindowFocusReason)
             return false;
     }

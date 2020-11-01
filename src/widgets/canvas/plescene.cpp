@@ -1280,7 +1280,7 @@ void PLEScene::setGrid(double x, double y)
     {
         if (it != children.end())
         {
-            temp1 = static_cast<QGraphicsLineItem*>(*it);
+            temp1 = dynamic_cast<QGraphicsLineItem*>(*it);
             temp1->setLine(i, 0, i, height);
             ++it;
         }
@@ -1297,7 +1297,7 @@ void PLEScene::setGrid(double x, double y)
     {
         if (it != children.end())
         {
-            temp1 = static_cast<QGraphicsLineItem*>(*it);
+            temp1 = dynamic_cast<QGraphicsLineItem*>(*it);
             temp1->setLine(0, i, width, i);
             ++it;
         }
@@ -1726,7 +1726,7 @@ QList<AbstractPhoto*> PLEScene::selectedItems() const
     const QList<QGraphicsItem*> & list = QGraphicsScene::selectedItems();
 
     foreach (QGraphicsItem* const item, list)
-        result << static_cast<AbstractPhoto*>(item);
+        result << dynamic_cast<AbstractPhoto*>(item);
 
     return result;
 }

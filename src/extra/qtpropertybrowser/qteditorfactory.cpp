@@ -1611,7 +1611,7 @@ QtCharEdit::QtCharEdit(QWidget *parent)
 bool QtCharEdit::eventFilter(QObject *o, QEvent *e)
 {
     if (o == m_lineEdit && e->type() == QEvent::ContextMenu) {
-        QContextMenuEvent *c = static_cast<QContextMenuEvent *>(e);
+        QContextMenuEvent *c = dynamic_cast<QContextMenuEvent *>(e);
         QMenu *menu = m_lineEdit->createStandardContextMenu();
         QList<QAction *> actions = menu->actions();
         QListIterator<QAction *> itAction(actions);
@@ -2293,7 +2293,7 @@ bool QtColorEditWidget::eventFilter(QObject *obj, QEvent *ev)
         switch (ev->type()) {
         case QEvent::KeyPress:
         case QEvent::KeyRelease: { // Prevent the QToolButton from handling Enter/Escape meant control the delegate
-            switch (static_cast<const QKeyEvent*>(ev)->key()) {
+            switch (dynamic_cast<const QKeyEvent*>(ev)->key()) {
             case Qt::Key_Escape:
             case Qt::Key_Enter:
             case Qt::Key_Return:
@@ -2523,7 +2523,7 @@ bool QtFontEditWidget::eventFilter(QObject *obj, QEvent *ev)
         switch (ev->type()) {
         case QEvent::KeyPress:
         case QEvent::KeyRelease: { // Prevent the QToolButton from handling Enter/Escape meant control the delegate
-            switch (static_cast<const QKeyEvent*>(ev)->key()) {
+            switch (dynamic_cast<const QKeyEvent*>(ev)->key()) {
             case Qt::Key_Escape:
             case Qt::Key_Enter:
             case Qt::Key_Return:

@@ -46,7 +46,7 @@ PhotoItemLoader::PhotoItemLoader(PhotoItem* item, QDomElement& element, QObject*
 
 void PhotoItemLoader::run()
 {
-    PhotoItem* const item = static_cast<PhotoItem*>(this->item());
+    PhotoItem* const item = dynamic_cast<PhotoItem*>(this->item());
     ProgressObserver* const observer = this->observer();
     AbstractPhotoItemLoader::run();
 
@@ -160,7 +160,7 @@ void PhotoItemLoader::imageLoaded(const QUrl& /*url*/, const QImage& image)
     if (image.isNull())
         this->exit(1);
 
-    PhotoItem* const item = static_cast<PhotoItem*>(this->item());
+    PhotoItem* const item = dynamic_cast<PhotoItem*>(this->item());
     item->d->m_image = image;
 }
 

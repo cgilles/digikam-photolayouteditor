@@ -40,7 +40,7 @@ TextItemLoader::TextItemLoader(TextItem* item, QDomElement& element, QObject* pa
 void TextItemLoader::run()
 {
     QDomElement e                    = this->element();
-    TextItem* const item             = static_cast<TextItem*>(this->item());
+    TextItem* const item             = dynamic_cast<TextItem*>(this->item());
     ProgressObserver* const observer = this->observer();
     AbstractPhotoItemLoader::run();
 
