@@ -668,17 +668,17 @@ void PLEScene::addItem(AbstractPhoto* item)
         return;
 
     QModelIndexList selectedIndexes = d->selection_model->selectedIndexes();
-    unsigned insertionRow = -1;
+    int insertionRow = -1;
 
     foreach (const QModelIndex& index, selectedIndexes)
     {
         if (index.column() != LayersModelItem::NameString)
             continue;
-        if (insertionRow > (unsigned)index.row())
+        if (insertionRow > index.row())
             insertionRow = index.row();
     }
 
-    if (insertionRow == (unsigned)-1)
+    if (insertionRow < 0)
         insertionRow = 0;
 
     QUndoCommand* command = new AddItemsCommand(item, insertionRow, this);
@@ -702,18 +702,18 @@ void PLEScene::addItems(const QList<AbstractPhoto*>& items)
         return;
 
     QModelIndexList selectedIndexes = d->selection_model->selectedIndexes();
-    unsigned insertionRow = -1;
+    int insertionRow = -1;
 
     foreach (const QModelIndex& index, selectedIndexes)
     {
         if (index.column() != LayersModelItem::NameString)
             continue;
 
-        if (insertionRow > (unsigned)index.row())
+        if (insertionRow > index.row())
             insertionRow = index.row();
     }
 
-    if (insertionRow == (unsigned)-1)
+    if (insertionRow < 0)
         insertionRow = 0;
 
     QUndoCommand* parent = nullptr;
