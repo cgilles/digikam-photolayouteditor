@@ -464,24 +464,36 @@ PhotoItem* PhotoItem::fromSvg(QDomElement& element)
             defs = defs.nextSiblingElement(QLatin1String("defs"));
 
         if (defs.isNull())
-            goto _delete;
+        {
+            delete item;
+            return nullptr;
+        }
 
         QDomElement data = defs.firstChildElement(QLatin1String("data"));
 
         if (data.isNull())
-            goto _delete;
+        {
+            delete item;
+            return nullptr;
+        }
 
         // m_image_path
 
         QDomElement path = data.firstChildElement(QLatin1String("path"));
 
         if (path.isNull())
-            goto _delete;
+        {
+            delete item;
+            return nullptr;
+        }
 
         item->m_image_path = PhotoLayoutsEditor::pathFromSvg(path);
 
         if (item->m_image_path.isEmpty())
-            goto _delete;
+        {
+            delete item;
+            return nullptr;
+        }
 
         // m_pixmap_original
 
@@ -497,7 +509,10 @@ PhotoItem* PhotoItem::fromSvg(QDomElement& element)
             img = QImage::fromData( QByteArray::fromBase64(imageAttribute.toLatin1()) );
 
             if (img.isNull())
-                goto _delete;
+            {
+                delete item;
+                return nullptr;
+            }
         }
         else if ( !(imageAttribute = PhotoItemPrivate::locateFile( image.attribute(QLatin1String("xlink:href")) )).isEmpty() )
         {
@@ -506,17 +521,24 @@ PhotoItem* PhotoItem::fromSvg(QDomElement& element)
             QImageReader reader(imageAttribute);
 
             if (!reader.canRead())
-                goto _delete;
+            {
+                delete item;
+                return nullptr;
+            }
 
             reader.setAutoDetectImageFormat(true);
             img = QImage(reader.size(), QImage::Format_ARGB32_Premultiplied);
 
             if (!reader.read(&img))
-                goto _delete;
+            {
+                delete item;
+                return nullptr;
+            }
         }
         else
         {
-            goto _delete;
+            delete item;
+            return nullptr;
         }
 
         item->d->setImage(img);
@@ -524,10 +546,7 @@ PhotoItem* PhotoItem::fromSvg(QDomElement& element)
         return item;
     }
 
-_delete:
-
     delete item;
-
     return nullptr;
 }
 

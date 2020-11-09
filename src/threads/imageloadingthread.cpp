@@ -134,7 +134,11 @@ void ImageLoadingThread::run()
     }
 
     if (!d->m_size)
-        goto finish_thread;
+    {
+        this->exit(0);
+        this->deleteLater();
+        return;
+    }
 
     // Reading
     foreach (const QUrl& url, urls)
@@ -154,8 +158,6 @@ void ImageLoadingThread::run()
         QCoreApplication::postEvent(PLEWindow::instance(), finishEvent);
         QCoreApplication::processEvents();
     }
-
-finish_thread:
 
     this->exit(0);
     this->deleteLater();
