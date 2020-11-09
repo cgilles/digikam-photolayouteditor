@@ -33,12 +33,12 @@
 
 // NOTE: do not use namespace here.
 
-void s_initI18nResource()
+inline void s_initI18nResource()
 {
     Q_INIT_RESOURCE(i18n);
 }
 
-void s_cleanupI18nResource()
+inline void s_cleanupI18nResource()
 {
     Q_CLEANUP_RESOURCE(i18n);
 }
@@ -46,7 +46,7 @@ void s_cleanupI18nResource()
 /**
  * Load translators system based i18n. Internal method.
  */
-bool s_loadTranslation(const QString& lang, const QString& name)
+inline bool s_loadTranslation(const QString& lang, const QString& name)
 {
     qDebug() << "Loading i18n" << lang << "for" << name;
 
@@ -67,7 +67,7 @@ bool s_loadTranslation(const QString& lang, const QString& name)
  * Load one translation file from normal i18n packaging installation.
  * 'name' is the module name to print on the console to debug.
  */
-void s_loadI18n(const QString& name)
+inline void s_loadI18n(const QString& name)
 {
     // Quote from ecm_create_qm_loader created code:
     // The way Qt translation system handles plural forms makes it necessary to
